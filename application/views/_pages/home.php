@@ -1,7 +1,16 @@
 
     <div class="container">
         <div class="row welcome-screen">
-            <div class="col-md-8 main-card">hola hermoso mundo</div>
+            <div class="col-md-8 main-card">
+                <div class="company-data">
+                    <img class="company-logo" src="<?php echo base_url('assets/img/insanecode_logo.png') ?>" alt="">
+                    <h4 class="company-name">ICS Services</h5>
+                </div>
+                <div class="welcome-data">
+                    <h4 class="writtings">Bienvenido a IC Payment</h4>  
+                </div>
+            
+            </div>
             <div class="col-md-4 details-card"> 
                 <h3 class="section-title">Proximos Pagos</h3>
                 <div class="list-nextpayments"></div>

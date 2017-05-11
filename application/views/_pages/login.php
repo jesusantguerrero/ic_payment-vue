@@ -37,6 +37,10 @@ ob_start( 'ob_gzhandler' );
 
         </div>
     </div>
+    <div class="copyrights">
+      <p>Code and Design by Insane Code-Jesus Guerrero</p>
+      <p>2017 &copy; All Rights Reserved</p>
+    </div>
   </div>
 
   <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>

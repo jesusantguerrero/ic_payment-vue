@@ -1,15 +1,18 @@
 .main-card
   background: #333
   color: white
-  height: 50vh
-  width: 65.5%
+  +makeFlex(65.5%,row,space-around,flex-start)
+  height: 319px
   margin-right: 3%
 
 .details-card
   background: #333
   color: white
-  height: 50vh
-  width: 31.5%
+  text-align: center
+  +size(31.5%,319px)
+
+.list-nextpayments
+  +size(100%,205px)
 
 .shortcuts-container
   +makeFlex(100%, row, null, flex-start)
@@ -29,9 +32,10 @@
   i
     font-size: 90px
     margin-bottom: 10px
+
 .welcome-screen
   margin-bottom: 10px
-  +makeFlex(100%, row, space-between, flex-start)
+  +makeFlex(100%, row, flex-start, flex-start)
   margin-left: 0
   margin-right: 0
 
@@ -40,3 +44,18 @@
 .shortcut
   border-radius: 6px
   padding: 20px
+  overflow: hidden
+
+
+// company
+.company-data
+  width: 30%
+.company-logo
+  width: 100%
+  border-radius: 6px
+.company-name
+  width: 100%
+  text-align: center
+
+.welcome-data
+  width: 60%

@@ -29,15 +29,20 @@ ob_start( 'ob_gzhandler' );
             </div>
             <nav class="top-nav">
                 <li class="navButton"><a href="">Lobby</a></li>
-                <li class="navButton"><a href="<?php echo base_url('pages/index/clients.php') ?>">Clientes</a></li>
-                <li class="navButton"><a href="">Servicios</a></li>
-                <li class="navButton"><a href="">Reportes</a></li>
-                <li class="navButton"><a href="">Admin</a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/clientes.php') ?>">Clientes</a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/servicios.php') ?>"">Servicios</a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/reportes.php') ?>"">Reportes</a></li>
             </nav>
             <nav class="user-controls">
-                <li class="navButton"><a href=""><i class="material-icons">notifications</i></a></li>
-                <li class="navButton"><a href=""><i class="material-icons">settings</i></a></li>
-                <li class="navButton"><a href=""><i class="material-icons">power_settings_new</i></a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones.php') ?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                    <i class="material-icons">notifications</i>
+                </a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/Administrador.php') ?>" data-toggle="tooltip" data-placement="top" title="Administrar">
+                    <i class="material-icons">settings</i>
+                </a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/logout.php') ?>"  data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
+                    <i class="material-icons">power_settings_new</i>
+                </a></li>
             </nav>
         </div>
     </header>
