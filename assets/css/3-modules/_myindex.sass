@@ -1,0 +1,42 @@
+.main-card
+  background: #333
+  color: white
+  height: 50vh
+  width: 65.5%
+  margin-right: 3%
+
+.details-card
+  background: #333
+  color: white
+  height: 50vh
+  width: 31.5%
+
+.shortcuts-container
+  +makeFlex(100%, row, null, flex-start)
+  margin-left: 0
+  margin-right: 0
+
+.shortcut
+  +makeFlex(33%,column,center,center)
+  height: 200px
+  background: $contrast-color
+  cursor: pointer
+  color: white
+
+  &:nth-child(2)
+    margin: 0 3%
+  
+  i
+    font-size: 90px
+    margin-bottom: 10px
+.welcome-screen
+  margin-bottom: 10px
+  +makeFlex(100%, row, space-between, flex-start)
+  margin-left: 0
+  margin-right: 0
+
+// components cards
+[class*='card'],
+.shortcut
+  border-radius: 6px
+  padding: 20px
