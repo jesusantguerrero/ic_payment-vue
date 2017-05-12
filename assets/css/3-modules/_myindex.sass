@@ -1,12 +1,12 @@
 .main-card
-  background: #333
-  color: white
+  +card(1)
+  color: #555
   +makeFlex(65.5%,row,space-around,flex-start)
   height: 319px
   margin-right: 3%
 
 .details-card
-  background: #333
+  background: $contrast-color
   color: white
   text-align: center
   +size(31.5%,319px)
@@ -22,9 +22,15 @@
 .shortcut
   +makeFlex(33%,column,center,center)
   height: 200px
-  background: $contrast-color
   cursor: pointer
-  color: white
+  +card
+  color: $contrast-color
+  transition: all ease .3s
+  &:hover
+    border: 2px solid  $contrast-color
+    color: #fff
+    background: $contrast-color
+    
 
   &:nth-child(2)
     margin: 0 3%

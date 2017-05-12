@@ -14,7 +14,7 @@
             <div class="col-md-4 details-card"> 
                 <h3 class="section-title">Proximos Pagos</h3>
                 <div class="list-nextpayments"></div>
-                <button class="btn-remark search-client">Buscar Cliente</button>
+                <button class="btn btn-remark search-client">Buscar Cliente</button>
             </div>
         </div>
         <div class="row shortcuts-container">

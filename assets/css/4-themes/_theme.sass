@@ -10,10 +10,13 @@ header
     a 
       color: $text-light-color
 
-      &:hover
+      &:hover,
+      &.active
         color: white
-        background: $color-navbuttons 
+        background: $contrast-color 
         box-shadow: inset 1px 2px 3px rgba(0,0,0,.4)
+
+    
 
   .user-controls .navButton
     a 
@@ -27,10 +30,17 @@ header
 // mudules theme
 table 
   border: 1px solid #aaa
-  text-align: center
+  border-radius: 4px
 
   th 
-    text-align: center
+    color: #fff
+    border-radius: 4px 4px 0 0
     background: $contrast-color
-    color: white
-    border-right: 1px solid white
+  
+  tr
+    cursor: pointer
+    &:hover
+      background: #eee
+    &.selected
+      background: #bbb
+  

@@ -28,19 +28,20 @@ ob_start( 'ob_gzhandler' );
                 <h3>IC<span>Payment</span></h3>
             </div>
             <nav class="top-nav">
-                <li class="navButton"><a href="">Lobby</a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/clientes.php') ?>">Clientes</a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/servicios.php') ?>"">Servicios</a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/reportes.php') ?>"">Reportes</a></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
+                <li class="navButton"><a class="<?php if($title == 'clientes')  echo "active"?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
+                <li class="navButton"><a class="<?php if($title == 'servicios') echo "active" ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
+                <li class="navButton"><a class="<?php if($title == 'contratos') echo "active" ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
+                <li class="navButton"><a class="<?php if($title == 'reportes') echo "active"?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
             </nav>
             <nav class="user-controls">
-                <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones.php') ?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones.php')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
                     <i class="material-icons">notifications</i>
-                </a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/Administrador.php') ?>" data-toggle="tooltip" data-placement="top" title="Administrar">
+                </a> <span class="badge">4</span></li>
+                <li class="navButton"><a href="<?php echo base_url('app/admin/administrador.php')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
                     <i class="material-icons">settings</i>
                 </a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/logout.php') ?>"  data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
+                <li class="navButton"><a href="<?php echo base_url('app/admin/logout.php')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
                     <i class="material-icons">power_settings_new</i>
                 </a></li>
             </nav>
