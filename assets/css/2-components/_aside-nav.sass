@@ -6,6 +6,8 @@
 .main-content
   padding: 50px 0
 
+  height: 100vh
+
 .row
   margin-left: 0
   margin-right: 0
@@ -20,6 +22,35 @@
     a
       color: white
 
-body,
-html
+
+
+.section-player
+  margin-top: -50px
+  +size(100%, 100vh)
   overflow: hidden
+  position: relative
+
+  h3
+    margin-bottom: 30px
+  .table,.busquedas
+    margin-left: 0
+
+.toast
+  +size(100%,100px)
+  position: absolute
+  background: transparent
+  left: 0
+  bottom: 10vh
+  display: none
+  opacity: 0
+  justify-content: center
+  align-items: center
+  z-index: 3000
+
+  span
+  min-height: 50px
+  +makeFlex(30%,row,center,center)
+  background: rgba(0,0,0,.3)
+  border-radius: 4px
+  font-size: 20px
+  color: white

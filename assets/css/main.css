@@ -179,11 +179,11 @@ th {
   padding: 0; }
 
 a {
-  color: #0074D9;
+  color: #FF6961;
   text-decoration: none;
   outline: 0; }
   a:hover, a:focus {
-    color: #40a6ff;
+    color: #ff817b;
     text-decoration: none; }
 
 .gigantic, .huge, .large, .bigger, .big,
@@ -232,28 +232,28 @@ hr {
   margin: 10px 0 30px;
   height: 0; }
 
-btn,
+.btn,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   display: inline-block;
-  height: 38px;
+  height: 48px;
   padding: 0 30px;
-  color: #555;
+  color: #fff;
   text-align: center;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 38px;
   letter-spacing: .1rem;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
+  background-color: #FF6961;
   border-radius: 4px;
-  border: 1px solid #bbb;
+  border: 2px solid #fff;
   cursor: pointer;
   box-sizing: border-box; }
-  btn:hover, btn:active, btn:focus,
+  .btn:hover, .btn:active, .btn:focus,
   input[type="submit"]:hover,
   input[type="submit"]:active,
   input[type="submit"]:focus,
@@ -263,9 +263,10 @@ input[type="button"] {
   input[type="button"]:hover,
   input[type="button"]:active,
   input[type="button"]:focus {
-    color: #333;
-    border-color: #888;
-    outline: 0; }
+    color: #FF6961;
+    border: 2px solid #FF6961;
+    background: #fff;
+    outline: none; }
 
 .btn-remark {
   background: white;
@@ -273,7 +274,8 @@ input[type="button"] {
   transition: all ease .3s; }
   .btn-remark:hover {
     background: #FF6961;
-    color: white; }
+    color: white;
+    border: 2px solid #fff; }
 
 .aside-buttons {
   height: 48px;
@@ -429,13 +431,40 @@ nav {
 .table {
   margin-top: 2px; }
 
+.right {
+  text-align: right; }
+
+input,
+select {
+  height: 42px;
+  border-radius: 2px;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #888; }
+
+.company-details {
+  background: #fcfcfc;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 15px;
+  padding: 25px 50px;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  left: -110%;
+  height: 80vh; }
+
+form {
+  margin-top: 20px; }
+
 .left-navigation {
   padding: 50px 0;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);
   height: 100vh; }
 
 .main-content {
-  padding: 50px 0; }
+  padding: 50px 0;
+  height: 100vh; }
 
 .row {
   margin-left: 0;
@@ -449,29 +478,75 @@ nav {
   .left-navigation.administrador .aside-buttons a {
     color: white; }
 
-body,
-html {
+.section-player {
+  margin-top: -50px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative; }
+  .section-player h3 {
+    margin-bottom: 30px; }
+  .section-player .table, .section-player .busquedas {
+    margin-left: 0; }
+
+.toast {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  background: transparent;
+  left: 0;
+  bottom: 10vh;
+  display: none;
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  min-height: 50px;
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  font-size: 20px;
+  color: white; }
+
+[class*='card'],
+.shortcut {
+  border-radius: 6px;
+  padding: 20px;
   overflow: hidden; }
 
 .main-card {
   background: #fcfcfc;
   border: 1px solid #ccc;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
-  color: #555;
   width: 65.5%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
+  color: #666;
+  padding: 0 0 0 0;
   height: 319px;
   margin-right: 3%; }
+  .main-card .row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; }
+  .main-card .card-title {
+    color: #555; }
 
 .details-card {
   background: #FF6961;
   color: white;
   text-align: center;
   width: 31.5%;
-  height: 319px; }
+  height: 319px;
+  padding: 0 0 0 0; }
 
 .list-nextpayments {
   width: 100%;
@@ -518,11 +593,16 @@ html {
   margin-left: 0;
   margin-right: 0; }
 
-[class*='card'],
-.shortcut {
-  border-radius: 6px;
-  padding: 20px;
-  overflow: hidden; }
+.h3-4 {
+  font-size: 16px;
+  margin: 2px;
+  font-weight: bolder; }
+  .h3-4 b {
+    color: #FF6961;
+    margin-right: 5px; }
+
+.writtings {
+  margin-bottom: 20px; }
 
 .company-data {
   width: 30%; }
@@ -532,8 +612,7 @@ html {
   border-radius: 6px; }
 
 .company-name {
-  width: 100%;
-  text-align: center; }
+  width: 100%; }
 
 .welcome-data {
   width: 60%; }
@@ -588,7 +667,7 @@ header {
     color: #ddd; }
     header .user-controls .navButton a:hover {
       color: #FF6961;
-      background: trasparent;
+      background: transparent;
       box-shadow: none; }
 
 table {
@@ -596,11 +675,25 @@ table {
   border-radius: 4px; }
   table th {
     color: #fff;
-    border-radius: 4px 4px 0 0;
     background: #FF6961; }
+    table th:last-child {
+      border-radius: 0 4px 0 0; }
+    table th:first-child {
+      border-radius: 4px 0 0 0; }
   table tr {
     cursor: pointer; }
     table tr:hover {
       background: #eee; }
     table tr.selected {
       background: #bbb; }
+
+.card-title {
+  width: 100%;
+  height: 48px;
+  padding: 6px 0 0 25px;
+  margin: 0 0 10px 0;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); }
+
+.seconds {
+  color: #999; }

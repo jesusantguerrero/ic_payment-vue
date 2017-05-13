@@ -12,7 +12,7 @@ ob_start( 'ob_gzhandler' );
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
     
-    <link href="favicon.png" rel="icon" type="image/png"/>
+    <!--<link href="favicon.png" rel="icon" type="image/png"/>-->
 </head>
 
 <body>
@@ -35,13 +35,13 @@ ob_start( 'ob_gzhandler' );
                 <li class="navButton"><a class="<?php if($title == 'reportes') echo "active"?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
             </nav>
             <nav class="user-controls">
-                <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones.php')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
                     <i class="material-icons">notifications</i>
                 </a> <span class="badge">4</span></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/administrador.php')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
+                <li class="navButton"><a href="<?php echo base_url('app/admin/administrador')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
                     <i class="material-icons">settings</i>
                 </a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/logout.php')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
+                <li class="navButton"><a href="<?php echo base_url('app/admin/logout')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
                     <i class="material-icons">power_settings_new</i>
                 </a></li>
             </nav>

@@ -1,0 +1,43 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+if ( ! function_exists('get_modals'))
+{
+	/**
+	 * Get Modals
+	 *
+	 * Generates headers that force a download to happen
+	 *
+	 * @param	string	filename
+	 * @param	mixed	the data to be downloaded
+	 * @param	bool	whether to try and send the actual file MIME type
+	 * @return	void
+	 */
+
+	function get_modals($filename)
+	{
+    $modals;
+    switch($filename){
+      case 'home':
+        # code...
+        break;
+      case 'clientes':
+        # code...
+        break;
+      case 'servicios':
+        break;
+      case 'contratos':
+        break;
+      case 'reportes':
+        break;
+      case 'notificaciones':
+        # code...
+        break;
+      case 'administrador':
+        $modals[0] = 'modales/newuser';
+        break;
+      default:
+    }
+    return $modals;
+  }
+}
