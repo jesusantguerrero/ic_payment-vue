@@ -16,7 +16,7 @@ function getDate(){
     date = new Date();
     sDate = date.toString()
     $Fecha.text(sDate.slice(0,15));
-    sHour = sDate.slice(17,22) + "<span class='seconds'>" + sDate.slice(22,24) + "</span>";
+    sHour = sDate.slice(16,22) + "<span class='seconds'>" + sDate.slice(22,24) + "</span>";
     $Hora.html(sHour);
   }
 }

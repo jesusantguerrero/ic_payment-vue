@@ -28,28 +28,28 @@
   +size(100%,205px)
 
 .shortcuts-container
-  +makeFlex(100%, row, null, flex-start)
-  margin-left: 0
-  margin-right: 0
+  +makeFlex(65.5%, row,null, flex-start)
 
 .shortcut
-  +makeFlex(33%,column,center,center)
-  height: 200px
-  cursor: pointer
+  +makeFlex(24%,column,center,center)
   +card
+  height: 150px
+  cursor: pointer
   color: $contrast-color
   transition: all ease .3s
+  margin: 0 1%
+  font-size: 20px
   &:hover
     border: 2px solid  $contrast-color
     color: #fff
     background: $contrast-color
-    
-
-  &:nth-child(2)
-    margin: 0 3%
+  &:first-child
+    margin-left: 0
+  &:last-child
+    margin-right: 0
   
   i
-    font-size: 90px
+    font-size: 50px
     margin-bottom: 10px
 
 .welcome-screen
@@ -74,7 +74,7 @@
 .company-data
   width: 30%
 .company-logo
-  width: 100%
+  width: 211px
   border-radius: 6px
 .company-name
   width: 100%

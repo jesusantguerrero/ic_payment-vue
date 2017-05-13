@@ -19,7 +19,7 @@
       <button class="tab-buttons" href="">Deudores</button>
     </div>
 
-    <table class="table table-striped t-clientes">
+    <table class="table t-clientes">
       <tr>
         <th></th>
         <th>ID</th>

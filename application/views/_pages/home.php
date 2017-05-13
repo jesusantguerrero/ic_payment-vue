@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
 
     <div class="row welcome-screen">
         <div class="col-md-8 main-card">
@@ -25,19 +25,19 @@
     <div class="row shortcuts-container">
         <div class="col-md-4 shortcut">
             <i class="material-icons">supervisor_account</i>
-            <h4 class="section-title">Nuevo Cliente</h4>
+            <p class="section-title">Nuevo Cliente</h4>
         </div>
         <div class="col-md-4 shortcut">
             <i class="material-icons">library_books</i>
-            <h4 class="section-title">Nuevo Contrato</h4>
+            <p class="section-title">Nuevo Contrato</h>
         </div>
         <div class="col-md-4 shortcut">
             <i class="material-icons">monetization_on</i>
-            <h4 class="section-title">Registrar Pago</h4>
+            <p class="section-title">Registrar Pago</h4>
+        </div>
+         <div class="col-md-4 shortcut">
+            <i class="material-icons">monetization_on</i>
+            <p class="section-title">Registrar Pago</p>
         </div>
     </div>
 </div>
-
-</body>
-
-</html>

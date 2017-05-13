@@ -26,8 +26,10 @@ class App extends CI_Controller {
 		$this->load->view('_pages/'.$page);
 
 		$modals = get_modals($page);
-		foreach ($modals as $modal) {
-			$this->load->view($modal);
+		if($modals != FALSE){
+			foreach ($modals as $modal) {
+				$this->load->view($modal);
+			}
 		}
 		$this->load->view('_layouts/footer');
 	}

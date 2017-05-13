@@ -31,22 +31,43 @@ header
 table 
   border: 1px solid #aaa
   border-radius: 4px
+  
+  
+  button
+    @extend .btn
+    background: #ccc
+    border-radius: 10px
+    text-transform: lowercase
+    color: #fff
+    font-size: 12px
+    height: 40px
 
   th 
     color: #fff
     background: $contrast-color
+    height: 42px
+    
 
     &:last-child
       border-radius: 0 4px 0 0
     &:first-child
       border-radius: 4px 0 0 0
-  
+
   tr
     cursor: pointer
+    background: #fff
+
     &:hover
-      background: #eee
+      background: transparentize(#0066ff,.7)
+      color: #333
     &.selected
       background: #bbb
+    &:nth(2n)
+      background: #ccc
+
+  td
+    color: #555
+    font-weight: bolder
   // 
 
   // Cards
@@ -55,7 +76,7 @@ table
   padding: 6px 0 0 25px 
   margin: 0 0 10px 0
   border-radius: 4px 4px 0 0
-  box-shadow: 0 2px 3px rgba(0,0,0,.4) 
+  box-shadow: 0 2px 3px rgba(0,0,0,.2) 
 
 // horas
 

@@ -2,7 +2,7 @@
   <div class="left-navigation administrador col-md-2">
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
-      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">edit</i> Usuarios</a></li>
+      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
       <li class="aside-buttons"><a href="#constants"><i class="material-icons">delete</i> Constantes</a></li>
     </ul>
   </div>
@@ -70,7 +70,7 @@
       <button class="tab-buttons" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar</button>
     </div>
 
-    <table class="table table-striped t-clientes">
+    <table class="table t-users">
       <tr>
         <th></th>
         <th>ID</th>
@@ -83,35 +83,9 @@
         <th>Acción</th>
       </tr>
       <tr>
-        <td></td>
-        <td>29</td>
-        <td>Jesús Antonio</td>
-        <td>Guerrero Alvarez</td>
-        <td>402-2479000-026</td>
-        <td>829-327-1958</td>
-        <td>Activo</td>
-        <td><button>Actualizar</button></td>
-        <td>
-          <a href=""><i class="material-icons">edit</i></a>
-          <a href=""><i class="material-icons">delete</i></a>
-          <a href=""><i class="material-icons">find_in_page</i></a>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>29</td>
-        <td>Jesús Antonio</td>
-        <td>Guerrero Alvarez</td>
-        <td>402-2479000-026</td>
-        <td>829-327-1958</td>
-        <td>Activo</td>
-        <td><button>Actualizar</button></td>
-        <td>
-          <a href=""><i class="material-icons">edit</i></a>
-          <a href=""><i class="material-icons">delete</i></a>
-          <a href=""><i class="material-icons">find_in_page</i></a>
-        </td>
-      </tr>
+      <tbody class="t-users-body">
+       <?php $this->user_model->get_all_users() ?>
+      </tbody>
 
     </table>
       </div>
