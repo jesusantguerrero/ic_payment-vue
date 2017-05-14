@@ -20,7 +20,7 @@ function connectAndSend(url,is_message,inithandlers,action,form,callback){
             if (action != null) {
                 action(connect.responseText,inithandlers);
             }else{
-              if(is_message && !ran){
+              if(is_message){
                  displayMessage(connect.responseText);
                  if(callback != null)callback();           
               }

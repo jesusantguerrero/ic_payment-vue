@@ -46,7 +46,7 @@ class User_model extends CI_MODEL{
     }  
   }
 
-    public function update_user($data){
+  public function update_user($data){
     $this->organize_data($data);
     $sql = "UPDATE users SET name ='".$this->name."', lastname ='".$this->lastname."', password ='".$this->password."',";
     $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
@@ -89,6 +89,23 @@ class User_model extends CI_MODEL{
     if($this->db->query($sql)){
       echo "&#10004; Usuario Eliminado";
     }  
+  }
+
+  public function login($nickname,$password){
+    $respuesta;
+    $sql = "SELECT * FROM users where nickname = '$nickname' limit 1";
+    $result = $this->db->query($sql);
+    $result =$result->row_array();
+    if($result != false){
+     if(password_verify($password,$result['password'])){
+       $this->organize_data($result);
+        $_SESSION['user'] = $this;
+        return true;
+      }
+        return false;
+    }else{
+     return false;
+    }
   }
 
   

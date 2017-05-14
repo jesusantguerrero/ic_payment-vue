@@ -21,14 +21,14 @@ ob_start( 'ob_gzhandler' );
           </div>
           <div class="vertical-line"></div>
           <div>
-            <form action="">
+            <form action="<?php echo base_url('app/login') ?>" method='post'>
               <div class="form-group">
                  <label for="userInput">Usuario</label>
-                 <input id="userInput" type="text" class="form-control">
+                 <input name="user-input" type="text" class="form-control">
               </div>
               <div class="form-group">
                  <label for="passwordInput">Contraseña</label>
-                 <input id="passwordInput" type="password" class="form-control">
+                 <input name="password-input" type="password" class="form-control">
               </div>
                   <input type="submit" value="Ingresar">
             </form>

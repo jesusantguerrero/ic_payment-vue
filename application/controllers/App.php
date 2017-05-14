@@ -9,8 +9,7 @@ class App extends CI_Controller {
 		$this->load->helper('modals');
 	}
 
-	public function index($page = 'login')
-	{
+	public function index($page = 'login'){
 		if ($page == 'login'):	
 			$data['title'] = $page;	
 			$this->load->view('_pages/'.$page,$data);
@@ -21,18 +20,42 @@ class App extends CI_Controller {
 	}
 	
 	public function admin($page = 'home'){
-		$data['title'] = $page;
-		$this->load->view('_layouts/header',$data);
-		$this->load->view('_pages/'.$page);
+		if(isset($_SESSION['user'])){
+			$data['title'] = $page;
+			$this->load->view('_layouts/header',$data);
+			$this->load->view('_pages/'.$page);
 
-		$modals = get_modals($page);
-		if($modals != FALSE){
-			foreach ($modals as $modal) {
-				$this->load->view($modal);
+			$modals = get_modals($page);
+			if($modals != FALSE){
+				foreach ($modals as $modal) {
+					$this->load->view($modal);
+				}
 			}
+			$this->load->view('_layouts/footer');
+		}else{
+			echo "usted no puede permanecer aqui";
 		}
-		$this->load->view('_layouts/footer');
+		
 	}
+
+	public function login(){
+  	$nickname = $this->input->post('user-input');
+  	$password = $this->input->post('password-input');
+
+   	$is_correct = $this->user_model->login($nickname,$password);
+		 if($is_correct){
+				redirect(base_url('app/admin/home'));
+		 }else{
+				$this->index();
+		 }
+  }
+
+	public function logout(){
+    session_unset($_SESSION['user']);
+    session_destroy();
+    redirect(base_url());
+  }
+
 
 
 }

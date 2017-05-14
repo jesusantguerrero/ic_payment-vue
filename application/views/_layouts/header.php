@@ -47,7 +47,7 @@ ob_start( 'ob_gzhandler' );
                 <li class="navButton"><a href="<?php echo base_url('app/admin/administrador')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
                     <i class="material-icons">settings</i>
                 </a></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/logout')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
+                <li class="navButton"><a href="<?php echo base_url('app/logout')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
                     <i class="material-icons">power_settings_new</i>
                 </a></li>
             </nav>
