@@ -59,9 +59,21 @@ class User_model extends CI_MODEL{
   }
 
   public function get_all_users(){
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM users LIMIT 5";
     $result = $this->db->query($sql);
-    $result = make_table($result->result_array());
+    $result = make_table($result->result_array(),0);
+    echo $result;
+  }
+
+  public function count_users(){
+    $result = $this->db->count_all("users");
+    echo $result;
+  }
+
+  public function get_users_paginate($offset,$perpage){
+    $sql = "SELECT * FROM users LIMIT ".$offset.", ".$perpage;
+    $result = $this->db->query($sql);
+    $result = make_table($result->result_array(),$offset);
     echo $result;
   }
   

@@ -179,11 +179,11 @@ th {
   padding: 0; }
 
 a {
-  color: dodgerblue;
+  color: #FF6961;
   text-decoration: none;
   outline: 0; }
   a:hover, a:focus {
-    color: #389dff;
+    color: #ff817b;
     text-decoration: none; }
 
 .gigantic, .huge, .large, .bigger, .big,
@@ -248,7 +248,7 @@ input[type="button"] {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: dodgerblue;
+  background-color: #FF6961;
   border-radius: 4px;
   border: 2px solid #fff;
   cursor: pointer;
@@ -263,17 +263,17 @@ input[type="button"] {
   input[type="button"]:hover,
   input[type="button"]:active,
   input[type="button"]:focus {
-    color: dodgerblue;
-    border: 2px solid dodgerblue;
+    color: #FF6961;
+    border: 2px solid #FF6961;
     background: #fff;
     outline: none; }
 
 .btn-remark {
   background: white;
-  color: dodgerblue;
+  color: #FF6961;
   transition: all ease .3s; }
   .btn-remark:hover {
-    background: dodgerblue;
+    background: #FF6961;
     color: white;
     border: 2px solid #fff; }
 
@@ -290,7 +290,7 @@ input[type="button"] {
     width: 100%;
     height: 100%;
     padding: 2px 20px;
-    color: dodgerblue;
+    color: #FF6961;
     font-weight: bolder; }
   .aside-buttons i {
     margin-right: 15px; }
@@ -305,13 +305,13 @@ input[type="button"] {
   background: transparent;
   border: none;
   margin: 0 5px;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   font-weight: bolder;
   font-size: 18px; }
   .tab-buttons:hover, .tab-buttons:active, .tab-buttons:focus {
     outline: none;
-    color: dodgerblue;
-    border-bottom: 2px solid dodgerblue; }
+    color: #FF6961;
+    border-bottom-color: #FF6961; }
 
 * {
   margin: 0;
@@ -409,10 +409,10 @@ nav {
   margin: 0 7.5%;
   position: relative; }
   .searcher:focus {
-    border: 2px solid dodgerblue;
+    border: 2px solid #FF6961;
     outline: none; }
   .searcher:hover {
-    border: 2px solid rgba(30, 144, 255, 0.8);
+    border: 2px solid rgba(255, 105, 97, 0.8);
     outline: none; }
   .searcher:after {
     content: 'Hola';
@@ -427,9 +427,12 @@ nav {
   width: 85%;
   height: 38px;
   margin: 30px 7.5% 0 7.5%; }
+  .busquedas.t-users, .table.t-users {
+    width: 100%; }
 
 .table {
-  margin-top: 2px; }
+  margin-top: 2px;
+  border-radius: 3px 4px 0 0; }
 
 .right {
   text-align: right; }
@@ -479,7 +482,7 @@ form {
   margin-top: -50px;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative; }
   .section-player h3 {
     margin-bottom: 30px; }
@@ -541,7 +544,7 @@ form {
     color: #555; }
 
 .details-card {
-  background: dodgerblue;
+  background: #FF6961;
   color: white;
   text-align: center;
   width: 31.5%;
@@ -569,14 +572,14 @@ form {
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
   height: 150px;
   cursor: pointer;
-  color: dodgerblue;
+  color: #FF6961;
   transition: all ease .3s;
   margin: 0 1%;
   font-size: 20px; }
   .shortcut:hover {
-    border: 2px solid dodgerblue;
+    border: 2px solid #FF6961;
     color: #fff;
-    background: dodgerblue; }
+    background: #FF6961; }
   .shortcut:first-child {
     margin-left: 0; }
   .shortcut:last-child {
@@ -600,7 +603,7 @@ form {
   margin: 2px;
   font-weight: bolder; }
   .h3-4 b {
-    color: dodgerblue;
+    color: #FF6961;
     margin-right: 5px; }
 
 .writtings {
@@ -631,16 +634,16 @@ form {
       margin-right: 5%;
       color: #eee; }
     .login-body .login-box .vertical-line {
-      background: dodgerblue;
+      background: #FF6961;
       width: 5px;
       height: 10vh; }
     .login-body .login-box input[type='submit'] {
-      background: dodgerblue;
+      background: #FF6961;
       width: 95%;
       color: white;
       margin: 10px 0; }
       .login-body .login-box input[type='submit']:hover {
-        background: #0583ff; }
+        background: #ff5148; }
     .login-body .login-box input {
       border-radius: 0 0 0 0;
       font-weight: bolder;
@@ -656,24 +659,26 @@ form {
 header {
   background-color: #272727;
   color: #ddd;
-  border-bottom: 2px solid dodgerblue; }
+  border-bottom: 2px solid #FF6961; }
   header span {
-    color: dodgerblue; }
+    color: #FF6961; }
   header .navButton a {
     color: #ddd; }
     header .navButton a:hover, header .navButton a.active {
       color: white;
-      background: dodgerblue;
+      background: #FF6961;
       box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.4); }
   header .user-controls .navButton a {
     color: #ddd; }
     header .user-controls .navButton a:hover {
-      color: dodgerblue;
+      color: #FF6961;
       background: transparent;
       box-shadow: none; }
+  header .user-controls .navButton:first-child {
+    position: relative; }
 
 table {
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   border-radius: 4px; }
   table button {
     background: #ccc;
@@ -681,28 +686,48 @@ table {
     text-transform: lowercase;
     color: #fff;
     font-size: 12px;
-    height: 40px; }
+    line-height: 0;
+    height: 30px; }
+  table thead {
+    border: none; }
+    table thead tr {
+      background: #FF6961;
+      color: #fff; }
+  table tfoot {
+    background: #F7F9FB;
+    color: #888; }
+    table tfoot select {
+      height: 28px;
+      font-size: 16px;
+      font-weight: normal; }
+    table tfoot .next-page, table tfoot .previous-page {
+      font-size: 30px;
+      cursor: pointer; }
+      table tfoot .next-page:hover, table tfoot .previous-page:hover {
+        color: #FF6961; }
   table th {
-    color: #fff;
-    background: dodgerblue;
     height: 42px; }
     table th:last-child {
       border-radius: 0 4px 0 0; }
     table th:first-child {
       border-radius: 4px 0 0 0; }
-  table tr {
+  table tbody tr {
     cursor: pointer;
-    background: #fff; }
-    table tr:hover {
-      background: rgba(0, 102, 255, 0.3);
-      color: #333; }
-    table tr.selected {
-      background: #bbb; }
-    table tr:nth(2n) {
-      background: #ccc; }
-  table td {
+    background: #fdfdfd;
     color: #555;
     font-weight: bolder; }
+    table tbody tr:hover {
+      background: rgba(136, 136, 136, 0.3);
+      color: #333; }
+    table tbody tr.selected {
+      background: #bbb; }
+    table tbody tr:nth-child(2n) {
+      background: #fafafa; }
+    table tbody tr:first-child {
+      box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.2); }
+
+.table > tbody > tr > td {
+  padding-top: 15px; }
 
 .card-title {
   width: 100%;

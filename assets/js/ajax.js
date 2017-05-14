@@ -1,11 +1,9 @@
 $(function(){
-
-});
-$()
-
 initHandlers();
 
 function initHandlers(){
+  count_users();
+
   $("#btn-save-user").on('click',function(e){
     e.stopPropagation();
     addNewUser();
@@ -37,8 +35,28 @@ function initHandlers(){
     inputs.eq(5).val(cell.eq(5).text());
 
     $('#update-user-modal').modal();
+  });
+
+  $(".next-page").on('click',function(e){
+    e.stopImmediatePropagation()
+
+    var pagination = getPaginationData()
+    getUsersPagination(pagination.max ,pagination.perpage);
+    pagination.$maxLimit.text(pagination.max + pagination.perpage);
+    pagination.$minLimit.text(pagination.min + pagination.perpage);
+
+  });
+
+   $(".previous-page").on('click',function(e){
+    e.stopImmediatePropagation()
+    var pagination = getPaginationData()
+    pagination.$maxLimit.text(pagination.max - pagination.perpage);
+    pagination.$minLimit.text(pagination.min - pagination.perpage);
+    getUsersPagination(pagination.min - pagination.perpage,pagination.perpage);
+
   })
 }
+
 
 /********************************************************
  *                CRUD para la tabla usuario            *
@@ -60,7 +78,7 @@ function addNewUser(){
   if(!is_empty){
     form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
     form += "&dni=" + dni+ "&type=" +type;
-    connectAndSend("user/addnew",true,null,form,getUsers);
+    connectAndSend("user/addnew",true,initHandlers,null,form,getUsers);
   }else{
     alert("LLene todos los campos por favor");
   }
@@ -83,93 +101,32 @@ function updateUser(){
   form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
   form += "&dni=" + dni+ "&type=" +type;
 
-   connectAndSend("user/update",true,null,form,getUsers) 
+   connectAndSend("user/update",true,initHandlers,null,form,getUsers) 
 } 
 
 function getUsers(){
   var form = "table=users";
-  connectAndSend('user/getusers',false,fillUserTable,form,null);
+  connectAndSend('user/getusers',false,initHandlers,fillUserTable,form,null);
+}
+
+function getUsersPagination(offset,perpage){
+  var form = "table=users&offset="+offset+"&perpage="+perpage;
+  connectAndSend('user/getuserspagination',false,initHandlers,fillUserTable,form,null);
 }
 
 function deleteUser(id){
   var form = "user_id=" + id;
-  connectAndSend('user/deleteuser',true,null,form,getUsers);
+  connectAndSend('user/deleteuser',true,initHandlers,null,form,getUsers);
 }
 
-
-
-
-
-
-// mis funciones
-
-function connectAndSend(url,is_message,action,form,callback){
-  var ran = false
-  var connect;
-  connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    connect.onreadystatechange = function() {
-        if (connect.readyState == 4 && connect.status == 200) {
-            if (action != null) {
-                action(connect.responseText)
-            }else{
-              if(is_message && !ran){
-                 displayMessage(connect.responseText);
-                 console.log(connect.responseText);
-                 
-                 ran = true;
-                 if(callback != null)callback();           
-              }
-               
-            }
-        } else if (connect.readyState != 4) {
-
-        }
-    }
-    connect.open("POST",'http://localhost/ic/' + url, true);
-    connect.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-    connect.send(form);
-}
-/**
- * Display Message
- * Muestra una notificacion del resultado de la consulta
- */
-function displayMessage(message){
-  var error = "&#10006;";
-  var success= "&#10004;";
-  var color = "#02ff20";
-  var toast,span;
-
-  if(message.includes(error)){
-    color = "#ff0330"
-  }
-  toast = $(".toast")
-  span = toast.find("span").html(message);
-  span.css({background:color});
-  toast.css({display:"flex"});
-  toast.animate({opacity:"1"},500,function(){
-    setTimeout(function() {
-      toast.animate({opacity:"0"});
-      toast.css({display:"none"});
-    }, 2000);
-  });
-  
+function count_users(){
+  var form = "table=users";
+  connectAndSend('user/countusers',false,initHandlers,updateCount,form,null);
 }
 
+});
+$()
 
-function fillUserTable($content){
-  var $tbodyUsers = $(".t-users-body");
-  $tbodyUsers.html($content);
-  initHandlers();
-}
-
-function isEmpty(values){
-  for(var i = 0 ; i < values.length ; i++){
-    if (values[i] == null || values[i] == ""){
-      return true;
-    } 
-  }
-  return false;
-}
 
 
 

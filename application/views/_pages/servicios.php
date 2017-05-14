@@ -19,16 +19,18 @@
     </div>
 
     <table class="table table-striped t-clientes">
-      <tr>
-        <th></th>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Mensualidad</th>
-        <th>Impuestos</th>
-        <th>Total</th>
-        
-      </tr>
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Mensualidad</th>
+          <th>Impuestos</th>
+          <th>Total</th>
+
+        </tr>
+      </thead>
       <tr>
         <td></td>
         <td>29</td>
@@ -49,7 +51,7 @@
       </tr>
 
     </table>
-  
+
   </div>
 
 

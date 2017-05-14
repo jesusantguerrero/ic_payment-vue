@@ -4,13 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if ( ! function_exists('make_table'))
 {
 
-  function make_table($data){
+  function make_table($data,$start_at){
     $types = array("Administrador","Trabajador");
-    $cont = 1;
+    $cont = $start_at + 1;
     $html_text="";
     foreach ($data as $line) {
         $html_text .= "<tr>
-        <td></td>
+        <td>".$cont."</td>
         <td class='user-id'>".$line['user_id']."</td>
         <td>".$line['nickname']."</td>
         <td>".$line['name']."</td>
