@@ -13,18 +13,15 @@ BASE_URL = "localhost/ic/"
  */
 
 function connectAndSend(url,is_message,inithandlers,action,form,callback){
-  var ran = false
   var connect;
   connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null) {
-                console.log(action);
                 action(connect.responseText,inithandlers);
             }else{
               if(is_message && !ran){
                  displayMessage(connect.responseText);
-                 ran = true;
                  if(callback != null)callback();           
               }
                
@@ -96,4 +93,35 @@ function getPaginationData(){
 
 function updateCount($content,callback){
   $(".total-rows").html($content);
+}
+
+// Validaciones pata la ventana de usuario
+
+
+function validateModal($modalId){
+  var $userPassword = $('#'+$modalId+' .password');
+  var $userPasswordConfirm = $('#'+$modalId+' .password-confirm');
+  var $saveButton = $('#'+ $modalId+' .save');
+  
+  $userPasswordConfirm.on('blur',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+}
+
+function validateTwo($firstObject,$secondObject,$button){
+    if($secondObject.val() == $firstObject.val() && $secondObject.val() != ""){
+      replaceClass($firstObject.parent(),"has-error","has-success");
+      replaceClass($secondObject.parent(),"has-error","has-success");
+      $button.removeAttr("disabled","");
+
+    }else{
+       replaceClass($firstObject.parent(),"has-success","has-error");
+       replaceClass($secondObject.parent(),"has-success","has-error");
+       $button.attr("disabled","");
+    }
+}
+
+function replaceClass($object,oldClass,newClass){
+   $object.addClass(newClass);
+   $object.removeClass(oldClass)
 }

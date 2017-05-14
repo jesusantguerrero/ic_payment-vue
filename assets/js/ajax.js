@@ -5,7 +5,7 @@ function initHandlers(){
   count_users();
 
   $("#btn-save-user").on('click',function(e){
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     addNewUser();
   });
 
@@ -98,10 +98,14 @@ function updateUser(){
   dni       = $("#e-dni").val();
   type      = $("#e-type").val();
 
-  form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
-  form += "&dni=" + dni+ "&type=" +type;
-
-   connectAndSend("user/update",true,initHandlers,null,form,getUsers) 
+  var is_empty = isEmpty([nick,password,name,lastname,dni,type]);
+  if(!is_empty){
+    form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
+    form += "&dni=" + dni+ "&type=" +type;
+    connectAndSend("user/update",true,initHandlers,null,form,getUsers) 
+  }else{
+    alert("LLene todos los campos por favor");
+  }
 } 
 
 function getUsers(){

@@ -37,30 +37,10 @@ function adminFunctions(){
 
 
 function newUserForm(){
-  var $userPassword = $('#user-password');
-  var $userPasswordConfirm = $('#user-password-confirm')
-  
-  $userPasswordConfirm.on('blur',function(){
-    validateTwo($userPassword,$userPasswordConfirm);
-  });
+  validateModal("new-user-modal")
+  validateModal("update-user-modal")
 }
 
-
-function replaceClass($object,oldClass,newClass){
-   $object.addClass(newClass);
-   $object.removeClass(oldClass)
-
-}
-
-function validateTwo($firstObject,$secondObject){
-    if($secondObject.val() == $firstObject.val()){
-      replaceClass($firstObject.parent(),"has-error","has-success")
-      replaceClass($secondObject.parent(),"has-error","has-success")
-    }else{
-       replaceClass($firstObject.parent(),"has-success","has-error")
-       replaceClass($secondObject.parent(),"has-success","has-error")
-    }
-  }
 
 $('#caller-user').on('click',function(){
   newUserForm();

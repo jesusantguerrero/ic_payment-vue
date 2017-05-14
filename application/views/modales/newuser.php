@@ -16,11 +16,11 @@
               </div>
               <div class="form-group">
                 <label for="user-password">Contraseña</label>
-                <input type="password" class="form-control" id="user-password" placeholder="contraseña">
+                <input type="password" class="form-control password" id="user-password" placeholder="contraseña">
               </div>
               <div class="form-group">
                 <label for="user-password-confirm">confirmar contraseña</label>
-                <input type="password" class="form-control" id="user-password-confirm" placeholder="contraseña">
+                <input type="password" class="form-control password-confirm" id="user-password-confirm" placeholder="contraseña">
               </div>
               <div class="form-group">
                 <label for="user-type">Tipo de usuario</label>
@@ -50,7 +50,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn" id="btn-save-user">Guardar</button>
+        <button type="button" class="btn save" id="btn-save-user">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -80,15 +80,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="e-nickname">Nick o Correo</label>
-                <input type="text" class="form-control" id="e-nickname" placeholder="jguerrero">
+                <input type="text" class="form-control" id="e-nickname" disabled>
               </div>
               <div class="form-group">
                 <label for="e-password">Contraseña</label>
-                <input type="password" class="form-control" id="e-password" placeholder="contraseña">
+                <input type="password" class="form-control password" id="e-password" placeholder="contraseña">
               </div>
               <div class="form-group">
                 <label for="e-password-confirm">confirmar contraseña</label>
-                <input type="password" class="form-control" id="e-password-confirm" placeholder="contraseña">
+                <input type="password" class="form-control password-confirm" id="e-password-confirm" placeholder="contraseña">
               </div>
               <div class="form-group">
                 <label for="e-type">Tipo de usuario</label>
@@ -118,7 +118,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn" id="btn-update-user">Actualizar</button>
+        <button type="button" class="btn save" id="btn-update-user">Actualizar</button>
       </div>
     </div>
     <!-- /.modal-content -->
