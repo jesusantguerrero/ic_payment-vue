@@ -1,8 +1,21 @@
 <?php
+/**
+* IC Payment
+*@author Jesus Guerrero
+*@copyright Copyright (c) 2017 Insane Code
+*@version 1.0.0
+*
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('make_table'))
 {
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
 
   function make_table($data,$start_at){
     $types = array("Administrador","Trabajador");
@@ -28,5 +41,31 @@ if ( ! function_exists('make_table'))
     }
 
     return $html_text;
+  }
+}
+
+if( !function_exists('get_user_data')){
+
+  
+  function get_user_data(){
+    if(isset($_SESSION['user_data'])){
+      $user = $_SESSION['user_data'];
+      $fullname = $user['name']." ".$user['lastname'];
+      if($user['type'] == 0){
+        $type = "Administrador";
+      }else{
+        $type = "Vendedor";
+      }
+
+      $user_data = array(
+        'name' => $user['name'],
+        'fullname' => $fullname,
+        'type'     => $type,
+        'user_id'  => $user['user_id']
+      );
+
+      return $user_data;
+
+    }
   }
 }

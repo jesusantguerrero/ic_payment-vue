@@ -1,4 +1,11 @@
 <?php
+/**
+* IC Payment
+*@author Jesus Guerrero
+*@copyright Copyright (c) 2017 Insane Code
+*@version 1.0.0
+*
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_MODEL{
@@ -11,18 +18,28 @@ class User_model extends CI_MODEL{
   public $dni;
   public $type;
 
-
-  //constructor
   public function __construct(){
     parent::__construct();
     $this->load->database();
     $this->load->helper('users_helper');
   }
 
-  function organize_data($data){
+  /**
+  *
+  *@param array $data array with the data of the user
+  *@param string $mode "normal" for save it in an insert, "full" to storage all the data
+  *@return void
+  */
 
+  function organize_data($data,$mode){
+
+    if($mode == "full"){
+      $this->user_id = $data['user_id'];
+      $this->password = $data['password'];
+    }else{
+      $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
+    }
     $this->nickname = $data['nickname'];
-    $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
     $this->name     = $data['name'];
     $this->lastname = $data['lastname'];
     $this->dni      = $data['dni'];
@@ -30,7 +47,7 @@ class User_model extends CI_MODEL{
   }
 
   public function add_new_user($data){
-    $this->organize_data($data);
+    $this->organize_data($data,"normal");
     $result = $this->db->query("SELECT * FROM users WHERE nickname = '". $this->nickname . "'");
     $result = $result->result_array();
     $result = count($result);
@@ -47,7 +64,7 @@ class User_model extends CI_MODEL{
   }
 
   public function update_user($data){
-    $this->organize_data($data);
+    $this->organize_data($data,"normal");
     $sql = "UPDATE users SET name ='".$this->name."', lastname ='".$this->lastname."', password ='".$this->password."',";
     $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
 
@@ -98,8 +115,7 @@ class User_model extends CI_MODEL{
     $result =$result->row_array();
     if($result != false){
      if(password_verify($password,$result['password'])){
-       $this->organize_data($result);
-        $_SESSION['user'] = $this;
+        $_SESSION['user_data'] = $result;
         return true;
       }
         return false;

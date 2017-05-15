@@ -1,5 +1,5 @@
 <div class="container-fluid">
-
+ <?php $user_data = get_user_data(); ?>
     <div class="row welcome-screen">
         <div class="col-md-8 main-card">
             <h3 class="card-title">Panel Principal</h3>
@@ -8,7 +8,7 @@
                     <img class="company-logo" src="<?php echo base_url('assets/img/insanecode_logo.png') ?>" alt="">
                 </div>
                 <div class="welcome-data">
-                    <h4 class="writtings">Bienvenido a IC Payment, User</h4>
+                    <h4 class="writtings">Bienvenido a IC Payment, <?php echo $user_data['name'] ?></h4>
                     <p class="company-name h3-4"><b>Empresa:</b> ICS Services</p>
                     <p class="date h3-4"><b>Fecha:</b> <span></span></p>
                     <p class="hour h3-4"><b>Hora:</b> <span></span></p>
@@ -36,8 +36,8 @@
             <p class="section-title">Registrar Pago</h4>
         </div>
          <div class="col-md-4 shortcut">
-            <i class="material-icons">monetization_on</i>
-            <p class="section-title">Registrar Pago</p>
+            <i class="material-icons">more</i>
+            <p class="section-title">Servicio Extra</p>
         </div>
     </div>
 </div>

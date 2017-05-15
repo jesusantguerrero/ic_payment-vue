@@ -26,11 +26,14 @@ class User extends CI_Controller {
 		$this->user_model->get_all_users();
 	}
 
-	public function getuserspagination(){
+	public function paginate(){
 		$offset = $_POST['offset'];
 		$perpage = $_POST['perpage'];
+		$table = $_POST['table'];
 		if($offset == 1) $offset = 0;
-		$this->user_model->get_users_paginate($offset,$perpage);
+		if($table == "users"):
+			$this->user_model->get_users_paginate($offset,$perpage);
+		endif;
 	}
 
 	public function deleteuser(){

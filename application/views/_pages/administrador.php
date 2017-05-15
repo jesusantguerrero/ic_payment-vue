@@ -70,7 +70,7 @@
           <button class="tab-buttons" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar</button>
         </div>
 
-        <table class="table t-users">
+        <table class="table t-users" id="t-users">
           <thead>
             <tr>
               <th>No.</th>
@@ -98,7 +98,7 @@
                 <td></td>
                 <td>Filas Por Pagina</td>
                 <td>
-                  <select name="perpage" id="per-page">
+                  <select name="perpage" id="per-page" class="per-page">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>

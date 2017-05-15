@@ -7,7 +7,7 @@ ob_start( 'ob_gzhandler' );
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <title>IC Payment | <?php echo $title; ?></title>
+    <title>.::IC Payment | <?php echo $title; ?>::.</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
@@ -23,10 +23,11 @@ ob_start( 'ob_gzhandler' );
 
 <body>
     <header>
-        
+        <?php $user_data = get_user_data(); ?>
         <div class="header-top">
             <div class="user-div">
-                <h5 class="username">Jesus Guerrero<span class="glyphicon glyphicon-user"></span></h5>
+                <h5 class="username"><?php echo $user_data['type'].", ".$user_data['fullname']?>
+                </h5><i class="material-icons">person</i>
             </div>
         </div>
         <div class="header-low">
@@ -44,9 +45,11 @@ ob_start( 'ob_gzhandler' );
                 <li class="navButton"><a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
                     <i class="material-icons">notifications</i>
                 </a> <span class="badge">4</span></li>
-                <li class="navButton"><a href="<?php echo base_url('app/admin/administrador')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
-                    <i class="material-icons">settings</i>
-                </a></li>
+                <?php if($user_data['type'] == "Administrador"): ?>
+                    <li class="navButton"><a href="<?php echo base_url('app/admin/administrador')?>" data-toggle="tooltip" data-placement="top" title="Administrar">
+                        <i class="material-icons">settings</i>
+                    </a></li>
+                <?php endif; ?>
                 <li class="navButton"><a href="<?php echo base_url('app/logout')?>" data-toggle="tooltip" data-placement="top" title="Cerrar Sesion">
                     <i class="material-icons">power_settings_new</i>
                 </a></li>

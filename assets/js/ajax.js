@@ -37,24 +37,7 @@ function initHandlers(){
     $('#update-user-modal').modal();
   });
 
-  $(".next-page").on('click',function(e){
-    e.stopImmediatePropagation()
-
-    var pagination = getPaginationData()
-    getUsersPagination(pagination.max ,pagination.perpage);
-    pagination.$maxLimit.text(pagination.max + pagination.perpage);
-    pagination.$minLimit.text(pagination.min + pagination.perpage);
-
-  });
-
-   $(".previous-page").on('click',function(e){
-    e.stopImmediatePropagation()
-    var pagination = getPaginationData()
-    pagination.$maxLimit.text(pagination.max - pagination.perpage);
-    pagination.$minLimit.text(pagination.min - pagination.perpage);
-    getUsersPagination(pagination.min - pagination.perpage,pagination.perpage);
-
-  })
+    new initPagination("#t-users","users",paginate);
 }
 
 
@@ -113,11 +96,6 @@ function getUsers(){
   connectAndSend('user/getusers',false,initHandlers,fillUserTable,form,null);
 }
 
-function getUsersPagination(offset,perpage){
-  var form = "table=users&offset="+offset+"&perpage="+perpage;
-  connectAndSend('user/getuserspagination',false,initHandlers,fillUserTable,form,null);
-}
-
 function deleteUser(id){
   var form = "user_id=" + id;
   connectAndSend('user/deleteuser',true,initHandlers,null,form,getUsers);
@@ -126,6 +104,11 @@ function deleteUser(id){
 function count_users(){
   var form = "table=users";
   connectAndSend('user/countusers',false,initHandlers,updateCount,form,null);
+}
+
+function paginate(offset,perpage,tableName){
+  var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
+  connectAndSend('user/paginate',false,initHandlers,fillUserTable,form,null);
 }
 
 });

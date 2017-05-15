@@ -340,9 +340,13 @@ header {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
+  align-items: center;
   text-align: right;
   padding-right: 30px;
   overflow: hidden; }
+  .user-div .material-icons {
+    color: #FF6961;
+    margin-left: 5px; }
 
 .header-low {
   display: flex;
@@ -559,7 +563,8 @@ form {
   width: 65.5%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start; }
+  align-items: flex-start;
+  padding: 15px 0; }
 
 .shortcut {
   width: 24%;
