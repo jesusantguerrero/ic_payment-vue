@@ -18,7 +18,7 @@ if ( ! function_exists('make_table'))
   */ 
 
   function make_table($data,$start_at){
-    $types = array("Administrador","Trabajador");
+    $types = array("Administrador","Secretaria(o)","Otro");
     $cont = $start_at + 1;
     $html_text="";
     foreach ($data as $line) {
@@ -54,17 +54,13 @@ if( !function_exists('get_user_data')){
       if($user['type'] == 0){
         $type = "Administrador";
       }else{
-        $type = "Vendedor";
+        $type = "Secretaria";
       }
 
-      $user_data = array(
-        'name' => $user['name'],
-        'fullname' => $fullname,
-        'type'     => $type,
-        'user_id'  => $user['user_id']
-      );
+      $user['fullname'] = $fullname;
+      $user['typestr'] = $type;
 
-      return $user_data;
+      return $user;
 
     }
   }

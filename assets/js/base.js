@@ -3,6 +3,7 @@ $(function(){
 var Validations = function(){};
 getDate();
 adminFunctions();
+userInfoTip();
 console.log("La base cargada")
 
 function getDate(){
@@ -37,8 +38,19 @@ function adminFunctions(){
 
 
 function newUserForm(){
-  validateModal("new-user-modal")
-  validateModal("update-user-modal")
+  validateModal("#new-user-modal")
+  validateModal("#update-user-modal")
+}
+
+function userInfoTip(){
+  var infoTip = $(".user-info-tip");
+  var profilePicture = $(".profile-picture");
+
+  profilePicture.on('click',function(){
+    infoTip.toggleClass("visible");
+    profilePicture.focus();
+  });
+
 }
 
 

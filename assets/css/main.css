@@ -292,8 +292,6 @@ input[type="button"] {
     padding: 2px 20px;
     color: #FF6961;
     font-weight: bolder; }
-  .aside-buttons i {
-    margin-right: 15px; }
   .aside-buttons:hover {
     background: rgba(0, 0, 0, 0.1); }
 
@@ -313,6 +311,9 @@ input[type="button"] {
     color: #FF6961;
     border-bottom-color: #FF6961; }
 
+.material-icons {
+  margin-right: 15px; }
+
 * {
   margin: 0;
   padding: 0;
@@ -329,7 +330,6 @@ header {
 .brand {
   display: flex;
   flex-direction: row;
-  overflow: hidden;
   width: 20%; }
   .brand h1, .brand h2, .brand h3, .brand h4, .brand h5, .brand h6 {
     margin: 0;
@@ -342,11 +342,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   text-align: right;
-  padding-right: 30px;
-  overflow: hidden; }
-  .user-div .material-icons {
-    color: #FF6961;
-    margin-left: 5px; }
+  padding-right: 30px; }
 
 .header-low {
   display: flex;
@@ -359,24 +355,22 @@ nav {
   display: flex;
   list-style: none;
   justify-content: flex-end;
-  width: 60%;
-  margin: 0 30% 0 0;
+  width: 70%;
+  margin: 0 40% 0 5%;
   height: 100%; }
 
 .user-controls {
-  width: 20%;
+  width: fit-content;
   text-align: right;
-  padding-right: 40px;
-  margin: 0 0;
-  overflow: hidden; }
+  margin-right: 15px;
+  margin: 0 0; }
 
 .glyphicon {
   padding: 0 10px; }
 
 .navButton {
   width: 100%;
-  height: 100%;
-  overflow: visible; }
+  height: 100%; }
   .navButton a {
     display: block;
     padding: 10px 5% 0 5%;
@@ -421,7 +415,8 @@ nav {
   .searcher:after {
     content: 'Hola';
     position: absolute;
-    right: 55%;
+    right: 0;
+    color: #333;
     top: 0;
     width: 50px;
     height: 100%;
@@ -518,6 +513,72 @@ form {
     border-radius: 4px;
     font-size: 20px;
     color: white; }
+
+.profile-picture {
+  width: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 50%; }
+  .profile-picture span {
+    font-size: 20px;
+    font-weight: bolder; }
+
+.user-info-tip {
+  position: absolute;
+  color: #555;
+  background: #fff;
+  min-width: 170px;
+  min-height: 200px;
+  bottom: -225px;
+  right: -10px;
+  border-radius: 4px;
+  background: #fcfcfc;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  padding: 2px 0;
+  z-index: 2000;
+  text-align: left;
+  visibility: hidden; }
+  .user-info-tip.visible {
+    visibility: visible; }
+  .user-info-tip ul {
+    list-style: none;
+    border-bottom: 2px solid #ddd; }
+  .user-info-tip .current-user {
+    position: relative; }
+    .user-info-tip .current-user:after {
+      content: ' ';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid #fff;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      top: -20px;
+      right: 10px; }
+  .user-info-tip li {
+    margin: 5px 0;
+    height: 38px; }
+    .user-info-tip li:hover {
+      background: #FF6961;
+      color: #fff; }
+  .user-info-tip a {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    padding: 5px 10px;
+    color: #777; }
+    .user-info-tip a:hover {
+      color: #fff; }
 
 [class*='card'],
 .shortcut {
@@ -723,7 +784,7 @@ table {
     font-weight: bolder; }
     table tbody tr:hover {
       background: rgba(136, 136, 136, 0.3);
-      color: #333; }
+      color: #FF6961; }
     table tbody tr.selected {
       background: #bbb; }
     table tbody tr:nth-child(2n) {

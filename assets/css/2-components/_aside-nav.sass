@@ -55,3 +55,65 @@
     border-radius: 4px
     font-size: 20px
     color: white
+
+
+// user-info-tip
+.profile-picture
+  +makeFlex(40px,row, center, center)
+  height: 40px
+  background: #fff
+  cursor: pointer
+  position: relative
+  box-sizing: border-box
+  border-radius: 50%
+  span
+    font: 
+      size: 20px
+      weight: bolder
+
+.user-info-tip
+  position: absolute
+  color: #555
+  background: #fff
+  min-width: 170px
+  min-height: 200px
+  bottom: -225px
+  right: -10px
+  border-radius: 4px
+  +card
+  padding: 2px 0
+  z-index: 2000
+  text-align: left
+  visibility: hidden
+
+  &.visible
+    visibility: visible
+  ul
+    list-style: none
+    border-bottom: 2px solid #ddd
+  .current-user
+    position: relative
+    &:after  
+      content: ' '
+      position: absolute
+      +size(0,0)
+      border-bottom: 15px solid #fff
+      border-left: 15px solid transparent 
+      border-right: 15px solid transparent
+      top: -20px
+      right: 10px
+  
+  li
+    margin: 5px 0
+    height: 38px
+    &:hover
+      background: $contrast-color
+      color: #fff
+  a
+    +makeFlex(100%,row,null, center)
+    height: 100%
+    padding: 5px 10px
+    color: #777
+
+    &:hover
+      color: #fff

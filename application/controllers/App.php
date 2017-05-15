@@ -24,7 +24,11 @@ class App extends CI_Controller {
 			if($page == "administrador" && $_SESSION['user_data']['type'] > 0){
 				redirect(base_url('app/admin/home'));
 			}
+			
+			$tooltip = $this->load->view('_layouts/headertooltip','',true);
 			$data['title'] = $page;
+			$data['tooltip'] =$tooltip;
+
 			$this->load->view('_layouts/header',$data);
 			$this->load->view('_pages/'.$page);
 

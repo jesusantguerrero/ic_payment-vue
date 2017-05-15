@@ -180,13 +180,14 @@ function updateCount($content,callback){
 
 
 function validateModal($modalId){
-  var $userPassword = $('#'+$modalId+' .password');
-  var $userPasswordConfirm = $('#'+$modalId+' .password-confirm');
-  var $saveButton = $('#'+ $modalId+' .save');
+  var $userPassword = $($modalId+' .password');
+  var $userPasswordConfirm = $($modalId+' .password-confirm');
+  var $saveButton = $($modalId+' .save');
   
   $userPasswordConfirm.on('blur',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
+  $saveButton.on('click',clearForm($modalId));
 }
 
 function validateTwo($firstObject,$secondObject,$button){
@@ -200,6 +201,10 @@ function validateTwo($firstObject,$secondObject,$button){
        replaceClass($secondObject.parent(),"has-success","has-error");
        $button.attr("disabled","");
     }
+}
+
+function clearForm(modalId){
+  $(modalId + " input").val("");
 }
 
 function replaceClass($object,oldClass,newClass){

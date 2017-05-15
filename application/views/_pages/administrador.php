@@ -3,7 +3,7 @@
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
-      <li class="aside-buttons"><a href="#constants"><i class="material-icons">delete</i> Constantes</a></li>
+      <li class="aside-buttons"><a href="#constants"><i class="material-icons">settings</i> Ajustes</a></li>
     </ul>
   </div>
 

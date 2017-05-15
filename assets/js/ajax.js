@@ -80,14 +80,15 @@ function updateUser(){
   lastname  = $("#e-lastname").val();
   dni       = $("#e-dni").val();
   type      = $("#e-type").val();
-
+  
   var is_empty = isEmpty([nick,password,name,lastname,dni,type]);
   if(!is_empty){
     form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
     form += "&dni=" + dni+ "&type=" +type;
     connectAndSend("user/update",true,initHandlers,null,form,getUsers) 
   }else{
-    alert("LLene todos los campos por favor");
+
+    alert("LLene todos los campos por favor " + count);
   }
 } 
 
