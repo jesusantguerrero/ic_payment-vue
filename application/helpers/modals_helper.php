@@ -16,9 +16,9 @@ if ( ! function_exists('get_modals'))
 	{
     $modals;
     switch($filename){
-      // case 'home':
-      //   # code...
-      //   break;
+      case 'home':
+         $modals[0] = 'modales/clientes_modals';
+         break;
       // case 'clientes':
       //   # code...
       //   break;

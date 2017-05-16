@@ -1,10 +1,9 @@
 $(function(){
 
-var Validations = function(){};
 getDate();
 adminFunctions();
 userInfoTip();
-console.log("La base cargada")
+newUserForm();
 
 function getDate(){
   var $Fecha = $('.date span');
@@ -38,8 +37,8 @@ function adminFunctions(){
 
 
 function newUserForm(){
-  validateModal("#new-user-modal")
-  validateModal("#update-user-modal")
+  validateModal("#new-user-modal");
+  validateModal("#update-user-modal");
 }
 
 function userInfoTip(){
@@ -52,11 +51,6 @@ function userInfoTip(){
   });
 
 }
-
-
-$('#caller-user').on('click',function(){
-  newUserForm();
-});
 
 });
 

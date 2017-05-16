@@ -23,7 +23,7 @@
     <table class="table t-clientes" id="t-clientes">
       <thead>
         <tr>
-          <th></th>
+          <th>No.</th>
           <th>ID</th>
           <th>Nombres</th>
           <th>Apellidos</th>
@@ -33,26 +33,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td>29</td>
-          <td>Jesús Antonio</td>
-          <td>Guerrero Alvarez</td>
-          <td>402-2479000-026</td>
-          <td>829-327-1958</td>
-          <td>Activo</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>29</td>
-          <td>Jesús Antonio</td>
-          <td>Guerrero Alvarez</td>
-          <td>402-2479000-026</td>
-          <td>829-327-1958</td>
-          <td>Activo</td>
-        </tr>
+        <?php $this->client_model->get_all_clients(); ?>
       </tbody>
       <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Filas Por Pagina</td>
+          <td>
+            <select name="perpage" id="per-page" class="per-page">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>  
+            </select>
+
+          </td>
+          <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"><?php $this->user_model->count_users(); ?></span></td>
+          <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
+
+        </tr>
+
       </tfoot>
     </table>
 

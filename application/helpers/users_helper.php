@@ -65,3 +65,34 @@ if( !function_exists('get_user_data')){
     }
   }
 }
+
+
+
+if ( ! function_exists('make_client_table'))
+{
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_client_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text="";
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td>".$cont."</td>
+        <td class='id_cliente'>".$line['id_cliente']."</td>
+        <td>".$line['nombres']."</td>
+        <td>".$line['apellidos']."</td>
+        <td>".$line['cedula']."</td>
+        <td>".$line['celular']."</td>
+        <td>".$line['estado']."</td>
+      </tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}

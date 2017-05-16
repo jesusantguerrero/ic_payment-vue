@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row shortcuts-container">
-        <div class="col-md-4 shortcut">
+        <div class="col-md-4 shortcut"  id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
             <i class="material-icons">supervisor_account</i>
             <p class="section-title">Nuevo Cliente</h4>
         </div>

@@ -7,6 +7,7 @@
  */
 
 const BASE_URL = 'http://localhost/ic/'
+
 /**
  * Connect And Send
  * conecta al servidor via ajax y muestra el mensaje de respuesta
@@ -41,6 +42,7 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
     connect.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     connect.send(form);
 }
+
 /**
  * Display Message
  * Muestra una notificacion del resultado de la consulta
@@ -71,7 +73,7 @@ function displayMessage(message){
 }
 
 /**
- * Fill User Table: do exactly that
+ * Llena la tabla de usuarios con los datos que vienen del servidor
  * @param {string} $content the html data to be displayed it comes always from an server response
  * @param {function} callback the callback to recognize the new items
  * @return {void}
@@ -83,13 +85,15 @@ function fillUserTable($content,callback){
 }
 
 /**
- * isEmpty: verify that any value passed as parameter is empty or null 
+ * isEmpty
+ * Verifica si los valores dados estan vacios o son nulos 
  * @param {Array. < string} values
  * @return {boolean}
  */
 function isEmpty(values){
   for(var i = 0 ; i < values.length ; i++){
     if (values[i] == null || values[i] == ""){
+      console.log(values[i] + "is empty");
       return true;
     } 
   }
@@ -102,7 +106,8 @@ function isEmpty(values){
 //
 
 /**
- * get Pagination Data: if the table is a paginated one this funtion return the information related with that
+ * get Pagination Data: if the table is a paginated one this function return the information related with that
+ * retorna los datos de paginacion colocados al pie de la tabla
  * @param {string} tableId 
  * @return {{perpage: number,$maxLimit: HTMLElement,$minLimit: HTMLElement,previous:number,next:number,min:number,max: number,total:number}}
  * 
@@ -126,6 +131,7 @@ function getPaginationData(tableId){
 
 /**
  * init Pagination: make a table paginatable
+ * mi metodo de paginacion propio habilita las funciones next, y previous
  * @constructor
  * @param {string} tableId
  * @return {void}
@@ -211,3 +217,23 @@ function replaceClass($object,oldClass,newClass){
    $object.addClass(newClass);
    $object.removeClass(oldClass)
 }
+
+// +-----------------------------------------------------------------------------------------------------------------------------+
+// |                                                     Funciones de utileria                                                   |
+// |                                                                                                                             |
+// +-----------------------------------------------------------------------------------------------------------------------------+
+//
+
+function getNow(){
+  var year, month,day,date,now;
+
+  date = new Date();
+  year = date.getFullYear();
+  month = date.getMonth();
+  day = date.getDate();
+
+  now = year + "-" + month + "-" + day;
+  return now;
+  }
+
+

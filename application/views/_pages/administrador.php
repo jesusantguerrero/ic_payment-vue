@@ -99,11 +99,11 @@
                 <td>Filas Por Pagina</td>
                 <td>
                   <select name="perpage" id="per-page" class="per-page">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>  
-      </select>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>  
+                  </select>
 
                 </td>
                 <td><span class="min-limit">1</span>-<span class="max-limit">5</span> 

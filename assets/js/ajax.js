@@ -1,5 +1,6 @@
 $(function(){
 initHandlers();
+initClientHandlers();
 
 function initHandlers(){
   count_users();
@@ -40,10 +41,16 @@ function initHandlers(){
     new initPagination("#t-users","users",paginate);
 }
 
+function initClientHandlers(){
+  $("#btn-save-client").on('click',function(){
+    addNewClient();
+  })
+}
+
 
 /********************************************************
- *                CRUD para la tabla usuario            *
- * 
+ *                CRUD para la tabla usuarios           *
+ *                                                      *
  ********************************************************/
 
 function addNewUser(){
@@ -65,9 +72,6 @@ function addNewUser(){
   }else{
     alert("LLene todos los campos por favor");
   }
-
-
-
 } 
 
 function updateUser(){
@@ -112,8 +116,49 @@ function paginate(offset,perpage,tableName){
   connectAndSend('user/paginate',false,initHandlers,fillUserTable,form,null);
 }
 
-});
+/********************************************************
+ *                CRUD para la tabla Clientes           *
+ *                                                      *
+ ********************************************************/
+function addNewClient(){
+  
+  var form,response, result, nombres,apellidos,cedula,celular,provincia,sector,calle,casa,telefono,
+      lugarTrabajo,telTrabajo,ingresos,fechaRegistro,estado;
+
+  nombres        = $("#client-name").val();
+  apellidos      = $("#client-lastname").val();
+  cedula         = $("#client-dni").val();
+  celular        = $("#client-phone").val();
+  provincia      = $("#client-provincia").val();
+  sector         = $("#client-sector").val();
+  calle          = $("#client-street").val();
+  casa           = $('#client-house').val();
+  telefono       = $('#client-telephone').val();
+  lugarTrabajo  = $('#client-job').val();
+  telTrabajo    = $('#client-job-telephone').val();
+  ingresos       = $('#client-salary').val();
+  fechaRegistro = getNow();
+  estado = "no activo";
+
+  var is_empty = isEmpty([nombres,apellidos,cedula,celular,provincia,sector,calle,casa,telefono]);
+  if(!is_empty){   
+    form = 'nombres=' + nombres + "&apellidos=" + apellidos + "&cedula=" + cedula + "&celular=" + celular;
+    form += "&provincia=" + provincia + "&sector=" + sector + "&calle=" + calle + "&casa=" + casa + "&telefono=" + telefono;
+    form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo"+ telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
+    form += "&estado=" + estado +"&tabla=clientes";
+    
+    connectAndSend("process/add",true,initClientHandlers,null,form,getUsers);
+
+  }else{
+    alert("LLene los campos requeridos por favor");
+  }
+} 
+
 $()
+
+});
+
+
 
 
 
