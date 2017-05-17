@@ -55,6 +55,9 @@ nav
 .glyphicon
   padding: 0 10px
 
+.user-name
+  margin-right: 10px
+
 .navButton
   +size(100%,100%)
 
@@ -90,26 +93,24 @@ nav
   padding: 2px 15px
   border: 2px solid #ccc
   transition: all ease .3s
-  font-size: 24px
+  font-size: 20px
   color: #999
   margin: 0 7.5%
-  position: relative
+  // position: relative
   &:focus
     border: 2px solid $contrast-color
     outline: none
-
   &:hover
     border: 2px solid transparentize($contrast-color,.2)
     outline: none
-
   &:after
     content: 'Hola'
     position: absolute
-    right: 0
-    color: #333
+    left: 0
     top: 0
-    +size(50px,100%)
-    z-index: 200
+    color: #333
+    background: crimson
+    z-index: 2000
 
 .busquedas,.table
    +size(85%,38px)

@@ -8,8 +8,7 @@ ob_start( 'ob_gzhandler' );
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
         />
-        <title>.:: IC Payment |
-            <?php echo ucfirst($title); ?> ::.</title>
+        <title>.:: IC Payment |<?php echo ucfirst($title); ?> ::.</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
         <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
@@ -28,9 +27,11 @@ ob_start( 'ob_gzhandler' );
                                 title="Notificaciones">
                                 <i class="material-icons">notifications</i>
                             </a> <span class="badge">4</span></li>
+                            
                     </nav>
+                    <h5 class="user-name"><?php echo $user_data['name'];?></h5>
                     <div class="profile-picture">
-                    <span><?php echo $user_data['name'][0].$user_data['lastname'][0] ?></span>
+                        <span><?php echo $user_data['name'][0].$user_data['lastname'][0] ?></span>
                     <?php echo $tooltip; ?>
                     </div>
                 </div>

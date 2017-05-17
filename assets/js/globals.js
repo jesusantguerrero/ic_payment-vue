@@ -10,10 +10,10 @@ const BASE_URL = 'http://localhost/ic/'
 
 /**
  * Connect And Send
- * conecta al servidor via ajax y muestra el mensaje de respuesta
- * @param {string} url url to send the action, without the base url
- * @param {boolean} is_message if you want to display the message
- * @param {callback} recognizeElements function to recognise the new auto generated elements
+ * Conecta al servidor via ajax y muestra el mensaje de respuesta
+ * @param {string} url Url a donde se va a mandar la el formulario, sin la base_url
+ * @param {boolean} is_message Si se espera un mensaje o no como respuesta 
+ * @param {callback} recognizeElements Funcion para reconocer los elementos autogenerados
  * @param {?callback} action if you dont want a message you receive a table with that you put this table somewhere(can be null)
  * @param {string} form data of the form to be send to the server
  * @param {callback} callback function to be executed after al this maybe getusers()
@@ -85,6 +85,18 @@ function fillUserTable($content,callback){
 }
 
 /**
+ * Llena la tabla de clientes con los datos que vienen del servidor
+ * @param {string} $content the html data to be displayed it comes always from an server response
+ * @param {function} callback the callback to recognize the new items
+ * @return {void}
+ */
+function fillClientsTable($content,callback){
+  var $tbodyUsers = $(".t-clients tbody");
+  $tbodyUsers.html($content);
+  callback();
+}
+
+/**
  * isEmpty
  * Verifica si los valores dados estan vacios o son nulos 
  * @param {Array. < string} values
@@ -133,18 +145,19 @@ function getPaginationData(tableId){
  * init Pagination: make a table paginatable
  * mi metodo de paginacion propio habilita las funciones next, y previous
  * @constructor
- * @param {string} tableId
+ * @param {string} tableId Id de la <table> de la vista
+ * @param {string} serverTable Tabla de la base de datos a paginar
+ * @param {function} paginate La funcion paginate como parametro
+ * @param {string} fillTableFunction La funcion correspondiente que llena la <table> de la vista
  * @return {void}
  */
-function initPagination(tableId,serverTable,paginate){
-  console.log(document.querySelector(tableId + " .next-page"));
-  
+function initPagination(tableId,serverTable,paginate,fillTableFunction){
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 
     var pagination = getPaginationData(tableId);
     if(pagination.max < pagination.total){
-      paginate(pagination.max ,pagination.perpage,serverTable);
+      paginate(pagination.max ,pagination.perpage,serverTable,fillTableFunction);
       pagination.$maxLimit.text(pagination.max + pagination.perpage);
       pagination.$minLimit.text(pagination.min + pagination.perpage);
     }
@@ -158,7 +171,7 @@ function initPagination(tableId,serverTable,paginate){
     if(pagination.min != 1){
       pagination.$maxLimit.text(pagination.max - pagination.perpage);
       pagination.$minLimit.text(pagination.min - pagination.perpage);
-      paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable);
+      paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable,fillTableFunction);
     }
   });
 
@@ -167,7 +180,7 @@ function initPagination(tableId,serverTable,paginate){
     var pagination = getPaginationData(tableId)
     pagination.$maxLimit.text(pagination.perpage);
     pagination.$minLimit.text(pagination.min);
-    paginate(pagination.min,pagination.perpage,serverTable);
+    paginate(pagination.min,pagination.perpage,serverTable,fillTableFunction);
 
   })
 }

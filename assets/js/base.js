@@ -45,10 +45,10 @@ function userInfoTip(){
   var infoTip = $(".user-info-tip");
   var profilePicture = $(".profile-picture");
 
-  profilePicture.on('click',function(){
+  profilePicture.on('click',function(e){
     infoTip.toggleClass("visible");
-    profilePicture.focus();
   });
+
 
 }
 

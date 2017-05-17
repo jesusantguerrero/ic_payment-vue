@@ -1,7 +1,9 @@
 <div class="screen clients row">
   <div class="left-navigation col-md-2">
     <ul class="aside-nav">
-      <li class="aside-buttons"><a href=""><i class="material-icons">supervisor_account</i> Nuevo Cliente</a></li>
+      <li class="aside-buttons">
+        <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Nuevo Cliente</a>
+      </li>
       <li class="aside-buttons"><a href=""><i class="material-icons">edit</i>Editar Cliente</a></li>
       <li class="aside-buttons"><a href=""><i class="material-icons">delete</i>Eliminar Cliente</a></li>
       <li class="aside-buttons"><a href=""><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
@@ -20,7 +22,7 @@
       <button class="tab-buttons" href="">Deudores</button>
     </div>
 
-    <table class="table t-clientes" id="t-clientes">
+    <table class="table t-clients" id="t-clients">
       <thead>
         <tr>
           <th>No.</th>

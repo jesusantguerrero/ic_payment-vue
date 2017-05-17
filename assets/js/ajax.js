@@ -38,13 +38,15 @@ function initHandlers(){
     $('#update-user-modal').modal();
   });
 
-    new initPagination("#t-users","users",paginate);
+    initPagination("#t-users","users",paginate,fillUserTable);
 }
 
 function initClientHandlers(){
   $("#btn-save-client").on('click',function(){
     addNewClient();
-  })
+  });
+
+  initPagination("#t-clients","clientes",paginate,fillClientsTable);
 }
 
 
@@ -111,9 +113,13 @@ function count_users(){
   connectAndSend('user/countusers',false,initHandlers,updateCount,form,null);
 }
 
-function paginate(offset,perpage,tableName){
+function paginate(offset,perpage,tableName,fillTableFunction){
+  path = "user/";
+  if(tableName != "user"){
+    path = "process/";
+  }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
-  connectAndSend('user/paginate',false,initHandlers,fillUserTable,form,null);
+  connectAndSend(path+'paginate',false,initHandlers,fillTableFunction,form,null);
 }
 
 /********************************************************
@@ -147,14 +153,17 @@ function addNewClient(){
     form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo"+ telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
     form += "&estado=" + estado +"&tabla=clientes";
     
-    connectAndSend("process/add",true,initClientHandlers,null,form,getUsers);
+    connectAndSend("process/add",true,initClientHandlers,null,form,getClients);
 
   }else{
     alert("LLene los campos requeridos por favor");
   }
 } 
 
-$()
+function getClients(){
+  var form = "tabla=clientes";
+  connectAndSend('process/getall',false,initHandlers,fillClientsTable,form,null);
+}
 
 });
 

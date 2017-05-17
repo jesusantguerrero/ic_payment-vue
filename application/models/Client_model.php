@@ -96,15 +96,15 @@ class Client_model extends CI_MODEL{
     echo $result;
   }
 
-  public function count_users(){
-    $result = $this->db->count_all("users");
+  public function count_clients(){
+    $result = $this->db->count_all("clientes");
     echo $result;
   }
 
-  public function get_users_paginate($offset,$perpage){
-    $sql = "SELECT * FROM users LIMIT ".$offset.", ".$perpage;
+  public function get_clients_paginate($offset,$perpage){
+    $sql = "SELECT * FROM clientes LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
-    $result = make_table($result->result_array(),$offset);
+    $result = make_client_table($result->result_array(),$offset);
     echo $result;
   }
   

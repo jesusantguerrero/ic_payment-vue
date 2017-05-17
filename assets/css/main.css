@@ -232,6 +232,9 @@ hr {
   margin: 10px 0 30px;
   height: 0; }
 
+.placeholder {
+  color: transparent; }
+
 .btn, table button,
 input[type="submit"],
 input[type="reset"],
@@ -368,6 +371,9 @@ nav {
 .glyphicon {
   padding: 0 10px; }
 
+.user-name {
+  margin-right: 10px; }
+
 .navButton {
   width: 100%;
   height: 100%; }
@@ -402,10 +408,9 @@ nav {
   padding: 2px 15px;
   border: 2px solid #ccc;
   transition: all ease .3s;
-  font-size: 24px;
+  font-size: 20px;
   color: #999;
-  margin: 0 7.5%;
-  position: relative; }
+  margin: 0 7.5%; }
   .searcher:focus {
     border: 2px solid #FF6961;
     outline: none; }
@@ -415,12 +420,11 @@ nav {
   .searcher:after {
     content: 'Hola';
     position: absolute;
-    right: 0;
-    color: #333;
+    left: 0;
     top: 0;
-    width: 50px;
-    height: 100%;
-    z-index: 200; }
+    color: #333;
+    background: crimson;
+    z-index: 2000; }
 
 .busquedas, .table {
   width: 85%;
@@ -529,6 +533,8 @@ form {
   .profile-picture span {
     font-size: 20px;
     font-weight: bolder; }
+  .profile-picture a:focus {
+    outline: none; }
 
 .user-info-tip {
   position: absolute;
@@ -549,10 +555,10 @@ form {
   .user-info-tip.visible {
     visibility: visible; }
   .user-info-tip ul {
-    list-style: none;
-    border-bottom: 2px solid #ddd; }
+    list-style: none; }
   .user-info-tip .current-user {
-    position: relative; }
+    position: relative;
+    border-bottom: 2px solid #ddd; }
     .user-info-tip .current-user:after {
       content: ' ';
       position: absolute;
@@ -565,7 +571,7 @@ form {
       right: 10px; }
   .user-info-tip li {
     margin: 5px 0;
-    height: 38px; }
+    height: 48px; }
     .user-info-tip li:hover {
       background: #FF6961;
       color: #fff; }

@@ -8,8 +8,7 @@ class Process extends CI_Controller {
 		$this->load->model("client_model");
 	}
 
-	public function add()
-	{ 
+	public function add(){ 
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
 
@@ -26,9 +25,11 @@ class Process extends CI_Controller {
 		echo $result;
 	}
 
-	public function getusers(){
-
-		$this->user_model->get_all_users();
+	public function getall(){
+		$tabla = $_POST['tabla'];
+		if($tabla == "clientes"){
+			$result = $this->client_model->get_all_clients();
+		} 
 	}
 
 	public function paginate(){
@@ -36,8 +37,8 @@ class Process extends CI_Controller {
 		$perpage = $_POST['perpage'];
 		$table = $_POST['table'];
 		if($offset == 1) $offset = 0;
-		if($table == "users"):
-			$this->user_model->get_users_paginate($offset,$perpage);
+		if($table == "clientes"):
+			$this->client_model->get_clients_paginate($offset,$perpage);
 		endif;
 	}
 
