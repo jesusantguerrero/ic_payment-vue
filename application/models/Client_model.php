@@ -107,19 +107,29 @@ class Client_model extends CI_MODEL{
     $result = make_client_table($result->result_array(),$offset);
     echo $result;
   }
+
+  public function search_clients($word){
+    $word = "'%".$word."%'";
+    $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
+    $sql .= "|| sector LIKE $word LIMIT 5";
+    $result = $this->db->query($sql);
+    $result = make_client_table($result->result_array(),0);
+    echo $result;
+
+  }
   
   public function get_user($id){
     $sql = "SELECT * FROM users WHERE user_id=". $id;
-    if($this->db->query($sql)){
-      echo "&#10004; Usuario Eliminado";
-    }  
+    $this->db->query($sql);
   }
 
-  public function delete_user($id){
-    $sql = "DELETE FROM users WHERE user_id=". $id;
+  public function delete_client($id){
+    $sql = "DELETE FROM clientes WHERE id_cliente= $id";
     if($this->db->query($sql)){
       echo "&#10004; Usuario Eliminado";
-    }  
+    }else{
+      echo "error";
+    }
   }
 
   public function login($nickname,$password){

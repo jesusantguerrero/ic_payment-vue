@@ -87,30 +87,42 @@ nav
 .screen
   margin-top: -20px 
 
-.searcher
+.searcher-container
   +size(85%,38px)
+  margin: 0 7.5% 10px 7.5%
+  position: relative
+
+  &:after
+    content: '\276F'
+    position: absolute
+    +size(50px,100%)
+    right: 0
+    top: 0
+    color: #fff
+    padding-top: 5px
+    text-align: center
+    font-size: 20px
+    background: $contrast-color
+    border-radius: 0 4px 4px 0
+
+
+.searcher
+  +size(100%,100%)
   border-radius: 4px
   padding: 2px 15px
   border: 2px solid #ccc
   transition: all ease .3s
   font-size: 20px
   color: #999
-  margin: 0 7.5%
-  // position: relative
+
+  
   &:focus
     border: 2px solid $contrast-color
     outline: none
   &:hover
     border: 2px solid transparentize($contrast-color,.2)
     outline: none
-  &:after
-    content: 'Hola'
-    position: absolute
-    left: 0
-    top: 0
-    color: #333
-    background: crimson
-    z-index: 2000
+  
 
 .busquedas,.table
    +size(85%,38px)

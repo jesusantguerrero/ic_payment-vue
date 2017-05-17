@@ -52,9 +52,13 @@ input[type="button"]
     color: $contrast-color
     font:
       weight: bolder
+    transition: all ease .3s
   
-  &:hover
-    background: rgba(0,0,0,.1)
+    &:hover
+      background: rgba(0,0,0,.1)
+      border-left: 4px solid $contrast-color
+    &:focus
+      outline: none
 
 .tab-buttons
   display: inline-block

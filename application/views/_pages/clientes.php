@@ -4,17 +4,20 @@
       <li class="aside-buttons">
         <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Nuevo Cliente</a>
       </li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">edit</i>Editar Cliente</a></li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">delete</i>Eliminar Cliente</a></li>
+      <li class="aside-buttons">
+        <a href=""  data-toggle="modal" data-target="#update-client-modal"><i class="material-icons">edit</i>Editar Cliente</a>
+      </li>
+      <li class="aside-buttons"><a href="" id="delete-client"><i class="material-icons">delete</i>Eliminar Cliente</a></li>
       <li class="aside-buttons"><a href=""><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
       <li class="aside-buttons"><a href=""><i class="material-icons">description</i>  Nuevo Contrato</a></li>
-      <li class="aside-buttons">
-        <a href=""></a>#</li>
     </ul>
 
   </div>
   <div class="main-content col-md-10">
-    <input type="search" class="searcher" id="client-searcher">
+  <div class="searcher-container">
+    <input type="text" class="searcher" id="client-searcher">
+  </div>
+    
 
     <div class="busquedas">
       <button class="tab-buttons" href="">Ver Todos</button>
@@ -26,7 +29,7 @@
       <thead>
         <tr>
           <th>No.</th>
-          <th>ID</th>
+          <th>ID #</th>
           <th>Nombres</th>
           <th>Apellidos</th>
           <th>Cedula</th>

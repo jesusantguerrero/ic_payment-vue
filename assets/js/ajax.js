@@ -47,6 +47,39 @@ function initClientHandlers(){
   });
 
   initPagination("#t-clients","clientes",paginate,fillClientsTable);
+
+  $("tbody tr").on('click',function(){
+    $('tbody tr').removeClass('selected');
+    $(this).toggleClass('selected');
+  });
+
+  $("td").each(function(i,value){
+    var $this = $(this);
+    var text = $this.text().trim();
+    if(text == "no activo"){
+      $this.css({color:"rgba(200,0,0,.7)"})
+    }else if(text == "activo"){
+      $this.css({color:"green"})
+    }
+  })
+
+  $("#client-searcher").on('keyup',function(){
+    searchClient();
+  });
+
+  $("#client-searcher").on('keyup',function(){
+    searchClient();
+  });
+
+  $("#delete-client").on('click',function(e){
+    e.preventDefault();
+    var $row = $("tr.selected");
+    var id = $row.find('.id_cliente').text().trim();
+    var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
+    if(is_delete){
+      deleteClient(id);
+    }
+  });
 }
 
 
@@ -164,6 +197,17 @@ function getClients(){
   var form = "tabla=clientes";
   connectAndSend('process/getall',false,initHandlers,fillClientsTable,form,null);
 }
+
+function searchClient(){
+  var word = $("#client-searcher").val()
+  var form = "tabla=clientes&word="+word;
+  connectAndSend('process/search',false,initHandlers,fillClientsTable,form,null);
+}
+
+function deleteClient(id){
+  var form = "tabla=clientes&id=" + id;
+  connectAndSend('process/delete',true,initHandlers,null,form,getClients);
+};
 
 });
 

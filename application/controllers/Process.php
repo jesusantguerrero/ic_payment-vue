@@ -42,13 +42,25 @@ class Process extends CI_Controller {
 		endif;
 	}
 
-	public function deleteuser(){
-		$id = $_POST['user_id'];
-		$this->user_model->delete_user($id);
+	public function delete(){
+		$id = $_POST['id'];
+		$tabla = $_POST['tabla'];
+
+		if($tabla == "clientes"){
+			$result = $this->client_model->delete_client($id);
+		} 
 	}
 
 	public function countusers(){
 		$this->user_model->count_users();
+	}
+
+	public function search(){
+		$tabla = $_POST['tabla'];
+		$word = $_POST['word'];
+		if($tabla == "clientes"){
+			$result = $this->client_model->search_clients($word);
+		} 
 	}
 
 }

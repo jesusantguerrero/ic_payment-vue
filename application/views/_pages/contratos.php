@@ -10,7 +10,9 @@
 
   </div>
   <div class="main-content col-md-10">
-    <input type="search" class="searcher" id="client-searcher">
+    <div class="searcher-container">
+    <input type="text" class="searcher" id="client-searcher">
+  </div>
 
     <div class="busquedas">
       <button class="tab-buttons" href="">Ver Todos</button>

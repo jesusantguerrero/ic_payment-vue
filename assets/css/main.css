@@ -294,9 +294,13 @@ input[type="button"] {
     height: 100%;
     padding: 2px 20px;
     color: #FF6961;
-    font-weight: bolder; }
-  .aside-buttons:hover {
-    background: rgba(0, 0, 0, 0.1); }
+    font-weight: bolder;
+    transition: all ease .3s; }
+    .aside-buttons a:hover {
+      background: rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #FF6961; }
+    .aside-buttons a:focus {
+      outline: none; }
 
 .tab-buttons {
   display: inline-block;
@@ -401,30 +405,40 @@ nav {
 .screen {
   margin-top: -20px; }
 
-.searcher {
+.searcher-container {
   width: 85%;
   height: 38px;
+  margin: 0 7.5% 10px 7.5%;
+  position: relative; }
+  .searcher-container:after {
+    content: '\276F';
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    color: #fff;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 20px;
+    background: #FF6961;
+    border-radius: 0 4px 4px 0; }
+
+.searcher {
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   padding: 2px 15px;
   border: 2px solid #ccc;
   transition: all ease .3s;
   font-size: 20px;
-  color: #999;
-  margin: 0 7.5%; }
+  color: #999; }
   .searcher:focus {
     border: 2px solid #FF6961;
     outline: none; }
   .searcher:hover {
     border: 2px solid rgba(255, 105, 97, 0.8);
     outline: none; }
-  .searcher:after {
-    content: 'Hola';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #333;
-    background: crimson;
-    z-index: 2000; }
 
 .busquedas, .table {
   width: 85%;
@@ -788,15 +802,17 @@ table {
     background: #fdfdfd;
     color: #555;
     font-weight: bolder; }
-    table tbody tr:hover {
-      background: rgba(136, 136, 136, 0.3);
-      color: #FF6961; }
-    table tbody tr.selected {
-      background: #bbb; }
     table tbody tr:nth-child(2n) {
       background: #fafafa; }
     table tbody tr:first-child {
       box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.2); }
+    table tbody tr:hover {
+      background: rgba(136, 136, 136, 0.3); }
+    table tbody tr.selected {
+      background: #ffe2e1;
+      color: #555; }
+      table tbody tr.selected:hover {
+        color: #555; }
 
 .table > tbody > tr > td {
   padding-top: 15px; }

@@ -75,15 +75,17 @@ table
     color: #555
     font-weight: bolder
 
-    &:hover
-      background: transparentize(#888,.7)
-      color: $contrast-color
-    &.selected
-      background: #bbb
     &:nth-child(2n)
       background: #fafafa
     &:first-child
       box-shadow: inset 0 3px 4px rgba(0,0,0,.2)
+    &:hover
+      background: transparentize(#888,.7)
+    &.selected
+      background: lighten($contrast-color,25)
+      color: #555
+      &:hover
+        color: #555
 .table>tbody>tr>td
   padding-top: 15px
 

@@ -24,14 +24,14 @@ function getDate(){
 
 function adminFunctions(){
   $('#company-section').animate({left:"0"},200)
-  $('.aside-buttons a').on('click',function(e){
+  $('.administrador .aside-buttons a').on('click',function(e){
     e.preventDefault();
     var $this = $(this);
     var cardName = $this.attr('href').slice(1);
-
-    $('.company-details').animate({left:"-110%"},200)
-    $('#'+cardName+'.company-details').animate({left:"0"},200)
-    console.log("hola " + cardName);   
+    if(cardName != null){
+      $('.company-details').animate({left:"-110%"},200)
+      $('#'+cardName+'.company-details').animate({left:"0"},200)
+    }  
   })
 }
 
@@ -51,6 +51,7 @@ function userInfoTip(){
 
 
 }
+
 
 });
 
