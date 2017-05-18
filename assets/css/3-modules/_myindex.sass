@@ -1,7 +1,7 @@
 // components cards
 [class*='card'],
 .shortcut
-  border-radius: 6px
+  border-radius: 2px
   padding: 20px
   overflow: hidden
 
@@ -59,8 +59,39 @@
   margin-left: 0
   margin-right: 0
 
+  .day
+    font:
+      size: 90px
+    color: $contrast-color
+    position: relative
+    padding: 0
+    margin: 0
 
+    &:after
+      content: ' '
+      +size(60px,5px)
+      background: $contrast-color
+      position: absolute
+      right: -55px
+      top: 70%
 
+  .month-year
+    color: $contrast-color
+    font-size: 18px
+  .date-conteiner
+    position: relative
+  .dayweek
+    display: block
+    width: 60px
+    padding: 10px 1px
+    text-align: center
+    position: absolute
+    right: -40px
+    top: 25%
+    color: #fff
+    font-weight: bolder
+    background: $contrast-color
+    box-sizing: border-box
 
 // company
 .h3-4

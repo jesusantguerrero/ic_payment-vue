@@ -48,9 +48,14 @@ function initClientHandlers(){
 
   initPagination("#t-clients","clientes",paginate,fillClientsTable);
 
-  $("tbody tr").on('click',function(){
+  $("tbody tr").on('click',function(e){
+    e.stopImmediatePropagation();
+    var $this = $(this)
+    var clase = $this.attr('class');
     $('tbody tr').removeClass('selected');
-    $(this).toggleClass('selected');
+    $this.toggleClass('selected');
+    
+   
   });
 
   $("td").each(function(i,value){
@@ -59,7 +64,7 @@ function initClientHandlers(){
     if(text == "no activo"){
       $this.css({color:"rgba(200,0,0,.7)"})
     }else if(text == "activo"){
-      $this.css({color:"green"})
+      $this.css({color:"green"});
     }
   })
 
@@ -67,12 +72,9 @@ function initClientHandlers(){
     searchClient();
   });
 
-  $("#client-searcher").on('keyup',function(){
-    searchClient();
-  });
-
   $("#delete-client").on('click',function(e){
     e.preventDefault();
+    e.stopImmediatePropagation();
     var $row = $("tr.selected");
     var id = $row.find('.id_cliente').text().trim();
     var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
@@ -195,18 +197,23 @@ function addNewClient(){
 
 function getClients(){
   var form = "tabla=clientes";
-  connectAndSend('process/getall',false,initHandlers,fillClientsTable,form,null);
+  connectAndSend('process/getall',false,initClientHandlers,fillClientsTable,form,null);
 }
 
 function searchClient(){
   var word = $("#client-searcher").val()
-  var form = "tabla=clientes&word="+word;
-  connectAndSend('process/search',false,initHandlers,fillClientsTable,form,null);
+  if (word != null || word != ""){
+    var form = "tabla=clientes&word="+word;
+    connectAndSend('process/search',false,initClientHandlers,fillClientsTable,form,null);
+  }else{
+    getClients();
+  }
+  
 }
 
 function deleteClient(id){
   var form = "tabla=clientes&id=" + id;
-  connectAndSend('process/delete',true,initHandlers,null,form,getClients);
+  connectAndSend('process/delete',true,initClientHandlers,null,form,getClients);
 };
 
 });

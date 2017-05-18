@@ -9,9 +9,18 @@
                 </div>
                 <div class="welcome-data">
                     <h4 class="writtings">Bienvenido a IC Payment, <?php echo $user_data['name'] ?></h4>
-                    <p class="company-name h3-4"><b>Empresa:</b> ICS Services</p>
-                    <p class="date h3-4"><b>Fecha:</b> <span></span></p>
-                    <p class="hour h3-4"><b>Hora:</b> <span></span></p>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p class="company-name h3-4"><b>Empresa:</b> ICS Services</p>
+                            <p class="hour h3-4"><b>Hora:</b> <span></span></p>                       
+                        </div>
+                        <div class="col-md-4 date-container">
+                            <p class="day"></p>
+                            <p class="month-year"></p>
+                            <span class="dayweek">Lunes</span>                           
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

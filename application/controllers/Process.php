@@ -51,8 +51,12 @@ class Process extends CI_Controller {
 		} 
 	}
 
-	public function countusers(){
-		$this->user_model->count_users();
+	public function count(){
+		$tabla = $_POST['tabla'];
+		if($tabla == "clientes"){
+			$this->user_model->count_users();
+		}
+		
 	}
 
 	public function search(){

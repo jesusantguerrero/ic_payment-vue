@@ -186,8 +186,8 @@ function initPagination(tableId,serverTable,paginate,fillTableFunction){
 }
 
 
-function updateCount($content,callback){
-  $(".total-rows").html($content);
+function updateCount($content){
+  $("t-users .total-rows").html($content);
 }
 
 

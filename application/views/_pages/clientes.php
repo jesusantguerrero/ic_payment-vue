@@ -55,7 +55,7 @@
             </select>
 
           </td>
-          <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"><?php $this->user_model->count_users(); ?></span></td>
+          <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"><?php $this->client_model->count_clients()?></span></td>
           <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
 
         </tr>

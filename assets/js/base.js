@@ -6,16 +6,20 @@ userInfoTip();
 newUserForm();
 
 function getDate(){
-  var $Fecha = $('.date span');
+  var $day = $('.day');
+  var $monthYear = $('.month-year');
   var $Hora = $('.hour span');
-  var date,sDate,sHour;
+  var date,day,month,year,sHour;
+  var days = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
+  var months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
   setInterval(updateHour,1000);
 
   function updateHour(){
     date = new Date();
     sDate = date.toString()
-    $Fecha.text(sDate.slice(0,15));
+    $day.text(date.getDate());
+    $monthYear.text("De " + months[date.getMonth()] + " de " + date.getFullYear());
     sHour = sDate.slice(16,22) + "<span class='seconds'>" + sDate.slice(22,24) + "</span>";
     $Hora.html(sHour);
   }

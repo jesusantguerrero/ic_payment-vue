@@ -179,11 +179,11 @@ th {
   padding: 0; }
 
 a {
-  color: #FF6961;
+  color: #1FA1D0;
   text-decoration: none;
   outline: 0; }
   a:hover, a:focus {
-    color: #ff817b;
+    color: #29afdf;
     text-decoration: none; }
 
 .gigantic, .huge, .large, .bigger, .big,
@@ -251,7 +251,7 @@ input[type="button"] {
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #FF6961;
+  background-color: #1FA1D0;
   border-radius: 4px;
   border: 2px solid #fff;
   cursor: pointer;
@@ -266,17 +266,17 @@ input[type="button"] {
   input[type="button"]:hover,
   input[type="button"]:active,
   input[type="button"]:focus {
-    color: #FF6961;
-    border: 2px solid #FF6961;
+    color: #1FA1D0;
+    border: 2px solid #1FA1D0;
     background: #fff;
     outline: none; }
 
 .btn-remark {
   background: white;
-  color: #FF6961;
+  color: #1FA1D0;
   transition: all ease .3s; }
   .btn-remark:hover {
-    background: #FF6961;
+    background: #1FA1D0;
     color: white;
     border: 2px solid #fff; }
 
@@ -293,12 +293,12 @@ input[type="button"] {
     width: 100%;
     height: 100%;
     padding: 2px 20px;
-    color: #FF6961;
+    color: #1FA1D0;
     font-weight: bolder;
     transition: all ease .3s; }
     .aside-buttons a:hover {
       background: rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #FF6961; }
+      border-left: 4px solid #1FA1D0; }
     .aside-buttons a:focus {
       outline: none; }
 
@@ -315,8 +315,8 @@ input[type="button"] {
   font-size: 18px; }
   .tab-buttons:hover, .tab-buttons:active, .tab-buttons:focus {
     outline: none;
-    color: #FF6961;
-    border-bottom-color: #FF6961; }
+    color: #1FA1D0;
+    border-bottom-color: #1FA1D0; }
 
 .material-icons {
   margin-right: 15px; }
@@ -403,7 +403,8 @@ nav {
   top: 0; }
 
 .screen {
-  margin-top: -20px; }
+  margin-top: -20px;
+  min-height: 90vh; }
 
 .searcher-container {
   width: 85%;
@@ -421,7 +422,7 @@ nav {
     padding-top: 5px;
     text-align: center;
     font-size: 20px;
-    background: #FF6961;
+    background: #1FA1D0;
     border-radius: 0 4px 4px 0; }
 
 .searcher {
@@ -434,10 +435,10 @@ nav {
   font-size: 20px;
   color: #999; }
   .searcher:focus {
-    border: 2px solid #FF6961;
+    border: 2px solid #1FA1D0;
     outline: none; }
   .searcher:hover {
-    border: 2px solid rgba(255, 105, 97, 0.8);
+    border: 2px solid rgba(31, 161, 208, 0.8);
     outline: none; }
 
 .busquedas, .table {
@@ -491,7 +492,7 @@ form {
   list-style: none; }
 
 .left-navigation.administrador {
-  background: #272727; }
+  background: #4E5962; }
   .left-navigation.administrador .aside-buttons a {
     color: white; }
 
@@ -556,7 +557,7 @@ form {
   background: #fff;
   min-width: 170px;
   min-height: 200px;
-  bottom: -225px;
+  bottom: -265px;
   right: -10px;
   border-radius: 4px;
   background: #fcfcfc;
@@ -587,7 +588,7 @@ form {
     margin: 5px 0;
     height: 48px; }
     .user-info-tip li:hover {
-      background: #FF6961;
+      background: #1FA1D0;
       color: #fff; }
   .user-info-tip a {
     width: 100%;
@@ -600,9 +601,53 @@ form {
     .user-info-tip a:hover {
       color: #fff; }
 
+.reports {
+  background: #F8FBFE; }
+
+.small-data-card {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 68px;
+  margin: 0 5px;
+  font-size: 20px;
+  font-weight: bolder;
+  box-shadow: 2px 2px 2px 2px rgba(39, 39, 39, 0.1);
+  background: #fff;
+  border: 2px solid #ccc;
+  color: #555; }
+  .small-data-card:first-child {
+    margin-left: 0; }
+  .small-data-card:last-child {
+    margin-right: 0; }
+  .small-data-card .material-icons {
+    color: #1FA1D0; }
+  .small-data-card .data {
+    color: #7e8c98;
+    margin-right: 5px; }
+
+.shortcuts-container.data-card-container {
+  width: 100%; }
+
+.chart {
+  width: 92%;
+  height: 370px;
+  box-shadow: 2px 2px 2px 2px rgba(39, 39, 39, 0.1);
+  background: white;
+  border: 2px solid #ccc;
+  padding: 10px 25px; }
+
+.right-panel {
+  text-align: center;
+  background: #fff;
+  color: #555; }
+
 [class*='card'],
 .shortcut {
-  border-radius: 6px;
+  border-radius: 2px;
   padding: 20px;
   overflow: hidden; }
 
@@ -629,7 +674,7 @@ form {
     color: #555; }
 
 .details-card {
-  background: #FF6961;
+  background: #1FA1D0;
   color: white;
   text-align: center;
   width: 31.5%;
@@ -658,14 +703,14 @@ form {
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
   height: 150px;
   cursor: pointer;
-  color: #FF6961;
+  color: #1FA1D0;
   transition: all ease .3s;
   margin: 0 1%;
   font-size: 20px; }
   .shortcut:hover {
-    border: 2px solid #FF6961;
+    border: 2px solid #1FA1D0;
     color: #fff;
-    background: #FF6961; }
+    background: #1FA1D0; }
   .shortcut:first-child {
     margin-left: 0; }
   .shortcut:last-child {
@@ -683,13 +728,44 @@ form {
   align-items: flex-start;
   margin-left: 0;
   margin-right: 0; }
+  .welcome-screen .day {
+    font-size: 90px;
+    color: #1FA1D0;
+    position: relative;
+    padding: 0;
+    margin: 0; }
+    .welcome-screen .day:after {
+      content: ' ';
+      width: 60px;
+      height: 5px;
+      background: #1FA1D0;
+      position: absolute;
+      right: -55px;
+      top: 70%; }
+  .welcome-screen .month-year {
+    color: #1FA1D0;
+    font-size: 18px; }
+  .welcome-screen .date-conteiner {
+    position: relative; }
+  .welcome-screen .dayweek {
+    display: block;
+    width: 60px;
+    padding: 10px 1px;
+    text-align: center;
+    position: absolute;
+    right: -40px;
+    top: 25%;
+    color: #fff;
+    font-weight: bolder;
+    background: #1FA1D0;
+    box-sizing: border-box; }
 
 .h3-4 {
   font-size: 16px;
   margin: 2px;
   font-weight: bolder; }
   .h3-4 b {
-    color: #FF6961;
+    color: #1FA1D0;
     margin-right: 5px; }
 
 .writtings {
@@ -709,7 +785,7 @@ form {
   width: 60%; }
 
 .login-body {
-  background: #272727; }
+  background: #4E5962; }
   .login-body .login-box {
     height: 80vh;
     margin-top: 10vh;
@@ -720,16 +796,16 @@ form {
       margin-right: 5%;
       color: #eee; }
     .login-body .login-box .vertical-line {
-      background: #FF6961;
+      background: #1FA1D0;
       width: 5px;
       height: 10vh; }
     .login-body .login-box input[type='submit'] {
-      background: #FF6961;
+      background: #1FA1D0;
       width: 95%;
       color: white;
       margin: 10px 0; }
       .login-body .login-box input[type='submit']:hover {
-        background: #ff5148; }
+        background: #1c90ba; }
     .login-body .login-box input {
       border-radius: 0 0 0 0;
       font-weight: bolder;
@@ -743,21 +819,21 @@ form {
     margin: 0; }
 
 header {
-  background-color: #272727;
+  background-color: #4E5962;
   color: #ddd;
-  border-bottom: 2px solid #FF6961; }
+  border-bottom: 2px solid #1FA1D0; }
   header span {
-    color: #FF6961; }
+    color: #1FA1D0; }
   header .navButton a {
     color: #ddd; }
     header .navButton a:hover, header .navButton a.active {
       color: white;
-      background: #FF6961;
+      background: #1FA1D0;
       box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.4); }
   header .user-controls .navButton a {
     color: #ddd; }
     header .user-controls .navButton a:hover {
-      color: #FF6961;
+      color: #1FA1D0;
       background: transparent;
       box-shadow: none; }
   header .user-controls .navButton:first-child {
@@ -777,10 +853,10 @@ table {
   table thead {
     border: none; }
     table thead tr {
-      background: #FF6961;
+      background: #1FA1D0;
       color: #fff; }
   table tfoot {
-    background: #F7F9FB;
+    background: #E9EEF6;
     color: #888; }
     table tfoot select {
       height: 28px;
@@ -790,7 +866,7 @@ table {
       font-size: 30px;
       cursor: pointer; }
       table tfoot .next-page:hover, table tfoot .previous-page:hover {
-        color: #FF6961; }
+        color: #1FA1D0; }
   table th {
     height: 42px; }
     table th:last-child {
@@ -809,7 +885,7 @@ table {
     table tbody tr:hover {
       background: rgba(136, 136, 136, 0.3); }
     table tbody tr.selected {
-      background: #ffe2e1;
+      background: #82d0ec;
       color: #555; }
       table tbody tr.selected:hover {
         color: #555; }
