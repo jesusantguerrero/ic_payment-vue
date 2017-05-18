@@ -2,7 +2,7 @@
   <div class="left-navigation col-md-2">
     <ul class="aside-nav">
       <li class="aside-buttons">
-        <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Atras</a>
+        <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">chevron_left</i> Atras</a>
       </li>
     </ul>
 

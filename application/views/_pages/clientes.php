@@ -15,7 +15,7 @@
   </div>
   <div class="main-content col-md-10">
   <div class="searcher-container">
-    <input type="text" class="searcher" id="client-searcher">
+    <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
   </div>
     
 

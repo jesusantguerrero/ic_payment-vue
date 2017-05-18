@@ -22,7 +22,7 @@ class App extends CI_Controller {
 	
 	public function admin($page = 'home'){
 		if(isset($_SESSION['user_data'])){
-			if($page == "administrador" && $_SESSION['user_data']['type'] > 0){
+			if(($page == "administrador" || $page == "reportes") && $_SESSION['user_data']['type'] > 0){
 				redirect(base_url('app/admin/home'));
 			}
 			

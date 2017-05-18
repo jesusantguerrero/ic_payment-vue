@@ -72,7 +72,8 @@ function initClientHandlers(){
     }
   })
 
-  $("#client-searcher").on('keyup',function(){
+  $("#client-searcher").on('keyup',function(e){
+    e.stopImmediatePropagation();
     searchClient();
   });
 
