@@ -478,11 +478,11 @@ form {
 .left-navigation {
   padding: 50px 0;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);
-  height: 100vh; }
+  height: 120vh; }
 
 .main-content {
   padding: 50px 0;
-  height: 100vh; }
+  height: 120vh; }
 
 .row {
   margin-left: 0;
@@ -644,6 +644,51 @@ form {
   text-align: center;
   background: #fff;
   color: #555; }
+
+.page-header {
+  margin-top: 0; }
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border: none;
+  border-bottom: 4px solid #1FA1D0;
+  color: #1FA1D0;
+  font-weight: bolder; }
+
+.nav-tabs > li > a {
+  color: #999;
+  font-size: 20px; }
+
+.small-id {
+  width: 100px; }
+
+.padding {
+  padding-left: 15px; }
+
+.watch-in-detail .form-control[disabled],
+.watch-in-detail .form-control[readonly],
+.watch-in-detail fieldset[disabled] .form-control {
+  background: transparent;
+  border-radius: 0;
+  border-color: #eee; }
+
+.watch-in-detail label {
+  color: #aaa; }
+
+.client-profile {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #1FA1D0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 90px;
+  text-align: center;
+  margin-bottom: 15px; }
 
 [class*='card'],
 .shortcut {

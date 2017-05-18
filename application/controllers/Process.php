@@ -67,4 +67,10 @@ class Process extends CI_Controller {
 		} 
 	}
 
+	public function details($id){
+
+		$_SESSION['client_data'] = $this->client_model->get_client($id);
+		redirect(base_url('app/admin/detalles'));
+	}
+
 }

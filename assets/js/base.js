@@ -5,9 +5,15 @@ adminFunctions();
 userInfoTip();
 newUserForm();
 
+/**
+ * Get Date:
+ * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
+ * @return {void}
+ */
 function getDate(){
   var $day = $('.day');
   var $monthYear = $('.month-year');
+  var $dayWeek = $('.dayweek');
   var $Hora = $('.hour span');
   var date,day,month,year,sHour;
   var days = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
@@ -20,11 +26,18 @@ function getDate(){
     sDate = date.toString()
     $day.text(date.getDate());
     $monthYear.text("De " + months[date.getMonth()] + " de " + date.getFullYear());
+    $dayWeek.text(days[date.getDay()]);
+    
     sHour = sDate.slice(16,22) + "<span class='seconds'>" + sDate.slice(22,24) + "</span>";
     $Hora.html(sHour);
   }
 }
 
+/**
+ * Admin Functions:
+ * se encarga de el movimiento de los paneles en la pantalla 'administrador'
+ * @return {void}
+ */
 
 function adminFunctions(){
   $('#company-section').animate({left:"0"},200)
@@ -39,12 +52,21 @@ function adminFunctions(){
   })
 }
 
-
+/**
+ * new User Form:
+ * vaida las contraseñas en los formularios de los usuarios
+ * @return {void}
+ */
 function newUserForm(){
   validateModal("#new-user-modal");
   validateModal("#update-user-modal");
 }
 
+/**
+ * User Info Tip
+ * hace un toggle en la visibilidad de la info del usuario
+ * @return {void}
+ */
 function userInfoTip(){
   var infoTip = $(".user-info-tip");
   var profilePicture = $(".profile-picture");

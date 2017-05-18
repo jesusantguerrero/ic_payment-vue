@@ -51,10 +51,14 @@ function initClientHandlers(){
   $("tbody tr").on('click',function(e){
     e.stopImmediatePropagation();
     var $this = $(this)
+    var id = $this.find('.id_cliente').text().trim();
     var clase = $this.attr('class');
     $('tbody tr').removeClass('selected');
     $this.toggleClass('selected');
     
+    var btnGetDetails = $("#get-details");
+    btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+
    
   });
 
@@ -82,6 +86,7 @@ function initClientHandlers(){
       deleteClient(id);
     }
   });
+
 }
 
 

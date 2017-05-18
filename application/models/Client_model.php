@@ -118,9 +118,11 @@ class Client_model extends CI_MODEL{
 
   }
   
-  public function get_user($id){
-    $sql = "SELECT * FROM users WHERE user_id=". $id;
-    $this->db->query($sql);
+  public function get_client($id){
+    $sql = "SELECT * FROM clientes WHERE id_cliente=". $id;
+    $result = $this->db->query($sql);
+    $result =$result->row_array();
+    return $result;
   }
 
   public function delete_client($id){
@@ -131,24 +133,6 @@ class Client_model extends CI_MODEL{
       echo "error";
     }
   }
-
-  public function login($nickname,$password){
-    $respuesta;
-    $sql = "SELECT * FROM users where nickname = '$nickname' limit 1";
-    $result = $this->db->query($sql);
-    $result =$result->row_array();
-    if($result != false){
-     if(password_verify($password,$result['password'])){
-        $_SESSION['user_data'] = $result;
-        return true;
-      }
-        return false;
-    }else{
-     return false;
-    }
-  }
-
-  
 
   //functions
 }

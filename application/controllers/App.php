@@ -29,7 +29,6 @@ class App extends CI_Controller {
 			$tooltip = $this->load->view('_layouts/headertooltip','',true);
 			$data['title'] = $page;
 			$data['tooltip'] =$tooltip;
-
 			$this->load->view('_layouts/header',$data);
 			$this->load->view('_pages/'.$page);
 
@@ -59,7 +58,7 @@ class App extends CI_Controller {
   }
 
 	public function logout(){
-    session_unset($_SESSION['user']);
+    session_unset($_SESSION['user_data']);
     session_destroy();
     redirect(base_url());
   }

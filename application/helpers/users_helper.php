@@ -6,6 +6,9 @@
 *@version 1.0.0
 *
 */
+
+$client_details;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('make_table'))
@@ -61,7 +64,6 @@ if( !function_exists('get_user_data')){
       $user['typestr'] = $type;
 
       return $user;
-
     }
   }
 }
@@ -96,3 +98,12 @@ if ( ! function_exists('make_client_table'))
     return $html_text;
   }
 }
+
+function get_client_data(){
+    if(isset($_SESSION['client_data'])){
+      $client_data = $_SESSION['client_data'];
+      return $client_data;
+    }else{
+      return 'nada';
+    }
+  }
