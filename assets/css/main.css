@@ -404,7 +404,7 @@ nav {
 
 .screen {
   margin-top: -20px;
-  min-height: 90vh; }
+  height: 574.20px; }
 
 .searcher-container {
   width: 85%;
@@ -634,9 +634,9 @@ form {
   margin: 0 5px;
   font-size: 20px;
   font-weight: bolder;
-  box-shadow: 2px 2px 2px 2px rgba(39, 39, 39, 0.1);
+  box-shadow: 2px 2px 2px 2px rgba(85, 85, 85, 0.1);
   background: #fff;
-  border: 2px solid #ccc;
+  border: 1px solid #ddd;
   color: #555; }
   .small-data-card:first-child {
     margin-left: 0; }
@@ -654,15 +654,25 @@ form {
 .chart {
   width: 92%;
   height: 370px;
-  box-shadow: 2px 2px 2px 2px rgba(39, 39, 39, 0.1);
+  box-shadow: 2px 2px 2px 2px rgba(85, 85, 85, 0.1);
   background: white;
-  border: 2px solid #ccc;
-  padding: 10px 25px; }
+  border: 1px solid #ddd;
+  padding: 10px 25px;
+  overflow: hidden; }
+
+#services-chart {
+  width: 100%;
+  height: 300px; }
 
 .right-panel {
   text-align: center;
   background: #fff;
   color: #555; }
+
+.right-panel {
+  height: 575.20px;
+  border-left: 1px solid #ddd;
+  box-shadow: -1px 2px 2px 2px rgba(85, 85, 85, 0.1); }
 
 .page-header {
   margin-top: 0; }
@@ -717,7 +727,7 @@ form {
 
 [class*='card'],
 .shortcut {
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 20px;
   overflow: hidden; }
 

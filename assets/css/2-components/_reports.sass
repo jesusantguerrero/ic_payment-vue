@@ -8,9 +8,9 @@
   font:
     size: 20px
     weight: bolder
-  box-shadow: 2px 2px 2px 2px transparentize(#272727,.9)
+  box-shadow: 2px 2px 2px 2px transparentize(#555,.9)
   background: #fff
-  border: 2px solid #ccc
+  border: 1px solid #ddd
   color: #555
 
   &:first-child
@@ -30,12 +30,22 @@
 
 .chart
   +size(92%,370px)
-  box-shadow: 2px 2px 2px 2px transparentize(#272727,.9)
+  box-shadow: 2px 2px 2px 2px transparentize(#555,.9)
   background: white
-  border: 2px solid #ccc
+  border: 1px solid #ddd
   padding: 10px 25px
+  overflow: hidden
+
+#services-chart
+  +size(100%,300px)
+  
 
 .right-panel
   text-align: center
   background: #fff
   color: #555
+
+.right-panel
+  height: 575.20px
+  border-left: 1px solid #ddd
+  box-shadow: -1px 2px 2px 2px transparentize(#555,.9)

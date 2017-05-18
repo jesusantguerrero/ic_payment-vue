@@ -20,7 +20,7 @@
       <button class="tab-buttons" href="">IPV</button>
     </div>
 
-    <table class="table table-striped t-clientes">
+    <table class="table t-servicios">
       <thead>
         <tr>
           <th></th>
