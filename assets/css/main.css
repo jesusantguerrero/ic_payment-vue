@@ -842,7 +842,7 @@ form {
     box-sizing: border-box; }
 
 .h3-4 {
-  font-size: 16px;
+  font-size: 20px;
   margin: 2px;
   font-weight: bolder; }
   .h3-4 b {
@@ -860,7 +860,8 @@ form {
   border-radius: 6px; }
 
 .company-name {
-  width: 100%; }
+  width: 100%;
+  font-size: 20px; }
 
 .welcome-data {
   width: 60%; }

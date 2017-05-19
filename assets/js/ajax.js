@@ -1,6 +1,7 @@
 $(function(){
 initHandlers();
 initClientHandlers();
+initServicesHandlers();
 
 function initHandlers(){
   count_users();
@@ -48,19 +49,7 @@ function initClientHandlers(){
 
   initPagination("#t-clients","clientes",paginate,fillClientsTable);
 
-  $("tbody tr").on('click',function(e){
-    e.stopImmediatePropagation();
-    var $this = $(this)
-    var id = $this.find('.id_cliente').text().trim();
-    var clase = $this.attr('class');
-    $('tbody tr').removeClass('selected');
-    $this.toggleClass('selected');
-    
-    var btnGetDetails = $("#get-details");
-    btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-
-   
-  });
+  makeRowsClickable();
 
   $("td").each(function(i,value){
     var $this = $(this);
@@ -87,6 +76,17 @@ function initClientHandlers(){
       deleteClient(id);
     }
   });
+
+}
+
+function initServicesHandlers(){
+   
+  $("#btn-save-service").on('click',function(e){
+    e.stopImmediatePropagation();
+    addNewService();
+  });
+
+  makeRowsClickable();
 
 }
 
@@ -221,6 +221,39 @@ function deleteClient(id){
   var form = "tabla=clientes&id=" + id;
   connectAndSend('process/delete',true,initClientHandlers,null,form,getClients);
 };
+
+
+/********************************************************
+ *                CRUD para la tabla Servicios          *
+ *                                                      *
+ ********************************************************/
+
+function addNewService(){
+  
+  var form, name,description, payment, type;
+
+  name         = $("#service-name").val();
+  description  = $("#service-description").val();
+  payment      = $("#service-monthly-payment").val();
+  type         = $("#service-type").val();
+
+  console.log(name + "nombre " + description + "descripcion " + payment + "pago " + type + "tipo ");
+  
+  var is_empty = isEmpty([name,description,payment,type]);
+  if(!is_empty){
+    form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
+    form += "&tabla=servicios";
+    connectAndSend("process/add",true,initServicesHandlers,null,form,getServices);
+  }else{
+    alert("LLene todos los campos por favor");
+  }
+}
+
+function getServices(){
+  var form = "tabla=servicios";
+  connectAndSend('process/getall',false,initServicesHandlers,fillServicesTable,form,null);
+} 
+
 
 });
 

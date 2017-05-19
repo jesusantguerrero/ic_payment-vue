@@ -99,6 +99,34 @@ if ( ! function_exists('make_client_table'))
   }
 }
 
+if ( ! function_exists('make_service_table'))
+{
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_service_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text="";
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td>".$cont."</td>
+        <td class='id_servicio'>".$line['id_servicio']."</td>
+        <td>".$line['nombre']."</td>
+        <td>".$line['descripcion']."</td>
+        <td>RD$ ".$line['mensualidad']."</td>
+        <td>".$line['tipo']."</td>
+      </tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
+
 function get_client_data(){
     if(isset($_SESSION['client_data'])){
       $client_data = $_SESSION['client_data'];

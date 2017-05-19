@@ -74,8 +74,8 @@ function displayMessage(message){
 
 /**
  * Llena la tabla de usuarios con los datos que vienen del servidor
- * @param {string} $content the html data to be displayed it comes always from an server response
- * @param {function} callback the callback to recognize the new items
+ * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
+ * @param {function} callback El callback para reconocer a los nuevos items
  * @return {void}
  */
 function fillUserTable($content,callback){
@@ -86,12 +86,24 @@ function fillUserTable($content,callback){
 
 /**
  * Llena la tabla de clientes con los datos que vienen del servidor
- * @param {string} $content the html data to be displayed it comes always from an server response
- * @param {function} callback the callback to recognize the new items
+ * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
+ * @param {function} callback El callback para reconocer a los nuevos items
  * @return {void}
  */
 function fillClientsTable($content,callback){
   var $tbodyUsers = $(".t-clients tbody");
+  $tbodyUsers.html($content);
+  callback();
+}
+
+/**
+ * Llena la tabla de servicios con los datos que vienen del servidor
+ * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
+ * @param {function} callback El callback para reconocer a los nuevos items
+ * @return {void}
+ */
+function fillServicesTable($content,callback){
+  var $tbodyUsers = $(".t-services tbody");
   $tbodyUsers.html($content);
   callback();
 }
@@ -247,6 +259,20 @@ function getNow(){
 
   now = year + "-" + month + "-" + day;
   return now;
-  }
+}
+
+function makeRowsClickable(){
+   $("tbody tr").on('click',function(e){
+    e.stopImmediatePropagation();
+    var $this = $(this)
+    var id = $this.find('.id_cliente').text().trim();
+    var clase = $this.attr('class');
+    $('tbody tr').removeClass('selected');
+    $this.toggleClass('selected');
+    
+    var btnGetDetails = $("#get-details");
+    btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+  });
+}
 
 

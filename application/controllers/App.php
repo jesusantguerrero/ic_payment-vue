@@ -7,6 +7,7 @@ class App extends CI_Controller {
 		parent::__construct();
 		$this->load->model("user_model");
 		$this->load->model("client_model");
+		$this->load->model("service_model");
 		$this->load->helper('modals');
 	}
 

@@ -6,17 +6,21 @@ class Process extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("client_model");
+		$this->load->model("service_model");
 	}
 
 	public function add(){ 
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
+		switch ($tabla) {
+			case "clientes":
+				$this->client_model->add($data);
+				break;
+			case "servicios":
+				$this->service_model->add($data);
+				break;
+		}
 
-		if($tabla == "clientes"){
-			$result = $this->client_model->add($data);
-		} 
-   	
-		
 	}
 
 	public function update(){
@@ -30,6 +34,14 @@ class Process extends CI_Controller {
 		if($tabla == "clientes"){
 			$result = $this->client_model->get_all_clients();
 		} 
+		switch ($tabla) {
+			case "clientes":
+				$this->client_model->get_all_clients();
+				break;
+			case "servicios":
+				$this->service_model->get_all_services();
+				break;
+		}
 	}
 
 	public function paginate(){
