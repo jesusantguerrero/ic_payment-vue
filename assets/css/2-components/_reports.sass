@@ -12,6 +12,7 @@
   background: #fff
   border: 1px solid #ddd
   color: #555
+  overflow: hidden
 
   &:first-child
     margin-left: 0
@@ -28,17 +29,18 @@
 .shortcuts-container.data-card-container
   width: 100%
 
-.chart
-  +size(92%,370px)
-  box-shadow: 2px 2px 2px 2px transparentize(#555,.9)
+.wide-chart
+  +size(92%,400px)
   background: transparent
-  border: 1px solid #ddd
-  padding: 10px 25px
-  overflow: hidden
 
 #services-chart
-  +size(100%,300px)
-  
+  +size(100%,230px)
+
+canvas
+  +size(100%,100%)
+
+.normal-chart
+  height: 230px
 
 .right-panel
   text-align: center
@@ -46,6 +48,6 @@
   color: #555
 
 .right-panel
-  height: 575.20px
+  height: 100%
   border-left: 1px solid #ddd
   box-shadow: -1px 2px 2px 2px transparentize(#555,.9)

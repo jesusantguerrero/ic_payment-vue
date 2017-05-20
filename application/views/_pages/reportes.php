@@ -8,7 +8,9 @@
       <div class="small-data-card"><i class="material-icons">equalizer</i>6 clientes activos</div>   
     </div>
     <h4>Ingresos Este Año</h4>
-    <div class="graphics chart" id="mychart"></div>
+    <div class="wide-chart">
+      <canvas class="graphics chart" id="mychart"></canvas>
+    </div>
   </div>
   <div class="col-md-3 right-panel">
     <h4>Detalles Generales</h4>
@@ -19,80 +21,68 @@
     <div>
       <h5>Clientes Por Servicios</h5>
       <p></p>
-      <div id="services-chart"></div>
+      <div class="normal-chart">
+        <canvas id="services-chart"></canvas>
+      </div>   
       <h5>Ingesos esta semana</h5>
       <p></p>
-      <canvas class="little-chart" id="week-chart" width="400%" height="200px"></canvas> 
+      <div class="normal-chart">
+        <canvas class="little-chart" id="week-chart"></canvas> 
+       </div> 
     </div>
     
   </div>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
-     google.charts.load('current', {'packages':['line','corechart']});
-     google.charts.setOnLoadCallback(drawChart);
-
+    drawChart();
+    weekChart();
+    servicesChart();
     function drawChart() {
-
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Meses');
-      data.addColumn('number', 'Ingresos');
-
-     
-
-      var options = {
-        chart: {
-          title: ' '
-        },
-        width: '100%',
-        height: '100%',
-        animation:{
-          "duration": 3000,         
-          "easing": 'out',
-          "startup": true,
-        }
-      };
-
-       data.addRows([
-        ['Ene',  37.8],
-        ['Feb',  30.9],
-        ['Mar',  25.4],
-        ['Abr',  11.7],
-        ['May',  11.9],
-        ['Jun',   8.8],
-        ['Jul',   7.6],
-        ['Ago',  12.3],
-        ['Sep',  12.3],
-        ['Oct',  12.3],
-        ['Nov',  12.3],
-        ['Dic',  12.3]
-      ]);
-
-      var chart = new google.charts.Line(document.getElementById('mychart'));
-      chart.draw(data,options);
-      // drawChart2();
-      function drawChart2() {
-        var servicesData = google.visualization.arrayToDataTable([
-          ['Servicios', 'Clientes'],
-          ['Bronce',     11],
-          ['Plata',      2],
-          ['Oro',  2]
-        ]);
-
-        var options = {
-          title: ' ',
-          pieHole: 0.7,
-          width: '100%',
-          height: '100%',
-          colors:["dodgerblue","#07f","#08f"]
-        };
-
-        var chart2 = new google.visualization.PieChart(document.getElementById('services-chart'));
-        chart2.draw(servicesData, options);
+      var $chartIngresos = $("#mychart");
+      var data = {
+        labels: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+        datasets:[{
+          label: "Ingresos",
+          fill: true,
+          lineTension: 0.3,
+          backgroundColor: "rgba(0,200,255,0.1)",
+          borderColor: "dodgerblue",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "dodgerblue",
+          pointBackgroundColor: "dodgerblue",
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "#0077ff",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [10000, 5000, 8000, 8100, 5600, 5500, 4000,8000, 8100, 5600, 5500, 4000],
+          spanGaps: false,
+        }]
       }
+      var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+              }]
+            }
+          }
 
+      var chartIngresos = new Chart($chartIngresos,{
+        type: 'line',
+        data: data,
+        options: options
+      }); 
       
     }
-    weekChart();
 
     function weekChart(){
         var canvas = $("#week-chart");
@@ -123,6 +113,8 @@
             }]
           },
           options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
               yAxes: [{
                 ticks: {
@@ -133,7 +125,45 @@
           }
         };
         var mychart = new Chart(canvas,chartOptions);
+    }
+    
+    function servicesChart(){
+      var canvas = $("#services-chart");
+      var data = {
+        labels: ["Bronce","Plata","Oro"],
+        datasets:[{
+          label: "Clientes",
+          fill: true,
+          backgroundColor: ["rgba(0,200,255,0.1)","rgba(0,200,255,0.4)","rgba(0,200,255,0.7)"],
+          borderColor: "#fff",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "#555",
+          pointBackgroundColor: "dodgerblue",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "dodgerblue",
+          pointHoverBorderColor: "#555",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [10, 50, 80],
+          spanGaps: false,
+        }]
       }
+      var options = {
+        responsive: true,
+        maintainAspectRatio: false
+      };
+      var myPieChart = new Chart(canvas,{
+        type: 'doughnut',
+        data: data,
+        options: options
+      });
+    }
+  
   </script>
 
    <script type="text/javascript"></script>
