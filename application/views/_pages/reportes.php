@@ -1,5 +1,5 @@
 <div class="screen reports row">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
@@ -19,13 +19,14 @@
     <div>
       <h5>Clientes Por Servicios</h5>
       <p></p>
-      <div id="services-chart">
-
-      </div>
+      <div id="services-chart"></div>
+      <h5>Ingesos esta semana</h5>
+      <p></p>
+      <canvas class="little-chart" id="week-chart" width="400%" height="200px"></canvas> 
     </div>
     
   </div>
-
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
      google.charts.load('current', {'packages':['line','corechart']});
      google.charts.setOnLoadCallback(drawChart);
@@ -68,7 +69,7 @@
 
       var chart = new google.charts.Line(document.getElementById('mychart'));
       chart.draw(data,options);
-      drawChart2();
+      // drawChart2();
       function drawChart2() {
         var servicesData = google.visualization.arrayToDataTable([
           ['Servicios', 'Clientes'],
@@ -88,12 +89,54 @@
         var chart2 = new google.visualization.PieChart(document.getElementById('services-chart'));
         chart2.draw(servicesData, options);
       }
+
+      
     }
+    weekChart();
+
+    function weekChart(){
+        var canvas = $("#week-chart");
+        var chartOptions = {
+          type: 'bar',
+          data:{
+            labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+            datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+              }]
+            }
+          }
+        };
+        var mychart = new Chart(canvas,chartOptions);
+      }
   </script>
 
-   <script type="text/javascript">
-      
-    </script>
+   <script type="text/javascript"></script>
 
 
 </div>

@@ -28,8 +28,8 @@ function getDate(){
     $monthYear.text("De " + months[date.getMonth()] + " de " + date.getFullYear());
     $dayWeek.text(days[date.getDay()]);
     
-    sHour = sDate.slice(16,22) + "<span class='seconds'>" + sDate.slice(22,24) + "</span>";
-    $Hora.html(sHour);
+    // sHour = moment().format('LTS');
+    // $Hora.html(sHour);
   }
 }
 

@@ -93,11 +93,14 @@ function initClientHandlers(){
     e.preventDefault();
     e.stopImmediatePropagation();
     var $row = $("tr.selected");
-    var id = $row.find('.id_cliente').text().trim();
-    var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
-    if(is_delete){
-      deleteClient(id);
+    if($row){
+      var id = $row.find('.id_cliente').text().trim();
+      var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
+      if(is_delete){
+        deleteClient(id);
+      }
     }
+    
   });
 
 }
