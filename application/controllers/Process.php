@@ -26,8 +26,15 @@ class Process extends CI_Controller {
 
 	public function update(){
 		$data = $_POST;
-		$result =	$this->user_model->update_user($data);
-		echo $result;
+		$tabla = $_POST['tabla'];
+		switch ($tabla) {
+			case "clientes":
+				$this->client_model->update_client($data);
+				break;
+			case "servicios":
+				$this->service_model->update_service($data);
+				break;
+		}
 	}
 
 	public function getall(){
@@ -56,9 +63,17 @@ class Process extends CI_Controller {
 		$id = $_POST['id'];
 		$tabla = $_POST['tabla'];
 
-		if($tabla == "clientes"){
-			$result = $this->client_model->delete_client($id);
-		} 
+		switch ($tabla) {
+			case 'clientes':
+				$this->client_model->delete_client($id);
+				break;
+			case 'servicios':
+				$this->service_model->delete_service($id);
+				break;
+			default:
+				# code...
+				break;
+		}
 	}
 
 	public function count(){
@@ -69,6 +84,9 @@ class Process extends CI_Controller {
 				break;
 			case 'clientes':
 				$this->client_model->count_clients();
+				break;
+			case 'servicios':
+				$this->service_model->count_services();
 				break;
 			default:
 				# code...

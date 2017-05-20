@@ -4,8 +4,8 @@
       <li class="aside-buttons">
         <a href="" data-toggle="modal" data-target="#new-service-modal"><i class="material-icons">add</i>  Nuevo Servicio</a>
       </li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">edit</i>Editar Servico</a></li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">delete</i>Eliminar Servicio</a></li>
+      <li class="aside-buttons"><a href="" id="edit-service"><i class="material-icons">edit</i>Editar Servico</a></li>
+      <li class="aside-buttons"><a href="" id="delete-service"><i class="material-icons">delete</i>Eliminar Servicio</a></li>
       <li class="aside-buttons"><a href=""><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
     </ul>
 
@@ -50,7 +50,7 @@
             </select>
 
           </td>
-          <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"><?php $this->client_model->count_clients()?></span></td>
+          <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"></span></td>
           <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
 
         </tr>

@@ -2,21 +2,19 @@ $(function(){
 
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
-console.log(currentPage);
 
 switch (currentPage) {
+  case "home":
+    initClientHandlers();
+    break;
   case "administrador":
     initHandlers();
-    console.log('administrador iniciado');
-    
     break;
   case "clientes":
     initClientHandlers();
-    console.log('clientes iniciados');
     break;
   case "servicios":
     initServicesHandlers();
-    console.log('servicios iniciasdos');
     break;
   default:
     break;
@@ -31,7 +29,7 @@ function initHandlers(){
     addNewUser();
   });
 
-   $("#btn-update-user").on('click',function(e){
+  $("#btn-update-user").on('click',function(e){
     e.stopPropagation();
     updateUser();
   });
@@ -97,7 +95,7 @@ function initClientHandlers(){
       var id = $row.find('.id_cliente').text().trim();
       var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
       if(is_delete){
-        deleteClient(id);
+        deleteRow(id,"clientes");
       }
     }
     
@@ -114,6 +112,39 @@ function initServicesHandlers(){
   });
 
   makeRowsClickable();
+
+  $("#delete-service").on('click',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var $row = $("tr.selected");
+    if($row){
+      var id = $row.find('.id_servicio').text().trim();
+      var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text()+ " "+ $row.find("td:nth(3)").text() + "?");
+      if(is_delete){
+        deleteRow(id,"servicios");
+      }
+    }
+    
+  });
+
+  $("#edit-service").on('click',function(e){
+    e.preventDefault();
+    var $row = $("tr.selected");
+    var cells = $row.find('td');
+    var inputs = $("#update-service-modal input");
+    $('#u-service-id').val(cells.eq(1).text());
+    $('#u-service-name').val(cells.eq(2).text());
+    $('#u-service-description').val(cells.eq(3).text());
+    $('#u-service-monthly-payment').val(Number(cells.eq(4).text().slice(3)));
+    $('#u-service-type').val(cells.eq(5).text());
+
+    $('#update-service-modal').modal();
+  });
+
+  $("#btn-update-service").on('click',function(e){
+    e.stopImmediatePropagation();
+    updateService();
+  });
 
 }
 
@@ -242,9 +273,28 @@ function searchClient(){
   
 }
 
-function deleteClient(id){
-  var form = "tabla=clientes&id=" + id;
-  connectAndSend('process/delete',true,initClientHandlers,null,form,getClients);
+/********************************************************
+ *                Delete General                        *
+ *                                                      *
+ ********************************************************/
+
+function deleteRow(id,tabla){
+  var form = "tabla="+tabla+"&id=" + id;
+  var handlers,callback;
+  switch (tabla) {
+    case 'clientes':
+      handlers = initClientHandlers;
+      callback = getClients;
+      break;
+    case 'servicios':
+      handlers = initServicesHandlers;
+      callback = getServices;
+      break;
+  
+    default:
+      break;
+  } 
+  connectAndSend('process/delete',true,handlers,null,form,callback);
 };
 
 
@@ -277,6 +327,25 @@ function getServices(){
   connectAndSend('process/getall',false,initServicesHandlers,fillCurrentTable,form,null);
 } 
 
+function updateService(){
+  
+  var form, id,name, description, payment, type;
+
+  id = $('#u-service-id').val();
+  name = $('#u-service-name').val();
+  description = $('#u-service-description').val();
+  payment = $('#u-service-monthly-payment').val();
+  type = $('#u-service-type').val();
+  
+  var is_empty = isEmpty([id,name,description,payment,type]);
+  if(!is_empty){
+    form = 'id_servicio=' + id + "&nombre=" + name+ "&descripcion=" + description + "&mensualidad=" + payment;
+    form += "&tipo=" +type + "&tabla=servicios";
+    connectAndSend("process/update",true,initServicesHandlers,null,form,getServices); 
+  }else{
+    alert("LLene todos los campos por favor ");
+  }
+}
 
 });
 

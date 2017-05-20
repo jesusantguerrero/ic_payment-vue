@@ -33,7 +33,7 @@ class Service_model extends CI_MODEL{
   function organize_data($data,$mode){
 
     if($mode == "full"){
-      $this->id_cliente = $data['id_servicio'];
+      $this->id_servicio = $data['id_servicio'];
     }
     $this->nombre          = $data['nombre'];      
     $this->descripcion     = $data['descripcion'];     
@@ -58,15 +58,14 @@ class Service_model extends CI_MODEL{
    
   }
 
-  public function update_user($data){
-    $this->organize_data($data,"normal");
-    $sql = "UPDATE users SET name ='".$this->name."', lastname ='".$this->lastname."', password ='".$this->password."',";
-    $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
-
+  public function update_service($data){
+    $this->organize_data($data,"full");
+    $sql = "UPDATE servicios SET nombre = '$this->nombre', descripcion ='$this->descripcion', mensualidad ='$this->mensualidad',";
+    $sql .= "tipo ='$this->tipo' WHERE id_servicio = $this->id_servicio";
     if($result = $this->db->query($sql)){
-      return "&#10004; Usuario Actualizado Con Exito!";
+      echo "&#10004; Servicio Actualizado Con Exito!";
     }else{
-     return "&#10006; No pudo guardarse el usuario " . $sql;
+      echo "&#10006; No pudo actualizarse el servicio " . $sql;
     }   
   }
 
@@ -77,8 +76,8 @@ class Service_model extends CI_MODEL{
     echo $result;
   }
 
-  public function count_clients(){
-    $result = $this->db->count_all("clientes");
+  public function count_services(){
+    $result = $this->db->count_all("servicios");
     echo $result;
   }
 
@@ -106,10 +105,10 @@ class Service_model extends CI_MODEL{
     return $result;
   }
 
-  public function delete_client($id){
-    $sql = "DELETE FROM clientes WHERE id_cliente= $id";
+  public function delete_service($id){
+    $sql = "DELETE FROM servicios WHERE id_servicio= $id";
     if($this->db->query($sql)){
-      echo "&#10004; Usuario Eliminado";
+      echo "&#10004; Servicio Eliminado";
     }else{
       echo "error";
     }
