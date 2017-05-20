@@ -1,10 +1,30 @@
 $(function(){
-initHandlers();
-initClientHandlers();
-initServicesHandlers();
+
+var currentPage = $("title").text().split(" ");
+currentPage = currentPage[4].toLowerCase().trim();
+console.log(currentPage);
+
+switch (currentPage) {
+  case "administrador":
+    initHandlers();
+    console.log('administrador iniciado');
+    
+    break;
+  case "clientes":
+    initClientHandlers();
+    console.log('clientes iniciados');
+    break;
+  case "servicios":
+    initServicesHandlers();
+    console.log('servicios iniciasdos');
+    break;
+  default:
+    break;
+}
+
 
 function initHandlers(){
-  count_users();
+  count_table("users");
 
   $("#btn-save-user").on('click',function(e){
     e.stopImmediatePropagation();
@@ -39,15 +59,18 @@ function initHandlers(){
     $('#update-user-modal').modal();
   });
 
-    initPagination("#t-users","users",paginate,fillUserTable);
+    initPagination("#t-users","users",paginate);
 }
 
 function initClientHandlers(){
-  $("#btn-save-client").on('click',function(){
+  count_table("clientes");
+
+  $("#btn-save-client").on('click',function(e){
+    e.stopImmediatePropagation();
     addNewClient();
   });
 
-  initPagination("#t-clients","clientes",paginate,fillClientsTable);
+  initPagination("#t-clients","clientes",paginate);
 
   makeRowsClickable();
 
@@ -80,6 +103,7 @@ function initClientHandlers(){
 }
 
 function initServicesHandlers(){
+  count_table("servicios");
    
   $("#btn-save-service").on('click',function(e){
     e.stopImmediatePropagation();
@@ -141,7 +165,7 @@ function updateUser(){
 
 function getUsers(){
   var form = "table=users";
-  connectAndSend('user/getusers',false,initHandlers,fillUserTable,form,null);
+  connectAndSend('user/getusers',false,initHandlers,fillCurrentTable,form,null);
 }
 
 function deleteUser(id){
@@ -149,18 +173,18 @@ function deleteUser(id){
   connectAndSend('user/deleteuser',true,initHandlers,null,form,getUsers);
 }
 
-function count_users(){
-  var form = "table=users";
-  connectAndSend('user/countusers',false,initHandlers,updateCount,form,null);
+function count_table(table){
+  var form = "tabla=" + table;
+  connectAndSend('process/count',false,null,updateCount,form,null);
 }
 
-function paginate(offset,perpage,tableName,fillTableFunction){
+function paginate(offset,perpage,tableName){
   path = "user/";
   if(tableName != "user"){
     path = "process/";
   }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
-  connectAndSend(path+'paginate',false,initHandlers,fillTableFunction,form,null);
+  connectAndSend(path+'paginate',false,initHandlers,fillCurrentTable,form,null);
 }
 
 /********************************************************
@@ -203,16 +227,14 @@ function addNewClient(){
 
 function getClients(){
   var form = "tabla=clientes";
-  connectAndSend('process/getall',false,initClientHandlers,fillClientsTable,form,null);
+  connectAndSend('process/getall',false,initClientHandlers,fillCurrentTable,form,null);
 }
 
 function searchClient(){
   var word = $("#client-searcher").val()
   if (word != null || word != ""){
     var form = "tabla=clientes&word="+word;
-    connectAndSend('process/search',false,initClientHandlers,fillClientsTable,form,null);
-  }else{
-    getClients();
+    connectAndSend('process/search',false,initClientHandlers,fillCurrentTable,form,null);
   }
   
 }
@@ -236,8 +258,6 @@ function addNewService(){
   description  = $("#service-description").val();
   payment      = $("#service-monthly-payment").val();
   type         = $("#service-type").val();
-
-  console.log(name + "nombre " + description + "descripcion " + payment + "pago " + type + "tipo ");
   
   var is_empty = isEmpty([name,description,payment,type]);
   if(!is_empty){
@@ -251,7 +271,7 @@ function addNewService(){
 
 function getServices(){
   var form = "tabla=servicios";
-  connectAndSend('process/getall',false,initServicesHandlers,fillServicesTable,form,null);
+  connectAndSend('process/getall',false,initServicesHandlers,fillCurrentTable,form,null);
 } 
 
 

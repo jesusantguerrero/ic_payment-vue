@@ -9,22 +9,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Client_model extends CI_MODEL{
+
+  public $lastquery = "SELECT * FROM clientes";
+  public $cols;
   
-  public $id_cliente = null;
-  public $nombres;
-  public $apellidos;
-  public $cedula;
-  public $provincia;
-  public $sector;
-  public $calle;
-  public $casa;
-  public $telefono;
-  public $celular;
-  public $lugar_trabajo;
-  public $tel_trabajo;
-  public $ingresos;
-  public $fecha_registro;
-  public $estado;
 
   public function __construct(){
     parent::__construct();
@@ -42,34 +30,36 @@ class Client_model extends CI_MODEL{
   function organize_data($data,$mode){
 
     if($mode == "full"){
-      $this->id_cliente = $data['id_cliente'];
+      $this->cols['id_cliente'] = $data['id_cliente'];
+    }else{
+      $this->cols['id_cliente'] = null;
     }
-    $this->nombres         = $data['nombres'];      
-    $this->apellidos       = $data['apellidos'];     
-    $this->cedula          = $data['cedula'];
-    $this->provincia       = $data['provincia'];
-    $this->sector          = $data['sector'];
-    $this->calle           = $data['calle'];
-    $this->casa            = $data['casa'];
-    $this->telefono        = $data['telefono'];
-    $this->celular         = $data['celular'];
-    $this->lugar_trabajo   = $data['lugar_trabajo'];
-    $this->tel_trabajo     = $data['tel_trabajo'];
-    $this->ingresos        = $data['ingresos'];
-    $this->fecha_registro  = $data['fecha_registro'];
-    $this->estado          = $data['estado'];
+    $this->cols['nombres']         = $data['nombres'];      
+    $this->cols['apellidos']       = $data['apellidos'];     
+    $this->cols['cedula']          = $data['cedula'];
+    $this->cols['provincia']       = $data['provincia'];
+    $this->cols['sector']          = $data['sector'];
+    $this->cols['calle']           = $data['calle'];
+    $this->cols['casa']            = $data['casa'];
+    $this->cols['telefono']        = $data['telefono'];
+    $this->cols['celular']         = $data['celular'];
+    $this->cols['lugar_trabajo']   = $data['lugar_trabajo'];
+    $this->cols['tel_trabajo']     = $data['tel_trabajo'];
+    $this->cols['ingresos']        = $data['ingresos'];
+    $this->cols['fecha_registro']  = $data['fecha_registro'];
+    $this->cols['estado']          = $data['estado'];
 
   }
 
   public function add($data){
     $this->organize_data($data,"normal");
-    $result = $this->db->query("SELECT * FROM clientes WHERE cedula = '". $this->cedula . "'");
+    $result = $this->db->query("SELECT * FROM clientes WHERE cedula = '".$this->cols['cedula']."'");
     $result = $result->result_array();
     $result = count($result);
-    if($result){
-      echo "&#10006; Este cedula ya está registrada";
+    if($result > 0){
+      echo "&#10006; Esta cedula ya está registrada";
     }else{
-      if($this->db->insert('clientes',$this)){
+      if($this->db->insert('clientes',$this->cols)){
         echo "&#10004; Ciente Agregado con exito";
       }else{
        echo "No pudo guardarse el cliente";
@@ -90,7 +80,9 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_all_clients(){
-    $sql = "SELECT * FROM clientes LIMIT 5";
+    $sql = "SELECT * FROM clientes";
+    $this->lastquery = $sql;
+    $sql .= " LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),0);
     echo $result;
@@ -102,7 +94,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_clients_paginate($offset,$perpage){
-    $sql = "SELECT * FROM clientes LIMIT ".$offset.", ".$perpage;
+    $sql = $this->lastquery." LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),$offset);
     echo $result;
@@ -111,7 +103,9 @@ class Client_model extends CI_MODEL{
   public function search_clients($word){
     $word = "'%".$word."%'";
     $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
-    $sql .= "|| sector LIKE $word LIMIT 5";
+    $sql .= "|| sector LIKE $word";
+    $this->lastquery = $sql;
+    $sql .= "LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),0);
     echo $result;

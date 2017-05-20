@@ -41,8 +41,6 @@ class User extends CI_Controller {
 		$this->user_model->delete_user($id);
 	}
 
-	public function countusers(){
-		$this->user_model->count_users();
-	}
+
 
 }

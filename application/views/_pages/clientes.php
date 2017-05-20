@@ -22,7 +22,7 @@
     <div class="busquedas">
       <button class="tab-buttons" href="">Ver Todos</button>
       <button class="tab-buttons" href="">Activos</button>
-      <button class="tab-buttons" href="">Deudores</button>
+      <button class="tab-buttons" href=""><?php echo $this->client_model->lastquery ?></button>
     </div>
 
     <table class="table t-clients" id="t-clients">

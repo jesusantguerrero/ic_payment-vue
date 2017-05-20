@@ -81,7 +81,7 @@ if ( ! function_exists('make_client_table'))
 
   function make_client_table($data,$start_at){
     $cont = $start_at + 1;
-    $html_text="";
+    $html_text = " "; 
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$cont."</td>

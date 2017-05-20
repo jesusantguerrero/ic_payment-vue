@@ -22,10 +22,13 @@ const BASE_URL = 'http://localhost/ic/'
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
   var connect;
+  var count = 0;
   connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null) {
+                console.log(count);
+                count++;
                 action(connect.responseText,recognizeElements);
             }else{
               if(is_message){
@@ -78,35 +81,12 @@ function displayMessage(message){
  * @param {function} callback El callback para reconocer a los nuevos items
  * @return {void}
  */
-function fillUserTable($content,callback){
-  var $tbodyUsers = $(".t-users-body");
+function fillCurrentTable($content,callback){
+  var $tbodyUsers = $("tbody");
   $tbodyUsers.html($content);
   callback();
 }
 
-/**
- * Llena la tabla de clientes con los datos que vienen del servidor
- * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
- * @param {function} callback El callback para reconocer a los nuevos items
- * @return {void}
- */
-function fillClientsTable($content,callback){
-  var $tbodyUsers = $(".t-clients tbody");
-  $tbodyUsers.html($content);
-  callback();
-}
-
-/**
- * Llena la tabla de servicios con los datos que vienen del servidor
- * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
- * @param {function} callback El callback para reconocer a los nuevos items
- * @return {void}
- */
-function fillServicesTable($content,callback){
-  var $tbodyUsers = $(".t-services tbody");
-  $tbodyUsers.html($content);
-  callback();
-}
 
 /**
  * isEmpty
@@ -160,21 +140,19 @@ function getPaginationData(tableId){
  * @param {string} tableId Id de la <table> de la vista
  * @param {string} serverTable Tabla de la base de datos a paginar
  * @param {function} paginate La funcion paginate como parametro
- * @param {string} fillTableFunction La funcion correspondiente que llena la <table> de la vista
  * @return {void}
  */
-function initPagination(tableId,serverTable,paginate,fillTableFunction){
+function initPagination(tableId,serverTable,paginate){
+ 
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 
     var pagination = getPaginationData(tableId);
     if(pagination.max < pagination.total){
-      paginate(pagination.max ,pagination.perpage,serverTable,fillTableFunction);
+      paginate(pagination.max ,pagination.perpage,serverTable);
       pagination.$maxLimit.text(pagination.max + pagination.perpage);
       pagination.$minLimit.text(pagination.min + pagination.perpage);
     }
-    
-
   });
 
   $(tableId + " .previous-page").on('click',function(e){
@@ -183,7 +161,7 @@ function initPagination(tableId,serverTable,paginate,fillTableFunction){
     if(pagination.min != 1){
       pagination.$maxLimit.text(pagination.max - pagination.perpage);
       pagination.$minLimit.text(pagination.min - pagination.perpage);
-      paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable,fillTableFunction);
+      paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable);
     }
   });
 
@@ -192,14 +170,13 @@ function initPagination(tableId,serverTable,paginate,fillTableFunction){
     var pagination = getPaginationData(tableId)
     pagination.$maxLimit.text(pagination.perpage);
     pagination.$minLimit.text(pagination.min);
-    paginate(pagination.min,pagination.perpage,serverTable,fillTableFunction);
-
+    paginate(pagination.min,pagination.perpage,serverTable);
   })
 }
 
 
 function updateCount($content){
-  $("t-users .total-rows").html($content);
+  $(".total-rows").html($content);
 }
 
 

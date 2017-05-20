@@ -5,6 +5,7 @@ class Process extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('user_model');
 		$this->load->model("client_model");
 		$this->load->model("service_model");
 	}
@@ -31,9 +32,6 @@ class Process extends CI_Controller {
 
 	public function getall(){
 		$tabla = $_POST['tabla'];
-		if($tabla == "clientes"){
-			$result = $this->client_model->get_all_clients();
-		} 
 		switch ($tabla) {
 			case "clientes":
 				$this->client_model->get_all_clients();
@@ -65,10 +63,17 @@ class Process extends CI_Controller {
 
 	public function count(){
 		$tabla = $_POST['tabla'];
-		if($tabla == "clientes"){
-			$this->user_model->count_users();
+		switch ($tabla) {
+			case 'users':
+				$this->user_model->count_users();
+				break;
+			case 'clientes':
+				$this->client_model->count_clients();
+				break;
+			default:
+				# code...
+				break;
 		}
-		
 	}
 
 	public function search(){
