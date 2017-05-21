@@ -4,6 +4,7 @@ getDate();
 adminFunctions();
 userInfoTip();
 newUserForm();
+makeServiceCardClickable();
 
 /**
  * Get Date:
@@ -77,7 +78,5 @@ function userInfoTip(){
 
 
 }
-
-
 });
 

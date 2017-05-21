@@ -76,6 +76,13 @@ class Service_model extends CI_MODEL{
     echo $result;
   }
 
+  public function get_services_shortcuts(){
+    $sql = "SELECT * FROM servicios";
+    $result = $this->db->query($sql);
+    $result = make_service_shortcuts($result->result_array());
+    echo $result;
+  }
+
   public function count_services(){
     $result = $this->db->count_all("servicios");
     echo $result;
@@ -98,8 +105,8 @@ class Service_model extends CI_MODEL{
 
   }
   
-  public function get_client($id){
-    $sql = "SELECT * FROM clientes WHERE id_cliente=". $id;
+  public function get_service($id){
+    $sql = "SELECT * FROM servicios WHERE id_servicio=". $id;
     $result = $this->db->query($sql);
     $result =$result->row_array();
     return $result;

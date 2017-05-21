@@ -248,8 +248,24 @@ function makeRowsClickable(){
     $this.toggleClass('selected');
     
     var btnGetDetails = $("#get-details");
+    var btnNewContract = $("#client-new-contract");
     btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+    btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
   });
+
 }
+
+ function makeServiceCardClickable(){
+    var serviceCard = $(".service-card");
+    serviceCard.on('click',function(e){
+      e.stopImmediatePropagation();
+      var $this = $(this);
+      var payment = $this.attr('data-payment');
+      serviceCard.removeClass('selected');
+      $this.addClass('selected');
+      
+      $('#contract-client-payment').val(payment)
+    })
+  }
 
 

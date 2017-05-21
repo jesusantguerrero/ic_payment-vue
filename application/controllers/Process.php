@@ -108,4 +108,10 @@ class Process extends CI_Controller {
 		redirect(base_url('app/admin/detalles'));
 	}
 
+	public function newcontract($id){
+
+		$_SESSION['client_data'] = $this->client_model->get_client($id);
+		redirect(base_url('app/admin/nuevo_contrato'));
+	}
+
 }

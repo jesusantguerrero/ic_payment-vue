@@ -8,8 +8,8 @@
         <a href=""  data-toggle="modal" data-target="#update-client-modal"><i class="material-icons">edit</i>Editar Cliente</a>
       </li>
       <li class="aside-buttons"><a href="" id="delete-client"><i class="material-icons">delete</i>Eliminar Cliente</a></li>
-      <li class="aside-buttons"><a href="<?php echo base_url('process/details/3') ?>" id="get-details"><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">description</i>  Nuevo Contrato</a></li>
+      <li class="aside-buttons"><a href="" id="get-details"><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
+      <li class="aside-buttons"><a href="" id="client-new-contract"><i class="material-icons">description</i>  Nuevo Contrato</a></li>
     </ul>
 
   </div>
