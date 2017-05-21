@@ -42,58 +42,61 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-              <form action="" class="watch-in-detail">
+              <form action="" class="watch-in-detail special">
                 <div class="row">
-                    <div class="form-group padding">
-                      <label for="client-name">ID</label>
+              
+                    
+                  <div class="col-md-6">
+                    <div class="input-group col-md-4">
+                      <span class="input-group-addon" id="addon">ID</span>
                       <input type="text" class="form-control small-id" value="<?php echo $client_data['id_cliente'] ?>" disabled>
                     </div>
-                  <div class="col-md-6">
-                    
-                    <div class="form-group">
-                      <label for="client-name">Nombre Completo</label>
+                    <div class="input-group">           
+                      <span class="input-group-addon" id="addon">Nombre</span>
                       <input type="text" class="form-control"  value="<?php echo $nombre_completo; ?>" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="client-name">Fecha de Registro</label>
+                    </div> 
+                    
+                    <div class="input-group">
+                       <span class="input-group-addon" id="addon">Fecha de Registro</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['fecha_registro']?>" disabled>
                     </div>
                     <h4 class="placeholder"> ...</h4>
                     <h4>Dirección</h4>
-                    <div class="form-group">
-                      <label for="client-provincia">Provincia</label>
+                    <div class="input-group">
+                       <span class="input-group-addon" id="addon">Provincia</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['provincia']?>"disabled>
                     
 
                     </div>
-                    <div class="form-group">
-                      <label for="cient-sector">Sector</label>
+                    <div class="input-group">
+                       <span class="input-group-addon" id="addon">Sector</span>
                       <input class="form-control"  value="<?php  echo $client_data['sector']?>"disabled="6">
                     </div>
-                    <div class="form-group">
-                      <label for="client-telephone">Telefono</label>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="addon">Telefono</span>
                       <input type="tel" class="form-control" value="<?php  echo $client_data['telefono']?>"  disabled>
                     </div>
                   </div>
 
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="client-dni">Cedula</label>
+                    <h4 class="placeholder"> ...</h4>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="addon">Cedula</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['cedula']?>"disabled>
                     </div>
-                    <div class="form-group">
-                      <label for="client-phone">Celular</label>
+                    <div class="input-group">
+                       <span class="input-group-addon" id="addon">Celular</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['celular']?>" disabled>
                     </div>
                     <h4 class="placeholder"> ...</h4>
                     <h4 class="placeholder"> ...</h4>
-                    <div class="form-group">
-                      <label for="client-street">Calle</label>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="addon">Calle</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['calle']?>" disabled>
                     </div>
 
-                    <div class="form-group">
-                      <label for="client-house">Casa #</label>
+                    <div class="input-group">
+                       <span class="input-group-addon" id="addon">Casa #</span>
                       <input type="text" class="form-control" value="<?php  echo $client_data['casa']?>" disabled>
                     </div>
                   </div>

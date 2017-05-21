@@ -24,12 +24,10 @@
   .form-control[readonly],
   fieldset[disabled] .form-control
     background: transparent
-    border-radius: 0
     border-color: 2px solid #eee
     cursor: default
     box-shadow: none
     color: $primary-color
-
 
   label
     color: #aaa
@@ -39,7 +37,7 @@
   height: 200px
   +makeFlex(200px,row,center,center)
   background: $contrast-color
-  border-radius: 4px
+  border-radius: 50%
   color: #fff
   font-size: 90px
   text-align: center
@@ -54,9 +52,12 @@
 
 
 // contract form styles
-
-
-.contract-form
+textarea
+  width: 100%
+.special
+  margin-top: 50px
+.contract-form,
+.special
   input
     height: 100%
     border-left: none
@@ -100,8 +101,3 @@
   width: 100%
   justify-content: center
   flex-wrap: wrap
-
-@media (min-width: 992px)
-  .col-md-6,
-  .widthout
-    padding: 0 0 0 0

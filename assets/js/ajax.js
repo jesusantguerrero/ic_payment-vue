@@ -16,6 +16,9 @@ switch (currentPage) {
   case "servicios":
     initServicesHandlers();
     break;
+  case "nuevo_contrato":
+    initContractHandlers();
+    break;
   default:
     break;
 }
@@ -146,6 +149,14 @@ function initServicesHandlers(){
     updateService();
   });
 
+}
+
+function initContractHandlers(){
+
+  $("#btn-save-contract").on('click',function(e){
+    e.stopImmediatePropagation();
+    addNewContract();
+  });
 }
 
 
@@ -346,6 +357,39 @@ function updateService(){
     alert("LLene todos los campos por favor ");
   }
 }
+
+/********************************************************
+ *                CRUD para la tabla Contratos          *
+ *                                                      *
+ ********************************************************/
+
+function addNewContract(){
+  var form, table,client_id, user_id,service_id, contract_date ,payment, duration, observations,total,nextPayment;
+
+  client_id = $("#contract-client-id").val();
+  user_id = $("#contract-user-id").val();
+  service_id = $(".service-card.selected").attr('data-id');
+  contract_date = $('#contract-client-date').val();
+  duration = $('#contract-client-months').val();
+  observations = $('#contract-observations').val();
+  payment = $("#contract-client-payment").val();
+  nextPayment = moment(contract_date).add(1,'months').format('YYYY-MM-DD');
+  
+
+
+  var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);
+  if(!is_empty){   
+    total = Number(duration) * Number(payment);
+    form  = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&fecha=" + contract_date;
+    form += "&duracion=" + duration + "&observaciones=" + observations + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
+    form += "&proximo_pago="+nextPayment+"&estado=activo&tabla=contratos";   
+    connectAndSend("process/add",true,initClientHandlers,null,form,null); 
+    
+  }else{
+    alert("LLene los campos requeridos por favor");
+  }
+}
+
 
 });
 

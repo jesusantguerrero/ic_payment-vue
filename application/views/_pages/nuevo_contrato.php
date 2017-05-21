@@ -2,11 +2,13 @@
 
   <?php 
     $client_data = get_client_data();
+    $user_data = get_user_data();
     
   ?>
-  <div class="col-md-5 col-md-offset-1">
+  <div class="col-md-6">
     <h3 class="part-title">Nuevo Contrato</h3>
     <form action="" class="contract-form">
+    <div class="col-md-12">
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1">Cliente</span>
         <input type="text" class="form-control" aria-describedby="basic-addon1" value="<?php echo $client_data['nombre_completo']?>" disabled>
@@ -14,6 +16,7 @@
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1">Cedula</span>
         <input type="text" class="form-control" aria-describedby="basic-addon1" value="<?php echo $client_data['cedula'] ?>" disabled>
+      </div>
       </div>
       <div class="col-md-6">
         <div class="input-group">
@@ -60,13 +63,20 @@
         </div>
       </div>
       
-      <div class="col-md-8 without">
+      <div class="col-md-6 without">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Fecha</span>
           <input type="date" class="form-control" id="contract-client-date" tabindex="7">
         </div>
       </div>
-     
+      <div class="col-md-12">
+        <div class="input-group">
+          <textarea name="" id="contract-observations" class="form-control"  rows="10">
+          </textarea> 
+        </div>
+      </div>
+     <input type="text" class="form-control hidden" id="contract-client-id" value="<?php  echo $client_data['id_cliente']?>">
+     <input type="text" class="form-control hidden" id="contract-user-id" value="<?php   echo $user_data['user_id']?>">
       
   </div>
   </form>
@@ -81,8 +91,8 @@
       </div>
 
       <div class="row-container">
-        <button class="btn">Guardar</button>
-        <button class="btn">Imprimir</button>
+        <button class="btn" id="btn-save-contract">Guardar</button>
+        <button class="btn" disabled>Imprimir</button>
       </div>
     </div>
     

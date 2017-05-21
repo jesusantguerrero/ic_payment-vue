@@ -67,16 +67,14 @@ class Client_model extends CI_MODEL{
     }  
   }
 
-  public function update_user($data){
-    $this->organize_data($data,"normal");
-    $sql = "UPDATE users SET name ='".$this->name."', lastname ='".$this->lastname."', password ='".$this->password."',";
-    $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
-
-    if($result = $this->db->query($sql)){
-      return "&#10004; Usuario Actualizado Con Exito!";
+  public function is_active($is_active,$data){
+    if($is_active){
+      $state = "activo";
     }else{
-     return "&#10006; No pudo guardarse el usuario " . $sql;
-    }   
+      $state = "no activo";
+    }
+    $sql = "UPDATE clientes SET estado='$state' WHERE id_cliente =".$data['id_cliente']; 
+    $this->db->query($sql);
   }
 
   public function get_all_clients(){

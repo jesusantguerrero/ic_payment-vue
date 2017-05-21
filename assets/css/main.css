@@ -880,7 +880,6 @@ canvas {
 .watch-in-detail .form-control[readonly],
 .watch-in-detail fieldset[disabled] .form-control {
   background: transparent;
-  border-radius: 0;
   border-color: 2px solid #eee;
   cursor: default;
   box-shadow: none;
@@ -897,7 +896,7 @@ canvas {
   justify-content: center;
   align-items: center;
   background: #1FA1D0;
-  border-radius: 4px;
+  border-radius: 50%;
   color: #fff;
   font-size: 90px;
   text-align: center;
@@ -909,19 +908,29 @@ canvas {
 .without-padding {
   padding-left: 0; }
 
-.contract-form input {
+textarea {
+  width: 100%; }
+
+.special {
+  margin-top: 50px; }
+
+.contract-form input,
+.special input {
   height: 100%;
   border-left: none;
   text-align: right; }
-  .contract-form input:focus {
+  .contract-form input:focus,
+  .special input:focus {
     outline: none;
     box-shadow: none; }
 
-.contract-form .input-group {
+.contract-form .input-group,
+.special .input-group {
   margin: 10px 0;
   height: 40px; }
 
-.contract-form .input-group-addon {
+.contract-form .input-group-addon,
+.special .input-group-addon {
   background: transparent;
   border-right: none;
   color: #aaa;
@@ -954,11 +963,6 @@ canvas {
   width: 100%;
   justify-content: center;
   flex-wrap: wrap; }
-
-@media (min-width: 992px) {
-  .col-md-6,
-  .widthout {
-    padding: 0 0 0 0; } }
 
 .note-item {
   width: 30%;
