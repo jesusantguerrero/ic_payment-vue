@@ -374,17 +374,14 @@ function addNewContract(){
   observations = $('#contract-observations').val();
   payment = $("#contract-client-payment").val();
   nextPayment = moment(contract_date).add(1,'months').format('YYYY-MM-DD');
-  
-
 
   var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);
   if(!is_empty){   
     total = Number(duration) * Number(payment);
     form  = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&fecha=" + contract_date;
     form += "&duracion=" + duration + "&observaciones=" + observations + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
-    form += "&proximo_pago="+nextPayment+"&estado=activo&tabla=contratos";   
-    connectAndSend("process/add",true,initClientHandlers,null,form,null); 
-    
+    form += "&mensualidad="+ payment+ "&proximo_pago="+nextPayment+"&estado=activo&tabla=contratos";   
+    connectAndSend("process/add",true,initClientHandlers,null,form,null);    
   }else{
     alert("LLene los campos requeridos por favor");
   }

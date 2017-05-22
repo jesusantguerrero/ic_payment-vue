@@ -911,6 +911,9 @@ canvas {
 textarea {
   width: 100%; }
 
+.detail-panel {
+  padding-top: 50px; }
+
 .special {
   margin-top: 50px; }
 

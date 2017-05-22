@@ -8,21 +8,17 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contract_model extends CI_MODEL{
+class Payment_model extends CI_MODEL{
   
-  public $id_contrato = null;
-  public $id_empleado;
-  public $id_cliente;
-  public $id_servicio;
-  public $fecha;
-  public $duracion;
-  public $observaciones;
-  public $monto_total;
-  public $monto_pagado;
-  public $ultimo_pago;
-  public $proximo_pago;
+  public $id_pago = null;
+  public $id_contrato;
+  public $fecha_pago;
+  public $concepto;
+  public $cuota;
+  public $mora;
+  public $total;
   public $estado;
-
+  public $fecha_limite;
 
   public function __construct(){
     parent::__construct();
@@ -40,27 +36,24 @@ class Contract_model extends CI_MODEL{
   function organize_data($data,$mode){
 
     if($mode == "full"){
-      $this->id_contrato = $data['id_contrato'];
+      $this->id_pago = $data['id_pago'];
     }
-    $this->id_cliente      = $data['id_cliente'];      
-    $this->id_empleado     = $data['id_empleado'];     
-    $this->id_servicio     = $data['id_servicio'];
-    $this->fecha           = $data['fecha'];
-    $this->duracion       = $data['duracion'];
-    $this->observaciones  = $data['observaciones'] ;
-    $this->monto_total    = $data['monto_total'] ;
-    $this->monto_pagado   = $data['monto_pagado'] ;
-    $this->ultimo_pago    = $data['ultimo_pago'] ;
-    $this->proximo_pago   = $data['proximo_pago'] ;
-    $this->estado         = $data['estado']; 
+    $this->id_contrato  = $data['id_contrato'];
+    $this->fecha_pago   = $data['fecha_pago'];
+    $this->concepto     = $data['concepto'];
+    $this->cuota        = $data['cuota'];
+    $this->mora         = $data['mora'];
+    $this->total        = $data['total'];
+    $this->estado       = $data['estado'];
+    $this->fecha_limite = $data['fecha_limite'];
   }
 
   public function add($data){
     $this->organize_data($data,"normal");
-      if($this->db->insert('contratos',$this)){
-         echo "&#10004; Nuevo contrato agregado con exito";
+      if($this->db->insert('pagos',$this)){
+         
       }else{
-        echo "No pudo guardarse el contrato";
+        echo "No pudo guardarse el pago";
       } 
   }
 

@@ -4,7 +4,7 @@
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
       <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_clients(); ?></span> <span>Clientes</span> </div>
-      <div class="small-data-card"><i class="material-icons">timeline</i>5 contratos</div>
+      <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> contratos</div>
       <div class="small-data-card"><i class="material-icons">equalizer</i>6 clientes activos</div>   
     </div>
     <h4>Ingresos Este Año</h4>

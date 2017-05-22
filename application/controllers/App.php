@@ -8,6 +8,8 @@ class App extends CI_Controller {
 		$this->load->model("user_model");
 		$this->load->model("client_model");
 		$this->load->model("service_model");
+		$this->load->model("contract_model");
+		$this->load->model("payment_model");
 		$this->load->helper('modals');
 	}
 

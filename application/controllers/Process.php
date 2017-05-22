@@ -9,6 +9,7 @@ class Process extends CI_Controller {
 		$this->load->model("client_model");
 		$this->load->model("service_model");
 		$this->load->model("contract_model");
+		$this->load->model("payment_model");
 	}
 
 	public function add(){ 
@@ -25,6 +26,7 @@ class Process extends CI_Controller {
 				 $this->contract_model->add($data);
 				 $this->client_model->is_active(true,$data);
 				 $contract_id = $this->contract_model->get_last_Id();
+				 create_payments($contract_id,$data,$this);
 				break;
 		}
 

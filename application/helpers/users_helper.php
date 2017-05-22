@@ -127,6 +127,35 @@ if ( ! function_exists('make_service_table'))
   }
 }
 
+if ( ! function_exists('make_contract_table'))
+{
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_contract_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td class='id_contrato'>".$line['id_contrato']."</td>
+        <td>".$line['fecha']."</td>
+        <td>".$line['duracion']."</td>
+        <td>".$line['ultimo_pago']."</td>
+        <td>".$line['proximo_pago']."</td>
+        <td>".$line['monto_pagado']."</td>
+        <td>".$line['monto_total']."</td>
+      </tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
+
 if ( ! function_exists('make_service_shortcuts'))
 {
   /**
@@ -157,4 +186,38 @@ function get_client_data(){
     }else{
       return 'nada';
     }
+}
+
+if ( ! function_exists('create_payments'))
+{
+  /**
+  * create a shortcut for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function create_payments($id,$data,$context){
+    $time_zone = new DateTimeZone('America/Santo_Domingo');
+    $contract_date = new DateTime($data['fecha']);
+    $next_payment_date = $contract_date;
+    $one_month = new DateInterval('P1M');
+    $duration = $data['duracion'];
+    $concepto = "Inicial";
+    for ($i=0; $i < $duration + 1; $i++) {
+      if($i > 0) $concepto = $i."º pago de mensualidad"; 
+      $new_data = array(
+        'id_contrato' => $id,
+        'fecha_pago'  => null,
+        'concepto'    => $concepto,
+        'cuota'       => $data['mensualidad'],
+        'mora'        => 0,
+        'total'       => $data['mensualidad'],
+        'estado'      => "no pagado",
+        'fecha_limite'=> $next_payment_date->format("Y-m-d")
+      );
+      $context->payment_model->add($new_data);
+      $next_payment_date->add($one_month);
+    }
   }
+}
