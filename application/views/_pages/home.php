@@ -5,7 +5,7 @@
             <h3 class="card-title">Panel Principal</h3>
             <div class="row">
                 <div class="company-data">
-                    <img class="company-logo" src="<?php echo base_url('assets/img/insanecode_logo.png') ?>" alt="">
+                    <img class="company-logo" src="<?php echo base_url('assets/img/company_logo.jpg') ?>" alt="">
                 </div>
                 <div class="welcome-data">
                     <div class="row">

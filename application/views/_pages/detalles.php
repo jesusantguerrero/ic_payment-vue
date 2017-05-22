@@ -164,7 +164,16 @@
 
 
             <!---->
-            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane detail-panel" id="messages">
+              <div class="input-group">
+              <span class="input-group-addon" id="addon">Contrato </span>
+                <select name="select-contract form-control" id="">
+                  <option value=""><span>01</span> fecha</option>
+                </select>
+              </div>
+            </div>
+
+            <!---->
             <div role="tabpanel" class="tab-pane" id="settings">...</div>
           </div>
 

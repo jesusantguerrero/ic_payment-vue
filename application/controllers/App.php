@@ -48,6 +48,16 @@ class App extends CI_Controller {
 		
 	}
 
+	public function imprimir($page){
+		if(isset($_SESSION['user_data'])){
+			$data['title'] = $page;
+			$this->load->view('_layouts/header_impresos',$data);
+			$this->load->view('impresos/'.$page);
+		}else{
+			echo "usted no puede permanecer aqui";
+		}
+	}
+
 	public function login(){
   	$nickname = $this->input->post('user-input');
   	$password = $this->input->post('password-input');

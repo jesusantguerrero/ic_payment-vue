@@ -1,0 +1,64 @@
+.recibo-body
+  width: 735px
+  height: 300px
+  border: 2px dashed #aaa
+  overflow: hidden
+  font-family: 'Times New Roman', Times, serif
+  .cabecera
+    +makeFlex(100%,row,nullnull)
+    p  
+      padding: 0 0 0 0
+      margin:  0 0 0 0
+      font-size: 12px
+  .company-name
+    width: 60%
+    h2
+      padding-bottom: 0
+      margin-bottom: 0 
+  .concepto h4
+    text-align: center
+    font-weight: bolder
+    color: #fff
+    padding: 5px 0
+    background: $contrast-color
+  .fecha
+    color: $contrast-color
+  .logo-recibo
+    width: 8%
+    margin: 2%
+
+  .left-box
+    align-self: center
+    font-size: 12px
+    margin: 20px
+  .cuerpo
+    padding: 10px 15px
+  .text-placeholder
+    border-bottom: 1px solid #555
+    display: inline-block
+    +size(80%,20px)
+    &.md
+      width: 29.4%
+  .text-main
+    display: inline-block
+    +size(20%,20px)
+    &.center
+      text-align: center
+  .line
+    +makeFlex(100%,row,null,center)
+
+@media print
+  .recibo-body
+    width: 100%
+    border: none
+    overflow: hidden
+    border-bottom: 2px solid #ddd
+    border-left: 1px dashed #ddd
+    border-right: 1px dashed #ddd
+    -webkit-print-color-adjust: exact
+    .fecha
+      color: blue !important
+  .concepto h4
+    color: #fff !important
+    background: $contrast-color !important
+  
