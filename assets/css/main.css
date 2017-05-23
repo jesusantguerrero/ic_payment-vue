@@ -652,6 +652,10 @@ form {
   .copyrights p {
     margin: 0; }
 
+.t-pagos {
+  margin: 20px 0 0 0;
+  width: 100%; }
+
 .left-navigation {
   padding: 50px 0;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);

@@ -122,7 +122,7 @@
                 <button class="tab-buttons" href="">Activos</button>
               </div>
 
-              <table class="table t-clients" id="t-clients">
+              <table class="table d-contratos" id="d-contracts">
                 <thead>
                   <tr>
                     <th>ID #</th>
@@ -132,6 +132,7 @@
                     <th>Proximo Pago</th>
                     <th>Monto Pagado</th>
                     <th>Monto Total</th>
+                    <th>estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,18 +143,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Filas Por Pagina</td>
-                    <td>
-                      <select name="perpage" id="per-page" class="per-page">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>  
-                      </select>
-
-                    </td>
-                    <td><span class="min-limit">1</span>-<span class="max-limit">5</span> de <span class="total-rows"><?php $this->client_model->count_clients()?></span></td>
-                    <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
                   </tr>
 
@@ -165,12 +159,48 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel" id="messages">
-              <div class="input-group">
-              <span class="input-group-addon" id="addon">Contrato </span>
-                <select name="select-contract form-control" id="">
-                  <option value=""><span>01</span> fecha</option>
-                </select>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="addon">Contrato </span>
+                    <select name="select-contract form-control" id="select-contract">
+                      <?php $this->contract_model->get_contracts_dropdown($client_data['id_cliente']) ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-7 col-md-offset-1"><button class="btn" id="btn-pay">Registrar Pago </button></div>
               </div>
+              
+              <table class="table t-pagos" id="t-pagos">
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Cuota</th>
+                    <th>Mora</th>
+                    <th>Monto</th>
+                    <th>Fecha de Pago</th>
+                    <th>Estado</th>
+                    <th>Vence En</th>
+                    <th>Recibo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                  <tr>
+                  <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+
+                </tfoot>
+              </table>
             </div>
 
             <!---->

@@ -148,6 +148,7 @@ if ( ! function_exists('make_contract_table'))
         <td>".$line['proximo_pago']."</td>
         <td>".$line['monto_pagado']."</td>
         <td>".$line['monto_total']."</td>
+        <td class='td-estado'>".$line['estado']."</td>
       </tr>";
      $cont+=1;
     }
@@ -156,6 +157,44 @@ if ( ! function_exists('make_contract_table'))
   }
 }
 
+function make_contract_dropdown($data){
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<option value='".$line['id_contrato']."'>";
+        $html_text .= $line['id_contrato']." ".$line['fecha']."</option>";
+    }
+    return $html_text;
+}
+
+if ( ! function_exists('make_payment_table'))
+{
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_payment_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td>".$line['concepto']."</td>
+        <td>".$line['cuota']."</td>
+        <td>".$line['mora']."</td>
+        <td>".$line['total']."</td>
+        <td>".$line['fecha_pago']."</td>
+        <td class='td-estado'>".$line['estado']."</td>
+        <td>".$line['fecha_limite']."</td>
+        <td class='id_pago' data-id='".$line['id_pago']."'></td>
+      </tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
 if ( ! function_exists('make_service_shortcuts'))
 {
   /**
@@ -188,10 +227,11 @@ function get_client_data(){
     }
 }
 
+
 if ( ! function_exists('create_payments'))
 {
   /**
-  * create a shortcut for the data from users to display in the interface
+  * Genera los pagos de un contrato automaticamente
   * @param array $data the result of an select in a query 
   * @param int the number for start counting the rows the that is for my custom pagination
   *@return string the tbody with rows of a table 
@@ -219,5 +259,41 @@ if ( ! function_exists('create_payments'))
       $context->payment_model->add($new_data);
       $next_payment_date->add($one_month);
     }
+  }
+}
+
+if (! function_exists('refresh_contract'))
+{
+  /**
+  * Genera los pagos de un contrato automaticamente
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function refresh_contract($id,$context,$data){
+    $time_zone = new DateTimeZone('America/Santo_Domingo');
+    $one_month = new DateInterval('P1M');
+
+    $contract = $context->contract_model->get_contract_view($id);
+    $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
+    $next_payment_date = new DateTime($contract['proximo_pago']);
+    if($monto_pagado == $contract['monto_total']){
+      $estado = "saldado";
+      $next_payment_date = null;
+    }else{
+      $estado = "activo";
+    }
+    $next_payment_date->add($one_month);
+    $new_data = array(
+      'id_contrato'   => $id,
+      'monto_pagado'  => $monto_pagado,
+      'ultimo_pago'   => $data['fecha_pago'],
+      'proximo_pago'  => $next_payment_date->format("Y-m-d"),
+      'estado'        => $estado
+    );
+      $context->contract_model->refresh_contract($new_data);
+      
+    
   }
 }

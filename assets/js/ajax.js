@@ -2,6 +2,7 @@ $(function(){
 
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
+var ran = false;
 
 switch (currentPage) {
   case "home":
@@ -18,6 +19,10 @@ switch (currentPage) {
     break;
   case "nuevo_contrato":
     initContractHandlers();
+    break;
+  case "detalles":
+    initPaymentsHandlers();
+    verifyContractStatus();
     break;
   default:
     break;
@@ -83,7 +88,7 @@ function initClientHandlers(){
     }else if(text == "activo"){
       $this.css({color:"green"});
     }
-  })
+  });
 
   $("#client-searcher").on('keyup',function(e){
     e.stopImmediatePropagation();
@@ -157,6 +162,31 @@ function initContractHandlers(){
     e.stopImmediatePropagation();
     addNewContract();
   });
+}
+
+function initPaymentsHandlers(){
+  if(!ran){
+    getPayments();
+    ran = true;
+  }
+  verifyPaymentStatus();
+
+  $("#btn-pay").on('click',function(e){
+    e.stopImmediatePropagation();
+    var $row = $("tr.selected");
+    if($row){
+      var id = $row.find('.id_pago').attr("data-id").trim();
+      updatePayment(id);  
+    }
+    
+  });
+
+  $("#select-contract").on('change',function(e){
+    e.stopImmediatePropagation();
+    getPayments();
+  });
+
+  makeRowsClickable();
 }
 
 
@@ -377,7 +407,7 @@ function addNewContract(){
 
   var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);
   if(!is_empty){   
-    total = Number(duration) * Number(payment);
+    total = (Number(duration) + 1) * Number(payment);
     form  = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&fecha=" + contract_date;
     form += "&duracion=" + duration + "&observaciones=" + observations + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
     form += "&mensualidad="+ payment+ "&proximo_pago="+nextPayment+"&estado=activo&tabla=contratos";   
@@ -387,6 +417,28 @@ function addNewContract(){
   }
 }
 
+/********************************************************
+ *                CRUD para la tabla Pago               *
+ *                                                      *
+ ********************************************************/
+
+function getPayments(){
+  var id = $("#select-contract").val();
+  if(id != null ){
+    var form = "tabla=pagos&id=" + id;
+  connectAndSend('process/getall',false,initPaymentsHandlers,fillCurrentTable,form,null);
+  }
+  
+}
+
+function updatePayment(id){
+  var date = moment().format("YYYY-MM-DD");
+  var id_contrato = $("#select-contract").val();
+  var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago="+ date + "&id_contrato="+ id_contrato;
+  console.log(id_contrato)
+  var handlers,callback; 
+  connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
+};
 
 });
 

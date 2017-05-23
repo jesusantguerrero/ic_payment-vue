@@ -7,7 +7,7 @@
       <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> contratos</div>
       <div class="small-data-card"><i class="material-icons">equalizer</i>6 clientes activos</div>   
     </div>
-    <h4>Ingresos Este Año</h4>
+    <h4>Ingresos Este Año: RD$<span> <?php $this->payment_model->year_income(); ?> Pesos</span></h4>
     <div class="wide-chart">
       <canvas class="graphics chart" id="mychart"></canvas>
     </div>
@@ -37,6 +37,12 @@
     drawChart();
     weekChart();
     servicesChart();
+    <?php 
+      $month_incomes;
+      for ($i=1; $i <= 12 ; $i++) { 
+        $month_incomes[$i] = $this->payment_model->month_income($i);
+      }
+    ?>
     function drawChart() {
       var $chartIngresos = $("#mychart");
       var data = {
@@ -60,7 +66,14 @@
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [10000, 5000, 8000, 8100, 5600, 5500, 4000,8000, 8100, 5600, 5500, 4000],
+          data: [<?php foreach ($month_incomes as $value) {
+            if($value == null){
+              echo 0 .",";
+            }
+            else{
+              echo strval($value).", ";
+            }
+          } ?>],
           spanGaps: false,
         }]
       }

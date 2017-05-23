@@ -57,23 +57,56 @@ class Payment_model extends CI_MODEL{
       } 
   }
 
-  public function get_last_id(){
-    $sql = "SELECT id_contrato FROM contratos ORDER BY id_contrato DESC LIMIT 1";
-    $result = $this->db->query($sql); 
-    return $result->row_array()['id_contrato'];
+  public function update_payment($data){
+    $sql = "SELECT estado from pagos where id_pago =".$data['id'];
+    $result = $this->db->query($sql);
+    $result = $result->row_array()['estado'];
+    if($result == "no pagado"){
+      $sql = "UPDATE pagos SET estado='".$data['estado']."', fecha_pago='".$data['fecha_pago']."'";
+      $sql .=" WHERE id_pago=".$data['id'];
+      if($this->db->query($sql)){
+        echo "Pago Registrado";
+        return true;
+      }else{
+        echo "No pudo guardarse el pago ".$sql;
+      } 
+    }else{
+        echo "Este pago ya ha sido realizado";
+    }
+    
   }
 
-  public function get_all_of_client($id){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id LIMIT 5";
+  public function get_all_of_contract($id){
+    $sql = "SELECT * FROM pagos WHERE id_contrato = $id";
     $result = $this->db->query($sql);
-    $result = make_contract_table($result->result_array(),0);
-    echo $result;
+    if($result){
+      $result = make_payment_table($result->result_array(),0);
+      echo $result;
+    }
+    
   }  
 
   public function get_active_contracts(){
     $sql = "SELECT COUNT(*) FROM contratos WHERE estado= 'activo'";
     $result = $this->db->query($sql);
     echo $result->row_array()['COUNT(*)'];
+  }
+
+  public function year_income(){
+    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
+    $result = $this->db->query($sql);
+    echo $result->row_array()['sum(total)'];
+  }
+
+  public function month_income($mes){
+    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
+    $result = $this->db->query($sql);
+    $result->row_array()['sum(total)'];
+    if ($result != null){
+      return $result->row_array()['sum(total)'];
+    }else{
+      return 0;
+    }
   }
    
 

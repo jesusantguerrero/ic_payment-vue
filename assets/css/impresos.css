@@ -219,14 +219,17 @@ th {
   .recibo-body .text-placeholder {
     border-bottom: 1px solid #555;
     display: inline-block;
-    width: 80%;
+    padding: 0;
+    margin: 0;
+    width: 82%;
     height: 20px; }
     .recibo-body .text-placeholder.md {
-      width: 29.4%; }
+      width: 31.43%; }
   .recibo-body .text-main {
     display: inline-block;
-    width: 20%;
-    height: 20px; }
+    width: 18%;
+    height: 20px;
+    font-weight: bolder; }
     .recibo-body .text-main.center {
       text-align: center; }
   .recibo-body .line {

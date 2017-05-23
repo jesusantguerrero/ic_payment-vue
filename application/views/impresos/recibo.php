@@ -4,8 +4,8 @@
     <div class="company-name">
       <h2>ICS Service</h2>
       <p>Compañia Dominicana de Internet ICS</p>
-      <p>Direccion</p>
-      <p>Tel:</p>
+      <p> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+      <p></p>
     </div>
     <div class="left-box"> 
       <p class="fecha"><b>Fecha: <span>22-mayo-2017</span></b></p>

@@ -82,7 +82,7 @@ function displayMessage(message){
  * @return {void}
  */
 function fillCurrentTable($content,callback){
-  var $tbodyUsers = $("tbody");
+  var $tbodyUsers = $("[class*='t-'] tbody");
   $tbodyUsers.html($content);
   callback();
 }
@@ -267,5 +267,29 @@ function makeRowsClickable(){
       $('#contract-client-payment').val(payment)
     })
   }
+
+function verifyPaymentStatus(){
+  $(".td-estado").each(function(i,value){
+    var $this = $(this);
+    var text = $this.text().trim();
+    if(text == "no pagado"){
+      $this.css({color:"rgba(200,0,0,.7)"})
+    }else if(text == "pagado"){
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+    }
+  });
+}
+
+function verifyContractStatus(){
+  $(".td-estado").each(function(i,value){
+    var $this = $(this);
+    var text = $this.text().trim();
+    if(text == "activo"){
+      $this.css({color:"green"})
+    }else if(text == "saldado"){
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+    }
+  });
+}
 
 

@@ -42,6 +42,13 @@ class Process extends CI_Controller {
 			case "servicios":
 				$this->service_model->update_service($data);
 				break;
+			case "pagos":
+				$was_correct = $this->payment_model->update_payment($data);
+				if($was_correct){
+					$id_contrato = $data['id_contrato'];
+					refresh_contract($id_contrato,$this,$data);
+				}
+				break;
 		}
 	}
 
@@ -53,6 +60,9 @@ class Process extends CI_Controller {
 				break;
 			case "servicios":
 				$this->service_model->get_all_services();
+				break;
+			case "pagos":
+				$this->payment_model->get_all_of_contract($_POST['id']);
 				break;
 		}
 	}
@@ -95,6 +105,9 @@ class Process extends CI_Controller {
 				break;
 			case 'servicios':
 				$this->service_model->count_services();
+				break;
+			case 'pagos':
+				$this->payment_model->count_payments();
 				break;
 			default:
 				# code...

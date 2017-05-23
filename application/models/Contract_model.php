@@ -76,11 +76,33 @@ class Contract_model extends CI_MODEL{
     $result = make_contract_table($result->result_array(),0);
     echo $result;
   }  
+  public function get_contracts_dropdown($id_cliente){
+    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and estado='activo'";
+    $result = $this->db->query($sql);
+    $result = make_contract_dropdown($result->result_array(),0);
+    echo $result;
+  }  
 
   public function get_active_contracts(){
     $sql = "SELECT COUNT(*) FROM contratos WHERE estado= 'activo'";
     $result = $this->db->query($sql);
     echo $result->row_array()['COUNT(*)'];
+  }
+
+  public function get_contract_view($id){
+    $sql = "SELECT * FROM v_contratos where id_contrato = $id";
+    $result = $this->db->query($sql); 
+    return $result->row_array();
+  }
+
+  public function refresh_contract($data){
+    $sql = "UPDATE contratos SET monto_pagado='".$data['monto_pagado']."', ultimo_pago='".$data['ultimo_pago']."', proximo_pago='".$data['proximo_pago']."'";
+    $sql .=",estado = '".$data['estado']."' WHERE id_contrato=".$data['id_contrato'];
+    if($this->db->query($sql)){
+    }else{
+      echo "No pudo guardarse el pago ".$sql;
+    } 
+  
   }
    
 
