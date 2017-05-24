@@ -2,7 +2,7 @@
  <?php $user_data = get_user_data(); ?>
     <div class="row welcome-screen">
         <div class="col-md-8 main-card">
-            <h3 class="card-title">Panel Principal</h3>
+            <h3> </h3>
             <div class="row">
                 <div class="company-data">
                     <img class="company-logo" src="<?php echo base_url('assets/img/company_logo.jpg') ?>" alt="">

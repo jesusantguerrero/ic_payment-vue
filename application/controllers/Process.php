@@ -43,7 +43,7 @@ class Process extends CI_Controller {
 				$this->service_model->update_service($data);
 				break;
 			case "pagos":
-				$was_correct = $this->payment_model->update_payment($data);
+				$was_correct = $this->payment_model->check_for_update($data);
 				if($was_correct){
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);

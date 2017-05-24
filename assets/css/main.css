@@ -482,14 +482,15 @@ form {
   overflow: hidden; }
 
 .main-card {
-  background: #fcfcfc;
+  background: #fff;
   border: 1px solid #ccc;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ddd;
   width: 65.5%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   color: #666;
   padding: 0 0 0 0;
   height: 319px;
@@ -529,9 +530,9 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #fcfcfc;
+  background: #fff;
   border: 1px solid #ccc;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
   height: 150px;
   cursor: pointer;
   color: #1FA1D0;
@@ -541,7 +542,8 @@ form {
   .shortcut:hover {
     border: 2px solid #1FA1D0;
     color: #fff;
-    background: #1FA1D0; }
+    background: #1FA1D0;
+    transform: scale(1.1); }
   .shortcut:first-child {
     margin-left: 0; }
   .shortcut:last-child {
@@ -567,7 +569,7 @@ form {
     margin: 0; }
     .welcome-screen .day:after {
       content: ' ';
-      width: 60px;
+      width: 100px;
       height: 5px;
       background: #1FA1D0;
       position: absolute;
@@ -580,7 +582,7 @@ form {
     position: relative; }
   .welcome-screen .dayweek {
     display: block;
-    width: 60px;
+    width: 100px;
     padding: 10px 1px;
     text-align: center;
     position: absolute;
@@ -741,9 +743,9 @@ form {
   bottom: -265px;
   right: -10px;
   border-radius: 4px;
-  background: #fcfcfc;
+  background: #fff;
   border: 1px solid #ccc;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
   padding: 2px 0;
   z-index: 2000;
   text-align: left;

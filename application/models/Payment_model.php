@@ -57,20 +57,13 @@ class Payment_model extends CI_MODEL{
       } 
   }
 
-  public function update_payment($data){
+  public function check_for_update($data){
     $sql = "SELECT estado from pagos where id_pago =".$data['id'];
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){
-      $sql = "UPDATE pagos SET estado='".$data['estado']."', fecha_pago='".$data['fecha_pago']."'";
-      $sql .=" WHERE id_pago=".$data['id'];
-      if($this->db->query($sql)){
-        echo "Pago Registrado";
         return true;
       }else{
-        echo "No pudo guardarse el pago ".$sql;
-      } 
-    }else{
         echo "Este pago ya ha sido realizado";
     }
     

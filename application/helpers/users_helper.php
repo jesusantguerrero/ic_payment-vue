@@ -271,10 +271,10 @@ if (! function_exists('refresh_contract'))
   *@return string the tbody with rows of a table 
   */ 
 
-  function refresh_contract($id,$context,$data){
+  function refresh_contract($id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
     $one_month = new DateInterval('P1M');
-
+    $dateYMD;
     $contract = $context->contract_model->get_contract_view($id);
     $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
     $next_payment_date = new DateTime($contract['proximo_pago']);
@@ -283,16 +283,18 @@ if (! function_exists('refresh_contract'))
       $next_payment_date = null;
     }else{
       $estado = "activo";
+      $next_payment_date->add($one_month);
+      $dateYMD = $next_payment_date->format("Y-m-d");
     }
-    $next_payment_date->add($one_month);
-    $new_data = array(
+    
+    $data_contract = array(
       'id_contrato'   => $id,
       'monto_pagado'  => $monto_pagado,
-      'ultimo_pago'   => $data['fecha_pago'],
-      'proximo_pago'  => $next_payment_date->format("Y-m-d"),
+      'ultimo_pago'   => $data_pago['fecha_pago'],
+      'proximo_pago'  => $dateYMD,
       'estado'        => $estado
     );
-      $context->contract_model->refresh_contract($new_data);
+      $context->contract_model->refresh_contract($data_pago,$data_contract);
       
     
   }

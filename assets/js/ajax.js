@@ -449,7 +449,7 @@ function updatePayment(id){
   var date = moment().format("YYYY-MM-DD");
   var id_contrato = $("#select-contract").val();
   var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago="+ date + "&id_contrato="+ id_contrato;
-  console.log(id_contrato)
+  console.log(form)
   var handlers,callback; 
   connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
 };

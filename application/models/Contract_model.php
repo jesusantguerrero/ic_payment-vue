@@ -106,13 +106,22 @@ class Contract_model extends CI_MODEL{
     return $result->row_array();
   }
 
-  public function refresh_contract($data){
-    $sql = "UPDATE contratos SET monto_pagado='".$data['monto_pagado']."', ultimo_pago='".$data['ultimo_pago']."', proximo_pago='".$data['proximo_pago']."'";
-    $sql .=",estado = '".$data['estado']."' WHERE id_contrato=".$data['id_contrato'];
-    if($this->db->query($sql)){
-    }else{
-      echo "No pudo guardarse el pago ".$sql;
-    } 
+  public function refresh_contract($data_pago,$data_contrato){ 
+    $sql1 = " UPDATE pagos SET estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."' WHERE id_pago=".$data_pago['id'];
+    
+    $sql2 = " UPDATE contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
+    $sql2 .=",estado = '".$data_contrato['estado']."' WHERE id_contrato=".$data_contrato['id_contrato'];
+
+    $this->db->trans_start();
+    $this->db->query($sql1);
+    $this->db->query($sql2);
+    $this->db->trans_complete();
+
+    if($this->db->trans_status() === false){
+      echo "No pudo guardarse el pago $sql ";
+    } else{
+      echo "Pago Registrado";
+    }
   
   }
    

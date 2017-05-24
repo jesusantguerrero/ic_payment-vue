@@ -6,8 +6,9 @@
   overflow: hidden
 
 .main-card
-  +card(1)
-  +makeFlex(65.5%,column,flex-start,flex-start)
+  +card()
+  border: 1px solid #ddd
+  +makeFlex(65.5%,column,center,center)
   color: #666
   padding: 0 0 0 0
   height: 319px
@@ -45,6 +46,8 @@
     border: 2px solid  $contrast-color
     color: #fff
     background: $contrast-color
+    transform: scale(1.1)
+    
   &:first-child
     margin-left: 0
   &:last-child
@@ -70,7 +73,7 @@
 
     &:after
       content: ' '
-      +size(60px,5px)
+      +size(100px,5px)
       background: $contrast-color
       position: absolute
       right: -55px
@@ -83,7 +86,7 @@
     position: relative
   .dayweek
     display: block
-    width: 60px
+    width: 100px
     padding: 10px 1px
     text-align: center
     position: absolute
