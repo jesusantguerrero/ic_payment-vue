@@ -8,6 +8,7 @@
 
 const BASE_URL = 'http://localhost/ic/'
 
+
 /**
  * Connect And Send
  * Conecta al servidor via ajax y muestra el mensaje de respuesta
@@ -21,15 +22,15 @@ const BASE_URL = 'http://localhost/ic/'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
-  var connect;
-  var count = 0;
-  connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+   console.log(url);
+   var contador = 0;
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
-            if (action != null) {
-                console.log(count);
-                count++;
+            if (action != null)  {
                 action(connect.responseText,recognizeElements);
+                console.log(contador);
+                contador++;
             }else{
               if(is_message){
                  displayMessage(connect.responseText);
@@ -142,8 +143,7 @@ function getPaginationData(tableId){
  * @param {function} paginate La funcion paginate como parametro
  * @return {void}
  */
-function initPagination(tableId,serverTable,paginate){
- 
+function initPagination(tableId,serverTable,paginate){ 
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 

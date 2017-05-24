@@ -8,11 +8,9 @@ class User extends CI_Controller {
 		$this->load->model("user_model");
 	}
 
-	public function addnew()
-	{ 
+	public function addnew(){ 
 		$data = $_POST; 
    	$result = $this->user_model->add_new_user($data);
-		echo $result;	
 	}
 
 	public function update(){
@@ -22,11 +20,10 @@ class User extends CI_Controller {
 	}
 
 	public function getusers(){
-
 		$this->user_model->get_all_users();
 	}
 
-	public function paginate(){
+	 public function paginate(){
 		$offset = $_POST['offset'];
 		$perpage = $_POST['perpage'];
 		$table = $_POST['table'];
@@ -34,7 +31,7 @@ class User extends CI_Controller {
 		if($table == "users"):
 			$this->user_model->get_users_paginate($offset,$perpage);
 		endif;
-	}
+	 }
 
 	public function deleteuser(){
 		$id = $_POST['user_id'];

@@ -5,7 +5,7 @@
     <div class="row shortcuts-container data-card-container">
       <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_clients(); ?></span> <span>Clientes</span> </div>
       <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> contratos</div>
-      <div class="small-data-card"><i class="material-icons">equalizer</i>6 clientes activos</div>   
+      <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span> clientes activos</div>   
     </div>
     <h4>Ingresos Este Año: RD$<span> <?php $this->payment_model->year_income(); ?> Pesos</span></h4>
     <div class="wide-chart">
@@ -104,7 +104,7 @@
           data:{
             labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
             datasets: [{
-              label: '# of Votes',
+              label: 'ingresos',
               data: [12, 19, 3, 5, 2, 3],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

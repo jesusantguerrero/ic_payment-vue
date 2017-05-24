@@ -28,9 +28,8 @@ switch (currentPage) {
     break;
 }
 
-
 function initHandlers(){
-  count_table("users");
+  initPagination("#t-users","users",paginate);
 
   $("#btn-save-user").on('click',function(e){
     e.stopImmediatePropagation();
@@ -38,7 +37,7 @@ function initHandlers(){
   });
 
   $("#btn-update-user").on('click',function(e){
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     updateUser();
   });
 
@@ -64,8 +63,7 @@ function initHandlers(){
 
     $('#update-user-modal').modal();
   });
-
-    initPagination("#t-users","users",paginate);
+ 
 }
 
 function initClientHandlers(){
@@ -113,6 +111,7 @@ function initClientHandlers(){
 
 function initServicesHandlers(){
   count_table("servicios");
+  initPagination("#t-services","servicios",paginate);
    
   $("#btn-save-service").on('click',function(e){
     e.stopImmediatePropagation();
@@ -254,18 +253,33 @@ function count_table(table){
 }
 
 function paginate(offset,perpage,tableName){
-  path = "user/";
-  if(tableName != "user"){
+  var path = "user/";
+  var handlers;
+  if(tableName != "users"){
     path = "process/";
   }
+  switch (tableName) {
+    case "users":
+      handlers = initHandlers;
+      break;
+    case "clientes":
+      handlers = initClientHandlers;
+      break;
+    case "servicios":
+      handlers = initServicesHandlers;
+      break;
+    default:
+      break;
+  }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
-  connectAndSend(path+'paginate',false,initHandlers,fillCurrentTable,form,null);
+  connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
 }
 
 /********************************************************
  *                CRUD para la tabla Clientes           *
  *                                                      *
  ********************************************************/
+
 function addNewClient(){
   
   var form,response, result, nombres,apellidos,cedula,celular,provincia,sector,calle,casa,telefono,

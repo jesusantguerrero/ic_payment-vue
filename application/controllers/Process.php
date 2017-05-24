@@ -55,6 +55,9 @@ class Process extends CI_Controller {
 	public function getall(){
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
+			case "users":
+				$this->user_model->get_all_users();
+				break;
 			case "clientes":
 				$this->client_model->get_all_clients();
 				break;
@@ -74,6 +77,8 @@ class Process extends CI_Controller {
 		if($offset == 1) $offset = 0;
 		if($table == "clientes"):
 			$this->client_model->get_clients_paginate($offset,$perpage);
+		else:
+			$this->service_model->get_services_paginate($offset,$perpage);
 		endif;
 	}
 

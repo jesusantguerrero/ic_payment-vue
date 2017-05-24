@@ -52,12 +52,12 @@ class User_model extends CI_MODEL{
     $result = $result->result_array();
     $result = count($result);
     if($result){
-      return "&#10006; Este nombre de usuario ya está registrado";
+      echo "&#10006; Este nombre de usuario ya está registrado";
     }else{
       if($this->db->insert('users',$this)){
-        return "&#10004; Usuario agregado con exito";
+        echo "&#10004; Usuario agregado con exito";
       }else{
-       return "No pudo guardarse el usuario";
+       echo "No pudo guardarse el usuario";
       } 
 
     }  
@@ -69,9 +69,9 @@ class User_model extends CI_MODEL{
     $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
 
     if($result = $this->db->query($sql)){
-      return "&#10004; Usuario Actualizado Con Exito!";
+      echo "&#10004; Usuario Actualizado Con Exito!";
     }else{
-     return "&#10006; No pudo guardarse el usuario " . $sql;
+     echo "&#10006; No pudo guardarse el usuario " . $sql;
     }   
   }
 
@@ -91,7 +91,7 @@ class User_model extends CI_MODEL{
     $sql = "SELECT * FROM users LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     $result = make_table($result->result_array(),$offset);
-    echo $result;
+    echo "hola";
   }
   
   public function get_user($id){
@@ -123,8 +123,5 @@ class User_model extends CI_MODEL{
      return false;
     }
   }
-
-  
-
   //functions
 }

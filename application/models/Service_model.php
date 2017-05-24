@@ -77,7 +77,7 @@ class Service_model extends CI_MODEL{
   }
 
   public function get_services_shortcuts(){
-    $sql = "SELECT * FROM servicios";
+    $sql = "SELECT * FROM servicios WHERE tipo= 'internet'";
     $result = $this->db->query($sql);
     $result = make_service_shortcuts($result->result_array());
     echo $result;
@@ -88,10 +88,10 @@ class Service_model extends CI_MODEL{
     echo $result;
   }
 
-  public function get_clients_paginate($offset,$perpage){
-    $sql = "SELECT * FROM clientes LIMIT ".$offset.", ".$perpage;
+  public function get_services_paginate($offset,$perpage){
+    $sql = "SELECT * FROM servicios LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
-    $result = make_client_table($result->result_array(),$offset);
+    $result = make_service_table($result->result_array(),$offset);
     echo $result;
   }
 

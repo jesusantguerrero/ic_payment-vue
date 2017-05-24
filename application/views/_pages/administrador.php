@@ -84,11 +84,7 @@
               <th>Acción</th>
             </tr>
           </thead>
-
-          <tr>
-            <tbody class="t-users-body">
-              <?php $this->user_model->get_all_users() ?>
-            </tbody>
+            <tbody> <?php $this->user_model->get_all_users() ?></tbody>
             <tfoot>
               <tr>
                 <td></td>

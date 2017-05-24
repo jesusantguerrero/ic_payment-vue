@@ -86,16 +86,16 @@ class Payment_model extends CI_MODEL{
     
   }  
 
-  public function get_active_contracts(){
-    $sql = "SELECT COUNT(*) FROM contratos WHERE estado= 'activo'";
-    $result = $this->db->query($sql);
-    echo $result->row_array()['COUNT(*)'];
-  }
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
     $result = $this->db->query($sql);
-    echo $result->row_array()['sum(total)'];
+    $result = $result->row_array()['sum(total)'];
+    if($result){
+      echo $result;
+    }else{
+      echo 0;
+    }
   }
 
   public function month_income($mes){
