@@ -37,7 +37,7 @@
             <i class="material-icons">supervisor_account</i>
             <p class="section-title">Nuevo Cliente</h4>
         </div>
-        <div class="col-md-4 shortcut">
+        <div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
             <i class="material-icons">library_books</i>
             <p class="section-title">Nuevo Contrato</h3>
         </div>

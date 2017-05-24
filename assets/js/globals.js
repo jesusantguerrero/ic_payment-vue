@@ -249,8 +249,11 @@ function makeRowsClickable(){
     
     var btnGetDetails = $("#get-details");
     var btnNewContract = $("#client-new-contract");
-    btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-    btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+    var btnGoNewContract = $("#go-new-contract");
+    if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+    if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+    if(btnGoNewContract)btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+   
   });
 
 }

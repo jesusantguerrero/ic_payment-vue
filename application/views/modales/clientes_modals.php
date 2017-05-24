@@ -246,3 +246,52 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!--*********************************************************************
+*
+*                                 Search Client Modal
+*
+**************************************************************************-->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="search-client-modal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"> Nuevo Contrato</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="searcher-container">
+    <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+  </div>
+    
+    <table class="table t-clients" id="t-clients">
+      <!--<thead>
+        <tr>
+          <th>No.</th>
+          <th>ID #</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cedula</th>
+          <th>Celular</th>
+          <th>Estado</th>
+        </tr>
+      </thead>-->
+      <tbody>
+        
+      </tbody>
+    </table>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
+        <a href="#" class="btn save" id="go-new-contract" tabindex="10">Nuevo Contrato</a>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
