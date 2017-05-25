@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="col-md-3 right-panel">
-    <h4>Detalles Generales</h4>
+    <h3 class="card-title">Detalles Generales</h3>
     <div class="today-data">
       <h5>Ventas de hoy</h5>
       <p> <a href=""><span class="amount">RD$ <?php echo $this->payment_model->day_income("today") ?></span></a> </p>

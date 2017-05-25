@@ -106,11 +106,15 @@ class Contract_model extends CI_MODEL{
     return $result->row_array();
   }
 
-  public function refresh_contract($data_pago,$data_contrato){ 
+  public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
     $sql1 = " UPDATE pagos SET estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
     
     $sql2 = " UPDATE contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
     $sql2 .=",estado = '".$data_contrato['estado']."' WHERE id_contrato=".$data_contrato['id_contrato'];
+
+    $sql3 = "SELECT * FROM contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
+    $sql4 = " UPDATE clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+
 
     $this->db->trans_start();
     $this->db->query($sql1);
@@ -121,12 +125,14 @@ class Contract_model extends CI_MODEL{
       echo "No pudo guardarse el pago $sql ";
     } else{
       echo "Pago Registrado";
+      $has_contracts = $this->db->query($sql3);
+      $has_contracts = $has_contracts->result_array();
+      $has_contracts = count($has_contracts);
+      if($has_contracts == 0){
+        $this->db->query($sql4);
+      }
     }
-  
   }
    
-
- 
-
   //functions
 }

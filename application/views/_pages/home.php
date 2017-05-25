@@ -10,8 +10,9 @@
                 <div class="welcome-data">
                     <div class="row">
                         <div class="col-md-6 without-padding">
-                            <h4 class="writtings">Bienvenido <?php echo $user_data['name'] ?></h4>
-                            <h4 class="company-name h3-4"><b>Empresa: </b>ICS Services</h4>
+                            <h4>ICS Services</h4>
+                            <h4>Bienvenido <?php echo $user_data['name'] ?></h4>
+                            
                                                
                         </div>
                         <div class="col-md-5 date-container">

@@ -274,7 +274,7 @@ if (! function_exists('refresh_contract'))
   function refresh_contract($id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
     $one_month = new DateInterval('P1M');
-    $dateYMD;
+    $dateYMD = null;
     $contract = $context->contract_model->get_contract_view($id);
     $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
     $next_payment_date = new DateTime($contract['proximo_pago']);
@@ -294,7 +294,7 @@ if (! function_exists('refresh_contract'))
       'proximo_pago'  => $dateYMD,
       'estado'        => $estado
     );
-      $context->contract_model->refresh_contract($data_pago,$data_contract);
+      $context->contract_model->refresh_contract($data_pago,$data_contract,$contract);
       
     
   }
