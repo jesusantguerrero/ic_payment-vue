@@ -4,7 +4,8 @@
   border-radius: 4px
   padding: 20px
   overflow: hidden
-
+.t-center
+  text-align: center
 .main-card
   +card()
   border: 1px solid #ddd
@@ -17,6 +18,14 @@
     +makeFlex(100%,row,space-between,flex-start)
   .card-title
     color: #555
+
+.clock-card
+  margin-left: 3%
+  padding: 0 0 0 0
+  +size(31.5%,150px)
+
+.toolsrow
+  height: max-content
 
 .details-card
   background: $contrast-color
@@ -99,12 +108,11 @@
 
 // company
 .h3-4
-  font-size: 20px
-  margin: 2px
+  font-size: 35px
+  margin: 30px
   font-weight: bolder
-  b
-    color: $contrast-color
-    margin-right: 5px
+  color: $primary-color
+
 .writtings
   margin-bottom: 20px
 .company-data

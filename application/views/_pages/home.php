@@ -9,12 +9,12 @@
                 </div>
                 <div class="welcome-data">
                     <div class="row">
-                        <div class="col-md-7 without-padding">
+                        <div class="col-md-6 without-padding">
                             <h4 class="writtings">Bienvenido <?php echo $user_data['name'] ?></h4>
                             <h4 class="company-name h3-4"><b>Empresa: </b>ICS Services</h4>
-                            <h4 class="hour h3-4"> <b>Hora: </b><span></span></h4>                       
+                                               
                         </div>
-                        <div class="col-md-4 date-container">
+                        <div class="col-md-5 date-container">
                             <p class="day"></p>
                             <p class="month-year"></p>
                             <span class="dayweek">Lunes</span>                           
@@ -32,22 +32,30 @@
             <button class="btn btn-remark search-client">Buscar Cliente</button>
         </div>
     </div>
-    <div class="row shortcuts-container">
-        <div class="col-md-4 shortcut"  id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
-            <i class="material-icons">supervisor_account</i>
-            <p class="section-title">Nuevo Cliente</h4>
+    <div class="row">
+        <div class="col-md-8 shortcuts-container">
+            <div class="col-md-4 shortcut"  id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
+                <i class="material-icons">supervisor_account</i>
+                <p class="section-title">Nuevo Cliente</h4>
+            </div>
+            <div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
+                <i class="material-icons">library_books</i>
+                <p class="section-title">Nuevo Contrato</h3>
+            </div>
+            <div class="col-md-4 shortcut">
+                <i class="material-icons">monetization_on</i>
+                <p class="section-title">Registrar Pago</h4>
+            </div>
+             <div class="col-md-4 shortcut">
+                <i class="material-icons">more</i>
+                <p class="section-title">Servicio Extra</p>
+            </div>
         </div>
-        <div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
-            <i class="material-icons">library_books</i>
-            <p class="section-title">Nuevo Contrato</h3>
+        <div class="col-md-4 clock-card">
+            <h3 class="card-title t-center" >Hora</h3>
+            <h4 class="hour h3-4 t-center"><span></span></h4>  
         </div>
-        <div class="col-md-4 shortcut">
-            <i class="material-icons">monetization_on</i>
-            <p class="section-title">Registrar Pago</h4>
-        </div>
-         <div class="col-md-4 shortcut">
-            <i class="material-icons">more</i>
-            <p class="section-title">Servicio Extra</p>
-        </div>
+       
     </div>
+          
 </div>

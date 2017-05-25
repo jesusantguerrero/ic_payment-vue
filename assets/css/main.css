@@ -492,6 +492,9 @@ form {
   padding: 20px;
   overflow: hidden; }
 
+.t-center {
+  text-align: center; }
+
 .main-card {
   background: #fff;
   border: 1px solid #ccc;
@@ -514,6 +517,15 @@ form {
     align-items: flex-start; }
   .main-card .card-title {
     color: #555; }
+
+.clock-card {
+  margin-left: 3%;
+  padding: 0 0 0 0;
+  width: 31.5%;
+  height: 150px; }
+
+.toolsrow {
+  height: max-content; }
 
 .details-card {
   background: #1FA1D0;
@@ -605,12 +617,10 @@ form {
     box-sizing: border-box; }
 
 .h3-4 {
-  font-size: 20px;
-  margin: 2px;
-  font-weight: bolder; }
-  .h3-4 b {
-    color: #1FA1D0;
-    margin-right: 5px; }
+  font-size: 35px;
+  margin: 30px;
+  font-weight: bolder;
+  color: #4E5962; }
 
 .writtings {
   margin-bottom: 20px; }
