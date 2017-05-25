@@ -7,9 +7,13 @@ ob_start( 'ob_gzhandler' );
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>IC Payment | <?php echo $title; ?></title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>"/>
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
-    <link href="favicon.png" rel="icon" type="image/png"/>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php  echo base_url('/favicon-32x32.png')?>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php  echo base_url('/favicon-16x16.png')?>">
+    
 </head>
 <body class="login-body">
 
@@ -23,11 +27,11 @@ ob_start( 'ob_gzhandler' );
           <div>
             <form action="<?php echo base_url('app/login') ?>" method='post'>
               <div class="form-group">
-                 <label for="userInput">Usuario</label>
+                 <label for="user-input">Usuario</label>
                  <input name="user-input" type="text" class="form-control">
               </div>
               <div class="form-group">
-                 <label for="passwordInput">Contraseña</label>
+                 <label for="password-input">Contraseña</label>
                  <input name="password-input" type="password" class="form-control">
               </div>
                   <input type="submit" value="Ingresar">

@@ -107,7 +107,7 @@ class Contract_model extends CI_MODEL{
   }
 
   public function refresh_contract($data_pago,$data_contrato){ 
-    $sql1 = " UPDATE pagos SET estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."' WHERE id_pago=".$data_pago['id'];
+    $sql1 = " UPDATE pagos SET estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
     
     $sql2 = " UPDATE contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
     $sql2 .=",estado = '".$data_contrato['estado']."' WHERE id_contrato=".$data_contrato['id_contrato'];

@@ -431,6 +431,17 @@ function addNewContract(){
   }
 }
 
+function getLastContract(){
+  form = "toget=lastcontract"
+  connectAndSend("process/getId",false,initContractHandlers,contractSaved,null);
+}
+
+function contractSaved(id){
+  $("#btn-save-contract").attr("disabled","");
+  $("#btn-print-contract").removeAttr("disabled");
+  $("#btn-print-contract").attr("href","");
+}
+
 /********************************************************
  *                CRUD para la tabla Pago               *
  *                                                      *

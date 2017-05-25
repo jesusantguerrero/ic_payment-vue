@@ -92,7 +92,7 @@
 
       <div class="row-container">
         <button class="btn" id="btn-save-contract">Guardar</button>
-        <button class="btn" disabled>Imprimir</button>
+        <button class="btn" id="btn-print-contract" disabled>Imprimir</button>
       </div>
     </div>
     

@@ -112,16 +112,6 @@
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel" id="profile">
 
-              <div class="searcher-container">
-                <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
-              </div>
-
-
-              <div class="busquedas">
-                <button class="tab-buttons" href="">Ver Todos</button>
-                <button class="tab-buttons" href="">Activos</button>
-              </div>
-
               <table class="table d-contratos" id="d-contracts">
                 <thead>
                   <tr>

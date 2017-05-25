@@ -101,6 +101,28 @@ class Payment_model extends CI_MODEL{
       return 0;
     }
   }
+
+  public function day_income(){
+    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and day(fecha_pago)=day(now())";
+    $result = $this->db->query($sql);
+    $result->row_array()['sum(total)'];
+    if ($result != null){
+      return $result->row_array()['sum(total)'];
+    }else{
+      return 0;
+    }
+  }
+
+  public function weekday_income($day){
+    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and week(fecha_pago) = week(now())";
+    $result = $this->db->query($sql);
+    $result->row_array()['sum(total)'];
+    if ($result != null){
+      return $result->row_array()['sum(total)'];
+    }else{
+      return 0;
+    }
+  }
    
 
  

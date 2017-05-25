@@ -14,9 +14,9 @@
   </div>
   <div class="col-md-3 right-panel">
     <h4>Detalles Generales</h4>
-    <div>
-      <h5>Datos de hoy</h5>
-      <p></p>
+    <div class="today-data">
+      <h5>Ventas de hoy</h5>
+      <p> <a href=""><span class="amount">RD$ <?php echo $this->payment_model->day_income("today") ?></span></a> </p>
     </div>
     <div>
       <h5>Clientes Por Servicios</h5>
@@ -102,10 +102,18 @@
         var chartOptions = {
           type: 'bar',
           data:{
-            labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+            labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado","Domingo"],
             datasets: [{
               label: 'ingresos',
-              data: [12, 19, 3, 5, 2, 3],
+              data: [
+                <?php echo $this->payment_model->weekday_income("monday") ?>,
+                <?php echo $this->payment_model->weekday_income("tuesday") ?>,
+                <?php echo $this->payment_model->weekday_income("wednesday") ?>,
+                <?php echo $this->payment_model->weekday_income("thursday") ?>,
+                <?php echo $this->payment_model->weekday_income("friday") ?>,
+                <?php echo $this->payment_model->weekday_income("saturday") ?>,
+                <?php echo $this->payment_model->weekday_income("sunday") ?>
+              ],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

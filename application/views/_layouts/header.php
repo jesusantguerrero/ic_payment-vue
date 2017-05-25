@@ -15,7 +15,8 @@ ob_start( 'ob_gzhandler' );
         <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.js') ?>"></script>
-        <link href="<?php echo base_url('./favicon.ico')?>" rel="icon" type="image/png"/>
+        <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
+        
 
     </head>
 
@@ -37,6 +38,7 @@ ob_start( 'ob_gzhandler' );
                         <span><?php echo $user_data['name'][0].$user_data['lastname'][0] ?></span>
                     <?php echo $tooltip; ?>
                     </div>
+                    <button class="btn-more"><i class="material-icons">more_vert</i></button>
                 </div>
             </div>
             <div class="header-low">

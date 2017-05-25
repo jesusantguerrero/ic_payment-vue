@@ -321,6 +321,16 @@ input[type="button"] {
 .material-icons {
   margin-right: 15px; }
 
+.btn-more {
+  border: none;
+  text-align: center;
+  background: transparent;
+  color: #fff;
+  width: fit-content; }
+  .btn-more:focus, .btn-more:active, .btn-more:hover {
+    outline: none;
+    color: #1FA1D0; }
+
 * {
   margin: 0;
   padding: 0;
@@ -367,6 +377,7 @@ nav {
   height: 100%; }
 
 .user-controls {
+  width: 40px;
   width: fit-content;
   text-align: right;
   margin-right: 15px;
@@ -543,7 +554,7 @@ form {
     border: 2px solid #1FA1D0;
     color: #fff;
     background: #1FA1D0;
-    transform: scale(1.1); }
+    transform: scale(1.03); }
   .shortcut:first-child {
     margin-left: 0; }
   .shortcut:last-child {
@@ -860,6 +871,13 @@ canvas {
   height: 100%;
   border-left: 1px solid #ddd;
   box-shadow: -1px 2px 2px 2px rgba(85, 85, 85, 0.1); }
+  .right-panel .amount {
+    color: #1FA1D0;
+    font-weight: bolder;
+    font-size: 25px; }
+  .right-panel .today-data {
+    font-size: 20px;
+    margin: 0 0 10px 0; }
 
 .page-header {
   margin-top: 0; }

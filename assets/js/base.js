@@ -71,10 +71,12 @@ function newUserForm(){
 function userInfoTip(){
   var infoTip = $(".user-info-tip");
   var profilePicture = $(".profile-picture");
+  var btnMore = $(".btn-more");
 
-  profilePicture.on('click',function(e){
+  btnMore.on('click',function(e){
     infoTip.toggleClass("visible");
   });
+
 
 
 }
