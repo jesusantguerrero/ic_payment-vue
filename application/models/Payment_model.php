@@ -85,9 +85,9 @@ class Payment_model extends CI_MODEL{
     $result = $this->db->query($sql);
     $result = $result->row_array()['sum(total)'];
     if($result){
-      echo $result;
+      return $result;
     }else{
-      echo 0;
+      return 0;
     }
   }
 

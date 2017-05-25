@@ -15,6 +15,7 @@ ob_start( 'ob_gzhandler' );
         <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.js') ?>"></script>
+         <script type="text/javascript" src="<?php echo base_url('assets/js/currencyFormat.js') ?>"></script>
         <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
         
 
