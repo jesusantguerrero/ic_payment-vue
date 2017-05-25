@@ -111,8 +111,7 @@ function isEmpty(values){
 //
 
 /**
- * get Pagination Data: if the table is a paginated one this function return the information related with that
- * retorna los datos de paginacion colocados al pie de la tabla
+ * get Pagination Data: Devuelve la información del pie de la tabla relacionada con la paginación
  * @param {string} tableId 
  * @return {{perpage: number,$maxLimit: HTMLElement,$minLimit: HTMLElement,previous:number,next:number,min:number,max: number,total:number}}
  * 
@@ -120,6 +119,7 @@ function isEmpty(values){
 function getPaginationData(tableId){
   var perpage = $(tableId + " .per-page").val();
   var $maxLimit = $(tableId + " .max-limit");
+  var $maxLimitVisible = $(tableId + " .max-limit-visible");
   var $minLimit = $(tableId + " .min-limit");
   var total = $(tableId + " .total-rows").text();
   var previous = Number($minLimit.text());
@@ -131,7 +131,16 @@ function getPaginationData(tableId){
   next = next + perpage;
   previous = previous + perpage;
 
-  return {"perpage":perpage,"min":min,"max":max,"previous":previous,"next":next,"$maxLimit":$maxLimit,"$minLimit":$minLimit, "total":total}
+  return {"perpage": perpage,
+          "min": min,
+          "max": max,
+          "previous": previous,
+          "next":next,
+          "$maxLimit": $maxLimit,
+          "$maxLimitVisible": $maxLimitVisible,
+          "$minLimit": $minLimit,
+          "total": total
+        }
 }
 
 /**
@@ -149,8 +158,14 @@ function initPagination(tableId,serverTable,paginate){
 
     var pagination = getPaginationData(tableId);
     if(pagination.max < pagination.total){
+      var nextMax = pagination.max + pagination.perpage;
       paginate(pagination.max ,pagination.perpage,serverTable);
-      pagination.$maxLimit.text(pagination.max + pagination.perpage);
+      if(nextMax > pagination.total){
+        pagination.$maxLimitVisible.text(pagination.total);
+      }else{
+        pagination.$maxLimitVisible.text(nextMax);
+      } 
+      pagination.$maxLimit.text(pagination.max + pagination.perpage); 
       pagination.$minLimit.text(pagination.min + pagination.perpage);
     }
   });
@@ -159,7 +174,9 @@ function initPagination(tableId,serverTable,paginate){
     e.stopImmediatePropagation()
     var pagination = getPaginationData(tableId);
     if(pagination.min != 1){
-      pagination.$maxLimit.text(pagination.max - pagination.perpage);
+      var previousMax = pagination.max - pagination.perpage;
+      pagination.$maxLimit.text(previousMax);
+      pagination.$maxLimitVisible.text(previousMax);
       pagination.$minLimit.text(pagination.min - pagination.perpage);
       paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable);
     }
@@ -169,6 +186,12 @@ function initPagination(tableId,serverTable,paginate){
     e.stopImmediatePropagation();
     var pagination = getPaginationData(tableId)
     pagination.$maxLimit.text(pagination.perpage);
+    if(pagination.perpage > pagination.total){
+      pagination.$maxLimitVisible.text(pagination.total);
+    }else{
+      pagination.$maxLimitVisible.text(pagination.perpage);
+    }
+    
     pagination.$minLimit.text(pagination.min);
     paginate(pagination.min,pagination.perpage,serverTable);
   })

@@ -1221,6 +1221,8 @@ table {
       cursor: pointer; }
       table tfoot .next-page:hover, table tfoot .previous-page:hover {
         color: #1FA1D0; }
+    table tfoot .max-limit {
+      display: none; }
   table th {
     height: 42px; }
     table th:last-child {
