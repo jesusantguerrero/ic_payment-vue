@@ -231,7 +231,8 @@ th {
     display: inline-block;
     width: 12%;
     height: 20px;
-    font-weight: bolder; }
+    font-weight: 900;
+    color: #666; }
     .recibo-body .text-main.center {
       text-align: center; }
   .recibo-body .line {

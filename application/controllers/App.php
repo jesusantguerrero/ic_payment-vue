@@ -16,7 +16,7 @@ class App extends CI_Controller {
 	public function index($page = 'login'){
 		if ($page == 'login'):	
 			$data['title'] = $page;	
-			$this->load->view('_pages/'.$page,$data);
+			$this->load->view('pages/'.$page,$data);
 		else:
 			echo "Hola mundo";
 		endif;
@@ -27,13 +27,12 @@ class App extends CI_Controller {
 		if(isset($_SESSION['user_data'])){
 			if(($page == "administrador" || $page == "reportes") && $_SESSION['user_data']['type'] > 0){
 				redirect(base_url('app/admin/home'));
-			}
-			
-			$tooltip = $this->load->view('_layouts/headertooltip','',true);
+			}	
+			$tooltip = $this->load->view('layouts/headertooltip','',true);
 			$data['title'] = $page;
-			$data['tooltip'] =$tooltip;
-			$this->load->view('_layouts/header',$data);
-			$this->load->view('_pages/'.$page);
+			$data['tooltip'] = $tooltip;
+			$this->load->view('layouts/header',$data);
+			$this->load->view('pages/' . $page);
 
 			$modals = get_modals($page);
 			if($modals != FALSE){
@@ -41,7 +40,7 @@ class App extends CI_Controller {
 					$this->load->view($modal);
 				}
 			}
-			$this->load->view('_layouts/footer');
+			$this->load->view('layouts/footer');
 		}else{
 			echo "usted no puede permanecer aqui";
 		}
@@ -51,7 +50,7 @@ class App extends CI_Controller {
 	public function imprimir($page){
 		if(isset($_SESSION['user_data'])){
 			$data['title'] = $page;
-			$this->load->view('_layouts/header_impresos',$data);
+			$this->load->view('layouts/header_impresos',$data);
 			$this->load->view('impresos/'.$page);
 		}else{
 			echo "usted no puede permanecer aqui";

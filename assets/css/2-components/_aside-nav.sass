@@ -63,7 +63,6 @@
   height: 40px
   background: #fff
   cursor: pointer
-  position: relative
   box-sizing: border-box
   border-radius: 50%
   span
@@ -77,11 +76,11 @@
   position: absolute
   color: #555
   background: #fff
-  min-width: 170px
+  min-width: 190px
   min-height: 200px
-  bottom: -265px
-  right: -10px
-  border-radius: 4px
+  top: 90px
+  right: 0
+  border-radius: 0 0 4px 4px
   +card
   padding: 2px 0
   z-index: 2000
@@ -96,15 +95,6 @@
   .current-user
     position: relative
     border-bottom: 2px solid #ddd
-    &:after  
-      content: ' '
-      position: absolute
-      +size(0,0)
-      border-bottom: 15px solid #fff
-      border-left: 15px solid transparent 
-      border-right: 15px solid transparent
-      top: -20px
-      right: 10px
   
   li
     margin: 5px 0
