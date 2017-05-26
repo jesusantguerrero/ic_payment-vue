@@ -1,12 +1,14 @@
 $(function(){
-
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
 var ran = false;
+console.log(currentPage);
 
 switch (currentPage) {
   case "home":
     initClientHandlers();
+    console.log('Clientes handlers');
+    
     break;
   case "administrador":
     initHandlers();
