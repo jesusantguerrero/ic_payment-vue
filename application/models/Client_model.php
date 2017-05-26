@@ -67,6 +67,19 @@ class Client_model extends CI_MODEL{
     }  
   }
 
+  public function update_client($data){
+    $sql = "UPDATE clientes SET nombres ='".$data['nombres']."', apellidos ='".$data['apellidos']."', cedula ='".$data['cedula'];
+    $sql .="',provincia = '".$data['provincia']."', sector = '".$data['sector']."', calle = '".$data['calle']."' , casa = '".$data['casa']."', telefono ="; 
+    $sql .="'".$data['telefono']."', celular = '".$data['celular']."' ";
+    $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos=".$data['ingresos']." WHERE id_cliente =".$data['id'];
+
+    if($result = $this->db->query($sql)){
+      echo "&#10004; Usuario Actualizado Con Exito!";
+    }else{
+     echo "&#10006; No pudo guardarse el usuario " . $sql;
+    }   
+  }
+
   public function is_active($is_active,$data){
     if($is_active){
       $state = "activo";
@@ -110,11 +123,16 @@ class Client_model extends CI_MODEL{
 
   }
   
-  public function get_client($id){
+  public function get_client($id,$is_echo = false){
     $sql = "SELECT * FROM clientes WHERE id_cliente=". $id;
     $result = $this->db->query($sql);
     $result =$result->row_array();
-    return $result;
+    if($is_echo){
+      $result = client_to_xml_format($result);
+      echo $result;
+    }else{
+      return $result;
+    }
   }
 
   public function delete_client($id){

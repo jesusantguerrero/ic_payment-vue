@@ -70,6 +70,15 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function getone(){
+		$tabla = $_POST['tabla'];
+		switch ($tabla) {
+			case "clientes":
+				$this->client_model->get_client($_POST['id'],true);
+			break;
+		}
+	}
+
 	public function paginate(){
 		$offset = $_POST['offset'];
 		$perpage = $_POST['perpage'];

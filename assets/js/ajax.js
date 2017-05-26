@@ -74,6 +74,16 @@ function initClientHandlers(){
     addNewClient();
   });
 
+  $("#update-client").on('click',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var $row = $("tr.selected");
+    if($row){
+      var id = $row.find('.id_cliente').text().trim();
+      getClient(id);
+    }
+  });
+
   initPagination("#t-clients","clientes",paginate);
 
   makeRowsClickable();
@@ -252,28 +262,7 @@ function count_table(table){
   connectAndSend('process/count',false,null,updateCount,form,null);
 }
 
-function paginate(offset,perpage,tableName){
-  var path = "user/";
-  var handlers;
-  if(tableName != "users"){
-    path = "process/";
-  }
-  switch (tableName) {
-    case "users":
-      handlers = initHandlers;
-      break;
-    case "clientes":
-      handlers = initClientHandlers;
-      break;
-    case "servicios":
-      handlers = initServicesHandlers;
-      break;
-    default:
-      break;
-  }
-  var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
-  connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
-}
+
 
 /********************************************************
  *                CRUD para la tabla Clientes           *
@@ -304,7 +293,7 @@ function addNewClient(){
   if(!is_empty){   
     form = 'nombres=' + nombres + "&apellidos=" + apellidos + "&cedula=" + cedula + "&celular=" + celular;
     form += "&provincia=" + provincia + "&sector=" + sector + "&calle=" + calle + "&casa=" + casa + "&telefono=" + telefono;
-    form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo"+ telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
+    form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo="+ telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
     form += "&estado=" + estado +"&tabla=clientes";
     
     connectAndSend("process/add",true,initClientHandlers,null,form,getClients);
@@ -328,8 +317,69 @@ function searchClient(){
   
 }
 
+function getClient(id){
+  form="tabla=clientes&id=" + id;
+  connectAndSend("process/getone",false,initClientHandlers,recieveClient,form,null)
+}
+
+function recieveClient(content){
+  var client = $.parseXML(content);
+  var client = $(client);
+  var id = client.find("id").text();
+  var $nombres        = $("#u-client-name");
+  var $apellidos      = $("#u-client-lastname");
+  var $cedula         = $("#u-client-dni");
+  var $celular        = $("#u-client-phone");
+  var $provincia      = $("#u-client-provincia");
+  var $sector         = $("#u-client-sector");
+  var $calle          = $("#u-client-street");
+  var $casa           = $('#u-client-house');
+  var $telefono       = $('#u-client-telephone');
+  var $lugarTrabajo   = $('#u-client-job');
+  var $telTrabajo     = $('#u-client-job-telephone');
+  var $ingresos       = $('#u-client-salary');
+
+  $nombres.val(client.find("name").text());      
+  $apellidos.val(client.find("lastname").text())     
+  $cedula.val(client.find("dni").text())         
+  $celular.val(client.find("cellphone").text())       
+  $provincia.val(client.find("province").text())      
+  $sector.val(client.find("sector").text())         
+  $calle.val(client.find("street").text())          
+  $casa.val(client.find("house").text())           
+  $telefono.val(client.find("telephone").text())       
+  $lugarTrabajo.val(client.find("job").text())  
+  $telTrabajo.val(client.find("jobphone").text())     
+  $ingresos.val(client.find("salary").text())
+
+  $("#update-client-modal").modal();    
+
+  $("#btn-update-client").on('click',function(){
+    updateClient();
+  });
+
+  function updateClient(){
+    var is_empty = isEmpty([$nombres.val(),$apellidos.val(),$cedula.val(),$celular.val(),$provincia.val(),$sector.val(),$calle.val(),
+                    $casa.val(),$telefono.val()]);
+    if(!is_empty){   
+      form  = 'id='+ id + '&nombres=' + $nombres.val() + "&apellidos=" + $apellidos.val() + "&cedula=" + $cedula.val();
+      form += "&celular=" + $celular.val() + "&provincia=" + $provincia.val() + "&sector=" + $sector.val() + "&calle=" + $calle.val();
+      form += "&casa=" + $casa.val() + "&telefono=" + $telefono.val() + "&lugar_trabajo=" + $lugarTrabajo.val() +"&tel_trabajo =";
+      form += "&ingresos=" + $ingresos.val();
+      form += $telTrabajo.val()+"&tabla=clientes";
+    
+      connectAndSend("process/update",true,initClientHandlers,null,form,getClients);
+
+    }else{
+      alert("LLene los campos requeridos por favor");
+    }
+  }
+
+  
+}
+
 /********************************************************
- *                Delete General                        *
+ *                 Ajax Generales                       *
  *                                                      *
  ********************************************************/
 
@@ -351,6 +401,29 @@ function deleteRow(id,tabla){
   } 
   connectAndSend('process/delete',true,handlers,null,form,callback);
 };
+
+function paginate(offset,perpage,tableName){
+  var path = "user/";
+  var handlers;
+  if(tableName != "users"){
+    path = "process/";
+  }
+  switch (tableName) {
+    case "users":
+      handlers = initHandlers;
+      break;
+    case "clientes":
+      handlers = initClientHandlers;
+      break;
+    case "servicios":
+      handlers = initServicesHandlers;
+      break;
+    default:
+      break;
+  }
+  var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
+  connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
+}
 
 
 /********************************************************

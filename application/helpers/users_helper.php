@@ -11,8 +11,7 @@ $client_details;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if ( ! function_exists('make_table'))
-{
+if ( ! function_exists('make_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -68,10 +67,7 @@ if( !function_exists('get_user_data')){
   }
 }
 
-
-
-if ( ! function_exists('make_client_table'))
-{
+if ( ! function_exists('make_client_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -99,8 +95,7 @@ if ( ! function_exists('make_client_table'))
   }
 }
 
-if ( ! function_exists('make_service_table'))
-{
+if ( ! function_exists('make_service_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -127,8 +122,7 @@ if ( ! function_exists('make_service_table'))
   }
 }
 
-if ( ! function_exists('make_contract_table'))
-{
+if ( ! function_exists('make_contract_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -166,8 +160,7 @@ function make_contract_dropdown($data){
     return $html_text;
 }
 
-if ( ! function_exists('make_payment_table'))
-{
+if ( ! function_exists('make_payment_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -195,8 +188,7 @@ if ( ! function_exists('make_payment_table'))
     return $html_text;
   }
 }
-if ( ! function_exists('make_service_shortcuts'))
-{
+if ( ! function_exists('make_service_shortcuts')){
   /**
   * create a shortcut for the data from users to display in the interface
   * @param array $data the result of an select in a query 
@@ -228,8 +220,7 @@ function get_client_data(){
 }
 
 
-if ( ! function_exists('create_payments'))
-{
+if ( ! function_exists('create_payments')){
   /**
   * Genera los pagos de un contrato automaticamente
   * @param array $data the result of an select in a query 
@@ -262,10 +253,9 @@ if ( ! function_exists('create_payments'))
   }
 }
 
-if (! function_exists('refresh_contract'))
-{
+if (! function_exists('refresh_contract')){
   /**
-  * Genera los pagos de un contrato automaticamente
+  * Actualiza los pagos de un contrato automaticamente
   * @param array $data the result of an select in a query 
   * @param int the number for start counting the rows the that is for my custom pagination
   *@return string the tbody with rows of a table 
@@ -300,12 +290,31 @@ if (! function_exists('refresh_contract'))
   }
 }
 
-function CurrencyFormat($number)
-{
+function CurrencyFormat($number){
    $decimalplaces = 2;
    $decimalcharacter = '.';
    $thousandseparater = ',';
    return number_format($number,$decimalplaces,$decimalcharacter,$thousandseparater);
+}
+
+function client_to_xml_format($data){
+        $client = "<client>
+        <id>".$data['id_cliente']."</id>
+        <name>".$data['nombres']."</name>
+        <lastname>".$data['apellidos']."</lastname>
+        <dni>".$data['cedula']."</dni>
+        <province>".$data['provincia']."</province>
+        <sector>".$data['sector']."</sector>
+        <street>".$data['calle']."</street>
+        <house>".$data['casa']."</house>
+        <telephone>".$data['telefono']."</telephone>
+        <cellphone>".$data['celular']."</cellphone>
+        <job>".$data['lugar_trabajo']."</job>
+        <jobphone>".$data['tel_trabajo']."</jobphone>
+        <salary>".$data['ingresos']."</salary>
+      </client>";
+    
+    return $client;
 }
 
 

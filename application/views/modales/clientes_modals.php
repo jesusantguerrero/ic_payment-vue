@@ -238,7 +238,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
-        <button type="button" class="btn save" id="btn-update-client" tabindex="10">Guardar</button>
+        <button type="button" class="btn save" id="btn-update-client" tabindex="10">Actualizar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -267,17 +267,7 @@
   </div>
     
     <table class="table t-clients" id="t-clients">
-      <!--<thead>
-        <tr>
-          <th>No.</th>
-          <th>ID #</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Cedula</th>
-          <th>Celular</th>
-          <th>Estado</th>
-        </tr>
-      </thead>-->
+
       <tbody>
         
       </tbody>
