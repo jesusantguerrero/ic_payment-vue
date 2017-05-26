@@ -267,7 +267,17 @@
   </div>
     
     <table class="table t-clients" id="t-clients">
-
+ <!--<thead>
+        <tr>
+          <th>No.</th>
+          <th>ID #</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cedula</th>
+          <th>Celular</th>
+          <th>Estado</th>
+        </tr>
+      </thead>-->
       <tbody>
         
       </tbody>

@@ -101,6 +101,8 @@ function initClientHandlers(){
   $("#client-searcher").on('keyup',function(e){
     e.stopImmediatePropagation();
     searchClient();
+    console.log('estoy buscando...');
+    
   });
 
   $("#delete-client").on('click',function(e){
@@ -309,12 +311,11 @@ function getClients(){
 }
 
 function searchClient(){
-  var word = $("#client-searcher").val()
+  var word = $("#client-searcher").val();
   if (word != null || word != ""){
     var form = "tabla=clientes&word="+word;
     connectAndSend('process/search',false,initClientHandlers,fillCurrentTable,form,null);
   }
-  
 }
 
 function getClient(id){
@@ -373,9 +374,7 @@ function recieveClient(content){
     }else{
       alert("LLene los campos requeridos por favor");
     }
-  }
-
-  
+  } 
 }
 
 /********************************************************
