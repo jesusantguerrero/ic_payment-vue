@@ -8,17 +8,19 @@
       <p></p>
     </div>
     <div class="left-box"> 
-      <p class="fecha"><b>Fecha: <span>22-mayo-2017</span></b></p>
-      <p><b>Factura No.:</b> <span>22</span></p>
-      <p><b>Del contrato No.: </b><span>1</span></p>
-      <p><b>Cliente: </b><span>Jesus Guerrero Alvarez</span></p>
+      <h4 class="fecha-recibo">Fecha: 22-mayo-2017</h4>
+      <p><b>Recibo  :</b> <span>22</span></p>
+      <p><b>Contrato: </b><span>1</span></p>
+      <p><b>Cliente : </b><span>Jesus Guerrero Alvarez</span></p>
     </div>
   </div>
   <div class="concepto"> <h4>1er Pago de Mensualidad</h4></div>
   <div class="cuerpo">
-  <p class="line"> <span class="text-main">Cantidad Pagada:</span> <span class="text-placeholder"></span></p>
-  <p> <span class="text-main">Cuota Base:</span> <span class="text-placeholder md"></span>
-  <span class="text-main center">Mora:</span><span class="text-placeholder md"> </p>
+  <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"></span></p>
+   <p class="line"> <span class="text-main">Servicio:</span> <span class="text-placeholder"></span></p>
+  <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"></span>
+  <span class="text-main center">Mora:</span><span class="text-placeholder md"> </span>
+  <span class="text-main center">Extras:</span><span class="text-placeholder md"></span></p>
   </div>
   <div class="pie-pagina"></div>
 </div>

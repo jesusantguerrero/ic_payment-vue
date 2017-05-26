@@ -198,15 +198,17 @@ th {
     width: 60%; }
     .recibo-body .company-name h2 {
       padding-bottom: 0;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      font-weight: bolder;
+      color: #f20; }
   .recibo-body .concepto h4 {
     text-align: center;
     font-weight: bolder;
-    color: #fff;
+    color: #666;
     padding: 5px 0;
-    background: #1FA1D0; }
-  .recibo-body .fecha {
-    color: #1FA1D0; }
+    background: #ddd; }
+  .recibo-body .fecha-recibo {
+    color: #06f !important; }
   .recibo-body .logo-recibo {
     width: 8%;
     margin: 2%; }
@@ -224,10 +226,10 @@ th {
     width: 82%;
     height: 20px; }
     .recibo-body .text-placeholder.md {
-      width: 31.43%; }
+      width: 18.43%; }
   .recibo-body .text-main {
     display: inline-block;
-    width: 18%;
+    width: 12%;
     height: 20px;
     font-weight: bolder; }
     .recibo-body .text-main.center {
@@ -247,8 +249,9 @@ th {
     border-left: 1px dashed #ddd;
     border-right: 1px dashed #ddd;
     -webkit-print-color-adjust: exact; }
-    .recibo-body .fecha {
-      color: blue !important; }
+  .fecha-recibo {
+    color: #06f !important; }
   .concepto h4 {
-    color: #fff !important;
-    background: #1FA1D0 !important; } }
+    background: #ddd !important; }
+  .company-name h2 {
+    color: #f20 !important; } }

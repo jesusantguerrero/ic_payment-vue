@@ -15,14 +15,16 @@
     h2
       padding-bottom: 0
       margin-bottom: 0 
+      font-weight: bolder
+      color: #f20
   .concepto h4
     text-align: center
     font-weight: bolder
-    color: #fff
+    color: #666
     padding: 5px 0
-    background: $contrast-color
-  .fecha
-    color: $contrast-color
+    background: #ddd
+  .fecha-recibo
+    color: #06f !important
   .logo-recibo
     width: 8%
     margin: 2%
@@ -40,10 +42,10 @@
     margin: 0
     +size(82%,20px)
     &.md
-      width: 31.43%
+      width: 18.43%
   .text-main
     display: inline-block
-    +size(18%,20px)
+    +size(12%,20px)
     font-weight: bolder
     &.center
       text-align: center
@@ -59,9 +61,10 @@
     border-left: 1px dashed #ddd
     border-right: 1px dashed #ddd
     -webkit-print-color-adjust: exact
-    .fecha
-      color: blue !important
+  .fecha-recibo
+    color: #06f !important
   .concepto h4
-    color: #fff !important
-    background: $contrast-color !important
+    background: #ddd !important
+  .company-name h2
+    color: #f20 !important
   
