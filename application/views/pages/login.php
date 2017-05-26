@@ -21,6 +21,7 @@ ob_start( 'ob_gzhandler' );
     <div class="row">
         <div class="col-md-10 col-md-offset-1 card login-box">
           <div>
+            <!--<img src="<?php echo base_url('assets/img/icpayment_logo_alter.svg') ?>" alt="">-->
             <h1>IC PAYMENT</h1>
           </div>
           <div class="vertical-line"></div>

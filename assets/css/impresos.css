@@ -180,7 +180,7 @@ th {
 
 .recibo-body {
   width: 735px;
-  height: 300px;
+  height: 350px;
   border: 2px dashed #aaa;
   overflow: hidden;
   font-family: 'Times New Roman', Times, serif; }
@@ -217,9 +217,12 @@ th {
     font-size: 12px;
     margin: 20px; }
   .recibo-body .cuerpo {
-    padding: 10px 15px; }
+    padding: 10px 15px;
+    border: 1px solid #ddd !important;
+    margin: 10px;
+    border-radius: 4px; }
   .recibo-body .text-placeholder {
-    border-bottom: 1px solid #555;
+    border-bottom: 1px dotted #999;
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -246,7 +249,7 @@ th {
     width: 100%;
     border: none;
     overflow: hidden;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px dashed #ddd;
     border-left: 1px dashed #ddd;
     border-right: 1px dashed #ddd;
     -webkit-print-color-adjust: exact; }
@@ -255,4 +258,9 @@ th {
   .concepto h4 {
     background: #ddd !important; }
   .company-name h2 {
-    color: #f20 !important; } }
+    color: #f20 !important; }
+  .cuerpo {
+    padding: 10px 15px;
+    border: 1px solid #999 !important; }
+  .text-placeholder {
+    border-bottom: 1px dotted #999 !important; } }
