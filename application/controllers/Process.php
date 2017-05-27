@@ -23,10 +23,12 @@ class Process extends CI_Controller {
 				$this->service_model->add($data);
 				break;
 			case "contratos":
-				 $this->contract_model->add($data);
-				 $this->client_model->is_active(true,$data);
-				 $contract_id = $this->contract_model->get_last_Id();
-				 create_payments($contract_id,$data,$this);
+				 $is_saved = $this->contract_model->add($data);
+				 if($is_saved){
+					$this->client_model->is_active(true,$data);
+				 	$contract_id = $this->contract_model->get_last_Id();
+				 	create_payments($contract_id,$data,$this);
+				 }
 				break;
 		}
 
@@ -148,5 +150,6 @@ class Process extends CI_Controller {
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
 		redirect(base_url('app/admin/nuevo_contrato'));
 	}
+
 
 }

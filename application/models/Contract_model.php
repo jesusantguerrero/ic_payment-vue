@@ -16,12 +16,15 @@ class Contract_model extends CI_MODEL{
   public $id_servicio;
   public $fecha;
   public $duracion;
-  public $observaciones;
   public $monto_total;
   public $monto_pagado;
   public $ultimo_pago;
   public $proximo_pago;
   public $estado;
+  public $nombre_equipo;
+  public $mac_equipo;
+  public $router;
+  public $mac_router;
 
 
   public function __construct(){
@@ -42,25 +45,33 @@ class Contract_model extends CI_MODEL{
     if($mode == "full"){
       $this->id_contrato = $data['id_contrato'];
     }
-    $this->id_cliente      = $data['id_cliente'];      
-    $this->id_empleado     = $data['id_empleado'];     
-    $this->id_servicio     = $data['id_servicio'];
-    $this->fecha           = $data['fecha'];
+    $this->id_cliente     = $data['id_cliente'];      
+    $this->id_empleado    = $data['id_empleado'];     
+    $this->id_servicio    = $data['id_servicio'];
+    $this->fecha          = $data['fecha'];
     $this->duracion       = $data['duracion'];
-    $this->observaciones  = $data['observaciones'] ;
     $this->monto_total    = $data['monto_total'] ;
     $this->monto_pagado   = $data['monto_pagado'] ;
     $this->ultimo_pago    = $data['ultimo_pago'] ;
     $this->proximo_pago   = $data['proximo_pago'] ;
     $this->estado         = $data['estado']; 
+    $this->nombre_equipo  = $data['nombre_equipo'];
+    $this->mac_equipo     = $data['mac_equipo'];
+    $this->router         = $data['router'];
+    $this->mac_router     = $data['mac_router'];
+
   }
 
   public function add($data){
     $this->organize_data($data,"normal");
       if($this->db->insert('contratos',$this)){
          echo "&#10004; Nuevo contrato agregado con exito";
+         return true;
       }else{
-        echo "No pudo guardarse el contrato";
+        
+        echo "No pudo guardarse el contrato ";
+        echo $this->db->last_query();
+        return false;
       } 
   }
 
@@ -75,7 +86,8 @@ class Contract_model extends CI_MODEL{
     $result = $this->db->query($sql);
     $result = make_contract_table($result->result_array(),0);
     echo $result;
-  }  
+  } 
+
   public function get_contracts_dropdown($id_cliente){
     $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and estado='activo'";
     $result = $this->db->query($sql);

@@ -52,29 +52,50 @@
         <div class="col-md-6">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Mensualidad</span>
-            <input type="text" class="form-control" id="contract-client-payment" tabindex="7">
+            <input type="text" class="form-control" id="contract-client-payment" tabindex="0">
           </div>
         </div>
         <div class="col-md-6">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Meses</span>
-            <input type="number" class="form-control" id="contract-client-months" tabindex="7">
+            <input type="number" class="form-control" id="contract-client-months" tabindex="1">
+          </div>
+        </div>
+        <div class="col-md-6 without">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Fecha</span>
+          <input type="date" class="form-control" id="contract-client-date" tabindex="2">
+        </div>
+      </div>
+      </div>
+      <div class="row">
+        <h4>Equipo</h4>
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Equipo</span>
+            <input type="text" class="form-control" id="contract-equipment" tabindex="3">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Mac</span>
+            <input type="text" class="form-control" id="contract-e-mac" tabindex="4">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Router</span>
+            <input type="text" class="form-control" id="contract-router" tabindex="5">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Mac</span>
+            <input type="text" class="form-control" id="contract-r-mac" tabindex="6">
           </div>
         </div>
       </div>
-      
-      <div class="col-md-6 without">
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Fecha</span>
-          <input type="date" class="form-control" id="contract-client-date" tabindex="7">
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="input-group">
-          <textarea name="" id="contract-observations" class="form-control"  rows="10">
-          </textarea> 
-        </div>
-      </div>
+
      <input type="text" class="form-control hidden" id="contract-client-id" value="<?php  echo $client_data['id_cliente']?>">
      <input type="text" class="form-control hidden" id="contract-user-id" value="<?php   echo $user_data['user_id']?>">
       
@@ -91,10 +112,12 @@
       </div>
 
       <div class="row-container">
-        <button class="btn" id="btn-save-contract">Guardar</button>
+        <button class="btn" id="btn-save-contract" tabindex="7">Guardar</button>
         <button class="btn" id="btn-print-contract" disabled>Imprimir</button>
       </div>
+      <a href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>">Ver Ficha de Pago</a>
     </div>
+   
     
   </div>
 <script>
@@ -107,7 +130,10 @@
     lineas += `<div class="lineas num${i}"><span></span></div>`
   }
   $(".falseDoc").html(lineas) 
-  }
+}
+var now = moment().format("YYYY-MM-DD");
+$("#contract-client-date").val(now);
+ 
 </script>
 
 </div>

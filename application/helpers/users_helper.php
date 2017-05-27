@@ -317,5 +317,46 @@ function client_to_xml_format($data){
     return $client;
 }
 
+/**
+* Update_moras and Prepare_moras
+* update_moras se informa de la ultima vez que corrió la función (ella misma), si fue hoy no hace nada, pero si ha pasado un dia
+* se ejecuta prepare_moras que prepara los datos para actualizar los pagos
+*
+*/
 
+function update_moras($context){ 
+  $today = date('Y-m-d');
+  $settings = $context->settings_model->get_settings();
 
+  $last_check = $settings['last_check_moras'];
+  if($last_check != $today){
+    $data = $context->payment_model->get_moras_view();
+    if($data){
+			prepare_moras($data);
+		}
+    $last_check = $today;
+    $result = $context->settings_model->update('last_check_moras',$last_check);
+  }
+  
+		 
+}
+
+function prepare_moras($data){
+  foreach ($data as $line) {
+        $fecha = date($line['fecha_limite']);
+        $cuota = $line['cuota'];
+        $mora = $line['mora'];
+        $monto_extra = $line['mora'];
+        $total = $line['total'];
+
+        $mora = 200.00;
+        $total = $cuota + $monto_extra + $mora;
+        $updated_data = array(
+          'id_pago' => $line['id_pago'],
+          'mora'    => $mora,
+          'total'   => $total
+        );
+        print_r($updated_data);
+        $context->payment_model->update_moras($updated_data);
+      }
+}

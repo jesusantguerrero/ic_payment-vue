@@ -79,7 +79,6 @@ class Payment_model extends CI_MODEL{
     
   }  
 
-
   public function year_income(){
     $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
     $result = $this->db->query($sql);
@@ -123,9 +122,22 @@ class Payment_model extends CI_MODEL{
       return 0;
     }
   }
-   
 
- 
+  public function get_moras_view(){
+    $sql = "SELECT * FROM v_morosos";
+    $result = $this->db->query($sql);
+    return $result->result_array(); 
+  }
+
+  public function update_moras($updated_data){
+    $sql = " UPDATE pagos SET mora ='".$updated_data['mora']."',total ='".$updated_data['total']."'";
+    $sql .= "WHERE id_pago=".$updated_data['id_pago'];
+    if($this->db->query($sql)){
+      echo "\n Todo perfecto";
+    }else{
+      echo "algo anda mal";
+    }
+  }
 
   //functions
 }

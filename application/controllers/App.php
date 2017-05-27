@@ -10,13 +10,18 @@ class App extends CI_Controller {
 		$this->load->model("service_model");
 		$this->load->model("contract_model");
 		$this->load->model("payment_model");
+		$this->load->model("settings_model");
 		$this->load->helper('modals');
+		
 	}
 
 	public function index($page = 'login'){
 		if ($page == 'login'):	
+			
 			$data['title'] = $page;	
 			$this->load->view('pages/'.$page,$data);
+			update_moras($this);
+			
 		else:
 			echo "Hola mundo";
 		endif;
@@ -42,7 +47,7 @@ class App extends CI_Controller {
 			}
 			$this->load->view('layouts/footer');
 		}else{
-			echo "usted no puede permanecer aqui";
+			echo "usted no puede permanecer aqui".$GLOBALS['lastCheckedForMoras'];
 		}
 		
 	}
@@ -74,7 +79,4 @@ class App extends CI_Controller {
     session_destroy();
     redirect(base_url());
   }
-
-
-
 }

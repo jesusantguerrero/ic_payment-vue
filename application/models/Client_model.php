@@ -48,7 +48,7 @@ class Client_model extends CI_MODEL{
     $this->cols['ingresos']        = $data['ingresos'];
     $this->cols['fecha_registro']  = $data['fecha_registro'];
     $this->cols['estado']          = $data['estado'];
-
+    $this->cols['observaciones']   = null;
   }
 
   public function add($data){

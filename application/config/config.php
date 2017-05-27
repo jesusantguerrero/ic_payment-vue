@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['base_url'] = 'http://localhost/ic/';
 date_default_timezone_set('America/Santo_Domingo');
 
+
 /*
 |--------------------------------------------------------------------------
 | Index File
