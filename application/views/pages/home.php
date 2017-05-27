@@ -43,7 +43,7 @@
                 <i class="material-icons">library_books</i>
                 <p class="section-title">Nuevo Contrato</h3>
             </div>
-            <div class="col-md-4 shortcut">
+            <div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
                 <i class="material-icons">monetization_on</i>
                 <p class="section-title">Registrar Pago</h4>
             </div>

@@ -139,9 +139,10 @@ class Process extends CI_Controller {
 		} 
 	}
 
-	public function details($id){
+	public function details($id,$active_window){
 
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
+		$this->session->set_flashdata('active_window',$active_window);
 		redirect(base_url('app/admin/detalles'));
 	}
 

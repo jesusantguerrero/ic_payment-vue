@@ -104,9 +104,9 @@ class Contract_model extends CI_MODEL{
   public function get_active_clients(){
     $sql = "SELECT COUNT(*) FROM v_contratos WHERE estado= 'activo' GROUP BY cliente";
     $result = $this->db->query($sql);
-    $result = $result->row_array()['COUNT(*)'];
+    $result = $result->result_array();
     if($result){
-      echo $result;
+      echo count($result);
     }else{
       echo 0;
     }

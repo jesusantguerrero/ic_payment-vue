@@ -11,7 +11,11 @@
     $client_data = get_client_data();
     $nombre_completo = $client_data['nombres']." ".$client_data['apellidos'];
     $iniciales =  $client_data['nombres'][0].$client_data['apellidos'][0];
-  
+    $active_window = "cliente";
+    $active = "";
+    if(isset($_SESSION['active_window'])){
+      $active_window = $_SESSION['active_window'];
+    }
   
   ?>
   <div class="main-content col-md-10">
@@ -34,16 +38,16 @@
         <div>
 
           <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Personales</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Contratos</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a></li>
+          <ul class="nav nav-tabs" role="tablist" id="main-tabs">
+            <li role="presentation" <?php if ($active_window == "cliente"):?>class="active" <?php endif; ?>><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Personales</a></li>
+            <li role="presentation" <?php if ($active_window == "contratos"):?>class="active" <?php endif; ?>><a href="#contracts" aria-controls="profile" role="tab" data-toggle="tab">Contratos</a></li>
+            <li role="presentation" <?php if ($active_window == "pagos"):?>class="active" <?php endif; ?>><a href="#payments" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
+            <li role="presentation" <?php if ($active_window == "observaciones"): ?>class="active" <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a></li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">
+            <div role="tabpanel" <?php if ($active_window == "cliente"): $active = "active"; endif; ?>class="tab-pane fade in  <?php echo $active ?>" id="home">
               <form action="" class="watch-in-detail special">
                 <div class="row">
 
@@ -110,7 +114,7 @@
 
 
             <!---->
-            <div role="tabpanel" class="tab-pane detail-panel" id="profile">
+            <div role="tabpanel" <?php if ($active_window == "contratos"): $active = "active"; endif; ?>class="tab-pane detail-panel fade in <?php echo $active ?>" id="contracts">
 
               <table class="table d-contratos" id="d-contracts">
                 <thead>
@@ -148,7 +152,7 @@
 
 
             <!---->
-            <div role="tabpanel" class="tab-pane detail-panel" id="messages">
+            <div role="tabpanel" <?php if ($active_window == "pagos"): $active = "active"; endif; ?>class="tab-pane detail-panel fade in <?php echo $active ?>" id="payments">
               <div class="row">
                 <div class="col-md-3">
                   <div class="input-group">
@@ -194,13 +198,17 @@
             </div>
 
             <!---->
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+            <div role="tabpanel" <?php if ($active_window == "observaciones"): $active = "active"; endif; ?>class="tab-pane fade in <?php echo $active ?>" id="observations">...</div>
           </div>
 
         </div>
 
       </div>
     </div>
+      <script>
+        $('#main-tabs li.active a').tab('show');
+        console.log($('#main-tabs li.active a'));
+      </script>
 
 
   </div>

@@ -263,22 +263,11 @@
       <div class="modal-body">
         <div>
           <div class="searcher-container">
-    <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+    <input type="text" class="searcher" id="client-searcher-newcontract" placeholder="Busque cliente por cedula, nombre, apellidos o id">
   </div>
     
     <table class="table t-clients" id="t-clients">
- <!--<thead>
-        <tr>
-          <th>No.</th>
-          <th>ID #</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Cedula</th>
-          <th>Celular</th>
-          <th>Estado</th>
-        </tr>
-      </thead>-->
-      <tbody>
+      <tbody class="lobby-results">
         
       </tbody>
     </table>
@@ -295,3 +284,4 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+

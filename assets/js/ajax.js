@@ -100,8 +100,19 @@ function initClientHandlers(){
 
   $("#client-searcher").on('keyup',function(e){
     e.stopImmediatePropagation();
-    searchClient();
-    console.log('estoy buscando...');
+    var text = $(this).val();
+    searchClient(text); 
+  });
+  
+  $("#client-searcher-newcontract").on('keyup',function(e){
+    e.stopImmediatePropagation();
+    var text = $(this).val();
+    if(!isEmpty([text])){
+      searchClient(text);
+    }else{
+      clearTbody(".lobby-results");
+    }
+    
     
   });
 
@@ -310,8 +321,8 @@ function getClients(){
   connectAndSend('process/getall',false,initClientHandlers,fillCurrentTable,form,null);
 }
 
-function searchClient(){
-  var word = $("#client-searcher").val();
+function searchClient(text){
+  var word = text;
   if (word != null || word != ""){
     var form = "tabla=clientes&word="+word;
     connectAndSend('process/search',false,initClientHandlers,fillCurrentTable,form,null);

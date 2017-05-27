@@ -114,7 +114,7 @@ class Client_model extends CI_MODEL{
   public function search_clients($word){
     $word = "'%".$word."%'";
     $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
-    $sql .= "|| sector LIKE $word";
+    $sql .= "|| sector LIKE $word || concat(clientes.nombres,' ',clientes.apellidos) LIKE $word";
     $this->lastquery = $sql;
     $sql .= "LIMIT 5";
     $result = $this->db->query($sql);

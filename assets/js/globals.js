@@ -15,21 +15,19 @@ const BASE_URL = 'http://localhost/ic/'
  * @param {string} url Url a donde se va a mandar la el formulario, sin la base_url
  * @param {boolean} is_message Si se espera un mensaje o no como respuesta 
  * @param {callback} recognizeElements Funcion para reconocer los elementos autogenerados
- * @param {?callback} action if you dont want a message you receive a table with that you put this table somewhere(can be null)
- * @param {string} form data of the form to be send to the server
- * @param {callback} callback function to be executed after al this maybe getusers()
+ * @param {?callback} action callback que recibe los datos desde el servidor para hacer algo con ellos
+ * @param {string} form formulario a ser enviado al servidor
+ * @param {callback} callback funcion a ser ejecutada despues que todo se cumpla, como get users
  * @return {void}
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-   console.log(url);
    var contador = 0;
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null)  {
                 action(connect.responseText,recognizeElements);
-                console.log(contador);
                 contador++;
             }else{
               if(is_message){
@@ -86,6 +84,10 @@ function fillCurrentTable($content,callback){
   var $tbodyUsers = $("[class*='t-'] tbody");
   $tbodyUsers.html($content);
   callback();
+}
+
+function clearTbody(objecId){
+  $(objecId).html("");
 }
 
 
@@ -275,7 +277,15 @@ function makeRowsClickable(){
     var btnGoNewContract = $("#go-new-contract");
     if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
     if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-    if(btnGoNewContract)btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+    if(btnGoNewContract){
+      if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
+        btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
+      }else{
+        btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      }
+      
+    }
+      
    
   });
 

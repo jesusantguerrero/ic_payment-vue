@@ -76,9 +76,27 @@ function userInfoTip(){
   btnMore.on('click',function(e){
     infoTip.toggleClass("visible");
   });
-
-
-
 }
 });
+
+/********************************************************
+*                          Modals Functions                            
+*                                                       *
+********************************************************/
+
+
+$('#search-client-modal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+
+  var title = button.find('.section-title').text()
+  if(title.toLowerCase().trim() == "registrar pago"){
+    buttonText = "ir a Pagos"
+  }else{
+    buttonText = "Nuevo Contrato"
+  }
+  
+  var modal = $(this)
+  modal.find('.modal-title').text(title)
+  modal.find('.modal-footer .save').text(buttonText)
+})
 
