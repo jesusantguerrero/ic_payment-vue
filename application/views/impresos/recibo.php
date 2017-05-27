@@ -21,7 +21,10 @@
   <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"></span>
   <span class="text-main center">Mora:</span><span class="text-placeholder md"> </span>
   <span class="text-main center">Extras:</span><span class="text-placeholder md"></span></p>
-  <p><span class="text-main">Total:</span><span class="text-placeholder md"></span></p>
+  <p><span class="text-main">Vendedor:</span><span class="text-placeholder md"></span>
+    <span class="text-main center">Total:</span><span class="text-placeholder md"></span></p>
   </div>
-  <div class="pie-pagina"></div>
+  <div class="pie-pagina">
+    <small>**Verifique su recibo**   **valor no reembolsable**</small>
+  </div>
 </div>

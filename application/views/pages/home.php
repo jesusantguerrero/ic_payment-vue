@@ -30,7 +30,7 @@
             <h3 class="card-title">Proximos Pagos</h3>
             <div class="placeholder-icon"><i class="material-icons icon-placeholder">notifications_active</i></div>
             <div class="list-nextpayments"></div>
-            <button class="btn btn-remark search-client">Buscar Cliente</button>
+            <button class="btn btn-remark search-client">Ver Todos</button>
         </div>
     </div>
     <div class="row">

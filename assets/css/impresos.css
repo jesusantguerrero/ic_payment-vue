@@ -206,7 +206,8 @@ th {
     font-weight: bolder;
     color: #666;
     padding: 5px 0;
-    background: #ddd; }
+    background: whitesmoke;
+    margin: 0 0 0 0; }
   .recibo-body .fecha-recibo {
     color: #06f !important; }
   .recibo-body .logo-recibo {
@@ -218,11 +219,11 @@ th {
     margin: 20px; }
   .recibo-body .cuerpo {
     padding: 10px 15px;
-    border: 1px solid #ddd !important;
     margin: 10px;
+    margin-bottom: 3px;
     border-radius: 4px; }
   .recibo-body .text-placeholder {
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px dotted #ccc !important;
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -243,6 +244,8 @@ th {
     display: flex;
     flex-direction: row;
     align-items: center; }
+  .recibo-body .pie-pagina {
+    text-align: center; }
 
 @media print {
   .recibo-body {
@@ -256,11 +259,13 @@ th {
   .fecha-recibo {
     color: #06f !important; }
   .concepto h4 {
-    background: #ddd !important; }
+    background: whitesmoke !important; }
   .company-name h2 {
     color: #f20 !important; }
   .cuerpo {
     padding: 10px 15px;
-    border: 1px solid #999 !important; }
-  .text-placeholder {
-    border-bottom: 1px dotted #999 !important; } }
+    margin-bottom: 0; }
+  p.text-placeholder {
+    border-bottom: 1px dotted #ccc !important; }
+  @page {
+    marks: cross; } }

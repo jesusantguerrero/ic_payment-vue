@@ -26,7 +26,7 @@
                 <label for="user-type">Tipo de usuario</label>
                 <select class="form-control" id="user-type">
                 <option value="0">Administrador</option>
-                <option value="1">Vendedor</option>
+                <option value="1">Secretaria(o)</option>
               </select>
               </div>
             </div>
@@ -94,7 +94,7 @@
                 <label for="e-type">Tipo de usuario</label>
                 <select class="form-control" id="e-type">
                 <option value="0">Administrador</option>
-                <option value="1">Vendedor</option>
+                <option value="1">Secretaria(o)</option>
               </select>
               </div>
             </div>

@@ -22,7 +22,8 @@
     font-weight: bolder
     color: #666
     padding: 5px 0
-    background: #ddd
+    background: whitesmoke
+    margin: 0 0 0 0
   .fecha-recibo
     color: #06f !important
   .logo-recibo
@@ -35,11 +36,11 @@
     margin: 20px
   .cuerpo
     padding: 10px 15px
-    border: 1px solid #ddd !important
-    margin: 10px 
+    margin: 10px
+    margin-bottom: 3px 
     border-radius: 4px
   .text-placeholder
-    border-bottom: 1px dotted #999
+    border-bottom: 1px dotted #ccc !important
     display: inline-block
     padding: 0
     margin: 0
@@ -56,6 +57,9 @@
   .line
     +makeFlex(100%,row,null,center)
 
+  .pie-pagina
+    text-align: center
+
 @media print
   .recibo-body
     width: 100%
@@ -68,12 +72,15 @@
   .fecha-recibo
     color: #06f !important
   .concepto h4
-    background: #ddd !important
+    background: whitesmoke !important
   .company-name h2
     color: #f20 !important
   .cuerpo
     padding: 10px 15px
-    border: 1px solid #999 !important
-  .text-placeholder
-    border-bottom: 1px dotted #999 !important
+    margin-bottom: 0
+  p.text-placeholder
+    border-bottom: 1px dotted #ccc !important
   
+  @page
+    marks: cross
+    // marks: crop cross
