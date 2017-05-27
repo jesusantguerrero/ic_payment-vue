@@ -21,6 +21,9 @@ class Settings_model extends CI_MODEL{
 
   public function update($col_name,$data){
     $sql = "UPDATE settings SET $col_name ='".$data."'";
+    if($col_name == "last_check_moras")
+      $sql .= ", next_check= DATE_ADD('".$data."', INTERVAL 1 DAY) WHERE id=1";
+
     if($result = $this->db->query($sql)){
       return true;
     }else{

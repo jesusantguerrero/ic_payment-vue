@@ -11,7 +11,9 @@ class App extends CI_Controller {
 		$this->load->model("contract_model");
 		$this->load->model("payment_model");
 		$this->load->model("settings_model");
-		$this->load->helper('modals');
+		$this->load->helpers('modals','users');
+		update_moras($this);
+		
 		
 	}
 
@@ -20,7 +22,8 @@ class App extends CI_Controller {
 			
 			$data['title'] = $page;	
 			$this->load->view('pages/'.$page,$data);
-			update_moras($this);
+			
+			
 			
 		else:
 			echo "Hola mundo";

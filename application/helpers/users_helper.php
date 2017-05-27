@@ -328,35 +328,33 @@ function update_moras($context){
   $today = date('Y-m-d');
   $settings = $context->settings_model->get_settings();
 
-  $last_check = $settings['last_check_moras'];
-  if($last_check != $today){
+  $next_check = $settings['next_check'];
+  if($next_check == $today){
     $data = $context->payment_model->get_moras_view();
     if($data){
-			prepare_moras($data);
+			prepare_moras($data,$context);
 		}
-    $last_check = $today;
-    $result = $context->settings_model->update('last_check_moras',$last_check);
+    $result = $context->settings_model->update('last_check_moras',$today);
+    echo $result;
   }
   
 		 
 }
 
-function prepare_moras($data){
+function prepare_moras($data,$context){
   foreach ($data as $line) {
-        $fecha = date($line['fecha_limite']);
-        $cuota = $line['cuota'];
-        $mora = $line['mora'];
-        $monto_extra = $line['mora'];
-        $total = $line['total'];
-
-        $mora = 200.00;
-        $total = $cuota + $monto_extra + $mora;
-        $updated_data = array(
-          'id_pago' => $line['id_pago'],
-          'mora'    => $mora,
-          'total'   => $total
-        );
-        print_r($updated_data);
-        $context->payment_model->update_moras($updated_data);
-      }
+    $fecha = date($line['fecha_limite']);
+    $cuota = $line['cuota'];
+    $mora = $line['mora'];
+    $monto_extra = $line['monto_extra'];
+    $total = $line['total'];
+    $mora = 200.00;
+    $total = $cuota + $monto_extra + $mora;
+    $updated_data = array(
+      'id_pago' => $line['id_pago'],
+      'mora'    => $mora,
+      'total'   => $total
+    );
+    $context->payment_model->update_moras($updated_data);
+  }
 }
