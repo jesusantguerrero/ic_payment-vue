@@ -117,9 +117,11 @@ class Client_model extends CI_MODEL{
     $sql .= "|| sector LIKE $word || concat(clientes.nombres,' ',clientes.apellidos) LIKE $word";
     $this->lastquery = $sql;
     $sql .= "LIMIT 5";
-    $result = $this->db->query($sql);
-    $result = make_client_table($result->result_array(),0);
-    echo $result;
+    if($result = $this->db->query($sql)){
+      $result = make_client_table($result->result_array(),0);
+      echo $result;
+    }
+    
 
   }
   

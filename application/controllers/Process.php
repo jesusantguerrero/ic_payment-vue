@@ -158,5 +158,11 @@ class Process extends CI_Controller {
 		redirect(base_url('app/admin/nuevo_contrato'));
 	}
 
+	public function getrecibo($id){
+		$recibo_info = $this->payment_model->get_recibo($id);
+		$this->session->set_flashdata('recibo_info',$recibo_info);
+		redirect(base_url('app/imprimir/recibo'));
+	}
+
 
 }

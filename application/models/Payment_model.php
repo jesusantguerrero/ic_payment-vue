@@ -133,7 +133,6 @@ class Payment_model extends CI_MODEL{
     $sql = " UPDATE pagos SET mora ='".$updated_data['mora']."',total ='".$updated_data['total']."'";
     $sql .= "WHERE id_pago=".$updated_data['id_pago'];
     if($this->db->query($sql)){
-      echo "\n Todo perfecto";
     }else{
       echo "algo anda mal";
     }
@@ -151,6 +150,13 @@ class Payment_model extends CI_MODEL{
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);
     echo $result; 
+  }
+
+  public function get_recibo($id){
+    $sql = "SELECT * FROM v_recibos WHERE id_pago = $id";
+    $result = $this->db->query($sql)->row_array();
+    return $result;
+
   }
 
   //functions

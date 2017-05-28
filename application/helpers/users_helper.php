@@ -208,7 +208,9 @@ if ( ! function_exists('make_payment_table')){
         <td>".$line['fecha_pago']."</td>
         <td class='td-estado'>".$line['estado']."</td>
         <td>".$line['fecha_limite']."</td>
-        <td class='id_pago' data-id='".$line['id_pago']."'></td>
+        <td class='id_pago' data-id='".$line['id_pago']."'>
+          <a target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>
+        </td>
       </tr>";
      $cont+=1;
     }
