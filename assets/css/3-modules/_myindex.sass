@@ -37,9 +37,13 @@
   +size(31.5%,319px)
   padding: 0 0 0 0
   position: relative
+  .card-title
+    cursor: pointer
+    &:hover
+      background: lighten($contrast-color,5%)
 
 .list-nextpayments
-  +size(100%,205px)
+  +size(100%,180px)
 
 .shortcuts-container
   +makeFlex(65.5%, row,null, flex-start)

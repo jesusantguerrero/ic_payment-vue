@@ -86,3 +86,16 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 date_default_timezone_set('America/Santo_Domingo');
 global $lastCheckedForMoras;
 $lastCheckForMoras = date('Y-m-d');
+$spanish_months = array(
+  'January'  => "Enero",
+  'February' =>"Febrero",
+  'March'    =>"Marzo",
+  'April'    =>"Abril",
+  'May'      =>"Mayo",
+  'June'     =>"Junio",
+  'July'     =>"Julio",
+  'August'   =>"Agosto",
+  'September'=>"Septiembre",
+  'October'  =>"Octubre",
+  'November' =>"Noviembre",
+  'December' =>"Diciembre");

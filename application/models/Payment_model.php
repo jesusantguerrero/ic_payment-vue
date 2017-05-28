@@ -139,5 +139,19 @@ class Payment_model extends CI_MODEL{
     }
   }
 
+  public function get_next_payments($expression = array('expression' => "3",'unit' => "DAY")){
+    $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
+    $result = $this->db->query($sql)->result_array();
+    $result = make_next_payments_list($result);
+    echo $result; 
+  }
+
+   public function get_moras_home(){
+    $sql = "SELECT * FROM v_pagos_pendientes";
+    $result = $this->db->query($sql)->result_array();
+    $result = make_next_payments_list($result);
+    echo $result; 
+  }
+
   //functions
 }

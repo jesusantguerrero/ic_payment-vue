@@ -29,7 +29,7 @@
         <div class="client-profile">
           <span><?php echo $iniciales ?></span>
         </div>
-        <p><i class="material-icons">timeline</i>
+        <p class="detail-state"><i class="material-icons">timeline</i>
           <?php echo $client_data['estado'] ?>
         </p>
 
@@ -47,7 +47,7 @@
 
           <!-- Tab panes -->
           <div class="tab-content">
-            <div role="tabpanel" <?php if ($active_window == "cliente"): $active = "active"; endif; ?>class="tab-pane fade in  <?php echo $active ?>" id="home">
+            <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "cliente"):?> active <?php endif; ?>" id="home">
               <form action="" class="watch-in-detail special">
                 <div class="row">
 
@@ -114,9 +114,9 @@
 
 
             <!---->
-            <div role="tabpanel" <?php if ($active_window == "contratos"): $active = "active"; endif; ?>class="tab-pane detail-panel fade in <?php echo $active ?>" id="contracts">
+            <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "contratos"):?> active <?php endif; ?>" id="contracts">
 
-              <table class="table d-contratos" id="d-contracts">
+              <table class="table d-contratos wide-table" id="d-contracts">
                 <thead>
                   <tr>
                     <th>ID #</th>
@@ -152,7 +152,7 @@
 
 
             <!---->
-            <div role="tabpanel" <?php if ($active_window == "pagos"): $active = "active"; endif; ?>class="tab-pane detail-panel fade in <?php echo $active ?>" id="payments">
+            <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
               <div class="row">
                 <div class="col-md-3">
                   <div class="input-group">
@@ -198,17 +198,14 @@
             </div>
 
             <!---->
-            <div role="tabpanel" <?php if ($active_window == "observaciones"): $active = "active"; endif; ?>class="tab-pane fade in <?php echo $active ?>" id="observations">...</div>
+            <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="observations">...</div>
           </div>
 
         </div>
 
       </div>
     </div>
-      <script>
-        $('#main-tabs li.active a').tab('show');
-        console.log($('#main-tabs li.active a'));
-      </script>
+     
 
 
   </div>

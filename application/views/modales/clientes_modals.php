@@ -285,3 +285,38 @@
 </div>
 <!-- /.modal -->
 
+
+<!--*********************************************************************
+*
+*                                 Search Client Modal
+*
+**************************************************************************-->
+
+<div class="modal fade contrast" tabindex="-1" role="dialog" id="notification-view">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"> Que Deseas Ver?</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+         <h4>Proximos Pagos</h4>
+          <select name="next-payment-select" id="next-payment-select">
+            <option value="3 DAY">3 Dias</option>
+            <option value="7 DAY">Una Semana</option>
+            <option value="15 DAY">Una Quincena</option>
+            <option value="1 MONTH">Un Mes</option>
+            <option value="1 YEAR">Un Año</option>
+          </select>
+         <h4>Deudores</h4>
+            <button class="btn remark" id="btn-see-deudores">Deudores</button>
+
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

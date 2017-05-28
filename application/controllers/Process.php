@@ -69,6 +69,12 @@ class Process extends CI_Controller {
 			case "pagos":
 				$this->payment_model->get_all_of_contract($_POST['id']);
 				break;
+			case "v_proximos_pagos":
+				$this->payment_model->get_next_payments($_POST);
+				break;
+			case "v_pagos_pendientes":
+				$this->payment_model->get_moras_home();
+				break;
 		}
 	}
 

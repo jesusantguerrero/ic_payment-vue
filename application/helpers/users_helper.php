@@ -160,6 +160,34 @@ function make_contract_dropdown($data){
     return $html_text;
 }
 
+function make_next_payments_list($data){
+  $html_text = " ";
+  $link;
+  $months = $GLOBALS['spanish_months'];
+  foreach ($data as $row) {
+    $link = base_url('process/details/'.$row['id_cliente'].'/pagos');
+    $total =CurrencyFormat($row['total']);
+    $html_text .= "<a href='{$link}'><div class='payment-item'>
+                    <div class='left-part'>
+                        <div class='item-profile'>
+                             <i class='material-icons'>person</i>
+                        </div>
+                    </div>
+                    <div class='main-part'>
+                        <div class='nombre'>{$row['cliente']}</div>
+                        <div class='concepto'>{$row['concepto']}</div>
+                        <div class='monto'>RD$ {$total}</div>
+                    </div>
+                     <div class='right-part'>
+                        <div class='payment-day'>{$row['dia']}</div>
+                        <div class='payment-month'>".$months[$row['mes']]."</div>
+                    </div>
+                    
+                </div></a>";
+  }
+  return $html_text;
+}
+
 if ( ! function_exists('make_payment_table')){
   /**
   * create a table for the data from users to display in the interface

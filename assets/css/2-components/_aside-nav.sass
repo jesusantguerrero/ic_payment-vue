@@ -115,15 +115,78 @@
   position: absolute
   opacity: .7
   font-size: 200px
-  top: 0
+  top: 48px
   right: 0
   +makeFlex(100%,row,center,center)
-  height: 100%
+  height: 70%
   z-index: 1
 
 
   .material-icons
     font-size: 120px
 
-.search-client
+.centered-container-small
+  position: absolute
   z-index: 100
+  bottom: 5px
+  align-self: center
+  +makeFlex(100%,row, center,center)
+
+.list-nextpayments
+  position: absolute
+  z-index: 10
+  overflow: auto
+
+  &::-webkit-scrollbar-track
+    background-color: transparent
+    padding: 0 2px
+
+  &::-webkit-scrollbar
+    width: 15px
+    background-color: transparent
+
+
+  &::-webkit-scrollbar-thumb
+    background-color: transparentize(#fff,.7)
+    border-radius: 3px 
+
+// Payment Item
+
+.payment-item
+  background: #fff
+  color: $primary-color
+  margin: 2.5%
+  border-radius: 4px
+  padding: 10px
+  text-align: left
+  +makeFlex(95%,row,center,center)
+  cursor: pointer
+  transition: all ease .3s
+  
+  &:hover
+    transform: scale(1.03)
+
+  .item-profile
+    +size(50px,50px)
+    +makeFlex(50px,row,center,center)
+    background: $primary-color
+    border-radius: 50%
+    text-align: center
+    padding-left: 12px 
+    i 
+      color: white
+
+  .left-part
+    +makeFlex(30%,row,center,center)
+  .main-part
+    width: 50%
+  .right-part
+    +makeFlex(20%,column,center,center)
+    font-family: roboto
+    .payment-day
+      font:
+        size: 20px
+        weight: bolder
+      color: $contrast-color 
+  .nombre
+    font-weight: bolder

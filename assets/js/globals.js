@@ -9,6 +9,7 @@
 const BASE_URL = 'http://localhost/ic/'
 
 
+
 /**
  * Connect And Send
  * Conecta al servidor via ajax y muestra el mensaje de respuesta
@@ -75,7 +76,7 @@ function displayMessage(message){
 }
 
 /**
- * Llena la tabla de usuarios con los datos que vienen del servidor
+ * Llena la tabla actual con los datos que vienen del servidor
  * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
  * @param {function} callback El callback para reconocer a los nuevos items
  * @return {void}
@@ -85,6 +86,19 @@ function fillCurrentTable($content,callback){
   $tbodyUsers.html($content);
   callback();
 }
+/**
+ * Llena la Lista de pagos/notificaciones con los datos que vienen del servidor
+ * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
+ * @param {function} callback El callback para reconocer a los nuevos items
+ * @return {void}
+ */
+
+function fillPaymentsList($content,callback){
+  var $tbodyUsers = $(".list-nextpayments");
+  $tbodyUsers.html($content);
+
+}
+
 
 function clearTbody(objecId){
   $(objecId).html("");

@@ -30,6 +30,30 @@ switch (currentPage) {
     break;
 }
 
+function initAdminHandlers(){
+  $("#btn-see-deudores").on('click',function(){
+    changeNotification("Lista De Deudores","money_off");
+    getPendents();
+  });
+
+  $("#next-payment-select").on('change',function(){
+    changeNotification("Proximos Pagos","notifications_active");
+    var expression = $(this).val();
+    getNextPayments(expression);
+  });
+
+
+  function changeNotification(title,icon){
+    var $detailsCard = $(".details-card");
+    var $title = $detailsCard.find('.card-title');
+    var $placeImage = $detailsCard.find(".placeholder-icon");
+    var htmlText = "<i class='material-icons icon-placeholder'>"+icon+"</i>";
+
+    $title.text(title);
+    $placeImage.html(htmlText);
+  }
+}
+
 function initHandlers(){
   initPagination("#t-users","users",paginate);
 
@@ -70,6 +94,7 @@ function initHandlers(){
 
 function initClientHandlers(){
   count_table("clientes");
+  initAdminHandlers()
 
   $("#btn-save-client").on('click',function(e){
     e.stopImmediatePropagation();
@@ -546,6 +571,7 @@ function getPayments(){
   
 }
 
+
 function updatePayment(id){
   var date = moment().format("YYYY-MM-DD");
   var id_contrato = $("#select-contract").val();
@@ -555,7 +581,29 @@ function updatePayment(id){
   connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
 };
 
+/********************************************************
+*                          Home Getters                            
+*                                                       *
+********************************************************/
+function getNextPayments(expression){
+    console.log(expression);
+    expression = expression.split(" ");
+    console.log(expression);
+    var variable = " hola"
+    
+  var form = "tabla=v_proximos_pagos&expression=" + expression[0] + "&unit=" + expression[1];
+  connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
+}
+
+function getPendents(expression){
+
+    
+  var form = "tabla=v_pagos_pendientes";
+  connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
+}
 });
+
+
 
 
 
