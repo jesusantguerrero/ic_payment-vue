@@ -89,6 +89,11 @@ function initHandlers(){
 
     $('#update-user-modal').modal();
   });
+
+  $("#update-company-data").on('click',function(e){
+    e.stopImmediatePropagation();
+    updateCompanyData();
+  });
  
 }
 
@@ -302,7 +307,11 @@ function count_table(table){
   connectAndSend('process/count',false,null,updateCount,form,null);
 }
 
+// ******************* Company Crud *************************
 
+function updateCompanyData(){
+  
+}
 
 /********************************************************
  *                CRUD para la tabla Clientes           *

@@ -16,39 +16,41 @@
     **********************************-->
 
       <div class="company-details" id="company-section">
+        <?php $empresa = $this->company_model->get_empresa();
+         ?>
         <h3> Detalles de la Empresa</h3>
         <form action="">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Nombre de la Empresa</label>
-                <input type="text" class="form-control" id="company-name" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-name" value="<?php echo $empresa['nombre'] ?>">
               </div>
               <div class="form-group">
                 <label for="company-phrase">Lema</label>
-                <input type="text" class="form-control" id="company-phrase" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-phrase" value="<?php echo $empresa['lema'] ?>">
               </div>
               <div class="form-group">
                 <label for="company-phone1">Telefono1</label>
-                <input type="text" class="form-control" id="company-phone1" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-phone1" value="<?php echo $empresa['telefono1'] ?>">
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Direccion</label>
-                <input type="text" class="form-control" id="company-name" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-direction" value="<?php echo $empresa['direccion'] ?>">
               </div>
               <div class="form-group">
                 <label for="company-name">Descripción</label>
-                <input type="text" class="form-control" id="company-name" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-description" value="<?php echo $empresa['descripcion'] ?>">
               </div>
               <div class="form-group">
                 <label for="company-name">Telefono2</label>
-                <input type="text" class="form-control" id="company-name" placeholder="ISC Services">
+                <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
               </div>
               <div class="right">
-                <input type="submit" value="Guardar Datos">
+                <input id="update-company-data" type="submit" value="Guardar Datos">
               </div>
 
             </div>
