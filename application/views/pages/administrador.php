@@ -39,6 +39,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Direccion</label>
+<<<<<<< HEAD
                 <input type="text" class="form-control" id="company-direction" value="<?php echo $empresa['direccion'] ?>">
               </div>
               <div class="form-group">
@@ -48,7 +49,6 @@
               <div class="form-group">
                 <label for="company-name">Telefono2</label>
                 <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
-
               </div>
               <div class="right">
                 <input id="update-company-data" type="submit" value="Guardar Datos">
