@@ -12,6 +12,7 @@ class Payment_model extends CI_MODEL{
   
   public $id_pago = null;
   public $id_contrato;
+  public $id_usuario = null;
   public $fecha_pago;
   public $concepto;
   public $cuota;

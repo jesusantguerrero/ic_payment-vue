@@ -1,6 +1,21 @@
 <?php 
+  $recibo = null;
   if(isset($_SESSION['recibo_info'])):
     $recibo = $_SESSION['recibo_info']; 
+    elseif($recibo == null):
+     $recibo = array(
+      'fecha_pago' => 'nada',
+      'id_pago' => '1',
+      'id_contrato' => '1',
+      'cliente' => 'Elizabeth Alvarez',
+      'concepto' => 'nada',
+      'servicio' => 'nada',
+      'mensualidad' => 0.00,
+      'mora' => 0.00,
+      'monto_extra' => 0.00,
+      'total' => 0.00,
+      'empleado' => 'Jesus Antonio Guerrero Alvarez',
+    );
 ?>
 
 <div class="recibo-body">
@@ -26,7 +41,7 @@
   <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad']) ?></span>
   <span class="text-main center">Mora:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mora']) ?> </span>
   <span class="text-main center">Extras:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['monto_extra']) ?></span></p>
-  <p><span class="text-main">Vendedor:</span><span class="text-placeholder md"><?php echo $recibo['fecha_pago'] ?></span>
+  <p><span class="text-main">Vendedor:</span><span class="text-placeholder lg"><?php echo $recibo['empleado'] ?></span>
     <span class="text-main center">Total:</span><span class="text-placeholder md" > RD$<?php echo CurrencyFormat($recibo['total']) ?></span></p>
   </div>
   <div class="pie-pagina">
@@ -34,7 +49,7 @@
   </div>
 </div>
 <script>
-  print();
+ // print();
 </script>
 <?php 
   else:

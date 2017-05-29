@@ -231,6 +231,8 @@ th {
     height: 20px; }
     .recibo-body .text-placeholder.md {
       width: 18.43%; }
+    .recibo-body .text-placeholder.lg {
+      width: 50%; }
   .recibo-body .text-main {
     display: inline-block;
     width: 12%;
