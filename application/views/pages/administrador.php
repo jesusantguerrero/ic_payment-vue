@@ -48,6 +48,7 @@
               <div class="form-group">
                 <label for="company-name">Telefono2</label>
                 <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
+
               </div>
               <div class="right">
                 <input id="update-company-data" type="submit" value="Guardar Datos">
