@@ -10,6 +10,7 @@ class Process extends CI_Controller {
 		$this->load->model("service_model");
 		$this->load->model("contract_model");
 		$this->load->model("payment_model");
+		$this->load->model("company_model");
 	}
 
 	public function add(){ 
@@ -50,6 +51,9 @@ class Process extends CI_Controller {
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
 				}
+				break;
+			case "empresa":
+				$this->company_model->update($data);
 				break;
 		}
 	}
