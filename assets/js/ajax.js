@@ -469,6 +469,7 @@ function paginate(offset,perpage,tableName){
   }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
   connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
+  count_table("clientes");
 }
 
 

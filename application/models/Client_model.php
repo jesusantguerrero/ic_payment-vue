@@ -10,14 +10,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Client_model extends CI_MODEL{
 
-  public $lastquery = "SELECT * FROM clientes";
-  public $cols;
   
+  public $cols;
+  public $lastquery;
 
   public function __construct(){
     parent::__construct();
     $this->load->database();
     $this->load->helper('users_helper');
+
+
   }
 
   /**
@@ -92,7 +94,7 @@ class Client_model extends CI_MODEL{
 
   public function get_all_clients(){
     $sql = "SELECT * FROM clientes";
-    $this->lastquery = $sql;
+    set_last_query($sql);
     $sql .= " LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),0);
@@ -100,22 +102,32 @@ class Client_model extends CI_MODEL{
   }
 
   public function count_clients(){
-    $result = $this->db->count_all("clientes");
-    echo $result;
+    $result = $this->db->query(get_last_query());
+    $result = $result->result_array();
+    if($result){
+      echo count($result);
+    }else{
+      echo 0;
+    }
   }
 
   public function get_clients_paginate($offset,$perpage){
-    $sql = $this->lastquery." LIMIT ".$offset.", ".$perpage;
+    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
-    $result = make_client_table($result->result_array(),$offset);
-    echo $result;
+    if($result){
+      $result = make_client_table($result->result_array(),$offset);
+      echo $result;
+    }else{
+      echo $sql;
+    }
+    
   }
 
   public function search_clients($word){
     $word = "'%".$word."%'";
     $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
     $sql .= "|| sector LIKE $word || concat(clientes.nombres,' ',clientes.apellidos) LIKE $word";
-    $this->lastquery = $sql;
+    set_last_query($sql);
     $sql .= "LIMIT 5";
     if($result = $this->db->query($sql)){
       $result = make_client_table($result->result_array(),0);

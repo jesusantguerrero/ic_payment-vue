@@ -1,21 +1,7 @@
 <?php 
   $recibo = null;
   if(isset($_SESSION['recibo_info'])):
-    $recibo = $_SESSION['recibo_info']; 
-    elseif($recibo == null):
-     $recibo = array(
-      'fecha_pago' => 'nada',
-      'id_pago' => '1',
-      'id_contrato' => '1',
-      'cliente' => 'Elizabeth Alvarez',
-      'concepto' => 'nada',
-      'servicio' => 'nada',
-      'mensualidad' => 0.00,
-      'mora' => 0.00,
-      'monto_extra' => 0.00,
-      'total' => 0.00,
-      'empleado' => 'Jesus Antonio Guerrero Alvarez',
-    );
+    $recibo = $_SESSION['recibo_info'];
 ?>
 
 <div class="recibo-body">

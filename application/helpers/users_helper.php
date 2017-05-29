@@ -210,7 +210,7 @@ if ( ! function_exists('make_payment_table')){
         <td>".$line['fecha_limite']."</td>
         <td class='id_pago' data-id='".$line['id_pago']."'>";
           if($line['fecha_pago'] != null):
-          $html_text .="<a target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>";
+          $html_text .="<a  href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>";
           endif;
         $html_text .="</td>
       </tr>";
@@ -266,7 +266,8 @@ if ( ! function_exists('create_payments')){
     $next_payment_date = $contract_date;
     $one_month = new DateInterval('P1M');
     $duration = $data['duracion'];
-    $concepto = "Inicial";
+    $concepto = "Instalación";
+    
     for ($i=0; $i < $duration + 1; $i++) {
       if($i > 0) $concepto = $i."º pago de mensualidad"; 
       $new_data = array(
@@ -389,4 +390,11 @@ function prepare_moras($data,$context){
     );
     $context->payment_model->update_moras($updated_data);
   }
+}
+function set_last_query($lastquery){
+  $_SESSION['lastquery'] = $lastquery;
+}
+
+function get_last_query(){
+  return $_SESSION['lastquery'];
 }

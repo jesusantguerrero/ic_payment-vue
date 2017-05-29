@@ -12,11 +12,13 @@ class Payment_model extends CI_MODEL{
   
   public $id_pago = null;
   public $id_contrato;
-  public $id_usuario = null;
+  public $id_empleado = null;
   public $fecha_pago;
   public $concepto;
+  public $detalles_extra ="";
   public $cuota;
   public $mora;
+  public $monto_extra = 0;
   public $total;
   public $estado;
   public $fecha_limite;
@@ -52,9 +54,9 @@ class Payment_model extends CI_MODEL{
   public function add($data){
     $this->organize_data($data,"normal");
       if($this->db->insert('pagos',$this)){
-         
+        
       }else{
-        echo "No pudo guardarse el pago";
+        echo $this->db->last_query();
       } 
   }
 

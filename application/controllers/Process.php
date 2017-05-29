@@ -24,11 +24,19 @@ class Process extends CI_Controller {
 				$this->service_model->add($data);
 				break;
 			case "contratos":
+				 $this->db->trans_start();
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
 					$this->client_model->is_active(true,$data);
 				 	$contract_id = $this->contract_model->get_last_Id();
 				 	create_payments($contract_id,$data,$this);
+				 }
+				 $this->db->trans_complete();
+				 if($this->db->trans_status()){
+
+				 }
+				 else{
+					 echo "No guardado";
 				 }
 				break;
 		}
