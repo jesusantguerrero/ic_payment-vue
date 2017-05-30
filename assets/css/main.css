@@ -426,9 +426,9 @@ nav {
   height: 750px; }
 
 .searcher-container {
-  width: 85%;
+  width: 95%;
   height: 38px;
-  margin: 0 7.5% 10px 7.5%;
+  margin: 0 2.5% 10px 2.5%;
   position: relative; }
   .searcher-container:after {
     content: '\276F';
@@ -461,9 +461,9 @@ nav {
     outline: none; }
 
 .busquedas, .table {
-  width: 85%;
+  width: 95%;
   height: 38px;
-  margin: 30px 7.5% 0 7.5%; }
+  margin: 30px 2.5% 0 2.5%; }
   .busquedas.t-users, .table.t-users {
     width: 100%; }
 
@@ -1360,3 +1360,9 @@ table {
 
 .seconds {
   color: #999; }
+
+@print {
+  .left-navigation,
+  header,
+  input {
+    display: hidden !important; } }

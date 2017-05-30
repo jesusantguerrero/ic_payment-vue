@@ -9,6 +9,7 @@ class App extends CI_Controller {
 		$this->load->model("client_model");
 		$this->load->model("service_model");
 		$this->load->model("contract_model");
+		$this->load->model("contract_view_model");
 		$this->load->model("payment_model");
 		$this->load->model("settings_model");
 		$this->load->model("company_model");

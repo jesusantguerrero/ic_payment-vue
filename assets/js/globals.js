@@ -25,6 +25,8 @@ const BASE_URL = 'http://localhost/ic/'
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
    var contador = 0;
+   console.log(url);
+   
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null)  {
@@ -81,10 +83,23 @@ function displayMessage(message){
  * @param {function} callback El callback para reconocer a los nuevos items
  * @return {void}
  */
-function fillCurrentTable($content,callback){
-  var $tbodyUsers = $("[class*='t-'] tbody");
-  $tbodyUsers.html($content);
+function fillCurrentTable($content,callback,tableID){
+  var $table
+  if(tableID != undefined){
+    $table = $('#'+tableID + " tbody");
+  }else{
+    $table = $("[class*='t-'] tbody");
+  }
+  $table.html($content);
   callback();
+}
+
+/**
+ * Llena la tabla clientes utilizando la funcion fillCurrentTable pasandole la tabla clientes como valor
+ * @return {void}
+ */
+function fillClientTable($content,callback){
+  fillCurrentTable($content,callback,"t-clients");
 }
 /**
  * Llena la Lista de pagos/notificaciones con los datos que vienen del servidor
@@ -277,18 +292,25 @@ function getNow(){
   return now;
 }
 
+/********************************************************
+*                     Row Selection Functions                            
+*                                                       *
+********************************************************/
+
 function makeRowsClickable(){
    $("tbody tr").on('click',function(e){
     e.stopImmediatePropagation();
-    var $this = $(this)
-    var id = $this.find('.id_cliente').text().trim();
-    var clase = $this.attr('class');
+    var $this,id, btnGoNewContract,btnNewContract,btnGetDetails;
+    $this = $(this);
+
     $('tbody tr').removeClass('selected');
     $this.toggleClass('selected');
-    
-    var btnGetDetails = $("#get-details");
-    var btnNewContract = $("#client-new-contract");
-    var btnGoNewContract = $("#go-new-contract");
+ 
+    id = $this.find('.id_cliente').text().trim();
+    btnGetDetails = $("#get-details");
+    btnNewContract = $("#client-new-contract");
+    btnGoNewContract = $("#go-new-contract");
+
     if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
     if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
     if(btnGoNewContract){
@@ -299,13 +321,27 @@ function makeRowsClickable(){
       }
       
     }
-      
-   
+
+    contractRows($this);
   });
 
 }
+function contractRows($this){
+  var id_contrato,id_cliente;
 
- function makeServiceCardClickable(){
+  id_contrato = $this.find(".id_contrato").text().trim();
+  id_cliente = $this.find('.th-client').attr("data-id-cliente");
+  console.log(id_cliente);
+  
+
+  $("#btn-pay").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
+  $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
+  //btnCancelarContrato.attr('data-id-cliente',id_cliente);
+  //btnEditarContrato.attr('data-id-cliente',id_cliente);
+
+}
+
+function makeServiceCardClickable(){
     var serviceCard = $(".service-card");
     serviceCard.on('click',function(e){
       e.stopImmediatePropagation();
@@ -316,8 +352,12 @@ function makeRowsClickable(){
       
       $('#contract-client-payment').val(payment)
     })
-  }
+}
 
+/********************************************************
+*                          Verify Rows                            
+*                                                       *
+********************************************************/
 function verifyPaymentStatus(){
   $(".td-estado").each(function(i,value){
     var $this = $(this);

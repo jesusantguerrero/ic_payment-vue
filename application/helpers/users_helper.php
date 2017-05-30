@@ -140,8 +140,38 @@ if ( ! function_exists('make_contract_table')){
         <td>".$line['duracion']."</td>
         <td>".$line['ultimo_pago']."</td>
         <td>".$line['proximo_pago']."</td>
-        <td>".$line['monto_pagado']."</td>
-        <td>".$line['monto_total']."</td>
+        <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
+        <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+        <td class='td-estado'>".$line['estado']."</td>
+      </tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
+
+if ( ! function_exists('make_main_contract_table')){
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_main_contract_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td class='id_contrato'>".$line['id_contrato']."</td>
+        <td class='th-client 'data-id-cliente='".$line['id_cliente']."'>".$line['cliente']."</td>
+        <td>".$line['fecha']."</td>
+        <td>".$line['duracion']."</td>
+        <td>".$line['ultimo_pago']."</td>
+        <td>".$line['proximo_pago']."</td>
+        <td> RD$ ". CurrencyFormat($line['monto_pagado'])."</td>
+        <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
         <td class='td-estado'>".$line['estado']."</td>
       </tr>";
      $cont+=1;
@@ -202,15 +232,15 @@ if ( ! function_exists('make_payment_table')){
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$line['concepto']."</td>
-        <td>".$line['cuota']."</td>
-        <td>".$line['mora']."</td>
-        <td>".$line['total']."</td>
+        <td>RD$ ".CurrencyFormat($line['cuota'])."</td>`
+        <td>RD$ ".CurrencyFormat($line['mora'])."</td>
+        <td>RD$ ".CurrencyFormat($line['total'])."</td>
         <td>".$line['fecha_pago']."</td>
         <td class='td-estado'>".$line['estado']."</td>
         <td>".$line['fecha_limite']."</td>
         <td class='id_pago' data-id='".$line['id_pago']."'>";
           if($line['fecha_pago'] != null):
-          $html_text .="<a  href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>";
+          $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>";
           endif;
         $html_text .="</td>
       </tr>";

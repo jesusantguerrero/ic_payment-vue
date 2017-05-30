@@ -9,6 +9,7 @@ class Process extends CI_Controller {
 		$this->load->model("client_model");
 		$this->load->model("service_model");
 		$this->load->model("contract_model");
+		$this->load->model("contract_view_model");
 		$this->load->model("payment_model");
 		$this->load->model("company_model");
 	}
@@ -104,11 +105,17 @@ class Process extends CI_Controller {
 		$perpage = $_POST['perpage'];
 		$table = $_POST['table'];
 		if($offset == 1) $offset = 0;
-		if($table == "clientes"):
-			$this->client_model->get_clients_paginate($offset,$perpage);
-		else:
-			$this->service_model->get_services_paginate($offset,$perpage);
-		endif;
+		switch ($table) {
+			case "clientes":
+				$this->client_model->get_clients_paginate($offset,$perpage);
+				break;
+			case "servicios":
+				$this->service_model->get_services_paginate($offset,$perpage);
+				break;
+			case "v_contratos":
+				$this->contract_view_model->get_contracts_paginate($offset,$perpage);
+				break;
+		}
 	}
 
 	public function delete(){
@@ -152,8 +159,13 @@ class Process extends CI_Controller {
 	public function search(){
 		$tabla = $_POST['tabla'];
 		$word = $_POST['word'];
-		if($tabla == "clientes"){
-			$result = $this->client_model->search_clients($word);
+		switch ($tabla) {
+			case 'clientes':
+				$this->client_model->search_clients($word);
+				break;
+			case 'v_contratos':
+				 $this->contract_view_model->search_contracts($word);
+				break;
 		} 
 	}
 

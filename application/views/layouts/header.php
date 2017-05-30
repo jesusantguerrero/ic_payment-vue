@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>" >
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/print.css') ?>" media='print'/>
     <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.js') ?>"></script>
@@ -26,6 +27,14 @@
                     <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
                         <i class="material-icons">notifications</i>
                     </a> <span class="badge">4</span></li>
+                <li class="navButton">
+                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </a></li>
+                <li class="navButton">
+                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                        <i class="material-icons">assignment</i>
+                    </a></li>
 
             </nav>
             <h5 class="user-name">
@@ -47,6 +56,7 @@
             <li class="navButton"><a class="<?php if($title == 'clientes')  echo " active "?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
             <li class="navButton"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
             <li class="navButton"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
+            <li class="navButton"><a class="<?php if($title == 'informes') echo " active "?>" href="<?php echo base_url('app/admin/informes') ?>">Informes</a></li>
             <li class="navButton"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
         </nav>
     </div>

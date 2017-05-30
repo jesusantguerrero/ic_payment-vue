@@ -18,8 +18,6 @@ class Client_model extends CI_MODEL{
     parent::__construct();
     $this->load->database();
     $this->load->helper('users_helper');
-
-
   }
 
   /**
@@ -78,7 +76,7 @@ class Client_model extends CI_MODEL{
     if($result = $this->db->query($sql)){
       echo "&#10004; Usuario Actualizado Con Exito!";
     }else{
-     echo "&#10006; No pudo guardarse el usuario " . $sql;
+     echo "&#10006; No pudo guardarse el usuario ";
     }   
   }
 
@@ -123,7 +121,7 @@ class Client_model extends CI_MODEL{
     
   }
 
-  public function search_clients($word){
+public function search_clients($word){
     $word = "'%".$word."%'";
     $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
     $sql .= "|| sector LIKE $word || concat(clientes.nombres,' ',clientes.apellidos) LIKE $word";
@@ -133,8 +131,6 @@ class Client_model extends CI_MODEL{
       $result = make_client_table($result->result_array(),0);
       echo $result;
     }
-    
-
   }
   
   public function get_client($id,$is_echo = false){

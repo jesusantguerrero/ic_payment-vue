@@ -26,6 +26,11 @@ switch (currentPage) {
     initPaymentsHandlers();
     verifyContractStatus();
     break;
+  case "contratos":
+    initContractHandlers();
+    initClientHandlers();
+    verifyContractStatus();
+    break;
   default:
     break;
 }
@@ -133,14 +138,14 @@ function initClientHandlers(){
   $("#client-searcher").on('keyup',function(e){
     e.stopImmediatePropagation();
     var text = $(this).val();
-    searchClient(text); 
+    search(text,"clientes",fillCurrentTable); 
   });
   
   $("#client-searcher-newcontract").on('keyup',function(e){
     e.stopImmediatePropagation();
     var text = $(this).val();
     if(!isEmpty([text])){
-      searchClient(text);
+      search(text,"clientes",fillClientTable);
     }else{
       clearTbody(".lobby-results");
     }
@@ -211,10 +216,17 @@ function initServicesHandlers(){
 }
 
 function initContractHandlers(){
+  initPagination("#t-contracts","v_contratos",paginate);
 
   $("#btn-save-contract").on('click',function(e){
     e.stopImmediatePropagation();
     addNewContract();
+  });
+
+  $("#contract-searcher").on('keyup',function(e){
+    e.stopImmediatePropagation();
+    var text = $(this).val();
+    search(text,"v_contratos",fillCurrentTable); 
   });
 }
 
@@ -357,11 +369,18 @@ function getClients(){
   connectAndSend('process/getall',false,initClientHandlers,fillCurrentTable,form,null);
 }
 
-function searchClient(text){
+/**
+ * Search manda un mensaje al servidor de los valores a buscar
+ * @param {string} text el valor a ser buscado
+ * @param {string} dbTable nombre de la tabla donde se desea consultar en la base de datos
+ * @param {function} fillTableFunction funcion de llenado de tabla donde se mostraran los resultados 
+ */
+function search(text,dbTable,fillTableFunction){
+  if(fillTableFunction == undefined) fillTableFunction = fillCurrentTable;
   var word = text;
   if (word != null || word != ""){
-    var form = "tabla=clientes&word="+word;
-    connectAndSend('process/search',false,initClientHandlers,fillCurrentTable,form,null);
+    var form = "tabla="+dbTable+"&word="+word;   
+    connectAndSend('process/search',false,initClientHandlers,fillTableFunction,form,null);
   }
 }
 
@@ -463,6 +482,9 @@ function paginate(offset,perpage,tableName){
       break;
     case "servicios":
       handlers = initServicesHandlers;
+      break;
+    case "v_contratos":
+      handlers = initContractHandlers;
       break;
     default:
       break;

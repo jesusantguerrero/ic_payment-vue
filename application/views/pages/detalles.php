@@ -1,12 +1,4 @@
 <div class="screen clients row">
-  <div class="left-navigation col-md-2">
-    <ul class="aside-nav">
-      <li class="aside-buttons">
-        <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">chevron_left</i> Atras</a>
-      </li>
-    </ul>
-
-  </div>
   <?php 
     $client_data = get_client_data();
     $nombre_completo = $client_data['nombres']." ".$client_data['apellidos'];
@@ -18,12 +10,12 @@
     }
   
   ?>
-  <div class="main-content col-md-10">
+  <div class="main-content col-md-12">
 
     <div class="row">
       <div class="col-xs-6 col-md-3">
         <div class="page-header">
-          <h3>Detalles del Cliente <small><?php echo $nombre_completo ?></small></h3>
+          <h3>Detalles del Cliente <br><small><?php echo $nombre_completo ?></small></h3>
         </div>
 
         <div class="client-profile">
