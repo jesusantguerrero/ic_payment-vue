@@ -13,6 +13,7 @@ class Process extends CI_Controller {
 		$this->load->model("payment_model");
 		$this->load->model("company_model");
 		$this->load->model("report_model");
+		$this->load->helper('report');
 	}
 
 	public function add(){ 
@@ -51,6 +52,9 @@ class Process extends CI_Controller {
 		switch ($tabla) {
 			case "clientes":
 				$this->client_model->update_client($data);
+				break;
+			case "observaciones":
+				$this->client_model->update_observations($data);
 				break;
 			case "servicios":
 				$this->service_model->update_service($data);

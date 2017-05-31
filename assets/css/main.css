@@ -707,6 +707,34 @@ form {
   color: #1FA1D0;
   font-weight: bolder; }
 
+.payment-controls {
+  display: none; }
+  .payment-controls.visible {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; }
+  .payment-controls .input-group {
+    width: 220px; }
+  .payment-controls select {
+    width: 99%; }
+
+.abono-box {
+  margin: 5px 0; }
+  .abono-box .input-group {
+    cursor: pointer; }
+    .abono-box .input-group span,
+    .abono-box .input-group input[disabled] {
+      background: #1FA1D0;
+      color: #fff;
+      cursor: pointer;
+      opacity: .4; }
+  .abono-box.have-abono span,
+  .abono-box.have-abono input[disabled] {
+    background: red;
+    color: #fff;
+    opacity: 1; }
+
 .left-navigation {
   padding: 50px 0;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4);

@@ -83,6 +83,11 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+define('MESSAGE_SUCCESS','<i class="material-icons">done_all</i>');
+define('MESSAGE_ERROR','<i class="material-icons">error_outline</i>');
+define('MESSAGE_INFO','<i class="material-icons">info_outline</i>');
+
 date_default_timezone_set('America/Santo_Domingo');
 global $lastCheckedForMoras;
 $lastCheckForMoras = date('Y-m-d');

@@ -65,7 +65,7 @@ class Contract_model extends CI_MODEL{
   public function add($data){
     $this->organize_data($data,"normal");
       if($this->db->insert('contratos',$this)){
-         echo "&#10004; Nuevo contrato agregado con exito";
+         echo MESSAGE_ERROR." Nuevo contrato agregado con exito";
          return true;
       }else{
         

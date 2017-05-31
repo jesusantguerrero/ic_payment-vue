@@ -24,6 +24,7 @@ switch (currentPage) {
     break;
   case "detalles":
     initPaymentsHandlers();
+    detailHandlers();
     verifyContractStatus();
     break;
   case "contratos":
@@ -255,6 +256,19 @@ function initPaymentsHandlers(){
   makeRowsClickable();
 }
 
+function detailHandlers(){
+  $("#btn-save-observations").on('click',function(e){
+    e.stopImmediatePropagation();
+    saveObservations()
+  })
+
+  $(".abono-value").on('click',function(e){
+    e.stopImmediatePropagation();
+    saveObservations(true);
+  })
+
+}
+
 
 /********************************************************
  *                CRUD para la tabla usuarios           *
@@ -443,6 +457,30 @@ function recieveClient(content){
   } 
 }
 
+function saveObservations(abonoWatched){
+  var form, observations,abono,idCliente,$inputAbono,abonoValue;
+
+  observations = $("#text-observations").val();
+  $inputAbono = $("#input-abono"); 
+  abono = (abonoWatched) ? 0 : $inputAbono.val();
+  idCliente = $("#detail-client-id").val();
+  abonoValue = $(".abono-value");
+
+
+  form = 'observaciones=' + observations+ "&abonos=" + abono +"&id_cliente="+idCliente +"&modo=" + abonoWatched;
+  form += "&tabla=observaciones";
+  connectAndSend("process/update",true,initPaymentsHandlers,null,form,null) 
+
+  if(abonoWatched != undefined){
+    $inputAbono.val(abono);
+    $(".abono-box").removeClass("have-abono");
+  }else{
+    $inputAbono.attr("disabled");
+    $(".abono-box").addClass("have-abono");
+  }
+  abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
+}
+
 /********************************************************
  *                 Ajax Generales                       *
  *                                                      *
@@ -578,15 +616,23 @@ function addNewContract(){
   }
 }
 
+function extendContract(idContrato){
+  var form;
+  form  = 'id_contrato=' + idContrator;   
+  connectAndSend("process/extend",true,initContractHandlers,null,form,null);    
+}
+
 function getLastContract(){
   form = "toget=lastcontract"
   connectAndSend("process/getId",false,initContractHandlers,contractSaved,null);
+  
 }
 
 function contractSaved(id){
   $("#btn-save-contract").attr("disabled","");
   $("#btn-print-contract").removeAttr("disabled");
   $("#btn-print-contract").attr("href","");
+  alert(id)
 }
 
 /********************************************************
@@ -605,12 +651,18 @@ function getPayments(){
 
 
 function updatePayment(id){
-  var date = moment().format("YYYY-MM-DD");
-  var id_contrato = $("#select-contract").val();
-  var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago="+ date + "&id_contrato="+ id_contrato;
-  console.log(form)
-  var handlers,callback; 
-  connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
+  var abono = $("#input-abono").val();
+  if(abono == 0){
+     var date = moment().format("YYYY-MM-DD");
+    var id_contrato = $("#select-contract").val();
+    var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago="+ date + "&id_contrato="+ id_contrato;
+    console.log(form)
+    var handlers,callback; 
+    connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
+  }else{
+    alert("has click en la zona roja de abono para confirmar que le viste antes de registrar el pago");
+  }
+ 
 };
 
 /********************************************************

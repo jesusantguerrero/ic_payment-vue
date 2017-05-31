@@ -1,5 +1,5 @@
 <?php 
-  $reporte = $_SESSION['reporte'];
+  $reporte = get_report();
 ?>
 
 <div class="document-body">
@@ -12,21 +12,25 @@
       <p></p>
     </div>
     <div class="left-box"> 
-      <h4 class="fecha-recibo">Fecha: </h4>
+      <h4 class="fecha-reporte">Fecha: </h4>
+      <p><b class="hora-reporte">Recibo  :</b></p>
     </div>
   </div>
   <div class="concepto"> <h4><?php echo $reporte['concepto'] ?></h4></div>
+  
   <div class="cuerpo">
     <?php echo $reporte['cuerpo'] ?>
   </div>
   <div class="pie-pagina">
-    <small>**Verifique su recibo valor no reembolsable**</small>
   </div>
 </div>
 <script>
  //print();
 
- var fechaActual = moment().format("DD-MM-YYYY");
- $(".fecha-recibo").text("Fecha: " + fechaActual);
+ var now = moment()
+ var fecha = now.format("DD-MM-YYYY");
+ var hora = now.format("LTS");
+ $(".fecha-reporte").text("Fecha: " + fecha);
+ $(".hora-reporte").text('Hora: ' + hora)
 
 </script>

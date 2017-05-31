@@ -7,8 +7,6 @@
 *
 */
 
-$client_details;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
@@ -25,34 +23,47 @@ if ( ! function_exists('make_payment_report')){
     $context->table->set_heading("Num","Pago","Cont","Cliente","Servicio","Total","Hora"); 
 
     foreach ($data as $line) {
-
+      $hora = new DATETIME($line['complete_date']);
     $context->table->add_row($cont,
       $line['id_pago'],
       $line['id_contrato'],
       $line['cliente'],
       $line['servicio'],
       "RD$ ".CurrencyFormat($line['total']),
-      $line['hora']);
+      $hora->format('g:i a'));
 
      $cont+=1;
     }
 
     $html_text = $context->table->generate();
-    set_report_in_memory($html_text,$concept);
+    $more['total'] = $context->report_model->get_total_payments("date(now())");
+    $html_text .= "<div class='ganancia-total'>TOTAL DEL DIA: RD$ ".CurrencyFormat($more['total'])."<div>";
+    set_report($html_text,$concept,$more);
    
   }
+}
 
-
-  function set_report_in_memory($report_body,$concept){
-     $_SESSION['reporte'] =array('cuerpo' => $report_body, 'concepto' => $concept);
-  }
-
-  function get_report_in_memory(){
-    return $_SESSION['reporte'];
-  }
-
-  function erase_report_in_memory(){
-    echo "hola";
+if( ! function_exists('set_report')){
+  function set_report($report_body,$concept,$more,$context){
+     $_SESSION['reporte'] = array('cuerpo' => $report_body, 'concepto' => $concept, 'mas' => $more);
   }
 
 }
+
+if( ! function_exists('get_report')){
+ function get_report(){
+    return $_SESSION['reporte'];
+  }
+
+}
+
+if( ! function_exists('erase_report')){
+  function erase_report(){
+    session_unset($_SESSION['reporte']);
+  }
+}
+  
+
+  
+
+  

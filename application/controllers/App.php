@@ -14,6 +14,7 @@ class App extends CI_Controller {
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
 		$this->load->helpers('modals','users');
+		$this->load->helper('report');
 		update_moras($this);
 		
 		

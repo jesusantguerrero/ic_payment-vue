@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group">
                       <label for="client-salary">Salario</label>
-                      <input type="text" class="form-control password" id="client-salary">
+                      <input type="number" class="form-control password" id="client-salary" value="0">
                     </div>
                   </div>
 
@@ -241,7 +241,7 @@
                     </div>
                     <div class="form-group">
                       <label for="u-client-salary">Salario</label>
-                      <input type="text" class="form-control password" id="u-client-salary">
+                      <input type="number" class="form-control password" id="u-client-salary">
                     </div>
                   </div>
 

@@ -7,6 +7,9 @@
  */
 
 const BASE_URL = 'http://localhost/ic/'
+const MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>'
+const MESSAGE_ERROR = '<i class="material-icons">error_outline</i>'
+const MESSAGE_INFO = '<i class="material-icons">info_outline</i>'
 
 
 
@@ -54,13 +57,13 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
  */
 
 function displayMessage(message){
-  var error = "&#10006;";
-  var success= "&#10004;";
   var color = "#08ff20";
   var toast,span;
 
-  if(message.includes(error)){
-    color = "#ff0330"
+  if(message.includes(MESSAGE_ERROR)){
+    color = "#ff0330";
+  }else if(message.includes(MESSAGE_INFO)){
+    color = "dodgerblue";
   }
   toast = $(".toast")
   span = toast.find("span").html(message);

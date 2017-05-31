@@ -103,12 +103,14 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 })
 
 function detailsFunctions(){
-  $('[href="#payments"]').on('click',function(){
-      $(".payment-controls").css({display:"flex",flexDirection:"column","justify-content":"center","align-items":"center"});
-  })
 
-  $('[role="tab"]').on('blur',function(){
-    $(".payment-controls").css({display:"none"});
+  $('[role="tab"]').on('click',function(){
+    if($(this).attr("href") == "#payments"){  
+      $(".payment-controls").addClass("visible");
+    }else{
+      $(".payment-controls").removeClass("visible");
+    }
+    
       
   })
 }

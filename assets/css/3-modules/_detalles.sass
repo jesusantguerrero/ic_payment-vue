@@ -7,3 +7,37 @@
   text-transform: uppercase
   color: $contrast-color
   font-weight: bolder
+
+.payment-controls
+  display: none
+  
+  &.visible
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+  
+  .input-group
+    width: 220px
+
+  select
+    width: 99%
+
+.abono-box
+  margin: 5px 0
+  .input-group
+    cursor: pointer
+    span,
+    input[disabled]
+      background: $contrast-color
+      color: #fff
+      cursor: pointer
+      opacity: .4
+  &.have-abono
+    .input-group
+    span,
+    input[disabled]
+      background: red
+      color: #fff
+      opacity: 1
+

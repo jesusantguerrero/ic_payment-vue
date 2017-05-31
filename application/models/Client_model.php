@@ -45,10 +45,11 @@ class Client_model extends CI_MODEL{
     $this->cols['celular']         = $data['celular'];
     $this->cols['lugar_trabajo']   = $data['lugar_trabajo'];
     $this->cols['tel_trabajo']     = $data['tel_trabajo'];
-    $this->cols['ingresos']        = $data['ingresos'];
+    $this->cols['ingresos']        = $data['ingresos'] ? $data['ingresos'] : 0 ;
     $this->cols['fecha_registro']  = $data['fecha_registro'];
     $this->cols['estado']          = $data['estado'];
-    $this->cols['observaciones']   = null;
+    $this->cols['observaciones']   = '';
+    $this->cols['abonos']          = 0;
   }
 
   public function add($data){
@@ -57,12 +58,12 @@ class Client_model extends CI_MODEL{
     $result = $result->result_array();
     $result = count($result);
     if($result > 0){
-      echo "&#10006; Esta cedula ya está registrada";
+      echo MESSAGE_ERROR." Esta cedula ya está registrada";
     }else{
       if($this->db->insert('clientes',$this->cols)){
-        echo "&#10004; Ciente Agregado con exito";
+        echo MESSAGE_SUCCESS." Ciente Agregado con exito";
       }else{
-       echo "No pudo guardarse el cliente";
+       echo MESSAGE_ERROR."No pudo guardarse el cliente ". $this->db->last_query();
       } 
     }  
   }
@@ -74,10 +75,37 @@ class Client_model extends CI_MODEL{
     $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos=".$data['ingresos']." WHERE id_cliente =".$data['id'];
 
     if($result = $this->db->query($sql)){
-      echo "&#10004; Usuario Actualizado Con Exito!";
+      echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
     }else{
-     echo "&#10006; No pudo guardarse el usuario ";
+     echo MESSAGE_ERROR." No pudo guardarse el cliente";
     }   
+  }
+
+  public function update_observations($data){
+    $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos']);
+    $this->db->where('id_cliente',$data['id_cliente']);
+
+    if($this->db->update('clientes',$rows)){
+      if($data['modo']){
+        echo MESSAGE_INFO." Monto de abono visto";
+      }else{
+        echo MESSAGE_SUCCESS." Observación Agregada";
+      }
+        
+    }else{
+     echo MESSAGE_ERROR." No pudo guardarse la observacion";
+    }   
+  }
+
+  public function get_column($columnName,$id_cliente){
+    $this->db->select($columnName);
+    $this->db->where('id_cliente',$id_cliente);;
+    if($result = $this->db->get('clientes')){
+      return $result->row_array();
+    }else{
+      return $this->db->last_query();
+    }
+    
   }
 
   public function is_active($is_active,$data){
@@ -157,9 +185,9 @@ public function search_clients($word){
   public function delete_client($id){
     $sql = "DELETE FROM clientes WHERE id_cliente= $id";
     if($this->db->query($sql)){
-      echo "&#10004; Usuario Eliminado";
+      echo MESSAGE_SUCCESS." Cliente Eliminado";
     }else{
-      echo "error";
+      echo MESSAGE_ERROR." No se ha podido eliminar el cliente";
     }
   }
 

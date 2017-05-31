@@ -47,10 +47,10 @@ class Service_model extends CI_MODEL{
     $result = $result->result_array();
     $result = count($result);
     if($result){
-      echo "&#10006; Este nombre ya está registrado";
+      echo MESSAGE_ERROR." Este nombre ya está registrado";
     }else{
       if($this->db->insert('servicios',$this)){
-        echo "&#10004; Servicio Agregado con exito";
+        echo MESSAGE_SUCCESS." Servicio Agregado con exito";
       }else{
        echo "No pudo guardarse el servicio";
       } 
@@ -63,9 +63,9 @@ class Service_model extends CI_MODEL{
     $sql = "UPDATE servicios SET nombre = '$this->nombre', descripcion ='$this->descripcion', mensualidad ='$this->mensualidad',";
     $sql .= "tipo ='$this->tipo' WHERE id_servicio = $this->id_servicio";
     if($result = $this->db->query($sql)){
-      echo "&#10004; Servicio Actualizado Con Exito!";
+      echo MESSAGE_SUCCESS." Servicio Actualizado Con Exito!";
     }else{
-      echo "&#10006; No pudo actualizarse el servicio " . $sql;
+      echo MESSAGE_ERROR." No pudo actualizarse el servicio " . $sql;
     }   
   }
 
@@ -115,7 +115,7 @@ class Service_model extends CI_MODEL{
   public function delete_service($id){
     $sql = "DELETE FROM servicios WHERE id_servicio= $id";
     if($this->db->query($sql)){
-      echo "&#10004; Servicio Eliminado";
+      echo MESSAGE_SUCCESS." Servicio Eliminado";
     }else{
       echo "error";
     }

@@ -52,10 +52,10 @@ class User_model extends CI_MODEL{
     $result = $result->result_array();
     $result = count($result);
     if($result){
-      echo "&#10006; Este nombre de usuario ya está registrado";
+      echo MESSAGE_ERROR." Este nombre de usuario ya está registrado";
     }else{
       if($this->db->insert('users',$this)){
-        echo "&#10004; Usuario agregado con exito";
+        echo MESSAGE_SUCCESS." Usuario agregado con exito";
       }else{
        echo "No pudo guardarse el usuario";
       } 
@@ -69,9 +69,9 @@ class User_model extends CI_MODEL{
     $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
 
     if($result = $this->db->query($sql)){
-      echo "&#10004; Usuario Actualizado Con Exito!";
+      echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
     }else{
-     echo "&#10006; No pudo guardarse el usuario " . $sql;
+     echo MESSAGE_ERROR." No pudo guardarse el usuario " . $sql;
     }   
   }
 
@@ -97,14 +97,14 @@ class User_model extends CI_MODEL{
   public function get_user($id){
     $sql = "SELECT * FROM users WHERE user_id=". $id;
     if($this->db->query($sql)){
-      echo "&#10004; Usuario Eliminado";
+      echo MESSAGE_SUCCESS." Usuario Eliminado";
     }  
   }
 
   public function delete_user($id){
     $sql = "DELETE FROM users WHERE user_id=". $id;
     if($this->db->query($sql)){
-      echo "&#10004; Usuario Eliminado";
+      echo MESSAGE_SUCCESS." Usuario Eliminado";
     }  
   }
 

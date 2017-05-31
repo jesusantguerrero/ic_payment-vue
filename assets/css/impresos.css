@@ -281,3 +281,36 @@ th {
     border-bottom: 1px dotted #ccc !important; }
   @page {
     marks: cross; } }
+
+body {
+  display: flex;
+  justify-content: center; }
+
+.document-body {
+  width: 80%; }
+  .document-body .cuerpo {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0; }
+  .document-body .concepto {
+    margin: 30px 0 20px 0; }
+  .document-body .table {
+    font-size: 12px;
+    width: 100%; }
+    .document-body .table thead {
+      background: whitesmoke; }
+  .document-body .ganancia-total {
+    text-align: right;
+    width: 100%;
+    padding-right: 20%;
+    font-weight: bolder; }
+
+@media print {
+  .document-body {
+    width: 100%; }
+  .concepto {
+    background: #1FA1D0 !important;
+    color: white !important; }
+  .table {
+    font-size: 12px !important; }
+    .table thead {
+      background: whitesmoke !important; } }

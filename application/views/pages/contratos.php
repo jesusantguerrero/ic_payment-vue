@@ -6,6 +6,7 @@
       <li class="aside-buttons"><a href="" id="btn-cancel-contract"><i class="material-icons" >delete</i>Cancelar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-see-in-detail"><i class="material-icons" >find_in_page</i>Ver Detalles</a></li>
       <li class="aside-buttons"><a href="" id="btn-pay"><i class="material-icons" >monetization_on</i>Registrar Pago</a></li>
+      <li class="aside-buttons"><a href="" id="btn-pay"><i class="material-icons" >monetization_on</i>Extender Contrato</a></li>
     </ul>
 
   </div>
