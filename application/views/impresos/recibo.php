@@ -35,7 +35,8 @@
   </div>
 </div>
 <script>
- // print();
+ print();
+
 </script>
 <?php 
   else:

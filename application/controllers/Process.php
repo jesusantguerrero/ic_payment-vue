@@ -12,6 +12,7 @@ class Process extends CI_Controller {
 		$this->load->model("contract_view_model");
 		$this->load->model("payment_model");
 		$this->load->model("company_model");
+		$this->load->model("report_model");
 	}
 
 	public function add(){ 
@@ -186,6 +187,11 @@ class Process extends CI_Controller {
 		$recibo_info = $this->payment_model->get_recibo($id);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
 		redirect(base_url('app/imprimir/recibo'));
+	}
+
+	public function getreport($table,$type){
+		$this->report_model->get_payments_report($type);
+		redirect(base_url('app/imprimir/reporte'));
 	}
 
 

@@ -3,7 +3,9 @@
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
-      <li class="aside-buttons"><a href="#constants"><i class="material-icons">settings</i> Ajustes</a></li>
+      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">assignment</i> Informes</a></li>
+      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
+      <li class="aside-buttons"><a href="#settings-section"><i class="material-icons">settings</i> Ajustes</a></li>
     </ul>
   </div>
 
@@ -39,7 +41,6 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Direccion</label>
-<<<<<<< HEAD
                 <input type="text" class="form-control" id="company-direction" value="<?php echo $empresa['direccion'] ?>">
               </div>
               <div class="form-group">
@@ -59,7 +60,7 @@
         </div>
       </div>
 
-      <!-- ******************************
+    <!-- ******************************
       *     Sección de los usuarios   *
       *                               *
     ********************************-->
@@ -114,6 +115,54 @@
             </tfoot>
 
         </table>
+      </div>
+
+
+    <!-- ******************************
+      *     Sección de los usuarios   *
+      *                               *
+    ********************************-->
+    <div class="company-details" id="settings-section">
+        <?php $empresa = $this->company_model->get_empresa();
+         ?>
+        <h3> Ajustes del Programa</h3>
+        <form action="">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="company-name">Monto de la mora</label>
+                <input type="number" class="form-control" id="company-name">
+              </div>
+              <div class="form-group">
+                <label for="company-phrase">Fecha de Corte</label>
+                <input type="number" class="form-control" id="company-phrase" value="<?php // echo $empresa['lema'] ?>">
+              </div>
+              <div class="form-group">
+                <label for="company-phone1">Apertura de Caja Chica</label>
+                <input type="number" class="form-control" id="company-phone1" value="<?php // echo $empresa['telefono1'] ?>" placeholder="20000">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="company-name">Direccion</label>
+                <input type="text" class="form-control" id="company-direction" value="<?php echo $empresa['direccion'] ?>">
+              </div>
+              <div class="form-group">
+                <label for="company-name">Descripción</label>
+                <input type="text" class="form-control" id="company-description" value="<?php echo $empresa['descripcion'] ?>">
+              </div>
+              <div class="form-group">
+                <label for="company-name">Telefono2</label>
+                <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
+              </div>
+              <div class="right">
+                <input id="update-company-data" type="submit" value="Guardar Datos">
+              </div>
+
+            </div>
+        </form>
+        </div>
       </div>
     </div>
 

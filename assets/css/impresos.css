@@ -184,70 +184,80 @@ th {
   border: 2px dashed #aaa;
   overflow: hidden;
   font-family: 'Times New Roman', Times, serif; }
-  .recibo-body .cabecera {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: nullnull;
-    align-items: flex-start; }
-    .recibo-body .cabecera p {
-      padding: 0 0 0 0;
-      margin: 0 0 0 0;
-      font-size: 12px; }
-  .recibo-body .company-name {
+
+.cabecera {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: nullnull;
+  align-items: flex-start; }
+  .cabecera p {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    font-size: 12px; }
+  .cabecera .company-name {
     width: 60%; }
-    .recibo-body .company-name h2 {
+    .cabecera .company-name h2 {
       padding-bottom: 0;
       margin-bottom: 0;
       font-weight: bolder;
       color: #f20; }
-  .recibo-body .concepto h4 {
-    text-align: center;
-    font-weight: bolder;
-    color: #666;
-    padding: 5px 0;
-    background: whitesmoke;
-    margin: 0 0 0 0; }
-  .recibo-body .fecha-recibo {
-    color: #06f !important; }
-  .recibo-body .logo-recibo {
-    width: 8%;
-    margin: 2%; }
-  .recibo-body .left-box {
-    align-self: center;
-    font-size: 12px;
-    margin: 20px; }
-  .recibo-body .cuerpo {
-    padding: 10px 15px;
-    margin: 10px;
-    margin-bottom: 3px;
-    border-radius: 4px; }
-  .recibo-body .text-placeholder {
-    border-bottom: 1px dotted #ccc !important;
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    width: 82%;
-    height: 20px; }
-    .recibo-body .text-placeholder.md {
-      width: 18.43%; }
-    .recibo-body .text-placeholder.lg {
-      width: 50%; }
-  .recibo-body .text-main {
-    display: inline-block;
-    width: 12%;
-    height: 20px;
-    font-weight: 900;
-    color: #666; }
-    .recibo-body .text-main.center {
-      text-align: center; }
-  .recibo-body .line {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center; }
-  .recibo-body .pie-pagina {
+
+.concepto h4 {
+  text-align: center;
+  font-weight: bolder;
+  color: #666;
+  padding: 5px 0;
+  background: whitesmoke;
+  margin: 0 0 0 0; }
+
+.fecha-recibo {
+  color: #06f !important; }
+
+.logo-recibo {
+  width: 8%;
+  margin: 2%; }
+
+.left-box {
+  align-self: center;
+  font-size: 12px;
+  margin: 20px; }
+
+.cuerpo {
+  padding: 10px 15px;
+  margin: 10px;
+  margin-bottom: 3px;
+  border-radius: 4px; }
+
+.text-placeholder {
+  border-bottom: 1px dotted #ccc !important;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 82%;
+  height: 20px; }
+  .text-placeholder.md {
+    width: 18.43%; }
+  .text-placeholder.lg {
+    width: 50%; }
+
+.text-main {
+  display: inline-block;
+  width: 12%;
+  height: 20px;
+  font-weight: 900;
+  color: #666; }
+  .text-main.center {
     text-align: center; }
+
+.line {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.pie-pagina {
+  text-align: center; }
 
 @media print {
   .recibo-body {

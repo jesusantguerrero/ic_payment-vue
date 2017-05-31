@@ -3,7 +3,7 @@
 
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
-      <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_clients(); ?></span> <span>Clientes</span> </div>
+      <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span> <span>Clientes</span> </div>
       <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> contratos</div>
       <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span> clientes activos</div>   
     </div>
@@ -16,7 +16,8 @@
     <h3 class="card-title">Detalles Generales</h3>
     <div class="today-data">
       <h5>Ventas de hoy</h5>
-      <p> <a href=""><span class="amount">RD$ <?php echo CurrencyFormat($this->payment_model->day_income("today")) ?></span></a> </p>
+      <p> <a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
+      <span class="amount">RD$ <?php echo CurrencyFormat($this->payment_model->day_income("today")) ?></span></a> </p>
     </div>
     <div>
       <h5>Clientes Por Servicios</h5>
