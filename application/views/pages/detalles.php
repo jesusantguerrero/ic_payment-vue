@@ -21,10 +21,24 @@
         <div class="client-profile">
           <span><?php echo $iniciales ?></span>
         </div>
-        <h4><?php echo $nombre_completo ?></h4>
+        <h5><?php echo $nombre_completo ?></h5>
         <p class="detail-state"><i class="material-icons">timeline</i>
           <?php echo $client_data['estado'] ?>
         </p>
+        
+       <div class="payment-controls">
+        <div class="input-group">
+          <span class="input-group-addon" id="addon">Contrato </span>
+          <select name="select-contract form-control" id="select-contract">
+            <?php $this->contract_model->get_contracts_dropdown($client_data['id_cliente']) ?>
+          </select>
+        </div>
+        <button class="btn" id="btn-pay">Registrar Pago</button>
+       </div>
+        
+        
+        
+        
 
       </div>
       <div class="col-md-9">
@@ -146,17 +160,6 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="input-group">
-                    <span class="input-group-addon" id="addon">Contrato </span>
-                    <select name="select-contract form-control" id="select-contract">
-                      <?php $this->contract_model->get_contracts_dropdown($client_data['id_cliente']) ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-7 col-md-offset-1"><button class="btn" id="btn-pay">Registrar Pago </button></div>
-              </div>
               
               <table class="table t-pagos" id="t-pagos">
                 <thead>

@@ -5,6 +5,7 @@ adminFunctions();
 userInfoTip();
 newUserForm();
 makeServiceCardClickable();
+detailsFunctions();
 
 /**
  * Get Date:
@@ -100,4 +101,15 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
   modal.find('.modal-title').text(title)
   modal.find('.modal-footer .save').text(buttonText)
 })
+
+function detailsFunctions(){
+  $('[href="#payments"]').on('click',function(){
+      $(".payment-controls").css({display:"flex",flexDirection:"column","justify-content":"center","align-items":"center"});
+  })
+
+  $('[role="tab"]').on('blur',function(){
+    $(".payment-controls").css({display:"none"});
+      
+  })
+}
 

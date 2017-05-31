@@ -1024,8 +1024,8 @@ canvas {
   color: #aaa; }
 
 .client-profile {
-  height: 200px;
-  width: 200px;
+  height: 120px;
+  width: 120px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1033,7 +1033,7 @@ canvas {
   background: #1FA1D0;
   border-radius: 50%;
   color: #fff;
-  font-size: 90px;
+  font-size: 60px;
   text-align: center;
   margin-bottom: 15px; }
 
@@ -1043,11 +1043,17 @@ canvas {
 .without-padding {
   padding-left: 0; }
 
+.tabs-container {
+  height: 500px;
+  padding: 50px 0 0 0; }
+  .tabs-container .tab-pane {
+    padding: 20px 10px 0 10px; }
+
 textarea {
   width: 100%; }
 
 .detail-panel {
-  padding-top: 50px; }
+  padding-top: 20px; }
 
 .special {
   margin-top: 50px; }
