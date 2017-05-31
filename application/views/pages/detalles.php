@@ -13,14 +13,15 @@
   <div class="main-content col-md-12">
 
     <div class="row">
-      <div class="col-xs-6 col-md-3">
+      <div class="col-xs-6 col-md-3 center-row">
         <div class="page-header">
-          <h3>Detalles del Cliente <br><small><?php echo $nombre_completo ?></small></h3>
+          <h3>Detalles del Cliente</h3>
         </div>
 
         <div class="client-profile">
           <span><?php echo $iniciales ?></span>
         </div>
+        <h4><?php echo $nombre_completo ?></h4>
         <p class="detail-state"><i class="material-icons">timeline</i>
           <?php echo $client_data['estado'] ?>
         </p>

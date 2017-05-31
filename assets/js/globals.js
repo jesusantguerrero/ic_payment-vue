@@ -25,13 +25,11 @@ const BASE_URL = 'http://localhost/ic/'
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
    var contador = 0;
-   console.log(url);
    
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null)  {
                 action(connect.responseText,recognizeElements);
-                contador++;
             }else{
               if(is_message){
                  displayMessage(connect.responseText);
@@ -144,7 +142,7 @@ function isEmpty(values){
 /**
  * get Pagination Data: Devuelve la información del pie de la tabla relacionada con la paginación
  * @param {string} tableId 
- * @return {{perpage: number,$maxLimit: HTMLElement,$minLimit: HTMLElement,previous:number,next:number,min:number,max: number,total:number}}
+ * @return {{perpage: number,$maxLimit: HTMLElement,$minLimit: HTMLElement,$maxLimitVisible: HTMLElement,previous:number,next:number,min:number,max: number,total:number}}
  * 
  */
 function getPaginationData(tableId){
@@ -184,6 +182,8 @@ function getPaginationData(tableId){
  * @return {void}
  */
 function initPagination(tableId,serverTable,paginate){ 
+  let pagination = getPaginationData(tableId);
+  if (pagination.total < 5) pagination.$maxLimitVisible.text(pagination.total);
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 

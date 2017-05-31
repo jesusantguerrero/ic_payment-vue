@@ -1,5 +1,12 @@
 .page-header
   margin-top: 0
+  h3
+    margin-top: 0
+.center-row
+  display: flex
+  flex-direction: column
+  align-items: center
+
 
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:focus,
@@ -104,6 +111,13 @@ textarea
   width: 100%
   justify-content: center
   flex-wrap: wrap
+.modal-header
+  +card()
+  border: none
+  background: $contrast-color
+  color: #fff
+.modal
+  width: 100%
 
 .modal.contrast
   .modal-content

@@ -19,16 +19,12 @@ class App extends CI_Controller {
 		
 	}
 
-	public function index($page = 'login'){
-		if ($page == 'login'):	
-			
-			$data['title'] = $page;	
-			$this->load->view('pages/'.$page,$data);
-			
-			
-			
+	public function index(){
+		if(!isset($_SESSION['user_data'])):	
+			$data['title'] = "login";	
+			$this->load->view('pages/login',$data);	
 		else:
-			echo "Hola mundo";
+			redirect(base_url('app/admin/home'));
 		endif;
 	
 	}

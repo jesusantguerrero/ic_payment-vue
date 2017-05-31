@@ -88,7 +88,8 @@ function userInfoTip(){
 $('#search-client-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
 
-  var title = button.find('.section-title').text()
+  var title = button.find('.section-title').text();
+  if(!title) title = "Buscar Cliente"
   if(title.toLowerCase().trim() == "registrar pago"){
     buttonText = "ir a Pagos"
   }else{
