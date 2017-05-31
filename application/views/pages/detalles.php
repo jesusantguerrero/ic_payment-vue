@@ -41,7 +41,7 @@
         <div class="payment-controls <?php echo $controls_class ?>">
           <div class="input-group">
             <span class="input-group-addon" id="addon">Contrato </span>
-            <select name="select-contract form-control" id="select-contract">
+            <select  class="form-control" id="select-contract">
             <?php $this->contract_model->get_contracts_dropdown($client_data['id_cliente']) ?>
           </select>
           </div>
@@ -182,8 +182,7 @@
 
 
             <!---->
-            <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == " pagos
-              "):?> active <?php endif; ?>" id="payments">
+            <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
 
               <table class="table t-pagos" id="t-pagos">
                 <thead>
@@ -206,10 +205,18 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>Filas Por Pagina</td>
+                    <td>
+                      <select name="perpage" id="per-page" class="per-page">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>  
+                      </select>
+
+                    </td>
+                    <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de <span class="total-rows"><?php $this->client_model->count_clients()?></span></td>
+                    <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
 
                   </tr>
 

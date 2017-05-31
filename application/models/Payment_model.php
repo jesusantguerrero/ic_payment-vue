@@ -67,20 +67,45 @@ class Payment_model extends CI_MODEL{
     if($result == "no pagado"){
         return true;
       }else{
-        echo "Este pago ya ha sido realizado";
+        echo MESSAGE_INFO."Este pago ya ha sido realizado";
     }
     
   }
 
+  public function count_per_contract(){
+    $id_contrato = get_from_session();
+    $this->db->where('id_contrato',$id_contrato);
+    $result = $this->db->count_all_results('pagos');
+    if($result){
+      echo $result;
+    }else{
+      echo 0;
+    }
+  }
+
   public function get_all_of_contract($id){
     $sql = "SELECT * FROM pagos WHERE id_contrato = $id";
+    set_last_query($sql);
+    $sql .= " Limit 5";
     $result = $this->db->query($sql);
+    set_to_session($id);
     if($result){
       $result = make_payment_table($result->result_array(),0);
       echo $result;
     }
     
   }  
+
+  public function get_payments_paginate($offset,$perpage){
+    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
+    $result = $this->db->query($sql);
+    if($result){
+      $result = make_payment_table($result->result_array(),$offset);
+      echo $result. $this->db->last_query();
+    }else{
+      echo $sql . "hola";
+    } 
+  }
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";

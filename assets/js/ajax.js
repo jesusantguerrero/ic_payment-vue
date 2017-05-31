@@ -2,7 +2,6 @@ $(function(){
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
 var ran = false;
-console.log(currentPage);
 
 switch (currentPage) {
   case "home":
@@ -232,11 +231,14 @@ function initContractHandlers(){
 }
 
 function initPaymentsHandlers(){
+
   if(!ran){
     getPayments();
     ran = true;
   }
   verifyPaymentStatus();
+  
+  initPagination('#t-pagos','pagos_por_contrato',paginate)
 
   $("#btn-pay").on('click',function(e){
     e.stopImmediatePropagation();
@@ -254,6 +256,7 @@ function initPaymentsHandlers(){
   });
 
   makeRowsClickable();
+  count_table("pagos_por_contratos");
 }
 
 function detailHandlers(){
@@ -524,12 +527,14 @@ function paginate(offset,perpage,tableName){
     case "v_contratos":
       handlers = initContractHandlers;
       break;
+    case "pagos_por_contratos":
+      handlers = initPaymentsHandlers;
+      break;
     default:
       break;
   }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
   connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
-  count_table("clientes");
 }
 
 

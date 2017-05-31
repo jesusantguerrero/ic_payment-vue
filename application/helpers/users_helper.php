@@ -428,3 +428,11 @@ function set_last_query($lastquery){
 function get_last_query(){
   return $_SESSION['lastquery'];
 }
+
+function set_to_session($lastquery){
+  $_SESSION['id_contrato'] = $lastquery;
+}
+
+function get_from_session(){
+  return $_SESSION['id_contrato'];
+}

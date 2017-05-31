@@ -65,11 +65,11 @@ class Contract_model extends CI_MODEL{
   public function add($data){
     $this->organize_data($data,"normal");
       if($this->db->insert('contratos',$this)){
-         echo MESSAGE_ERROR." Nuevo contrato agregado con exito";
+         echo MESSAGE_SUCCESS." Nuevo contrato agregado con exito";
          return true;
       }else{
         
-        echo "No pudo guardarse el contrato ";
+        echo MESSAGE_ERROR."No pudo guardarse el contrato ";
         echo $this->db->last_query();
         return false;
       } 
@@ -135,9 +135,9 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
-      echo "No pudo guardarse el pago $sql1 ";
+      echo MESSAGE_ERROR." No pudo guardarse el pago";
     } else{
-      echo "Pago Registrado";
+      echo MESSAGE_SUCCESS." Pago Registrado";
       $has_contracts = $this->db->query($sql3);
       $has_contracts = $has_contracts->result_array();
       $has_contracts = count($has_contracts);

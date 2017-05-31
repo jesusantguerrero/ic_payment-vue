@@ -92,7 +92,7 @@ function fillCurrentTable($content,callback,tableID){
     $table = $("[class*='t-'] tbody");
   }
   $table.html($content);
-  callback();
+  if(callback) callback();
 }
 
 /**
@@ -179,7 +179,7 @@ function getPaginationData(tableId){
  * init Pagination: make a table paginatable
  * mi metodo de paginacion propio habilita las funciones next, y previous
  * @constructor
- * @param {string} tableId Id de la <table> de la vista
+ * @param {string} tableId Id de la <table> de la vista example '#t-table'
  * @param {string} serverTable Tabla de la base de datos a paginar
  * @param {function} paginate La funcion paginate como parametro
  * @return {void}

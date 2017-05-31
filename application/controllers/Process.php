@@ -119,7 +119,10 @@ class Process extends CI_Controller {
 				break;
 			case "v_contratos":
 				$this->contract_view_model->get_contracts_paginate($offset,$perpage);
-				break;
+			break;
+			case "pagos_por_contrato":
+				$this->payment_model->get_payments_paginate($offset,$perpage);
+			break;
 		}
 	}
 
@@ -155,6 +158,8 @@ class Process extends CI_Controller {
 			case 'pagos':
 				$this->payment_model->count_payments();
 				break;
+			case 'pagos_por_contratos':
+				$this->payment_model->count_per_contract();
 			default:
 				# code...
 				break;

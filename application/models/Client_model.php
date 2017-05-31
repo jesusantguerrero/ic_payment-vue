@@ -154,8 +154,7 @@ class Client_model extends CI_MODEL{
       echo $result;
     }else{
       echo $sql;
-    }
-    
+    } 
   }
 
 public function search_clients($word){
