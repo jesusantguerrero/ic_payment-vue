@@ -13,7 +13,7 @@ class Process extends CI_Controller {
 		$this->load->model("payment_model");
 		$this->load->model("company_model");
 		$this->load->model("report_model");
-		$this->load->helper('report');
+		$this->load->helper(array('report','payment'));
 	}
 
 	public function add(){ 
