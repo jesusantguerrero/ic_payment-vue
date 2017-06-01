@@ -31,16 +31,29 @@
   height: max-content
 
 .details-card
-  background: $contrast-color
-  color: white
-  text-align: center
   +size(31.5%,319px)
   padding: 0 0 0 0
   position: relative
+
+  .layout-container
+    position: absolute
+    +makeFlex(200%,row,center,center)
+    height: 100%
+  [class*='-layer']
+    +size(50%,100%)
+    color: white
+    text-align: center
+    position: relative
+  .pagos-layer
+    background: $contrast-color
+  .averias-layer
+    background: $tomato
   .card-title
     cursor: pointer
     &:hover
-      background: lighten($contrast-color,5%)
+      background: transparentize(#fff,.9)
+  .btn-remark:hover
+    background: transparentize(#fff,.9)
 
 .list-nextpayments
   +size(100%,180px)

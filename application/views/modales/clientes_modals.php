@@ -329,7 +329,7 @@
       <div class="modal-body">
         <div>
           <h4>Proximos Pagos</h4>
-          <select name="next-payment-select" id="next-payment-select">
+          <select id="next-payment-select">
             <option value="3 DAY">3 Dias</option>
             <option value="7 DAY">Una Semana</option>
             <option value="15 DAY">Una Quincena</option>
@@ -338,6 +338,10 @@
           </select>
           <h4>Deudores</h4>
           <button class="btn remark" id="btn-see-deudores">Deudores</button>
+          <h4>Averias</h4>
+          <button class="btn remark" id="btn-see-averias">ver Averias</button>
+          <h4>Caja Chica</h4>
+          <button class="btn remark" id="btn-see-caja">ver Caja</button>
 
         </div>
       </div>

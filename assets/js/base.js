@@ -6,6 +6,7 @@ userInfoTip();
 newUserForm();
 makeServiceCardClickable();
 detailsFunctions();
+notificationFunctions();
 
 /**
  * Get Date:
@@ -113,5 +114,20 @@ function detailsFunctions(){
     
       
   })
+}
+
+function notificationFunctions(){
+  var btnAverias = $("#btn-see-averias");
+  var btnPagos   = $("#btn-see-pagos");
+  var nextPaymentSelect = $('#next-payment-select');
+  var layoutContainer = $(".layout-container");
+
+  btnAverias.on('click',function(){
+    layoutContainer.animate({left:"-100%"},200);
+  });
+
+  nextPaymentSelect.on('change',function(){
+    layoutContainer.animate({left:"0"},200);
+  });
 }
 

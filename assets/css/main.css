@@ -547,17 +547,34 @@ form {
   height: max-content; }
 
 .details-card {
-  background: #1FA1D0;
-  color: white;
-  text-align: center;
   width: 31.5%;
   height: 319px;
   padding: 0 0 0 0;
   position: relative; }
+  .details-card .layout-container {
+    position: absolute;
+    width: 200%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%; }
+  .details-card [class*='-layer'] {
+    width: 50%;
+    height: 100%;
+    color: white;
+    text-align: center;
+    position: relative; }
+  .details-card .pagos-layer {
+    background: #1FA1D0; }
+  .details-card .averias-layer {
+    background: #FF6961; }
   .details-card .card-title {
     cursor: pointer; }
     .details-card .card-title:hover {
-      background: #29afdf; }
+      background: rgba(255, 255, 255, 0.1); }
+  .details-card .btn-remark:hover {
+    background: rgba(255, 255, 255, 0.1); }
 
 .list-nextpayments {
   width: 100%;
