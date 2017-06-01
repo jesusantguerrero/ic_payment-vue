@@ -238,8 +238,8 @@ function initPaymentsHandlers(){
   }
   
   verifyPaymentStatus();
-  
-  initPagination('#t-pagos','pagos_por_contrato',paginate)
+  count_table("pagos_por_contratos");
+  initPagination('#t-pagos','pagos_por_contrato',paginate);
 
   $("#btn-pay").on('click',function(e){
     e.stopImmediatePropagation();
@@ -257,7 +257,7 @@ function initPaymentsHandlers(){
   });
 
   makeRowsClickable();
-  count_table("pagos_por_contratos");
+  
 }
 
 function detailHandlers(){
@@ -515,6 +515,7 @@ function paginate(offset,perpage,tableName){
   if(tableName != "users"){
     path = "process/";
   }
+  
   switch (tableName) {
     case "users":
       handlers = initHandlers;
@@ -528,8 +529,10 @@ function paginate(offset,perpage,tableName){
     case "v_contratos":
       handlers = initContractHandlers;
       break;
-    case "pagos_por_contratos":
+    case "pagos_por_contrato":
       handlers = initPaymentsHandlers;
+    
+      
       break;
     default:
       break;

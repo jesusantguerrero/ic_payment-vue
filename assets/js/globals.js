@@ -186,7 +186,7 @@ function getPaginationData(tableId){
  */
 function initPagination(tableId,serverTable,paginate){ 
   let pagination = getPaginationData(tableId);
-  if (pagination.total < 5) pagination.$maxLimitVisible.text(pagination.total);
+  if (pagination.total <= 5) pagination.$maxLimitVisible.text(pagination.total);
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 
