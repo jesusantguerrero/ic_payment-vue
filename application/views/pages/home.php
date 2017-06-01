@@ -36,6 +36,7 @@
             <button class="btn btn-remark search-client">Buscar Cliente</button>
             </div>
         </div>
+        
     </div>
     <div class="row">
         <div class="col-md-8 shortcuts-container">
@@ -51,7 +52,7 @@
                 <i class="material-icons">monetization_on</i>
                 <p class="section-title">Registrar Pago</h4>
             </div>
-             <div class="col-md-4 shortcut">
+             <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#add-extra-modal">
                 <i class="material-icons">more</i>
                 <p class="section-title">Servicio Extra</p>
             </div>

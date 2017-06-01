@@ -18,6 +18,7 @@ if ( ! function_exists('get_modals'))
     switch($filename){
       case 'home':
          $modals[0] = 'modales/clientes_modals';
+         $modals[1] = 'modales/contract_modals';
          break;
       case 'clientes':
         $modals[0] = 'modales/clientes_modals';

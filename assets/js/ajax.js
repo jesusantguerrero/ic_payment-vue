@@ -236,6 +236,7 @@ function initPaymentsHandlers(){
     getPayments();
     ran = true;
   }
+  
   verifyPaymentStatus();
   
   initPagination('#t-pagos','pagos_por_contrato',paginate)
