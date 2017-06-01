@@ -34,7 +34,7 @@ switch (currentPage) {
   default:
     break;
 }
-
+//***************************************************  Init Admin Handlers       ***************************** */
 function initAdminHandlers(){
   $("#btn-see-deudores").on('click',function(){
     changeNotification("Lista De Deudores","money_off");
@@ -58,7 +58,7 @@ function initAdminHandlers(){
     $placeImage.html(htmlText);
   }
 }
-
+//***************************************************     Init Handlers          ***************************** */
 function initHandlers(){
   initPagination("#t-users","users",paginate);
 
@@ -101,7 +101,7 @@ function initHandlers(){
   });
  
 }
-
+//***************************************************  Init client Handlers      ***************************** */
 function initClientHandlers(){
   count_table("clientes");
   initAdminHandlers()
@@ -168,7 +168,7 @@ function initClientHandlers(){
   });
 
 }
-
+//***************************************************  Init Services Handlers    ***************************** */
 function initServicesHandlers(){
   count_table("servicios");
   initPagination("#t-services","servicios",paginate);
@@ -214,7 +214,7 @@ function initServicesHandlers(){
   });
 
 }
-
+//***************************************************  Init Contract Handlers    ***************************** */
 function initContractHandlers(){
   initPagination("#t-contracts","v_contratos",paginate);
 
@@ -223,13 +223,19 @@ function initContractHandlers(){
     addNewContract();
   });
 
+  $("#btn-add-extra").on('click',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    callExtra();
+  });
+
   $("#contract-searcher").on('keyup',function(e){
     e.stopImmediatePropagation();
     var text = $(this).val();
     search(text,"v_contratos",fillCurrentTable); 
   });
 }
-
+//***************************************************  Init Payments  Handlers   ***************************** */
 function initPaymentsHandlers(){
 
   if(!ran){
@@ -259,7 +265,7 @@ function initPaymentsHandlers(){
   makeRowsClickable();
   
 }
-
+//***************************************************      detail Handlers       ***************************** */
 function detailHandlers(){
   $("#btn-save-observations").on('click',function(e){
     e.stopImmediatePropagation();
@@ -633,8 +639,7 @@ function extendContract(idContrato){
 
 function getLastContract(){
   form = "toget=lastcontract"
-  connectAndSend("process/getId",false,initContractHandlers,contractSaved,null);
-  
+  connectAndSend("process/getId",false,initContractHandlers,contractSaved,null);  
 }
 
 function contractSaved(id){
@@ -642,6 +647,23 @@ function contractSaved(id){
   $("#btn-print-contract").removeAttr("disabled");
   $("#btn-print-contract").attr("href","");
   alert(id)
+}
+
+function callExtra(){
+  var $row = $("tr.selected");
+  if($row != undefined){
+    var cells = $row.find('td');
+   
+    $("#extra-client-contract").val(cells.eq(0).text());
+    $("#extra-client-name").val(cells.eq(1).text());
+    $("#extra-contract-service").val(cells.eq(3).text());
+    $("#extra-").val(cells.eq(5).text());
+    $('#add-extra-modal').modal();
+  }else{
+    alert("Seleccione el contrato primero")
+  }
+  
+
 }
 
 /********************************************************

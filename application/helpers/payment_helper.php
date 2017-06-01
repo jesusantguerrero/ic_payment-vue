@@ -31,6 +31,7 @@ if ( ! function_exists('create_payments')){
       if($i > 0) $concepto = $i."º pago de mensualidad"; 
       $new_data = array(
         'id_contrato' => $id,
+        'id_servicio' => $data['id_servicio'],
         'fecha_pago'  => null,
         'concepto'    => $concepto,
         'cuota'       => $data['mensualidad'],
@@ -57,9 +58,11 @@ if (! function_exists('refresh_contract')){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
     $one_month = new DateInterval('P1M');
     $dateYMD = null;
+
     $contract = $context->contract_model->get_contract_view($id);
     $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
     $next_payment_date = new DateTime($contract['proximo_pago']);
+
     if($monto_pagado == $contract['monto_total']){
       $estado = "saldado";
       $next_payment_date = null;
@@ -76,9 +79,38 @@ if (! function_exists('refresh_contract')){
       'proximo_pago'  => $dateYMD,
       'estado'        => $estado
     );
-      $context->contract_model->refresh_contract($data_pago,$data_contract,$contract);
-      
+      $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
+  }
+}
+
+if (! function_exists('upgrade_contract')){
+  /**
+  * Actualiza los pagos de un contrato automaticamente
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function upgrade_contract($context,$data_cambio){
+    $contract_id = $data_cambio['id_contrato'];
+    $contract = $context->contract_model->get_contract_view($contract_id);
+    $pagos_restantes = $context->payment_model->count_unpaid_per_contract($contract_id);
+
+    $monto_total = $contract['monto_pagado'] + ($data_cambio['cuota'] * $pagos_restantes);
     
+    $data_contract = array(
+      'id_contrato'   => $contract_id,
+      'monto_total'   => $monto_total,
+      'id_servicio'   => $data_cambio['id_servicio']
+    );
+
+    $data_pago = array(
+      'id_contrato'   => $contract_id,
+      'id_servicio'   => $data_cambio['id_servicio'],
+      'cuota'         => $data_cambio['cuota'],
+      'monto_total'   => $data_cambio['cuota']
+    );
+      $context->contract_model->upgrade_contract($data_pago,$data_contract); 
   }
 }
 

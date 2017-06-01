@@ -6,7 +6,7 @@
       <li class="aside-buttons"><a href="" id="btn-cancel-contract"><i class="material-icons" >delete</i>Cancelar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-see-in-detail"><i class="material-icons" >find_in_page</i>Ver Detalles</a></li>
       <li class="aside-buttons"><a href="" id="btn-pay"><i class="material-icons" >monetization_on</i>Registrar Pago</a></li>
-      <li class="aside-buttons"><a href="" id="btn-pay"><i class="material-icons" >monetization_on</i>Extender Contrato</a></li>
+      <li class="aside-buttons"><a href="" id="btn-add-extra"><i class="material-icons" >monetization_on</i>Extras</a></li>
     </ul>
 
   </div>
@@ -28,6 +28,7 @@
           <th>Cod</th>
           <th>Cliente</th>
           <th>Fecha Inicio</th>
+          <th>Servicio</th>
           <th>Meses</th>
           <th>Ultimo Pago</th>
           <th>Proximo Pago</th>
@@ -41,6 +42,7 @@
       </tbody>
       <tfoot>
         <tr>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>

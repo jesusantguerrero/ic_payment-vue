@@ -19,6 +19,7 @@ class Contract_view_model extends CI_MODEL{
 
   public function get_contract_view($status){
     $this->db->where('estado',$status);
+    $this->db->limit(5);
     $this->db->order_by('id_contrato');
     $result = $this->db->get('v_contratos'); 
     $result = $result->result_array();

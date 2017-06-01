@@ -114,8 +114,12 @@ class Contract_model extends CI_MODEL{
 
   public function get_contract_view($id){
     $sql = "SELECT * FROM v_contratos where id_contrato = $id";
-    $result = $this->db->query($sql); 
-    return $result->row_array();
+    if($result = $this->db->query($sql)){
+      return $result->row_array();
+    }else{
+      return false;
+    }
+    
   }
 
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
@@ -144,6 +148,25 @@ class Contract_model extends CI_MODEL{
       if($has_contracts == 0){
         $this->db->query($sql4);
       }
+    }
+  }
+
+  public function upgrade_contract($data_pago,$data_contrato){ 
+    $sql1 = " UPDATE contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
+    $sql1 .=" WHERE id_contrato=".$data_contrato['id_contrato'];
+
+    $sql2 = " UPDATE pagos SET id_servicio='".$data_pago['id_servicio']."', cuota='".$data_pago['cuota']."',total='".$data_pago['monto_total']."'";
+    $sql2 .=" WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
+
+    $this->db->trans_start();
+    $this->db->query($sql1);
+    $this->db->query($sql2);
+    $this->db->trans_complete();
+
+    if($this->db->trans_status() === false){
+      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
+    } else{
+      echo MESSAGE_SUCCESS." Contrato actualizado";
     }
   }
    

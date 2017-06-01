@@ -9,9 +9,10 @@
         <div>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#extra-contract" aria-controls="contract" role="tab" data-toggle="tab">Contrato</a></li>
-            <li role="presentation"><a href="#extra-service" aria-controls="service" role="tab" data-toggle="tab">Servicio</a></li>
-            <li role="presentation"><a href="#extra-extension" aria-controls="extension" role="tab" data-toggle="tab">Extender Contrato</a></li>
+            <li role="presentation" class="active"><a href="#extra-contract" aria-controls="Guardar" role="tab" data-toggle="tab">Contrato</a></li>
+            <li role="presentation"><a href="#extra-service" aria-controls="guardar" role="tab" data-toggle="tab">Servicio</a></li>
+            <li role="presentation"><a href="#extra-extension" aria-controls="extender" role="tab" data-toggle="tab">Extender Contrato</a></li>
+            <li role="presentation"><a href="#extra-upgrade" aria-controls="Mejorar" role="tab" data-toggle="tab">Mejorar Contrato</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -23,15 +24,11 @@
                     <h4>Datos Del Contrato</h4>
                     <div class="form-group">
                       <label for="client-name">Cedula</label>
-                      <input type="text" class="form-control" id="client-name" tabindex="1">
+                      <input type="text" class="form-control" id="extra-client-dni" tabindex="1">
                     </div>
                     <div class="form-group">
-                      <label for="client-dni">Nombres</label>
-                      <input type="text" class="form-control" id="client-dni" tabindex="3">
-                    </div>
-                    <div class="form-group">
-                      <label for="client-telephone">celular</label>
-                      <input type="tel" class="form-control" id="client-telephone" tabindex="8">
+                      <label for="client-dni">Cliente</label>
+                      <input type="text" class="form-control" id="extra-client-name" tabindex="3">
                     </div>
                   </div>
 
@@ -39,11 +36,11 @@
                     <h4 class="placeholder">... </h4>
                     <div class="form-group">
                       <label for="client-lastname">Codigo del contrato</label>
-                      <input type="text" class="form-control" id="client-lastname" tabindex="2">
+                      <input type="text" class="form-control" id="extra-client-contract" tabindex="2">
                     </div>
                     <div class="form-group">
-                      <label for="client-phone">Apellidos</label>
-                      <input type="text" class="form-control" id="client-phone" tabindex="4">
+                      <label for="client-phone">Servicio</label>
+                      <input type="text" class="form-control" id="extra-contract-service" tabindex="4">
                     </div>
 
                   </div>
@@ -116,6 +113,17 @@
                 </div>
               </form>
             </div>
+            <!-- end of pane -->
+            <div role="tabpanel" class="tab-pane fade in" id="extra-upgrade">
+              
+              <h4>Seleccione Plan: </h4>
+              <div class="row shortcuts-container for-services">
+                <?php $this->service_model->get_services_shortcuts(); ?>
+              </div>
+              
+                
+            </div>
+            <!-- end of pane-->
 
           </div>
 
@@ -123,8 +131,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
-        <button type="button" class="btn save" id="btn-save-client" tabindex="10">Guardar</button>
+        <button type="button" class="btn save dynamic-controls" id="extra-controls" tabindex="10">Guardar<button/>       
       </div>
+      
+      
 
     </div>
     <!-- /.modal-content -->

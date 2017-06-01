@@ -72,6 +72,10 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function upgrade(){
+		$data_cambio = $_POST;
+		upgrade_contract($this,$data_cambio);
+	}
 	public function getall(){
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {

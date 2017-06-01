@@ -28,6 +28,7 @@ if ( ! function_exists('get_modals'))
         break;
       case 'contratos':
            $modals[0] = 'modales/clientes_modals';
+           $modals[1] = 'modales/contract_modals';
          break;
       // case 'reportes':
       //   break;

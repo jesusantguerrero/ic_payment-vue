@@ -13,6 +13,7 @@ class Payment_model extends CI_MODEL{
   public $id_pago = null;
   public $id_contrato;
   public $id_empleado = null;
+  public $id_servicio = null;
   public $fecha_pago;
   public $concepto;
   public $detalles_extra ="";
@@ -42,6 +43,7 @@ class Payment_model extends CI_MODEL{
       $this->id_pago = $data['id_pago'];
     }
     $this->id_contrato  = $data['id_contrato'];
+    $this->id_servicio  = $data['id_servicio'];
     $this->fecha_pago   = $data['fecha_pago'];
     $this->concepto     = $data['concepto'];
     $this->cuota        = $data['cuota'];
@@ -80,6 +82,17 @@ class Payment_model extends CI_MODEL{
       echo $result;
     }else{
       echo 0;
+    }
+  }
+
+  public function count_unpaid_per_contract($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->where('estado','no pagado');
+    $result = $this->db->count_all_results('pagos');
+    if($result){
+      return $result;
+    }else{
+      return 0;
     }
   }
 

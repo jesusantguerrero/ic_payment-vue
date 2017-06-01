@@ -167,6 +167,7 @@ if ( ! function_exists('make_main_contract_table')){
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='th-client 'data-id-cliente='".$line['id_cliente']."'>".$line['cliente']."</td>
         <td>".$line['fecha']."</td>
+        <td>".$line['servicio']."</td>
         <td>".$line['duracion']."</td>
         <td>".$line['ultimo_pago']."</td>
         <td>".$line['proximo_pago']."</td>

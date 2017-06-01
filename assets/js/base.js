@@ -110,10 +110,15 @@ function detailsFunctions(){
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");
-    }
-    
-      
-  })
+    } 
+
+    getTabControls($(this));
+  });
+}
+
+function getTabControls($this){
+  var controls = $this.attr("aria-controls");
+  $(".dynamic-controls").text(controls);
 }
 
 function notificationFunctions(){
