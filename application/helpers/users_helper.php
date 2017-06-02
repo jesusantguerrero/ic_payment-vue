@@ -332,3 +332,12 @@ function set_to_session($lastquery){
 function get_from_session(){
   return $_SESSION['id_contrato'];
 }
+
+
+function set_last_page($lastquery){
+  $_SESSION['lastpage'] = $lastquery;
+}
+
+function get_last_page(){
+  return $_SESSION['lastpage'];
+}

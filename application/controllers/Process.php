@@ -104,6 +104,20 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function lastpage(){
+				$tabla = $_POST['tabla'];
+		switch ($tabla){
+			case "pagos":
+				$this->payment_model->last_page();
+				break;
+			case "clientes":
+				$this->client_model->last_page();
+				break;
+
+		}
+
+	}
+
 	public function getone(){
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {

@@ -122,9 +122,18 @@ class Client_model extends CI_MODEL{
     $sql = "SELECT * FROM clientes";
     set_last_query($sql);
     $sql .= " LIMIT 5";
+    set_last_page($sql);
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),0);
     echo $result;
+  }
+
+  public function last_page(){
+    $result = $this->db->query(get_last_page());
+    if($result){
+      $result = make_client_table($result->result_array(),0);
+      echo $result;
+    }  
   }
 
   public function count_clients(){
@@ -148,6 +157,7 @@ class Client_model extends CI_MODEL{
 
   public function get_clients_paginate($offset,$perpage){
     $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
+    set_last_page($sql);
     $result = $this->db->query($sql);
     if($result){
       $result = make_client_table($result->result_array(),$offset);

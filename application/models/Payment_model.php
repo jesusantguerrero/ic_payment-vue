@@ -131,6 +131,7 @@ class Payment_model extends CI_MODEL{
 
   public function get_payments_paginate($offset,$perpage){
     $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
+    set_last_page($sql);
     $result = $this->db->query($sql);
     if($result){
       $result = make_payment_table($result->result_array(),$offset);
@@ -139,6 +140,14 @@ class Payment_model extends CI_MODEL{
       echo $sql . "hola";
     } 
   }
+
+  public function last_page(){
+    $result = $this->db->query(get_last_page());
+    if($result){
+      $result = make_payment_table($result->result_array(),0);
+      echo $result;
+    }  
+  } 
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";

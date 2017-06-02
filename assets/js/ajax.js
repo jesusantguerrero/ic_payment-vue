@@ -401,7 +401,7 @@ function addNewClient(){
     form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo="+ telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
     form += "&estado=" + estado +"&tabla=clientes";
     
-    connectAndSend("process/add",true,initClientHandlers,null,form,getClients);
+    connectAndSend("process/add",true,initClientHandlers,null,form,getClientsLastPage);
 
   }else{
     alert("LLene los campos requeridos por favor");
@@ -411,6 +411,11 @@ function addNewClient(){
 function getClients(){
   var form = "tabla=clientes";
   connectAndSend('process/getall',false,initClientHandlers,fillCurrentTable,form,null);
+}
+
+function getClientsLastPage(){
+  var form = "tabla=clientes";
+  connectAndSend('process/lastpage',false,initClientHandlers,fillCurrentTable,form,null); 
 }
 
 /**
@@ -708,8 +713,12 @@ function getPayments(){
   if(id != null ){
     var form = "tabla=pagos&id=" + id;
   connectAndSend('process/getall',false,initPaymentsHandlers,fillCurrentTable,form,null);
-  }
-  
+  }  
+}
+
+function getPaymentsLastPage(){
+  var form = "tabla=pagos";
+  connectAndSend('process/lastpage',false,initPaymentsHandlers,fillCurrentTable,form,null); 
 }
 
 
@@ -721,7 +730,7 @@ function updatePayment(id){
     var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago="+ date + "&id_contrato="+ id_contrato;
     console.log(form)
     var handlers,callback; 
-    connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPayments);
+    connectAndSend('process/update',true,initPaymentsHandlers,null,form,getPaymentsLastPage);
   }else{
     alert("has click en la zona roja de abono para confirmar que le viste antes de registrar el pago");
   }
