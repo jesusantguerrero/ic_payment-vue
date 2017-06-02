@@ -28,6 +28,9 @@ function btnExtraPressed($this){
     case "mejorar":
         upgradeContract();
       break;
+    case "extender":
+        extendContract();
+      break;
   
     default:
       break;
@@ -49,6 +52,25 @@ function upgradeContract(){
   }else{
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }
+}
+
+function extendContract(){
+  var form, contractId,duration;
+  contractId        = $("#extra-client-contract").val();
+  duration   = $("#extra-extension-months").val();
+  
+  var is_empty = isEmpty([duration]);
+  if(!is_empty){
+    form = 'id_contrato=' + contractId + "&duracion=" + duration;
+    connectAndSend('process/extend_contract',true,null,null,form,null)
+  }else{
+    alert("asegurate de llenar todos los datos y seleccionar el servicio");
+  }
+}
+
+function getContracts(dni){
+  var form = "dni="+ dni;
+  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
 }
 
 function getContracts(dni){

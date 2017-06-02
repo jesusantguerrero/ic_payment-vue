@@ -96,6 +96,26 @@ class Payment_model extends CI_MODEL{
     }
   }
 
+  public function count_of_contract($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $result = $this->db->count_all_results('pagos');
+    if($result){
+      return $result;
+    }else{
+      return 0;
+    }
+  }
+
+  public function get_last_pay_of($id_contrato){
+    $sql = "SELECT * FROM pagos WHERE id_contrato = $id_contrato order by id_pago desc limit 1";
+    $result = $this->db->query($sql);
+    if($result){
+      return $result->row_array();
+    }else{
+      return 0;
+    }
+  }
+
   public function get_all_of_contract($id){
     $sql = "SELECT * FROM pagos WHERE id_contrato = $id";
     set_last_query($sql);

@@ -19,18 +19,17 @@ if ( ! function_exists('create_payments')){
   *@return string the tbody with rows of a table 
   */ 
 
-  function create_payments($id,$data,$context){
+  function create_payments($contract_id,$data,$context){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
     $contract_date = new DateTime($data['fecha']);
     $next_payment_date = $contract_date;
-    $one_month = new DateInterval('P1M');
     $duration = $data['duracion'];
     $concepto = "Instalación";
     
     for ($i=0; $i < $duration + 1; $i++) {
       if($i > 0) $concepto = $i."º pago de mensualidad"; 
       $new_data = array(
-        'id_contrato' => $id,
+        'id_contrato' => $contract_id,
         'id_servicio' => $data['id_servicio'],
         'fecha_pago'  => null,
         'concepto'    => $concepto,
@@ -41,17 +40,7 @@ if ( ! function_exists('create_payments')){
         'fecha_limite'=> $next_payment_date->format("Y-m-d")
       );
       $context->payment_model->add($new_data);
-      switch ($next_payment_date->format('m')) {
-        case '01':
-          $next_payment_date = getForFebruary($next_payment_date);
-          break;
-        case '02':
-          $next_payment_date = getForMarch($next_payment_date);
-          break;
-        default:
-          $next_payment_date->add($one_month);
-          break;
-      }
+      $next_payment_date = get_next_date($next_payment_date);
     }
   }
 }
@@ -64,12 +53,11 @@ if (! function_exists('refresh_contract')){
   *@return string the tbody with rows of a table 
   */ 
 
-  function refresh_contract($id,$context,$data_pago){
+  function refresh_contract($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
-    $one_month = new DateInterval('P1M');
     $dateYMD = null;
 
-    $contract = $context->contract_model->get_contract_view($id);
+    $contract = $context->contract_model->get_contract_view($contract_id);
     $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
     $next_payment_date = new DateTime($contract['proximo_pago']);
 
@@ -78,12 +66,12 @@ if (! function_exists('refresh_contract')){
       $next_payment_date = null;
     }else{
       $estado = "activo";
-      $next_payment_date->add($one_month);
+      $next_payment_date = get_next_date($next_payment_date);
       $dateYMD = $next_payment_date->format("Y-m-d");
     }
     
     $data_contract = array(
-      'id_contrato'   => $id,
+      'id_contrato'   => $contract_id,
       'monto_pagado'  => $monto_pagado,
       'ultimo_pago'   => $data_pago['fecha_pago'],
       'proximo_pago'  => $dateYMD,
@@ -123,8 +111,6 @@ if (! function_exists('upgrade_contract')){
       $context->contract_model->upgrade_contract($data_pago,$data_contract); 
   }
 }
-
-
 
 
 /**
@@ -206,10 +192,66 @@ if (! function_exists('cancel_contract')){
 
 
 
+
+function extend_contract($data,$context){
+    $contract_id = $data['id_contrato'];
+
+    $last_payment = $context->payment_model->get_last_pay_of($contract_id);
+    $next_payment_date = new DateTime($last_payment['fecha_limite']);
+    $next_payment_date = get_next_date($next_payment_date);
+    $contract = $context->contract_model->get_contract_view($contract_id);
+    $num_pago = $context->payment_model->count_of_contract($contract_id);
+    $duration = $num_pago + $data['duracion'] - 1;
+
+    $new_data = array(
+      'duracion'       => $duration,
+      'monto_total' =>  $contract['monto_total'] + ($data['duracion'] * $contract['cuota'])
+    );  
+    $is_saved = $context->contract_model->update($new_data,$contract_id);
+    if($is_saved){
+      for ($i= $num_pago; $i <= $duration; $i++) {
+        if($i > 0) $concepto = $i."º pago de mensualidad"; 
+        $new_data = array(
+          'id_contrato' => $contract_id,
+          'id_servicio' => $contract['id_servicio'],
+          'fecha_pago'  => null,
+          'concepto'    => $concepto,
+          'cuota'       => $contract['cuota'],
+          'mora'        => 0,
+          'total'       => $contract['cuota'],
+          'estado'      => "no pagado",
+          'fecha_limite'=> $next_payment_date->format("Y-m-d")
+        );
+        $context->payment_model->add($new_data);
+        $next_payment_date = get_next_date($next_payment_date);
+      }
+    }
+    
+  
+}
+
+function get_next_date($next_payment_date){
+  $one_month = new DateInterval('P1M');
+  $date = $next_payment_date;
+    switch ($next_payment_date->format('m')) {
+      case '01':
+        $next_payment_date = getForFebruary($next_payment_date);
+        break;
+      case '02':
+        $next_payment_date = getForMarch($next_payment_date);
+        break;
+      default:
+        $next_payment_date->add($one_month);
+        break;
+    }
+    return $date;
+}
+
 function getForFebruary($date){
   $year = $date->format('Y');
   $month = '02';
-  $day = '28';
+  $day = $date->format('d');
+  if($day > 28) $day = '28';
   $newdate = "$year-$month-$day";
 
   return new DateTime($newdate);
@@ -218,9 +260,9 @@ function getForFebruary($date){
 function getForMarch($date){
   $year = $date->format('Y');
   $month = '03';
-  $day = '30';
+  $day = $date->format('d');
+  if($day == 28) $day = '30';
   $newdate = "$year-$month-$day";
 
   return new DateTime($newdate);
 }
-

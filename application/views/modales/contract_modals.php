@@ -105,7 +105,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="client-job">Meses de extension</label>
-                      <input type="number" class="form-control" id="client-job" value="<?php echo $settings['meses_por_defecto'] ?>">
+                      <input type="number" class="form-control" id="extra-extension-months" value="<?php echo $settings['meses_por_defecto'] ?>">
                     </div>
                   </div>
                 </div>

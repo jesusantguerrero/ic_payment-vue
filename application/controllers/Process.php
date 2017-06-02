@@ -231,5 +231,17 @@ class Process extends CI_Controller {
 		
 	}
 
+	public function extend_contract(){
+		$data = $_POST;
+		$this->db->trans_start();
+		extend_contract($data,$this);
+		$this->db->trans_complete();
+		if($this->db->trans_status()){
+			echo MESSAGE_SUCCESS." Contrato extendido con exito";
+		}
+		else{
+			echo MESSAGE_ERROR."No guardado".$this->db->last_query();
+		}
+	}
 
 }

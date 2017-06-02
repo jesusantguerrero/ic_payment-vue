@@ -75,6 +75,17 @@ class Contract_model extends CI_MODEL{
       } 
   }
 
+  public function update($data_for_update,$contract_id){
+   
+    $this->db->where('id_contrato',$contract_id);
+    if($this->db->update('contratos',$data_for_update)):
+      return true;
+    else:
+      return false;
+    endif;
+    
+  } 
+
   public function get_last_id(){
     $sql = "SELECT id_contrato FROM contratos ORDER BY id_contrato DESC LIMIT 1";
     $result = $this->db->query($sql); 
