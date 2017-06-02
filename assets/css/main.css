@@ -343,6 +343,10 @@ input[type="button"] {
     color: #1FA1D0;
     background: #fff; }
 
+#btn-cancel-contract:hover {
+  color: #fff;
+  background: #FF6961; }
+
 * {
   margin: 0;
   padding: 0;

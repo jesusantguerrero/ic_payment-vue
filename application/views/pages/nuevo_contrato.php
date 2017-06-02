@@ -3,6 +3,7 @@
   <?php 
     $client_data = get_client_data();
     $user_data = get_user_data();
+    $settings = $this->settings_model->get_settings();
     
   ?>
   <div class="col-md-6">
@@ -71,7 +72,7 @@
             <div class="col-md-6">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Meses</span>
-                <input type="number" class="form-control" id="contract-client-months" tabindex="1">
+                <input type="number" class="form-control" id="contract-client-months" tabindex="1" value="<?php echo $settings['meses_por_defecto'] ?>">
               </div>
             </div>
             <div class="col-md-6 without">

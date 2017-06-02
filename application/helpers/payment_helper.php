@@ -115,6 +115,8 @@ if (! function_exists('upgrade_contract')){
 }
 
 
+
+
 /**
 * Update_moras and Prepare_moras
 * update_moras se informa de la ultima vez que corrió la función (ella misma), si fue hoy no hace nada, pero si ha pasado un dia
@@ -154,6 +156,40 @@ function prepare_moras($data,$context){
       'total'   => $total
     );
     $context->payment_model->update_moras($updated_data);
+  }
+}
+
+if (! function_exists('cancel_contract')){
+
+  function cancel_contract($context,$data_cancel){
+    $id_empleado = $_SESSION['user_data']['user_id'];
+    $contract_id = $data_cancel['id_contrato'];
+    $contract = $context->contract_model->get_contract_view($contract_id);
+    $settings = $context->settings_model->get_settings();
+
+    $monto_total = $contract['monto_pagado'] + $settings['penalizacion_cancelacion'];
+    
+    $data_contract = array(
+      'id_contrato'   => $contract_id,
+      'monto_total'   => $monto_total,
+      'monto_pagado'  => $monto_total,
+      'proximo_pago'   => null,
+      'ultimo_pago'   => $data_cancel['fecha']
+    );
+
+    $data_pago = array(
+        'id_contrato' => $data_cancel['id_contrato'],
+        'id_empleado' => $id_empleado,
+        'id_servicio' => $contract['id_servicio'],
+        'fecha_pago'  => $data_cancel['fecha'],
+        'concepto'    => 'Cancelación de Contrato',
+        'cuota'       => 0,
+        'mora'        => 0,
+        'total'       => $settings['penalizacion_cancelacion'],
+        'estado'      => "pagado",
+        'fecha_limite'=> $data_cancel['fecha']
+      );
+      $context->contract_model->cancel_contract($data_pago,$data_contract,$contract); 
   }
 }
 

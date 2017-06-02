@@ -235,16 +235,26 @@ function initContractHandlers(){
     search(text,"v_contratos",fillCurrentTable); 
   });
 
-  $(".cancel-contract").on('click',function(e){
+  $("#btn-cancel-contract").on('click',function(e){
     e.preventDefault();
     var $row = $("tr.selected");
+    var cells = $row.find("td");
+
     if($row != undefined){
-      var id = $row.find('.id_contrato').text().trim()
-      var is_delete = window.confirm("Está seguro de que desea Cancelar este contrato?");
-      if(is_delete){
-        cancelContract(id);
-      }
+      $(".cancel-name").text(cells.eq(1).text());
+      var $inputElement = $(".confirmed-data");
+      var $buttonToActive = $("#cancel-permanently");
+      var text = $row.find(".th-client").text().trim();
+      var contractId = $row.find(".id_contrato").text().trim();
+      var clientId = $row.find(".th-client").attr("data-id-cliente");
+      deleteValidation($inputElement,text,$buttonToActive);
+
+      $("#cancel-contract-modal").modal();
+      $buttonToActive.on('click',function(){
+        cancelContract(contractId,clientId);
+      })
     }
+    
   });
 }
 //***************************************************  Init Payments  Handlers   ***************************** */
@@ -679,6 +689,15 @@ function callExtra(){
   }
   
 
+}
+
+function cancelContract(contractId,clientId){
+  var form,fecha;
+
+  fecha = moment().format("YYYY-MM-DD");
+  
+  form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+  connectAndSend('process/cancel',true,null,null,form,null)
 }
 
 /********************************************************

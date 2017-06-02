@@ -290,6 +290,21 @@ function replaceClass($object,oldClass,newClass){
    $object.removeClass(oldClass)
 }
 
+function deleteValidation($inputElement,comparedText,$buttonToActive){
+  var innerText;
+  $inputElement.on("keyup",function(e){
+    e.stopImmediatePropagation();
+    innerText = $(this).val() 
+    
+    if(innerText == comparedText){
+      $buttonToActive.removeAttr("disabled");
+
+    }else{
+      $buttonToActive.attr("disabled","");
+    }
+  })
+}
+
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     Funciones de utileria                                                   |
 // |                                                                                                                             |

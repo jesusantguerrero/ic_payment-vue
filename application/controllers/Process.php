@@ -210,6 +210,11 @@ class Process extends CI_Controller {
 		$this->report_model->get_payments_report($type);
 		redirect(base_url('app/imprimir/reporte'));
 	}
+	
+	public function cancel(){
+		$data_cancel = $_POST;
+		cancel_contract($this,$data_cancel);
+	}
 
 
 }

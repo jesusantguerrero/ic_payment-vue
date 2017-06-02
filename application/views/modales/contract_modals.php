@@ -142,3 +142,48 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!--*********************************************************************
+*
+*                                 Cancel Contract Modal
+*
+**************************************************************************-->
+<div class="modal fade" tabindex="-1" role="dialog" id="cancel-contract-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Estas seguro?</h4>
+      </div>
+        
+        <div class="alert alert-danger">
+          <strong>Por favor!</strong> Leer esto
+        </div>
+        
+      <div class="modal-body">
+        <p>Esta accion no tiene marcha atras si cancelas el contrato se tendra que crear otro en caso de que sea una equivocació
+        asi que asegurate de que realmente quieres cancelar el contrato de <b class="cancel-name">Contrato</b></p>
+
+        <p>Para asegurarnos, escribe el nombre del cliente</p>
+        
+        <div class="form-group">
+          <input type="text" class="form-control confirmed-data" id="" placeholder="nombre del cliente">
+        </div>
+        
+        
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn save" id="cancel-permanently" tabindex="10" disabled>Cancelar Contrato<button/>       
+      </div>
+      
+      
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+

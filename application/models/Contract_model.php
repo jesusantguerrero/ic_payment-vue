@@ -89,7 +89,7 @@ class Contract_model extends CI_MODEL{
   } 
 
   public function get_contracts_dropdown($id_cliente){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and estado='activo'";
+    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado')";
     $result = $this->db->query($sql);
     $result = make_contract_dropdown($result->result_array(),0);
     echo $result;
@@ -168,6 +168,40 @@ class Contract_model extends CI_MODEL{
     } else{
       echo MESSAGE_SUCCESS." Contrato actualizado";
     }
+  }
+
+  public function cancel_contract($data_pago,$data_contrato,$current_contract){ 
+    $sql0 = "SELECT estado FROM v_contratos WHERE id_contrato=".$data_contrato['id_contrato'];
+    $sql1 = " UPDATE contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
+    $sql1 .=" ultimo_pago='".$data_contrato['proximo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
+
+    $sql2 = " DELETE FROM pagos WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
+    $sql3 = "SELECT * FROM contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
+    $sql4 = " UPDATE clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+    
+    $estado = $this->db->query($sql0)->row_array()['estado'];
+    if($estado == 'activo'){
+      $this->db->trans_start();
+      $this->db->query($sql1);
+      $this->db->query($sql2);
+      $this->db->insert('pagos',$data_pago);
+      $this->db->trans_complete();
+
+      if($this->db->trans_status() === false){
+        echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
+      } else{
+        echo MESSAGE_SUCCESS." Contrato Cancelado";
+        $has_contracts = $this->db->query($sql3);
+        $has_contracts = $has_contracts->result_array();
+        $has_contracts = count($has_contracts);
+        if($has_contracts == 0){
+          $this->db->query($sql4);
+        }     
+    }
+    }else{
+      echo MESSAGE_INFO." Este contrato ya ha sido cancelado";
+    }
+    
   }
    
   //functions

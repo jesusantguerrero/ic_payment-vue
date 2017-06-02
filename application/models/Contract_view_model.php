@@ -44,7 +44,7 @@ class Contract_view_model extends CI_MODEL{
       $result = make_main_contract_table($result->result_array(),$offset);
       echo $result;
     }else{
-      echo $sql;
+      
     }
   }
 
