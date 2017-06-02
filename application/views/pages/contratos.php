@@ -34,7 +34,6 @@
           <th>Proximo Pago</th>
           <th>Monto Pagado</th>
           <th>Monto Total</th>
-          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +41,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td></td>
+       
           <td></td>
           <td></td>
           <td></td>

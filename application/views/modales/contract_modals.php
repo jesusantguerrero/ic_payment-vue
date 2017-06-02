@@ -1,3 +1,7 @@
+<?php 
+  $settings = $this->settings_model->get_settings();
+ ?>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="add-extra-modal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -99,22 +103,9 @@
               <form action="">
                 <div class="row">
                   <div class="col-md-6">
-                    <h4>Datos Personales +</h4>
                     <div class="form-group">
-                      <label for="client-job">Lugar de Trabajo</label>
-                      <input type="text" class="form-control" id="client-job">
-                    </div>
-                    <div class="form-group">
-                      <label for="client-salary">Salario</label>
-                      <input type="number" class="form-control password" id="client-salary" value="0">
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <h4 class="placeholder">...</h4>
-                    <div class="form-group">
-                      <label for="client-job-number">Telefono del trabajo</label>
-                      <input type="tel" class="form-control" id="client-job-telephone">
+                      <label for="client-job">Meses de extension</label>
+                      <input type="number" class="form-control" id="client-job" value="<?php echo $settings['meses_por_defecto'] ?>">
                     </div>
                   </div>
                 </div>

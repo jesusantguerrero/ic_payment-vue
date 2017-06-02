@@ -89,7 +89,7 @@ class Contract_model extends CI_MODEL{
   } 
 
   public function get_all_of_clientjson($id){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id and estado = 'activo'";
+    $sql = "SELECT * FROM v_contratos WHERE id_cliente = $id and estado = 'activo'";
     $result = $this->db->query($sql);
     $result = $result->result();
     return $result;

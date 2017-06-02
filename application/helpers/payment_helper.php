@@ -41,7 +41,17 @@ if ( ! function_exists('create_payments')){
         'fecha_limite'=> $next_payment_date->format("Y-m-d")
       );
       $context->payment_model->add($new_data);
-      $next_payment_date->add($one_month);
+      switch ($next_payment_date->format('m')) {
+        case '01':
+          $next_payment_date = getForFebruary($next_payment_date);
+          break;
+        case '02':
+          $next_payment_date = getForMarch($next_payment_date);
+          break;
+        default:
+          $next_payment_date->add($one_month);
+          break;
+      }
     }
   }
 }
@@ -192,5 +202,25 @@ if (! function_exists('cancel_contract')){
     );
     $context->contract_model->cancel_contract($data_pago,$data_contract,$contract); 
   }
+}
+
+
+
+function getForFebruary($date){
+  $year = $date->format('Y');
+  $month = '02';
+  $day = '28';
+  $newdate = "$year-$month-$day";
+
+  return new DateTime($newdate);
+}
+
+function getForMarch($date){
+  $year = $date->format('Y');
+  $month = '03';
+  $day = '30';
+  $newdate = "$year-$month-$day";
+
+  return new DateTime($newdate);
 }
 

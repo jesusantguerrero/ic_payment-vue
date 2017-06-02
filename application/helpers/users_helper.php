@@ -173,7 +173,6 @@ if ( ! function_exists('make_main_contract_table')){
         <td>".$line['proximo_pago']."</td>
         <td> RD$ ". CurrencyFormat($line['monto_pagado'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-        <td class='td-estado'>".$line['estado']."</td>
       </tr>";
      $cont+=1;
     }

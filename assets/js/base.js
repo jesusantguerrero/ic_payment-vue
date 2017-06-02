@@ -145,3 +145,13 @@ $("#select-extra-service").on('change',function(){
   $("#extra-service-cost").val(cost)
 });
 
+$("#extra-client-contract").on('change',function(){
+  var $this = $(("#extra-client-contract :selected"));
+  
+  $("#extra-contract-service").val($this.attr("data-service"));
+  $("#extra-equipo").val($this.attr("data-equipment"));
+  $("#extra-router").val($this.attr("data-router"));
+  $("#extra-e-mac").val($this.attr("data-e-mac"));
+  $("#extra-r-mac").val($this.attr("data-r-mac"));
+});
+
