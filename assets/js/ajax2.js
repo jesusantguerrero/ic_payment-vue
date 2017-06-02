@@ -12,6 +12,14 @@ $("#extra-controls").on('click',function(){
   btnExtraPressed($(this));
 });
 
+$("#extra-client-dni").on('keydown',function(e){
+  var key = e.which;
+  var dni = $(this).val()
+  if(key == 13){
+    getContracts(dni);
+  }
+});
+
 function btnExtraPressed($this){
   var buttonId = $this.text().trim().toLowerCase();
   console.log(buttonId);
@@ -42,6 +50,13 @@ function upgradeContract(){
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }
 }
+
+function getContracts(dni){
+  var form = "dni="+ dni;
+  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
+}
+
+
 
 
 /********************************************************

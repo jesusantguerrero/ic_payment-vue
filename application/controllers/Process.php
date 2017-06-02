@@ -216,5 +216,20 @@ class Process extends CI_Controller {
 		cancel_contract($this,$data_cancel);
 	}
 
+	public function data_for_extra(){
+		$dni = $_POST['dni'];
+		$data;
+		$client = $this->client_model->get_clientjson($dni);
+		if($client){
+			$data['cliente'] = $client;
+			$data["contratos"]  = $this->contract_model->get_all_of_clientjson($client->id_cliente);
+			$dataJson = json_encode($data);
+			echo $dataJson;
+		}else{
+			echo "nada";
+		}
+		
+	}
+
 
 }

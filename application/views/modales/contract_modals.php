@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                       <label for="client-dni">Cliente</label>
-                      <input type="text" class="form-control" id="extra-client-name" tabindex="3">
+                      <input type="text" class="form-control" id="extra-client-name" tabindex="3" disabled>
                     </div>
                   </div>
 
@@ -36,11 +36,13 @@
                     <h4 class="placeholder">... </h4>
                     <div class="form-group">
                       <label for="client-lastname">Codigo del contrato</label>
-                      <input type="text" class="form-control" id="extra-client-contract" tabindex="2">
+                      <select type="text" class="form-control" id="extra-client-contract" tabindex="2">
+                        <option value="">--Selecciona--</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="client-phone">Servicio</label>
-                      <input type="text" class="form-control" id="extra-contract-service" tabindex="4">
+                      <input type="text" class="form-control" id="extra-contract-service" tabindex="4" disabled>
                     </div>
 
                   </div>
@@ -55,31 +57,36 @@
                   <div class="col-md-6">
                     <h4>Dirección</h4>
                     <div class="form-group">
-                      <label for="client-provincia">Provincia</label>
-                      <input type="text" class="form-control password-confirm" id="client-provincia" list="provincias" tabindex="5">
-                      <datalist id="provincias">
-                        <option value="La Romana">
-                          <option value="Santo Domingo">
-                            <option value="La Altagracia">
-                      </datalist>
-
+                      <label for="client-provincia">Servicio</label>               
+                      <select class="form-control" id="select-extra-service">
+                        <option value="">--Seleccione--</option>
+                        <?php $this->service_model->get_services_dropdown(); ?>
+                      </select>
+                    </div>
+                     <div class="form-group">
+                      <label for="cient-sector">Equipo</label>
+                      <input class="form-control" id="extra-equipo" tabindex="6">
                     </div>
                     <div class="form-group">
-                      <label for="cient-sector">Sector</label>
-                      <input class="form-control" id="client-sector" tabindex="6">
+                      <label for="cient-sector">Router</label>
+                      <input class="form-control" id="extra-router" tabindex="6">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <h4 class="placeholder"> ...</h4>
                     <div class="form-group">
-                      <label for="client-street">Calle</label>
-                      <input type="text" class="form-control" id="client-street" tabindex="6">
+                      <label for="client-street">Costo</label>
+                      <input type="text" class="form-control" id="extra-service-cost" tabindex="6">
                     </div>
 
                     <div class="form-group">
-                      <label for="client-house">Casa #</label>
-                      <input type="text" class="form-control" id="client-house" tabindex="7">
+                      <label for="client-house">Mac</label>
+                      <input type="text" class="form-control" id="extra-e-mac" tabindex="7">
+                    </div>
+                    <div class="form-group">
+                      <label for="client-house">Mac</label>
+                      <input type="text" class="form-control" id="extra-r-mac" tabindex="7">
                     </div>
                   </div>
                 </div>

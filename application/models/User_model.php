@@ -64,9 +64,8 @@ class User_model extends CI_MODEL{
   }
 
   public function update_user($data){
-    $this->organize_data($data,"normal");
-    $sql = "UPDATE users SET name ='".$this->name."', lastname ='".$this->lastname."', password ='".$this->password."',";
-    $sql .= " dni ='".$this->dni."', type=".$this->type." WHERE nickname ='".$this->nickname."'";
+    $sql = "UPDATE users SET name ='".$data['name']."', lastname ='".$data['lastname']."',";
+    $sql .= " dni ='".$data['dni']."', type=".$data['type']." WHERE nickname ='".$data['nickname']."'";
 
     if($result = $this->db->query($sql)){
       echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";

@@ -166,8 +166,9 @@ if (! function_exists('cancel_contract')){
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
     $settings = $context->settings_model->get_settings();
+    $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * $contract['monto_total'];
 
-    $monto_total = $contract['monto_pagado'] + $settings['penalizacion_cancelacion'];
+    $monto_total = $contract['monto_pagado'] + $penalizacion;
     
     $data_contract = array(
       'id_contrato'   => $contract_id,
@@ -185,11 +186,11 @@ if (! function_exists('cancel_contract')){
         'concepto'    => 'Cancelación de Contrato',
         'cuota'       => 0,
         'mora'        => 0,
-        'total'       => $settings['penalizacion_cancelacion'],
+        'total'       => $penalizacion,
         'estado'      => "pagado",
         'fecha_limite'=> $data_cancel['fecha']
-      );
-      $context->contract_model->cancel_contract($data_pago,$data_contract,$contract); 
+    );
+    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract); 
   }
 }
 

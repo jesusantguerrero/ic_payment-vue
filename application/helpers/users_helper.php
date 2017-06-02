@@ -191,6 +191,15 @@ function make_contract_dropdown($data){
     return $html_text;
 }
 
+function make_other_services_dropdown($data){
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<option value='".$line['id_servicio']."' data-payment='".$line['mensualidad']."'>";
+        $html_text .= $line['nombre']."</option>";
+    }
+    return $html_text;
+}
+
 function make_next_payments_list($data){
   $html_text = " ";
   $link;

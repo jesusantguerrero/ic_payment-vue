@@ -21,13 +21,13 @@
                 <input type="text" class="form-control" id="service-name"  >
               </div>
               <div class="form-group">
-                <label for="user-password">Descripción</label>
+                <label for="service-description">Descripción</label>
                 <textarea  class="form-control "cols="30" rows="5"  id="service-description" >
                </textarea>
               </div>
           
               <div class="form-group">
-                <label for="user-password-confirm">Mensualidad</label>
+                <label for="service-monthly-payment">Mensualidad(o pago)</label>
                 <input type="number" class="form-control " id="service-monthly-payment" >
               </div>
               <div class="form-group">
@@ -81,13 +81,13 @@
                 <input type="text" class="form-control" id="u-service-name"  >
               </div>
               <div class="form-group">
-                <label for="user-password">Descripción</label>
+                <label for="u-service-description">Descripción</label>
                 <textarea  class="form-control "cols="30" rows="5"  id="u-service-description" >
                </textarea>
               </div>
           
               <div class="form-group">
-                <label for="user-password-confirm">Mensualidad</label>
+                <label for="u-service-monthly-payment">Mensualidad(o pago)</label>
                 <input type="number" class="form-control " id="u-service-monthly-payment" >
               </div>
               <div class="form-group">

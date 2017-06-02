@@ -170,14 +170,23 @@ public function search_clients($word){
   }
   
   public function get_client($id,$is_echo = false){
-    $sql = "SELECT * FROM clientes WHERE id_cliente=". $id;
-    $result = $this->db->query($sql);
-    $result =$result->row_array();
-    if($is_echo){
-      $result = client_to_xml_format($result);
-      echo $result;
-    }else{
-      return $result;
+    $sql = "SELECT * FROM clientes WHERE id_cliente= $id || cedula ='$id'";
+    if($result = $this->db->query($sql)){
+      $result = $result->row_array();
+      if($is_echo){
+        $result = client_to_xml_format($result);
+        echo $result;
+      }else{
+        return $result;
+      }
+    }
+  }
+
+  public function get_clientjson($id){
+    $sql = "SELECT * FROM clientes WHERE  cedula ='$id'";
+    if($result = $this->db->query($sql)){
+      $result = $result->row();
+      return $result; 
     }
   }
 

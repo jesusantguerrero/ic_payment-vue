@@ -88,8 +88,15 @@ class Contract_model extends CI_MODEL{
     echo $result;
   } 
 
+  public function get_all_of_clientjson($id){
+    $sql = "SELECT * FROM contratos WHERE id_cliente = $id and estado = 'activo'";
+    $result = $this->db->query($sql);
+    $result = $result->result();
+    return $result;
+  } 
+
   public function get_contracts_dropdown($id_cliente){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado')";
+    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado') ORDER BY id_contrato desc";
     $result = $this->db->query($sql);
     $result = make_contract_dropdown($result->result_array(),0);
     echo $result;
@@ -119,7 +126,6 @@ class Contract_model extends CI_MODEL{
     }else{
       return false;
     }
-    
   }
 
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
@@ -186,7 +192,6 @@ class Contract_model extends CI_MODEL{
       $this->db->query($sql2);
       $this->db->insert('pagos',$data_pago);
       $this->db->trans_complete();
-
       if($this->db->trans_status() === false){
         echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
       } else{

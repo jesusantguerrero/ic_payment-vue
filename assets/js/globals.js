@@ -37,8 +37,7 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
               if(is_message){
                  displayMessage(connect.responseText);
                  if(callback != null)callback();           
-              }
-               
+              }              
             }
         } else if (connect.readyState != 4) {
 
@@ -115,6 +114,25 @@ function fillPaymentsList($content,callback){
 
 }
 
+function makeContracList(response,callback){
+  if(response != "nada"){
+    
+    var contracts = JSON.parse(response);
+    var value;
+    var element = "";
+    var cliente = contracts.cliente;
+    for (var i = 0; i < contracts.contratos.length; i++) {
+      value = contracts.contratos[i]["id_contrato"] ;
+      element += "<option value='" + value + "'>"+ value +"</option>";  
+    }
+    $("#extra-client-contract").append(element);
+    $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos'])
+  }else{
+    displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
+  }
+  
+}
+
 
 function clearTbody(objecId){
   $(objecId).html("");
@@ -136,19 +154,7 @@ function isEmpty(values,is_num){
   return false;
 }
 
-/**
- * isEmpty
- * Verifica si los valores dados estan vacios o son nulos 
- * @param {Array. < integer} values
- * @return {void}
- */
-function validationNumbers(values){
-  for(var i = 0 ; i < values.length ; i++){
-    if (values[i] == null || values[i] == ""){
-      values[i] = 0.00;
-    } 
-  }
-}
+
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     Pagination Related Funtions                                             |
 // |                                                                                                                             |

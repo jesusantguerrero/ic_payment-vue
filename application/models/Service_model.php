@@ -83,6 +83,13 @@ class Service_model extends CI_MODEL{
     echo $result;
   }
 
+  public function get_services_dropdown(){
+    $sql = "SELECT * FROM servicios WHERE tipo= 'reparacion'";
+    $result = $this->db->query($sql);
+    $result = make_other_services_dropdown($result->result_array());
+    echo $result;
+  }
+
   public function count_services(){
     $result = $this->db->count_all("servicios");
     echo $result;

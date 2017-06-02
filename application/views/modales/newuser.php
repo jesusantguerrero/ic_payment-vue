@@ -83,18 +83,11 @@
                 <input type="text" class="form-control" id="e-nickname" disabled>
               </div>
               <div class="form-group">
-                <label for="e-password">Contraseña</label>
-                <input type="password" class="form-control password" id="e-password" placeholder="contraseña">
-              </div>
-              <div class="form-group">
-                <label for="e-password-confirm">confirmar contraseña</label>
-                <input type="password" class="form-control password-confirm" id="e-password-confirm" placeholder="contraseña">
-              </div>
-              <div class="form-group">
                 <label for="e-type">Tipo de usuario</label>
                 <select class="form-control" id="e-type">
-                <option value="0">Administrador</option>
+                <option value="">-- Seleccione el Tipo de cuenta --</option>
                 <option value="1">Secretaria(o)</option>
+                <option value="0">Administrador</option>
               </select>
               </div>
             </div>

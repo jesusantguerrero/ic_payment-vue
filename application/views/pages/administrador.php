@@ -161,9 +161,9 @@
               <div class="form-group">
                 <label for="company-name">Penalizacion Por Cancelacion:</label>
                 <div class="input-group">
-                  <div class="input-group-addon">RD$ </div>
+                  <div class="input-group-addon">Porcentaje </div>
                   <input type="number" class="form-control" id="settings-penalizacion-cancelacion" value="<?php echo $settings['penalizacion_cancelacion'] ?>">
-                  <div class="input-group-addon">Pesos </div>
+                  <div class="input-group-addon"> % </div>
                 </div>
               </div>
               <div class="form-group">

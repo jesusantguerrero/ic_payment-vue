@@ -20,7 +20,7 @@ if ( ! function_exists('make_payment_report')){
 
   function make_payment_report($data,$concept,$context){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Pago","Cont","Cliente","Servicio","Total","Hora"); 
+    $context->table->set_heading("Num","Pago","Cont","Cliente","Servicio","Concepto","Total","Hora"); 
 
     foreach ($data as $line) {
       $hora = new DATETIME($line['complete_date']);
@@ -29,6 +29,7 @@ if ( ! function_exists('make_payment_report')){
       $line['id_contrato'],
       $line['cliente'],
       $line['servicio'],
+      $line['concepto'],
       "RD$ ".CurrencyFormat($line['total']),
       $hora->format('g:i a'));
 

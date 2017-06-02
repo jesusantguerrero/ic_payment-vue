@@ -86,11 +86,10 @@ function initHandlers(){
     e.preventDefault();
     var $row = $(this).parents("tr");
     var cell = $row.find('td');
-    var inputs = $("#update-user-modal input");
-    inputs.eq(0).val(cell.eq(2).text());
-    inputs.eq(3).val(cell.eq(3).text());
-    inputs.eq(4).val(cell.eq(4).text());
-    inputs.eq(5).val(cell.eq(5).text());
+    $("#e-nickname").val(cell.eq(2).text());
+    $("#e-name").val(cell.eq(3).text());
+    $("#e-lastname").val(cell.eq(4).text());
+    $("#e-dni").val(cell.eq(5).text());
 
     $('#update-user-modal').modal();
   });
@@ -333,20 +332,19 @@ function updateUser(){
   var form,response, result, nick,password,name, lastname, dni, type;
 
   nick      = $("#e-nickname").val();
-  password  = $("#e-password").val();
   name      = $("#e-name").val();
   lastname  = $("#e-lastname").val();
   dni       = $("#e-dni").val();
   type      = $("#e-type").val();
   
-  var is_empty = isEmpty([nick,password,name,lastname,dni,type]);
+  var is_empty = isEmpty([nick,name,lastname,dni,type]);
   if(!is_empty){
-    form = 'nickname=' + nick + "&password=" + password+ "&name=" + name + "&lastname=" + lastname;
+    form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname;
     form += "&dni=" + dni+ "&type=" +type;
     connectAndSend("user/update",true,initHandlers,null,form,getUsers) 
   }else{
 
-    alert("LLene todos los campos por favor " + count);
+    alert("LLene todos los campos por favor");
   }
 } 
 
