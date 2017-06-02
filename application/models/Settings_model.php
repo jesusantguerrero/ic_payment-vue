@@ -37,4 +37,21 @@ class Settings_model extends CI_MODEL{
     return $result->row_array();
   }
 
+  public function update_settings($settings){
+    $rows = array(
+      'cargo_mora'                 => $settings['cargo_mora'],
+      'fecha_corte'                => $settings['fecha_corte'],
+      'apertura_caja'              => $settings['apertura_caja'], 
+      'penalizacion_cancelacion'   => $settings['penalizacion_cancelacion'],
+      'meses_por_defecto'          => $settings['meses_por_defecto']
+    );
+    $this->db->where('id',1);
+    $result = $this->db->update('settings',$rows);
+    if($result){
+      echo MESSAGE_SUCCESS."Actualizado con exito";
+    }else{
+      return MESSAGE_ERROR." error". $this->db->last_query();
+    }  
+  }
+
 }

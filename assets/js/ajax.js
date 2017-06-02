@@ -234,6 +234,18 @@ function initContractHandlers(){
     var text = $(this).val();
     search(text,"v_contratos",fillCurrentTable); 
   });
+
+  $(".cancel-contract").on('click',function(e){
+    e.preventDefault();
+    var $row = $("tr.selected");
+    if($row != undefined){
+      var id = $row.find('.id_contrato').text().trim()
+      var is_delete = window.confirm("Está seguro de que desea Cancelar este contrato?");
+      if(is_delete){
+        cancelContract(id);
+      }
+    }
+  });
 }
 //***************************************************  Init Payments  Handlers   ***************************** */
 function initPaymentsHandlers(){
@@ -476,18 +488,21 @@ function saveObservations(abonoWatched){
   idCliente = $("#detail-client-id").val();
   abonoValue = $(".abono-value");
 
+   if(abonoWatched != undefined){
+    $inputAbono.val(abono);
+    $(".abono-box").removeClass("have-abono");
+    abonoWatched = 1;
+  }else{
+    $inputAbono.attr("disabled");
+    $(".abono-box").addClass("have-abono");
+    abonoWatched = 0;
+  }
 
   form = 'observaciones=' + observations+ "&abonos=" + abono +"&id_cliente="+idCliente +"&modo=" + abonoWatched;
   form += "&tabla=observaciones";
   connectAndSend("process/update",true,initPaymentsHandlers,null,form,null) 
+  
 
-  if(abonoWatched != undefined){
-    $inputAbono.val(abono);
-    $(".abono-box").removeClass("have-abono");
-  }else{
-    $inputAbono.attr("disabled");
-    $(".abono-box").addClass("have-abono");
-  }
   abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
 }
 

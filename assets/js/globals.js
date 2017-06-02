@@ -127,14 +127,27 @@ function clearTbody(objecId){
  * @param {Array. < string} values
  * @return {boolean}
  */
-function isEmpty(values){
+function isEmpty(values,is_num){
   for(var i = 0 ; i < values.length ; i++){
     if (values[i] == null || values[i] == ""){
-      console.log(values[i] + "is empty");
       return true;
     } 
   }
   return false;
+}
+
+/**
+ * isEmpty
+ * Verifica si los valores dados estan vacios o son nulos 
+ * @param {Array. < integer} values
+ * @return {void}
+ */
+function validationNumbers(values){
+  for(var i = 0 ; i < values.length ; i++){
+    if (values[i] == null || values[i] == ""){
+      values[i] = 0.00;
+    } 
+  }
 }
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     Pagination Related Funtions                                             |

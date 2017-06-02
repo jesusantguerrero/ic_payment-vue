@@ -18,7 +18,9 @@
     **********************************-->
 
       <div class="company-details" id="company-section">
-        <?php $empresa = $this->company_model->get_empresa();
+        <?php 
+          $empresa = $this->company_model->get_empresa();
+          $settings = $this->settings_model->get_settings();
          ?>
         <h3> Detalles de la Empresa</h3>
         <form action="">
@@ -131,33 +133,53 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Monto de la mora</label>
-                <input type="number" class="form-control" id="company-name">
+                <div class="input-group">
+                  <div class="input-group-addon">RD$ </div>
+                  <input type="number" class="form-control" id="settings-mora" value="<?php echo $settings['cargo_mora'] ?>">
+                  <div class="input-group-addon">Pesos </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="company-phrase">Fecha de Corte</label>
-                <input type="number" class="form-control" id="company-phrase" value="<?php // echo $empresa['lema'] ?>">
+                <div class="input-group">
+                  <div class="input-group-addon">Dia </div>
+                  <input type="number" class="form-control" id="settings-fecha-corte" value="<?php echo $settings['fecha_corte'] ?>">
+                  <div class="input-group-addon">De Cada Mes </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="company-phone1">Apertura de Caja Chica</label>
-                <input type="number" class="form-control" id="company-phone1" value="<?php // echo $empresa['telefono1'] ?>" placeholder="20000">
+                <div class="input-group">
+                  <div class="input-group-addon">RD$ </div>
+                  <input type="number" class="form-control" id="settings-apertura-caja" value="<?php echo $settings['apertura_caja'] ?>">
+                  <div class="input-group-addon">Pesos </div>
+                </div>
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="company-name">Direccion</label>
-                <input type="text" class="form-control" id="company-direction" value="<?php echo $empresa['direccion'] ?>">
+                <label for="company-name">Penalizacion Por Cancelacion:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">RD$ </div>
+                  <input type="number" class="form-control" id="settings-penalizacion-cancelacion" value="<?php echo $settings['penalizacion_cancelacion'] ?>">
+                  <div class="input-group-addon">Pesos </div>
+                </div>
               </div>
               <div class="form-group">
-                <label for="company-name">Descripción</label>
-                <input type="text" class="form-control" id="company-description" value="<?php echo $empresa['descripcion'] ?>">
+                <label for="company-name">Meses Por defecto de un contrato:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">RD$ </div>
+                  <input type="number" class="form-control" id="settings-meses-por-defecto" value="<?php echo $settings['meses_por_defecto'] ?>">
+                  <div class="input-group-addon">Pesos </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="company-name">Telefono2</label>
-                <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
+                <input type="text" class="form-control" id="company-phone2" value="">
               </div>
               <div class="right">
-                <input id="update-company-data" type="submit" value="Guardar Datos">
+                <input id="btn-update-settings" type="submit" value="Guardar Datos">
               </div>
 
             </div>

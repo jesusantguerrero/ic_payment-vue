@@ -42,9 +42,9 @@
             </div>
             <div class="averias-layer">
                 <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Averias</h3>
-                <div class="placeholder-icon"><i class="material-icons icon-placeholder">notifications_active</i></div>
-                <div class="list-nextpayments">
-                    <?php $this->payment_model->get_next_payments();?>
+                <div class="placeholder-icon"><i class="material-icons icon-placeholder">build</i></div>
+                <div class="list-repair">
+                   
                 </div>
                 <div class="centered-container-small">
                     <button class="btn btn-remark search-client">Imprimir Reporte</button>

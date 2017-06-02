@@ -19,12 +19,10 @@ class Company_model extends CI_MODEL{
   #telefono1 
   #telefonos 
   
-
   public function __construct(){
     parent::__construct();
     $this->load->database();
   }
-
 
   public function update($data){
     $rows = array(
@@ -38,9 +36,9 @@ class Company_model extends CI_MODEL{
     $this->db->where('id_empresa',$data['id_empresa']);
     $result = $this->db->update('empresa',$rows);
     if($result){
-      echo "Actualizado con exito";
+      echo MESSAGE_SUCCESS."Actualizado con exito";
     }else{
-      return "error " .$sql;
+      return MESSAGE_ERROR."error " .$sql;
     }  
   }
 

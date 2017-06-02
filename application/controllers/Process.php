@@ -13,6 +13,7 @@ class Process extends CI_Controller {
 		$this->load->model("payment_model");
 		$this->load->model("company_model");
 		$this->load->model("report_model");
+		$this->load->model("settings_model");
 		$this->load->helper(array('report','payment'));
 	}
 
@@ -68,6 +69,9 @@ class Process extends CI_Controller {
 				break;
 			case "empresa":
 				$this->company_model->update($data);
+				break;
+			case "settings":
+				$this->settings_model->update_settings($data);
 				break;
 		}
 	}
