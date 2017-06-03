@@ -120,6 +120,7 @@ class Payment_model extends CI_MODEL{
     $sql = "SELECT * FROM pagos WHERE id_contrato = $id";
     set_last_query($sql);
     $sql .= " Limit 5";
+    set_last_page($sql);
     $result = $this->db->query($sql);
     set_to_session($id);
     if($result){
@@ -208,7 +209,7 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function get_next_payments($expression = array('expression' => "3",'unit' => "DAY")){
+  public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
     $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);

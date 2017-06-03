@@ -1,12 +1,54 @@
 body
-  display: flex
-  justify-content: center
+  +makeFlex(100%,column,center,center)
+  background: #222
+
 .document-body
-  width: 80%
+  width: 800px
+  position: relative
+  margin: 20px 0
+  background: #fff
+  height: 1000px
+  padding: 50px
+  .line-input
+    border: none
+    border-bottom: 1px dashed
+    box-shadow: none
+    &.sm
+      width: 100px
+    &.lg
+      width: 200px
+
+  .form-group.print
+    +makeFlex(100%,row,flex-start,baseline)
+    height: 34px
+    flex-wrap: nowrap
+    
+    label
+      height: fit-content
+      max-height: 28px
+      display: flex
+      max-width: max-content
+      
+      
+
+    [type="checkbox"]
+      margin: 0 10px
+      background: white
+      
 
   .cuerpo
     margin: 0 0 0 0
     padding: 0 0 0 0
+
+  .cuerpo-documento, 
+  .section
+    padding: 50px 70px 20px 70px
+
+    p
+      margin: 12px 0
+      height: max-content
+  .section
+    padding-top: 10px 
   .concepto
     margin: 30px 0 20px 0 
   .table
@@ -20,10 +62,31 @@ body
     padding-right: 20%
     font-weight: bolder
 
+  .line-straight
+    margin-top: 5px
+    +size(100%,2px)
+    background: $contrast-color !important
+    opacity: .5
+    
+  .titulo-lateral
+    position: absolute
+    left: -140px
+    top: 380px
+    transform: rotate(270deg)
+    opacity: .5
+    width: 336.22px
+    span
+      color: $contrast-color !important
 
 @media print
+  body
+  
   .document-body
     width: 100%
+    color: #666 !important
+    margin: 0 0 0 0
+    background: #fff
+    padding: 10px
   .concepto
     background: $contrast-color !important
     color: white !important
@@ -32,3 +95,5 @@ body
     thead
       background: whitesmoke !important
 
+  footer 
+    page-break-after: always

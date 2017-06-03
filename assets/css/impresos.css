@@ -1,3 +1,7 @@
+body {
+  -webkit-print-color-adjust: exact;
+  color: #444 !important; }
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -230,7 +234,7 @@ th {
   border-radius: 4px; }
 
 .text-placeholder {
-  border-bottom: 1px dotted #ccc !important;
+  border-bottom: 1.4px dashed #ccc !important;
   display: inline-block;
   padding: 0;
   margin: 0;
@@ -245,8 +249,8 @@ th {
   display: inline-block;
   width: 12%;
   height: 20px;
-  font-weight: 900;
-  color: #666; }
+  font-weight: 600;
+  color: #333 !important; }
   .text-main.center {
     text-align: center; }
 
@@ -278,19 +282,61 @@ th {
     padding: 10px 15px;
     margin-bottom: 0; }
   p.text-placeholder {
-    border-bottom: 1px dotted #ccc !important; }
+    border-bottom: 2px solid #aaa !important; }
   @page {
     marks: cross; } }
 
 body {
+  width: 100%;
   display: flex;
-  justify-content: center; }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #222; }
 
 .document-body {
-  width: 80%; }
+  width: 800px;
+  position: relative;
+  margin: 20px 0;
+  background: #fff;
+  height: 1000px;
+  padding: 50px; }
+  .document-body .line-input {
+    border: none;
+    border-bottom: 1px dashed;
+    box-shadow: none; }
+    .document-body .line-input.sm {
+      width: 100px; }
+    .document-body .line-input.lg {
+      width: 200px; }
+  .document-body .form-group.print {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    height: 34px;
+    flex-wrap: nowrap; }
+    .document-body .form-group.print label {
+      height: fit-content;
+      max-height: 28px;
+      display: flex;
+      max-width: max-content; }
+    .document-body .form-group.print [type="checkbox"] {
+      margin: 0 10px;
+      background: white; }
   .document-body .cuerpo {
     margin: 0 0 0 0;
     padding: 0 0 0 0; }
+  .document-body .cuerpo-documento,
+  .document-body .section {
+    padding: 50px 70px 20px 70px; }
+    .document-body .cuerpo-documento p,
+    .document-body .section p {
+      margin: 12px 0;
+      height: max-content; }
+  .document-body .section {
+    padding-top: 10px; }
   .document-body .concepto {
     margin: 30px 0 20px 0; }
   .document-body .table {
@@ -303,14 +349,35 @@ body {
     width: 100%;
     padding-right: 20%;
     font-weight: bolder; }
+  .document-body .line-straight {
+    margin-top: 5px;
+    width: 100%;
+    height: 2px;
+    background: #1FA1D0 !important;
+    opacity: .5; }
+  .document-body .titulo-lateral {
+    position: absolute;
+    left: -140px;
+    top: 380px;
+    transform: rotate(270deg);
+    opacity: .5;
+    width: 336.22px; }
+    .document-body .titulo-lateral span {
+      color: #1FA1D0 !important; }
 
 @media print {
   .document-body {
-    width: 100%; }
+    width: 100%;
+    color: #666 !important;
+    margin: 0 0 0 0;
+    background: #fff;
+    padding: 10px; }
   .concepto {
     background: #1FA1D0 !important;
     color: white !important; }
   .table {
     font-size: 12px !important; }
     .table thead {
-      background: whitesmoke !important; } }
+      background: whitesmoke !important; }
+  footer {
+    page-break-after: always; } }

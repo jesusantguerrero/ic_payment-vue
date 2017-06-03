@@ -40,7 +40,12 @@ if ( ! function_exists('create_payments')){
         'fecha_limite'=> $next_payment_date->format("Y-m-d")
       );
       $context->payment_model->add($new_data);
-      $next_payment_date = get_next_date($next_payment_date);
+      if($i == 0){
+        $next_payment_date = get_first_date($next_payment_date);
+      }else{
+        $next_payment_date = get_next_date($next_payment_date);
+      }
+      
     }
   }
 }
@@ -131,7 +136,6 @@ function update_moras($context){
 			prepare_moras($data,$context);
 		}
     $result = $context->settings_model->update('last_check_moras',$today);
-    echo $result;
   }
   
 		 
@@ -144,7 +148,7 @@ function prepare_moras($data,$context){
     $mora = $line['mora'];
     $monto_extra = $line['monto_extra'];
     $total = $line['total'];
-    $mora = 200.00;
+    $mora = $settings['cargo_mora'];
     $total = $cuota + $monto_extra + $mora;
     $updated_data = array(
       'id_pago' => $line['id_pago'],
@@ -230,18 +234,17 @@ function extend_contract($data,$context){
   
 }
 
-function get_next_date($next_payment_date){
+function get_next_date($date){
   $one_month = new DateInterval('P1M');
-  $date = $next_payment_date;
-    switch ($next_payment_date->format('m')) {
+    switch ($date->format('m')) {
       case '01':
-        $next_payment_date = getForFebruary($next_payment_date);
+        $date = getForFebruary($date);
         break;
       case '02':
-        $next_payment_date = getForMarch($next_payment_date);
+        $date = getForMarch($date);
         break;
       default:
-        $next_payment_date->add($one_month);
+        $date->add($one_month);
         break;
     }
     return $date;
@@ -265,4 +268,23 @@ function getForMarch($date){
   $newdate = "$year-$month-$day";
 
   return new DateTime($newdate);
+}
+
+function get_first_date($date){
+  $year = $date->format('Y');
+  $month = $date->format('m');
+  $day = $date->format('d');
+  $newdate;
+  if($day <= 15){
+    if($month != 2):
+      $day = '30';
+    else:
+      $day = '28';
+    endif;
+    $newdate = "$year-$month-$day";
+    $newdate = new DateTime($newdate);
+  }else{
+    $newdate = get_next_date($date);
+  } 
+  return $newdate;
 }

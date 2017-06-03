@@ -741,22 +741,22 @@ function updatePayment(id){
 *                          Home Getters                            
 *                                                       *
 ********************************************************/
-function getNextPayments(expression){
-    console.log(expression);
-    expression = expression.split(" ");
-    console.log(expression);
-    var variable = " hola"
+// function getNextPayments(expression){
+//     console.log(expression);
+//     expression = expression.split(" ");
+//     console.log(expression);
+//     var variable = " hola"
     
-  var form = "tabla=v_proximos_pagos&expression=" + expression[0] + "&unit=" + expression[1];
-  connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
-}
+//   var form = "tabla=v_proximos_pagos&expression=" + expression[0] + "&unit=" + expression[1];
+//   connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
+// }
 
-function getPendents(expression){
+// function getPendents(expression){
 
     
-  var form = "tabla=v_pagos_pendientes";
-  connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
-}
+//   var form = "tabla=v_pagos_pendientes";
+//   connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
+// }
 });
 
 
