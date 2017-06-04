@@ -31,6 +31,9 @@ function btnExtraPressed($this){
     case "extender":
         extendContract();
       break;
+    case "guardar":
+        addExtra();
+      break;
   
     default:
       break;
@@ -49,6 +52,28 @@ function upgradeContract(){
   if(!is_empty){
     form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
     connectAndSend('process/upgrade',true,null,null,form,null)
+  }else{
+    alert("asegurate de llenar todos los datos y seleccionar el servicio");
+  }
+}
+
+function addExtra(){
+  var form, contractId,extraService,serviceCost, equipment,eMac,router,rMac;
+
+  contractId        = $("#extra-client-contract").val();
+  serviceCost       = $("#extra-service-cost").val();
+  extraService      = $("#select-extra-service").val();
+  equipment         = $("#extra-equipo").val();
+  eMac              = $("#extra-e-mac").val();
+  router            = $("#extra-router").val();
+  rMac              = $("#extra-r-mac").val();
+  
+  
+  var is_empty = isEmpty([extraService,serviceCost, equipment,eMac,router,rMac]);
+  if(!is_empty){
+     form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
+     form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
+    connectAndSend('process/addextra',true,null,null,form,null);
   }else{
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }

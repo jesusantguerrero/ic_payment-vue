@@ -219,6 +219,21 @@ class Contract_model extends CI_MODEL{
     }
     
   }
+
+  public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){     
+    $this->db->trans_start();
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->update('contratos',$data_contract);
+    $this->db->where('id_pago',$id_pago);
+    $this->db->update('pagos',$data_pago);
+    $this->db->trans_complete();
+    if($this->db->trans_status() === false){
+      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$this->db->last_query();
+    } else{
+      echo MESSAGE_SUCCESS." Servicio ExtraAgregado";
+    }
+    
+  }
    
   //functions
 }

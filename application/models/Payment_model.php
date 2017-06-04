@@ -74,6 +74,16 @@ class Payment_model extends CI_MODEL{
     
   }
 
+  public function get_next_payment_of($id_contrato){
+    $sql = "SELECT * FROM pagos WHERE id_contrato = $id_contrato AND estado='no pagado' order by id_pago limit 1";
+    $result = $this->db->query($sql);
+    if($result){
+      return $result->row_array();
+    }else{
+      return 0;
+    }
+  }
+  
   public function count_per_contract(){
     $id_contrato = get_from_session();
     $this->db->where('id_contrato',$id_contrato);
@@ -149,6 +159,8 @@ class Payment_model extends CI_MODEL{
       echo $result;
     }  
   } 
+
+
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";

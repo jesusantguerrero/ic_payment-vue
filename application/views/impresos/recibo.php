@@ -23,7 +23,7 @@
   <div class="concepto"> <h4><?php echo $recibo['concepto'] ?></h4></div>
   <div class="cuerpo">
   <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"><?php echo $recibo['concepto'] ?></span></p>
-   <p class="line"> <span class="text-main">Servicio:</span> <span class="text-placeholder"><?php echo $recibo['servicio'] ?></span></p>
+   <p class="line"> <span class="text-main">Servicio:</span> <span class="text-placeholder"><?php echo $recibo['servicio'].$recibo['detalles_extra']?></span></p>
   <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad']) ?></span>
   <span class="text-main center">Mora:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mora']) ?> </span>
   <span class="text-main center">Extras:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['monto_extra']) ?></span></p>

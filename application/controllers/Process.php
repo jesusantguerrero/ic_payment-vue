@@ -258,4 +258,9 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function addextra(){
+		$data = $_POST;
+		add_extra($this,$data);
+	}
+
 }

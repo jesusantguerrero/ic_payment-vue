@@ -193,7 +193,7 @@ function make_contract_dropdown($data){
 function make_other_services_dropdown($data){
     $html_text = " "; 
     foreach ($data as $line) {
-        $html_text .= "<option value='".$line['id_servicio']."' data-payment='".$line['mensualidad']."'>";
+        $html_text .= "<option value='".$line['nombre']."' data-payment='".$line['mensualidad']."'>";
         $html_text .= $line['nombre']."</option>";
     }
     return $html_text;

@@ -194,9 +194,6 @@ if (! function_exists('cancel_contract')){
   }
 }
 
-
-
-
 function extend_contract($data,$context){
     $contract_id = $data['id_contrato'];
 
@@ -233,6 +230,36 @@ function extend_contract($data,$context){
     
   
 }
+
+if (! function_exists('add_extra')){
+
+  function add_extra($context,$data_extra){
+    $contract_id = $data_extra['id_contrato'];
+    $contract = $context->contract_model->get_contract_view($contract_id);
+    $next_payment = $context->payment_model->get_next_payment_of($contract_id);
+
+    $detalles_extra = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
+    $monto_extra    = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
+    $total    = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
+    
+    $data_contract = array(
+      'router'        => $data_extra['router'],
+      'mac_router'    => $data_extra['mac_router'],
+      'nombre_equipo' => $data_extra['nombre_equipo'],
+      'mac_equipo'    => $data_extra['mac_router']
+    );
+
+    $data_pago = array(
+      'detalles_extra'   => $detalles_extra,
+      'monto_extra'      => $monto_extra,
+      'total'      => $total
+    );
+
+    $context->contract_model->add_extra_service($data_contract,$contract_id,$data_pago,$next_payment['id_pago']); 
+  }
+}
+
+// dates helper functions
 
 function get_next_date($date){
   $one_month = new DateInterval('P1M');

@@ -444,9 +444,9 @@ nav {
   margin: 0 2.5% 10px 2.5%;
   position: relative; }
   .searcher-container:after {
-    content: '\276F';
+    content: 'Buscar \276F';
     position: absolute;
-    width: 50px;
+    width: 150px;
     height: 100%;
     right: 0;
     top: 0;
