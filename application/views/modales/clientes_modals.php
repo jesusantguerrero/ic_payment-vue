@@ -329,15 +329,9 @@
       <div class="modal-body">
         <div>
           <h4>Proximos Pagos</h4>
-          <select id="next-payment-select">
-            <option value="3 DAY">3 Dias</option>
-            <option value="7 DAY">Una Semana</option>
-            <option value="15 DAY">Una Quincena</option>
-            <option value="1 MONTH">Un Mes</option>
-            <option value="1 YEAR">Un Año</option>
-          </select>
+          <button class="btn remark" id="btn-see-pagos">Ver Pagos</button>
           <h4>Deudores</h4>
-          <button class="btn remark" id="btn-see-deudores">Deudores</button>
+          <button class="btn remark" id="btn-see-deudores">Ver Deudores</button>
           <h4>Averias</h4>
           <button class="btn remark" id="btn-see-averias">ver Averias</button>
           <h4>Caja Chica</h4>

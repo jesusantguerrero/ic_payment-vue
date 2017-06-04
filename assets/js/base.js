@@ -122,17 +122,22 @@ function getTabControls($this){
 }
 
 function notificationFunctions(){
-  var btnAverias = $("#btn-see-averias");
-  var btnPagos   = $("#btn-see-pagos");
-  var nextPaymentSelect = $('#next-payment-select');
+  var btnAverias      = $("#btn-see-averias");
+  var btnPagos        = $("#btn-see-pagos");
+  var btnCajaChica    = $('#btn-see-caja');
+  var btnDeudores     = $("#btn-see-deudores")
   var layoutContainer = $(".layout-container");
 
   btnAverias.on('click',function(){
     layoutContainer.animate({left:"-100%"},200);
   });
 
-  nextPaymentSelect.on('change',function(){
+  btnPagos.on('click',function(){
     layoutContainer.animate({left:"0"},200);
+  });
+
+  btnDeudores.on('click',function(){
+    layoutContainer.animate({left:"-200%"},200);
   });
 }
 

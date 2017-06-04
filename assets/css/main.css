@@ -557,7 +557,7 @@ form {
   position: relative; }
   .details-card .layout-container {
     position: absolute;
-    width: 200%;
+    width: 300%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -573,6 +573,8 @@ form {
     background: #1FA1D0; }
   .details-card .averias-layer {
     background: #FF6961; }
+  .details-card .deudores-layer {
+    background: #4E5962; }
   .details-card .card-title {
     cursor: pointer; }
     .details-card .card-title:hover {
@@ -1363,7 +1365,9 @@ header {
       background: #1FA1D0;
       box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.4); }
   header .user-controls .navButton a {
-    color: #ddd; }
+    color: #ddd;
+    width: 41px;
+    height: 41px; }
     header .user-controls .navButton a:hover {
       color: #1FA1D0;
       background: transparent;

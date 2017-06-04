@@ -169,9 +169,9 @@
               <div class="form-group">
                 <label for="company-name">Meses Por defecto de un contrato:</label>
                 <div class="input-group">
-                  <div class="input-group-addon">RD$ </div>
+                  <div class="input-group-addon">Por </div>
                   <input type="number" class="form-control" id="settings-meses-por-defecto" value="<?php echo $settings['meses_por_defecto'] ?>">
-                  <div class="input-group-addon">Pesos </div>
+                  <div class="input-group-addon">Meses </div>
                 </div>
               </div>
               <div class="form-group">

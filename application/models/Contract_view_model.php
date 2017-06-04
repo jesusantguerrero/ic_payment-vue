@@ -18,13 +18,17 @@ class Contract_view_model extends CI_MODEL{
 
 
   public function get_contract_view($status){
-    $this->db->where('estado',$status);
-    $this->db->limit(5);
-    $this->db->order_by('id_contrato');
-    $result = $this->db->get('v_contratos'); 
-    $result = $result->result_array();
-    set_last_query($this->db->last_query());
-    echo make_main_contract_table($result,0);
+    $sql = "SELECT * FROM v_contratos where estado = '$status'";
+    set_last_query($sql);
+    $sql .= " ORDER BY id_contrato limit 5";
+    $result = $this->db->query($sql); 
+    if($result){
+       $result = $result->result_array();
+      echo make_main_contract_table($result,0);
+    }else{
+      echo $sql;
+    }
+   
   }
 
   public function count_contracts(){

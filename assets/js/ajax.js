@@ -6,8 +6,6 @@ var ran = false;
 switch (currentPage) {
   case "home":
     initClientHandlers();
-    console.log('Clientes handlers');
-    
     break;
   case "administrador":
     initHandlers();
@@ -34,30 +32,7 @@ switch (currentPage) {
   default:
     break;
 }
-//***************************************************  Init Admin Handlers       ***************************** */
-function initAdminHandlers(){
-  $("#btn-see-deudores").on('click',function(){
-    changeNotification("Lista De Deudores","money_off");
-    getPendents();
-  });
 
-  $("#next-payment-select").on('change',function(){
-    changeNotification("Proximos Pagos","notifications_active");
-    var expression = $(this).val();
-    getNextPayments(expression);
-  });
-
-
-  function changeNotification(title,icon){
-    var $detailsCard = $(".details-card");
-    var $title = $detailsCard.find('.card-title');
-    var $placeImage = $detailsCard.find(".placeholder-icon");
-    var htmlText = "<i class='material-icons icon-placeholder'>"+icon+"</i>";
-
-    $title.text(title);
-    $placeImage.html(htmlText);
-  }
-}
 //***************************************************     Init Handlers          ***************************** */
 function initHandlers(){
   initPagination("#t-users","users",paginate);
@@ -103,7 +78,6 @@ function initHandlers(){
 //***************************************************  Init client Handlers      ***************************** */
 function initClientHandlers(){
   count_table("clientes");
-  initAdminHandlers()
 
   $("#btn-save-client").on('click',function(e){
     e.stopImmediatePropagation();

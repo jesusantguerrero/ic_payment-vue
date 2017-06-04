@@ -274,17 +274,17 @@ function get_first_date($date){
   $year = $date->format('Y');
   $month = $date->format('m');
   $day = $date->format('d');
+  $old_day = $day;
   $newdate;
-  if($day <= 15){
-    if($month != 2):
-      $day = '30';
-    else:
-      $day = '28';
-    endif;
-    $newdate = "$year-$month-$day";
-    $newdate = new DateTime($newdate);
-  }else{
-    $newdate = get_next_date($date);
+  if($month != 2):
+    $day = '30';
+  else:
+    $day = '28';
+  endif;
+  $newdate = "$year-$month-$day";
+  $newdate = new DateTime($newdate);
+  if($old_day > 15){
+    $newdate = get_next_date($newdate);
   } 
   return $newdate;
 }

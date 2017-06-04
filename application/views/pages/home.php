@@ -31,25 +31,35 @@
         <div class="col-md-4 details-card">
             <div class="layout-container">
                 <div class="pagos-layer">
-                <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Proximos Pagos</h3>
-                <div class="placeholder-icon"><i class="material-icons icon-placeholder">notifications_active</i></div>
-                <div class="list-nextpayments">
-                    <?php $this->payment_model->get_next_payments(); ?>
+                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Proximos Pagos</h3>
+                    <div class="placeholder-icon"><i class="material-icons icon-placeholder">notifications_active</i></div>
+                    <div class="list-nextpayments">
+                        <?php $this->payment_model->get_next_payments(); ?>
+                    </div>
+                    <div class="centered-container-small">
+                        <button class="btn btn-remark search-client">Buscar Cliente</button>
+                    </div>
                 </div>
-                <div class="centered-container-small">
-                    <button class="btn btn-remark search-client">Buscar Cliente</button>
+                <div class="averias-layer">
+                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Averias</h3>
+                    <div class="placeholder-icon"><i class="material-icons icon-placeholder">build</i></div>
+                    <div class="list-repair">
+
+                    </div>
+                    <div class="centered-container-small">
+                        <button class="btn btn-remark search-client">Imprimir Reporte</button>
+                    </div>
                 </div>
-            </div>
-            <div class="averias-layer">
-                <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Averias</h3>
-                <div class="placeholder-icon"><i class="material-icons icon-placeholder">build</i></div>
-                <div class="list-repair">
-                   
+                <div class="deudores-layer">
+                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Lista de Deudores</h3>
+                    <div class="placeholder-icon"><i class="material-icons icon-placeholder">money_off</i></div>
+                    <div class="list-nextpayments">
+                        <?php $this->payment_model->get_moras_view(); ?>
+                    </div>
+                    <div class="centered-container-small">
+                        <button class="btn btn-remark search-client">Buscar Cliente</button>
+                    </div>
                 </div>
-                <div class="centered-container-small">
-                    <button class="btn btn-remark search-client">Imprimir Reporte</button>
-                </div>
-            </div>
             </div>
         </div>
 
