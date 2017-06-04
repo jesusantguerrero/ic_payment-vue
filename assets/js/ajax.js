@@ -78,6 +78,9 @@ function initHandlers(){
 //***************************************************  Init client Handlers      ***************************** */
 function initClientHandlers(){
   count_table("clientes");
+  initPagination("#t-clients","clientes",paginate);
+  makeRowsClickable();
+  verifyClientStatus();
 
   $("#btn-save-client").on('click',function(e){
     e.stopImmediatePropagation();
@@ -91,20 +94,6 @@ function initClientHandlers(){
     if($row){
       var id = $row.find('.id_cliente').text().trim();
       getClient(id);
-    }
-  });
-
-  initPagination("#t-clients","clientes",paginate);
-
-  makeRowsClickable();
-
-  $("td").each(function(i,value){
-    var $this = $(this);
-    var text = $this.text().trim();
-    if(text == "no activo"){
-      $this.css({color:"rgba(200,0,0,.7)"})
-    }else if(text == "activo"){
-      $this.css({color:"green"});
     }
   });
 
@@ -145,13 +134,12 @@ function initClientHandlers(){
 function initServicesHandlers(){
   count_table("servicios");
   initPagination("#t-services","servicios",paginate);
+  makeRowsClickable();
    
   $("#btn-save-service").on('click',function(e){
     e.stopImmediatePropagation();
     addNewService();
   });
-
-  makeRowsClickable();
 
   $("#delete-service").on('click',function(e){
     e.preventDefault();
@@ -190,6 +178,7 @@ function initServicesHandlers(){
 //***************************************************  Init Contract Handlers    ***************************** */
 function initContractHandlers(){
   initPagination("#t-contracts","v_contratos",paginate);
+  makeRowsClickable();
 
   $("#btn-save-contract").on('click',function(e){
     e.stopImmediatePropagation();
@@ -539,8 +528,6 @@ function paginate(offset,perpage,tableName){
       break;
     case "pagos_por_contrato":
       handlers = initPaymentsHandlers;
-    
-      
       break;
     default:
       break;
@@ -651,15 +638,19 @@ function contractSaved(id){
   alert(id)
 }
 
+function getContracts(dni){
+  var form = "dni="+ dni;
+  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
+}
+
 function callExtra(){
   var $row = $("tr.selected");
   if($row != undefined){
-    var cells = $row.find('td');
+    var client = $row.find('td.th-client');
+    var dni = client.attr("data-cedula");    
    
-    $("#extra-client-contract").val(cells.eq(0).text());
-    $("#extra-client-name").val(cells.eq(1).text());
-    $("#extra-contract-service").val(cells.eq(3).text());
-    $("#extra-").val(cells.eq(5).text());
+    $("#extra-client-dni").val(dni);
+    getContracts(dni);
     $('#add-extra-modal').modal();
   }else{
     alert("Seleccione el contrato primero")

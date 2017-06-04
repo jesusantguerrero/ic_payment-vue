@@ -187,7 +187,8 @@ th {
   height: 350px;
   border: 2px dashed #aaa;
   overflow: hidden;
-  font-family: 'Times New Roman', Times, serif; }
+  font-family: 'Times New Roman', Times, serif;
+  background: #fff; }
 
 .cabecera {
   width: 100%;

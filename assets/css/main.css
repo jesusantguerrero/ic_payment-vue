@@ -370,7 +370,8 @@ header {
   width: 20%; }
   .brand h1, .brand h2, .brand h3, .brand h4, .brand h5, .brand h6 {
     margin: 0;
-    width: 50%; }
+    width: 50%;
+    color: white; }
 
 .user-div {
   width: 100%;

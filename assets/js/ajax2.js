@@ -73,11 +73,6 @@ function getContracts(dni){
   connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
 }
 
-function getContracts(dni){
-  var form = "dni="+ dni;
-  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
-}
-
 
 
 

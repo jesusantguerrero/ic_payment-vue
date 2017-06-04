@@ -49,7 +49,7 @@
     </div>
     <div class="header-low">
         <div class="brand">
-            <h3>IC<span>Payment</span></h3>
+            <a href="<?php echo base_url() ?>"><h3>IC<span>Payment</span></h3></a>
         </div>
         <nav class="top-nav">
             <li class="navButton"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>

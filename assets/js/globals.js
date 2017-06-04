@@ -426,4 +426,16 @@ function verifyContractStatus(){
   });
 }
 
+function verifyClientStatus(){
+   $("td").each(function(i,value){
+    var $this = $(this);
+    var text = $this.text().trim();
+    if(text == "no activo"){
+      $this.css({color:"rgba(200,0,0,.7)"})
+    }else if(text == "activo"){
+      $this.css({color:"green"});
+    }
+  });
+}
+
 
