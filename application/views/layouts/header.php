@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>" >
+    <title>.:: IC Payment |
+        <?php echo ucfirst($title); ?> ::.</title>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/print.css') ?>" media='print'/>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/print.css') ?>" media='print' />
     <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.js') ?>"></script>
@@ -23,7 +25,9 @@
 
     <div class="header-low">
         <div class="brand">
-            <a href="<?php echo base_url() ?>"><h3>IC<span>Payment</span></h3></a>
+            <a href="<?php echo base_url() ?>">
+                <h3>IC<span>Payment</span></h3>
+            </a>
         </div>
         <nav class="top-nav">
             <li class="navButton"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
@@ -35,15 +39,15 @@
         <div class="user-div">
             <nav class="user-controls">
                 <li class="navButton">
-                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
                         <i class="material-icons">notifications</i>
                     </a> <span class="badge">4</span></li>
                 <li class="navButton">
-                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Caja Chica">
                         <i class="material-icons">add_shopping_cart</i>
                     </a></li>
                 <li class="navButton">
-                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="top" title="Notificaciones">
+                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Reportes">
                         <i class="material-icons">assignment</i>
                     </a></li>
 
@@ -51,11 +55,17 @@
             <h5 class="user-name">
                 <?php echo $user_data['name'];?>
             </h5>
-            <div class="profile-picture">
-                <span><?php echo $user_data['name'][0].$user_data['lastname'][0] ?></span>
+            <div class="dropdown mymenu">
+                <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="profile-picture">
+                        <span><?php echo $user_data['name'][0].$user_data['lastname'][0] ?></span>
+                    </div>
+                    <span class="caret"></span>
+                </a>
+
                 <?php echo $tooltip; ?>
             </div>
-            <button class="btn-more"><i class="material-icons">menu</i></button>
+
         </div>
     </div>
 </header>

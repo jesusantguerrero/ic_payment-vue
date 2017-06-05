@@ -840,45 +840,34 @@ form {
   .profile-picture a:focus {
     outline: none; }
 
-.user-info-tip {
-  position: absolute;
-  color: #555;
-  background: #fff;
-  min-width: 190px;
-  min-height: 200px;
-  top: 90px;
-  right: 0;
-  border-radius: 0 0 4px 4px;
-  background: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
-  padding: 2px 0;
-  z-index: 2000;
-  text-align: left;
-  visibility: hidden; }
-  .user-info-tip.visible {
-    visibility: visible; }
-  .user-info-tip ul {
-    list-style: none; }
-  .user-info-tip .current-user {
-    position: relative;
-    border-bottom: 2px solid #ddd; }
-  .user-info-tip li {
-    margin: 5px 0;
-    height: 48px; }
-    .user-info-tip li:hover {
-      background: #1FA1D0;
-      color: #fff; }
-  .user-info-tip a {
-    width: 100%;
+.mymenu {
+  width: 90px;
+  height: 100%; }
+  .mymenu a#dLabel {
+    width: 90px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: 100%;
-    padding: 5px 10px;
-    color: #777; }
-    .user-info-tip a:hover {
+    justify-content: center;
+    align-items: baseline; }
+  .mymenu .dropdown-menu {
+    left: -120px; }
+  .mymenu li {
+    margin: 5px 0;
+    height: 48px; }
+    .mymenu li:hover {
+      background: #1FA1D0;
       color: #fff; }
+    .mymenu li a {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      padding: 5px 10px;
+      color: #777; }
+      .mymenu li a:hover {
+        color: #fff;
+        background: #1FA1D0; }
 
 .placeholder-icon {
   position: absolute;
@@ -1396,51 +1385,55 @@ table {
     font-size: 12px;
     line-height: 0;
     height: 30px; }
-  table thead {
-    border: none; }
-    table thead tr {
-      background: #1FA1D0;
-      color: #fff; }
-  table tfoot {
-    background: #E9EEF6;
-    color: #888; }
-    table tfoot select {
-      height: 28px;
-      font-size: 16px;
-      font-weight: normal; }
-    table tfoot .next-page, table tfoot .previous-page {
-      font-size: 30px;
-      cursor: pointer; }
-      table tfoot .next-page:hover, table tfoot .previous-page:hover {
-        color: #1FA1D0; }
-    table tfoot .max-limit {
-      display: none; }
-  table th {
-    height: 42px; }
-    table th:last-child {
-      border-radius: 0 4px 0 0; }
-    table th:first-child {
-      border-radius: 4px 0 0 0; }
-  table tbody {
-    max-height: 220px;
-    width: 100%;
-    overflow: auto; }
-    table tbody tr {
-      cursor: pointer;
-      background: #fdfdfd;
-      color: #555;
-      font-weight: bolder; }
-      table tbody tr:nth-child(2n) {
-        background: #fafafa; }
-      table tbody tr:first-child {
-        box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.2); }
-      table tbody tr:hover {
-        background: rgba(136, 136, 136, 0.3); }
-      table tbody tr.selected {
-        background: #82d0ec;
+
+thead {
+  border: none; }
+  thead tr {
+    background: #1FA1D0;
+    color: #fff; }
+
+tfoot {
+  background: #E9EEF6;
+  color: #888; }
+  tfoot select {
+    height: 28px;
+    font-size: 16px;
+    font-weight: normal; }
+  tfoot .next-page, tfoot .previous-page {
+    font-size: 30px;
+    cursor: pointer; }
+    tfoot .next-page:hover, tfoot .previous-page:hover {
+      color: #1FA1D0; }
+  tfoot .max-limit {
+    display: none; }
+
+th {
+  height: 42px; }
+  th:last-child {
+    border-radius: 0 4px 0 0; }
+  th:first-child {
+    border-radius: 4px 0 0 0; }
+
+tbody {
+  max-height: 220px;
+  width: 100%;
+  overflow: auto; }
+  tbody tr {
+    cursor: pointer;
+    background: #fdfdfd;
+    color: #555;
+    font-weight: bolder; }
+    tbody tr:nth-child(2n) {
+      background: #fafafa; }
+    tbody tr:first-child {
+      box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.2); }
+    tbody tr:hover {
+      background: rgba(136, 136, 136, 0.3); }
+    tbody tr.selected {
+      background: #82d0ec;
+      color: #555; }
+      tbody tr.selected:hover {
         color: #555; }
-        table tbody tr.selected:hover {
-          color: #555; }
 
 .table > tbody > tr > td {
   padding-top: 15px; }
@@ -1455,6 +1448,18 @@ table {
 
 .seconds {
   color: #999; }
+
+.mylists .table {
+  border: none; }
+
+.mylists thead {
+  height: 48px; }
+  .mylists thead tr {
+    background: transparent;
+    color: #555; }
+
+.mylists tbody tr:first-child {
+  box-shadow: none; }
 
 @print {
   .left-navigation,

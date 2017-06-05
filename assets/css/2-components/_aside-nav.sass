@@ -71,45 +71,27 @@
       weight: bolder
   a:focus
     outline: none
-
-.user-info-tip
-  position: absolute
-  color: #555
-  background: #fff
-  min-width: 190px
-  min-height: 200px
-  top: 90px
-  right: 0
-  border-radius: 0 0 4px 4px
-  +card
-  padding: 2px 0
-  z-index: 2000
-  text-align: left
-  visibility: hidden
-
-  &.visible
-    visibility: visible
-  ul
-    list-style: none
-   
-  .current-user
-    position: relative
-    border-bottom: 2px solid #ddd
-  
+.mymenu
+  +size(90px,100%)
+  a#dLabel
+    +makeFlex(90px,row,center,baseline)
+  .dropdown-menu
+    left: -120px
   li
     margin: 5px 0
     height: 48px
     &:hover
       background: $contrast-color
       color: #fff
-  a
-    +makeFlex(100%,row,null, center)
-    height: 100%
-    padding: 5px 10px
-    color: #777
+    a
+      +makeFlex(100%,row,null, center)
+      height: 100%
+      padding: 5px 10px
+      color: #777
 
-    &:hover
-      color: #fff
+      &:hover
+        color: #fff
+        background: $contrast-color
 
 .placeholder-icon
   position: absolute

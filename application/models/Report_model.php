@@ -37,5 +37,13 @@ class Report_model extends CI_MODEL{
     endif;
   }
 
+  public function get_installations($date = '',$is_print = false){
+    $result = $this->db->get('v_instalaciones');
+    if($result){
+      $result = $result->result_array();
+      echo make_installation_report($result,"Instalaciones del Dia",$this,$is_print);
+    }
+  }
+
   
 }
