@@ -46,7 +46,7 @@
                         <i class="material-icons">add_shopping_cart</i>
                     </a></li>
                 <li class="navButton">
-                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Reportes">
+                    <a href="" data-target="#new-averia-modal" data-toggle="modal" data-placement="bottom" title="Reportes">
                         <i class="material-icons">assignment</i>
                     </a></li>
 

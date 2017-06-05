@@ -1,3 +1,4 @@
+$(function(){
 $("#btn-update-settings").on('click',function(e){
   e.preventDefault();
   updateSettings();
@@ -69,7 +70,7 @@ function addExtra(){
   rMac              = $("#extra-r-mac").val();
   
   
-  var is_empty = isEmpty([extraService,serviceCost, equipment,eMac,router,rMac]);
+  var is_empty = isEmpty([contractId,extraService,serviceCost, equipment,eMac,router,rMac]);
   if(!is_empty){
      form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
      form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
@@ -84,18 +85,13 @@ function extendContract(){
   contractId        = $("#extra-client-contract").val();
   duration   = $("#extra-extension-months").val();
   
-  var is_empty = isEmpty([duration]);
+  var is_empty = isEmpty([duration,contractId]);
   if(!is_empty){
     form = 'id_contrato=' + contractId + "&duracion=" + duration;
     connectAndSend('process/extend_contract',true,null,null,form,null)
   }else{
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }
-}
-
-function getContracts(dni){
-  var form = "dni="+ dni;
-  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
 }
 
 
@@ -124,3 +120,4 @@ function updateSettings(){
 
   connectAndSend('process/update',true,null,null,form,null);  
 }
+});

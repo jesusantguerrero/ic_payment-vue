@@ -14,6 +14,7 @@ class Process extends CI_Controller {
 		$this->load->model("company_model");
 		$this->load->model("report_model");
 		$this->load->model("settings_model");
+		$this->load->model("averia_model");
 		$this->load->helper(array('report','payment'));
 	}
 
@@ -26,6 +27,12 @@ class Process extends CI_Controller {
 				break;
 			case "servicios":
 				$this->service_model->add($data);
+				break;
+			case "averias":
+				$this->averia_model->add($data);
+				break;
+			case "caja":
+				$this->caja_model->add($data);
 				break;
 			case "contratos":
 				 $this->db->trans_start();
@@ -122,7 +129,13 @@ class Process extends CI_Controller {
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case "clientes":
-				$this->client_model->get_client($_POST['id'],true);
+				$result = $this->client_model->get_clientjson($_POST['id'],true);
+				if($result){
+					 $dataJson = json_encode($result);
+					 echo $dataJson;
+				}else{
+					echo "nada";
+				}
 			break;
 		}
 	}
@@ -221,8 +234,21 @@ class Process extends CI_Controller {
 	}
 
 	public function getreport($table,$type){
-		$this->report_model->get_payments_report($type);
-		redirect(base_url('app/imprimir/reporte'));
+		switch ($table) {
+			case 'payment':
+					$this->report_model->get_payments_report($type);
+					redirect(base_url('app/imprimir/reporte'));
+				break;
+			case 'installations':
+					$this->report_model->get_installations(null,true);
+					redirect(base_url('app/imprimir/reporte'));
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+	
 	}
 	
 	public function cancel(){

@@ -140,11 +140,19 @@ function makeContracList(response,callback){
   
 }
 
-
 function clearTbody(objecId){
   $(objecId).html("");
 }
 
+function fillClientFields(response,callback){
+  if(response != "nada"){ 
+    var cliente = JSON.parse(response);
+    $("#averias-client-id").val(cliente['id_cliente']);
+    $("#a-client").val(cliente['nombres'] + " " + cliente['apellidos'])
+  }else{
+    displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
+  }
+}
 
 /**
  * isEmpty
@@ -375,7 +383,6 @@ function contractRows($this){
 
   id_contrato = $this.find(".id_contrato").text().trim();
   id_cliente = $this.find('.th-client').attr("data-id-cliente");
-  console.log(id_cliente);
   
 
   $("#btn-pay").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");

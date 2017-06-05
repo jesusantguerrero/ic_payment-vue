@@ -193,7 +193,7 @@ public function search_clients($word){
   }
 
   public function get_clientjson($id){
-    $sql = "SELECT * FROM clientes WHERE  cedula ='$id'";
+    $sql = "SELECT * FROM clientes WHERE cedula ='$id' || id_cliente =$id";
     if($result = $this->db->query($sql)){
       $result = $result->row();
       return $result; 

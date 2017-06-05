@@ -89,7 +89,7 @@ if ( ! function_exists('make_installation_report')){
 
   function make_installation_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Cliente","Direccion","Celular","Fecha de Requerimiento","Servicio"); 
+    $context->table->set_heading("Num","Cliente","Direccion","Celular","Requerimiento","Servicio"); 
 
     foreach ($data as $line) {
       $context->table->add_row($cont,

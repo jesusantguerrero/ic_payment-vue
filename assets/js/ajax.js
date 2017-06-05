@@ -1,3 +1,8 @@
+function getContracts(dni){
+  var form = "dni="+ dni;
+  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
+}
+
 $(function(){
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
@@ -93,7 +98,7 @@ function initClientHandlers(){
     var $row = $("tr.selected");
     if($row){
       var id = $row.find('.id_cliente').text().trim();
-      getClient(id);
+      getClient(id,recieveClientForEdit);
     }
   });
 
@@ -127,6 +132,19 @@ function initClientHandlers(){
       }
     }
     
+  });
+
+  $("#a-client-dni").on('keydown',function(e){
+    var key = e.which;
+    var dni = $(this).val()
+    if(key == 13){
+      getClient(dni,fillClientFields);
+    }
+  });
+
+  $("#btn-save-averia").on('click',function(e){
+    addAveria();
+   
   });
 
 }
@@ -396,15 +414,21 @@ function search(text,dbTable,fillTableFunction){
   }
 }
 
-function getClient(id){
+/**
+ * Get Client: obtiene un cliente y sus datos a partir de una cedula o id
+ * @param {integer} id 
+ * @param {*} receiver funcion que recibe la respuesta de servidor
+ */
+
+function getClient(id,receiver){
   form="tabla=clientes&id=" + id;
-  connectAndSend("process/getone",false,initClientHandlers,recieveClient,form,null)
+  connectAndSend("process/getone",false,initClientHandlers,receiver,form,null)
 }
 
-function recieveClient(content){
-  var client = $.parseXML(content);
-  var client = $(client);
-  var id = client.find("id").text();
+function recieveClientForEdit(content){
+  console.log(content);
+  var client = JSON.parse(content);
+  var id = client['id_cliente'];
   var $nombres        = $("#u-client-name");
   var $apellidos      = $("#u-client-lastname");
   var $cedula         = $("#u-client-dni");
@@ -418,18 +442,18 @@ function recieveClient(content){
   var $telTrabajo     = $('#u-client-job-telephone');
   var $ingresos       = $('#u-client-salary');
 
-  $nombres.val(client.find("name").text());      
-  $apellidos.val(client.find("lastname").text())     
-  $cedula.val(client.find("dni").text())         
-  $celular.val(client.find("cellphone").text())       
-  $provincia.val(client.find("province").text())      
-  $sector.val(client.find("sector").text())         
-  $calle.val(client.find("street").text())          
-  $casa.val(client.find("house").text())           
-  $telefono.val(client.find("telephone").text())       
-  $lugarTrabajo.val(client.find("job").text())  
-  $telTrabajo.val(client.find("jobphone").text())     
-  $ingresos.val(client.find("salary").text())
+  $nombres.val(client['nombres']);      
+  $apellidos.val(client['apellidos'])     
+  $cedula.val(client['cedula'])         
+  $celular.val(client['celular'])       
+  $provincia.val(client['provincia'])      
+  $sector.val(client['sector'])         
+  $calle.val(client['calle'])          
+  $casa.val(client['casa'])           
+  $telefono.val(client['telefono'])       
+  $lugarTrabajo.val(client['lugar_trabajo'])  
+  $telTrabajo.val(client['tel_trabajo'])     
+  $ingresos.val(client['salario'])
 
   $("#update-client-modal").modal();    
 
@@ -454,6 +478,7 @@ function recieveClient(content){
     }
   } 
 }
+
 
 function saveObservations(abonoWatched){
   var form, observations,abono,idCliente,$inputAbono,abonoValue;
@@ -481,6 +506,25 @@ function saveObservations(abonoWatched){
 
   abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
 }
+
+function addAveria(){
+  
+  var form,idCliente,description;
+
+  idCliente   = $("#averias-client-id").val();
+  description = $("#a-description").val();
+  console.log(idCliente + " " + description);
+  
+  var is_empty = isEmpty([idCliente,description]);
+  if(!is_empty){   
+    form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
+    connectAndSend("process/add",true,initClientHandlers,null,form,null);
+
+  }else{
+    alert("LLene los campos requeridos por favor");
+  }
+  $('#new-averia-modal').find('input,textarea').val("");
+} 
 
 /********************************************************
  *                 Ajax Generales                       *
@@ -631,11 +675,6 @@ function contractSaved(id){
   $("#btn-save-contract").attr("disabled","");
   $("#btn-print-contract").removeAttr("disabled");
   $("#btn-print-contract").attr("href","");
-}
-
-function getContracts(dni){
-  var form = "dni="+ dni;
-  connectAndSend("process/data_for_extra",false,null,makeContracList,form,null);
 }
 
 function callExtra(){
