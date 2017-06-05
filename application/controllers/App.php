@@ -5,8 +5,6 @@ class App extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->helpers('modals','users');
-		$this->load->helper(array('report','payment'));
 		$this->load->model("user_model");
 		$this->load->model("client_model");
 		$this->load->model("service_model");
@@ -16,6 +14,8 @@ class App extends CI_Controller {
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
 		$this->load->model("report_model");
+		$this->load->helpers('modals','users');
+		$this->load->helper(array('report','payment'));
 		
 		update_moras($this);
 		
