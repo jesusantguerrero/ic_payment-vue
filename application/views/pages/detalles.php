@@ -190,6 +190,7 @@
                     <th>Concepto</th>
                     <th>Cuota</th>
                     <th>Mora</th>
+                    <th>Extra</th>
                     <th>Monto</th>
                     <th>Fecha de Pago</th>
                     <th>Estado</th>
@@ -201,6 +202,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

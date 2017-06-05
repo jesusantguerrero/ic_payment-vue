@@ -3,7 +3,6 @@
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
-      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">assignment</i> Informes</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
       <li class="aside-buttons"><a href="#settings-section"><i class="material-icons">settings</i> Ajustes</a></li>
     </ul>

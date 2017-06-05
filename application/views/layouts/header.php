@@ -20,7 +20,18 @@
 </head>
 <header>
     <?php $user_data = get_user_data(); ?>
-    <div class="header-top">
+
+    <div class="header-low">
+        <div class="brand">
+            <a href="<?php echo base_url() ?>"><h3>IC<span>Payment</span></h3></a>
+        </div>
+        <nav class="top-nav">
+            <li class="navButton"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
+            <li class="navButton"><a class="<?php if($title == 'clientes')  echo " active "?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
+            <li class="navButton"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
+            <li class="navButton"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
+            <li class="navButton"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
+        </nav>
         <div class="user-div">
             <nav class="user-controls">
                 <li class="navButton">
@@ -46,17 +57,5 @@
             </div>
             <button class="btn-more"><i class="material-icons">menu</i></button>
         </div>
-    </div>
-    <div class="header-low">
-        <div class="brand">
-            <a href="<?php echo base_url() ?>"><h3>IC<span>Payment</span></h3></a>
-        </div>
-        <nav class="top-nav">
-            <li class="navButton"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
-            <li class="navButton"><a class="<?php if($title == 'clientes')  echo " active "?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
-            <li class="navButton"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
-            <li class="navButton"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
-            <li class="navButton"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
-        </nav>
     </div>
 </header>

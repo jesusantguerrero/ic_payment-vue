@@ -7,10 +7,31 @@
       <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span>        contratos</div>
       <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span>        clientes activos</div>
     </div>
-    <h4>Ingresos Este Año: RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></h4>
-    <div class="wide-chart">
-      <canvas class="graphics chart" id="mychart"></canvas>
+    <!-- main tab -->
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Ingresos Este Año: RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></a></li>
+        <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Pagos</a></li>
+        <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Balance</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ingresos">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="mychart"></canvas>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pagos">...</div>
+        <div role="tabpanel" class="tab-pane" id="balance">...</div>
+      </div>
+
     </div>
+
+    <!-- end of main tab-->
+
   </div>
   <div class="col-md-3 right-panel">
     <div>

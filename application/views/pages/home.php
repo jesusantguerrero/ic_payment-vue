@@ -54,7 +54,7 @@
                     <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Lista de Deudores</h3>
                     <div class="placeholder-icon"><i class="material-icons icon-placeholder">money_off</i></div>
                     <div class="list-nextpayments">
-                        <?php $this->payment_model->get_moras_view(); ?>
+                        <?php $this->payment_model->get_moras_home(); ?>
                     </div>
                     <div class="centered-container-small">
                         <button class="btn btn-remark search-client">Buscar Cliente</button>

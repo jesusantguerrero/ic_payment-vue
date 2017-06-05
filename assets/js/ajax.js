@@ -614,7 +614,7 @@ function addNewContract(){
     form += "&duracion=" + duration + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
     form += "&mensualidad="+ payment+ "&proximo_pago="+nextPayment+"&estado=activo&tabla=contratos";
     form += "&nombre_equipo="+ equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;   
-    connectAndSend("process/add",true,initClientHandlers,null,form,null);    
+    connectAndSend("process/add",true,initClientHandlers,null,form,contractSaved);    
   }else{
     alert("LLene los campos requeridos por favor");
   }
@@ -626,16 +626,11 @@ function extendContract(idContrato){
   connectAndSend("process/extend",true,initContractHandlers,null,form,null);    
 }
 
-function getLastContract(){
-  form = "toget=lastcontract"
-  connectAndSend("process/getId",false,initContractHandlers,contractSaved,null);  
-}
 
 function contractSaved(id){
   $("#btn-save-contract").attr("disabled","");
   $("#btn-print-contract").removeAttr("disabled");
   $("#btn-print-contract").attr("href","");
-  alert(id)
 }
 
 function getContracts(dni){

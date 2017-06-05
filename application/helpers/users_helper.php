@@ -241,8 +241,9 @@ if ( ! function_exists('make_payment_table')){
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$line['concepto']."</td>
-        <td>RD$ ".CurrencyFormat($line['cuota'])."</td>`
+        <td>RD$ ".CurrencyFormat($line['cuota'])."</td>
         <td>RD$ ".CurrencyFormat($line['mora'])."</td>
+        <td>RD$ ".CurrencyFormat($line['monto_extra'])."</td>
         <td>RD$ ".CurrencyFormat($line['total'])."</td>
         <td>".$line['fecha_pago']."</td>
         <td class='td-estado'>".$line['estado']."</td>

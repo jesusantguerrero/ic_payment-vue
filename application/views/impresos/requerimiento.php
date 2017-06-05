@@ -1,7 +1,3 @@
-<?php 
-  $reporte = get_report();
-?>
-
 <div class="document-body">
   <div class="cabecera">
     <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
@@ -78,8 +74,6 @@
 
 
 </div>
-<footer class="pie-pagina">
-</footer>
 
 
 <div class="document-body">
