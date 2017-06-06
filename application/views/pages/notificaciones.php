@@ -25,7 +25,13 @@
          </div>
           <?php $this->report_model->get_installations(); ?>
         </div>
-        <div role="tabpanel" class="tab-pane" id="balance">...</div>
+        <div role="tabpanel" class="tab-pane" id="balance">
+          <div class="instalation-controls">
+           <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn btn-large btn-block btn-default">Imprimir Reporte</a>
+         </div>
+          <?php $this->report_model->get_moras_view() ?>
+        </div>
+        </div>
       </div>
 
     </div>

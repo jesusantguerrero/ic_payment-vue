@@ -42,7 +42,7 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function get_contracts_paginate($offset,$perpage){
-    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
+    $sql = get_last_query()." ORDER BY id_contrato LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     if($result){
       $result = make_main_contract_table($result->result_array(),$offset);

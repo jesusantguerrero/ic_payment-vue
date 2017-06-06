@@ -307,13 +307,15 @@ function replaceClass($object,oldClass,newClass){
    $object.removeClass(oldClass)
 }
 
-function deleteValidation($inputElement,comparedText,$buttonToActive){
+function deleteValidation($inputElement,$buttonToActive){
   var innerText;
   $inputElement.on("keyup",function(e){
     e.stopImmediatePropagation();
     innerText = $(this).val() 
+    var text = $('tr.selected').find(".th-client").text().trim();
+    console.log('texto:' + innerText + " = " + text);
     
-    if(innerText == comparedText){
+    if(innerText == text){
       $buttonToActive.removeAttr("disabled");
 
     }else{

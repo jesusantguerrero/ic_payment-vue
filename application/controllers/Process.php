@@ -233,6 +233,14 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
+	public function getrequirements($client_id){
+		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
+		$contract_id = $this->contract_model->get_last_id();
+		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
+		$this->session->set_flashdata('requirement_info', $requirement_info);
+		redirect(base_url('app/imprimir/requerimiento'));
+	}
+
 	public function getreport($table,$type){
 		switch ($table) {
 			case 'payment':

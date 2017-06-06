@@ -139,7 +139,7 @@
 
       <div class="row-container">
         <button class="btn" id="btn-save-contract" tabindex="7">Guardar</button>
-        <button class="btn" id="btn-print-contract" disabled>Imprimir</button>
+        <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
       <a href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>">Ver Ficha de Pago</a>
     </div>

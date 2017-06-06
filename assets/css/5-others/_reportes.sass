@@ -13,6 +13,8 @@ body
     border: none
     border-bottom: 1px dashed
     box-shadow: none
+    font-family: 'Times New Roman', Times, serif
+    height: 28px
     &.sm
       width: 100px
     &.lg
@@ -20,7 +22,7 @@ body
 
   .form-group.print
     +makeFlex(100%,row,flex-start,baseline)
-    height: 34px
+    height: 28px
     flex-wrap: nowrap
     
     label
@@ -28,13 +30,12 @@ body
       max-height: 28px
       display: flex
       max-width: max-content
-      
-      
+      &.large
+        width: 300px
 
     [type="checkbox"]
       margin: 0 10px
       background: white
-      
 
   .cuerpo
     margin: 0 0 0 0
@@ -77,6 +78,16 @@ body
     width: 336.22px
     span
       color: $contrast-color !important
+  .text-main
+    &.large
+      width: 300px
+    &.normal
+      width: fit-content
+  .t-center
+    text-align: center
+  h4
+    margin-bottom: 20px
+  
 
 @media print
   body

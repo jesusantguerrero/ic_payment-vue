@@ -196,8 +196,13 @@ class Contract_model extends CI_MODEL{
     $sql3 = "SELECT * FROM contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
     $sql4 = " UPDATE clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
     
-    $estado = $this->db->query($sql0)->row_array()['estado'];
-    if($estado == 'activo'){
+    
+    $this->db->select('estado');
+    $this->db->where('id_contrato',$data_contrato['id_contrato']);
+    $estado = $this->db->get('contratos')->row_array()['estado'];
+    if($estado != 'activo'){
+      echo MESSAGE_INFO." Este contrato ya ha sido cancelado o Saldado";
+    }else{
       $this->db->trans_start();
       $this->db->query($sql1);
       $this->db->query($sql2);
@@ -213,9 +218,7 @@ class Contract_model extends CI_MODEL{
         if($has_contracts == 0){
           $this->db->query($sql4);
         }     
-    }
-    }else{
-      echo MESSAGE_INFO." Este contrato ya ha sido cancelado";
+      }
     }
     
   }

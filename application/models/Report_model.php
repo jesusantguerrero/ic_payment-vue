@@ -45,5 +45,22 @@ class Report_model extends CI_MODEL{
     }
   }
 
+  public function get_moras_view($is_print = false){
+    $result = $this->db->get('v_morosos');
+    if($result){
+      $result = $result->result_array();
+      echo make_moras_report($result,"Clientes con Moras",$this,$is_print);
+    }
+  }
+
+  public function count_moras_view(){
+    $result = $this->db->count_all('v_morosos');
+    if($result){
+     return $result;
+    }else{
+      return 0;
+    }
+  }
+
   
 }

@@ -111,6 +111,42 @@ if ( ! function_exists('make_installation_report')){
   }
 }
 
+if ( ! function_exists('make_moras_report')){
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  * @param boolean true para imprimir y false para no imprimir xD
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_moras_report($data,$concept,$context,$for_print){
+    $cont = 0 + 1;
+    $context->table->set_heading("Contrato","Cliente","celular","cuota","monto_extra","total","Fecha Limite"); 
+
+    foreach ($data as $line) {
+      $context->table->add_row(
+      $line['id_contrato'],
+      $line['cliente'],
+      $line['celular'],
+      "RD$ ".CurrencyFormat($line['cuota']),
+      "RD$ ".CurrencyFormat($line['monto_extra']),
+      "RD$ ".CurrencyFormat($line['total']),
+      $line['fecha_limite']
+      );
+
+     $cont+=1;
+    }
+
+    $html_text = $context->table->generate();
+    if($for_print):
+      set_report($html_text,$concept,$more);
+    else:
+      return $html_text;
+    endif;
+  }
+}
+
 if( ! function_exists('set_report')){
   function set_report($report_body,$concept,$more,$context){
      $_SESSION['reporte'] = array('cuerpo' => $report_body, 'concepto' => $concept, 'mas' => $more);

@@ -136,22 +136,20 @@ function update_moras($context){
 			prepare_moras($data,$context,$settings);
 		}
     $result = $context->settings_model->update('last_check_moras',$today);
-  }
-  
-		 
+  }	 
 }
 
 function prepare_moras($data,$context,$settings){
-  foreach ($data as $line) {
-    $fecha = date($line['fecha_limite']);
-    $cuota = $line['cuota'];
-    $mora = $line['mora'];
-    $monto_extra = $line['monto_extra'];
-    $total = $line['total'];
-    $mora = $settings['cargo_mora'];
+
+  foreach ($data as $pago) {
+    $fecha = date($pago['fecha_limite']);
+    $cuota = $pago['cuota'];
+    $monto_extra = $pago['monto_extra'];
+    $total = $pago['total'];
+    $mora =   ($settings['cargo_mora'] / 100) * $pago['cuota'];
     $total = $cuota + $monto_extra + $mora;
     $updated_data = array(
-      'id_pago' => $line['id_pago'],
+      'id_pago' => $pago['id_pago'],
       'mora'    => $mora,
       'total'   => $total
     );

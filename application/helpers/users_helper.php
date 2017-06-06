@@ -61,6 +61,7 @@ if( !function_exists('get_user_data')){
 
       $user['fullname'] = $fullname;
       $user['typestr'] = $type;
+      $user['password'] = '';
 
       return $user;
     }

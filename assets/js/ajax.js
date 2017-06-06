@@ -222,17 +222,21 @@ function initContractHandlers(){
 
     if($row != undefined){
       $(".cancel-name").text(cells.eq(1).text());
+      console.log("El nombre a borrar es este " + cells.eq(1).text());
+      
       var $inputElement = $(".confirmed-data");
       var $buttonToActive = $("#cancel-permanently");
-      var text = $row.find(".th-client").text().trim();
       var contractId = $row.find(".id_contrato").text().trim();
       var clientId = $row.find(".th-client").attr("data-id-cliente");
-      deleteValidation($inputElement,text,$buttonToActive);
+      deleteValidation($inputElement,$buttonToActive);
 
       $("#cancel-contract-modal").modal();
       $buttonToActive.on('click',function(){
         cancelContract(contractId,clientId);
       })
+
+      $inputElement.val('');
+      $buttonToActive.attr('disabled','');
     }
     
   });
@@ -673,7 +677,6 @@ function extendContract(idContrato){
 function contractSaved(id){
   $("#btn-save-contract").attr("disabled","");
   $("#btn-print-contract").removeAttr("disabled");
-  $("#btn-print-contract").attr("href","");
 }
 
 function callExtra(){

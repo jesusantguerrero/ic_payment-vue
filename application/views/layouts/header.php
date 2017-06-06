@@ -20,7 +20,9 @@
 
 </head>
 <header>
-    <?php $user_data = get_user_data(); ?>
+    <?php $user_data = get_user_data(); 
+          $notifications = $this->report_model->count_moras_view();
+    ?>
 
     <div class="header-low">
         <div class="brand">
@@ -40,7 +42,10 @@
                 <li class="navButton">
                     <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
                         <i class="material-icons">notifications</i>
-                    </a> <span class="badge">4</span></li>
+                    </a> <?php if ($notifications > 0): ?> 
+                        <span class="badge"><?php echo $notifications ;?></span>
+                        <?php endif; ?>
+                    </li>
                 <li class="navButton">
                     <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Caja Chica">
                         <i class="material-icons">add_shopping_cart</i>
