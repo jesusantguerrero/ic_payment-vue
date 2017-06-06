@@ -154,6 +154,7 @@ function fillClientFields(response,callback){
   }
 }
 
+
 /**
  * isEmpty
  * Verifica si los valores dados estan vacios o son nulos 
@@ -168,14 +169,11 @@ function isEmpty(values,is_num){
   }
   return false;
 }
-
-
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     Pagination Related Funtions                                             |
 // |                                                                                                                             |
 // +-----------------------------------------------------------------------------------------------------------------------------+
 //
-
 /**
  * get Pagination Data: Devuelve la información del pie de la tabla relacionada con la paginación
  * @param {string} tableId 
@@ -269,8 +267,6 @@ function initPagination(tableId,serverTable,paginate){
 function updateCount($content){
   $(".total-rows").html($content);
 }
-
-
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     User passwords validations                                              |
 // |                                                                                                                             |

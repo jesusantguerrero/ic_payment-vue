@@ -18,8 +18,6 @@ class App extends CI_Controller {
 		$this->load->helper(array('report','payment'));
 		
 		update_moras($this);
-		
-		
 	}
 
 	public function index(){

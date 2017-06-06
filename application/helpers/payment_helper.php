@@ -133,7 +133,7 @@ function update_moras($context){
   if($next_check == $today){
     $data = $context->payment_model->get_moras_view();
     if($data){
-			prepare_moras($data,$context);
+			prepare_moras($data,$context,$settings);
 		}
     $result = $context->settings_model->update('last_check_moras',$today);
   }
@@ -141,7 +141,7 @@ function update_moras($context){
 		 
 }
 
-function prepare_moras($data,$context){
+function prepare_moras($data,$context,$settings){
   foreach ($data as $line) {
     $fecha = date($line['fecha_limite']);
     $cuota = $line['cuota'];
@@ -155,7 +155,8 @@ function prepare_moras($data,$context){
       'mora'    => $mora,
       'total'   => $total
     );
-    $context->payment_model->update_moras($updated_data);
+    $result = $context->payment_model->update_moras($updated_data);
+    
   }
 }
 

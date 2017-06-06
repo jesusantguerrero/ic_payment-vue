@@ -8,7 +8,6 @@ $("#btn-update-settings").on('click',function(e){
 *                     Extra Functions                            
 *                                                       *
 ********************************************************/
-
 $("#extra-controls").on('click',function(){
   btnExtraPressed($(this));
 });
@@ -69,7 +68,6 @@ function addExtra(){
   router            = $("#extra-router").val();
   rMac              = $("#extra-r-mac").val();
   
-  
   var is_empty = isEmpty([contractId,extraService,serviceCost, equipment,eMac,router,rMac]);
   if(!is_empty){
      form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
@@ -79,7 +77,6 @@ function addExtra(){
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }
 }
-
 function extendContract(){
   var form, contractId,duration;
   contractId        = $("#extra-client-contract").val();
@@ -93,9 +90,6 @@ function extendContract(){
     alert("asegurate de llenar todos los datos y seleccionar el servicio");
   }
 }
-
-
-
 
 /********************************************************
 *                 empresa y settings                            
@@ -117,7 +111,6 @@ function updateSettings(){
   form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&apertura_caja=' + settingsAperturaCaja;
   form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;
   form += '&tabla=settings';
-
   connectAndSend('process/update',true,null,null,form,null);  
 }
 });

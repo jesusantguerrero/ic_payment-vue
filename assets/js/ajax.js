@@ -519,7 +519,6 @@ function addAveria(){
   if(!is_empty){   
     form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
     connectAndSend("process/add",true,initClientHandlers,null,form,null);
-
   }else{
     alert("LLene los campos requeridos por favor");
   }
