@@ -226,13 +226,11 @@ function initContractHandlers(){
       
       var $inputElement = $(".confirmed-data");
       var $buttonToActive = $("#cancel-permanently");
-      var contractId = $row.find(".id_contrato").text().trim();
-      var clientId = $row.find(".th-client").attr("data-id-cliente");
       deleteValidation($inputElement,$buttonToActive);
 
       $("#cancel-contract-modal").modal();
       $buttonToActive.on('click',function(){
-        cancelContract(contractId,clientId);
+        cancelContract();
       })
 
       $inputElement.val('');
@@ -673,6 +671,11 @@ function extendContract(idContrato){
   connectAndSend("process/extend",true,initContractHandlers,null,form,null);    
 }
 
+function getContractsLastPage(){
+  var form = "tabla=contratos";
+  connectAndSend('process/lastpage',false,initContractHandlers,fillCurrentTable,form,null); 
+}
+
 
 function contractSaved(id){
   $("#btn-save-contract").attr("disabled","");
@@ -695,13 +698,16 @@ function callExtra(){
 
 }
 
-function cancelContract(contractId,clientId){
+function cancelContract(d){
+  var $row = $("tr.selected");
+  var contractId = $row.find(".id_contrato").text().trim();
+  var clientId = $row.find(".th-client").attr("data-id-cliente");
   var form,fecha;
 
   fecha = moment().format("YYYY-MM-DD");
   
   form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-  connectAndSend('process/cancel',true,null,null,form,null)
+  connectAndSend('process/cancel',true,null,null,form,getContractsLastPage)
 }
 
 /********************************************************

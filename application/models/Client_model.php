@@ -17,7 +17,7 @@ class Client_model extends CI_MODEL{
   public function __construct(){
     parent::__construct();
     $this->load->database();
-    $this->load->helper('users_helper');
+    $this->load->helper('lib_helper');
   }
 
   /**

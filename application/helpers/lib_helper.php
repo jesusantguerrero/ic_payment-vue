@@ -7,8 +7,6 @@
 *
 */
 
-$client_details;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('make_table')){

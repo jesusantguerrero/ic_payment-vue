@@ -120,6 +120,9 @@ class Process extends CI_Controller {
 			case "clientes":
 				$this->client_model->last_page();
 				break;
+			case "contratos":
+				$this->contract_view_model->last_page();
+				break;
 
 		}
 
@@ -249,6 +252,10 @@ class Process extends CI_Controller {
 				break;
 			case 'installations':
 					$this->report_model->get_installations(null,true);
+					redirect(base_url('app/imprimir/reporte'));
+				break;
+			case 'deudores':
+					$this->report_model->get_moras_view(true);
 					redirect(base_url('app/imprimir/reporte'));
 				break;
 			
