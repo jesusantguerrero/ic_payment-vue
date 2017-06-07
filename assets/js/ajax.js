@@ -37,6 +37,7 @@ switch (currentPage) {
   default:
     break;
 }
+initCajaHandlers();
 
 //***************************************************     Init Handlers          ***************************** */
 function initHandlers(){
@@ -80,6 +81,18 @@ function initHandlers(){
   });
  
 }
+//***************************************************     Init caja          ***************************** */
+function initCajaHandlers(){
+  initPagination("#caja","caja",paginate);
+  count_table('caja');
+  var btnAddMoney = $("#btn-add-money");
+
+  btnAddMoney.on('click',function(e){
+    e.stopImmediatePropagation();
+    addAmount();
+  })
+}
+
 //***************************************************  Init client Handlers      ***************************** */
 function initClientHandlers(){
   count_table("clientes");
@@ -343,7 +356,9 @@ function deleteUser(id){
 
 function count_table(table){
   var form = "tabla=" + table;
-  connectAndSend('process/count',false,null,updateCount,form,null);
+  var updateFunction = updateCount;
+  if('caja') updateFunction = updateCajaCount
+  connectAndSend('process/count',false,null,updateFunction,form,null);
 }
 
 // ******************* Company Crud *************************
@@ -359,7 +374,7 @@ function updateCompanyData(){
 
 function addNewClient(){
   
-  var form,response, result, nombres,apellidos,cedula,celular,provincia,sector,calle,casa,telefono,
+  var form, nombres,apellidos,cedula,celular,provincia,sector,calle,casa,telefono,
       lugarTrabajo,telTrabajo,ingresos,fechaRegistro,estado;
 
   nombres        = $("#client-name").val();
@@ -557,6 +572,7 @@ function paginate(offset,perpage,tableName){
   if(tableName != "users"){
     path = "process/";
   }
+  tableFill = fillCurrentTable;
   
   switch (tableName) {
     case "users":
@@ -574,11 +590,15 @@ function paginate(offset,perpage,tableName){
     case "pagos_por_contrato":
       handlers = initPaymentsHandlers;
       break;
+    case "caja":
+      handlers = initCajaHandlers;
+      tableFill = fillCajaTable
+      break;
     default:
       break;
   }
   var form = "table="+ tableName +"&offset="+offset+"&perpage="+perpage;
-  connectAndSend(path+'paginate',false,handlers,fillCurrentTable,form,null);
+  connectAndSend(path+'paginate',false,handlers,tableFill,form,null);
 }
 
 
@@ -764,7 +784,34 @@ function updatePayment(id){
 //   var form = "tabla=v_pagos_pendientes";
 //   connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
 // }
+
+
+/********************************************************
+*                   Caja Chica                           
+*                                                       *
+********************************************************/
+
+function addAmount(){
+  var form ,amount, description,is_empty;
+
+  amount = $("#caja-a-amount").val();
+  description = $("#caja-a-description").val();
+  form = "entrada=" + amount + "&descripcion=" + description + "&tabla=caja";
+  is_empty = isEmpty([amount, description]);
+  if(!is_empty){
+     connectAndSend('process/add',true,initCajaHandlers,null,form,getCajaLastPage);
+  }else{
+    alert("Asegurese de llenar todos los campos");
+  }
+}
+
+function getCajaLastPage(){
+  var form = "tabla=caja";
+  connectAndSend('process/lastpage',false,initCajaHandlers,fillCajaTable,form,null); 
+}
 });
+
+
 
 
 

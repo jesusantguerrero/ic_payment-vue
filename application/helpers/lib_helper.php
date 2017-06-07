@@ -180,6 +180,26 @@ if ( ! function_exists('make_main_contract_table')){
   }
 }
 
+if ( ! function_exists('make_caja_table')){
+
+  function make_caja_table($data){
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $html_text .= "<tr>
+        <td>".$line['id']."</td>
+        <td>".$line['fecha']."</td>
+        <td>".$line['descripcion']."</td>
+        <td>RD$ ".CurrencyFormat($line['entrada'])."</td>
+        <td>RD$ ".CurrencyFormat($line['salida'])."</td>
+        <td>RD$ ".CurrencyFormat($line['saldo_actual'])."</td>
+        <td>".$line['autor']."</td>
+      </tr>";
+    }
+
+    return $html_text;
+  }
+}
+
 function make_contract_dropdown($data){
     $html_text = " "; 
     foreach ($data as $line) {

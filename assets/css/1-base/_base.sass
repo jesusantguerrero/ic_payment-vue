@@ -105,6 +105,8 @@ nav
   +size(95%,38px)
   margin: 0 2.5% 10px 2.5%
   position: relative
+  display: flex
+  overflow: hidden
 
   &:after
     content: 'Buscar \276F'
@@ -118,6 +120,11 @@ nav
     font-size: 20px
     background: $contrast-color
     border-radius: 0 4px 4px 0
+
+  .btn
+    height: 100%
+    width: max-content
+    +makeFlex(max-content,row,center,center)
 
 .searcher
   +size(100%,100%)
@@ -171,6 +178,10 @@ select
   top: 5px
   left: -110%
   height: 80vh
+
+  .searcher-container
+    margin: 0 0 20px 0
+
 
 form
   margin-top: 20px

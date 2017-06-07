@@ -4,6 +4,7 @@ $("#btn-update-settings").on('click',function(e){
   updateSettings();
 });
 
+
 /********************************************************
 *                     Extra Functions                            
 *                                                       *
@@ -113,4 +114,6 @@ function updateSettings(){
   form += '&tabla=settings';
   connectAndSend('process/update',true,null,null,form,null);  
 }
+
+
 });

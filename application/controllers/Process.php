@@ -15,6 +15,7 @@ class Process extends CI_Controller {
 		$this->load->model("report_model");
 		$this->load->model("settings_model");
 		$this->load->model("averia_model");
+		$this->load->model("caja_chica_model");
 		$this->load->helper(array('report','payment'));
 	}
 
@@ -32,7 +33,7 @@ class Process extends CI_Controller {
 				$this->averia_model->add($data);
 				break;
 			case "caja":
-				$this->caja_model->add($data);
+				$this->caja_chica_model->add_money($data);
 				break;
 			case "contratos":
 				 $this->db->trans_start();
@@ -123,6 +124,9 @@ class Process extends CI_Controller {
 			case "contratos":
 				$this->contract_view_model->last_page();
 				break;
+			case "caja":
+				$this->caja_chica_model->last_page();
+				break;
 
 		}
 
@@ -161,6 +165,9 @@ class Process extends CI_Controller {
 			case "pagos_por_contrato":
 				$this->payment_model->get_payments_paginate($offset,$perpage);
 			break;
+			case "caja":
+				$this->caja_chica_model->paginate($offset,$perpage);
+			break;
 		}
 	}
 
@@ -198,6 +205,8 @@ class Process extends CI_Controller {
 				break;
 			case 'pagos_por_contratos':
 				$this->payment_model->count_per_contract();
+			case 'caja':
+				$this->caja_chica_model->count();
 			default:
 				# code...
 				break;

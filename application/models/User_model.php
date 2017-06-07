@@ -64,10 +64,15 @@ class User_model extends CI_MODEL{
   }
 
   public function update_user($data){
-    $sql = "UPDATE ic_users SET name ='".$data['name']."', lastname ='".$data['lastname']."',";
-    $sql .= " dni ='".$data['dni']."', type=".$data['type']." WHERE nickname ='".$data['nickname']."'";
-
-    if($result = $this->db->query($sql)){
+    $data_for_update = array(
+      'name' => $data['name'],
+      'lastname' => $data['lastname'],
+      'dni' => $data['dni'],
+      'type' => $data['type']
+    );
+    $this->db->where('nickname',$data['nickname']);
+    $result = $this->db->update('ic_users',$data_for_update);
+    if($result){
       echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
     }else{
      echo MESSAGE_ERROR." No pudo guardarse el usuario " . $sql;
@@ -90,35 +95,42 @@ class User_model extends CI_MODEL{
     $sql = "SELECT * FROM ic_users LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     $result = make_table($result->result_array(),$offset);
-    echo "hola";
+    echo $result;
   }
   
   public function get_user($id){
     $sql = "SELECT * FROM ic_users WHERE user_id=". $id;
-    if($this->db->query($sql)){
-      echo MESSAGE_SUCCESS." Usuario Eliminado";
+    $this->db->where('user_id',$id);
+    $result =$this->db->get('users',1);
+    if($result){
+     return $result->row_array();
     }  
   }
 
   public function delete_user($id){
-    $sql = "DELETE FROM ic_users WHERE user_id=". $id;
-    if($this->db->query($sql)){
+    $this->db->where('user_id',$id);
+    $result = $this->db->delete('ic_users');
+    if($result){
       echo MESSAGE_SUCCESS." Usuario Eliminado";
-    }  
+    }else{
+      echo MESSAGE_ERROR." El Usuario No Pudo Ser Eliminado";
+    }
   }
 
   public function login($nickname,$password){
     $respuesta;
     $sql = "SELECT * FROM ic_users where nickname = '$nickname' limit 1";
-    $result = $this->db->query($sql);
-    $result =$result->row_array();
+    $this->db->where('nickname',$nickname);
+    $result = $this->db->get('ic_users',1);
+
     if($result != false){
-     if(password_verify($password,$result['password'])){
+      $result = $result->row_array();
+      if(password_verify($password,$result['password'])){
         $_SESSION['user_data'] = $result;
         $_SESSION['lastquery'] = "Select * from ic_clientes";
         return true;
       }
-        return false;
+      return false;
     }else{
      return false;
     }

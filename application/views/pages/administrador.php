@@ -3,7 +3,7 @@
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
-      <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
+      <li class="aside-buttons"><a href="#caja-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
       <li class="aside-buttons"><a href="#settings-section"><i class="material-icons">settings</i> Ajustes</a></li>
     </ul>
   </div>
@@ -117,6 +117,60 @@
 
         </table>
       </div>
+
+    <!-- ******************************
+      *     Sección de los usuarios   *
+      *                               *
+    ********************************-->
+
+      <div class="company-details" id="caja-section">
+        <h3> Caja Chica </h3>
+        <div class="searcher-container">
+          <button class="btn"><i class="material-icons">remove</i></button>
+          <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons">add</i></button>
+          <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+        </div>
+
+        <table class="table caja" id="caja">
+          <thead>
+            <tr>
+              <th>COD</th>
+              <th>Fecha de Trasaccion</th>
+              <th>Descripcion</th>
+              <th>Ingreso</th>
+              <th>Salida</th>
+              <th>Saldo de Caja</th>
+              <th>Hecha Por</th>
+            </tr>
+          </thead>
+            <tbody> <?php $this->caja_chica_model->get_rows(); ?></tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Filas Por Pagina</td>
+                <td>
+                  <select name="perpage" id="per-page" class="per-page">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>  
+                  </select>
+
+                </td>
+                <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> 
+                  de <span class="total-rows"><?php $this->caja_chica_model->count(); ?></span></td>
+                <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
+
+              </tr>
+
+            </tfoot>
+
+        </table>
+      </div>
+
+      
 
 
     <!-- ******************************

@@ -101,6 +101,14 @@ function fillCurrentTable($content,callback,tableID){
 function fillClientTable($content,callback){
   fillCurrentTable($content,callback,"t-clients");
 }
+
+/**
+ * Llena la tabla caja utilizando la funcion fillCurrentTable pasandole la tabla clientes como valor
+ * @return {void}
+ */
+function fillCajaTable($content,callback){
+  fillCurrentTable($content,callback,"caja");
+}
 /**
  * Llena la Lista de pagos/notificaciones con los datos que vienen del servidor
  * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
@@ -266,6 +274,10 @@ function initPagination(tableId,serverTable,paginate){
 
 function updateCount($content){
   $(".total-rows").html($content);
+}
+
+function updateCajaCount($content){
+  $("#caja .total-rows").html($content);
 }
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     User passwords validations                                              |

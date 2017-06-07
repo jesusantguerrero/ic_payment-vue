@@ -36,6 +36,7 @@
             <li class="navButton"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
             <li class="navButton"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
             <li class="navButton"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
+            <li class="navButton"><a class="<?php if($title == 'caja') echo " active "?>" href="<?php echo base_url('app/admin/caja') ?>">Caja</a></li>
         </nav>
         <div class="user-div">
             <nav class="user-controls">
