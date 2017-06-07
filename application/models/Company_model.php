@@ -34,7 +34,7 @@ class Company_model extends CI_MODEL{
       'telefonos'   => data['telefonos']
     );
     $this->db->where('id_empresa',$data['id_empresa']);
-    $result = $this->db->update('empresa',$rows);
+    $result = $this->db->update('ic_empresa',$rows);
     if($result){
       echo MESSAGE_SUCCESS."Actualizado con exito";
     }else{
@@ -43,8 +43,7 @@ class Company_model extends CI_MODEL{
   }
 
   public function get_empresa(){
-    $sql = "SELECT * FROM empresa limit 1";
-    $result = $this->db->query($sql);
+    $result = $this->db->get('ic_empresa',1);
     return $result->row_array();
   }
 

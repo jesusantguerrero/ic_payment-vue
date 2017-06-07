@@ -48,13 +48,13 @@ class User_model extends CI_MODEL{
 
   public function add_new_user($data){
     $this->organize_data($data,"normal");
-    $result = $this->db->query("SELECT * FROM users WHERE nickname = '". $this->nickname . "'");
+    $result = $this->db->query("SELECT * FROM ic_users WHERE nickname = '". $this->nickname . "'");
     $result = $result->result_array();
     $result = count($result);
     if($result){
       echo MESSAGE_ERROR." Este nombre de usuario ya está registrado";
     }else{
-      if($this->db->insert('users',$this)){
+      if($this->db->insert('ic_users',$this)){
         echo MESSAGE_SUCCESS." Usuario agregado con exito";
       }else{
        echo "No pudo guardarse el usuario";
@@ -64,7 +64,7 @@ class User_model extends CI_MODEL{
   }
 
   public function update_user($data){
-    $sql = "UPDATE users SET name ='".$data['name']."', lastname ='".$data['lastname']."',";
+    $sql = "UPDATE ic_users SET name ='".$data['name']."', lastname ='".$data['lastname']."',";
     $sql .= " dni ='".$data['dni']."', type=".$data['type']." WHERE nickname ='".$data['nickname']."'";
 
     if($result = $this->db->query($sql)){
@@ -75,33 +75,33 @@ class User_model extends CI_MODEL{
   }
 
   public function get_all_users(){
-    $sql = "SELECT * FROM users LIMIT 5";
+    $sql = "SELECT * FROM ic_users LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_table($result->result_array(),0);
     echo $result;
   }
 
   public function count_users(){
-    $result = $this->db->count_all("users");
+    $result = $this->db->count_all("ic_users");
     echo $result;
   }
 
   public function get_users_paginate($offset,$perpage){
-    $sql = "SELECT * FROM users LIMIT ".$offset.", ".$perpage;
+    $sql = "SELECT * FROM ic_users LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     $result = make_table($result->result_array(),$offset);
     echo "hola";
   }
   
   public function get_user($id){
-    $sql = "SELECT * FROM users WHERE user_id=". $id;
+    $sql = "SELECT * FROM ic_users WHERE user_id=". $id;
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Usuario Eliminado";
     }  
   }
 
   public function delete_user($id){
-    $sql = "DELETE FROM users WHERE user_id=". $id;
+    $sql = "DELETE FROM ic_users WHERE user_id=". $id;
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Usuario Eliminado";
     }  
@@ -109,7 +109,7 @@ class User_model extends CI_MODEL{
 
   public function login($nickname,$password){
     $respuesta;
-    $sql = "SELECT * FROM users where nickname = '$nickname' limit 1";
+    $sql = "SELECT * FROM ic_users where nickname = '$nickname' limit 1";
     $result = $this->db->query($sql);
     $result =$result->row_array();
     if($result != false){

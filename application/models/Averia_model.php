@@ -29,17 +29,10 @@ class Averia_model extends CI_MODEL{
       'fecha'       => null,
       'estado'      => 'por reparar',
     );
-    if($this->db->insert('averias',$rows)){
+    if($this->db->insert('ic_averias',$rows)){
       echo MESSAGE_SUCCESS."Averia Guardada";
     }else{
       echo MESSAGE_ERROR."error". $this->db->last_query();
     }  
   }
-
-  public function get_empresa(){
-    $sql = "SELECT * FROM empresa limit 1";
-    $result = $this->db->query($sql);
-    return $result->row_array();
-  }
-
 }

@@ -55,7 +55,7 @@ class Payment_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data,"normal");
-      if($this->db->insert('pagos',$this)){
+      if($this->db->insert('ic_pagos',$this)){
         
       }else{
         echo $this->db->last_query();
@@ -63,7 +63,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function check_for_update($data){
-    $sql = "SELECT estado from pagos where id_pago =".$data['id'];
+    $sql = "SELECT estado from ic_pagos where id_pago =".$data['id'];
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){
@@ -75,7 +75,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_next_payment_of($id_contrato){
-    $sql = "SELECT * FROM pagos WHERE id_contrato = $id_contrato AND estado='no pagado' order by id_pago limit 1";
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato AND estado='no pagado' order by id_pago limit 1";
     $result = $this->db->query($sql);
     if($result){
       return $result->row_array();
@@ -87,7 +87,7 @@ class Payment_model extends CI_MODEL{
   public function count_per_contract(){
     $id_contrato = get_from_session();
     $this->db->where('id_contrato',$id_contrato);
-    $result = $this->db->count_all_results('pagos');
+    $result = $this->db->count_all_results('ic_pagos');
     if($result){
       echo $result;
     }else{
@@ -98,7 +98,7 @@ class Payment_model extends CI_MODEL{
   public function count_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
     $this->db->where('estado','no pagado');
-    $result = $this->db->count_all_results('pagos');
+    $result = $this->db->count_all_results('ic_pagos');
     if($result){
       return $result;
     }else{
@@ -108,7 +108,7 @@ class Payment_model extends CI_MODEL{
 
   public function count_of_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
-    $result = $this->db->count_all_results('pagos');
+    $result = $this->db->count_all_results('ic_pagos');
     if($result){
       return $result;
     }else{
@@ -117,7 +117,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_last_pay_of($id_contrato){
-    $sql = "SELECT * FROM pagos WHERE id_contrato = $id_contrato order by id_pago desc limit 1";
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato order by id_pago desc limit 1";
     $result = $this->db->query($sql);
     if($result){
       return $result->row_array();
@@ -127,7 +127,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_all_of_contract($id){
-    $sql = "SELECT * FROM pagos WHERE id_contrato = $id";
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
     set_last_query($sql);
     $sql .= " Limit 5";
     set_last_page($sql);
@@ -163,7 +163,7 @@ class Payment_model extends CI_MODEL{
 
 
   public function year_income(){
-    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
     $result = $this->db->query($sql);
     $result = $result->row_array()['sum(total)'];
     if($result){
@@ -174,7 +174,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function month_income($mes){
-    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){
@@ -185,7 +185,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function day_income(){
-    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and day(fecha_pago)=day(now())";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and day(fecha_pago)=day(now())";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){
@@ -196,7 +196,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function weekday_income($day){
-    $sql = "SELECT sum(total) FROM pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and week(fecha_pago) = week(now())";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and week(fecha_pago) = week(now())";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){
@@ -213,7 +213,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function update_moras($updated_data){
-    $sql = " UPDATE pagos SET mora ='".$updated_data['mora']."',total ='".$updated_data['total']."'";
+    $sql = " UPDATE ic_pagos SET mora ='".$updated_data['mora']."',total ='".$updated_data['total']."'";
     $sql .= "WHERE id_pago=".$updated_data['id_pago'];
     if($this->db->query($sql)){
     }else{

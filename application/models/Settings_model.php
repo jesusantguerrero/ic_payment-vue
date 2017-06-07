@@ -20,7 +20,7 @@ class Settings_model extends CI_MODEL{
 
 
   public function update($col_name,$data){
-    $sql = "UPDATE settings SET $col_name ='".$data."'";
+    $sql = "UPDATE ic_settings SET $col_name ='".$data."'";
     if($col_name == "last_check_moras")
       $sql .= ", next_check= DATE_ADD('".$data."', INTERVAL 1 DAY) WHERE id=1";
 
@@ -32,7 +32,7 @@ class Settings_model extends CI_MODEL{
   }
 
   public function get_settings(){
-    $sql = "SELECT * FROM settings limit 1";
+    $sql = "SELECT * FROM ic_settings limit 1";
     $result = $this->db->query($sql);
     return $result->row_array();
   }
@@ -46,7 +46,7 @@ class Settings_model extends CI_MODEL{
       'meses_por_defecto'          => $settings['meses_por_defecto']
     );
     $this->db->where('id',1);
-    $result = $this->db->update('settings',$rows);
+    $result = $this->db->update('ic_settings',$rows);
     if($result){
       echo MESSAGE_SUCCESS."Actualizado con exito";
     }else{

@@ -64,7 +64,7 @@ class Contract_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data,"normal");
-      if($this->db->insert('contratos',$this)){
+      if($this->db->insert('ic_contratos',$this)){
          echo MESSAGE_SUCCESS." Nuevo contrato agregado con exito";
          return true;
       }else{
@@ -78,7 +78,7 @@ class Contract_model extends CI_MODEL{
   public function update($data_for_update,$contract_id){
    
     $this->db->where('id_contrato',$contract_id);
-    if($this->db->update('contratos',$data_for_update)):
+    if($this->db->update('ic_contratos',$data_for_update)):
       return true;
     else:
       return false;
@@ -87,13 +87,13 @@ class Contract_model extends CI_MODEL{
   } 
 
   public function get_last_id(){
-    $sql = "SELECT id_contrato FROM contratos ORDER BY id_contrato DESC LIMIT 1";
+    $sql = "SELECT id_contrato FROM ic_contratos ORDER BY id_contrato DESC LIMIT 1";
     $result = $this->db->query($sql); 
     return $result->row_array()['id_contrato'];
   }
 
   public function get_all_of_client($id){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id LIMIT 5";
+    $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_contract_table($result->result_array(),0);
     echo $result;
@@ -107,14 +107,14 @@ class Contract_model extends CI_MODEL{
   } 
 
   public function get_contracts_dropdown($id_cliente){
-    $sql = "SELECT * FROM contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado') ORDER BY id_contrato desc";
+    $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado') ORDER BY id_contrato desc";
     $result = $this->db->query($sql);
     $result = make_contract_dropdown($result->result_array(),0);
     echo $result;
   }  
 
   public function get_active_contracts(){
-    $sql = "SELECT COUNT(*) FROM contratos WHERE estado= 'activo'";
+    $sql = "SELECT COUNT(*) FROM ic_contratos WHERE estado= 'activo'";
     $result = $this->db->query($sql);
     echo $result->row_array()['COUNT(*)'];
   }
@@ -141,13 +141,13 @@ class Contract_model extends CI_MODEL{
 
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
     $id_empleado = $_SESSION['user_data']['user_id'];
-    $sql1 = " UPDATE pagos SET id_empleado = $id_empleado, estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
+    $sql1 = " UPDATE ic_pagos SET id_empleado = $id_empleado, estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
     
-    $sql2 = " UPDATE contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
+    $sql2 = " UPDATE ic_contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
     $sql2 .=",estado = '".$data_contrato['estado']."' WHERE id_contrato=".$data_contrato['id_contrato'];
 
-    $sql3 = "SELECT * FROM contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
-    $sql4 = " UPDATE clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+    $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
+    $sql4 = " UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
 
 
     $this->db->trans_start();
@@ -169,10 +169,10 @@ class Contract_model extends CI_MODEL{
   }
 
   public function upgrade_contract($data_pago,$data_contrato){ 
-    $sql1 = " UPDATE contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
+    $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
     $sql1 .=" WHERE id_contrato=".$data_contrato['id_contrato'];
 
-    $sql2 = " UPDATE pagos SET id_servicio='".$data_pago['id_servicio']."', cuota='".$data_pago['cuota']."',total='".$data_pago['monto_total']."'";
+    $sql2 = " UPDATE ic_pagos SET id_servicio='".$data_pago['id_servicio']."', cuota='".$data_pago['cuota']."',total='".$data_pago['monto_total']."'";
     $sql2 .=" WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
 
     $this->db->trans_start();
@@ -189,24 +189,24 @@ class Contract_model extends CI_MODEL{
 
   public function cancel_contract($data_pago,$data_contrato,$current_contract){ 
     $sql0 = "SELECT estado FROM v_contratos WHERE id_contrato=".$data_contrato['id_contrato'];
-    $sql1 = " UPDATE contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
+    $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
     $sql1 .=" ultimo_pago='".$data_contrato['proximo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
 
-    $sql2 = " DELETE FROM pagos WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
-    $sql3 = "SELECT * FROM contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
-    $sql4 = " UPDATE clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+    $sql2 = " DELETE FROM ic_pagos WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
+    $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
+    $sql4 = " UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
     
     
     $this->db->select('estado');
     $this->db->where('id_contrato',$data_contrato['id_contrato']);
-    $estado = $this->db->get('contratos')->row_array()['estado'];
+    $estado = $this->db->get('ic_contratos')->row_array()['estado'];
     if($estado != 'activo'){
       echo MESSAGE_INFO." Este contrato ya ha sido cancelado o Saldado";
     }else{
       $this->db->trans_start();
       $this->db->query($sql1);
       $this->db->query($sql2);
-      $this->db->insert('pagos',$data_pago);
+      $this->db->insert('ic_pagos',$data_pago);
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
         echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
@@ -226,9 +226,9 @@ class Contract_model extends CI_MODEL{
   public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){     
     $this->db->trans_start();
     $this->db->where('id_contrato',$id_contrato);
-    $this->db->update('contratos',$data_contract);
+    $this->db->update('ic_contratos',$data_contract);
     $this->db->where('id_pago',$id_pago);
-    $this->db->update('pagos',$data_pago);
+    $this->db->update('ic_pagos',$data_pago);
     $this->db->trans_complete();
     if($this->db->trans_status() === false){
       echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$this->db->last_query();

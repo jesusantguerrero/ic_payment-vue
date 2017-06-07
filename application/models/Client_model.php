@@ -54,13 +54,13 @@ class Client_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data,"normal");
-    $result = $this->db->query("SELECT * FROM clientes WHERE cedula = '".$this->cols['cedula']."'");
+    $result = $this->db->query("SELECT * FROM ic_clientes WHERE cedula = '".$this->cols['cedula']."'");
     $result = $result->result_array();
     $result = count($result);
     if($result > 0){
       echo MESSAGE_ERROR." Esta cedula ya está registrada";
     }else{
-      if($this->db->insert('clientes',$this->cols)){
+      if($this->db->insert('ic_clientes',$this->cols)){
         echo MESSAGE_SUCCESS." Ciente Agregado con exito";
       }else{
        echo MESSAGE_ERROR."No pudo guardarse el cliente ". $this->db->last_query();
@@ -69,7 +69,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_client($data){
-    $sql = "UPDATE clientes SET nombres ='".$data['nombres']."', apellidos ='".$data['apellidos']."', cedula ='".$data['cedula'];
+    $sql = "UPDATE ic_clientes SET nombres ='".$data['nombres']."', apellidos ='".$data['apellidos']."', cedula ='".$data['cedula'];
     $sql .="',provincia = '".$data['provincia']."', sector = '".$data['sector']."', calle = '".$data['calle']."' , casa = '".$data['casa']."', telefono ="; 
     $sql .="'".$data['telefono']."', celular = '".$data['celular']."' ";
     $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos=".$data['ingresos']." WHERE id_cliente =".$data['id'];
@@ -85,7 +85,7 @@ class Client_model extends CI_MODEL{
     $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos']);
     $this->db->where('id_cliente',$data['id_cliente']);
 
-    if($this->db->update('clientes',$rows)){
+    if($this->db->update('ic_clientes',$rows)){
       if($data['modo'] == 1){
         echo MESSAGE_INFO." Monto de abono visto";
       }else{
@@ -100,7 +100,7 @@ class Client_model extends CI_MODEL{
   public function get_column($columnName,$id_cliente){
     $this->db->select($columnName);
     $this->db->where('id_cliente',$id_cliente);;
-    if($result = $this->db->get('clientes')){
+    if($result = $this->db->get('ic_clientes')){
       return $result->row_array();
     }else{
       return $this->db->last_query();
@@ -114,12 +114,12 @@ class Client_model extends CI_MODEL{
     }else{
       $state = "no activo";
     }
-    $sql = "UPDATE clientes SET estado='$state' WHERE id_cliente =".$data['id_cliente']; 
+    $sql = "UPDATE ic_clientes SET estado='$state' WHERE id_cliente =".$data['id_cliente']; 
     $this->db->query($sql);
   }
 
   public function get_all_clients(){
-    $sql = "SELECT * FROM clientes";
+    $sql = "SELECT * FROM ic_clientes";
     set_last_query($sql);
     $sql .= " LIMIT 5";
     set_last_page($sql);
@@ -147,7 +147,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function count_all_clients(){
-    $result = $this->db->count_all('clientes');
+    $result = $this->db->count_all('ic_clientes');
     if($result){
       echo $result;
     }else{
@@ -169,8 +169,8 @@ class Client_model extends CI_MODEL{
 
 public function search_clients($word){
     $word = "'%".$word."%'";
-    $sql = "SELECT * FROM clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
-    $sql .= "|| sector LIKE $word || concat(clientes.nombres,' ',clientes.apellidos) LIKE $word";
+    $sql = "SELECT * FROM ic_clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
+    $sql .= "|| sector LIKE $word || concat(ic_clientes.nombres,' ',ic_clientes.apellidos) LIKE $word";
     set_last_query($sql);
     $sql .= "LIMIT 5";
     if($result = $this->db->query($sql)){
@@ -180,7 +180,7 @@ public function search_clients($word){
   }
   
   public function get_client($id){
-    $sql = "SELECT * FROM clientes WHERE id_cliente = $id || cedula ='$id'";
+    $sql = "SELECT * FROM ic_clientes WHERE id_cliente = $id || cedula ='$id'";
     if($result = $this->db->query($sql)){
       $result = $result->row_array();
       return $result;
@@ -188,7 +188,7 @@ public function search_clients($word){
   }
 
   public function get_clientjson($id){
-    $sql = "SELECT * FROM clientes WHERE cedula ='$id' || id_cliente =$id";
+    $sql = "SELECT * FROM ic_clientes WHERE cedula ='$id' || id_cliente =$id";
     if($result = $this->db->query($sql)){
       $result = $result->row();
       return $result; 
@@ -196,7 +196,7 @@ public function search_clients($word){
   }
 
   public function delete_client($id){
-    $sql = "DELETE FROM clientes WHERE id_cliente= $id";
+    $sql = "DELETE FROM ic_clientes WHERE id_cliente= $id";
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Cliente Eliminado";
     }else{
