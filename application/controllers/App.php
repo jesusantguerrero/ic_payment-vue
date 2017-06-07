@@ -18,6 +18,7 @@ class App extends CI_Controller {
 		$this->load->helpers('modals','lib');
 		$this->load->helper(array('report','payment'));
 		
+		
 		update_moras($this);
 	}
 

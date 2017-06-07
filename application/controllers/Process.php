@@ -265,7 +265,7 @@ class Process extends CI_Controller {
 				break;
 			case 'deudores':
 					$this->report_model->get_moras_view(true);
-					redirect(base_url('app/imprimir/reporte'));
+					redirect(base_url('app/pdf_gen/reporte'));
 				break;
 			
 			default:
@@ -313,4 +313,12 @@ class Process extends CI_Controller {
 		add_extra($this,$data);
 	}
 
+	public function print_page(){
+		$page = $this->caja_chica_model->get_for_print();
+		header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=iso-8859-1");
+		header("Content-Disposition: attachment; filename=Reporte".date('d-m-Y').".xlsx");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		echo $page;
+	}
 }

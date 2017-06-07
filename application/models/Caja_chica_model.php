@@ -70,6 +70,35 @@ class Caja_chica_model extends CI_MODEL{
     echo $result;
   }
 
+  public function get_for_print(){
+    $result = $this->db->query(get_last_query());
+    $result = make_caja_table($result->result_array());
+    $style = "th{background:#06f;}";
+    $cuerpo ="<HTML>
+              <head>
+                <TITLE>::. Exportacion de Datos .::</TITLE>
+                <link rel='stylesheet' href='".base_url('assets/css/main.css')."'/>
+              </head>
+              <body>";
+    $header = "<table border='1'>
+            <thead>            
+            <tr>
+              <th>COD</th>
+              <th>Fecha de Trasaccion</th>
+              <th>Descripcion</th>
+              <th>Ingreso</th>
+              <th>Salida</th>
+              <th>Saldo de Caja</th>
+              <th>Hecha Por</th>
+            </tr>
+            </thead>
+            <tbody>";
+    $footer = "</tbody>
+              </table>
+              </body>";
+    return $cuerpo.$header.$result.$footer;
+  }
+
   public function get_last_saldo(){
     $this->db->select('saldo_actual');
     $this->db->order_by('fecha','DESC');

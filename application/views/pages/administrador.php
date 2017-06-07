@@ -126,7 +126,7 @@
       <div class="company-details" id="caja-section">
         <h3> Caja Chica </h3>
         <div class="searcher-container">
-          <button class="btn"><i class="material-icons">remove</i></button>
+          <a href="<?php echo base_url('process/print_page') ?>" class="btn"><i class="material-icons">remove</i></a>
           <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons">add</i></button>
           <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
         </div>

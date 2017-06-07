@@ -801,7 +801,7 @@ function addAmount(){
   if(!is_empty){
      connectAndSend('process/add',true,initCajaHandlers,null,form,getCajaLastPage);
   }else{
-    alert("Asegurese de llenar todos los campos");
+    alert("Asegurese de llenar todos los campos por favor!");
   }
 }
 
