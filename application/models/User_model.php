@@ -115,7 +115,7 @@ class User_model extends CI_MODEL{
     if($result != false){
      if(password_verify($password,$result['password'])){
         $_SESSION['user_data'] = $result;
-        $_SESSION['lastquery'] = "Select * from clients";
+        $_SESSION['lastquery'] = "Select * from ic_clientes";
         return true;
       }
         return false;
