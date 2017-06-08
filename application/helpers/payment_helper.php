@@ -64,23 +64,19 @@ if (! function_exists('refresh_contract')){
 
     $contract = $context->contract_model->get_contract_view($contract_id);
     $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
-    $next_payment = $context->payment_model->get_next_payment_of($contract_id); ;
 
     if($monto_pagado == $contract['monto_total']){
       $estado = "saldado";
-      $next_payment_date = null;
     }else{
       $estado = "activo";
     }
     
     $data_contract = array(
-      'id_contrato'   => $contract_id,
       'monto_pagado'  => $monto_pagado,
       'ultimo_pago'   => $data_pago['fecha_pago'],
-      'proximo_pago'  => $next_payment['fecha_limite'],
       'estado'        => $estado
     );
-      $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
+    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
   }
 }
 

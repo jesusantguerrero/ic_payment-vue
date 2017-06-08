@@ -26,13 +26,11 @@ const MESSAGE_INFO = '<i class="material-icons">info_outline</i>'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback){
-  var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-   var contador = 0;
-   
+  var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
             if (action != null)  {
-                action(connect.responseText,recognizeElements);
+                action(connect.responseText,recognizeElements);          
             }else{
               if(is_message){
                  displayMessage(connect.responseText);

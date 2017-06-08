@@ -30,6 +30,7 @@ class Contract_model extends CI_MODEL{
   public function __construct(){
     parent::__construct();
     $this->load->database();
+    $this->load->model('payment_model');
     $this->load->helper('lib_helper');
   }
 
@@ -142,17 +143,20 @@ class Contract_model extends CI_MODEL{
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
     $id_empleado = $_SESSION['user_data']['user_id'];
     $sql1 = " UPDATE ic_pagos SET id_empleado = $id_empleado, estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
-    
-    $sql2 = " UPDATE ic_contratos SET monto_pagado='".$data_contrato['monto_pagado']."', ultimo_pago='".$data_contrato['ultimo_pago']."', proximo_pago='".$data_contrato['proximo_pago']."'";
-    $sql2 .=",estado = '".$data_contrato['estado']."' WHERE id_contrato=".$data_contrato['id_contrato'];
 
     $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
-    $sql4 = " UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+    $sql4 = "UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
 
 
     $this->db->trans_start();
     $this->db->query($sql1);
-    $this->db->query($sql2);
+
+    $proximo_pago = $this->payment_model->get_next_payment_of($current_contract['id_contrato']);
+    if($proximo_pago == 0) $proximo_pago['fecha_limite'] = null;
+    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
+
+    $this->db->where('id_contrato',$current_contract['id_contrato']);
+    $this->db->update('ic_contratos',$data_contrato);
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){

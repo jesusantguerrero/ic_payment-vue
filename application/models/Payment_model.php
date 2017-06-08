@@ -84,16 +84,6 @@ class Payment_model extends CI_MODEL{
     }
   }
   
-  public function count_per_contract(){
-    $id_contrato = get_from_session();
-    $this->db->where('id_contrato',$id_contrato);
-    $result = $this->db->count_all_results('ic_pagos');
-    if($result){
-      echo $result;
-    }else{
-      echo 0;
-    }
-  }
 
   public function count_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
@@ -106,7 +96,10 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function count_of_contract($id_contrato){
+  public function count_of_contract($id_contrato = null){
+    if($id_contrato == null){
+      $id_contrato = get_from_session();
+    }
     $this->db->where('id_contrato',$id_contrato);
     $result = $this->db->count_all_results('ic_pagos');
     if($result){

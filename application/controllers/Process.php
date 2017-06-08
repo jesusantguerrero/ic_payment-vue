@@ -209,12 +209,9 @@ class Process extends CI_Controller {
 				$this->payment_model->count_payments();
 				break;
 			case 'pagos_por_contratos':
-				$this->payment_model->count_per_contract();
+				$this->payment_model->count_of_contract();
 			case 'caja':
 				$this->caja_chica_model->count();
-			default:
-				# code...
-				break;
 		}
 	}
 

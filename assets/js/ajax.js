@@ -7,7 +7,6 @@ $(function(){
 var currentPage = $("title").text().split(" ");
 currentPage = currentPage[4].toLowerCase().trim();
 var ran = false;
-
 switch (currentPage) {
   case "home":
     initClientHandlers();
@@ -38,7 +37,7 @@ switch (currentPage) {
     break;
 }
 initCajaHandlers();
-initGlobalHandlers
+initGlobalHandlers();
 // **************************************************     globals handlers       *****************************
 function initGlobalHandlers(){
   $("#btn-save-averia").on('click',function(e){
@@ -97,8 +96,10 @@ function initHandlers(){
 }
 //***************************************************     Init caja          ***************************** */
 function initCajaHandlers(){
-  initPagination("#caja","caja",paginate);
-  count_table('caja');
+  if (currentPage == 'caja'){
+     initPagination("#caja","caja",paginate);
+     count_table('caja');
+  }
   var btnAddMoney     = $("#btn-add-money");
   var btnRetireMoney  = $("#btn-retire-money");
 
@@ -115,8 +116,10 @@ function initCajaHandlers(){
 
 //***************************************************  Init client Handlers      ***************************** */
 function initClientHandlers(){
-  count_table("clientes");
-  initPagination("#t-clients","clientes",paginate);
+  if(currentPage == 'clientes'){
+    count_table("clientes");
+    initPagination("#t-clients","clientes",paginate);
+  }
   makeRowsClickable();
   verifyClientStatus();
 
@@ -278,8 +281,9 @@ function initPaymentsHandlers(){
   }
   
   verifyPaymentStatus();
-  count_table("pagos_por_contratos");
   initPagination('#t-pagos','pagos_por_contrato',paginate);
+  count_table("pagos_por_contratos");
+  
 
   $("#btn-pay").on('click',function(e){
     e.stopImmediatePropagation();
@@ -297,6 +301,7 @@ function initPaymentsHandlers(){
   });
 
   makeRowsClickable();
+ 
   
 }
 //***************************************************      detail Handlers       ***************************** */
@@ -374,7 +379,7 @@ function deleteUser(id){
 function count_table(table){
   var form = "tabla=" + table;
   var updateFunction = updateCount;
-  if('caja') updateFunction = updateCajaCount
+  if(table == 'caja') updateFunction = updateCajaCount
   connectAndSend('process/count',false,null,updateFunction,form,null);
 }
 
