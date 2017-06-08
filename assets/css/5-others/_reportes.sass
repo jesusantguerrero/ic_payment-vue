@@ -9,20 +9,29 @@ body
   background: #fff
   height: 1000px
   padding: 50px
-  .line-input
+  .line-input,
     border: none
     border-bottom: 1px dashed
     box-shadow: none
     font-family: 'Times New Roman', Times, serif
     height: 28px
+    font-size: 18px
+    padding-left: 20px
     &.sm
       width: 100px
     &.lg
       width: 200px
+    &:read-only
+      background: transparent
 
+  textarea:read-only
+    background: white
+    border: none
+    box-shadow: none
+    resize: none
   .form-group.print
     +makeFlex(100%,row,flex-start,baseline)
-    height: 28px
+    min-height: 28px
     flex-wrap: nowrap
     
     label
@@ -88,6 +97,18 @@ body
   h4
     margin-bottom: 20px
   
+.contrato
+  font-size: 14px
+  .form-group.print
+    label
+      width: 40%
+      max-width: 40%
+    .line-input
+      border: none
+      font-size: 14px
+      width: 60%
+
+
 
 @media print
   body

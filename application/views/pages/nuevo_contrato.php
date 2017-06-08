@@ -124,10 +124,6 @@
 
   </div>
 
-
-
-
-
   <div class="col-md-6 ">
     <div class="centered-container">
       <h3 class="part-title">Nuevo Contrato a: <br><small> <?php echo $client_data['nombre_completo'] ?></small></h3>
@@ -141,7 +137,7 @@
         <button class="btn" id="btn-save-contract" tabindex="7">Guardar</button>
         <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
-      <a href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>">Ver Ficha de Pago</a>
+      <a target="_blank" href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>">Ver Ficha de Pago</a>
     </div>
 
 
