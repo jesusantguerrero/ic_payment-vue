@@ -40,7 +40,7 @@ class Process extends CI_Controller {
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
 					$this->client_model->is_active(true,$data);
-				 	$contract_id = $this->contract_model->get_last_Id();
+				 	$contract_id = $this->contract_model->get_last_Id($data['id_cliente']);
 				 	create_payments($contract_id,$data,$this);
 				 }
 				 $this->db->trans_complete();
@@ -249,7 +249,7 @@ class Process extends CI_Controller {
 
 	public function getrequirements($client_id){
 		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
-		$contract_id = $this->contract_model->get_last_id();
+		$contract_id = $this->contract_model->get_last_id($client_id);
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimiento'));

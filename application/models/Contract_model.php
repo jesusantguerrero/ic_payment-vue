@@ -87,8 +87,8 @@ class Contract_model extends CI_MODEL{
     
   } 
 
-  public function get_last_id(){
-    $sql = "SELECT id_contrato FROM ic_contratos ORDER BY id_contrato DESC LIMIT 1";
+  public function get_last_id($id_cliente){
+    $sql = "SELECT id_contrato FROM ic_contratos where id_cliente =$id_cliente ORDER BY id_contrato DESC LIMIT 1";
     $result = $this->db->query($sql); 
     return $result->row_array()['id_contrato'];
   }
