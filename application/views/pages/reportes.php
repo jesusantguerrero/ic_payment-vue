@@ -95,7 +95,7 @@
       datasets: [{
         label: "Ingresos",
         fill: true,
-        lineTension: 0.3,
+        lineTension: 0.1,
         backgroundColor: "rgba(0,200,255,0.1)",
         borderColor: "dodgerblue",
         borderCapStyle: 'butt',
@@ -109,7 +109,7 @@
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "#0077ff",
         pointHoverBorderWidth: 2,
-        pointRadius: 1,
+        pointRadius: 5,
         pointHitRadius: 10,
         data: [
           <?php foreach ($month_incomes as $value) {

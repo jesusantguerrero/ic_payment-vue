@@ -14,21 +14,21 @@ if ( ! function_exists('get_modals'))
 
 	function get_modals($filename)
 	{
-    $modals;
+    $modals = array('modales/global_modals');
     switch($filename){
       case 'home':
-         $modals[0] = 'modales/clientes_modals';
-         $modals[1] = 'modales/contract_modals';
+         array_push($modals, 'modales/client_modals');
+         array_push($modals,'modales/contract_modals');
          break;
       case 'clientes':
-        $modals[0] = 'modales/clientes_modals';
+        array_push($modals,'modales/client_modals');
         break;
       case 'servicios':
-         $modals[0] = 'modales/services_modals';
+         array_push($modals,'modales/service_modals');
         break;
       case 'contratos':
-           $modals[0] = 'modales/clientes_modals';
-           $modals[1] = 'modales/contract_modals';
+           array_push($modals,'modales/client_modals');
+           array_push($modals, 'modales/contract_modals');
          break;
       // case 'reportes':
       //   break;
@@ -36,12 +36,10 @@ if ( ! function_exists('get_modals'))
       //   # code...
       //   break;
       case 'administrador':
-        $modals[0] = 'modales/newuser';
+        array_push($modals,'modales/user_modals');
         break;
-      default:
-        $modals = FALSE;
     }
-
+   
     return $modals;
   }
 }

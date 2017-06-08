@@ -48,7 +48,7 @@
                         <?php endif; ?>
                     </li>
                 <li class="navButton">
-                    <a href="<?php echo base_url('app/admin/notificaciones')?>" data-toggle="tooltip" data-placement="bottom" title="Caja Chica">
+                    <a  data-toggle="modal" data-target="#retire-money-modal"   data-placement="bottom" title="Caja Chica">
                         <i class="material-icons">add_shopping_cart</i>
                     </a></li>
                 <li class="navButton">

@@ -38,7 +38,14 @@ switch (currentPage) {
     break;
 }
 initCajaHandlers();
-
+initGlobalHandlers
+// **************************************************     globals handlers       *****************************
+function initGlobalHandlers(){
+  $("#btn-save-averia").on('click',function(e){
+    e.stopImmediatePropagation();
+    addAveria();
+  });
+}
 //***************************************************     Init Handlers          ***************************** */
 function initHandlers(){
   initPagination("#t-users","users",paginate);
@@ -79,18 +86,31 @@ function initHandlers(){
     e.stopImmediatePropagation();
     updateCompanyData();
   });
+
+  // some globals handlers
+
+  $("#btn-save-averia").on('click',function(e){
+    e.stopImmediatePropagation();
+    addAveria();
+  });
  
 }
 //***************************************************     Init caja          ***************************** */
 function initCajaHandlers(){
   initPagination("#caja","caja",paginate);
   count_table('caja');
-  var btnAddMoney = $("#btn-add-money");
+  var btnAddMoney     = $("#btn-add-money");
+  var btnRetireMoney  = $("#btn-retire-money");
 
   btnAddMoney.on('click',function(e){
     e.stopImmediatePropagation();
     addAmount();
   })
+
+  btnRetireMoney.on('click',function(e){
+    e.stopImmediatePropagation();
+    addAmountRetirement();
+  });
 }
 
 //***************************************************  Init client Handlers      ***************************** */
@@ -155,10 +175,7 @@ function initClientHandlers(){
     }
   });
 
-  $("#btn-save-averia").on('click',function(e){
-    addAveria();
-   
-  });
+
 
 }
 //***************************************************  Init Services Handlers    ***************************** */
@@ -801,7 +818,21 @@ function addAmount(){
   if(!is_empty){
      connectAndSend('process/add',true,initCajaHandlers,null,form,getCajaLastPage);
   }else{
-    alert("Asegurese de llenar todos los campos por favor!");
+    alert("Asegurese de llenar todos los campos");
+  }
+}
+
+function addAmountRetirement(){
+  var form ,amount, description,is_empty;
+
+  amount = $("#caja-r-amount").val();
+  description = $("#caja-r-description").val();
+  form = "salida=" + amount + "&descripcion=" + description;
+  is_empty = isEmpty([amount, description]);
+  if(!is_empty){
+     connectAndSend('process/retire',true,initCajaHandlers,null,form,getCajaLastPage);
+  }else{
+    alert("Asegurese de llenar todos los campos");
   }
 }
 

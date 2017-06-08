@@ -21,7 +21,10 @@ class Caja_chica_model extends CI_MODEL{
   public function __construct(){
     parent::__construct();
     $this->load->database();
-    $this->id_empleado = $_SESSION['user_data']['user_id'];
+    if(isset($_SESSION['user_data'])){
+      $this->id_empleado = $_SESSION['user_data']['user_id'];
+    }
+    
   }
 
   public function add_money($data){
@@ -41,11 +44,11 @@ class Caja_chica_model extends CI_MODEL{
     }  
   }
 
-  public function remove_money($data){
-    $saldo_actual = get_last_saldo();
+  public function retire_money($data){
+    $saldo_actual = $this->get_last_saldo();
     $rows = array(
       'id'   => null,
-      'id_empleado' => $id_empleado,
+      'id_empleado' => $this->id_empleado,
       'descripcion' => $data['descripcion'],
       'entrada'     => 0,
       'salida'      => $data['salida'],

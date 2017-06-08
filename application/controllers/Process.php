@@ -84,6 +84,11 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function retire(){
+		$data = $_POST;
+		$this->caja_chica_model->retire_money($data);
+	}
+
 	public function upgrade(){
 		$data_cambio = $_POST;
 		upgrade_contract($this,$data_cambio);
@@ -257,21 +262,19 @@ class Process extends CI_Controller {
 		switch ($table) {
 			case 'payment':
 					$this->report_model->get_payments_report($type);
-					redirect(base_url('app/imprimir/reporte'));
 				break;
 			case 'installations':
 					$this->report_model->get_installations(null,true);
-					redirect(base_url('app/imprimir/reporte'));
 				break;
 			case 'deudores':
 					$this->report_model->get_moras_view(true);
-					redirect(base_url('app/pdf_gen/reporte'));
 				break;
 			
 			default:
 				# code...
 				break;
 		}
+			redirect(base_url('app/imprimir/reporte'));
 	
 	}
 	

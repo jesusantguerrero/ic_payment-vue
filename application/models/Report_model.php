@@ -49,7 +49,7 @@ class Report_model extends CI_MODEL{
     $result = $this->db->get('v_morosos');
     if($result){
       $result = $result->result_array();
-      echo make_moras_report($result," con Moras",$this,$is_print);
+      echo make_moras_report($result," Con Moras",$this,$is_print);
     }
   }
 
