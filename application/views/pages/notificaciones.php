@@ -14,9 +14,51 @@
       <!-- Tab panes -->
       <div class="tab-content mylists">
         <div role="tabpanel" class="tab-pane active" id="ingresos">
-          <div class="wide-chart">
-            <canvas class="graphics chart" id="mychart"></canvas>
+         <div class="searcher-container clearfix">
+          <h4 class="search-criteria">Presentado: Todos</h4>
+          <a data-toggle="modal" data-target="#retire-money-modal" class="btn">Imprimir Reporte</a>
+          <button class="btn" data-toggle="modal" data-target="#add-money-modal">Color</button>
+          <select name="" id="">
+          <option value="">--Enlistar --</option>
+            <option value="">Todos</option>
+            <option value="">Por Reparar</option>
+            <option value="">En Proceso</option>
+            <option value="">Reparados</option>
+            <option value="">En Proceso y Por Reparar</option>
+          </select>
+        </div>
+          
+          <div class="averia-item-list">
+            <div class="averia-item">
+            <div class="top-row">
+              <div class="status"><i class="material-icons">check_box_outline_blank</i><small>Por Resolver</small></div>
+              <div class="code">1</div>
+              <div class="client-name">Jesus Antonio Guerrero Alvarez</div>
+              <div class="client-direction">C/ Primera #12 Barrio George, La Romana</div>
+              <button>Actualizar</button>
+            </div>
+            <div class="description">
+              <div class="date">2017-6-9</div>
+              <div class="title-item">Falla De Conexion:</div>
+              <div class="text">Una falla de que se yo para que se yo que tiene que se yo y todo lo que no se yo</div>
+            </div>
           </div>
+           <div class="averia-item">
+            <div class="top-row">
+              <div class="status"><i class="material-icons">check_box_outline_blank</i><small>Por Resolver</small></div>
+              <div class="code">1</div>
+              <div class="client-name">Jesus Antonio Guerrero Alvarez</div>
+              <div class="client-direction">C/ Primera #12 Barrio George, La Romana</div>
+              <button>Actualizar</button>
+            </div>
+            <div class="description">
+              <div class="date">2017-6-9</div>
+              <div class="title-item">Falla De Conexion:</div>
+              <div class="text">Una falla de que se yo para que se yo que tiene que se yo y todo lo que no se yo</div>
+            </div>
+          </div>
+         </div>
+          
         </div>
         <div role="tabpanel" class="tab-pane" id="pagos">
         

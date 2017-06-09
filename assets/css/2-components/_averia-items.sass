@@ -1,0 +1,61 @@
+.averia-item-list
+  +makeFlex(100%,column,center,center)
+  margin-top: 25px
+.search-criteria
+  width: 100%
+.averia-item
+  display: flex
+  flex-direction: column
+  width: 95%
+  background: white
+  margin: 5px 0
+  height: 90px
+  box-shadow: 2px 2px 4px rgba(0,0,0,.2)
+  border: 1px solid #eee
+  border-radius: 4px 
+  justify-content: center
+  color: #555
+  transition: all ease .3s
+  &:hover
+    background: #fafafa
+    cursor: pointer
+  .top-row,
+  .description
+    display: flex
+    justify-content: space-around
+  .description
+    color: #999
+    height: 50%
+    padding-top: 25px
+    justify-content: flex-start
+    padding-left: 30px
+    div
+      margin: 0 5px
+  .top-row
+    height: 30%
+    padding-top: 15px
+    align-items: center
+  .title-item
+    font-size: bolder
+  .status
+    display: flex
+    align-items: center
+    height: 100%
+  .client-name
+    font:
+      size: 20px
+      weight: bolder
+    color: $contrast-color
+  button
+    background: $contrast-color
+    color: white
+    height: 30px
+    border: none
+    border-radius: 4px
+    width: 100px
+    text-align: center
+    &:hover
+      background: lighten($contrast-color,10%)
+    cursor: pointer
+  .code 
+    display: none
