@@ -79,13 +79,6 @@ if ( ! function_exists('make_payment_report')){
 }
 
 if ( ! function_exists('make_installation_report')){
-  /**
-  * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  * @param boolean true para imprimir y false para no imprimir xD
-  *@return string the tbody with rows of a table 
-  */ 
 
   function make_installation_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
@@ -103,6 +96,23 @@ if ( ! function_exists('make_installation_report')){
     }
 
     $html_text = $context->table->generate();
+    if($for_print):
+      set_report($html_text,$concept,$more);
+    else:
+      return $html_text;
+    endif;
+  }
+}
+if ( ! function_exists('make_averias_report')){
+
+  function make_averias_report($data,$concept,$context,$for_print){
+    $cont = 0 + 1;
+    $context->table->set_heading("Num","Cliente","Direccion","Celular","Requerimiento","Servicio"); 
+    $ci =& get_instance();
+    $ci->load->helper('lib');
+
+
+    $html_text = make_averias_list($data);
     if($for_print):
       set_report($html_text,$concept,$more);
     else:

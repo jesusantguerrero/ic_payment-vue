@@ -81,6 +81,9 @@ class Process extends CI_Controller {
 			case "settings":
 				$this->settings_model->update_settings($data);
 				break;
+			case "averias":
+				$this->averia_model->update($data['id_averia']);
+				break;
 		}
 	}
 
@@ -113,6 +116,9 @@ class Process extends CI_Controller {
 				break;
 			case "v_pagos_pendientes":
 				$this->payment_model->get_moras_home();
+				break;
+			case "averias":
+				$this->averia_model->get($_POST['estado']);
 				break;
 		}
 	}
@@ -212,6 +218,9 @@ class Process extends CI_Controller {
 				$this->payment_model->count_of_contract();
 			case 'caja':
 				$this->caja_chica_model->count();
+				case 'averias':
+				$this->averia_model->count();
+				break;
 		}
 	}
 
@@ -265,6 +274,9 @@ class Process extends CI_Controller {
 				break;
 			case 'deudores':
 					$this->report_model->get_moras_view(true);
+				break;
+			case 'averias':
+					$this->report_model->get_averias_report();
 				break;
 			
 			default:

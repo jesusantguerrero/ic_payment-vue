@@ -53,12 +53,29 @@ class Report_model extends CI_MODEL{
     }
   }
 
+  public function count_installations(){
+    $result = $this->db->count_all('v_instalaciones');
+    if($result){
+     return $result;
+    }else{
+      return 0;
+    }
+  }
+
   public function count_moras_view(){
     $result = $this->db->count_all('v_morosos');
     if($result){
      return $result;
     }else{
       return 0;
+    }
+  }
+
+  public function get_averias_report($is_print = true){
+    $result = $this->db->query(get_last_query());
+     if($result){
+      $result = $result->result_array();
+      echo make_averias_report($result," Reporte De Averias",$this,$is_print);
     }
   }
 

@@ -15,62 +15,39 @@
       <div class="tab-content mylists">
         <div role="tabpanel" class="tab-pane active" id="ingresos">
          <div class="searcher-container clearfix">
-          <h4 class="search-criteria">Presentado: Todos</h4>
-          <a data-toggle="modal" data-target="#retire-money-modal" class="btn">Imprimir Reporte</a>
-          <button class="btn" data-toggle="modal" data-target="#add-money-modal">Color</button>
-          <select name="" id="">
-          <option value="">--Enlistar --</option>
-            <option value="">Todos</option>
-            <option value="">Por Reparar</option>
-            <option value="">En Proceso</option>
-            <option value="">Reparados</option>
-            <option value="">En Proceso y Por Reparar</option>
+          <h4 class="search-criteria">Presentado:<span class="presentado"> Todos </span>  (<span class="total-rows"></span>)</h4>
+          <a  target="_blank" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
+          <select name="" id="averias-view-mode">
+            <option value="todos">--Enlistar --</option>
+            <option value="todos">Todos</option>
+            <option value="por reparar">Por Reparar</option>
+            <option value="en proceso">En Proceso</option>
+            <option value="reparado">Reparados</option>
+            <option value="actuales">En Proceso y Por Reparar</option>
           </select>
         </div>
           
           <div class="averia-item-list">
-            <div class="averia-item">
-            <div class="top-row">
-              <div class="status"><i class="material-icons">check_box_outline_blank</i><small>Por Resolver</small></div>
-              <div class="code">1</div>
-              <div class="client-name">Jesus Antonio Guerrero Alvarez</div>
-              <div class="client-direction">C/ Primera #12 Barrio George, La Romana</div>
-              <button>Actualizar</button>
-            </div>
-            <div class="description">
-              <div class="date">2017-6-9</div>
-              <div class="title-item">Falla De Conexion:</div>
-              <div class="text">Una falla de que se yo para que se yo que tiene que se yo y todo lo que no se yo</div>
-            </div>
-          </div>
-           <div class="averia-item">
-            <div class="top-row">
-              <div class="status"><i class="material-icons">check_box_outline_blank</i><small>Por Resolver</small></div>
-              <div class="code">1</div>
-              <div class="client-name">Jesus Antonio Guerrero Alvarez</div>
-              <div class="client-direction">C/ Primera #12 Barrio George, La Romana</div>
-              <button>Actualizar</button>
-            </div>
-            <div class="description">
-              <div class="date">2017-6-9</div>
-              <div class="title-item">Falla De Conexion:</div>
-              <div class="text">Una falla de que se yo para que se yo que tiene que se yo y todo lo que no se yo</div>
-            </div>
-          </div>
+         
+            <?php $this->averia_model->get() ?>
          </div>
           
         </div>
         <div role="tabpanel" class="tab-pane" id="pagos">
-        
+        <div class="searcher-container clearfix">
+          <h4 class="search-criteria">Instalaciones de Hoy </span>  (<?php echo $this->report_model->count_installations(); ?>)</h4>
+           <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
+        </div>
          <div class="instalation-controls">
-           <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn btn-large btn-block btn-default">Imprimir Reporte</a>
+          
          </div>
           <?php $this->report_model->get_installations(); ?>
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
-          <div class="instalation-controls">
-           <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn btn-large btn-block btn-default">Imprimir Reporte</a>
-         </div>
+        <div class="searcher-container clearfix">
+          <h4 class="search-criteria">Clientes en fecha de corte </span>  (<?php echo $this->report_model->count_moras_view(); ?>)</h4>
+           <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+        </div>
           <?php $this->report_model->get_moras_view() ?>
         </div>
         </div>

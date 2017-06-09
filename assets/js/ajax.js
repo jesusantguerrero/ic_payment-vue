@@ -40,10 +40,36 @@ initCajaHandlers();
 initGlobalHandlers();
 // **************************************************     globals handlers       *****************************
 function initGlobalHandlers(){
+  if(currentPage == 'notificaciones'){
+
+    count_table("averias");
+
+    $("#averias-view-mode").on('change',function(e){
+      e.stopImmediatePropagation();
+      getAverias();
+
+    });
+  }
   $("#btn-save-averia").on('click',function(e){
     e.stopImmediatePropagation();
     addAveria();
   });
+
+    $("#a-client-dni").on('keydown',function(e){
+    var key = e.which;
+    var dni = $(this).val()
+    if(key == 13){
+      getClient(dni,fillClientFields);
+    }
+  });
+  $(".btn-update-averia").on('click',function(e){
+    e.stopImmediatePropagation();
+    var id_averia = $(this).parents('.averia-item').find('.code')
+    id_averia = id_averia.text().trim();
+    updateAverias(id_averia);
+  });
+  
+
 }
 //***************************************************     Init Handlers          ***************************** */
 function initHandlers(){
@@ -169,17 +195,6 @@ function initClientHandlers(){
     }
     
   });
-
-  $("#a-client-dni").on('keydown',function(e){
-    var key = e.which;
-    var dni = $(this).val()
-    if(key == 13){
-      getClient(dni,fillClientFields);
-    }
-  });
-
-
-
 }
 //***************************************************  Init Services Handlers    ***************************** */
 function initServicesHandlers(){
@@ -546,24 +561,6 @@ function saveObservations(abonoWatched){
   abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
 }
 
-function addAveria(){
-  
-  var form,idCliente,description;
-
-  idCliente   = $("#averias-client-id").val();
-  description = $("#a-description").val();
-  console.log(idCliente + " " + description);
-  
-  var is_empty = isEmpty([idCliente,description]);
-  if(!is_empty){   
-    form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
-    connectAndSend("process/add",true,initClientHandlers,null,form,null);
-  }else{
-    alert("LLene los campos requeridos por favor");
-  }
-  $('#new-averia-modal').find('input,textarea').val("");
-} 
-
 /********************************************************
  *                 Ajax Generales                       *
  *                                                      *
@@ -787,26 +784,38 @@ function updatePayment(id){
 };
 
 /********************************************************
-*                          Home Getters                            
+*                          averias                            
 *                                                       *
 ********************************************************/
-// function getNextPayments(expression){
-//     console.log(expression);
-//     expression = expression.split(" ");
-//     console.log(expression);
-//     var variable = " hola"
-    
-//   var form = "tabla=v_proximos_pagos&expression=" + expression[0] + "&unit=" + expression[1];
-//   connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
-// }
+function addAveria(){
+  
+  var form,idCliente,description;
 
-// function getPendents(expression){
+  idCliente   = $("#averias-client-id").val();
+  description = $("#a-description").val();
+  console.log(idCliente + " " + description);
+  
+  var is_empty = isEmpty([idCliente,description]);
+  if(!is_empty){   
+    form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
+    connectAndSend("process/add",true,initGlobalHandlers,null,form,getAverias);
+  }else{
+    alert("LLene los campos requeridos por favor");
+  }
+  $('#new-averia-modal').find('input,textarea').val("");
+} 
 
-    
-//   var form = "tabla=v_pagos_pendientes";
-//   connectAndSend('process/getall',false,null,fillPaymentsList,form,null);
-// }
+function getAverias(){
+  var status = $("#averias-view-mode").val();
+  $(".presentado").text(status);
+  var form = "tabla=averias&estado=" + status;
+  connectAndSend('process/getall',false,initGlobalHandlers,fillAveriasList,form,null); 
+}
 
+function updateAverias($id_averia){
+  var form = "tabla=averias&id_averia=" + $id_averia;
+  connectAndSend('process/update',true,initGlobalHandlers,null,form,getAverias); 
+}
 
 /********************************************************
 *                   Caja Chica                           

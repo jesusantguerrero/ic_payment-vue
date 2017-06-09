@@ -115,8 +115,15 @@ function fillCajaTable($content,callback){
  */
 
 function fillPaymentsList($content,callback){
-  var $tbodyUsers = $(".list-nextpayments");
-  $tbodyUsers.html($content);
+  var $container = $(".list-nextpayments");
+  $container.html($content);
+
+}
+
+function fillAveriasList($content,callback){
+  var $container = $(".averia-item-list");
+  $container.html($content);
+  callback();
 
 }
 
