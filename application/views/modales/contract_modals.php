@@ -1,7 +1,11 @@
 <?php 
   $settings = $this->settings_model->get_settings();
  ?>
-
+<!--*********************************************************************
+*
+*                                 Extra modal
+*
+**************************************************************************-->
 <div class="modal fade" tabindex="-1" role="dialog" id="add-extra-modal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -185,3 +189,54 @@
 </div>
 <!-- /.modal -->
 
+<!--*********************************************************************
+*
+*                                 Extra modal
+*
+**************************************************************************-->
+<div class="modal fade" tabindex="-1" role="dialog" id="update-contract-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Editar Contrato</h4>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="row">
+            <div class="col-md-6">
+                     <div class="form-group">
+                      <label for="cient-sector">Equipo</label>
+                      <input class="form-control" id="u-contract-equipment" tabindex="6">
+                    </div>
+                    <div class="form-group">
+                      <label for="cient-sector">Router</label>
+                      <input class="form-control" id="u-contract-router" tabindex="6">
+                    </div>
+            </div>
+            <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="client-house">Mac del Equipo</label>
+                      <input type="text" class="form-control" id="u-contract-e-mac" tabindex="7">
+                    </div>
+                    <div class="form-group">
+                      <label for="client-house">Mac del Router</label>
+                      <input type="text" class="form-control" id="u-contract-r-mac" tabindex="7">
+                    </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
+        <button type="button" class="btn save dynamic-controls" id="update-contract" tabindex="10">Guardar<button/>       
+      </div>
+      
+      
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -84,6 +84,16 @@ class Process extends CI_Controller {
 			case "averias":
 				$this->averia_model->update($data['id_averia']);
 				break;
+			case "contratos":
+				$data_for_update = array(
+					'nombre_equipo' => $data['nombre_equipo'],
+					'mac_equipo'		=> $data['mac_equipo'],
+					'router'				=> $data['router'],
+					'mac_router'    => $data['mac_router']
+				);
+				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
+				break;
+			
 		}
 	}
 
@@ -154,7 +164,16 @@ class Process extends CI_Controller {
 				}else{
 					echo "nada";
 				}
-			break;
+				break;
+			case "contratos":
+				$result = $this->contract_model->get_contract_view($_POST['id_contrato'],true);
+				if($result){
+					 $dataJson = json_encode($result);
+					 echo $dataJson;
+				}else{
+					echo "nada";
+				}
+				break;
 		}
 	}
 

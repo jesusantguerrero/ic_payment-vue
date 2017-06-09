@@ -2,7 +2,7 @@
   <div class="left-navigation col-md-2">
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="" data-toggle="modal" data-target="#search-client-modal"><i class="material-icons">description</i>  Nuevo Contrato</a></li>
-      <li class="aside-buttons"><a href="" id="btn-edit-contract"><i class="material-icons">edit</i>Editar Contrato</a></li>
+      <li class="aside-buttons"><a href="" id="btn-update-contract"><i class="material-icons">edit</i>Editar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-cancel-contract"><i class="material-icons" >delete</i>Cancelar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-see-in-detail"><i class="material-icons" >find_in_page</i>Ver Detalles</a></li>
       <li class="aside-buttons"><a href="" id="btn-pay"><i class="material-icons" >monetization_on</i>Registrar Pago</a></li>

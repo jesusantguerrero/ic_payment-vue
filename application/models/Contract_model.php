@@ -76,12 +76,14 @@ class Contract_model extends CI_MODEL{
       } 
   }
 
-  public function update($data_for_update,$contract_id){
+  public function update($data_for_update,$contract_id,$echo = false){
    
     $this->db->where('id_contrato',$contract_id);
     if($this->db->update('ic_contratos',$data_for_update)):
+      if($echo) echo MESSAGE_SUCCESS." Contrato Actualizado";
       return true;
     else:
+      if($echo) echo MESSAGE_ERROR."El Contrato No Pudo Ser Actualizado";
       return false;
     endif;
     
