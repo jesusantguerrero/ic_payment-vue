@@ -28,7 +28,7 @@
       <h4>
         <u>Datos Del Cliente:</u>
       </h4>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Cliente:</label>
           <textarea class="form-control" cols="30" rows="2" readonly="readonly"><?php echo $contrato['cliente'] ?></textarea>
@@ -38,7 +38,7 @@
           <input type="text" class="form-control line-input celular" id="">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Cedula:</label>
           <input type="text" class="form-control line-input cedula" id="">
@@ -49,14 +49,14 @@
       <h4>
         <u>Direccion de factura:</u>
       </h4>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Direccion:</label>
            <textarea  class="form-control "cols="30" rows="3"  id="direction" readonly="readonly"><?php echo $contrato['direccion']?>
           </textarea>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
          <div class="form-group print">
           <label for="">Celular:</label>
           <input type="text" class="form-control line-input celular" id="">
@@ -71,7 +71,7 @@
       <h4>
         <u>Informacion de servicio:</u>
       </h4>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Cod:</label>
            <input type="text" class="form-control line-input " value="<?php echo $contrato['id_contrato'] ?>">
@@ -89,7 +89,7 @@
           <input type="text" class="form-control line-input" value="30 de cada mes">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
          <div class="form-group print">
           <label for="">Duracion:</label>
           <input type="text" class="form-control line-input" value="<?php echo $contrato['duracion']." Meses" ?>">
@@ -112,7 +112,7 @@
       <h4>
         <u>Datos del Representante:</u>
       </h4>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Nombre:</label>
             <textarea class="form-control" cols="30" rows="2" readonly="readonly"><?php echo $user_data['fullname'] ?></textarea>
@@ -122,7 +122,7 @@
           <input type="text" class="form-control line-input" value="<?php echo $user_data['typestr'] ?>">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-xs-6">
          <div class="form-group print">
           <label for="">Cedula:</label>
           <input type="text" class="form-control line-input" value="<?php echo $user_data['dni'] ?>">
@@ -136,6 +136,7 @@
   </div>
   <div class="pie-pagina">
     <small><b>** Importante Leer el contrato adjunto y firmar esta hoja **</b></small>
+     <p class="super-small"><small><b>** El cliente está en el derecho de cancelar el contrato de manera unilateral antes del termino del mismo, esto sujeto a un coste del 50% del total del contrato acordado **</b></small></p>
   </div>
    <h1 class="titulo-lateral">Solicitud de <span>Contrato</span></h1>
   </div>
