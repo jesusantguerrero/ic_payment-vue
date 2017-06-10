@@ -1,9 +1,10 @@
 <div class="screen reports row">
 
 <?php 
-  $salidas  = $this->caja_chica_model->get_transactions_per_month('salida');
-  $entradas = $this->caja_chica_model->get_transactions_per_month('entrada');
+  $salidas   = $this->caja_chica_model->get_transactions_per_month('salida');
+  $entradas  = $this->caja_chica_model->get_transactions_per_month('entrada');
   $balances  = $this->caja_chica_model->get_balance_per_month();
+  $services = $this->contract_view_model->get_statics_of_services();
  ?>
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
@@ -91,6 +92,7 @@
   var salidas = <?php echo json_encode($salidas)?>;
   var entradas = <?php echo json_encode($entradas)?>;
   var balances = <?php echo json_encode($balances)?>;
+  var services = <?php echo json_encode($services)?>;
   var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre", "Diciembre"];
   drawChart();
   weekChart();
@@ -114,8 +116,8 @@
         label: "Ingresos",
         fill: true,
         lineTension: 0.3,
-        backgroundColor: "rgba(0,200,255,0.1)",
-        borderColor: "dodgerblue",
+        backgroundColor: "rgba(3,169,244 ,.6)",
+        borderColor: "rgba(3,169,244 ,1)",
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
@@ -127,7 +129,7 @@
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "#0077ff",
         pointHoverBorderWidth: 2,
-        pointRadius: 2,
+        pointRadius: 1,
         pointHitRadius: 10,
         data: [
           <?php foreach ($month_incomes as $value) {
@@ -234,12 +236,12 @@
   function servicesChart() {
     var canvas = $("#services-chart");
     var data = {
-      labels: ["Bronce", "Plata", "Oro"],
+      labels: services.nombres,
       datasets: [{
         label: "Clientes",
         fill: true,
-        backgroundColor: ["rgba(0,200,255,0.1)", "rgba(0,200,255,0.4)", "rgba(0,200,255,0.7)"],
-        borderColor: "#fff",
+        backgroundColor: ["rgba(3,169,244 ,1)", "rgba(3,169,244 ,.8)", "rgba(3,169,244 ,.6)","rgba(3,169,244 ,.4)"],
+        borderColor: "rgba(3,169,244 ,1)",
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
@@ -253,7 +255,7 @@
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [10, 50, 80],
+        data: services.valores,
         spanGaps: false,
       }]
     }
@@ -279,22 +281,22 @@
           {
             label: 'Entradas',
             data: entradas,
-            backgroundColor: 'rgba(5,250,32,.6)',
-            borderColor: 'rgba(5,250,32,1)',
+            backgroundColor: 'rgba(76,175,80 ,.6)',
+            borderColor: 'rgba(76,175,80 ,1)',
             borderWidth: 1
           },
           {
             label: 'Gastos',
             data: salidas,
-            backgroundColor: 'rgba(255,0,32,.6)',
-            borderColor: 'rgba(255,0,32,1)',
+            backgroundColor: 'rgba(255,87,34 ,.6)',
+            borderColor: 'rgba(255,87,34 ,1)',
             borderWidth: 1
           },
           {
             label: 'Balance Restante en Caja Chica',
             data: balances,
-            backgroundColor: 'rgba(25,100,255,.6)',
-            borderColor: 'rgba(25,100,255,1)',
+            backgroundColor: 'rgba(0,150,136 ,.6)',
+            borderColor: 'rgba(0,150,136 ,1)',
             borderWidth: 1
           },
         ]

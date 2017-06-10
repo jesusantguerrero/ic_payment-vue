@@ -75,4 +75,16 @@ class Contract_view_model extends CI_MODEL{
     }
   }
 
+  public function get_statics_of_services($field = 'count(*)'){
+    $sql = "select servicio,$field from v_contratos where estado = 'activo' group by servicio";
+    $valores = array();
+    $servicios = array();
+    $result = $this->db->query($sql)->result_array();
+    foreach ($result as $row) {
+      array_push($valores,$row[$field]);
+      array_push($servicios,$row['servicio']);
+    }
+    return array('valores' => $valores, 'nombres' => $servicios);
+  }
+
 }
