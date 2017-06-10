@@ -5,6 +5,7 @@
     $contrato = $info['contrato'];
     $user_data = get_user_data();
     $settings = $this->settings_model->get_settings();
+    $company = $this->company_model->get_empresa();
 
 ?>
 
@@ -12,9 +13,9 @@
   <div class="cabecera">
     <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
     <div class="company-name">
-      <h2>ICS Service</h2>
-      <p>Compañia Dominicana de Internet ICS</p>
-      <p> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+      <h2 class="company-oficial-name">ICS Service</h2>
+      <p class="company-statement">Compañia Dominicana de Internet ICS</p>
+      <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
       <p></p>
     </div>
     <div class="left-box">
@@ -145,9 +146,9 @@
     <div class="cabecera">
       <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
       <div class="company-name">
-        <h2>ICS Service</h2>
-        <p>Compañia Dominicana de Internet ICS</p>
-        <p> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+        <h2 class="company-oficial-name">ICS Service</h2>
+        <p class="company-statement">Compañia Dominicana de Internet ICS</p>
+        <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
         <p></p>
       </div>
       <div class="left-box">
@@ -225,9 +226,9 @@
     <div class="cabecera">
       <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
       <div class="company-name">
-        <h2>ICS Service</h2>
-        <p>Compañia Dominicana de Internet ICS</p>
-        <p> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+        <h2 class="company-oficial-name">ICS Service</h2>
+        <p class="company-statement">Compañia Dominicana de Internet ICS</p>
+        <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
         <p></p>
       </div>
       <div class="left-box">
@@ -342,6 +343,10 @@
     $('input.router').val("<?php echo $contrato['router']?>");
     $('input.mac_router').val("<?php echo $contrato['mac_router']?>");
     $(".line-input").attr('readonly', 'readonly');
+
+    $(".company-oficial-name").text(<?php echo $company['nombre'] ?>);
+    $(".company-statement").text(<?php echo $company['descripcion'] ?>);
+    $(".company-direction").text(<?php echo $company['direccion'] ?>);
   </script>
   <?php 
   endif;

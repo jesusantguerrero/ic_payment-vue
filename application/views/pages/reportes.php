@@ -1,6 +1,10 @@
 <div class="screen reports row">
 
-
+<?php 
+  $salidas  = $this->caja_chica_model->get_transactions_per_month('salida');
+  $entradas = $this->caja_chica_model->get_transactions_per_month('entrada');
+  $balances  = $this->caja_chica_model->get_balance_per_month();
+ ?>
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
       <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span>        <span>Clientes</span> </div>
@@ -24,8 +28,16 @@
             <canvas class="graphics chart" id="mychart"></canvas>
           </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="pagos">...</div>
-        <div role="tabpanel" class="tab-pane" id="balance">...</div>
+        <div role="tabpanel" class="tab-pane" id="pagos">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="mychart"></canvas>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="balance">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="balance-chart"></canvas>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -76,9 +88,17 @@
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
+  var salidas = <?php echo json_encode($salidas)?>;
+  var entradas = <?php echo json_encode($entradas)?>;
+  var balances = <?php echo json_encode($balances)?>;
+  var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre", "Diciembre"];
   drawChart();
   weekChart();
   servicesChart();
+  balanceChart();
+  
+  
+  
   <?php 
       $month_incomes;
       for ($i=1; $i <= 12 ; $i++) { 
@@ -89,9 +109,7 @@
   function drawChart() {
     var $chartIngresos = $("#mychart");
     var data = {
-      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
-        "Noviembre", "Diciembre"
-      ],
+      labels: months,
       datasets: [{
         label: "Ingresos",
         fill: true,
@@ -248,6 +266,62 @@
       data: data,
       options: options
     });
+  }
+
+  function balanceChart() {
+    var canvas = $("#balance-chart");
+    var chartOptions = {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: 
+        [
+          {
+            label: 'Entradas',
+            data: entradas,
+            backgroundColor: 'rgba(5,250,32,.6)',
+            borderColor: 'rgba(5,250,32,1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Gastos',
+            data: salidas,
+            backgroundColor: 'rgba(255,0,32,.6)',
+            borderColor: 'rgba(255,0,32,1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Balance Restante en Caja Chica',
+            data: balances,
+            backgroundColor: 'rgba(25,100,255,.6)',
+            borderColor: 'rgba(25,100,255,1)',
+            borderWidth: 1
+          },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        barValueSpacing: 20,
+        scales: {
+          yAxes: [{
+            ticks: {
+              callback: function (label, index, labels) {
+                return "RD$ " + CurrencyFormat(label);
+              }
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              return "RD$ " + CurrencyFormat(tooltipItem.yLabel);
+            }
+          }
+        }
+      }
+    };
+    var mychart = new Chart(canvas, chartOptions);
   }
 </script>
 

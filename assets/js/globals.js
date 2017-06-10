@@ -198,6 +198,7 @@ function getPaginationData(tableId){
   var $maxLimit = $(tableId + " .max-limit");
   var $maxLimitVisible = $(tableId + " .max-limit-visible");
   var $minLimit = $(tableId + " .min-limit");
+  var $totalRows = $(tableId + " .total-rows");
   var total = $(tableId + " .total-rows").text();
   var previous = Number($minLimit.text());
   var next = Number($maxLimit.text());
@@ -216,6 +217,7 @@ function getPaginationData(tableId){
           "$maxLimit": $maxLimit,
           "$maxLimitVisible": $maxLimitVisible,
           "$minLimit": $minLimit,
+          "$totalRows": $totalRows,
           "total": total
         }
 }
@@ -230,8 +232,11 @@ function getPaginationData(tableId){
  * @return {void}
  */
 function initPagination(tableId,serverTable,paginate){ 
-  let pagination = getPaginationData(tableId);
-  if (pagination.total <= 5) pagination.$maxLimitVisible.text(pagination.total);
+   var pagination = getPaginationData(tableId);
+   var $total = pagination.$totalRows;
+  setTimeout(function(){
+    if (Number($total.text()) <= 5) pagination.$maxLimitVisible.text(Number($total.text()));
+  },2000) 
   $(tableId + " .next-page").on('click',function(e){
     e.stopImmediatePropagation()
 
@@ -257,7 +262,7 @@ function initPagination(tableId,serverTable,paginate){
       pagination.$maxLimit.text(previousMax);
       pagination.$maxLimitVisible.text(previousMax);
       pagination.$minLimit.text(pagination.min - pagination.perpage);
-      paginate(pagination.min - pagination.perpage,pagination.perpage,serverTable);
+      paginate(pagination.min - pagination.perpage - 1,pagination.perpage,serverTable);
     }
   });
 

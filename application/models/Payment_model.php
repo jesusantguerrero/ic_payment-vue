@@ -139,7 +139,7 @@ class Payment_model extends CI_MODEL{
     $result = $this->db->query($sql);
     if($result){
       $result = make_payment_table($result->result_array(),$offset);
-      echo $result. $this->db->last_query();
+      echo $result;
     }else{
       echo "nada que mostrar";
     } 
@@ -152,8 +152,6 @@ class Payment_model extends CI_MODEL{
       echo $result;
     }  
   } 
-
-
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";

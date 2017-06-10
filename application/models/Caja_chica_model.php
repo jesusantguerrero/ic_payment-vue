@@ -116,9 +116,9 @@ class Caja_chica_model extends CI_MODEL{
     $result = $this->db->query(get_last_query());
     $result = $result->result_array();
     if($result){
-      echo count($result);
+      return count($result);
     }else{
-      echo 0;
+      return 0;
     }
   }
 
@@ -141,4 +141,36 @@ class Caja_chica_model extends CI_MODEL{
       echo $result;
     }  
   } 
+
+  public function get_transactions_per_month($field){
+    $resultado_por_mes = array();
+    
+    for ($i=1; $i <= 12 ; $i++) { 
+      $sql = "SELECT sum($field) from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i";
+      $result = $this->db->query($sql)->row_array()["sum($field)"];
+      if($result){
+        $value = $result; 
+      }else{
+        $value = "0";
+      }
+      array_push($resultado_por_mes,$value);
+    }
+    return $resultado_por_mes;
+  }
+
+  public function get_balance_per_month(){
+    $resultado_por_mes = array();
+    
+    for ($i=1; $i <= 12 ; $i++) { 
+      $sql = "SELECT saldo_actual from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i order by fecha desc";
+      $result = $this->db->query($sql)->row_array()["saldo_actual"];
+      if($result){
+        $value = $result; 
+      }else{
+        $value = "0";
+      }
+      array_push($resultado_por_mes,$value);
+    }
+    return $resultado_por_mes;
+  }
 }

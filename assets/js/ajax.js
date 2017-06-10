@@ -142,7 +142,7 @@ $(function () {
   }
   //***************************************************     Init caja          ***************************** */
   function initCajaHandlers() {
-    if (currentPage == 'caja') {
+    if (currentPage == 'administrador') {
       initPagination("#caja", "caja", paginate);
       count_table('caja');
     }
@@ -430,7 +430,7 @@ $(function () {
   // ******************* Company Crud *************************
 
   function updateCompanyData() {
-
+    
   }
 
   /********************************************************
