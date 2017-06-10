@@ -141,7 +141,7 @@ class Payment_model extends CI_MODEL{
       $result = make_payment_table($result->result_array(),$offset);
       echo $result. $this->db->last_query();
     }else{
-      echo $sql . "hola";
+      echo "nada que mostrar";
     } 
   }
 
