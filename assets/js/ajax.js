@@ -148,15 +148,27 @@ $(function () {
     }
     var btnAddMoney = $("#btn-add-money");
     var btnRetireMoney = $("#btn-retire-money");
+    var userSearch = $("#caja-user");
+    var dateSearch = $("#caja-date");
 
     btnAddMoney.on('click', function (e) {
       e.stopImmediatePropagation();
       addAmount();
-    })
+    });
 
     btnRetireMoney.on('click', function (e) {
       e.stopImmediatePropagation();
       addAmountRetirement();
+    });
+
+    dateSearch.on('change',function(e){
+      e.stopImmediatePropagation();
+      searchInCaja();
+    });
+
+    userSearch.on('change',function(e){
+      e.stopImmediatePropagation();
+      searchInCaja();
     });
   }
 
@@ -915,10 +927,21 @@ $(function () {
     var form = "tabla=caja";
     connectAndSend('process/lastpage', false, initCajaHandlers, fillCajaTable, form, null);
   }
+
   $("#btn-update-settings").on('click',function(e){
-  e.preventDefault();
-  updateSettings();
-});
+    e.preventDefault();
+    updateSettings();
+  });
+
+  function searchInCaja() {
+    var $dateSearch = $("#caja-date");
+    var $userSearch = $("#caja-user");
+    var date = ($dateSearch.val()) ? $dateSearch.val() : '%';
+    var userId= ($userSearch.val()) ? $userSearch.val() : '%';
+
+    var form = "tabla=caja&id_empleado=" + userId + "&fecha=" + date;
+    connectAndSend('process/search', false, initCajaHandlers, fillCajaTable, form, null);
+  }
 
 
 /********************************************************

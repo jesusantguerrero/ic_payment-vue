@@ -74,8 +74,8 @@ class Averia_model extends CI_MODEL{
 
   public function count(){
     $result = $this->db->query(get_last_query());
-    $result = count($result->result_array());
     if($result){
+      $result = count($result->result_array());
       echo $result;
     }else{
       echo 0;

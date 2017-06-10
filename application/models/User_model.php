@@ -135,5 +135,12 @@ class User_model extends CI_MODEL{
      return false;
     }
   }
+
+  public function get_users_list(){
+    $sql    = "SELECT user_id, name,lastname FROM ic_users";
+    $result = $this->db->query($sql);
+    $result = make_users_list($result->result_array());
+    echo $result;
+  }
   //functions
 }

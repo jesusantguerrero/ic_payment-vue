@@ -125,10 +125,14 @@
 
       <div class="company-details" id="caja-section">
         <h3> Caja Chica </h3>
-        <div class="searcher-container">
+        <div class="searcher-container clearfix">
+        <h4 class="search-criteria">Historial de caja chica:<span class="presentado"></h4>
           <a data-toggle="modal" data-target="#retire-money-modal" class="btn"><i class="material-icons">remove</i></a>
           <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons">add</i></button>
-          <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+          <select name="" class="form-control" id="caja-user">
+            <?php $this->user_model->get_users_list(); ?>
+          </select>
+          <input type="date" class="form-control caja-for-date" id="caja-date">
         </div>
 
         <table class="table caja" id="caja">

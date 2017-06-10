@@ -244,14 +244,21 @@ class Process extends CI_Controller {
 	}
 
 	public function search(){
-		$tabla = $_POST['tabla'];
-		$word = $_POST['word'];
+		$data = $_POST;
+		$tabla = $data['tabla'];
+		if(isset($_POST['word'])):
+			$word = $_POST['word'];
+		endif;
+
 		switch ($tabla) {
 			case 'clientes':
 				$this->client_model->search_clients($word);
 				break;
 			case 'v_contratos':
 				 $this->contract_view_model->search_contracts($word);
+				break;
+			case 'caja':
+				 $this->caja_chica_model->search_in_rows($data['id_empleado'],$data['fecha']);
 				break;
 		} 
 	}
