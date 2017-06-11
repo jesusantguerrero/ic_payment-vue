@@ -128,6 +128,7 @@ $(function () {
     });
 
     $("#update-company-data").on('click', function (e) {
+      e.preventDefault();
       e.stopImmediatePropagation();
       updateCompanyData();
     });
@@ -438,12 +439,6 @@ $(function () {
     var updateFunction = updateCount;
     if (table == 'caja') updateFunction = updateCajaCount
     connectAndSend('process/count', false, null, updateFunction, form, null);
-  }
-
-  // ******************* Company Crud *************************
-
-  function updateCompanyData() {
-    
   }
 
   /********************************************************
@@ -1028,16 +1023,26 @@ function extendContract(){
 ********************************************************/
 
 function updateCompanyData(){
+  var form,
+      companyName        =$("#company-name").val(),
+      companyStatement   =$("#company-statement").val(),
+      companyPhone1      =$("#company-phone1").val(),
+      companyDirection   =$("#company-direction").val(),
+      companyDescription =$("#company-description").val(),
+      companyPhone2      =$("#company-phone2").val()
 
+  form = 'nombre='+companyName+'&lema='+companyStatement+'&descripcion='+companyDescription+"&direccion="
+  form += companyDirection+"&telefono1="+companyPhone1+"&telefonos="+companyPhone2+"&tabla=empresa";
+  connectAndSend('process/update',true,null,null,form,null);
 }
 
 function updateSettings(){
   var form,
-      settingsCargoMora =$("#settings-mora").val(),
-      settingsFechaCorte=$("#settings-fecha-corte").val(),
-      settingsAperturaCaja=$("#settings-apertura-caja").val(),
-      settingsPenalizacionCancelacion=$("#settings-penalizacion-cancelacion").val(),
-      settingsMesesPorDefecto=$("#settings-meses-por-defecto").val();
+      settingsCargoMora                =$("#settings-mora").val(),
+      settingsFechaCorte               =$("#settings-fecha-corte").val(),
+      settingsAperturaCaja             =$("#settings-apertura-caja").val(),
+      settingsPenalizacionCancelacion  =$("#settings-penalizacion-cancelacion").val(),
+      settingsMesesPorDefecto          = $("#settings-meses-por-defecto").val();
 
   form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&apertura_caja=' + settingsAperturaCaja;
   form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;

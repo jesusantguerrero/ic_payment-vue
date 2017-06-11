@@ -31,7 +31,7 @@
               </div>
               <div class="form-group">
                 <label for="company-phrase">Lema</label>
-                <input type="text" class="form-control" id="company-phrase" value="<?php echo $empresa['lema'] ?>">
+                <input type="text" class="form-control" id="company-statement" value="<?php echo $empresa['lema'] ?>">
               </div>
               <div class="form-group">
                 <label for="company-phone1">Telefono1</label>

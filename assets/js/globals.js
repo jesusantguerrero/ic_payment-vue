@@ -54,13 +54,13 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
  */
 
 function displayMessage(message){
-  var color = "#08ff20";
+  var color = "rgba(102,187,106,1)";
   var toast,span;
 
   if(message.includes(MESSAGE_ERROR)){
-    color = "#ff0330";
+    color = "rgba(244,67,54,1)";
   }else if(message.includes(MESSAGE_INFO)){
-    color = "dodgerblue";
+    color = "rgba(2,136,209,1)";
   }
   toast = $(".toast")
   span = toast.find("span").html(message);

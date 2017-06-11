@@ -18,7 +18,6 @@
           <h4 class="search-criteria">Presentado:<span class="presentado"> Todos </span>  (<span class="total-rows"></span>)</h4>
           <a  target="_blank" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
           <select name="" id="averias-view-mode">
-            <option value="todos">--Enlistar --</option>
             <option value="todos">Todos</option>
             <option value="por reparar">Por Reparar</option>
             <option value="en proceso">En Proceso</option>

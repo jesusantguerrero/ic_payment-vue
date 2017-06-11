@@ -46,9 +46,6 @@
                     <div class="list-repair">
 
                     </div>
-                    <div class="centered-container-small">
-                        <button class="btn btn-remark search-client">Imprimir Reporte</button>
-                    </div>
                 </div>
                 <div class="deudores-layer">
                     <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Lista de Deudores</h3>

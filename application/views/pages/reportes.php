@@ -281,22 +281,19 @@
           {
             label: 'Entradas',
             data: entradas,
-            backgroundColor: 'rgba(76,175,80 ,.6)',
-            borderColor: 'rgba(76,175,80 ,1)',
+            backgroundColor: 'rgba(37,211,102 ,1)',
             borderWidth: 1
           },
           {
             label: 'Gastos',
             data: salidas,
-            backgroundColor: 'rgba(255,87,34 ,.6)',
-            borderColor: 'rgba(255,87,34 ,1)',
+            backgroundColor: 'rgba(221,75,57 ,1)',
             borderWidth: 1
           },
           {
             label: 'Balance Restante en Caja Chica',
             data: balances,
-            backgroundColor: 'rgba(0,150,136 ,.6)',
-            borderColor: 'rgba(0,150,136 ,1)',
+            backgroundColor: 'rgba(3,169,244 ,1)',
             borderWidth: 1
           },
         ]
