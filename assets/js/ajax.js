@@ -275,6 +275,7 @@ $(function () {
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
+    count_table('contratos');
     initPagination("#t-contracts", "v_contratos", paginate);
     makeRowsClickable();
 
@@ -292,7 +293,7 @@ $(function () {
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      search(text, "v_contratos", fillCurrentTable);
+      search(text, "v_contratos", fillCurrentTable,initContractHandlers);
     });
 
     $("#btn-cancel-contract").on('click', function (e) {
@@ -493,22 +494,6 @@ $(function () {
     var form = "tabla=clientes";
     connectAndSend('process/lastpage', false, initClientHandlers, fillCurrentTable, form, null);
   }
-
-  /**
-   * Search manda un mensaje al servidor de los valores a buscar
-   * @param {string} text el valor a ser buscado
-   * @param {string} dbTable nombre de la tabla donde se desea consultar en la base de datos
-   * @param {function} fillTableFunction funcion de llenado de tabla donde se mostraran los resultados 
-   */
-  function search(text, dbTable, fillTableFunction) {
-    if (fillTableFunction == undefined) fillTableFunction = fillCurrentTable;
-    var word = text;
-    if (word != null || word != "") {
-      var form = "tabla=" + dbTable + "&word=" + word;
-      connectAndSend('process/search', false, initClientHandlers, fillTableFunction, form, null);
-    }
-  }
-
   /**
    * Get Client: obtiene un cliente y sus datos a partir de una cedula o id
    * @param {integer} id 
@@ -659,6 +644,23 @@ $(function () {
     }
     var form = "table=" + tableName + "&offset=" + offset + "&perpage=" + perpage;
     connectAndSend(path + 'paginate', false, handlers, tableFill, form, null);
+  }
+
+  /**
+   * Search manda un mensaje al servidor de los valores a buscar
+   * @param {string} text el valor a ser buscado
+   * @param {string} dbTable nombre de la tabla donde se desea consultar en la base de datos
+   * @param {function} fillTableFunction funcion de llenado de tabla donde se mostraran los resultados 
+   * @param {function} handlerFunction funcion reinicio de los elementos en los handlers 
+   */
+  function search(text, dbTable, fillTableFunction,handlerFunction) {
+    if (handlerFunction   == undefined) handlerFunction = initClientHandlers;
+    if (fillTableFunction == undefined) fillTableFunction = fillCurrentTable;
+    var word = text;
+    if (word != null || word != "") {
+      var form = "tabla=" + dbTable + "&word=" + word;
+      connectAndSend('process/search', false, handlerFunction, fillTableFunction, form, null);
+    }
   }
 
 

@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div class="averias-layer">
-                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Averias</h3>
-                    <div class="placeholder-icon"><i class="material-icons icon-placeholder">build</i></div>
+                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Caja Chica</h3>
+                    <div class="placeholder-icon"><i class="material-icons icon-placeholder">money</i></div>
                     <div class="list-repair">
 
                     </div>

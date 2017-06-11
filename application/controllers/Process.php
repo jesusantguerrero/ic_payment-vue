@@ -227,6 +227,9 @@ class Process extends CI_Controller {
 			case 'clientes':
 				$this->client_model->count_clients();
 				break;
+			case 'contratos':
+				$this->contract_view_model->count_contracts();
+				break;
 			case 'servicios':
 				$this->service_model->count_services();
 				break;
@@ -286,6 +289,12 @@ class Process extends CI_Controller {
 		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
 		$contract_id = $this->contract_model->get_last_id($client_id);
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
+		$this->session->set_flashdata('requirement_info', $requirement_info);
+		redirect(base_url('app/imprimir/requerimientos'));
+	}
+	// just one
+	public function getrequirement($client_id){
+		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimiento'));
 	}

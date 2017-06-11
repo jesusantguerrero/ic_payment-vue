@@ -8,6 +8,7 @@ $line-color: white
   border-radius: 4px
   border: 1px solid #aaa
   position: relative
+  cursor: pointer
   
   &:after
     content: ' '
@@ -167,3 +168,26 @@ $line-color: white
   .type
     &:after
       content: 'REM'
+
+.note-item.print-requirement
+  .preview
+    background: $primary-color
+
+[disabled]
+  pointer-events: none
+  background: $primary-color
+
+.my-radio
+  +makeFlex(20px,row,center,center)
+  height: 20px
+  background: white
+  border: 2px solid $primary-color
+  border-radius: 4px
+  margin-right: 5px
+
+&[checked]
+  background: $contrast-color
+  border: 2px solid $contrast-color
+  color: white
+  font-weight: bolder
+    

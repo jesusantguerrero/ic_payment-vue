@@ -2,15 +2,16 @@
   $recibo = null;
   if(isset($_SESSION['recibo_info'])):
     $recibo = $_SESSION['recibo_info'];
+    $company = $this->company_model->get_empresa();
 ?>
 
 <div class="recibo-body">
   <div class="cabecera">
     <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
     <div class="company-name">
-      <h2>ICS Service</h2>
-      <p>Compañia Dominicana de Internet ICS</p>
-      <p> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+      <h2 class="company-oficial-name">ICS Service</h2>
+      <p class="company-statement">Compañia Dominicana de Internet ICS</p>
+      <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
       <p></p>
     </div>
     <div class="left-box"> 
@@ -35,12 +36,13 @@
   </div>
 </div>
 <script>
- print();
-
+    $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
+    $(".company-statement").text("<?php echo $company['descripcion'] ?>");
+    $(".company-direction").text("<?php echo $company['direccion'] ?>");
+    print();
 </script>
 <?php 
   else:
     echo "No existe ese recibo";
   endif;
-
  ?>

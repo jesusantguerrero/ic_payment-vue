@@ -126,18 +126,39 @@
 
   <div class="col-md-6 ">
     <div class="centered-container">
-      <h3 class="part-title">Nuevo Contrato a: <br><small> <?php echo $client_data['nombre_completo'] ?></small></h3>
-      <div class="note-item note">
-        <div class="preview">
-          <div class="falseDoc"></div>
-        </div>
-      </div>
+      <h3 class="part-title">Selecciona una opción:</h3>
+              
+        <form class="form-inline">  
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <div class="my-radio"  id="radio-new-contract" > </div>
+               Nuevo Contrato
+              </label>
+            </div>    
+            <div class="radio">
+              <label>
+                <div class="my-radio"  id="radio-just-requirement" checked>&#10004;</div>
+                Solo requerimiento
+              </label>
+            </div>
+          </div>
+        </form>
 
-      <div class="row-container">
-        <button class="btn" id="btn-save-contract" tabindex="7">Guardar</button>
+      
+        <div class="note-item note print-requirement">
+          <div class="preview">
+            <div class="falseDoc"></div>
+          </div>
+        </div>
+
+      <div class="row-container contract-controls hide">
+        <button class="btn" id="btn-save-contract" tabindex="7" disabled>Guardar</button>
         <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
-      <a target="_blank" href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>">Ver Ficha de Pago</a>
+      <div class="row-container requirement-controls">
+        <a target="_blank" href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract"> Requerimiento</a>
+      </div>
     </div>
 
 

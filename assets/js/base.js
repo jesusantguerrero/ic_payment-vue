@@ -7,6 +7,7 @@ newUserForm();
 makeServiceCardClickable();
 detailsFunctions();
 notificationFunctions();
+newContractFunctions();
 
 /**
  * Get Date:
@@ -80,6 +81,52 @@ function userInfoTip(){
   });
 }
 });
+
+function newContractFunctions(){
+  var btnSaveContract = $("#btn-save-contract");
+  var btnPrintContract = $("#btn-print-contract");
+  var document = $(".note-item");
+  var radioActivateContract = $("#radio-new-contract");
+  var radioDisableContract = $("#radio-just-requirement");
+  var contractControls = $(".contract-controls");
+  var requirementControls = $(".requirement-controls");
+
+  radioActivateContract.parents("label").on('click',function(){
+   activateContractMode(); 
+
+  });
+
+  radioDisableContract.parents("label").on('click',function(){
+    disableContractMode()
+  });
+
+  function activateContractMode($btn){
+    radioDisableContract
+      .removeAttr("checked","")
+      .html("")
+    radioActivateContract
+      .attr("checked","")
+      .html("&#10004;")
+    document.removeClass("print-requirement");
+    btnSaveContract.removeAttr("disabled")
+    contractControls.removeClass("hide")
+    requirementControls.addClass("hide")
+    
+  }
+
+  function disableContractMode($btn){
+    radioActivateContract
+      .removeAttr("checked","")
+      .html("")
+    radioDisableContract
+      .attr("checked","")
+      .html("&#10004;")
+    document.addClass("print-requirement");
+    btnSaveContract.attr("disabled","");
+    requirementControls.removeClass("hide")
+    contractControls.addClass("hide")
+  }
+}
 
 /********************************************************
 *                          Modals Functions                            
