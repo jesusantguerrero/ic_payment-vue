@@ -54,7 +54,7 @@ if( !function_exists('get_user_data')){
       if($user['type'] == 0){
         $type = "Administrador";
       }else{
-        $type = "Secretaria";
+        $type = "Secretaria(o)";
       }
 
       $user['fullname'] = $fullname;
