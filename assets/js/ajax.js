@@ -714,7 +714,8 @@ $(function () {
    ********************************************************/
 
   function addNewContract() {
-    var form, table, client_id, user_id, service_id, contract_date, payment, duration, equipment, eMac, router, rMac, total, nextPayment;
+    var form, table, client_id, user_id, service_id, contract_date, payment, duration,
+        equipment, eMac, router, rMac, total, nextPayment,model,ip;
 
     client_id = $("#contract-client-id").val();
     user_id = $("#contract-user-id").val();
@@ -725,6 +726,8 @@ $(function () {
     eMac = $('#contract-e-mac').val();
     router = $('#contract-router').val();
     rMac = $('#contract-r-mac').val();
+    model = $('#contract-equipment-model').val();
+    ip = $('#contract-ip').val();
 
     payment = $("#contract-client-payment").val();
     nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');
@@ -736,7 +739,8 @@ $(function () {
       form += "&duracion=" + duration + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
       form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
       form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
-      connectAndSend("process/add", true, initClientHandlers, null, form, contractSaved);
+      form += "&modelo="+model+"&ip="+ip;
+      connectAndSend("process/add", true, null, null, form, contractSaved);
     } else {
       alert("LLene los campos requeridos por favor");
     }
@@ -792,17 +796,22 @@ $(function () {
   }
 
   function recieveContractForEdit(content) {
-    var contract = JSON.parse(content);
-    var id_contrato = contract['id_contrato'];
-    var $equipo = $("#u-contract-equipment");
-    var $macEquipo = $("#u-contract-e-mac");
-    var $router = $("#u-contract-router");
-    var $macRouter = $("#u-contract-r-mac");
+    var contract     = JSON.parse(content);
+    var id_contrato  = contract['id_contrato'];
+    var $equipo      = $("#u-contract-equipment");
+    var $macEquipo   = $("#u-contract-e-mac");
+    var $router      = $("#u-contract-router");
+    var $macRouter   = $("#u-contract-r-mac");
+    var $modelo      = $("#u-contract-modelo");
+    var $ip          = $("#u-contract-ip");
+    
 
     $equipo.val(contract['nombre_equipo']);
     $macEquipo.val(contract['mac_equipo']);
     $router.val(contract['router']);
     $macRouter.val(contract['mac_router']);
+    $modelo.val(contract['modelo']);
+    $ip.val(contract['ip']);
 
     $("#update-contract-modal").modal();
 
@@ -815,6 +824,7 @@ $(function () {
 
       form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + "&mac_equipo=" + $macEquipo.val();
       form += "&router=" + $router.val() + "&mac_router=" + $macRouter.val();
+      form += "&modelo=" + $modelo.val() + "&ip=" + $ip.val();
       form += "&tabla=contratos";
 
       connectAndSend("process/update", true, initContractHandlers, null, form, getContractsLastPage);
@@ -922,7 +932,12 @@ $(function () {
 
   function getCajaLastPage() {
     var form = "tabla=caja";
-    connectAndSend('process/lastpage', false, initCajaHandlers, fillCajaTable, form, null);
+    connectAndSend('process/lastpage', false, initCajaHandlers, fillCajaTable, form, getSaldo);
+  }
+
+  function getSaldo(){
+    var form = "tabla=caja";
+    connectAndSend('process/getone',false,initCajaHandlers,updateSaldo,form,null)
   }
 
   $("#btn-update-settings").on('click',function(e){

@@ -207,29 +207,37 @@
             <div class="col-md-6">
                      <div class="form-group">
                       <label for="cient-sector">Equipo</label>
-                      <input class="form-control" id="u-contract-equipment" tabindex="6">
+                      <input class="form-control" id="u-contract-equipment" tabindex="1">
+                    </div>
+                    <div class="form-group">
+                      <label for="cient-sector">Modelo</label>
+                      <input class="form-control" id="u-contract-modelo" tabindex="3">
                     </div>
                     <div class="form-group">
                       <label for="cient-sector">Router</label>
-                      <input class="form-control" id="u-contract-router" tabindex="6">
+                      <input class="form-control" id="u-contract-router" tabindex="5">
                     </div>
             </div>
             <div class="col-md-6">
                     <div class="form-group">
                       <label for="client-house">Mac del Equipo</label>
-                      <input type="text" class="form-control" id="u-contract-e-mac" tabindex="7">
+                      <input type="text" class="form-control" id="u-contract-e-mac" tabindex="2">
+                    </div>
+                    <div class="form-group">
+                      <label for="cient-sector">IP</label>
+                      <input class="form-control" id="u-contract-ip" tabindex="4">
                     </div>
                     <div class="form-group">
                       <label for="client-house">Mac del Router</label>
-                      <input type="text" class="form-control" id="u-contract-r-mac" tabindex="7">
+                      <input type="text" class="form-control" id="u-contract-r-mac" tabindex="6">
                     </div>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
-        <button type="button" class="btn save dynamic-controls" id="update-contract" tabindex="10">Guardar<button/>       
+        <button type="button" class="btn" data-dismiss="modal" tabindex="8">Cancelar</button>
+        <button type="button" class="btn save dynamic-controls" id="update-contract" tabindex="7">Guardar<button/>       
       </div>
       
       

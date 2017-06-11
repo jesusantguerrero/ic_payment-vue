@@ -89,7 +89,9 @@ class Process extends CI_Controller {
 					'nombre_equipo' => $data['nombre_equipo'],
 					'mac_equipo'		=> $data['mac_equipo'],
 					'router'				=> $data['router'],
-					'mac_router'    => $data['mac_router']
+					'mac_router'    => $data['mac_router'],
+					'modelo'				=> $data['modelo'],
+					'ip'    => $data['ip']
 				);
 				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
 				break;
@@ -174,6 +176,10 @@ class Process extends CI_Controller {
 					echo "nada";
 				}
 				break;
+				case "caja":
+					$result = $this->caja_chica_model->get_last_saldo();
+					echo $result;
+					break;
 		}
 	}
 

@@ -43,8 +43,9 @@
                 <div class="averias-layer">
                     <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Caja Chica</h3>
                     <div class="placeholder-icon"><i class="material-icons icon-placeholder">money</i></div>
-                    <div class="list-repair">
-
+                    <div class="list-repair centered-container">
+                        <?php  $last_saldo = $this->caja_chica_model->get_last_saldo(); ?>
+                        <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($last_saldo); ?></h2>
                     </div>
                 </div>
                 <div class="deudores-layer">

@@ -93,25 +93,30 @@
                 <span class="input-group-addon" id="basic-addon1">Equipo</span>
                 <input type="text" class="form-control" id="contract-equipment" tabindex="3">
               </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Modelo</span>
+                <input type="text" class="form-control" id="contract-equipment-model" tabindex="5">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Router</span>
+                <input type="text" class="form-control" id="contract-router" tabindex="7">
+              </div>
             </div>
             <div class="col-md-6">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Mac</span>
                 <input type="text" class="form-control" id="contract-e-mac" tabindex="4">
               </div>
-            </div>
-            <div class="col-md-6">
               <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Router</span>
-                <input type="text" class="form-control" id="contract-router" tabindex="5">
+                <span class="input-group-addon" id="basic-addon1">IP</span>
+                <input type="text" class="form-control" id="contract-ip" tabindex="6">
               </div>
-            </div>
-            <div class="col-md-6">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Mac</span>
-                <input type="text" class="form-control" id="contract-r-mac" tabindex="6">
+                <input type="text" class="form-control" id="contract-r-mac" tabindex="8">
               </div>
             </div>
+
           </div>
 
           <input type="text" class="form-control hidden" id="contract-client-id" value="<?php  echo $client_data['id_cliente']?>">
@@ -154,6 +159,7 @@
 
       <div class="row-container contract-controls hide">
         <button class="btn" id="btn-save-contract" tabindex="7" disabled>Guardar</button>
+        <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Pago</a>
         <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
       <div class="row-container requirement-controls">

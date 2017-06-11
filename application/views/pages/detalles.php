@@ -54,11 +54,6 @@
           </div>
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
-
-
-
-
-
       </div>
       <div class="col-md-9">
         <div>

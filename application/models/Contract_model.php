@@ -49,6 +49,7 @@ class Contract_model extends CI_MODEL{
     $this->id_cliente     = $data['id_cliente'];      
     $this->id_empleado    = $data['id_empleado'];     
     $this->id_servicio    = $data['id_servicio'];
+    $this->codigo         = null;
     $this->fecha          = $data['fecha'];
     $this->duracion       = $data['duracion'];
     $this->monto_total    = $data['monto_total'] ;
@@ -57,9 +58,11 @@ class Contract_model extends CI_MODEL{
     $this->proximo_pago   = $data['proximo_pago'] ;
     $this->estado         = $data['estado']; 
     $this->nombre_equipo  = $data['nombre_equipo'];
+    $this->modelo         = $data['modelo'];
     $this->mac_equipo     = $data['mac_equipo'];
     $this->router         = $data['router'];
     $this->mac_router     = $data['mac_router'];
+    $this->ip             = $data['ip'];
 
   }
 

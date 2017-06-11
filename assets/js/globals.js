@@ -34,9 +34,10 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
             }else{
               if(is_message){
                  displayMessage(connect.responseText);
-                 if(callback != null)callback();           
+                            
               }              
             }
+            if(callback != null)callback();
         } else if (connect.readyState != 4) {
 
         }
@@ -106,6 +107,7 @@ function fillClientTable($content,callback){
  */
 function fillCajaTable($content,callback){
   fillCurrentTable($content,callback,"caja");
+  if(callback)callback();
 }
 /**
  * Llena la Lista de pagos/notificaciones con los datos que vienen del servidor
@@ -281,6 +283,10 @@ function initPagination(tableId,serverTable,paginate){
   })
 }
 
+function updateSaldo(money){
+  money = "RD$ "+ CurrencyFormat(money)
+  $(".current-saldo").text(money);
+}
 
 function updateCount($content){
   $(".total-rows").html($content);
