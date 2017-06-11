@@ -68,14 +68,14 @@ class App extends CI_Controller {
 	}
 
 	public function login(){
-  	$nickname = $this->input->post('user-input');
-  	$password = $this->input->post('password-input');
+  	$nickname = $_POST['user'];
+  	$password = $_POST['password'];
 
    	$is_correct = $this->user_model->login($nickname,$password);
 		 if($is_correct){
-				redirect(base_url('app/admin/home'));
+			echo $is_correct;
 		 }else{
-				$this->index();
+			echo "Sus credenciales han sido incorrectas";
 		 }
   }
 

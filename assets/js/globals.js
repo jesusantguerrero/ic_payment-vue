@@ -22,10 +22,11 @@ const MESSAGE_INFO = '<i class="material-icons">info_outline</i>'
  * @param {?callback} action callback que recibe los datos desde el servidor para hacer algo con ellos
  * @param {string} form formulario a ser enviado al servidor
  * @param {callback} callback funcion a ser ejecutada despues que todo se cumpla, como get users
+ * @param {function} loading function for loading
  * @return {void}
  */
 
-function connectAndSend(url,is_message,recognizeElements,action,form,callback){
+function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
@@ -39,7 +40,7 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback){
             }
             if(callback != null)callback();
         } else if (connect.readyState != 4) {
-
+          loading();
         }
     }
     connect.open("POST",BASE_URL + url, true);

@@ -19,23 +19,30 @@ ob_start( 'ob_gzhandler' );
 
   <div class="container-fluid">
     <div class="row">
+    <div class="loader">
+      <span class="load"></span>
+    </div>
+    </div>
         <div class="col-md-10 col-md-offset-1 card login-box">
           <div>
-            <!--<img src="<?php echo base_url('assets/img/icpayment_logo_alter.svg') ?>" alt="">-->
+            
             <h1>IC PAYMENT</h1>
+            <p class="error-message"></p>
           </div>
           <div class="vertical-line"></div>
           <div>
-            <form action="<?php echo base_url('app/login') ?>" method='post'>
+            <form>
+            
               <div class="form-group">
                  <label for="user-input">Usuario</label>
-                 <input name="user-input" type="text" class="form-control">
+                 <input id="user-input" type="text" class="form-control">
               </div>
               <div class="form-group">
                  <label for="password-input">Contraseña</label>
-                 <input name="password-input" type="password" class="form-control">
+                 <input id="password-input" type="password" class="form-control">
               </div>
-                  <input type="submit" value="Ingresar">
+              <p class="validation"></p>
+              <input type="button" id="send-credentials" value="Ingresar">
             </form>
 
           </div>
@@ -50,5 +57,7 @@ ob_start( 'ob_gzhandler' );
 
   <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"> </script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/globals.js')?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/ajax2.js')?>"></script>
 </body>
 </html>
