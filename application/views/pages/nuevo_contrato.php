@@ -158,8 +158,8 @@
         </div>
 
       <div class="row-container contract-controls hide">
-        <button class="btn" id="btn-save-contract" tabindex="7" disabled>Guardar</button>
-        <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Pago</a>
+        <button class="btn" id="btn-save-contract" tabindex="7">Guardar</button>
+        <a target="_blank" href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>" class="btn" id="btn-pay">Pago</a>
         <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
       <div class="row-container requirement-controls">

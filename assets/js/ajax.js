@@ -1057,11 +1057,12 @@ function updateSettings(){
       settingsFechaCorte               =$("#settings-fecha-corte").val(),
       settingsAperturaCaja             =$("#settings-apertura-caja").val(),
       settingsPenalizacionCancelacion  =$("#settings-penalizacion-cancelacion").val(),
-      settingsMesesPorDefecto          = $("#settings-meses-por-defecto").val();
+      settingsMesesPorDefecto          = $("#settings-meses-por-defecto").val(),
+      settingsSplitDay                 = $("#settings-split-day").val();
 
   form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&apertura_caja=' + settingsAperturaCaja;
   form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;
-  form += '&tabla=settings';
+  form += '&split_day='+settingsSplitDay+'&tabla=settings';
   connectAndSend('process/update',true,null,null,form,null);  
 }
 

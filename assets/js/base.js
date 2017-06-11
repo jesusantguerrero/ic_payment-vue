@@ -83,7 +83,6 @@ function userInfoTip(){
 });
 
 function newContractFunctions(){
-  var btnSaveContract = $("#btn-save-contract");
   var btnPrintContract = $("#btn-print-contract");
   var document = $(".note-item");
   var radioActivateContract = $("#radio-new-contract");
@@ -108,7 +107,6 @@ function newContractFunctions(){
       .attr("checked","")
       .html("&#10004;")
     document.removeClass("print-requirement");
-    btnSaveContract.removeAttr("disabled")
     contractControls.removeClass("hide")
     requirementControls.addClass("hide")
     
@@ -122,7 +120,6 @@ function newContractFunctions(){
       .attr("checked","")
       .html("&#10004;")
     document.addClass("print-requirement");
-    btnSaveContract.attr("disabled","");
     requirementControls.removeClass("hide")
     contractControls.addClass("hide")
   }

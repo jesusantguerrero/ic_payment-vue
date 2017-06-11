@@ -291,6 +291,10 @@ function getForMarch($date){
 }
 
 function get_first_date($date){
+  $ci =& get_instance();
+  $settings = $ci->settings_model->get_settings();
+  $split_day = $settings['split_day'];
+
   $year = $date->format('Y');
   $month = $date->format('m');
   $day = $date->format('d');
@@ -303,7 +307,7 @@ function get_first_date($date){
   endif;
   $newdate = "$year-$month-$day";
   $newdate = new DateTime($newdate);
-  if($old_day > 15){
+  if($old_day > $split_day){
     $newdate = get_next_date($newdate);
   } 
   return $newdate;

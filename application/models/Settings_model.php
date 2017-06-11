@@ -43,7 +43,8 @@ class Settings_model extends CI_MODEL{
       'fecha_corte'                => $settings['fecha_corte'],
       'apertura_caja'              => $settings['apertura_caja'], 
       'penalizacion_cancelacion'   => $settings['penalizacion_cancelacion'],
-      'meses_por_defecto'          => $settings['meses_por_defecto']
+      'meses_por_defecto'          => $settings['meses_por_defecto'],
+      'split_day'                  => $settings['split_day']
     );
     $this->db->where('id',1);
     $result = $this->db->update('ic_settings',$rows);

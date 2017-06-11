@@ -191,15 +191,15 @@
               <div class="form-group">
                 <label for="company-name">Monto de la mora</label>
                 <div class="input-group">
-                  <div class="input-group-addon">Porcentaje </div>
+                  <div class="input-group-addon"><i class="material-icons">&percnt;</i></div>
                   <input type="number" class="form-control" id="settings-mora" value="<?php echo $settings['cargo_mora'] ?>">
-                  <div class="input-group-addon"> % </div>
+                  <div class="input-group-addon"> pc</div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="company-phrase">Fecha de Corte</label>
                 <div class="input-group">
-                  <div class="input-group-addon">Dia </div>
+                  <div class="input-group-addon"><i class="material-icons">event</i> </div>
                   <input type="number" class="form-control" id="settings-fecha-corte" value="<?php echo $settings['fecha_corte'] ?>">
                   <div class="input-group-addon">De Cada Mes </div>
                 </div>
@@ -207,7 +207,7 @@
               <div class="form-group">
                 <label for="company-phone1">Apertura de Caja Chica</label>
                 <div class="input-group">
-                  <div class="input-group-addon">RD$ </div>
+                  <div class="input-group-addon"><i class="material-icons">attach_money</i></div>
                   <input type="number" class="form-control" id="settings-apertura-caja" value="<?php echo $settings['apertura_caja'] ?>">
                   <div class="input-group-addon">Pesos </div>
                 </div>
@@ -218,22 +218,26 @@
               <div class="form-group">
                 <label for="company-name">Penalizacion Por Cancelacion:</label>
                 <div class="input-group">
-                  <div class="input-group-addon">Porcentaje </div>
+                  <div class="input-group-addon"><i class="material-icons">&percnt;</i></div>
                   <input type="number" class="form-control" id="settings-penalizacion-cancelacion" value="<?php echo $settings['penalizacion_cancelacion'] ?>">
-                  <div class="input-group-addon"> % </div>
+                  <div class="input-group-addon"> pc</div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="company-name">Meses Por defecto de un contrato:</label>
                 <div class="input-group">
-                  <div class="input-group-addon">Por </div>
+                  <div class="input-group-addon"><i class="material-icons">event_note</i></div>
                   <input type="number" class="form-control" id="settings-meses-por-defecto" value="<?php echo $settings['meses_por_defecto'] ?>">
                   <div class="input-group-addon">Meses </div>
                 </div>
               </div>
               <div class="form-group">
-                <label for="company-name">Telefono2</label>
-                <input type="text" class="form-control" id="company-phone2" value="">
+                <label for="company-name"> Split Day </label>
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">event</i></div>
+                  <input type="number" class="form-control" id="settings-split-day" value="<?php echo $settings['split_day'] ?>">
+                  <div class="input-group-addon">Dia</div>
+                </div>
               </div>
               <div class="right">
                 <input id="btn-update-settings" type="submit" value="Guardar Datos">

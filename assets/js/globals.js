@@ -40,7 +40,7 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
             }
             if(callback != null)callback();
         } else if (connect.readyState != 4) {
-          loading();
+          if(loading)loading();
         }
     }
     connect.open("POST",BASE_URL + url, true);
