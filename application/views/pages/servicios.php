@@ -12,8 +12,8 @@
   </div>
   <div class="main-content col-md-10">
     <div class="searcher-container">
-    <input type="text" class="searcher" id="client-searcher">
-  </div>
+      <input type="text" class="searcher" id="client-searcher">
+    </div>
 
     <div class="busquedas">
       <button class="tab-buttons" href="">Todos</button>
@@ -21,43 +21,45 @@
       <button class="tab-buttons" href="">PPV</button>
       <button class="tab-buttons" href="">IPV</button>
     </div>
-
-    <table class="table t-services" id="t-services">
-      <thead>
-        <tr>
-          <th>No. </th>
-          <th>ID #</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Mensualidad</th>
-          <th>Tipo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php $this->service_model->get_all_services(); ?>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Filas Por Pagina</td>
-          <td>
+    <div class="table" id="t-services">
+      <table class="table t-services innertable">
+        <thead>
+          <tr>
+            <th>No. </th>
+            <th>ID #</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Mensualidad</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $this->service_model->get_all_services(); ?>
+        </tbody>
+      </table>
+      <div class="table-foot">
+        <div class="pagination-labels">
+          <div>
             <select name="perpage" id="per-page" class="per-page">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>  
-            </select>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>  
+          </select>
+          </div>
+          <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
+            <span class="total-rows">
+              <?php echo $this->service_model->count_services(); ?>
+              </span>
+          </div>
+          <div> Registros</div>
+        </div>
 
-          </td>
-          <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de <span class="total-rows"><?php echo $this->service_model->count_services(); ?></span></td>
-          <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
-
-        </tr>
-
-      </tfoot>
-
-    </table>
+        <div class="pagination-controllers">
+          <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
+        </div>
+      </div>
+    </div>
 
   </div>
 

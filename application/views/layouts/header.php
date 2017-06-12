@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/print.css') ?>" media='print' />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/sweetalert2.min.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo base_url('assets/bt/bootstrap-table.min.css') ?>">
     <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/bt/bootstrap-table.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/bt/locale/bootstrap-table-es-SP.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.js') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/currencyFormat.js') ?>"></script>
@@ -20,6 +23,10 @@
 
 
 </head>
+<body>
+    <div class="loader">
+        <span class="load"></span>
+    </div>
 <header>
     <?php $user_data = get_user_data(); 
           $notifications = $this->report_model->count_moras_view();

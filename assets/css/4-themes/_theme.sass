@@ -32,7 +32,7 @@ header
 
 // table theme
 table 
-  border: 1px solid #ccc
+  border: 1px solid #ddd
   border-radius: 4px
   position: relative
   button
@@ -50,8 +50,12 @@ thead
     background: $contrast-color
     color: #fff
       
-tfoot
-  background: $solitude
+.table-foot
+  +makeFlex(100%,row,flex-end,center)
+  height: 50px
+  background: #fff
+  border: 1px solid #ddd
+  border-top: none
   color: #888
   select
     height: 28px
@@ -65,10 +69,20 @@ tfoot
       color: $contrast-color
   .max-limit
     display: none
+.pagination-labels
+  +makeFlex(500px,row, center,center)
+  div
+    margin: 0 10px
+  margin-right: 50px
+.pagination-controlls
+  width: 200px
 th 
   height: 42px
+  border-right: 2px solid white
+  cursor: pointer
   &:last-child
     border-radius: 0 4px 0 0
+    border-right: none
   &:first-child
     border-radius: 4px 0 0 0
 tbody
@@ -89,8 +103,18 @@ tbody
     &.selected
       background: lighten($contrast-color,25)
       color: #555
+      td 
+        border-color: transparent
       &:hover
         color: #555
+        
+tbody td 
+  border-right: 2px solid #ddd
+  &:last-child
+    border-right: none
+
+   
+
 .table>tbody>tr>td
   padding-top: 15px
 
@@ -126,3 +150,8 @@ tbody
   tbody tr
     &:first-child
       box-shadow: none
+
+.innertable
+  margin-left: 0
+  margin-right: 0
+  width: 100%

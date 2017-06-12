@@ -323,6 +323,38 @@ if ( ! function_exists('make_payment_table')){
     return $html_text;
   }
 }
+
+if ( ! function_exists('make_recibos_table')){
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_recibos_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $hora = new DATETIME($line['complete_date']);
+        $html_text .= 
+        "<tr>
+        <td>".$cont."</td>
+        <td>". $line['id_pago']."</td>
+        <td>".$line['id_contrato']."</td>
+        <td>".$line['cliente']."</td>
+        <td>".$line['servicio']."</td>
+        <td>".$line['concepto']."</td>
+        <td>RD$ ".CurrencyFormat($line['total'])."</td>
+        <td>".$line['fecha']."</td>
+        <td>".$hora->format('g:i a')."</td>";
+        $html_text .="</tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
 if ( ! function_exists('make_service_shortcuts')){
   /**
   * create a shortcut for the data from users to display in the interface
