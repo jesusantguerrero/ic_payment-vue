@@ -31,7 +31,7 @@ function login(){
       title: 'Complete los datos',
       text: 'LLene todos los campos indicados para ingresar',
       type: 'error',
-    })
+    });
   }
 }
 
