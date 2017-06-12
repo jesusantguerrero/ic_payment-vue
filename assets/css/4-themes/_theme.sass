@@ -32,7 +32,7 @@ header
 
 // table theme
 table 
-  border: 1px solid #ccc
+  border: 1px solid #ddd
   border-radius: 4px
   position: relative
   button
@@ -67,8 +67,10 @@ tfoot
     display: none
 th 
   height: 42px
+  border-right: 2px solid white
   &:last-child
     border-radius: 0 4px 0 0
+    border-right: none
   &:first-child
     border-radius: 4px 0 0 0
 tbody
@@ -91,6 +93,13 @@ tbody
       color: #555
       &:hover
         color: #555
+tbody td 
+  border-right: 2px solid #ddd
+  &:last-child
+    border-right: none
+
+   
+
 .table>tbody>tr>td
   padding-top: 15px
 
