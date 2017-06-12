@@ -11,16 +11,11 @@
 
   </div>
   <div class="main-content col-md-10">
+  <h2 class="subsection-title">Servicios <small>:Administracion de servicios y reparaciones</small></h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="client-searcher">
     </div>
 
-    <div class="busquedas">
-      <button class="tab-buttons" href="">Todos</button>
-      <button class="tab-buttons" href="">Internet</button>
-      <button class="tab-buttons" href="">PPV</button>
-      <button class="tab-buttons" href="">IPV</button>
-    </div>
     <div class="table" id="t-services">
       <table class="table t-services innertable">
         <thead>

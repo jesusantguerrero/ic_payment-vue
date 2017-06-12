@@ -404,7 +404,7 @@ $(function () {
       form += "&dni=" + dni + "&type=" + type;
       connectAndSend("user/addnew", true, initHandlers, null, form, getUsers);
     } else {
-      alert("LLene todos los campos por favor");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -425,7 +425,7 @@ $(function () {
       connectAndSend("user/update", true, initHandlers, null, form, getUsers)
     } else {
 
-      alert("LLene todos los campos por favor");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -481,7 +481,7 @@ $(function () {
       connectAndSend("process/add", true, initClientHandlers, null, form, getClientsLastPage);
 
     } else {
-      alert("LLene los campos requeridos por favor");
+     displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -554,7 +554,7 @@ $(function () {
         connectAndSend("process/update", true, initClientHandlers, null, form, getClients);
 
       } else {
-        alert("LLene los campos requeridos por favor");
+        displayAlert("Revise","LLene todos los campos por favor","error");
       }
     }
   }
@@ -684,7 +684,7 @@ $(function () {
       form += "&tabla=servicios";
       connectAndSend("process/add", true, initServicesHandlers, null, form, getServices);
     } else {
-      alert("LLene todos los campos por favor");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -709,7 +709,7 @@ $(function () {
       form += "&tipo=" + type + "&tabla=servicios";
       connectAndSend("process/update", true, initServicesHandlers, null, form, getServices);
     } else {
-      alert("LLene todos los campos por favor ");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -747,7 +747,7 @@ $(function () {
       form += "&modelo="+model+"&ip="+ip;
       connectAndSend("process/add", true, null, null, form, contractSaved);
     } else {
-      alert("LLene los campos requeridos por favor");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -779,7 +779,7 @@ $(function () {
       getContracts(dni);
       $('#add-extra-modal').modal();
     } else {
-      alert("Seleccione el contrato primero")
+     displayAlert("Revise","Seleccione el conrato primero","error");
     }
   }
 
@@ -864,7 +864,7 @@ $(function () {
       var handlers, callback;
       connectAndSend('process/update', true, initPaymentsHandlers, null, form, getPaymentsLastPage);
     } else {
-      alert("has click en la zona roja de abono para confirmar que le viste antes de registrar el pago");
+      displayAlert("Favor Leer","has click en la zona roja de abono para confirmar que le viste antes de registrar el pago","info");
     }
 
   };
@@ -885,7 +885,7 @@ $(function () {
       form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
       connectAndSend("process/add", true, initGlobalHandlers, null, form, getAverias);
     } else {
-      alert("LLene los campos requeridos por favor");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
     $('#new-averia-modal').find('input,textarea').val("");
   }
@@ -917,7 +917,7 @@ $(function () {
     if (!is_empty) {
       connectAndSend('process/add', true, initCajaHandlers, null, form, getCajaLastPage);
     } else {
-      alert("Asegurese de llenar todos los campos");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -931,7 +931,7 @@ $(function () {
     if (!is_empty) {
       connectAndSend('process/retire', true, initCajaHandlers, null, form, getCajaLastPage);
     } else {
-      alert("Asegurese de llenar todos los campos");
+      displayAlert("Revise","LLene todos los campos por favor","error");
     }
   }
 
@@ -999,7 +999,7 @@ function upgradeContract(){
     form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
     connectAndSend('process/upgrade',true,initGlobalHandlers,null,form,null)
   }else{
-    alert("asegurate de llenar todos los datos y seleccionar el servicio");
+    displayAlert("Revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
   }
 }
 
@@ -1020,7 +1020,7 @@ function addExtra(){
      form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
     connectAndSend('process/addextra',true,initGlobalHandlers,null,form,getContractsLastPage);
   }else{
-    alert("asegurate de llenar todos los datos y seleccionar el servicio");
+    displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
   }
 }
 function extendContract(){
@@ -1033,7 +1033,7 @@ function extendContract(){
     form = 'id_contrato=' + contractId + "&duracion=" + duration;
     connectAndSend('process/extend_contract',true,initGlobalHandlers,null,form,getContractsLastPage)
   }else{
-    alert("asegurate de llenar todos los datos y seleccionar el servicio");
+    displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
   }
 }
 

@@ -14,16 +14,11 @@
 
   </div>
   <div class="main-content col-md-10">
+  <h2 class="subsection-title">Clientes <small>:Administracion de Clientes</small></h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
     </div>
-
-
-    <div class="busquedas">
-      <button class="tab-buttons" href="">Ver Todos</button>
-      <button class="tab-buttons" href="">Activos</button>
-      <button class="tab-buttons" href="">Deudores</button>
-    </div>
+    
     <div class="table" id="t-clients">
       <table class="table t-clients innertable">
         <thead>

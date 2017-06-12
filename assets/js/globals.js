@@ -64,20 +64,41 @@ function displayMessage(message){
     color = "rgba(244,67,54,1)";
   }else if(message.includes(MESSAGE_INFO)){
     color = "rgba(2,136,209,1)";
-  }
-  toast = $(".toast")
-  span = toast.find("span").html(message);
-  span.css({background:color});
-  toast.css({display:"flex"});
-  toast.animate({opacity:"1"},500,function(){
+  }else if(message.includes(MESSAGE_SUCCESS)){
+    swal({
+      title: "Exito!",
+      html: message,
+      type: 'success',
+      timer: 3000
+    })
+  }else{
+    toast = $(".toast")
+    span = toast.find("span").html(message);
+    span.css({background:color});
+    toast.css({display:"flex"});
+    toast.animate({opacity:"1"},500,function(){
     setTimeout(function() {
       toast.animate({opacity:"0"});
       toast.css({display:"none"});
     }, 2000);
   });
+  }
+  
   
 }
 
+function displayAlert(title,message,type){
+  if(!title) title = "Revise";
+  if(!message) message = "Asegurate de llenar todos los campos"
+  if(!type) type = "error"
+  swal({
+      title: title,
+      text: message,
+      type: type,
+      confirmButtonClass: 'btn',
+      buttonsStyling: false
+    });
+}
 /**
  * Llena la tabla actual con los datos que vienen del servidor
  * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor

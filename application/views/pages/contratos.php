@@ -11,15 +11,9 @@
 
   </div>
   <div class="main-content col-md-10">
+  <h2 class="subsection-title">Contratos <small>: Administracion de contratos</small></h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="contract-searcher">
-    </div>
-
-    <div class="busquedas">
-      <button class="tab-buttons" href="">Activos</button>
-      <button class="tab-buttons" href="">Morosos</button>
-      <button class="tab-buttons" href="">Cancelados</button>
-      <button class="tab-buttons" href="">Ver Todos</button>
     </div>
 
     <div class="table" id="t-contracts">

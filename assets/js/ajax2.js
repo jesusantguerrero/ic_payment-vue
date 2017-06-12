@@ -31,12 +31,6 @@ function login(){
       title: 'Complete los datos',
       text: 'LLene todos los campos indicados para ingresar',
       type: 'error',
-      timer: 3000
-    }).then(
-      function () {},
-      // handling the promise rejection
-      function (dismiss) {
-      if (dismiss === 'timer') {}
     })
   }
 }

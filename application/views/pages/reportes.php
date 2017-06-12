@@ -25,6 +25,14 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="ingresos">
+         <div class="wide-chart">
+            <canvas class="graphics chart" id="mychart"></canvas>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pagos">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="mychart"></canvas>
+          </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="wide-chart">

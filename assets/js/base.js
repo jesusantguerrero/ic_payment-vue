@@ -204,3 +204,4 @@ $("#extra-client-contract").on('change',function(){
   $("#extra-r-mac").val($this.attr("data-r-mac"));
 });
 
+$(".columns-right").removeClass("pull-right");

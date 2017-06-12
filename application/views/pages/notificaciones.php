@@ -1,3 +1,4 @@
+<?php $user_data = get_user_data() ?>
 <div class="screen reports row">
   <div class="col-md-12">
     <!-- main tab -->
@@ -8,8 +9,9 @@
         <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
         <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Deudores</a></li>
+        <?php if($user_data['type'] == 0):?>
         <li role="presentation"><a href="#recibos" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
-
+        <?php endif;?>
       </ul>
 
       <!-- Tab panes -->
@@ -52,6 +54,7 @@
           </div>
           <?php $this->report_model->get_moras_view() ?>
         </div>
+         <?php if($user_data['type'] == 0):?>
         <div role="tabpanel" class="tab-pane" id="recibos">
           <table data-toggle="table" class="innertable" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
             data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-show-pagination-switch="true"
@@ -74,6 +77,7 @@
             </tbody>
           </table>
         </div>
+        <?php endif;?>
       </div>
     </div>
 
