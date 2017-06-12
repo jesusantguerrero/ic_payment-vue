@@ -211,8 +211,6 @@ $(function () {
       } else {
         clearTbody(".lobby-results");
       }
-
-
     });
 
     $("#delete-client").on('click', function (e) {
@@ -221,12 +219,17 @@ $(function () {
       var $row = $("tr.selected");
       if ($row) {
         var id = $row.find('.id_cliente').text().trim();
-        var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?");
-        if (is_delete) {
-          deleteRow(id, "clientes");
-        }
+        swal({
+          title: 'Está Seguro?',
+          text: "Desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          confirmButtonBackground: SUMMER_SKY
+        }).then(function(){
+           deleteRow(id, "clientes")
+        });
       }
-
     });
   }
   //***************************************************  Init Services Handlers    ***************************** */
@@ -290,6 +293,7 @@ $(function () {
       e.stopImmediatePropagation();
       callExtra();
     });
+    var cont = 0;
 
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
@@ -329,6 +333,25 @@ $(function () {
         getContract(id, recieveContractForEdit);
       }
     });
+
+    var $tablaContratos = $("#t-contracts");
+    $tablaContratos.bootstrapTable();
+    $tablaContratos
+      .on('pre-body.bs.table',function(){
+          $tablaContratos.hide();
+      })
+      
+      .on('post-body.bs.table',function(){
+          $tablaContratos.show();
+      })
+
+      .on('sort.bs.table search.bs.table',function(name,args){
+        cont++;
+        console.log(name);
+        console.log(cont);
+        initContractHandlers();
+      })
+
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {

@@ -14,6 +14,7 @@ class Report_model extends CI_MODEL{
     parent::__construct();
     $this->load->database();
     $this->load->library('table');
+   
   }
 
 
@@ -24,6 +25,15 @@ class Report_model extends CI_MODEL{
       make_payment_report($result,"Reporte De Pagos Del Dia",$this);
     else:
       echo $this->db->last_query();
+    endif;
+  }
+
+   public function get_recibos(){
+    $sql = "SELECT id_pago,id_contrato,cliente,concepto,servicio ,total, complete_date,time(complete_date) as hora FROM v_recibos  order by complete_date";
+    if($result = $this->db->query($sql)):
+      $result = $result->result_array();
+      $result = make_recibos_table($result,0);
+      echo $result;
     endif;
   }
 

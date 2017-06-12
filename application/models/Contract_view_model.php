@@ -20,7 +20,7 @@ class Contract_view_model extends CI_MODEL{
   public function get_contract_view($status){
     $sql = "SELECT * FROM v_contratos where estado = '$status'";
     set_last_query($sql);
-    $sql .= " ORDER BY id_contrato limit 5";
+    $sql .= " ORDER BY id_contrato";
     set_last_page($sql);
     $result = $this->db->query($sql); 
     if($result){

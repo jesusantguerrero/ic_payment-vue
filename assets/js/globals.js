@@ -10,6 +10,7 @@ const BASE_URL = 'http://localhost/ic/'
 const MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>'
 const MESSAGE_ERROR = '<i class="material-icons">error_outline</i>'
 const MESSAGE_INFO = '<i class="material-icons">info_outline</i>'
+const SUMMER_SKY = '#1FA1D0'
 
 
 

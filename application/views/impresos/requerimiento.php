@@ -82,9 +82,8 @@
   </div>
 
   <h1 class="titulo-lateral">Requerimiento de <span>Contrato</span></h1>
-
-
 </div>
+<footer></footer>
 
 <script>
  

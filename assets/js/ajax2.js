@@ -8,15 +8,16 @@ function loginHandlers(){
   });
 
   $("#user-input").on('keydown',function(e){
+    e.stopImmediatePropagation();
     sendToLogin(e)
     
   })
 
   $("#password-input").on('keydown',function(e){
+    e.stopImmediatePropagation();
     sendToLogin(e)
   })
 }
-
 
 function login(){
   var user      = $("#user-input").val();
@@ -26,9 +27,18 @@ function login(){
      var form = 'user='+user+'&password='+password;
      connectAndSend('app/login',false,false,processLoginData,form,null,loading)
   }else{
-    $(".validation").text("Completa los campos");
+    swal({
+      title: 'Complete los datos',
+      text: 'LLene todos los campos indicados para ingresar',
+      type: 'error',
+      timer: 3000
+    }).then(
+      function () {},
+      // handling the promise rejection
+      function (dismiss) {
+      if (dismiss === 'timer') {}
+    })
   }
- 
 }
 
 function loading(){
@@ -40,19 +50,36 @@ function processLoginData(response){
     window.location.href = BASE_URL + 'app/admin/';
   }else{
     $(".loader").css({display:"none"});
-    $(".validation").text(response);
+    swal({
+      title: 'Credenciales Incorrectas',
+      text: 'Revise los datos ingresados e intente de nuevo',
+      type: 'error',
+      confirmButtonClass: 'btn',
+      buttonsStyling: false
+    });
   }
 }
 
 function sendToLogin(e){
-   e.stopImmediatePropagation();
     key = e.which
-    console.log(key);
     if(key == 13){
       login();
     }
 }
 
+$("a[href]").on('click',function(){
+  loading();
+  var $this = $(this);
+  try{
+    var target = $this.attr('target');
+    setTimeout(function(){
+    $(".loader").css({display:"none"});
+    },3000)
+  }catch(error){
+
+  }
+  
+})
 
 
 });

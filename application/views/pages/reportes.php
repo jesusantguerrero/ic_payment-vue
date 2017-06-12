@@ -30,9 +30,38 @@
           </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="pagos">
-          <div class="wide-chart">
-            <canvas class="graphics chart" id="mychart"></canvas>
-          </div>
+        
+           <table data-toggle="table" class="innertable"
+               data-sort-name="num"
+               data-sort-order="asc"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-show-export="true"
+               data-minimum-count-columns="2"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-id-field="payment"
+               data-page-size= "5"
+               data-page-list="[5]"
+               data-show-footer="false">
+              <thead>
+                  <tr>
+                      <th data-field="num"  data-sortable="true">Num</th>
+                      <th data-field="payment"  data-sortable="true">Pago</th>
+                      <th data-field="contract" data-sortable="true">Cont</th>
+                      <th data-field="client" data-sortable="true">Cliente</th>
+                      <th data-field="service"  data-sortable="true">Servicio</th>
+                      <th data-field="concept"  data-sortable="true">Concepto</th>
+                      <th data-field="total"  data-sortable="true">Total</th>
+                      <th data-field="hours"  data-sortable="true">Hora</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php $this->report_model->get_recibos(); ?>
+              </tbody>
+            </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="wide-chart">

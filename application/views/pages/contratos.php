@@ -11,60 +11,48 @@
 
   </div>
   <div class="main-content col-md-10">
-    <div class="searcher-container">
-    <input type="text" class="searcher" id="contract-searcher">
-  </div>
-
-    <div class="busquedas">
-      <button class="tab-buttons" href="">Activos</button>
-      <button class="tab-buttons" href="">Morosos</button>
-      <button class="tab-buttons" href="">Cancelados</button>
-      <button class="tab-buttons" href="">Ver Todos</button>
+  <div class="table-container">
+    <div id="toolbar">
+      <button id="remove" class="btn btn-danger" disabled>
+        <i class="glyphicon glyphicon-remove"></i> Delete
+      </button>
     </div>
 
-    <table class="table table-hovered t-contracts" id="t-contracts">
-      <thead>
-      <tr>
-          <th>Cod</th>
-          <th>Cliente</th>
-          <th>Fecha Inicio</th>
-          <th>Servicio</th>
-          <th>Meses</th>
-          <th>Ultimo Pago</th>
-          <th>Proximo Pago</th>
-          <th>Monto Pagado</th>
-          <th>Monto Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php $this->contract_view_model->get_contract_view('activo'); ?>
-      </tbody>
-      <tfoot>
-        <tr>
-       
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>Filas Por Pagina</td>
-          <td>
-            <select name="perpage" id="per-page" class="per-page">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>  
-            </select>
-
-          </td>
-          <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de <span class="total-rows"><?php $this->contract_view_model->count_contracts()?></span></td>
-          <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
-
-        </tr>
-
-      </tfoot>
-    </table>
-  
+     <table data-toggle="table" id="t-contracts" class="t-contracts innertable"
+               data-sort-name="cod"
+               data-sort-order="asc"
+               data-toolbar="#toolbar"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-show-export="true"
+               data-minimum-count-columns="2"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-page-size= "5"
+               data-id-field="payment"
+               data-page-list="[5]"
+               data-show-footer="false">
+              <thead>
+                  <tr>
+                      <th data-field="cod"  data-sortable="true">Cod</th>
+                      <th data-field="cliente"  data-sortable="true">Cliente</th>
+                      <th data-field="fecha" data-sortable="true">Fecha Inicio</th>
+                      <th data-field="servicio" data-sortable="true">Servicio</th>
+                      <th data-field="meses"  data-sortable="true">Meses</th>
+                      <th data-field="ultimo_pago"  data-sortable="true">Ultimo Pago</th>
+                      <th data-field="proximo_pago"  data-sortable="true">Proximo Pago</th>
+                      <th data-field="monto_pagado"  data-sortable="true">Monto Pagado</th>
+                      <th data-field="monto_total"  data-sortable="true">Monto Total</th>
+                  </tr>
+              </thead>
+              <tbody>
+                 <?php $this->contract_view_model->get_contract_view('activo'); ?>
+              </tbody>
+            </table>
+  </div>
+   
   </div>
 
 
