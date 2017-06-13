@@ -111,7 +111,63 @@ if (! function_exists('upgrade_contract')){
   }
 }
 
+if (! function_exists('update_contract_from_service')){
+  /**
+  * Actualiza los pagos de un contrato automaticamente
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
 
+  function update_contract_from_service($data_cambio){
+    $ci =& get_instance();
+    $service_id = $data_cambio['id_servicio'];
+    $contracts = $ci->contract_view_model->get_contract_view_of_service($service_id);
+    $count = 0;
+    $contratos_a_cambiar = count($contracts);
+
+    foreach ($contracts as $contract) {
+      $contract_id = $contract['id_contrato'];
+      $pagos_restantes = $ci->payment_model->count_unpaid_per_contract($contract_id);
+      $monto_total = $contract['monto_pagado'] + ($data_cambio['mensualidad'] * $pagos_restantes);
+    
+      $data_contract = array(
+        'monto_total'   => $monto_total,
+      );
+      
+      $ci->db->where('id_contrato',$contract_id);
+      if($ci->db->update('ic_contratos',$data_contract)):
+        echo MESSAGE_SUCCESS." Contrato salvado";
+      else:
+        echo MESSAGE_ERROR." error en contrato";
+      endif;
+      
+      $payments = $ci->payment_model->get_unpaid_per_contract($contract_id);
+      
+      foreach ($payments as $payment) {
+        
+        $total           = $data_cambio['mensualidad'] + $payment['mora'] + $payment['monto_extra'];
+
+        $data_pago = array(
+          'cuota'         => $data_cambio['mensualidad'],
+          'cuota'   => $data_cambio['mensualidad'],
+          'total'   => $total
+        );
+
+        $ci->db->where('id_pago',$payment['id_pago']);
+        if($ci->db->update('ic_pagos',$data_pago)):
+           echo MESSAGE_SUCCESS." Pago actualizado";
+        else:
+           echo MESSAGE_ERROR." error en pago";
+        endif;
+      }
+
+      $count++;
+      echo MESSAGE_SUCCESS." ".$count." de ".$contratos_a_cambiar." contratos actualizados";
+      
+    }
+  }
+}
 /**
 * Update_moras and Prepare_moras
 * update_moras se informa de la ultima vez que corrió la función (ella misma), si fue hoy no hace nada, pero si ha pasado un dia
@@ -231,9 +287,9 @@ if (! function_exists('add_extra')){
     $contract = $context->contract_model->get_contract_view($contract_id);
     $next_payment = $context->payment_model->get_next_payment_of($contract_id);
 
-    $detalles_extra = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
-    $monto_extra    = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
-    $total    = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
+    $detalles_extra  = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
+    $monto_extra     = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
+    $total           = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
     
     $data_contract = array(
       'router'        => $data_extra['router'],

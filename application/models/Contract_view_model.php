@@ -38,8 +38,17 @@ class Contract_view_model extends CI_MODEL{
       $result = make_main_contract_table($result->result_array(),0);
       echo $result;
     }  
-  } 
+  }
 
+  public function get_contract_view_of_service($service_id){
+    $this->db->where('id_servicio',$service_id);
+    $this->db->where('estado','activo');
+    if($result = $this->db->get('v_contratos')){
+      return $result->result_array();
+    }else{
+      return false;
+    }
+  }
 
   public function count_contracts(){
     $result = $this->db->query(get_last_query());

@@ -133,6 +133,15 @@ class Payment_model extends CI_MODEL{
     
   }  
 
+  public function get_unpaid_per_contract($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->where('estado','no pagado');
+    $result = $this->db->get('ic_pagos');
+    if($result){
+      return $result->result_array();
+    }
+  }
+
   public function get_payments_paginate($offset,$perpage){
     $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
     set_last_page($sql);

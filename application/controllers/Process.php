@@ -66,7 +66,15 @@ class Process extends CI_Controller {
 				$this->client_model->update_observations($data);
 				break;
 			case "servicios":
+				$this->db->trans_start();
 				$this->service_model->update_service($data);
+				update_contract_from_service($data);
+				$this->db->trans_complete();
+				if($this->db->trans_status() === false):
+					echo MESSAGE_ERROR." error en el status";
+				else:
+					echo MESSAGE_SUCCESS." proceso completo";
+				endif;
 				break;
 			case "pagos":
 				$was_correct = $this->payment_model->check_for_update($data);
