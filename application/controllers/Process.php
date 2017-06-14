@@ -162,6 +162,9 @@ class Process extends CI_Controller {
 			case "ips":
 				$this->section_model->get_all_of_section($_POST['id']);
 				break;
+			case "secciones":
+				$this->section_model->get_sections_dropdown();
+				break;
 		}
 	}
 

@@ -169,13 +169,12 @@ $(function () {
   }
 
   function getSections() {
-    if (id != null) {
-      var form = "tabla=ips&id=" + id;
-      connectAndSend('process/getall', false, null, reorderTable, form,null);
-    }
 
-    function fillSelect(){
-      var id = $("#select-sector").val();
+      var form = "tabla=secciones";
+      connectAndSend('process/getall', false, null, fillSelect, form,null);
+
+    function fillSelect(content){
+      $("#select-sector").html(content);
     }
   }
 
