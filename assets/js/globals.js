@@ -436,7 +436,7 @@ function contractRows($this){
   id_cliente = $this.find('.th-client').attr("data-id-cliente");
   
 
-  $("#btn-pay").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
+  $("#btn-pay-view").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
   $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
   //btnCancelarContrato.attr('data-id-cliente',id_cliente);
   //btnEditarContrato.attr('data-id-cliente',id_cliente);

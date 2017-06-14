@@ -74,8 +74,8 @@
           <button class="tab-buttons" onclick="">Vendedores</button>
           <button class="tab-buttons" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar</button>
         </div>
-
-        <table class="table t-users" id="t-users">
+        <div class="table" id="t-users">
+        <table class="table t-users innertable" >
           <thead>
             <tr>
               <th>No.</th>
@@ -90,32 +90,31 @@
             </tr>
           </thead>
             <tbody> <?php $this->user_model->get_all_users() ?></tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Filas Por Pagina</td>
-                <td>
-                  <select name="perpage" id="per-page" class="per-page">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>  
-                  </select>
-
-                </td>
-                <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> 
-                  de <span class="total-rows"><?php $this->user_model->count_users(); ?></span></td>
-                <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
-
-              </tr>
-
-            </tfoot>
-
         </table>
+         <div class="table-foot">
+          <div class="pagination-labels">
+            <div>
+              <select name="perpage" id="per-page" class="per-page">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>  
+            </select>
+            </div>
+            <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
+              <span
+                class="total-rows">
+                <?php $this->user_model->count_users(); ?>
+                </span>
+            </div>
+            <div> Registros</div>
+          </div>
+        
+          <div class="pagination-controllers">
+            <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
+          </div>
+      </div>
+      </div>
       </div>
 
     <!-- ******************************
@@ -134,8 +133,8 @@
           </select>
           <input type="date" class="form-control caja-for-date" id="caja-date">
         </div>
-
-        <table class="table caja" id="caja">
+        <div class="table" id="caja">
+        <table class="table caja innertable">
           <thead>
             <tr>
               <th>COD</th>
@@ -148,30 +147,31 @@
             </tr>
           </thead>
             <tbody> <?php $this->caja_chica_model->get_rows(); ?></tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Filas Por Pagina</td>
-                <td>
-                  <select name="perpage" id="per-page" class="per-page">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>  
-                  </select>
-
-                </td>
-                <td><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> 
-                  de <span class="total-rows"><?php $this->caja_chica_model->count(); ?></span></td>
-                <td><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></td>
-
-              </tr>
-
-            </tfoot>
-
         </table>
+        <div class="table-foot">
+          <div class="pagination-labels">
+            <div>
+              <select name="perpage" id="per-page" class="per-page">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>  
+            </select>
+            </div>
+            <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
+              <span
+                class="total-rows">
+                <?php $this->caja_chica_model->count();?>
+                </span>
+            </div>
+            <div> Registros</div>
+          </div>
+
+          <div class="pagination-controllers">
+            <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
+          </div>
+      </div>
+      </div>
       </div>
 
       
