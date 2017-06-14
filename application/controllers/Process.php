@@ -16,7 +16,8 @@ class Process extends CI_Controller {
 		$this->load->model("settings_model");
 		$this->load->model("averia_model");
 		$this->load->model("caja_chica_model");
-		$this->load->helper(array('report','payment'));
+		$this->load->model("section_model");
+		$this->load->helper(array('report','payment','section'));
 	}
 
 	public function add(){ 
@@ -34,6 +35,24 @@ class Process extends CI_Controller {
 				break;
 			case "caja":
 				$this->caja_chica_model->add_money($data);
+				break;
+			case "secciones":
+				$is_saved = $this->section_model->add($data);
+				switch ($is_saved) {
+					case -1:
+						echo MESSAGE_INFO." Este sector o codigo ha sido guardado anteriormente";
+						break;
+					case 0:
+						echo MESSAGE_ERROR." No se ha podido Guardar el sector";
+						break;
+					case 1:
+						$section_id = $this->section_model->get_section_id($data['codigo_area']);
+						create_ips($section_id,$data);
+						break;
+					default:
+						# code...
+						break;
+				}
 				break;
 			case "contratos":
 				 $this->db->trans_start();
@@ -139,6 +158,9 @@ class Process extends CI_Controller {
 				break;
 			case "averias":
 				$this->averia_model->get($_POST['estado']);
+				break;
+			case "ips":
+				$this->section_model->get_all_of_section($_POST['id']);
 				break;
 		}
 	}

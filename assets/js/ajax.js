@@ -364,8 +364,6 @@ $(function () {
     });
 
     makeRowsClickable();
-
-
   }
   //***************************************************      detail Handlers       ***************************** */
   function detailHandlers() {
