@@ -205,3 +205,10 @@ $("#extra-client-contract").on('change',function(){
 });
 
 $(".columns-right").removeClass("pull-right");
+
+$("#select-contract-code").on('change',function(){
+  var $this = $(("#select-contract-code :selected"));
+  
+  $("#contract-ip").val($this.attr("data-ip-final"));
+ 
+});

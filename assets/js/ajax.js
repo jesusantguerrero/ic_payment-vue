@@ -2,8 +2,6 @@ function getContracts(dni) {
   var form = "dni=" + dni;
   connectAndSend("process/data_for_extra", false, null, makeContracList, form, null);
 }
-
-
 $(function () {
   var currentPage = $("title").text().split(" ");
   currentPage = currentPage[4].toLowerCase().trim();
@@ -333,6 +331,11 @@ $(function () {
         getContract(id, recieveContractForEdit);
       }
     });
+
+    $("#select-contract-sector").on('change',function(e){
+      e.stopImmediatePropagation();
+      getIpList();
+    })
 
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
@@ -833,6 +836,20 @@ $(function () {
       connectAndSend("process/update", true, initContractHandlers, null, form, getContractsLastPage);
     }
   }
+
+  function getIpList() {
+    var section_id = $("#select-contract-sector").val();
+    var form = "id_seccion=" + section_id + "&tabla=ip_list";
+    connectAndSend("process/getall", false, null, makeIpList, form, null);
+
+    function makeIpList(content){
+      $("#select-contract-code").html(content);
+    }
+  }
+
+  
+
+  
 
   /********************************************************
    *                CRUD para la tabla Pago               *

@@ -1,17 +1,8 @@
 $(function () {
-    var currentPage = $("title").text().split(" ");
-  currentPage = currentPage[4].toLowerCase().trim();
+
   var ran = false;
-  switch (currentPage) {
-    case "login":
-      loginHandlers();
-      break;
-    case "secciones":
-      sectionHandlers();
-      break;
-  }
   loginHandlers();
-  
+  sectionHandlers();
 
   function loginHandlers() {
     $("#send-credentials").on('click', function (e) {

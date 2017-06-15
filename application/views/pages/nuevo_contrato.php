@@ -101,6 +101,12 @@
                 <span class="input-group-addon" id="basic-addon1">Router</span>
                 <input type="text" class="form-control" id="contract-router" tabindex="7">
               </div>
+              <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Sector</span>
+              <select class="form-control" id="select-contract-sector">
+                <?php $this->section_model->get_sections_dropdown(); ?>
+              </select>
+             </div>
             </div>
             <div class="col-md-6">
               <div class="input-group">
@@ -115,6 +121,13 @@
                 <span class="input-group-addon" id="basic-addon1">Mac</span>
                 <input type="text" class="form-control" id="contract-r-mac" tabindex="8">
               </div>
+              <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Codigo</span>
+              <select class="form-control" id="select-contract-code">
+                <option value="">--seleccione sector--</option>
+              </select>
+             </div>
+             
             </div>
 
           </div>

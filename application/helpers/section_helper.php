@@ -50,3 +50,12 @@ function create_ips($section_id,$data){
 
     return $html_text;
   }
+
+function make_ips_list($data){
+    $html_text = " "; 
+    foreach ($data as $row) {
+        $html_text .= "<option value='".$row['id_ip']."' data-ip-final='".$row['ip_final']."'>";
+        $html_text .= $row['codigo']."</option>";
+    }
+    return $html_text;
+}

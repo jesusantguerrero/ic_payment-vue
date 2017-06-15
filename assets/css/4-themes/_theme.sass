@@ -50,13 +50,15 @@ thead
     background: $contrast-color
     color: #fff
       
-.table-foot
+.table-foot,
+.fixed-table-pagination
   +makeFlex(100%,row,flex-end,center)
   height: 50px
   background: #fff
   border: 1px solid #ddd
   border-top: none
   color: #888
+  padding: 0 15px
   select
     height: 28px
     font:
@@ -111,14 +113,33 @@ tbody
         border-color: transparent
       &:hover
         color: #555
-        
+ul.pagination
+  margin: 0 0 0 0
+  li
+    display: none
+    &:first-child,
+    &:last-child
+      display: inline-block
+      float: none
+      border: none
+      font-size: 30px 
+      height: 28px
+      border: none
+      background: transparent
+    a
+      border: none
+      float: none
+      color: #888
+      font-size: 30px
+      cursor: pointer
+      &:hover
+        color: $contrast-color
+        background: transparent
 tbody td 
   border-right: 2px solid #ddd
   &:last-child
     border-right: none
-
-   
-
+    
 .table>tbody>tr>td
   padding-top: 15px
 

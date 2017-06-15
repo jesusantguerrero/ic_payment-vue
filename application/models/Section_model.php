@@ -80,4 +80,15 @@ class Section_model extends CI_MODEL{
     
   }  
 
+  public function get_ip_list_of_section($section_id){
+    $this->db->where('id_seccion',$section_id);
+    $this->db->where('estado','disponible');
+    $result = $this->db->get('v_ips');
+    if($result){
+      $result = $result->result_array();
+      echo  make_ips_list($result);
+    }
+    
+  }
+
 }
