@@ -163,7 +163,8 @@ if ( ! function_exists('make_main_contract_table')){
     $html_text = " "; 
     foreach ($data as $line) {
         $html_text .= "<tr>
-        <td class='id_contrato'>".$line['id_contrato']."</td>
+        <td class='id_contrato hide'>".$line['id_contrato']."</td>
+        <td class='codigo'>".$line['codigo']."</td>
         <td class='th-client 'data-id-cliente='".$line['id_cliente']."' data-cedula='".$line['cedula']."'>".$line['cliente']."</td>
         <td>".$line['fecha']."</td>
         <td>".$line['servicio']."</td>

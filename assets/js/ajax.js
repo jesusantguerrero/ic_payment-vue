@@ -721,7 +721,7 @@ $(function () {
    ********************************************************/
 
   function addNewContract() {
-    var form, table, client_id, user_id, service_id, contract_date, payment, duration,
+    var form, table, client_id, user_id, service_id,code, contract_date, payment, duration,
         equipment, eMac, router, rMac, total, nextPayment,model,ip;
 
     client_id = $("#contract-client-id").val();
@@ -735,6 +735,7 @@ $(function () {
     rMac = $('#contract-r-mac').val();
     model = $('#contract-equipment-model').val();
     ip = $('#contract-ip').val();
+    code = $("#select-contract-code").val();
 
     payment = $("#contract-client-payment").val();
     nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');
@@ -742,7 +743,7 @@ $(function () {
     var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);
     if (!is_empty) {
       total = (Number(duration) + 1) * Number(payment);
-      form = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&fecha=" + contract_date;
+      form = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&codigo="+code+ "&fecha=" + contract_date;
       form += "&duracion=" + duration + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
       form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
       form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
@@ -1013,7 +1014,7 @@ function upgradeContract(){
   var is_empty = isEmpty([contractId,serviceId, amount]);
   if(!is_empty){
     form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
-    connectAndSend('process/upgrade',true,initGlobalHandlers,null,form,null)
+    connectAndSend('process/upgrade',true,initGlobalHandlers,null,form,getContractsLastPage)
   }else{
     displayAlert("Revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
   }

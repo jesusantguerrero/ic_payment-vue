@@ -74,7 +74,7 @@ class Contract_view_model extends CI_MODEL{
 
   public function search_contracts($word){
     $word = "'%".$word."%'";
-    $sql = "SELECT * FROM v_contratos WHERE (id_cliente LIKE $word || cliente LIKE $word || id_contrato LIKE $word) AND estado = 'activo'";
+    $sql = "SELECT * FROM v_contratos WHERE (codigo LIKE $word || cliente LIKE $word || id_contrato LIKE $word) AND estado = 'activo'";
     set_last_query($sql);
     $sql .= "LIMIT 5";
     set_last_page($sql);

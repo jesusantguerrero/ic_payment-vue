@@ -14,6 +14,7 @@ class Contract_model extends CI_MODEL{
   public $id_empleado;
   public $id_cliente;
   public $id_servicio;
+  public $codigo;
   public $fecha;
   public $duracion;
   public $monto_total;
@@ -32,6 +33,7 @@ class Contract_model extends CI_MODEL{
     $this->load->database();
     $this->load->model('payment_model');
     $this->load->helper('lib_helper');
+    $this->load->model('section_model');
   }
 
   /**
@@ -49,7 +51,7 @@ class Contract_model extends CI_MODEL{
     $this->id_cliente     = $data['id_cliente'];      
     $this->id_empleado    = $data['id_empleado'];     
     $this->id_servicio    = $data['id_servicio'];
-    $this->codigo         = null;
+    $this->codigo         = $data['codigo'];
     $this->fecha          = $data['fecha'];
     $this->duracion       = $data['duracion'];
     $this->monto_total    = $data['monto_total'] ;
@@ -173,6 +175,7 @@ class Contract_model extends CI_MODEL{
       $has_contracts = count($has_contracts);
       if($has_contracts == 0){
         $this->db->query($sql4);
+        $this->section_model->update_ip_state($data['codigo'],'disponible');
       }
     }
   }
@@ -197,7 +200,6 @@ class Contract_model extends CI_MODEL{
   }
 
   public function cancel_contract($data_pago,$data_contrato,$current_contract){ 
-    $sql0 = "SELECT estado FROM v_contratos WHERE id_contrato=".$data_contrato['id_contrato'];
     $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
     $sql1 .=" ultimo_pago='".$data_contrato['proximo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
 
@@ -221,6 +223,7 @@ class Contract_model extends CI_MODEL{
         echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
       } else{
         echo MESSAGE_SUCCESS." Contrato Cancelado";
+        $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
         $has_contracts = $this->db->query($sql3);
         $has_contracts = $has_contracts->result_array();
         $has_contracts = count($has_contracts);
