@@ -168,7 +168,4 @@ $(function () {
       $("#select-sector").html(content);
     }
   }
-
-
-
 });
