@@ -70,7 +70,7 @@ class Service_model extends CI_MODEL{
   }
 
   public function get_all_services(){
-    $sql = "SELECT * FROM ic_servicios LIMIT 5";
+    $sql = "SELECT * FROM ic_servicios order by tipo, mensualidad LIMIT 5";
     $result = $this->db->query($sql);
     $result = make_service_table($result->result_array(),0);
     echo $result;
@@ -96,7 +96,7 @@ class Service_model extends CI_MODEL{
   }
 
   public function get_services_paginate($offset,$perpage){
-    $sql = "SELECT * FROM ic_servicios LIMIT ".$offset.", ".$perpage;
+    $sql = "SELECT * FROM ic_servicios order by tipo, mensualidad LIMIT ".$offset.", ".$perpage;
     $result = $this->db->query($sql);
     $result = make_service_table($result->result_array(),$offset);
     echo $result;
@@ -114,7 +114,7 @@ class Service_model extends CI_MODEL{
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Servicio Eliminado";
     }else{
-      echo "error";
+      echo MESSAGE_ERROR." Error: Puede que este servicio tenga contratos vinculados";
     }
   }
 

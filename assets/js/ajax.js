@@ -246,7 +246,7 @@ $(function () {
       e.preventDefault();
       e.stopImmediatePropagation();
       var $row = $("tr.selected");
-      if ($row) {
+      if ($row.length > 0  ) {
         var id = $row.find('.id_servicio').text().trim();
         var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?");
         if (is_delete) {
