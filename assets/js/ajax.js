@@ -21,6 +21,7 @@ $(function () {
       break;
     case "nuevo_contrato":
       initContractHandlers();
+      getIpList();
       break;
     case "detalles":
       initPaymentsHandlers();
