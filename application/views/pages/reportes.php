@@ -18,7 +18,7 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Ingresos Este Año: RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></a></li>
-        <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Pagos</a></li>
+        <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Balance</a></li>
       </ul>
 
