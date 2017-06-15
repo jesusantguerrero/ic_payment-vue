@@ -11,7 +11,7 @@
 
   </div>
   <div class="main-content col-md-10">
-  <h2 class="subsection-title">Servicios <small>:Administracion de servicios y reparaciones</small></h2> 
+  <h2 class="subsection-title">Servicios: <small>Administracion de servicios y reparaciones</small></h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="client-searcher">
     </div>

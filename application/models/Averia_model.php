@@ -51,7 +51,7 @@ class Averia_model extends CI_MODEL{
     }
     $this->db->where('id_averia',$id_averia);
     if($this->db->update('ic_averias',array("estado" => $status))){
-      echo MESSAGE_SUCCESS. " Estado de averia cambiado a ". $status." SWAL";
+      echo "Estado de averia cambiado a ". $status." SWAL";
     }
 
   }

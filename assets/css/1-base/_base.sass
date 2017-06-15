@@ -6,6 +6,10 @@
 body
   background: #fdfdfd
   color: $primary-color
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-rendering: optimizeLegibility
+  -moz-font-feature-settings: "liga" on
 
 header
   height: 80px
@@ -20,8 +24,6 @@ header
   flex-direction: row
   width: 20%
   
-
-
   h1,h2,h3,h4,h5,h6
     margin: 0
     width: 50%
@@ -148,6 +150,8 @@ nav
 .subsection-title
    +size(95%,38px)
    margin: 30px 2.5% 0 2.5%
+   small
+    color: $contrast-color
    
    &.t-users
     width: 100%

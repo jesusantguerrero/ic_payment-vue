@@ -13,7 +13,7 @@
   <div class="main-content col-md-10">
   <h2 class="subsection-title">Contratos: <small>Administracion de contratos</small></h2> 
     <div class="searcher-container">
-      <input type="text" class="searcher" id="contract-searcher">
+      <input type="text" class="searcher" id="contract-searcher"placeholder="Busque contrato por codigo o cliente">
     </div>
 
     <div class="table" id="t-contracts">
