@@ -112,6 +112,9 @@ class Process extends CI_Controller {
 			case "averias":
 				$this->averia_model->update($data['id_averia']);
 				break;
+			case "instalaciones":
+				$this->report_model->update_installation($data['id_pago']);
+				break;
 			case "contratos":
 				$data_for_update = array(
 					'nombre_equipo' => $data['nombre_equipo'],
@@ -159,6 +162,9 @@ class Process extends CI_Controller {
 				break;
 			case "averias":
 				$this->averia_model->get($_POST['estado']);
+				break;
+			case "instalaciones":
+				$this->report_model->get_installations_list($_POST['estado']);
 				break;
 			case "ips":
 				$this->section_model->get_all_of_section($_POST['id']);

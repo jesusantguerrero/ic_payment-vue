@@ -47,7 +47,8 @@ class Report_model extends CI_MODEL{
     endif;
   }
 
-  public function get_installations($date = '',$is_print = false){
+  public function get_installations($status = 'por instalar',$is_print = false){
+    $this->db->where('estado_instalacion',$status);
     $result = $this->db->get('v_instalaciones');
     if($result){
       $result = $result->result_array();
@@ -66,7 +67,8 @@ class Report_model extends CI_MODEL{
   # Instalaciones 
 
   public function count_installations(){
-    $result = $this->db->count_all('v_instalaciones');
+    $this->db->where('estado_instalacion','por reparar');
+    $result = $this->db->count_all_results('v_instalaciones');
     if($result){
      return $result;
     }else{
@@ -88,6 +90,43 @@ class Report_model extends CI_MODEL{
       array_push($resultado_por_mes,$value);
     }
     return $resultado_por_mes;
+  }
+
+  public function get_installations_list($status='todos'){
+    $sql = "SELECT * FROM v_instalaciones";
+    if($status != 'todos'){
+       $sql .= " WHERE estado_instalacion ='$status'";
+    }
+    $result = $this->db->query($sql);
+    set_last_query($sql);
+    if($result and count($result) > 0){
+      $result = make_installations_list($result->result_array());
+      echo $result;
+    }else{
+      echo "<h3>No hay Datos Para Esta Busqueda</h3>";
+    }
+    
+  }
+
+  public function update_installation($id_pago){
+    $this->db->where('id_pago',$id_pago);
+    $result = $this->db->get('v_instalaciones',1);
+    $status = $result->row_array()['estado_instalacion'];
+    switch ($status) {
+      case 'por instalar':
+        $status = 'en proceso';
+        break;
+      case 'en proceso':
+        $status = 'instalado';
+        break;
+      default: 
+       $status =  'por instalar';
+    }
+    $this->db->where('id_pago',$id_pago);
+    if($this->db->update('ic_pagos',array("estado_instalacion" => $status))){
+      echo MESSAGE_SUCCESS." Estado de la instalacion cambiado a ". $status;
+    }
+
   }
 
   public function count_moras_view(){

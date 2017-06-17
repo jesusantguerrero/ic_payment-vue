@@ -29,7 +29,7 @@
           </select>
           </div>
 
-          <div class="averia-item-list">
+          <div class="averia-item-list" id="averias-list">
 
             <?php $this->averia_model->get() ?>
           </div>
@@ -40,11 +40,21 @@
             <h4 class="search-criteria">Instalaciones de Hoy </span> (
               <?php echo $this->report_model->count_installations(); ?>)</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
+           <select name="" id="installations-view-mode">
+            <option value="por instalar">Por Instalar</option>
+            <option value="en proceso">En Proceso</option>
+            <option value="instalado">Instalados</option>
+            <option value="todos">Todos</option>
+          </select>
           </div>
           <div class="instalation-controls">
 
           </div>
-          <?php $this->report_model->get_installations(); ?>
+          <div class="averia-item-list" id="installations-list">
+
+            <?php $this->report_model->get_installations_list();?>
+          </div>
+          
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="searcher-container clearfix">

@@ -138,10 +138,15 @@ function fillPaymentsList($content,callback){
 }
 
 function fillAveriasList($content,callback){
-  var $container = $(".averia-item-list");
+  var $container = $("#averias-list");
   $container.html($content);
   callback();
+}
 
+function fillInstallationsList($content,callback){
+  var $container = $("#installations-list");
+  $container.html($content);
+  callback();
 }
 
 function makeContracList(response,callback){

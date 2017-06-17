@@ -236,6 +236,42 @@ if ( ! function_exists('make_averias_list')){
   }
 }
 
+if ( ! function_exists('make_installations_list')){
+
+  function make_installations_list($data){
+    $html_text = " "; 
+    foreach ($data as $line) {
+      $icono = 'check_box_outline_blank';
+      $color = 'red';
+        switch ($line['estado_instalacion']) {
+          case 'en proceso':
+            $icono = 'av_timer';
+            $color = '#f60';
+            break;
+          case 'instalado':
+            $icono = 'check_box';
+            $color = 'green';
+            break;
+        }
+        $html_text .= "<div class='averia-item'>
+            <div class='top-row'>
+              <div class='code'>".$line['id_pago']."</div>
+              <div class='info'><span class='client-name'>".$line['cliente']."</span><span class='client-direction'>::".$line['direccion']."</span></div>
+              <button class='btn-update-installation'>Actualizar</button>
+            </div>
+            <div class='description'>
+              <div class='date'>".$line['fecha']."</div>
+              <div class='title-item'>Servicio :</div>
+              <div class='text'>".$line['servicio']."</div>
+            </div>
+            <div class='status-bar'><span class='status' style='color: $color'><i class='material-icons'>$icono</i><span>".$line['estado_instalacion']."</span></span></div>
+            </div>";
+    }
+
+    return $html_text;
+  }
+}
+
 
 function make_contract_dropdown($data){
     $html_text = " "; 

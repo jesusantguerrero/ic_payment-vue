@@ -47,8 +47,13 @@ $(function () {
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
         getAverias();
-
       });
+
+       $("#installations-view-mode").on('change', function (e) {
+        e.stopImmediatePropagation();
+        getInstallations();
+      });
+
     }
     if (currentPage == 'contratos') {
 
@@ -74,6 +79,13 @@ $(function () {
       id_averia = id_averia.text().trim();
       updateAverias(id_averia);
     });
+    
+    $(".btn-update-installation").on('click', function (e) {
+      e.stopImmediatePropagation();
+      var id_pago = $(this).parents('.averia-item').find('.code');
+      id_pago = id_pago.text().trim();
+      updateInstallations(id_pago);
+    });
 
     $("#extra-controls").on('click',function(e){
       e.stopImmediatePropagation();
@@ -87,7 +99,6 @@ $(function () {
         getContracts(dni);
       }
     });
-
 
   }
   //***************************************************     Init Handlers          ***************************** */
@@ -897,7 +908,7 @@ $(function () {
   };
 
   /********************************************************
-   *                          averias                            
+   *                          averias  e instalaciones                          
    *                                                       *
    ********************************************************/
   function addAveria() {
@@ -927,6 +938,17 @@ $(function () {
   function updateAverias($id_averia) {
     var form = "tabla=averias&id_averia=" + $id_averia;
     connectAndSend('process/update', true, initGlobalHandlers, null, form, getAverias);
+  }
+
+  
+  function getInstallations() {
+    var status = $("#installations-view-mode").val();
+    var form = "tabla=instalaciones&estado=" + status;
+    connectAndSend('process/getall', false, initGlobalHandlers, fillInstallationsList, form, null);
+  }
+   function updateInstallations($id_pago) {
+    var form = "tabla=instalaciones&id_pago=" + $id_pago;
+    connectAndSend('process/update', true, initGlobalHandlers, null, form, getInstallations);
   }
 
   /********************************************************
