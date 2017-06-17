@@ -48,7 +48,7 @@ $(function () {
       connectAndSend('app/login', false, false, processLoginData, form, null, loading)
     } else {
       swal({
-        title: 'Complete los datos',
+        title:'Complete los datos',
         text: 'LLene todos los campos indicados para ingresar',
         type: 'error',
       });
@@ -80,6 +80,7 @@ $(function () {
 
   function sendToLogin(e) {
     key = e.which
+    console.log('hola');
     if (key == 13) {
       login();
     }

@@ -63,6 +63,8 @@ class Report_model extends CI_MODEL{
     }
   }
 
+  # Instalaciones 
+
   public function count_installations(){
     $result = $this->db->count_all('v_instalaciones');
     if($result){
@@ -70,6 +72,22 @@ class Report_model extends CI_MODEL{
     }else{
       return 0;
     }
+  }
+
+  public function get_installations_per_month(){
+    $resultado_por_mes = array();
+    
+    for ($i=1; $i <= 12 ; $i++) { 
+      $sql = "SELECT count(*) from v_instalaciones where year(fecha) = year(now()) and month(fecha)= $i";
+      $result = $this->db->query($sql)->row_array()["count(*)"];
+      if($result){
+        $value = $result; 
+      }else{
+        $value = "0";
+      }
+      array_push($resultado_por_mes,$value);
+    }
+    return $resultado_por_mes;
   }
 
   public function count_moras_view(){

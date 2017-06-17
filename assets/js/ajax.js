@@ -107,11 +107,17 @@ $(function () {
     $(".delete-user").on('click', function (e) {
       e.preventDefault();
       var $row = $(this).parents("tr");
-      var id = $row.find('.user-id').text().trim()
-      var is_delete = window.confirm("Está seguro de que desea Eliminar al usuario " + $row.find("td:nth(3)").text() + "?");
-      if (is_delete) {
-        deleteUser(id);
-      }
+      var id = $row.find('.user-id').text().trim();
+      swal({
+          title: 'Está Seguro?',
+          text: "Desea Eliminar al Usuario " + $row.find("td:nth(3)").text()  + "?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          confirmButtonBackground: SUMMER_SKY
+        }).then(function(){
+           deleteUser(id);
+        });
     });
 
     $(".edit-user").on('click', function (e) {
@@ -216,7 +222,7 @@ $(function () {
       e.preventDefault();
       e.stopImmediatePropagation();
       var $row = $("tr.selected");
-      if ($row) {
+      if ($row.length > 0) {
         var id = $row.find('.id_cliente').text().trim();
         swal({
           title: 'Está Seguro?',
@@ -248,12 +254,17 @@ $(function () {
       var $row = $("tr.selected");
       if ($row.length > 0  ) {
         var id = $row.find('.id_servicio').text().trim();
-        var is_delete = window.confirm("Está seguro de que desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?");
-        if (is_delete) {
-          deleteRow(id, "servicios");
-        }
+        swal({
+          title: 'Está Seguro?',
+          text: "Desea Eliminar  Este Servicio?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          confirmButtonBackground: SUMMER_SKY
+        }).then(function(){
+           deleteRow(id, "servicios");
+        });
       }
-
     });
 
     $("#edit-service").on('click', function (e) {
@@ -274,7 +285,6 @@ $(function () {
       e.stopImmediatePropagation();
       updateService();
     });
-
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {

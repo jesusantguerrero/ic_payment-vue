@@ -5,6 +5,7 @@
   $entradas  = $this->caja_chica_model->get_transactions_per_month('entrada');
   $balances  = $this->caja_chica_model->get_balance_per_month();
   $services = $this->contract_view_model->get_statics_of_services();
+  $installations = $this->report_model->get_installations_per_month();
  ?>
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
@@ -31,7 +32,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="pagos">
           <div class="wide-chart">
-            <canvas class="graphics chart" id="mychart"></canvas>
+            <canvas class="graphics chart" id="installations-chart"></canvas>
           </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
@@ -89,16 +90,18 @@
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
+
   var salidas = <?php echo json_encode($salidas)?>;
   var entradas = <?php echo json_encode($entradas)?>;
   var balances = <?php echo json_encode($balances)?>;
   var services = <?php echo json_encode($services)?>;
+  var instalaciones = <?php echo json_encode($installations) ?>;
   var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre", "Diciembre"];
   drawChart();
   weekChart();
   servicesChart();
   balanceChart();
-  
+  installationsChart();
   
   
   <?php 
@@ -321,6 +324,31 @@
       }
     };
     var mychart = new Chart(canvas, chartOptions);
+  }
+
+  function installationsChart() {
+    var $canvas = $("#installations-chart");
+    var data = {
+      labels: months,
+      datasets: [{
+        label: "Instalaciones Por Mes",
+        borderColor: "rgba(3,169,244 ,1)",
+        backgroundColor: 'rgba(3,169,244 ,.7)',
+        borderWidth: 1,
+        data: instalaciones
+      }]
+    }
+
+    var options = {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+
+    var mychart = new Chart($canvas, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
   }
 </script>
 

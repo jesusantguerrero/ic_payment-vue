@@ -14,7 +14,7 @@ ob_start( 'ob_gzhandler' );
     <link rel="icon" type="image/png" sizes="32x32" href="<?php  echo base_url('/favicon-32x32.png')?>">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php  echo base_url('/favicon-16x16.png')?>">
-    <script type="text/javascript" src="<?php echo base_url('assets/js/sweetalert2.min.js') ?>"></script>
+    
     
 </head>
 <body class="login-body">
@@ -58,6 +58,7 @@ ob_start( 'ob_gzhandler' );
   </div>
 
   <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/sweetalert2.min.js') ?>"></script>
   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"> </script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/globals.js')?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/ajax2.js')?>"></script>
