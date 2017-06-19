@@ -54,6 +54,10 @@ function adminFunctions(){
       $('#'+cardName+'.company-details').animate({left:"0"},200)
     }  
   })
+
+  if($("#acount-section").length > 0){
+    $('#acount-section').animate({left:"0"},200)
+  }
 }
 
 /**

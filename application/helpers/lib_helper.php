@@ -350,7 +350,7 @@ if ( ! function_exists('make_payment_table')){
         <td>".$line['fecha_limite']."</td>
         <td class='id_pago' data-id='".$line['id_pago']."'>";
           if($line['fecha_pago'] != null):
-          $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>receipt</i></a>";
+          $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
           endif;
         $html_text .="</td>
       </tr>";
