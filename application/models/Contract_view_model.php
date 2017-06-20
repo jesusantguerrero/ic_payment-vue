@@ -38,6 +38,8 @@ class Contract_view_model extends CI_MODEL{
       $result = make_main_contract_table($result->result_array(),0);
       echo $result;
     }  
+
+    echo get_last_page();
   }
 
   public function get_contract_view_of_service($service_id){

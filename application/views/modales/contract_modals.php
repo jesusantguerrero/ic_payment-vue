@@ -217,6 +217,17 @@
                       <label for="cient-sector">Router</label>
                       <input class="form-control" id="u-contract-router" tabindex="5">
                     </div>
+                    <div class="form-group">
+                    <label for="cient-sector">Sector</label>
+                      <select class="form-control" id="select-contract-sector">
+                       <?php $this->section_model->get_sections_dropdown(); ?>
+                      </select>
+                    </div>
+                     <div class="form-group">
+                      <label for="check-change-ip">Cambiar Ip?</label>
+                      <input class="form-control" id="check-change-ip" type="checkbox">
+                    </div>
+                    
             </div>
             <div class="col-md-6">
                     <div class="form-group">
@@ -231,13 +242,19 @@
                       <label for="client-house">Mac del Router</label>
                       <input type="text" class="form-control" id="u-contract-r-mac" tabindex="6">
                     </div>
+                     <div class="form-group">
+                      <label for="cient-sector">Codigo</label>
+                      <select class="form-control" id="select-contract-code">
+                        <option value="">-- seleccione codigo --</option>
+                      </select>
+                    </div>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal" tabindex="8">Cancelar</button>
-        <button type="button" class="btn save dynamic-controls" id="update-contract" tabindex="7">Guardar<button/>       
+        <button type="button" class="btn save" id="update-contract" tabindex="7">Guardar<button/>       
       </div>
       
       

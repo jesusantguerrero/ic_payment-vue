@@ -77,7 +77,7 @@ class Service_model extends CI_MODEL{
   }
 
   public function get_services_shortcuts(){
-    $sql = "SELECT * FROM ic_servicios WHERE tipo= 'internet'";
+    $sql = "SELECT * FROM ic_servicios WHERE tipo= 'internet' order by mensualidad";
     $result = $this->db->query($sql);
     $result = make_service_shortcuts($result->result_array());
     echo $result;

@@ -10,7 +10,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 function make_section_dropdown($data){
-    $html_text = " "; 
+    $html_text = "<option value=''> - sector - </option>"; 
     foreach ($data as $row) {
         $html_text .= "<option value='".$row['id_seccion']."'>";
         $html_text .= $row['nombre']." | ".$row['codigo_area']."</option>";
@@ -52,7 +52,7 @@ function create_ips($section_id,$data){
   }
 
 function make_ips_list($data){
-    $html_text = " "; 
+    $html_text = "<option value=''> - codigo - </option>"; 
     foreach ($data as $row) {
         $html_text .= "<option value='".$row['codigo']."' data-ip-final='".$row['ip_final']."'>";
         $html_text .= $row['codigo']."</option>";

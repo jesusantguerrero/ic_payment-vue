@@ -122,8 +122,15 @@ class Process extends CI_Controller {
 					'router'				=> $data['router'],
 					'mac_router'    => $data['mac_router'],
 					'modelo'				=> $data['modelo'],
-					'ip'    => $data['ip']
 				);
+
+					if(isset($data['codigo'])){
+							$contract = $this->contract_model->get_contract_view($data['id_contrato']);
+							$this->section_model->update_ip_state($contract['codigo'],'disponible');
+							$data_for_update['ip'] = $data['ip'];
+							$data_for_update['codigo'] = $data['codigo'];	
+							$this->section_model->update_ip_state($data['codigo'],'ocupado');			
+					}
 				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
 				break;
 			

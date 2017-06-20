@@ -743,7 +743,7 @@ $(function () {
 
   function addNewContract() {
     var form, table, client_id, user_id, service_id,code, contract_date, payment, duration,
-        equipment, eMac, router, rMac, total, nextPayment,model,ip;
+        equipment, eMac, router, rMac, total, nextPayment,model, ip;
 
     client_id = $("#contract-client-id").val();
     user_id = $("#contract-user-id").val();
@@ -832,6 +832,8 @@ $(function () {
     var $router      = $("#u-contract-router");
     var $macRouter   = $("#u-contract-r-mac");
     var $modelo      = $("#u-contract-modelo");
+    var $codigo      = $("#select-contract-code");
+    var $isChangeIp  = $("#check-change-ip");
     var $ip          = $("#u-contract-ip");
     
 
@@ -841,6 +843,9 @@ $(function () {
     $macRouter.val(contract['mac_router']);
     $modelo.val(contract['modelo']);
     $ip.val(contract['ip']);
+    $isChangeIp.on('click',function(){
+      console.log($isChangeIp.val())
+    })
 
     $("#update-contract-modal").modal();
 
@@ -850,11 +855,15 @@ $(function () {
     });
 
     function updateContract() {
+      var checked = $("#check-change-ip:checked").length;
 
       form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + "&mac_equipo=" + $macEquipo.val();
       form += "&router=" + $router.val() + "&mac_router=" + $macRouter.val();
-      form += "&modelo=" + $modelo.val() + "&ip=" + $ip.val();
+      form += "&modelo=" + $modelo.val();
       form += "&tabla=contratos";
+      if(checked > 0){
+         form += "&ip=" + $ip.val() + "&codigo=" + $codigo.val();
+      }
 
       connectAndSend("process/update", true, initContractHandlers, null, form, getContractsLastPage);
     }
