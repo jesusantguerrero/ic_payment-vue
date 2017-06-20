@@ -68,11 +68,9 @@
 
       <div class="company-details" id="user-section">
         <h3> Usuarios </h3>
-        <div class="busquedas">
-          <button class="tab-buttons" onclick="">Ver Todos</button>
-          <button class="tab-buttons" onclick="">Administradores</button>
-          <button class="tab-buttons" onclick="">Vendedores</button>
-          <button class="tab-buttons" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar</button>
+        <div class="searcher-container clearfix">
+        <h4 class="search-criteria">Todos los Usuarios :<span class="presentado"></h4>
+          <button class="btn" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar <i class="material-icons">add</i></button>
         </div>
         <div class="table" id="t-users">
         <table class="table t-users innertable" >
