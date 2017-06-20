@@ -64,10 +64,11 @@
           </div>
           <?php $this->report_model->get_moras_view() ?>
         </div>
+        
          <?php if($user_data['type'] == 0):?>
         <div role="tabpanel" class="tab-pane" id="recibos">
           <table data-toggle="table" class="innertable" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
-            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-show-pagination-switch="true"
+            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
             data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false">
             <thead>
               <tr>

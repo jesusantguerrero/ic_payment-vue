@@ -67,7 +67,7 @@ class Report_model extends CI_MODEL{
   # Instalaciones 
 
   public function count_installations(){
-    $this->db->where('estado_instalacion','por reparar');
+    $this->db->where('estado_instalacion','por instalar');
     $result = $this->db->count_all_results('v_instalaciones');
     if($result){
      return $result;
