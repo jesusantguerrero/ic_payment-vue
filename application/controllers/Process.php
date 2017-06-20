@@ -93,7 +93,7 @@ class Process extends CI_Controller {
 				if($this->db->trans_status() === false):
 					echo MESSAGE_ERROR." error en el status";
 				else:
-					echo MESSAGE_SUCCESS." proceso completo";
+					echo " proceso completo";
 				endif;
 				break;
 			case "pagos":

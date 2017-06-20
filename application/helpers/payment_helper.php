@@ -136,11 +136,6 @@ if (! function_exists('update_contract_from_service')){
       );
       
       $ci->db->where('id_contrato',$contract_id);
-      if($ci->db->update('ic_contratos',$data_contract)):
-        echo MESSAGE_SUCCESS." Contrato salvado";
-      else:
-        echo MESSAGE_ERROR." error en contrato";
-      endif;
       
       $payments = $ci->payment_model->get_unpaid_per_contract($contract_id);
       
@@ -155,17 +150,12 @@ if (! function_exists('update_contract_from_service')){
         );
 
         $ci->db->where('id_pago',$payment['id_pago']);
-        if($ci->db->update('ic_pagos',$data_pago)):
-           echo MESSAGE_SUCCESS." Pago actualizado";
-        else:
-           echo MESSAGE_ERROR." error en pago";
-        endif;
       }
 
       $count++;
-      echo MESSAGE_SUCCESS." ".$count." de ".$contratos_a_cambiar." contratos actualizados";
-      
+     
     }
+     echo " ".$count." de ".$contratos_a_cambiar." contratos actualizados";
   }
 }
 /**
