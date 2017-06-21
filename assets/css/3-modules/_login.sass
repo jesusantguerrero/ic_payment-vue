@@ -1,5 +1,5 @@
 .login-body 
-  background: $primary-color
+  background: #fdfdff
 
   .login-box
     height: 80vh
@@ -11,7 +11,7 @@
 
     div
       margin-right: 5%
-      color: #eee
+      color: $primary-color
 
     .vertical-line
       background: $contrast-color
@@ -37,13 +37,34 @@
 
 
 .copyrights
-  color: white
+  color: $primary-color
   height: 10vh
   text-align: center
   p
     margin: 0
   
-        
+.splash-screen
+  top: 0
+  left: 0
+  color: #fff
+  +makeFlex(100%,column,center,center)
+  background: $contrast-color
+  position: absolute
+  height: 100vh
+  animation: fadeSplash 3s 
+
+.splash-logo
+  width: 300px
+
+@keyframes fadeSplash
+  0%
+    opacity: 1
+  60%
+    opacity: 1
+  100%
+    opacity: 0
+
+
 
 
   

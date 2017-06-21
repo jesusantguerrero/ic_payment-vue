@@ -29,7 +29,6 @@ ob_start( 'ob_gzhandler' );
           <div>
             
             <h1>IC PAYMENT</h1>
-            <p class="error-message"></p>
           </div>
           <div class="vertical-line"></div>
           <div>
@@ -57,7 +56,18 @@ ob_start( 'ob_gzhandler' );
     </div>
   </div>
 
+  <div class="splash-screen">
+    
+    <img class="splash-logo" src="<?php echo base_url('assets/img/icpayment_logo_alter.svg') ?>" alt="">
+    <h1>IC Payment</h1>
+  </div>
   <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
+  <script> 
+    setTimeout(function() {
+      $(".splash-screen").hide()
+    }, 3000);
+    
+  </script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/sweetalert2.min.js') ?>"></script>
   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"> </script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/globals.js')?>"></script>
