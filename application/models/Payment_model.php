@@ -243,7 +243,12 @@ class Payment_model extends CI_MODEL{
     $sql = "SELECT * FROM v_recibos WHERE id_pago = $id";
     $result = $this->db->query($sql)->row_array();
     return $result;
+  }
 
+  public function get_payment($id){
+    $sql = "SELECT * FROM ic_pagos WHERE id_pago = $id";
+    $result = $this->db->query($sql)->row_array();
+    return $result;
   }
 
   //functions

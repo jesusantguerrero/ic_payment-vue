@@ -21,7 +21,7 @@ function make_section_dropdown($data){
 function create_ips($section_id,$data){
     $ci =& get_instance();
     
-    for ($i=2; $i < 50 + 1; $i++) {
+    for ($i=2; $i <= 250; $i++) {
       $row = array(
       'id_ip'        => null,
       'id_seccion'   => $section_id,

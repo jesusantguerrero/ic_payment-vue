@@ -62,6 +62,7 @@ class Process extends CI_Controller {
 				 	$contract_id = $this->contract_model->get_last_Id($data['id_cliente']);
 				 	create_payments($contract_id,$data,$this);
 					$this->section_model->update_ip_state($data['codigo'],'ocupado');
+					$this->contract_model->update_amount($contract_id);
 				 }
 				 $this->db->trans_complete();
 				 if($this->db->trans_status()){

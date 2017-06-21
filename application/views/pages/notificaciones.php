@@ -23,9 +23,7 @@
             <select name="" id="averias-view-mode">
             <option value="todos">Todos</option>
             <option value="por reparar">Por Reparar</option>
-            <option value="en proceso">En Proceso</option>
             <option value="reparado">Reparados</option>
-            <option value="actuales">En Proceso y Por Reparar</option>
           </select>
           </div>
 
@@ -42,7 +40,6 @@
             <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
            <select name="" id="installations-view-mode">
             <option value="por instalar">Por Instalar</option>
-            <option value="en proceso">En Proceso</option>
             <option value="instalado">Instalados</option>
             <option value="todos">Todos</option>
           </select>

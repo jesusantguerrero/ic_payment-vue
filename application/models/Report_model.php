@@ -114,9 +114,6 @@ class Report_model extends CI_MODEL{
     $status = $result->row_array()['estado_instalacion'];
     switch ($status) {
       case 'por instalar':
-        $status = 'en proceso';
-        break;
-      case 'en proceso':
         $status = 'instalado';
         break;
       default: 

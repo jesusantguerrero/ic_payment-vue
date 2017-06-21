@@ -41,9 +41,6 @@ class Averia_model extends CI_MODEL{
     $status = $result->row_array()['estado'];
     switch ($status) {
       case 'por reparar':
-        $status = 'en proceso';
-        break;
-      case 'en proceso':
         $status = 'reparado';
         break;
       default: 
@@ -51,7 +48,7 @@ class Averia_model extends CI_MODEL{
     }
     $this->db->where('id_averia',$id_averia);
     if($this->db->update('ic_averias',array("estado" => $status))){
-      echo "Estado de averia cambiado a ". $status." SWAL";
+      echo MESSAGE_SUCCESS." Estado de averia cambiado a ". $status;
     }
 
   }

@@ -25,17 +25,29 @@ if ( ! function_exists('create_payments')){
     $next_payment_date = $contract_date;
     $duration = $data['duracion'];
     $concepto = "Instalación";
-    
+    $ci =& get_instance();
+    $settings = $ci->settings_model->get_settings();
+    $split_day = $settings['split_day'];
+    $day = $contract_date->format('d');
+    $pago = $data['mensualidad']; 
+
     for ($i=0; $i < $duration + 1; $i++) {
       if($i > 0) $concepto = $i."º pago de mensualidad"; 
+      if($i == 1) {
+        if($day > 15 && $day <= $split_day){
+          $pago = $data['mensualidad'] / 2;
+        }
+      }else{
+        $pago = $data['mensualidad'];
+      }
       $new_data = array(
         'id_contrato' => $contract_id,
         'id_servicio' => $data['id_servicio'],
         'fecha_pago'  => null,
         'concepto'    => $concepto,
-        'cuota'       => $data['mensualidad'],
+        'cuota'       => $pago,
         'mora'        => 0,
-        'total'       => $data['mensualidad'],
+        'total'       => $pago,
         'estado'      => "no pagado",
         'fecha_limite'=> $next_payment_date->format("Y-m-d")
       );
@@ -45,7 +57,6 @@ if ( ! function_exists('create_payments')){
       }else{
         $next_payment_date = get_next_date($next_payment_date);
       }
-      
     }
   }
 }
@@ -63,7 +74,8 @@ if (! function_exists('refresh_contract')){
     $dateYMD = null;
 
     $contract = $context->contract_model->get_contract_view($contract_id);
-    $monto_pagado = $contract['monto_pagado'] + $contract['cuota'];
+    $payment = $context->payment_model->get_payment($data_pago['id']);
+    $monto_pagado = $contract['monto_pagado'] + $payment['cuota'];
 
     if($monto_pagado == $contract['monto_total']){
       $estado = "saldado";

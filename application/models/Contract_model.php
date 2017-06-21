@@ -94,6 +94,13 @@ class Contract_model extends CI_MODEL{
     
   } 
 
+  public function update_amount($contract_id){
+    $sql = "SELECT SUM(cuota) FROM ic_pagos WHERE id_contrato = $contract_id";
+    $result = $this->db->query($sql);
+    $amount = $result->row_array()['SUM(cuota)'];
+    $this->update(array('monto_total' => $amount),$contract_id);
+  }
+
   public function get_last_id($id_cliente){
     $sql = "SELECT id_contrato FROM ic_contratos where id_cliente =$id_cliente ORDER BY id_contrato DESC LIMIT 1";
     $result = $this->db->query($sql); 
@@ -175,7 +182,7 @@ class Contract_model extends CI_MODEL{
       $has_contracts = count($has_contracts);
       if($has_contracts == 0){
         $this->db->query($sql4);
-        $this->section_model->update_ip_state($data['codigo'],'disponible');
+        $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
       }
     }
   }
