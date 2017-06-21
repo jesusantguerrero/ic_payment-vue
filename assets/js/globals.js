@@ -153,7 +153,7 @@ function makeContracList(response,callback){
   if(response != "nada"){
     
     var contracts = JSON.parse(response);
-    var value,service,equipment,eMac,router,rMac;
+    var value,service,equipment,eMac,router,rMac,code;
     var element = "<option value=''>--Selecciona--</option>";
     var cliente = contracts.cliente;
     for (var i = 0; i < contracts.contratos.length; i++) {
@@ -163,8 +163,9 @@ function makeContracList(response,callback){
       router    = contracts.contratos[i]["router"];
       eMac      = contracts.contratos[i]["mac_equipo"];
       rMac      = contracts.contratos[i]["mac_router"];
+      code     = contracts.contratos[i]["codigo"];
       element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-      element += " data-router='"+router+"'  data-r-mac='"+rMac+"'>";
+      element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
       element += value +"</option>";  
     }
     $("#extra-client-contract").html(element);

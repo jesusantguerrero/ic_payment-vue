@@ -38,12 +38,16 @@
                       <label for="client-dni">Cliente</label>
                       <input type="text" class="form-control" id="extra-client-name" tabindex="3" disabled>
                     </div>
+                    <div class="form-group">
+                      <label for="client-dni">Codigo del contrato</label>
+                      <input type="text" class="form-control" id="extra-code" tabindex="3" disabled>
+                    </div>
                   </div>
 
                   <div class="col-md-6">
                     <h4 class="placeholder">... </h4>
                     <div class="form-group">
-                      <label for="client-lastname">Codigo del contrato</label>
+                      <label for="client-lastname">id del contrato</label>
                       <select type="text" class="form-control" id="extra-client-contract" tabindex="2">
                         <option value="">--Selecciona--</option>
                       </select>
@@ -191,7 +195,7 @@
 
 <!--*********************************************************************
 *
-*                                 Extra modal
+*                                 Update contract  modal
 *
 **************************************************************************-->
 <div class="modal fade" tabindex="-1" role="dialog" id="update-contract-modal">

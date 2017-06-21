@@ -134,10 +134,6 @@
           <label for="">Cedula:</label>
           <input type="text" class="form-control line-input" value="<?php echo $user_data['dni'] ?>">
         </div>
-        <div class="form-group print">
-          <label for="">Fecha:</label>
-          <input type="text" class="form-control line-input" value="">
-        </div>
       </div>
     </div>
   </div>
@@ -205,89 +201,12 @@
     </div>
   </div>
   <div class="section">
-    <h4>Detalles del Servicio:</h4>
-    <div class="form-group print">
-      <label for="">Servicio:</label>
-      <input type="text" class="form-control line-input servicio" id="">
-      <label for="">Velocidad:</label>
-      <input type="text" class="form-control line-input velocidad" id="">
-    </div>
-  </div>
-  <div class="section">
-    <h4>Otros detalles de direccion:</h4>
-    <div class="form-group print">
-      <label for="" class="large">Entrando por:</label>
-      <input type="text" class="form-control line-input" id="">
-    </div>
-    <div class="form-group print">
-      <label for="" class="large">Cerca de:</label>
-      <input type="text" class="form-control line-input" id="">
-    </div>
-  </div>
-
-  <h1 class="titulo-lateral">Requerimiento de <span>Contrato</span></h1>
-
-
-</div>
-<footer></footer>
-
-
-<!--*******************************************************************************************
-                                      Orden de Servicio
-
-***********************************************************************************************-->
-
-<div class="document-body">
-  <div class="cabecera">
-    <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
-    <div class="company-name">
-      <h2 class="company-oficial-name">ICS Service</h2>
-      <p class="company-statement">Compañia Dominicana de Internet ICS</p>
-      <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
-      <p></p>
-    </div>
-    <div class="left-box">
-      <h4 class="fecha-reporte">Fecha: </h4>
-    </div>
-  </div>
-
-
-  <div class="cuerpo cuerpo-documento">
-    <h4>Datos Personales:</h4>
-
-    <div class="form-group print">
-      <label for="">Cliente:</label>
-      <input type="text" class="form-control line-input cliente" id="">
-    </div>
-    <div class="form-group print">
-      <label for="">Cedula:</label>
-      <input type="text" class="form-control line-input cedula" id="">
-      <label for="">Tel.:</label>
-      <input type="text" class="form-control line-input celular" id="">
-    </div>
-    <div class="form-group print">
-      <label for="">Provincia:</label>
-      <input type="text" class="form-control line-input provincia" id="">
-      <label for="">Sector:</label>
-      <input type="text" class="form-control line-input sector" id="">
-    </div>
-    <div class="form-group print">
-
-      <label for="">Calle:</label>
-      <input type="text" class="form-control line-input calle" id="">
-      <label for="">Casa:</label>
-      <input type="text" class="form-control line-input sm casa" id="">
-    </div>
-    <div class="form-group print">
-      <label for="">Asignación:</label>
-      <input type="text" class="form-control line-input fecha" id="">
-    </div>
-  </div>
-  <div class="section">
     <h4>Departamento Tecnico:</h4>
-    <div class="form-group print">
-      <label for="">Código:</label>
-      <input type="text" class="form-control line-input" id="">
+     <div class="form-group print">
+      <label for="">Codigo:</label>
+      <input type="text" class="form-control line-input codigo" id="">
+      <label for="">ip:</label>
+      <input type="text" class="form-control line-input ip" id="">
     </div>
     <div class="form-group print">
       <label for="">Servicio:</label>
@@ -314,25 +233,19 @@
 
   </div>
   <div class="section">
-    <h4>Confirmación de instalación:</h4>
+    <h4>Otros detalles de direccion:</h4>
     <div class="form-group print">
-      <label for="">Firma Tecnico:</label>
-      <input type="text" class="form-control line-input lg" id="">
-      <label for="">Nombre:</label>
-      <input type="text" class="form-control line-input lg" id="">
+      <label for="" class="large">Entrando por:</label>
+      <input type="text" class="form-control line-input" id="">
     </div>
     <div class="form-group print">
-      <label for="">Fecha:</label>
-      <input type="text" class="form-control line-input lg" id="">
-      <label for="" class="large">Firma del Cliente:</label>
-      <input type="text" class="form-control line-input lg" id="">
+      <label for="" class="large">Cerca de:</label>
+      <input type="text" class="form-control line-input" id="">
     </div>
   </div>
 
-  <h1 class="titulo-lateral">Orden de <span>Servicio</span></h1>
-
+  <h1 class="titulo-lateral">Requerimiento de <span>Contrato</span></h1>
 </div>
-<footer></footer>
 
 <script>
   var now = moment()
@@ -354,6 +267,8 @@
   $('input.servicio').val("<?php echo $contrato['servicio']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.equipo').val("<?php echo $contrato['nombre_equipo']?>");
+  $('input.codigo').val("<?php echo $contrato['codigo']?>");
+  $('input.ip').val("<?php echo $contrato['ip']?>");
   $('input.mac_equipo').val("<?php echo $contrato['mac_equipo']?>");
   $('input.router').val("<?php echo $contrato['router']?>");
   $('input.mac_router').val("<?php echo $contrato['mac_router']?>");

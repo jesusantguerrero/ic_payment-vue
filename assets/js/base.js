@@ -211,6 +211,7 @@ $("#extra-client-contract").on('change',function(){
   $("#extra-router").val($this.attr("data-router"));
   $("#extra-e-mac").val($this.attr("data-e-mac"));
   $("#extra-r-mac").val($this.attr("data-r-mac"));
+  $("#extra-code").val($this.attr("data-code"));
 });
 
 $(".columns-right").removeClass("pull-right");
