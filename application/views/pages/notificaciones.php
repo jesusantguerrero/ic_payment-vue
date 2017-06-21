@@ -76,7 +76,7 @@
                 <th data-field="service" data-sortable="true">Servicio</th>
                 <th data-field="concept" data-sortable="true">Concepto</th>
                 <th data-field="total" data-sortable="true">Total</th>
-                <th data-field="total" data-sortable="true">Fecha</th>
+                <th data-field="fecha" data-sortable="true">Fecha</th>
                 <th data-field="hours" data-sortable="true">Hora</th>
               </tr>
             </thead>

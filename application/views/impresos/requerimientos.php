@@ -6,7 +6,6 @@
     $user_data = get_user_data();
     $settings = $this->settings_model->get_settings();
     $company = $this->company_model->get_empresa();
-
 ?>
 
 

@@ -382,7 +382,7 @@ if ( ! function_exists('make_recibos_table')){
         <td>".$line['cliente']."</td>
         <td>".$line['servicio']."</td>
         <td>".$line['concepto']."</td>
-        <td>RD$ ".CurrencyFormat($line['total'])."</td>
+        <td> RD$ ".CurrencyFormat($line['total'])."</td>
         <td>".$line['fecha']."</td>
         <td>".$hora->format('g:i a')."</td>";
         $html_text .="</tr>";
