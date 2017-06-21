@@ -232,19 +232,24 @@
     </div>
 
   </div>
-  <div class="section">
-    <h4>Otros detalles de direccion:</h4>
+   <div class="section">
+    <h4>Confirmación de instalación:</h4>
     <div class="form-group print">
-      <label for="" class="large">Entrando por:</label>
-      <input type="text" class="form-control line-input" id="">
+      <label for="">Firma Tecnico:</label>
+      <input type="text" class="form-control line-input lg" id="">
+      <label for="">Nombre:</label>
+      <input type="text" class="form-control line-input lg" id="">
     </div>
     <div class="form-group print">
-      <label for="" class="large">Cerca de:</label>
-      <input type="text" class="form-control line-input" id="">
+      <label for="">Fecha:</label>
+      <input type="text" class="form-control line-input lg" id="">
+      <label for="" class="large">Firma del Cliente:</label>
+      <input type="text" class="form-control line-input lg" id="">
     </div>
   </div>
 
-  <h1 class="titulo-lateral">Requerimiento de <span>Contrato</span></h1>
+
+  <h1 class="titulo-lateral">Orden de <span>Servicio</span></h1>
 </div>
 
 <script>
