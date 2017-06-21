@@ -58,6 +58,14 @@
                         <button class="btn btn-remark search-client">Buscar Cliente</button>
                     </div>
                 </div>
+
+                <div class="day-income-layer">
+                    <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Ganancias del dia</h3>
+                    <div class="list-repair centered-container">
+                        <?php  $day_income = $this->payment_model->day_income("today"); ?>
+                        <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($day_income); ?></h2>
+                    </div>
+                </div>
             </div>
         </div>
 

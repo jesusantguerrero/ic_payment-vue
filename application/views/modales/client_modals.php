@@ -334,6 +334,8 @@
           <button class="btn remark" id="btn-see-deudores">Ver Deudores</button>
           <h4>Caja Chica</h4>
           <button class="btn remark" id="btn-see-averias">ver Caja</button>
+          <h4>Ganancias del dia</h4>
+          <button class="btn remark" id="btn-see-day-incomes">ver Pagos</button>
         </div>
       </div>
     </div>

@@ -174,6 +174,7 @@ function notificationFunctions(){
   var btnPagos        = $("#btn-see-pagos");
   var btnCajaChica    = $('#btn-see-caja');
   var btnDeudores     = $("#btn-see-deudores")
+  var btnDayIncomes     = $("#btn-see-day-incomes")
   var layoutContainer = $(".layout-container");
 
   btnAverias.on('click',function(){
@@ -186,6 +187,10 @@ function notificationFunctions(){
 
   btnDeudores.on('click',function(){
     layoutContainer.animate({left:"-200%"},200);
+  });
+
+   btnDayIncomes.on('click',function(){
+    layoutContainer.animate({left:"-300%"},200);
   });
 }
 

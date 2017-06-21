@@ -37,10 +37,10 @@
 
   .layout-container
     position: absolute
-    +makeFlex(300%,row,center,center)
+    +makeFlex(400%,row,center,center)
     height: 100%
   [class*='-layer']
-    +size(50%,100%)
+    +size(45%,100%)
     color: white
     text-align: center
     position: relative
@@ -50,6 +50,9 @@
     background: $tomato
   .deudores-layer
     background: $primary-color
+  .day-income-layer
+    color: $primary-color
+    border: 2px solid #ddd
   .card-title
     cursor: pointer
     &:hover
