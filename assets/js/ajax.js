@@ -327,7 +327,7 @@ $(function () {
       var cells = $row.find("td");
 
       if ($row != undefined) {
-        $(".cancel-name").text(cells.eq(1).text());
+        $(".cancel-name").text(cells.eq(2).text());
 
         var $inputElement = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
@@ -1072,7 +1072,7 @@ function addExtra(){
   router            = $("#extra-router").val();
   rMac              = $("#extra-r-mac").val();
   
-  var is_empty = isEmpty([contractId,extraService,serviceCost, equipment,eMac,router,rMac]);
+  var is_empty = isEmpty([contractId,extraService,serviceCost]);
   if(!is_empty){
      form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
      form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;

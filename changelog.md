@@ -1,4 +1,5 @@
 # Secciones
+
 1. **Login:** sección donde el cliente ingresa su contraseña y su usuario para entrar a la aplicación
 
 2. **Lobby:** es la sección principal desde aquí el usuario tiene acceso a todas las otras funcionalidades, acceso rapido a buscar cliente,proximos pagos, acceso rapido a las opciones que mas se usan agregar cliente, nuevo contrato, registrar pagos
