@@ -1,3 +1,4 @@
 print("hello world")
 name = input("ingresa tu nombre: ")
-print("hola como estas " + name)
+apellido = input("ingresa tu apellido: ")
+print("hola como estas " + name + " " + apellido)

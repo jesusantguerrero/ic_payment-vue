@@ -143,5 +143,14 @@ class Report_model extends CI_MODEL{
     }
   }
 
+  # Moras
+
+  public function get_history($is_print = false){
+    $result = $this->db->get('v_historial_moras');
+    if($result){
+      $result = $result->result_array();
+      echo make_moras_report($result," Historico de Moras",$this,$is_print);
+    }
+  }
   
 }

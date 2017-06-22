@@ -11,6 +11,7 @@
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Deudores</a></li>
         <?php if($user_data['type'] == 0):?>
         <li role="presentation"><a href="#recibos" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
+        <li role="presentation"><a href="#historial" aria-controls="messages" role="tab" data-toggle="tab">Historico de Moras</a></li>
         <?php endif;?>
       </ul>
 
@@ -36,7 +37,7 @@
         <div role="tabpanel" class="tab-pane" id="pagos">
           <div class="searcher-container clearfix">
             <h4 class="search-criteria">Instalaciones de Hoy </span> (
-              <?php echo $this->report_model->count_installations(); ?>)</h4>
+              <?php echo $this->report_model->count_installations(); ?> )</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
            <select name="" id="installations-view-mode">
             <option value="por instalar">Por Instalar</option>
@@ -56,7 +57,7 @@
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="searcher-container clearfix">
             <h4 class="search-criteria">Clientes en fecha de corte </span> (
-              <?php echo $this->report_model->count_moras_view(); ?>)</h4>
+              <?php echo $this->report_model->count_moras_view(); ?> )</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
           <?php $this->report_model->get_moras_view() ?>
@@ -84,6 +85,14 @@
               <?php $this->report_model->get_recibos(); ?>
             </tbody>
           </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="historial">
+          <div class="searcher-container clearfix">
+            <h4 class="search-criteria">Historial de moras</span>
+            <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+          </div>
+          <?php $this->report_model->get_history() ?>
         </div>
         <?php endif;?>
       </div>

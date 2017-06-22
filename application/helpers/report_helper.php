@@ -132,14 +132,15 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","celular","cuota","monto_extra","total","Fecha Limite"); 
+    $context->table->set_heading("Contrato","Cliente","celular","Cuota","Mora","Extra","Total","Fecha Limite"); 
 
     foreach ($data as $line) {
       $context->table->add_row(
-      $line['id_contrato'],
+      $line['codigo'],
       $line['cliente'],
       $line['celular'],
       "RD$ ".CurrencyFormat($line['cuota']),
+      "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),
       "RD$ ".CurrencyFormat($line['total']),
       $line['fecha_limite']

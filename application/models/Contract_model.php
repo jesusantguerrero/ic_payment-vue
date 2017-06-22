@@ -227,7 +227,7 @@ class Contract_model extends CI_MODEL{
       $this->db->insert('ic_pagos',$data_pago);
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
-        echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
+        echo MESSAGE_ERROR." No pudo guardarse la actualizacion ";
       } else{
         echo MESSAGE_SUCCESS." Contrato Cancelado";
         $this->section_model->update_ip_state($current_contract['codigo'],'disponible');

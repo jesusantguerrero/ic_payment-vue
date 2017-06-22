@@ -65,7 +65,7 @@ ob_start( 'ob_gzhandler' );
   <script> 
     setTimeout(function() {
       $(".splash-screen").hide()
-    }, 3000);
+    }, 2500);
     
   </script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/sweetalert2.min.js') ?>"></script>

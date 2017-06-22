@@ -213,6 +213,7 @@ function prepare_moras($data,$context,$settings){
 if (! function_exists('cancel_contract')){
 
   function cancel_contract($context,$data_cancel){
+    
     $id_empleado = $_SESSION['user_data']['user_id'];
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
