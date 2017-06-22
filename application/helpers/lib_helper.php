@@ -392,6 +392,37 @@ if ( ! function_exists('make_recibos_table')){
     return $html_text;
   }
 }
+if ( ! function_exists('make_moras_history_table')){
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_moras_history_table($data,$start_at){
+    $cont = $start_at + 1;
+    $html_text = " "; 
+    foreach ($data as $line) {
+        $hora = new DATETIME($line['complete_date']);
+        $html_text .= 
+        "<tr>
+        <td>".$cont."</td>
+        <td>". $line['codigo']."</td>
+        <td>".$line['cliente']."</td>
+        <td>".$line['celular']."</td>
+        <td> RD$ ".CurrencyFormat($line['cuota'])."</td>
+        <td> RD$ ".CurrencyFormat($line['mora'])."</td>
+        <td> RD$ ".CurrencyFormat($line['monto_extra'])."</td>
+        <td> RD$ ".CurrencyFormat($line['total'])."</td>
+        <td>".$line['fecha_limite']."</td>";
+        $html_text .="</tr>";
+     $cont+=1;
+    }
+
+    return $html_text;
+  }
+}
 if ( ! function_exists('make_service_shortcuts')){
   /**
   * create a shortcut for the data from users to display in the interface

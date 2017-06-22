@@ -65,8 +65,13 @@
         
          <?php if($user_data['type'] == 0):?>
         <div role="tabpanel" class="tab-pane" id="recibos">
+          <div class="searcher-container clearfix" id="pagos-toolbar">
+            <h4 class="search-criteria">Historial de pagos</span>
+            <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+          </div>
           <table data-toggle="table" class="innertable" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
             data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
+            data-toolbar="#pagos-toolbar"
             data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false">
             <thead>
               <tr>
@@ -88,11 +93,31 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="historial">
-          <div class="searcher-container clearfix">
+          <div class="searcher-container clearfix" id="history-toolbar">
             <h4 class="search-criteria">Historial de moras</span>
             <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <?php $this->report_model->get_history() ?>
+          <table data-toggle="table" class="innertable" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
+            data-toolbar="#history-toolbar"
+            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
+            data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false">
+            <thead>
+              <tr>
+                <th data-field="num" data-sortable="true">Num</th>
+                <th data-field="payment" data-sortable="true">Contrato</th>
+                <th data-field="client" data-sortable="true">Cliente</th>
+                <th data-field="celphone" data-sortable="true">Celular</th>
+                <th data-field="cuota" data-sortable="true">Cuota</th>
+                <th data-field="mora" >Mora</th>
+                <th data-field="extra">Extra</th>
+                <th data-field="total" >Total</th>
+                <th data-field="fecha">Fecha Limite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $this->report_model->get_history(); ?>
+            </tbody>
+          </table>
         </div>
         <?php endif;?>
       </div>
