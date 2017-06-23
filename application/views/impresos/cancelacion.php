@@ -1,11 +1,12 @@
 <?php 
 if(isset($_SESSION['requirement_info'])):
-    $info = $_SESSION['requirement_info'];
-    $cliente = $info['cliente'];
-    $contrato = $info['contrato'];
-    $user_data = get_user_data();
-    $settings = $this->settings_model->get_settings();
-    $company = $this->company_model->get_empresa();
+    $info       = $_SESSION['requirement_info'];
+    $cliente    = $info['cliente'];
+    $contrato   = $info['contrato'];
+    $pago       = $info['pago'];
+    $user_data  = get_user_data();
+    $settings   = $this->settings_model->get_settings();
+    $company    = $this->company_model->get_empresa();
 ?>
 
 
@@ -25,11 +26,10 @@ if(isset($_SESSION['requirement_info'])):
       <p></p>
     </div>
     <div class="left-box">
-      <p><b class="">Contrato No.: <?php echo $contrato['id_contrato'] ?></b></p>
-      <p><b class="">Fecha cont.: </b> <span class="fecha"></span></p>
+      <p><b class="">Fecha: </b> <span class="fecha"></span></p>
+      <p><b class="">Contrato No.: <?php echo $contrato['id_contrato'] ?></b></p>  
     </div>
   </div>
-  <br>
   <div class="cuerpo cuerpo-documento contrato">
 
     <div class="row">
@@ -68,7 +68,7 @@ if(isset($_SESSION['requirement_info'])):
         </div>
       </div>
     </div>
-    <br><br>
+
     <div class="row">
       <h4>
         <u>Detalles :</u>
@@ -87,11 +87,11 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Penalidad:</label>
-          <input type="text" class="form-control line-input" value="">
+          <input type="text" class="form-control line-input" value="<?php if($pago['total'] > 0){ echo 'Si';}else{ echo 'No';} ?>">
         </div>
         <div class="form-group print">
           <label for="">Monto:</label>
-          <input type="text" class="form-control line-input" value="">
+          <input type="text" class="form-control line-input" value="<?php echo "RD$ ".CurrencyFormat($pago['total']) ?>">
         </div>
         <div class="form-group print">
           <label for="">Cancelación:</label>
@@ -99,7 +99,6 @@ if(isset($_SESSION['requirement_info'])):
         </div>
       </div>
     </div>
-     <br>
     <div class="row">
       <h4>
         <u>Datos del Representante:</u>
@@ -123,7 +122,7 @@ if(isset($_SESSION['requirement_info'])):
     </div>
     <div class="row">
     <h4><u>Firmas:</u></h4>
-    <div class="col-xs-6 center-row">
+    <div class="col-xs-6 ">
       <hr>
       <p class="t-center">secretaria:</p>
     </div>
@@ -134,16 +133,14 @@ if(isset($_SESSION['requirement_info'])):
     </div>
    
   </div>
-  </div>
-
- <br>
-
-  <div class="pie-pagina">
-    <br><br>
+  <br><br>
+   <div class="pie-pagina">
     <p><small><b>** El contrato ha sido terminado por un acuerdo de ambas partes de manera cordial **</b></small></p>
   </div>
   <h1 class="titulo-lateral">Cancelacion de <span>Contrato</span></h1>
 </div>
+  </div>
+ 
 <footer></footer>
 
 <script>

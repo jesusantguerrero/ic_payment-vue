@@ -359,6 +359,7 @@ class Process extends CI_Controller {
 	public function getcancelcontract($client_id,$contract_id){
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
+		$requirement_info['pago']	= $this->payment_model->get_last_pay_of($contract_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/cancelacion'));
 	}

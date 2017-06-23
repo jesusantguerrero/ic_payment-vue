@@ -827,7 +827,7 @@ $(function () {
     fecha = moment().format("YYYY-MM-DD");
 
     form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-    form += "&motivo="+ reason + "&penalidad="+ is_penalty;
+    form += "&motivo="+ reason + "&penalidad="+is_penalty;
     connectAndSend('process/cancel', true, null, null, form, getContractsLastPage)
   }
 
