@@ -21,11 +21,12 @@ if(isset($_SESSION['requirement_info'])):
       <h2 class="company-oficial-name"><?php echo $company['nombre'] ?></h2>
       <p class="company-statement"><?php echo $company['lema'] ?></p>
       <p class="company-direction"><?php echo $company['direccion'] ?></p>
+      <p class="company-tel">Tel.: <?php echo $company['telefono1']." ". $company['telefonos'] ?></p>
       <p></p>
     </div>
     <div class="left-box">
       <p><b class="">Contrato No.: <?php echo $contrato['id_contrato'] ?></b></p>
-      <p><b class="">Fecha cont.: </b></p>
+      <p><b class="">Fecha cont.: </b> <span class="fecha"></span></p>
     </div>
   </div>
   <br>
@@ -110,7 +111,7 @@ if(isset($_SESSION['requirement_info'])):
         </div>
         <div class="form-group print">
           <label for="">Posicion:</label>
-          <input type="text" class="form-control line-input" value="<?php echo $user_data['typestr'] ?>">
+          <textarea class="form-control" cols="30" rows="2" readonly="readonly"><?php echo $user_data['typestr'] ?></textarea>
         </div>
       </div>
       <div class="col-md-6 col-xs-6">
@@ -120,15 +121,15 @@ if(isset($_SESSION['requirement_info'])):
         </div>
       </div>
     </div>
-    <br>
     <div class="row">
     <h4><u>Firmas:</u></h4>
-    <div class="col-xs-12">
-      <div class="form-group print">
-      <label for="">secretaria:</label>
-      <input type="text" class="form-control line-input lg" id="">
-      <label for="">Cliente:</label>
-      <input type="text" class="form-control line-input lg" id="">
+    <div class="col-xs-6 center-row">
+      <hr>
+      <p class="t-center">secretaria:</p>
+    </div>
+    <div class="col-xs-6 center-row">
+      <hr>
+      <p class="t-center">Cliente:</p>
     </div>
     </div>
    
@@ -139,7 +140,7 @@ if(isset($_SESSION['requirement_info'])):
 
   <div class="pie-pagina">
     <br><br>
-    <p><small><b>** El cliente está en el derecho de cancelar el contrato de manera unilateral antes del termino del mismo, esto sujeto a un coste del 50% del total del contrato acordado **</b></small></p>
+    <p><small><b>** El contrato ha sido terminado por un acuerdo de ambas partes de manera cordial **</b></small></p>
   </div>
   <h1 class="titulo-lateral">Cancelacion de <span>Contrato</span></h1>
 </div>
@@ -151,7 +152,9 @@ if(isset($_SESSION['requirement_info'])):
   var hora = now.format("LTS");
 
   $(".fecha-reporte").text("Fecha: " + fecha);
-  $(".hora-reporte").text('Hora: ' + hora);
+  $(".fecha").text(fecha);
+
+  print();
 
 </script>
 <?php 
