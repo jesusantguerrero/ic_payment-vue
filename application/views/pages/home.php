@@ -37,7 +37,7 @@
                         <?php $this->payment_model->get_next_payments(); ?>
                     </div>
                     <div class="centered-container-small">
-                        <button class="btn btn-remark search-client">Buscar Cliente</button>
+                        <a href="<?php echo base_url('app/admin/clientes') ?>" class="btn btn-remark search-client">Buscar Cliente</a>
                     </div>
                 </div>
                 <div class="averias-layer">
@@ -55,7 +55,7 @@
                         <?php $this->payment_model->get_moras_home(); ?>
                     </div>
                     <div class="centered-container-small">
-                        <button class="btn btn-remark search-client">Buscar Cliente</button>
+                        <a href="<?php echo base_url('app/admin/clientes') ?>" class="btn btn-remark search-client">Buscar Cliente</a>
                     </div>
                 </div>
 
