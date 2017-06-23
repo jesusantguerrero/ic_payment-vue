@@ -76,6 +76,20 @@ class Service_model extends CI_MODEL{
     echo $result;
   }
 
+  public function search_services($word){
+    $word = "'%".$this->db->escape_like_str($word)."%'";
+    $sql = "SELECT * FROM ic_servicios WHERE id_servicio LIKE $word || nombre LIKE $word || descripcion LIKE $word";
+    set_last_query($sql);
+    $sql .= " LIMIT 5";
+    set_last_page($sql);
+    if($result = $this->db->query($sql)){
+      $result = make_service_table($result->result_array(),0);
+      echo $result;
+    }else{
+      echo $word.$sql;
+    }
+  }
+
   public function get_services_shortcuts(){
     $sql = "SELECT * FROM ic_servicios WHERE tipo= 'internet' order by mensualidad";
     $result = $this->db->query($sql);

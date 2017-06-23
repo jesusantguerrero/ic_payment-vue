@@ -314,6 +314,9 @@ class Process extends CI_Controller {
 			case 'clientes':
 				$this->client_model->search_clients($word);
 				break;
+			case 'servicios':
+				 $this->service_model->search_services($word);
+				break;
 			case 'v_contratos':
 				 $this->contract_view_model->search_contracts($word);
 				break;

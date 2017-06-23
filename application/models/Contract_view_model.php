@@ -70,7 +70,7 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function search_contracts($word){
-    $word = "'%".$word."%'";
+    $word = "'%".$this->db->escape_like_str($word)."%'";
     $sql = "SELECT * FROM v_contratos WHERE (codigo LIKE $word || cliente LIKE $word || id_contrato LIKE $word) AND estado = 'activo'";
     set_last_query($sql);
     $sql .= "LIMIT 5";

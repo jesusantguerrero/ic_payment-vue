@@ -296,6 +296,12 @@ $(function () {
       e.stopImmediatePropagation();
       updateService();
     });
+
+     $("#service-searcher").on('keyup', function (e) {
+      e.stopImmediatePropagation();
+      var text = $(this).val();
+      search(text, "servicios", fillCurrentTable,initServicesHandlers);
+    });
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
