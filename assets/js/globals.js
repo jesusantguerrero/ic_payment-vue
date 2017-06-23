@@ -362,7 +362,6 @@ function deleteValidation($inputElement,$buttonToActive){
     e.stopImmediatePropagation();
     innerText = $(this).val() 
     var text = $('tr.selected').find(".th-client").text().trim();
-    console.log('texto:' + innerText + " = " + text);
     
     if(innerText == text){
       $buttonToActive.removeAttr("disabled");

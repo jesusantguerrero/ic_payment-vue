@@ -334,7 +334,8 @@ $(function () {
         deleteValidation($inputElement, $buttonToActive);
 
         $("#cancel-contract-modal").modal();
-        $buttonToActive.on('click', function () {
+        $buttonToActive.on('click', function (e) {
+          e.stopImmediatePropagation();
           cancelContract();
         })
 
@@ -808,19 +809,29 @@ $(function () {
   }
 
   function cancelContract() {
-    var $row = $("tr.selected");
-    var contractId = $row.find(".id_contrato").text().trim();
-    var clientId = $row.find(".th-client").attr("data-id-cliente");
+    var $row        = $("tr.selected");
+    var contractId  = $row.find(".id_contrato").text().trim();
+    var clientId    = $row.find(".th-client").attr("data-id-cliente");
+    var is_penalty  = false;
+    var reason      = $("#cancelation-reason").val();
+    var checked     = $("#check-penalty:checked").length;
     var form, fecha;
+
+    if(checked > 0){
+      is_penalty = true;
+    }
 
     fecha = moment().format("YYYY-MM-DD");
 
     form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+    form += "&motivo="+ reason + "&penalidad="+ is_penalty;
     connectAndSend('process/cancel', true, null, null, form, getContractsLastPage)
   }
 
   function getContract(id_contrato, receiver) {
+
     form = "tabla=contratos&id_contrato=" + id_contrato;
+   
     connectAndSend("process/getone", false, initContractHandlers, receiver, form, null)
   }
 

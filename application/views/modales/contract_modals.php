@@ -163,17 +163,26 @@
       </div>
         
         <div class="alert alert-danger">
-          <strong>Por favor!</strong> Leer esto
+          <p>Esta accion no tiene marcha atras si cancelas el contrato se tendra que crear otro en caso de que sea una equivocación
+        asi que asegurate de que realmente quieres cancelar el contrato de <b class="cancel-name">Contrato</b></p>
+        <p>Para asegurarnos, escribe el nombre del cliente</p>
         </div>
         
       <div class="modal-body">
-        <p>Esta accion no tiene marcha atras si cancelas el contrato se tendra que crear otro en caso de que sea una equivocació
-        asi que asegurate de que realmente quieres cancelar el contrato de <b class="cancel-name">Contrato</b></p>
-
-        <p>Para asegurarnos, escribe el nombre del cliente</p>
         
         <div class="form-group">
           <input type="text" class="form-control confirmed-data" id="" placeholder="nombre del cliente">
+        </div>
+
+        <div class="form-group">
+          <label for="u-service-description">Motivo</label>
+          <textarea  class="form-control "cols="30" rows="5"  id="cancelation-reason" >
+           </textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="check-change-ip">Aplica Penalidad?</label>
+          <input class="form-control" id="check-penalty" type="checkbox">
         </div>
         
         

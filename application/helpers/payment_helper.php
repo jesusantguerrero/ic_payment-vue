@@ -218,7 +218,12 @@ if (! function_exists('cancel_contract')){
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
     $settings = $context->settings_model->get_settings();
-    $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * $contract['monto_total'];
+    if($data_cancel['penalidad'] === true){
+      $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * $contract['monto_total'];
+    }else{
+      $penalizacion = 0;
+    }
+    
 
     $monto_total = $contract['monto_pagado'] + $penalizacion;
     

@@ -26,10 +26,7 @@ class Contract_view_model extends CI_MODEL{
     if($result){
        $result = $result->result_array();
       echo make_main_contract_table($result,0);
-    }else{
-      echo $sql;
     }
-   
   }
 
   public function last_page(){
@@ -37,9 +34,7 @@ class Contract_view_model extends CI_MODEL{
     if($result){
       $result = make_main_contract_table($result->result_array(),0);
       echo $result;
-    }  
-
-    echo get_last_page();
+    }
   }
 
   public function get_contract_view_of_service($service_id){

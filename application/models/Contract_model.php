@@ -208,7 +208,7 @@ class Contract_model extends CI_MODEL{
 
   public function cancel_contract($data_pago,$data_contrato,$current_contract){ 
     $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
-    $sql1 .=" ultimo_pago='".$data_contrato['proximo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
+    $sql1 .=" ultimo_pago='".$data_contrato['ultimo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
 
     $sql2 = " DELETE FROM ic_pagos WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
     $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
