@@ -23,19 +23,27 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="company-name" value="<?php echo $user_data['nickname'] ?>">
+                <input type="text" class="form-control" id="acount-user" value="<?php echo $user_data['nickname'] ?>">
+              </div>
+               <div class="form-group">
+                 <label for="password-input">Contraseña actual</label>
+                 <input id="acount-current-password" type="password" class="form-control">
               </div>
               <div class="form-group">
-                <label for="company-phrase">Contraseña</label>
-                <input type="text" class="form-control" id="company-statement">
+                <label for="company-phrase">Nueva Contraseña</label>
+                <input type="password" class="form-control" id="acount-new-password" disabled>
               </div>
               <div class="form-group">
-                <label for="company-phone1">Confirmar contraseña</label>
-                <input type="text" class="form-control" id="company-phone1">
+                <label for="company-phone1">Confirmar Nueva Contraseña</label>
+                <input type="password" class="form-control" id="acount-confirm-new-password" disabled>
               </div>
             </div>
 
             <div class="col-md-6">
+            <div class="form-group">
+                <label for="company-name">COD</label>
+                <input type="text" class="form-control" id="acount-user-id" value="<?php echo $user_data['user_id'] ?>" disabled>
+              </div>
               <div class="form-group">
                 <label for="company-name">Nombre</label>
                 <input type="text" class="form-control" id="company-direction" value="<?php echo $user_data['fullname'] ?>" disabled>

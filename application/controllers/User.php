@@ -38,6 +38,17 @@ class User extends CI_Controller {
 		$this->user_model->delete_user($id);
 	}
 
+	public function confirm_password(){
+  	$user_id = $_POST['user_id'];
+  	$password = $_POST['current_password'];
+
+   	$is_correct = $this->user_model->confirm_password($user_id,$password);
+		 if($is_correct){
+			 echo true;
+		 }
+	
+  }
+
 
 
 }

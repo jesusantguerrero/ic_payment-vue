@@ -118,8 +118,6 @@ class User_model extends CI_MODEL{
   }
 
   public function login($nickname,$password){
-    $respuesta;
-    $sql = "SELECT * FROM ic_users where nickname = '$nickname' limit 1";
     $this->db->where('nickname',$nickname);
     $result = $this->db->get('ic_users',1);
 
@@ -131,6 +129,21 @@ class User_model extends CI_MODEL{
         return true;
       }
       return false;
+    }else{
+     return false;
+    }
+  }
+
+  public function confirm_password($user_id,$password){
+    $this->db->where('user_id',$user_id);
+    $result = $this->db->get('ic_users',1);
+
+    if($result != false){
+      $result = $result->row_array();
+      if(password_verify($password,$result['password'])){
+        return true;
+      }
+      return false; 
     }else{
      return false;
     }

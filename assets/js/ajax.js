@@ -328,10 +328,13 @@ $(function () {
 
       if ($row != undefined) {
         $(".cancel-name").text(cells.eq(2).text());
-
         var $inputElement = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
+        var contractId  = $row.find(".id_contrato").text().trim();
+        var clientId    = $row.find(".th-client").attr("data-id-cliente");
+
         deleteValidation($inputElement, $buttonToActive);
+        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ clientId + "/" + contractId);
 
         $("#cancel-contract-modal").modal();
         $buttonToActive.on('click', function (e) {

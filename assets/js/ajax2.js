@@ -3,6 +3,7 @@ $(function () {
   var ran = false;
   loginHandlers();
   sectionHandlers();
+  othersHandlers();
 
   function loginHandlers() {
     $("#send-credentials").on('click', function (e) {
@@ -36,6 +37,13 @@ $(function () {
      $("#select-sector").on('change', function (e) {
       e.stopImmediatePropagation();
       getIps();
+    });
+  }
+
+  function othersHandlers(){
+    $("#acount-current-password").on('blur',function(e){
+      e.stopImmediatePropagation();
+      confirmPassword();
     });
   }
 
@@ -167,5 +175,30 @@ $(function () {
     function fillSelect(content){
       $("#select-sector").html(content);
     }
+  }
+  /********************************************************
+  *                      Editar cuenta                            
+  *                                                       *
+  ********************************************************/
+
+  function confirmPassword() {
+    var userId = $("#acount-user-id").val();
+    var password = $("#acount-current-password").val();
+    var form = 'user_id='+ userId +'&current_password=' + password;
+    connectAndSend('user/confirm_password', false, false, processConfirmData, form, null, null);
+    
+    
+    function processConfirmData(response) {
+      var newPassword         =$("#acount-new-password");
+      var newPasswordConfirm = $("#acount-confirm-new-password");
+      
+    if (response == 1) {      
+      newPassword.removeAttr('disabled');
+      newPasswordConfirm.removeAttr('disabled');
+    }else{
+      newPassword.attr('disabled',true);
+      newPasswordConfirm.attr('disabled',true);
+    }
+  }
   }
 });

@@ -190,6 +190,7 @@
         
       </div>
       <div class="modal-footer">
+        <a href="" target="_blank" class="btn" id="cancel-print">Imprimir<a/>
         <button type="button" class="btn save" id="cancel-permanently" tabindex="10" disabled>Cancelar Contrato<button/>       
       </div>
       
