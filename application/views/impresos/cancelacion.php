@@ -1,12 +1,13 @@
 <?php 
 if(isset($_SESSION['requirement_info'])):
-    $info       = $_SESSION['requirement_info'];
-    $cliente    = $info['cliente'];
-    $contrato   = $info['contrato'];
-    $pago       = $info['pago'];
-    $user_data  = get_user_data();
-    $settings   = $this->settings_model->get_settings();
-    $company    = $this->company_model->get_empresa();
+    $info           = $_SESSION['requirement_info'];
+    $cliente        = $info['cliente'];
+    $contrato       = $info['contrato'];
+    $pago           = $info['pago'];
+    $cancelacion    = $info['cancelacion'];
+    $user_data      = get_user_data();
+    $settings       = $this->settings_model->get_settings();
+    $company        = $this->company_model->get_empresa();
 ?>
 
 
@@ -76,7 +77,7 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Motivo:</label>
-          <textarea class="form-control " cols="30" rows="3" id="direction" readonly="readonly">
+          <textarea class="form-control " cols="30" rows="3" id="direction" readonly="readonly"><?php echo $cancelacion['motivo'] ?>
           </textarea>
         </div>
         <div class="form-group print">

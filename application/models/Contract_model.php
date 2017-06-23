@@ -206,7 +206,7 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function cancel_contract($data_pago,$data_contrato,$current_contract){ 
+  public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){ 
     $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
     $sql1 .=" ultimo_pago='".$data_contrato['ultimo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
 
@@ -225,6 +225,7 @@ class Contract_model extends CI_MODEL{
       $this->db->query($sql1);
       $this->db->query($sql2);
       $this->db->insert('ic_pagos',$data_pago);
+      $this->db->insert('ic_cancelaciones',$data_cancel);
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
         echo MESSAGE_ERROR." No pudo guardarse la actualizacion ";
@@ -257,5 +258,12 @@ class Contract_model extends CI_MODEL{
     
   }
    
+  public function get_cancelation($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $result = $this->db->get('ic_cancelaciones',1);
+    if($result){
+      return $result->row_array();
+    }
+  }
   //functions
 }

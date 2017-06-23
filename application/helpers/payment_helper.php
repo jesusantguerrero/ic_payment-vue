@@ -247,7 +247,12 @@ if (! function_exists('cancel_contract')){
         'estado'      => "pagado",
         'fecha_limite'=> $data_cancel['fecha']
     );
-    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract); 
+
+    $data_cancel_to_save = array(
+      'id_contrato' => $data_cancel['id_contrato'],
+      'motivo'      => $data_cancel['motivo']
+    );
+    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save); 
   }
 }
 
