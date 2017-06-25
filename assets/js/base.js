@@ -1,9 +1,12 @@
 $(function(){
-
+var currentPage = $("title").text().split(" ");
+  currentPage   = currentPage[4].toLowerCase().trim();
+  if(currentPage == "administrador") {
+    newUserForm();
+  }
 getDate();
 adminFunctions();
 userInfoTip();
-newUserForm();
 makeServiceCardClickable();
 detailsFunctions();
 notificationFunctions();

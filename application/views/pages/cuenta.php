@@ -31,11 +31,11 @@
               </div>
               <div class="form-group">
                 <label for="company-phrase">Nueva Contraseña</label>
-                <input type="password" class="form-control" id="acount-new-password" disabled>
+                <input type="password" class="form-control password" id="acount-new-password" disabled>
               </div>
               <div class="form-group">
                 <label for="company-phone1">Confirmar Nueva Contraseña</label>
-                <input type="password" class="form-control" id="acount-confirm-new-password" disabled>
+                <input type="password" class="form-control password-confirm" id="acount-confirm-new-password" disabled>
               </div>
             </div>
 
@@ -57,7 +57,7 @@
                 <input type="text" class="form-control" id="company-phone2" value="<?php echo $user_data['dni'] ?>" disabled>
               </div>
               <div class="right">
-                <input id="update-user-data" type="submit" value="Guardar Datos">
+                <input id="update-user-data" type="submit" value="Guardar Datos" class="save">
               </div>
 
             </div>

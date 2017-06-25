@@ -368,13 +368,13 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/cancelacion'));
 	}
 
-	public function getreport($table,$type){
+	public function getreport($table,$type = 'nada'){
 		switch ($table) {
 			case 'payment':
 					$this->report_model->get_payments_report($type);
 				break;
 			case 'installations':
-					$this->report_model->get_installations(null,true);
+					$this->report_model->get_installations(true);
 				break;
 			case 'deudores':
 					$this->report_model->get_moras_view(true);

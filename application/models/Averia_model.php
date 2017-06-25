@@ -59,7 +59,6 @@ class Averia_model extends CI_MODEL{
        $sql .= " WHERE estado ='$status'";
     }
     $result = $this->db->query($sql);
-    set_last_query($sql);
     if($result and count($result) > 0){
       $result = make_averias_list($result->result_array());
       echo $result;

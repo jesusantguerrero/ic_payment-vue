@@ -47,8 +47,8 @@ class Report_model extends CI_MODEL{
     endif;
   }
 
-  public function get_installations($status = 'por instalar',$is_print = false){
-    $this->db->where('estado_instalacion',$status);
+  public function get_installations($is_print = true){
+    $this->db->where('estado_instalacion','por instalar');
     $result = $this->db->get('v_instalaciones');
     if($result){
       $result = $result->result_array();
@@ -92,13 +92,12 @@ class Report_model extends CI_MODEL{
     return $resultado_por_mes;
   }
 
-  public function get_installations_list($status='todos'){
+  public function get_installations_list($status='por instalar'){
     $sql = "SELECT * FROM v_instalaciones";
     if($status != 'todos'){
        $sql .= " WHERE estado_instalacion ='$status'";
     }
     $result = $this->db->query($sql);
-    set_last_query($sql);
     if($result and count($result) > 0){
       $result = make_installations_list($result->result_array());
       echo $result;
@@ -136,7 +135,8 @@ class Report_model extends CI_MODEL{
   }
 
   public function get_averias_report($is_print = true){
-    $result = $this->db->query(get_last_query());
+    $this->db->where('estado','por reparar');
+    $result = $this->db->get('v_averias');
      if($result){
       $result = $result->result_array();
       echo make_averias_report($result," Reporte De Averias",$this,$is_print);

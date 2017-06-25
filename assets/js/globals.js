@@ -347,6 +347,32 @@ function validateTwo($firstObject,$secondObject,$button){
     }
 }
 
+function validateThis(){
+  var $userPassword = $('.password');
+  var $userPasswordConfirm = $('.password-confirm');
+  var $saveButton = $('.save');
+  
+  $userPassword.on('blur',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+  $userPasswordConfirm.on('blur',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+}
+
+function validateTwo($firstObject,$secondObject,$button){
+    if($secondObject.val() == $firstObject.val() && $secondObject.val() != ""){
+      replaceClass($firstObject.parent(),"has-error","has-success");
+      replaceClass($secondObject.parent(),"has-error","has-success");
+      $button.removeAttr("disabled","");
+
+    }else{
+       replaceClass($firstObject.parent(),"has-success","has-error");
+       replaceClass($secondObject.parent(),"has-success","has-error");
+       $button.attr("disabled","");
+    }
+}
+
 function clearForm(modalId){
   $(modalId + " input").val("");
 }

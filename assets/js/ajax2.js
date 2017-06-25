@@ -41,10 +41,12 @@ $(function () {
   }
 
   function othersHandlers(){
-    $("#acount-current-password").on('blur',function(e){
-      e.stopImmediatePropagation();
+    $("#acount-current-password").on('keyup',function(e){
+      e.stopImmediatePropagation();    
       confirmPassword();
     });
+
+    // validateModal('#acount-section');
   }
 
   function login() {
@@ -191,13 +193,18 @@ $(function () {
     function processConfirmData(response) {
       var newPassword         =$("#acount-new-password");
       var newPasswordConfirm = $("#acount-confirm-new-password");
+      var btnUpdateUser = $("#update-user-data");
       
     if (response == 1) {      
       newPassword.removeAttr('disabled');
       newPasswordConfirm.removeAttr('disabled');
+      btnUpdateUser.attr('disabled',true);
+      validateThis();
+
     }else{
       newPassword.attr('disabled',true);
       newPasswordConfirm.attr('disabled',true);
+      btnUpdateUser.removeAttr('disabled');
     }
   }
   }
