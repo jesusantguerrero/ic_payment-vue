@@ -65,11 +65,17 @@ $(function () {
     }
   }
 
-  function loading() {
-    $(".loader").css({
-      display: "block"
-    });
+  function loading(stop) {
+    if(!stop){
+       $(".loader").css({
+        display: "block"
+        });
+    }else{
+      $(".loader").css({display: "none"});
+    }
+   
   }
+
 
   function processLoginData(response) {
     if (response == true) {
@@ -129,7 +135,6 @@ $(function () {
         title: 'Nombre del sector'
       },
       'Codigo del Sector',
-      "cuantas Ip's tendremos disponibles?"
     ]
 
     swal.queue(steps).then(function (result) {
@@ -141,13 +146,12 @@ $(function () {
       var form;
       var nombre              = result[0],
           codigoArea          = result[1],
-          registrosPosibles   = result[2];
 
-      form = "nombre="+nombre+"&codigo_area="+codigoArea+"&registros_posibles="+ registrosPosibles;
+      form = "nombre="+nombre+"&codigo_area="+codigoArea;
       form += "&tabla=secciones"
      
       return new Promise(function(resolve){
-         if(connectAndSend('process/add', true, false, null, form, null, getSections)){
+         if(connectAndSend('process/add', true, false, null, form,getSections,heavyLoad)){
            return resolve();
          }
       })

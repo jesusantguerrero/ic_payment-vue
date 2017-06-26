@@ -13,7 +13,7 @@ ob_start( 'ob_gzhandler' );
         <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/moment.min.js') ?>"></script>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/impresos.css') ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/impresos.min.css') ?>" />
 
         <!--<link href="favicon.png" rel="icon" type="image/png"/>-->
     </head>

@@ -50,7 +50,7 @@ class App extends CI_Controller {
 			}
 			$this->load->view('layouts/footer');
 		}else{
-			echo "usted no puede permanecer aqui";
+			redirect(base_url());
 		}
 		
 	}
@@ -61,7 +61,7 @@ class App extends CI_Controller {
 			$this->load->view('layouts/header_impresos',$data);
 			$this->load->view('impresos/'.$page);
 		}else{
-			echo "usted no puede permanecer aqui";
+			redirect(base_url());
 		}
 	}
 

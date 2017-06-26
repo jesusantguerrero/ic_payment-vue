@@ -21,17 +21,19 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         if (connect.readyState == 4 && connect.status == 200) {
-            if (action != null)  {
-                action(connect.responseText,recognizeElements);          
-            }else{
-              if(is_message){
-                 displayMessage(connect.responseText);
-                            
-              }              
-            }
-            if(callback != null)callback();
-        } else if (connect.readyState != 4) {
-          if(loading)loading();
+          if(loading)loading(true);
+          if (action != null)  {
+              action(connect.responseText,recognizeElements);          
+          }
+          else{
+            if(is_message){
+               displayMessage(connect.responseText);                            
+            }              
+          }
+          if(callback != null)callback();
+        } 
+        else if (connect.readyState != 4) {
+          if(loading)loading(false);      
         }
     }
     connect.open("POST",BASE_URL + url, true);
@@ -527,5 +529,36 @@ function verifyClientStatus(){
     }
   });
 }
+
+/********************************************************
+*                       Loaders                            
+*                                                       *
+********************************************************/
+
+
+  function heavyLoad(stop){
+    if(!stop){
+      var html = '<div class="heavy-loader active">'
+          html +=   '<div class="circle-load"></div>'
+          html +=   '<div class="message">Creando la sección</div>'
+          html += '</div>'
+      $("body").append(html)
+      $("body").css({overflow:"hidden"});
+      var message = $(".heavy-loader .message");
+      setTimeout(function(){
+        message.text("Configurando Sección...")
+      },4000)
+      setTimeout(function(){
+        message.text("Creando las nuevas ips...")
+      },8000)
+      setTimeout(function(){
+        message.text("Terminando el proceso ...")
+      },15000)
+    }else{
+      var loader = $(".heavy-loader");
+      loader.remove();
+      $("body").css({overflow:"auto"})
+    }
+  }
 
 

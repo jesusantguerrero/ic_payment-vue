@@ -24,7 +24,7 @@ class Section_model extends CI_MODEL{
       'id_seccion'         => null,
       'nombre'             => $data['nombre'],
       'codigo_area'        => $data['codigo_area'],
-      'registros_posibles' => $data['registros_posibles']
+      'registros_posibles' => 250
     );
 
     $this->db->where('nombre',$data['nombre']);
