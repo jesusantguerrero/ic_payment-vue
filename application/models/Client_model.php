@@ -16,7 +16,7 @@ class Client_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-    $this->load->database();
+     
     $this->load->helper('lib_helper');
   }
 
@@ -119,7 +119,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_all_clients(){
-    $sql = "SELECT * FROM ic_clientes";
+    $sql = "SELECT * FROM ic_clientes order by apellidos";
     set_last_query($sql);
     $sql .= " LIMIT 5";
     set_last_page($sql);

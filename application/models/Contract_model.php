@@ -30,7 +30,7 @@ class Contract_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-    $this->load->database();
+     
     $this->load->model('payment_model');
     $this->load->helper('lib_helper');
     $this->load->model('section_model');

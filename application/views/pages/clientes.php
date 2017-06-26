@@ -41,9 +41,7 @@
           <div>
             <select name="perpage" id="per-page" class="per-page">
             <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>  
+            <option value="10">10</option>  
           </select>
           </div>
           <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de

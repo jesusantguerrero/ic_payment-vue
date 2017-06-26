@@ -17,7 +17,6 @@ class Process extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("caja_chica_model");
 		$this->load->model("section_model");
-		$this->load->helper(array('report','payment','section'));
 	}
 
 	public function add(){ 

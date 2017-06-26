@@ -54,7 +54,6 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Semana</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Mas</a></li>
       </ul>
 
       <!-- Tab panes -->
@@ -81,7 +80,6 @@
             <canvas class="little-chart" id="week-chart"></canvas>
           </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">...</div>
       </div>
 
     </div>

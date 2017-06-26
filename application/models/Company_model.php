@@ -21,7 +21,7 @@ class Company_model extends CI_MODEL{
   
   public function __construct(){
     parent::__construct();
-    $this->load->database();
+     
   }
 
   public function update($data){

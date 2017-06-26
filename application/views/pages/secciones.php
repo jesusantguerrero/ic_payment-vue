@@ -33,8 +33,6 @@
           <ul class="nav nav-tabs" role="tablist" id="main-tabs">
             <li role="presentation" class="active">
               <a href="#payments" aria-controls="messages" role="tab" data-toggle="tab">IP's De Seccion</a></li>
-            <li role="presentation">
-              <a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Descripcion</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -43,44 +41,23 @@
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in  active" id="payments">
               <table data-toggle="table" class="t-sections innertable" id="t-sections" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
-            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-show-pagination-switch="true"
-            data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false"
-            data-response-handler="responseHandler">
-            <thead>
-              <tr>
-                <th data-field="num" data-sortable="true">Num</th>
-                <th data-field="sector" data-sortable="true">Sector</th>
-                <th data-field="codigo" data-sortable="true">Codigo</th>
-                <th data-field="ip" data-sortable="true">Direccion IP</th>
-                <th data-field="estado" data-sortable="true">Estado</th>
-              </tr>
-            </thead>
-            <tbody>
+                data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-show-pagination-switch="true"
+                data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false"
+                data-response-handler="responseHandler">
+                <thead>
+                  <tr>
+                    <th data-field="num" data-sortable="true">Num</th>
+                    <th data-field="sector" data-sortable="true">Sector</th>
+                    <th data-field="codigo" data-sortable="true">Codigo</th>
+                    <th data-field="ip" data-sortable="true">Direccion IP</th>
+                    <th data-field="estado" data-sortable="true">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
             
-            </tbody>
-          </table>
+                </tbody>
+              </table>
             </div>
-
-            <!---->
-            <div role="tabpanel" class="tab-pane fade in" id="observations">
-
-              <div class="form-group">
-
-                <h5>Escribe tus observaciones para este cliente</h5>
-
-
-                <textarea name="" id="text-observations" class="form-control" rows="5" required="required">
-                </textarea>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-2 col-sm-offset-10">
-                  <button type="submit" class="btn btn-primary" id="btn-save-section-description">Guardar</button>
-                </div>
-              </div>
-
-            </div>
-
-
           </div>
 
         </div>

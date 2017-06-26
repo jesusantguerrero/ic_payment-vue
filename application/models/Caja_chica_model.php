@@ -20,7 +20,7 @@ class Caja_chica_model extends CI_MODEL{
   
   public function __construct(){
     parent::__construct();
-    $this->load->database();
+     
     if(isset($_SESSION['user_data'])){
       $this->id_empleado = $_SESSION['user_data']['user_id'];
     }

@@ -17,10 +17,6 @@ class App extends CI_Controller {
 		$this->load->model("caja_chica_model");
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
-		$this->load->helpers('modals','lib');
-		$this->load->helper('section');
-		$this->load->helper(array('report','payment'));
-		
 		
 		update_moras($this);
 	}

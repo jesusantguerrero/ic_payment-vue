@@ -12,7 +12,7 @@ class Contract_view_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-    $this->load->database();
+     
     $this->load->helper('lib_helper');
   }
 
