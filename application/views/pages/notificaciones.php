@@ -19,12 +19,13 @@
       <div class="tab-content mylists">
         <div role="tabpanel" class="tab-pane active" id="ingresos">
           <div class="searcher-container clearfix">
-            <h4 class="search-criteria">Presentado:<span class="presentado"> Todos </span> (<span class="total-rows"></span>)</h4>
+            <h4 class="search-criteria">Presentado:<span class="presentado"> Por Reparar </span> (<span class="total-rows"></span>)</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
             <select name="" id="averias-view-mode">
-            <option value="todos">Todos</option>
             <option value="por reparar">Por Reparar</option>
             <option value="reparado">Reparados</option>
+            <option value="todos">Todos</option>
+            
           </select>
           </div>
 

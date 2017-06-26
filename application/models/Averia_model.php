@@ -53,11 +53,12 @@ class Averia_model extends CI_MODEL{
 
   }
 
-  public function get($status = 'todos'){
+  public function get($status = 'por reparar'){
     $sql = "SELECT * FROM v_averias";
     if($status != 'todos'){
        $sql .= " WHERE estado ='$status'";
     }
+    $this->session->set_flashdata('averias',$sql);
     $result = $this->db->query($sql);
     if($result and count($result) > 0){
       $result = make_averias_list($result->result_array());
@@ -69,7 +70,7 @@ class Averia_model extends CI_MODEL{
   }
 
   public function count(){
-    $result = $this->db->query(get_last_query());
+    $result = $this->db->query($_SESSION['averias']);
     if($result){
       $result = count($result->result_array());
       echo $result;
