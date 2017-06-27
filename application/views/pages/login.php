@@ -14,6 +14,7 @@ ob_start( 'ob_gzhandler' );
     <link rel="icon" type="image/png" sizes="32x32" href="<?php  echo base_url('/favicon-32x32.png')?>">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php  echo base_url('/favicon-16x16.png')?>">
+    <link rel="manifest" href="<?php  echo base_url('/manifest.json')?>">
     
     
 </head>

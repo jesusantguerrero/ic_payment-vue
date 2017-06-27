@@ -3,20 +3,23 @@
   "name": "Insane Code Payment",
   "icons": [
     {
-      "src": "favicon-32x32.png",
+      "src": "launcher-icon-1x.png",
       "type": "image/png",
-      "sizes": "32x32"
+      "sizes": "48x48"
     },
     {
-      "src": "favicon-96x96.png",
+      "src": "launcher-icon-2x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "favicon-96x96.png",
+      "src": "launcher-icon-4x.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "index.php?launcher=true"
+  "start_url": "app/admin/home",
+  "background_color": "#2196F3",
+  "display": "standalone",
+  "theme_color": "#2196F3"
 }

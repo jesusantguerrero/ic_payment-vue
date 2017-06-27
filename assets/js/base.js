@@ -11,7 +11,10 @@ makeServiceCardClickable();
 detailsFunctions();
 notificationFunctions();
 newContractFunctions();
-
+checkWindowSize();
+$(window).on('resize',function(){
+  checkWindowSize();
+})
 /**
  * Get Date:
  * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
@@ -225,3 +228,14 @@ $("#select-contract-code").on('change',function(){
   $("#u-contract-ip").val($this.attr("data-ip-final"));
  
 });
+
+function checkWindowSize() {
+  var width = window.screen.availWidth;
+  var brandName = document.querySelector('.brand span');
+  
+  if(width <= 1100){
+    brandName.textContent = "P";
+  }else{
+    brandName.textContent = "Payment";
+  }
+}

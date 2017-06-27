@@ -143,6 +143,7 @@
   width: 30%
 .company-logo
   width: 220px
+  max-width: 100%
   border-radius: 6px
 .company-name
   width: 100%
@@ -151,4 +152,19 @@
   width: 60%
 
   .col
-    padding: 0 0 0 0
+    padding: 0 0 0 
+    
+@media (max-width: 1100px)
+  .welcome-screen
+    .date-container
+      display: flex
+      flex-direction: column
+    .dayweek
+      position: static
+      order: 2
+    .month-year
+      order: 3
+    .day
+      &:after
+        +size(0,0)
+     

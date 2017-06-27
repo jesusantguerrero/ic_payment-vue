@@ -125,6 +125,7 @@ class User_model extends CI_MODEL{
       $result = $result->row_array();
       if(password_verify($password,$result['password'])){
         $_SESSION['user_data'] = $result;
+        $_SESSION['user_data']['password'] = '';
         $_SESSION['lastquery'] = "Select * from ic_clientes";
         return true;
       }
