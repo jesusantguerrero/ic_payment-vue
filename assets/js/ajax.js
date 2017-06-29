@@ -41,9 +41,9 @@ $(function () {
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     if (currentPage == 'notificaciones') {
-
       count_table("averias");
 
+      
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
         getAverias();
@@ -372,7 +372,6 @@ $(function () {
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {
-
     if (!ran) {
       getPayments();
       ran = true;

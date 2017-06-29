@@ -306,7 +306,8 @@ class Process extends CI_Controller {
 				$this->payment_model->count_of_contract();
 			case 'caja':
 				$this->caja_chica_model->count();
-				case 'averias':
+				break;
+			case 'averias':
 				$this->averia_model->count();
 				break;
 		}

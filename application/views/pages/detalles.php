@@ -195,7 +195,7 @@
                   </div>
                   <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
                     <span class="total-rows">
-                      <?php $this->client_model->count_clients()?>
+                      <?php ?>
                       </span>
                   </div>
                   <div> Registros</div>
