@@ -93,4 +93,12 @@ class Contract_view_model extends CI_MODEL{
     return array('valores' => $valores, 'nombres' => $servicios);
   }
 
+  public function get_technical_report(){
+    $sql = "SELECT id_contrato as codigo, cliente, codigo as IP_Cod ,ip as Direccion_IP FROM v_contratos ORDER BY id_contrato";
+    $result = $this->db->query($sql);
+    return $result->result_array();
+
+
+  }
+
 }
