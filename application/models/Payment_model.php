@@ -176,12 +176,23 @@ class Payment_model extends CI_MODEL{
   public function month_income($mes){
     $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
     $result = $this->db->query($sql);
-    $result->row_array()['sum(total)'];
-    if ($result != null){
-      return $result->row_array()['sum(total)'];
+    $result = $result->row_array()['sum(total)'];
+    if($result){
+      return $result;
     }else{
       return 0;
     }
+  }
+
+  public function get_incomes_per_month(){
+    $resultado_por_mes = array();
+    
+    for ($i=1; $i <= 12 ; $i++) { 
+      $value = $this->month_income($i);
+      
+      array_push($resultado_por_mes,$value);
+    }
+    return $resultado_por_mes;
   }
 
   public function day_income(){

@@ -7,6 +7,8 @@ RewriteCond %{REQUEST_FILENAME} !-l
 
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
+AddType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet .xlsx
+
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/css

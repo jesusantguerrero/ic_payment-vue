@@ -15,6 +15,7 @@
   overflow: hidden
   cursor: pointer
   transition: all ease .3s
+  position: relative
 
   &:first-child
     margin-left: 0
@@ -30,7 +31,27 @@
 
   &:hover
     box-shadow: 2px 4px 2px 1px transparentize(#555,.7)
+    .card-detail
+      top: 0
+  
+  .card-detail
+    background: $contrast-color
+    color: white
+    +size(100%,100%)
+    position: absolute
+    top: 100%
+    +makeFlex(100%,row,center,center)
+    padding: 0 0 0 0
+  .cover-links
+    color: white
+    display: block
+    width: 100%
+    height: 100%
+    text-align: center
+    padding-top: 20px
 
+    &:hover
+      background: transparentize(#000,.8)
 .shortcuts-container.data-card-container
   width: 100%
 

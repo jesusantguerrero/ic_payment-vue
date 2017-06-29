@@ -1,17 +1,23 @@
 <div class="screen reports row">
 
 <?php 
-  $salidas   = $this->caja_chica_model->get_transactions_per_month('salida');
-  $entradas  = $this->caja_chica_model->get_transactions_per_month('entrada');
-  $balances  = $this->caja_chica_model->get_balance_per_month();
-  $services = $this->contract_view_model->get_statics_of_services();
+  $ingresos      = $this->payment_model->get_incomes_per_month(); 
+  $salidas       = $this->caja_chica_model->get_transactions_per_month('salida');
+  $entradas      = $this->caja_chica_model->get_transactions_per_month('entrada');
+  $balances      = $this->caja_chica_model->get_balance_per_month();
+  $services      = $this->contract_view_model->get_statics_of_services();
   $installations = $this->report_model->get_installations_per_month();
  ?>
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">
-      <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span>        <span>Clientes</span> </div>
-      <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span>        contratos</div>
-      <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span>        clientes activos</div>
+      <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span> <span>Clientes</span> </div>
+      <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> <span>contratos</span>
+        <div class="card-detail">
+          <a href="" class="cover-links">EXCEL</a>
+          <a href="" class="cover-links">Imprimir</a>
+        </div>
+      </div>
+      <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span> <span> clientes activos</span></div>
     </div>
     <!-- main tab -->
     <div>
@@ -88,12 +94,12 @@
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
-
-  var salidas = <?php echo json_encode($salidas)?>;
+  var ingresos = <?php echo json_encode($ingresos)?>;
+  var salidas  = <?php echo json_encode($salidas) ?>;
   var entradas = <?php echo json_encode($entradas)?>;
   var balances = <?php echo json_encode($balances)?>;
   var services = <?php echo json_encode($services)?>;
-  var instalaciones = <?php echo json_encode($installations) ?>;
+  var instalaciones = <?php echo json_encode($installations)?>;
   var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre", "Diciembre"];
   drawChart();
   weekChart();
@@ -101,13 +107,6 @@
   balanceChart();
   installationsChart();
   
-  
-  <?php 
-      $month_incomes;
-      for ($i=1; $i <= 12 ; $i++) { 
-        $month_incomes[$i] = $this->payment_model->month_income($i);
-      }
-    ?>
 
   function drawChart() {
     var $chartIngresos = $("#mychart");
@@ -132,16 +131,7 @@
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [
-          <?php foreach ($month_incomes as $value) {
-            if($value == null){
-              echo 0 .",";
-            }
-            else{
-              echo strval($value).", ";
-            }
-          } ?>
-        ],
+        data: ingresos,
         spanGaps: false,
       }]
     }

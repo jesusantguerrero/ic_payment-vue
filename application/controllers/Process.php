@@ -452,10 +452,14 @@ class Process extends CI_Controller {
 	public function print_page(){
 		authenticate();
 		$page = $this->caja_chica_model->get_for_print();
-		header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=iso-8859-1");
-		header("Content-Disposition: attachment; filename=Reporte".date('d-m-Y').".xlsx");
+
+		$file = "Reporte".date('d-m-Y').".xls";
+		header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1");
+		header("Content-Disposition: attachment; filename= $file");
 		header("Pragma: no-cache");
 		header("Expires: 0");
+		ob_clean();
+		flush();
 		echo $page;
 	}
 }

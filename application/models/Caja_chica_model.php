@@ -89,9 +89,9 @@ class Caja_chica_model extends CI_MODEL{
   }
 
   public function get_for_print(){
-    $result = $this->db->query(get_last_query());
+    $result = $this->db->get('v_caja');
     $result = make_caja_table($result->result_array());
-    $style = "th{background:#06f;}";
+    $style  = "th{background:#06f;}";
     $cuerpo ="<HTML>
               <head>
                 <TITLE>::. Exportacion de Datos .::</TITLE>
@@ -113,7 +113,7 @@ class Caja_chica_model extends CI_MODEL{
             <tbody>";
     $footer = "</tbody>
               </table>
-              </body>";
+              </body></html>";
     return $cuerpo.$header.$result.$footer;
   }
 
