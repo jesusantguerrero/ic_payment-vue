@@ -126,12 +126,14 @@ class Client_model extends CI_MODEL{
     $result = $this->db->query($sql);
     $result = make_client_table($result->result_array(),0);
     echo $result;
+    unset($_SESSION['offset']);
   }
 
   public function last_page(){
     $result = $this->db->query(get_last_page());
     if($result){
-      $result = make_client_table($result->result_array(),0);
+      isset($_SESSION['offset']) ? $offset = $_SESSION['offset']  : $offset = 0;
+      $result = make_client_table($result->result_array(),$offset);
       echo $result;
     }  
   }
@@ -158,6 +160,7 @@ class Client_model extends CI_MODEL{
   public function get_clients_paginate($offset,$perpage){
     $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
     set_last_page($sql);
+    $_SESSION['offset'] = $offset;
     $result = $this->db->query($sql);
     if($result){
       $result = make_client_table($result->result_array(),$offset);

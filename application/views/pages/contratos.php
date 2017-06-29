@@ -21,6 +21,7 @@
         <thead>
           <tr>
             <th>Cod</th>
+            <th>IP</th>
             <th>Cliente</th>
             <th>Fecha Inicio</th>
             <th>Servicio</th>

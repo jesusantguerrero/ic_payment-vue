@@ -584,7 +584,7 @@ $(function () {
         form += "&ingresos=" + $ingresos.val();
         form += $telTrabajo.val() + "&tabla=clientes";
 
-        connectAndSend("process/update", true, initClientHandlers, null, form, getClients);
+        connectAndSend("process/update", true, initClientHandlers, null, form, getClientsLastPage);
 
       } else {
         displayAlert("Revise","LLene todos los campos por favor","error");
@@ -631,7 +631,7 @@ $(function () {
     switch (tabla) {
       case 'clientes':
         handlers = initClientHandlers;
-        callback = getClients;
+        callback = getClientsLastPage;
         break;
       case 'servicios':
         handlers = initServicesHandlers;
