@@ -512,7 +512,7 @@ function authenticate(){
 	}
 }
 function auth_user_type($type){
-  if($_SESSION['user_data']['type'] = $type){
+  if($_SESSION['user_data']['type'] == $type){
     return true;
   }
   return false;

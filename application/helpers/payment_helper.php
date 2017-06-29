@@ -31,7 +31,9 @@ if ( ! function_exists('create_payments')){
     $day = $contract_date->format('d');
     $pago = $data['mensualidad']; 
 
-    for ($i=0; $i < $duration + 1; $i++) {
+    $i = 0;
+    
+    for ($i; $i < $duration + 1; $i++) {
       if($i > 0) $concepto = $i."º pago de mensualidad"; 
       if($i == 1) {
         if($day > 15 && $day <= $split_day){
