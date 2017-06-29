@@ -3,7 +3,7 @@
 <ul class="dropdown-menu" aria-labelledby="dLabel">
   <li><a href="<?php echo base_url('app/admin/cuenta')?>"><b><?php echo $user_data['fullname'] ?></b></a></li>
   <li><a href="<?php echo base_url('app/admin/cuenta')?>"><?php echo $user_data['typestr'] ?></a></li>
-  <?php if($user_data['type'] == 0): ?>
+  <?php if(auth_user_type(0)): ?>
   <li><a href="<?php echo base_url('app/admin/administrador')?>">
       <i class="material-icons">settings</i>Configuración</a>
   </li>

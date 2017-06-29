@@ -58,7 +58,7 @@ class Averia_model extends CI_MODEL{
     if($status != 'todos'){
        $sql .= " WHERE estado ='$status'";
     }
-    $this->session->set_flashdata('averias',$sql);
+    $_SESSION['averias'] = $sql;
     $result = $this->db->query($sql);
     if($result and count($result) > 0){
       $result = make_averias_list($result->result_array());

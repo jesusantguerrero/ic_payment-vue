@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <title>.:: IC Payment |
-        <?php echo ucfirst($title); ?> ::.</title>
+    <title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
     <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css') ?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css') ?>" />
@@ -39,7 +38,7 @@
                 <li class="navButton"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
                 <li class="navButton"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
 
-                <?php if($user_data['type'] == 0): ?>
+                <?php if(auth_user_type(0)): ?>
                 <li class="navButton"><a class="<?php if($title == 'secciones') echo " active " ?>" href="<?php echo base_url('app/admin/secciones') ?>">Secciones</a></li>
                 <li class="navButton"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
                 <?php endif; ?>

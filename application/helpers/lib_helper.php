@@ -505,3 +505,27 @@ function set_last_page($lastquery){
 function get_last_page(){
   return $_SESSION['lastpage'];
 }
+
+function authenticate(){
+  if(!isset($_SESSION['user_data'])){
+		redirect(base_url());
+	}
+}
+function auth_user_type($type){
+  if($_SESSION['user_data']['type'] = $type){
+    return true;
+  }
+  return false;
+}
+
+function auth_user_type_for_pages($page,$type,$redirect){
+  $forbiden_sections[1] = array("administrador","reportes",'secciones');
+
+  if(in_array($page,$forbiden_sections[$type]) && auth_user_type($type)){
+    if($redirect){
+      redirect($redirect);
+    }
+    return true;
+  }
+  return false;
+}

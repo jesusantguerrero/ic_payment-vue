@@ -32,37 +32,30 @@ class App extends CI_Controller {
 	}
 	
 	public function admin($page = 'home'){
-		if(isset($_SESSION['user_data'])){
-			if(($page == "administrador" || $page == "reportes" || $page == 'secciones') && $_SESSION['user_data']['type'] > 0){
-				redirect(base_url('app/admin/home'));
-			}	
-			$tooltip = $this->load->view('layouts/headertooltip','',true);
-			$data['title'] = $page;
-			$data['tooltip'] = $tooltip;
-			$this->load->view('layouts/header',$data);
-			$this->load->view('pages/' . $page);
-
-			$modals = get_modals($page);
-			if($modals != FALSE){
-				foreach ($modals as $modal) {
-					$this->load->view($modal);
-				}
-			}
-			$this->load->view('layouts/footer');
-		}else{
-			redirect(base_url());
-		}
+		authenticate();
+		auth_user_type_for_pages($page,1,base_url('app/admin/home'));
 		
+		$tooltip = $this->load->view('layouts/headertooltip','',true);
+		$data['title'] = $page;
+		$data['tooltip'] = $tooltip;
+		$this->load->view('layouts/header',$data);
+		$this->load->view('pages/' . $page);
+
+		$modals = get_modals($page);
+		if($modals != FALSE){
+			foreach ($modals as $modal) {
+				$this->load->view($modal);
+			}
+		}
+		$this->load->view('layouts/footer');	
 	}
 
 	public function imprimir($page){
-		if(isset($_SESSION['user_data'])){
-			$data['title'] = $page;
-			$this->load->view('layouts/header_impresos',$data);
-			$this->load->view('impresos/'.$page);
-		}else{
-			redirect(base_url());
-		}
+		authenticate();
+		$data['title'] = $page;
+		$this->load->view('layouts/header_impresos',$data);
+		$this->load->view('impresos/'.$page);
+		
 	}
 
 	public function login(){
@@ -78,6 +71,7 @@ class App extends CI_Controller {
   }
 
 	public function logout(){
+		authenticate();
     session_unset($_SESSION['user_data']);
     session_destroy();
     redirect(base_url());

@@ -8,22 +8,26 @@ class User extends CI_Controller {
 		$this->load->model("user_model");
 	}
 
-	public function addnew(){ 
+	public function addnew(){
+		authenticate(); 
 		$data = $_POST; 
    	$result = $this->user_model->add_new_user($data);
 	}
 
 	public function update(){
+		authenticate();
 		$data = $_POST;
 		$result =	$this->user_model->update_user($data);
 		echo $result;
 	}
 
 	public function getusers(){
+		authenticate();
 		$this->user_model->get_all_users();
 	}
 
 	 public function paginate(){
+		authenticate();
 		$offset = $_POST['offset'];
 		$perpage = $_POST['perpage'];
 		$table = $_POST['table'];
@@ -34,11 +38,13 @@ class User extends CI_Controller {
 	 }
 
 	public function deleteuser(){
+		authenticate();
 		$id = $_POST['user_id'];
 		$this->user_model->delete_user($id);
 	}
 
 	public function confirm_password(){
+		authenticate();
   	$user_id = $_POST['user_id'];
   	$password = $_POST['current_password'];
 

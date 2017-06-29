@@ -20,6 +20,7 @@ class Process extends CI_Controller {
 	}
 
 	public function add(){ 
+		authenticate();
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
@@ -76,6 +77,7 @@ class Process extends CI_Controller {
 	}
 
 	public function update(){
+		authenticate();
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
@@ -138,15 +140,18 @@ class Process extends CI_Controller {
 	}
 
 	public function retire(){
+		authenticate();
 		$data = $_POST;
 		$this->caja_chica_model->retire_money($data);
 	}
 
 	public function upgrade(){
+		authenticate();
 		$data_cambio = $_POST;
 		upgrade_contract($this,$data_cambio);
 	}
 	public function getall(){
+		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case "users":
@@ -186,7 +191,8 @@ class Process extends CI_Controller {
 	}
 
 	public function lastpage(){
-				$tabla = $_POST['tabla'];
+		authenticate();
+		$tabla = $_POST['tabla'];
 		switch ($tabla){
 			case "pagos":
 				$this->payment_model->last_page();
@@ -206,6 +212,7 @@ class Process extends CI_Controller {
 	}
 
 	public function getone(){
+		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case "clientes":
@@ -234,6 +241,7 @@ class Process extends CI_Controller {
 	}
 
 	public function paginate(){
+		authenticate();
 		$offset = $_POST['offset'];
 		$perpage = $_POST['perpage'];
 		$table = $_POST['table'];
@@ -258,6 +266,7 @@ class Process extends CI_Controller {
 	}
 
 	public function delete(){
+		authenticate();
 		$id = $_POST['id'];
 		$tabla = $_POST['tabla'];
 
@@ -275,6 +284,7 @@ class Process extends CI_Controller {
 	}
 
 	public function count(){
+		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case 'users':
@@ -303,6 +313,7 @@ class Process extends CI_Controller {
 	}
 
 	public function search(){
+		authenticate();
 		$data = $_POST;
 		$tabla = $data['tabla'];
 		if(isset($_POST['word'])):
@@ -326,25 +337,27 @@ class Process extends CI_Controller {
 	}
 
 	public function details($id,$active_window){
-
+		authenticate();
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
 		$this->session->set_flashdata('active_window',$active_window);
 		redirect(base_url('app/admin/detalles'));
 	}
 
 	public function newcontract($id){
-
+		authenticate();
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
 		redirect(base_url('app/admin/nuevo_contrato'));
 	}
 
 	public function getrecibo($id){
+		authenticate();
 		$recibo_info = $this->payment_model->get_recibo($id);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
 	public function getrequirements($client_id){
+		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
 		$contract_id = $this->contract_model->get_last_id($client_id);
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
@@ -353,12 +366,14 @@ class Process extends CI_Controller {
 	}
 	// just one
 	public function getrequirement($client_id){
+		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimiento'));
 	}
 
 	public function getcancelcontract($client_id,$contract_id){
+		authenticate();
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
 		$requirement_info['pago']	= $this->payment_model->get_last_pay_of($contract_id);
@@ -368,6 +383,7 @@ class Process extends CI_Controller {
 	}
 
 	public function getreport($table,$type = 'nada'){
+		authenticate();
 		switch ($table) {
 			case 'payment':
 					$this->report_model->get_payments_report($type);
@@ -391,11 +407,13 @@ class Process extends CI_Controller {
 	}
 	
 	public function cancel(){
+		authenticate();
 		$data_cancel = $_POST;
 		cancel_contract($this,$data_cancel);
 	}
 
 	public function data_for_extra(){
+		authenticate();
 		$dni = $_POST['dni'];
 		$data;
 		$client = $this->client_model->get_clientjson($dni);
@@ -411,6 +429,7 @@ class Process extends CI_Controller {
 	}
 
 	public function extend_contract(){
+		authenticate();
 		$data = $_POST;
 		$this->db->trans_start();
 		extend_contract($data,$this);
@@ -424,11 +443,13 @@ class Process extends CI_Controller {
 	}
 
 	public function addextra(){
+		authenticate();
 		$data = $_POST;
 		add_extra($this,$data);
 	}
 
 	public function print_page(){
+		authenticate();
 		$page = $this->caja_chica_model->get_for_print();
 		header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=iso-8859-1");
 		header("Content-Disposition: attachment; filename=Reporte".date('d-m-Y').".xlsx");
