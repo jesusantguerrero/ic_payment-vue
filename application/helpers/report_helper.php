@@ -152,20 +152,20 @@ if( ! function_exists('erase_report')){
 }
 
 
-function get_rich_text($message){
+function get_rich_text($remark,$message,$colors = array('remark'=>'0066ff','message'=>'0066ff'),$size = 30){
   $objRichText = new PHPExcel_RichText();
-  $companyName= $objRichText->createTextRun('ICS Service: ');
+  $companyName= $objRichText->createTextRun($remark." ");
   $companyName->getFont()->setBold(true);
   $companyName->getFont()->applyFromArray(array(
-    'color' => array('rgb'=> 'ff2000'),
-    'size' => 30
+    'color' => array('rgb'=> $colors['remark']),
+    'size' => $size
     ));
-  $objPayable = $objRichText->createTextRun('Contratos Vigentes');
+  $objPayable = $objRichText->createTextRun($message);
   $objPayable->getFont()->setBold(true);
   $objPayable->getFont()->setItalic(true);
   $objPayable->getFont()->applyFromArray(array(
-    'color' => array('rgb'=> '0088ff'),
-    'size' => 30
+    'color' => array('rgb'=> $colors['message']),
+    'size' => $size
     ));
   return $objRichText;
 }
@@ -221,13 +221,14 @@ function create_excel_file($report){
 		$sheet->getStyle($table_range)->getAlignment()->applyFromArray($myStyles['alignment']);
 		$sheet->getStyle('C5:C'.($row_number + 5))->getAlignment()->setHorizontal('left');
 		$sheet->getStyle('C5:C'.($row_number + 5))->getAlignment()->setShrinkToFit(true);
-		$sheet->getRowDimension('4')->setRowHeight(20);
+		$sheet->getRowDimension('4')->setRowHeight(50);
 		$sheet->getDefaultColumnDimension()->setWidth(30);
 		$sheet->getColumnDimension('A')->setWidth(2);
     $sheet->getColumnDimension('B')->setWidth(13);
 		$sheet->setShowGridLines(false);
-		$sheet->getCell('C2')->setValue(get_rich_text('Hola')); 
-		set_image($sheet,'B2','insanecode_logo.png');
+		$sheet->getCell('C2')->setValue(get_rich_text('ISC Service:',"Contratos Vigentes",array('remark'=>'ff2200','message'=> '0066ff'))); 
+    $sheet->getCell('C3')->setValue(get_rich_text('Reporte Tecnico',"",array('remark'=>'333333','message'=> '333333'),16)); 
+		set_image($sheet,'B2','icsservice_logo.png');
 																										
 		$myreport_sheet->getActiveSheet()->fromArray(
 			$report['header'],
