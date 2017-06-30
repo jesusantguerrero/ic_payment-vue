@@ -453,58 +453,11 @@ class Process extends CI_Controller {
 		authenticate();
 		$report = $this->contract_view_model->get_technical_report();
 		if(!$report) echo "No hay datos";
-		$headers = array_keys($report[0]);
 
 		$this->load->library('PHPExcel');
 		$this->load->library('PHPExcel/iofactory');
-
-		$myStyles = array(
-			'fill' => array(
-				'type'  => 'solid',
-				'color' => array('rgb'=>'0066ff')
-
-			),
-			'font' => array(
-				'name'  => 'Arial',
-				'color' => array('rgb'=>'ffffff'),
-				'bold'  => 'true',
-				'size'  => '14'
-			),
-			'borders' => array(
-					'allborders' => array(
-						'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
-      			'color' => array('rgb'=>'ffffff')
-					),
-					'bottom'  => array(
-     				'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
-      			'color' => array(
-     					'rgb' => '808080'
-						)
-					)
-			)
-		);
-
-		$myreport_sheet = new PHPExcel();
-		$myreport_sheet->getProperties()->setTitle('Primera prueba')->setDescription('my first document');
-		// Assign cell values
-		$myreport_sheet->setActiveSheetIndex(0);
-		$sheet = $myreport_sheet->getActiveSheet();
-		$sheet->getStyle('C3:F3')->applyFromArray($myStyles);
 		
-		$sheet->getRowDimension()->setRowHeight(40);
-		$sheet->getColumnDimension()->setRowWidth(-1);
-																										
-		$myreport_sheet->getActiveSheet()->fromArray(
-			$headers,
-			'',
-			'C3'
-		);
-
-		$myreport_sheet->getActiveSheet()->fromArray(
-			$report,
-			'',
-			'C4'
-		);
+		$myreport_sheet = create_excel_file($report);
 		$file = "prueba.xlsx";
 		
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");

@@ -13,8 +13,7 @@
       <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span> <span>Clientes</span> </div>
       <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span> <span>contratos</span>
         <div class="card-detail">
-          <a href="<?php echo base_url('process/print_page') ?>" class="cover-links">EXCEL</a>
-          <a href="" class="cover-links">Imprimir</a>
+          <a href="<?php echo base_url('process/print_page') ?>" class="cover-links">Reporte Tecnico</a>
         </div>
       </div>
       <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span> <span> clientes activos</span></div>

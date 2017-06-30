@@ -150,7 +150,99 @@ if( ! function_exists('erase_report')){
     session_unset($_SESSION['reporte']);
   }
 }
-  
+
+
+function get_rich_text($message){
+  $objRichText = new PHPExcel_RichText();
+  $companyName= $objRichText->createTextRun('ICS Service: ');
+  $companyName->getFont()->setBold(true);
+  $companyName->getFont()->applyFromArray(array(
+    'color' => array('rgb'=> 'ff2000'),
+    'size' => 30
+    ));
+  $objPayable = $objRichText->createTextRun('Contratos Vigentes');
+  $objPayable->getFont()->setBold(true);
+  $objPayable->getFont()->setItalic(true);
+  $objPayable->getFont()->applyFromArray(array(
+    'color' => array('rgb'=> '0088ff'),
+    'size' => 30
+    ));
+  return $objRichText;
+}
+
+function set_image($sheet,$cell,$imagename){
+// Add a drawing to the worksheet
+$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing->setName('Terms and conditions');
+$objDrawing->setDescription('Terms and conditions');
+$objDrawing->setPath('./assets/img/'.$imagename);
+$objDrawing->setWidth(100);
+$objDrawing->setCoordinates($cell);
+$objDrawing->setWorksheet($sheet);
+}
+
+function create_excel_file($report){
+  $row_number = count($report['data']);
+		$table_range = 'B5:'.$report['end'][0].($row_number + 5);
+
+		$myStyles = array(
+			'fill' => array(
+				'type'  => 'solid',
+        'color' => array('rgb'=>'0066ff'),
+			),
+			'font' => array(
+				'name'  => 'Arial',
+				'color' => array('rgb'=>'ffffff'),
+				'bold'  => 'true',
+				'size'  => '14'
+			),
+			'borders' => array(
+					'bottom'  => array(
+     				'style' => 'thin',
+      			'color' => array(
+     					'rgb' => '999999'
+						)
+					)
+			),
+			'alignment' =>	array(
+	 			'horizontal' => 'center',
+	 			'vertical'   => 'center',
+	 			'rotation'   => 0,
+	 			'wrap'			=> TRUE
+	 		)
+		);
+
+		$myreport_sheet = new PHPExcel();
+		$myreport_sheet->getProperties()->setTitle('Primera prueba')->setDescription('my first document');
+		// Assign cell values
+		$myreport_sheet->setActiveSheetIndex(0);
+		$sheet = $myreport_sheet->getActiveSheet();
+		$sheet->getStyle($report['start'].':'.$report['end'])->applyFromArray($myStyles);
+		$sheet->getStyle($table_range)->getAlignment()->applyFromArray($myStyles['alignment']);
+		$sheet->getStyle('C5:C'.($row_number + 5))->getAlignment()->setHorizontal('left');
+		$sheet->getStyle('C5:C'.($row_number + 5))->getAlignment()->setShrinkToFit(true);
+		$sheet->getRowDimension('4')->setRowHeight(20);
+		$sheet->getDefaultColumnDimension()->setWidth(30);
+		$sheet->getColumnDimension('A')->setWidth(2);
+    $sheet->getColumnDimension('B')->setWidth(13);
+		$sheet->setShowGridLines(false);
+		$sheet->getCell('C2')->setValue(get_rich_text('Hola')); 
+		set_image($sheet,'B2','insanecode_logo.png');
+																										
+		$myreport_sheet->getActiveSheet()->fromArray(
+			$report['header'],
+			'',
+			$report['start']
+		);
+
+		$myreport_sheet->getActiveSheet()->fromArray(
+			$report['data'],
+			'',
+			$report['start'][0].($report['start'][1] + 1)
+		);
+
+    return $myreport_sheet;
+}
 
   
 
