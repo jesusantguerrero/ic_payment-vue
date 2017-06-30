@@ -25,7 +25,6 @@
         <?php $user_data = get_user_data(); 
           $notifications = $this->report_model->count_moras_view();
         ?>
-
         <div class="header-low">
             <div class="brand">
                 <a href="<?php echo base_url() ?>">

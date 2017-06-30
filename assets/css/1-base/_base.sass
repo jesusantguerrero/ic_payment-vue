@@ -12,7 +12,7 @@ body
   -moz-font-feature-settings: "liga" on
 
 header
-  height: 80px
+  height: 70px
   display: flex
   justify-content: flex-end
   padding: 0 50px
@@ -21,9 +21,8 @@ header
   width: 100%
 
 .brand
-  display: flex
-  flex-direction: row
-  width: 20%
+  +makeFlex(20%,row,center,center)
+
   
   h1,h2,h3,h4,h5,h6
     margin: 0
@@ -46,14 +45,14 @@ header
   list-style: none
   justify-content: flex-start
   width: 100%
-  height: 70%
+  height: 100%
 
 nav
   display: flex
   list-style: none
   justify-content: flex-end
   align-items: flex-end
-  width: 70%
+  width: 100%
   margin: 0 0 0 5%
   height: 100%
 
@@ -72,18 +71,12 @@ nav
   margin-right: 10px
 
 .navButton
-  +size(100px,80%)
-
+  +size(100px,100%)
   a
-    display: block
-    padding: 10px 5% 0 5%
-    text-align: center
-    width: 100%
+    +makeFlex(100%,row,center,center)
     height: 100%
     font-size: 18px
-    border-radius: 4px 4px 0 0
 
-    
     &:hover
       text-decoration: none
 
@@ -104,7 +97,7 @@ nav
 
 .searcher-container
   +size(95%,38px)
-  margin: 0 2.5% 10px 2.5%
+  margin: 0 2.5% 30px 2.5%
   position: relative
   display: flex
   overflow: hidden
@@ -126,6 +119,8 @@ nav
     height: 100%
     width: max-content
     +makeFlex(max-content,row,center,center)
+.toolbar-title
+  +makeFlex(200px,row,flex-start,center)
 
 .searcher
   +size(100%,100%)
@@ -193,5 +188,5 @@ select
 form
   margin-top: 20px
 .subsection-title
-  margin-bottom: 50px
+  margin-bottom: 20px
   margin-top: -10px
