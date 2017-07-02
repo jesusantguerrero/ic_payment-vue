@@ -94,7 +94,7 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function get_technical_report(){
-    $sql = "SELECT id_contrato, cliente, codigo,ip FROM v_contratos ORDER BY id_contrato";
+    $sql = "SELECT id_contrato, cliente, codigo,ip FROM v_contratos WHERE estado='activo' ORDER BY id_contrato";
     $result = $this->db->query($sql);
     return array(
       'header'    => array('Contrato','Nombre de Cliente','Codigo IP','Dirección IP'),
