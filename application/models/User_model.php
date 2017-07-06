@@ -120,7 +120,6 @@ class User_model extends CI_MODEL{
   public function login($nickname,$password){
     $this->db->where('nickname',$nickname);
     $result = $this->db->get('ic_users',1);
-
     if($result != false){
       $result = $result->row_array();
       if(password_verify($password,$result['password'])){
