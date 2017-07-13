@@ -41,6 +41,11 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
     connect.send(form);
 }
 
+
+/********************************************************
+*         Funciones de mensajes y notificaciones                            
+*                                                       *
+********************************************************/
 /**
  * Display Message
  * Muestra una notificacion del resultado de la consulta
@@ -93,6 +98,12 @@ function displayAlert(title,message,type){
       buttonsStyling: false
     });
 }
+
+/********************************************************
+*        fucniones para Llenar tablas                                        
+*                                                       *
+********************************************************/
+
 /**
  * Llena la tabla actual con los datos que vienen del servidor
  * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor

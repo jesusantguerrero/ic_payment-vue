@@ -2,42 +2,49 @@ function getContracts(dni) {
   var form = "dni=" + dni;
   connectAndSend("process/data_for_extra", false, null, makeContracList, form, null);
 }
+
 $(function () {
-  var currentPage = $("title").text().split(" ");
-  currentPage = currentPage[4].toLowerCase().trim();
-  var ran = false;
-  switch (currentPage) {
-    case "home":
-      initClientHandlers();
-      break;
-    case "administrador":
-      initHandlers();
-      break;
-    case "clientes":
-      initClientHandlers();
-      break;
-    case "servicios":
-      initServicesHandlers();
-      break;
-    case "nuevo_contrato":
-      initContractHandlers();
-      getIpList();
-      break;
-    case "detalles":
-      initPaymentsHandlers();
-      detailHandlers();
-      verifyContractStatus();
-      break;
-    case "contratos":
-      initContractHandlers();
-      initClientHandlers();
-      verifyContractStatus();
-      break;
-    default:
-      break;
+  initComponents()
+
+
+  function initComponents(){
+    var currentPage = $("title").text().split(" ");
+    currentPage = currentPage[4].toLowerCase().trim();
+    var ran = false;
+    switch (currentPage) {
+      case "home":
+        initClientHandlers();
+        break;
+      case "administrador":
+        initHandlers();
+        break;
+      case "clientes":
+        initClientHandlers();
+        break;
+      case "servicios":
+        initServicesHandlers();
+        break;
+      case "nuevo_contrato":
+        initContractHandlers();
+        getIpList();
+        break;
+      case "detalles":
+        initPaymentsHandlers();
+        detailHandlers();
+        verifyContractStatus();
+        break;
+      case "contratos":
+        initContractHandlers();
+        initClientHandlers();
+        verifyContractStatus();
+        break;
+      default:
+        break;
+    }
+    initCajaHandlers();
+    initGlobalHandlers();
   }
-  initCajaHandlers();
-  initGlobalHandlers();
+
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     if (currentPage == 'notificaciones') {
@@ -149,6 +156,11 @@ $(function () {
       updateCompanyData();
     });
 
+     $("#btn-update-settings").on('click',function(e){
+        e.preventDefault();
+        updateSettings();
+      });
+
     // some globals handlers
 
     $("#btn-save-averia").on('click', function (e) {
@@ -195,7 +207,9 @@ $(function () {
       count_table("clientes");
       initPagination("#t-clients", "clientes", paginate);
     }
+
     makeRowsClickable();
+
     verifyClientStatus();
 
     $("#btn-save-client").on('click', function (e) {
@@ -247,6 +261,7 @@ $(function () {
         });
       }
     });
+
   }
   //***************************************************  Init Services Handlers    ***************************** */
   function initServicesHandlers() {
@@ -526,6 +541,7 @@ $(function () {
     var form = "tabla=clientes";
     connectAndSend('process/lastpage', false, initClientHandlers, fillCurrentTable, form, null);
   }
+
   /**
    * Get Client: obtiene un cliente y sus datos a partir de una cedula o id
    * @param {integer} id 
@@ -898,10 +914,6 @@ $(function () {
     }
   }
 
-  
-
-  
-
   /********************************************************
    *                CRUD para la tabla Pago               *
    *                                                      *
@@ -974,7 +986,7 @@ $(function () {
     var form = "tabla=instalaciones&estado=" + status;
     connectAndSend('process/getall', false, initGlobalHandlers, fillInstallationsList, form, null);
   }
-   function updateInstallations($id_pago) {
+  function updateInstallations($id_pago) {
     var form = "tabla=instalaciones&id_pago=" + $id_pago;
     connectAndSend('process/update', true, initGlobalHandlers, null, form, getInstallations);
   }
@@ -1022,11 +1034,6 @@ $(function () {
     connectAndSend('process/getone',false,initCajaHandlers,updateSaldo,form,null)
   }
 
-  $("#btn-update-settings").on('click',function(e){
-    e.preventDefault();
-    updateSettings();
-  });
-
   function searchInCaja() {
     var $dateSearch = $("#caja-date");
     var $userSearch = $("#caja-user");
@@ -1038,115 +1045,115 @@ $(function () {
   }
 
 
-/********************************************************
-*                     Extra Functions                            
-*                                                       *
-********************************************************/
+  /********************************************************
+  *                     Extra Functions                            
+  *                                                       *
+  ********************************************************/
 
 
-function btnExtraPressed($this){
-  var buttonId = $this.text().trim().toLowerCase();
+  function btnExtraPressed($this){
+    var buttonId = $this.text().trim().toLowerCase();
   
-  switch (buttonId) {
-    case "mejorar":
-        upgradeContract();
-      break;
-    case "extender":
-        extendContract();
-      break;
-    case "guardar":
-        addExtra();
-      break;
-  
-    default:
-      break;
+    switch (buttonId) {
+      case "mejorar":
+          upgradeContract();
+        break;
+      case "extender":
+          extendContract();
+        break;
+      case "guardar":
+          addExtra();
+        break;
+      
+      default:
+        break;
+    }
   }
-}
 
-function upgradeContract(){
-  var form, contractId,selectedService,serviceId, amount;
+  function upgradeContract(){
+    var form, contractId,selectedService,serviceId, amount;
 
-  contractId        = $("#extra-client-contract").val();
-  selectedService   = $(".service-card.selected");
-  serviceId         = selectedService.attr("data-id");
-  amount            = selectedService.attr("data-payment");
+    contractId        = $("#extra-client-contract").val();
+    selectedService   = $(".service-card.selected");
+    serviceId         = selectedService.attr("data-id");
+    amount            = selectedService.attr("data-payment");
   
-  var is_empty = isEmpty([contractId,serviceId, amount]);
-  if(!is_empty){
-    form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
-    connectAndSend('process/upgrade',true,initGlobalHandlers,null,form,getContractsLastPage)
-  }else{
-    displayAlert("Revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    var is_empty = isEmpty([contractId,serviceId, amount]);
+    if(!is_empty){
+      form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
+      connectAndSend('process/upgrade',true,initGlobalHandlers,null,form,getContractsLastPage)
+    }else{
+      displayAlert("Revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    }
   }
-}
 
-function addExtra(){
-  var form, contractId,extraService,serviceCost, equipment,eMac,router,rMac;
+  function addExtra(){
+    var form, contractId,extraService,serviceCost, equipment,eMac,router,rMac;
 
-  contractId        = $("#extra-client-contract").val();
-  serviceCost       = $("#extra-service-cost").val();
-  extraService      = $("#select-extra-service").val();
-  equipment         = $("#extra-equipo").val();
-  eMac              = $("#extra-e-mac").val();
-  router            = $("#extra-router").val();
-  rMac              = $("#extra-r-mac").val();
+    contractId        = $("#extra-client-contract").val();
+    serviceCost       = $("#extra-service-cost").val();
+    extraService      = $("#select-extra-service").val();
+    equipment         = $("#extra-equipo").val();
+    eMac              = $("#extra-e-mac").val();
+    router            = $("#extra-router").val();
+    rMac              = $("#extra-r-mac").val();
   
-  var is_empty = isEmpty([contractId,extraService,serviceCost]);
-  if(!is_empty){
-     form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
-     form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
-    connectAndSend('process/addextra',true,initGlobalHandlers,null,form,getContractsLastPage);
-  }else{
-    displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    var is_empty = isEmpty([contractId,extraService,serviceCost]);
+    if(!is_empty){
+       form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
+       form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
+      connectAndSend('process/addextra',true,initGlobalHandlers,null,form,getContractsLastPage);
+    }else{
+      displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    }
   }
-}
-function extendContract(){
-  var form, contractId,duration;
-  contractId = $("#extra-client-contract").val();
-  duration   = $("#extra-extension-months").val();
+
+  function extendContract(){
+    var form, contractId,duration;
+    contractId = $("#extra-client-contract").val();
+    duration   = $("#extra-extension-months").val();
   
-  var is_empty = isEmpty([duration,contractId]);
-  if(!is_empty){
-    form = 'id_contrato=' + contractId + "&duracion=" + duration;
-    connectAndSend('process/extend_contract',true,initGlobalHandlers,null,form,getContractsLastPage)
-  }else{
-    displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    var is_empty = isEmpty([duration,contractId]);
+    if(!is_empty){
+      form = 'id_contrato=' + contractId + "&duracion=" + duration;
+      connectAndSend('process/extend_contract',true,initGlobalHandlers,null,form,getContractsLastPage)
+    }else{
+      displayAlert("revise","asegurate de llenar todos los datos y seleccionar el servicio","info");
+    }
   }
-}
 
-/********************************************************
-*                 empresa y settings                            
-*                                                       *
-********************************************************/
+  /********************************************************
+  *                 empresa y settings                            
+  *                                                       *
+  ********************************************************/
 
-function updateCompanyData(){
-  var form,
-      companyName        =$("#company-name").val(),
-      companyStatement   =$("#company-statement").val(),
-      companyPhone1      =$("#company-phone1").val(),
-      companyDirection   =$("#company-direction").val(),
-      companyDescription =$("#company-description").val(),
-      companyPhone2      =$("#company-phone2").val()
+  function updateCompanyData(){
+    var form,
+        companyName        =$("#company-name").val(),
+        companyStatement   =$("#company-statement").val(),
+        companyPhone1      =$("#company-phone1").val(),
+        companyDirection   =$("#company-direction").val(),
+        companyDescription =$("#company-description").val(),
+        companyPhone2      =$("#company-phone2").val()
 
-  form = 'nombre='+companyName+'&lema='+companyStatement+'&descripcion='+companyDescription+"&direccion="
-  form += companyDirection+"&telefono1="+companyPhone1+"&telefonos="+companyPhone2+"&tabla=empresa";
-  connectAndSend('process/update',true,null,null,form,null);
-}
+    form = 'nombre='+companyName+'&lema='+companyStatement+'&descripcion='+companyDescription+"&direccion="
+    form += companyDirection+"&telefono1="+companyPhone1+"&telefonos="+companyPhone2+"&tabla=empresa";
+    connectAndSend('process/update',true,null,null,form,null);
+  }
 
-function updateSettings(){
-  var form,
-      settingsCargoMora                =$("#settings-mora").val(),
-      settingsFechaCorte               =$("#settings-fecha-corte").val(),
-      settingsAperturaCaja             =$("#settings-apertura-caja").val(),
-      settingsPenalizacionCancelacion  =$("#settings-penalizacion-cancelacion").val(),
-      settingsMesesPorDefecto          = $("#settings-meses-por-defecto").val(),
-      settingsSplitDay                 = $("#settings-split-day").val();
+  function updateSettings(){
+    var form,
+        settingsCargoMora                =$("#settings-mora").val(),
+        settingsFechaCorte               =$("#settings-fecha-corte").val(),
+        settingsAperturaCaja             =$("#settings-apertura-caja").val(),
+        settingsPenalizacionCancelacion  =$("#settings-penalizacion-cancelacion").val(),
+        settingsMesesPorDefecto          = $("#settings-meses-por-defecto").val(),
+        settingsSplitDay                 = $("#settings-split-day").val();
 
-  form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&apertura_caja=' + settingsAperturaCaja;
-  form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;
-  form += '&split_day='+settingsSplitDay+'&tabla=settings';
-  connectAndSend('process/update',true,null,null,form,null);  
-}
-
+    form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&apertura_caja=' + settingsAperturaCaja;
+    form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;
+    form += '&split_day='+settingsSplitDay+'&tabla=settings';
+    connectAndSend('process/update',true,null,null,form,null);  
+  }
 
 });
