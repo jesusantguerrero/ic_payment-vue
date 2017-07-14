@@ -360,10 +360,10 @@ function validateThis(){
   var $userPasswordConfirm = $('.password-confirm');
   var $saveButton = $('.save');
   
-  $userPassword.on('blur',function(){
+  $userPassword.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
-  $userPasswordConfirm.on('blur',function(){
+  $userPasswordConfirm.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
 }

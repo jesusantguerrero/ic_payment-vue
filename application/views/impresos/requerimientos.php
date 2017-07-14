@@ -136,12 +136,16 @@
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
   <div class="pie-pagina">
     <small><b>** Importante Leer el contrato adjunto y firmar esta hoja **</b></small>
     <p class="super-small"><small><b>** El cliente está en el derecho de cancelar el contrato de manera unilateral antes del termino del mismo, esto sujeto a un coste del 50% del total del contrato acordado **</b></small></p>
   </div>
   <h1 class="titulo-lateral">Solicitud de <span>Contrato</span></h1>
 </div>
+
 <footer></footer>
 
 <!--*******************************************************************************************

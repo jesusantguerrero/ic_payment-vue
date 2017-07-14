@@ -72,12 +72,12 @@ class Client_model extends CI_MODEL{
     $sql = "UPDATE ic_clientes SET nombres ='".$data['nombres']."', apellidos ='".$data['apellidos']."', cedula ='".$data['cedula'];
     $sql .="',provincia = '".$data['provincia']."', sector = '".$data['sector']."', calle = '".$data['calle']."' , casa = '".$data['casa']."', telefono ="; 
     $sql .="'".$data['telefono']."', celular = '".$data['celular']."' ";
-    $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos=".$data['ingresos']." WHERE id_cliente =".$data['id'];
+    $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos ='".$data['ingresos']."' WHERE id_cliente = ".$data['id'];
 
     if($result = $this->db->query($sql)){
       echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
     }else{
-     echo MESSAGE_ERROR." No pudo guardarse el cliente";
+     echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;
     }   
   }
 

@@ -360,10 +360,10 @@ function validateThis(){
   var $userPasswordConfirm = $('.password-confirm');
   var $saveButton = $('.save');
   
-  $userPassword.on('blur',function(){
+  $userPassword.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
-  $userPasswordConfirm.on('blur',function(){
+  $userPasswordConfirm.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
 }
@@ -909,7 +909,7 @@ function checkWindowSize() {
      connectAndSend("process/getone", false, initClientHandlers, receiver, form, null)
    },
 
-   recieveForEdit: function (content) {
+   receiveForEdit: function (content) {
      var client = JSON.parse(content);
      var id = client['id_cliente'];
      var $nombres = $("#u-client-name");
@@ -1004,7 +1004,7 @@ function checkWindowSize() {
          break;
        case 'servicios':
          handlers = initServicesHandlers;
-         callback = getServices;
+         callback = Services.getAll;
          break;
 
        default:
@@ -1111,7 +1111,7 @@ function checkWindowSize() {
      if (!is_empty) {
        form = 'id_servicio=' + id + "&nombre=" + name + "&descripcion=" + description + "&mensualidad=" + payment;
        form += "&tipo=" + type + "&tabla=servicios";
-       connectAndSend("process/update", true, initServicesHandlers, null, form, Services.getAll);
+       connectAndSend("process/update", true, initServicesHandlers, null, form, Services.getAll,heavyLoad);
      } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
      }
@@ -1169,21 +1169,21 @@ function checkWindowSize() {
      $("#btn-print-contract").removeAttr("disabled");
    },
 
-   callExtra: function callExtra() {
+   callExtra: function() {
      var $row = $("tr.selected");
      if ($row != undefined) {
        var client = $row.find('td.th-client');
        var dni = client.attr("data-cedula");
 
        $("#extra-client-dni").val(dni);
-       getContracts(dni);
+       Contracts.getAllOfClient(dni);
        $('#add-extra-modal').modal();
      } else {
        displayAlert("Revise", "Seleccione el conrato primero", "error");
      }
    },
 
-   cancel: function cancelContract() {
+   cancel: function() {
      var $row = $("tr.selected");
      var contractId = $row.find(".id_contrato").text().trim();
      var clientId = $row.find(".th-client").attr("data-id-cliente");
@@ -1203,7 +1203,7 @@ function checkWindowSize() {
      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
    },
 
-   getOne: function getContract(id_contrato, receiver) {
+   getOne: function(id_contrato, receiver) {
      form = "tabla=contratos&id_contrato=" + id_contrato;
      connectAndSend("process/getone", false, initContractHandlers, receiver, form, null)
    },
@@ -1268,18 +1268,18 @@ function checkWindowSize() {
 
      switch (buttonId) {
        case "mejorar":
-         upgradeContract();
+         Contracts.upgrade();
          break;
        case "extender":
-         extendContract();
+         Contracts.extend();
          break;
        case "guardar":
-         addExtra();
+         Contracts.addExtra();
          break;
      }
    },
 
-   upgradeContract: function () {
+   upgrade: function () {
      var form, contractId, selectedService, serviceId, amount;
 
      contractId = $("#extra-client-contract").val();
@@ -1359,7 +1359,7 @@ function checkWindowSize() {
        var id_contrato = $("#select-contract").val();
        var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
        var handlers, callback;
-       connectAndSend('process/update', true, initPaymentsHandlers, null, form, getPaymentsLastPage);
+       connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getLastPage);
      } else {
        displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
      }
@@ -1511,7 +1511,7 @@ function checkWindowSize() {
         break;
       case "nuevo_contrato":
         initContractHandlers();
-        getIpList();
+        Contracts.getIpList();
         break;
       case "detalles":
         initPaymentsHandlers();
@@ -1533,7 +1533,6 @@ function checkWindowSize() {
 
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
-    console.log("cargados")
     if (currentPage == 'notificaciones') {
       Generals.count_table("averias");
 
@@ -1675,7 +1674,7 @@ function checkWindowSize() {
 
     btnRetireMoney.on('click', function (e) {
       e.stopImmediatePropagation();
-      Caja.retire;
+      Caja.retire();
     });
 
     dateSearch.on('change',function(e){
@@ -1692,7 +1691,7 @@ function checkWindowSize() {
   //***************************************************  Init client Handlers      ***************************** */
   function initClientHandlers() {
     if (currentPage == 'clientes') {
-      count_table("clientes");
+      Generals.count_table("clientes");
       initPagination("#t-clients", "clientes", Generals.paginate);
     }
 
@@ -1710,7 +1709,7 @@ function checkWindowSize() {
       var $row = $("tr.selected");
       if ($row) {
         var id = $row.find('.id_cliente').text().trim();
-        Clients.getOne(id, recieveClientForEdit);
+        Clients.getOne(id, Clients.receiveForEdit);
       }
     });
 
@@ -1752,7 +1751,7 @@ function checkWindowSize() {
   }
   //***************************************************  Init Services Handlers    ***************************** */
   function initServicesHandlers() {
-    count_table("servicios");
+    Generals.count_table("servicios");
     initPagination("#t-services", "servicios", Generals.paginate);
     makeRowsClickable();
 
@@ -1807,7 +1806,7 @@ function checkWindowSize() {
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    count_table('contratos');
+    Generals.count_table('contratos');
     initPagination("#t-contracts", "v_contratos", Generals.paginate);
     makeRowsClickable();
 
@@ -1862,7 +1861,7 @@ function checkWindowSize() {
       var $row = $("tr.selected");
       if ($row) {
         var id = $row.find('.id_contrato').text().trim();
-        Contracts.getOne(id, Clients.recieve);
+        Contracts.getOne(id, Contracts.recieve);
       }
     });
 
@@ -1876,13 +1875,13 @@ function checkWindowSize() {
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {
     if (!ran) {
-      getPayments();
+      Payments.getAll();
       ran = true;
     }
 
     verifyPaymentStatus();
     initPagination('#t-pagos', 'pagos_por_contrato', Generals.paginate);
-    count_table("pagos_por_contratos");
+    Generals.count_table("pagos_por_contratos");
 
 
     $("#btn-pay").on('click', function (e) {
@@ -1972,7 +1971,7 @@ $(function () {
   }
 
   function login() {
-    var user = $("#user-input").val();
+    var user     = $("#user-input").val();
     var password = $("#password-input").val();
     var is_empty = isEmpty([user, password])
     if (!is_empty) {
@@ -1997,7 +1996,6 @@ $(function () {
     }
    
   }
-
 
   function processLoginData(response) {
     if (response == true) {

@@ -106,7 +106,7 @@
      connectAndSend("process/getone", false, initClientHandlers, receiver, form, null)
    },
 
-   recieveForEdit: function (content) {
+   receiveForEdit: function (content) {
      var client = JSON.parse(content);
      var id = client['id_cliente'];
      var $nombres = $("#u-client-name");
@@ -201,7 +201,7 @@
          break;
        case 'servicios':
          handlers = initServicesHandlers;
-         callback = getServices;
+         callback = Services.getAll;
          break;
 
        default:
@@ -308,7 +308,7 @@
      if (!is_empty) {
        form = 'id_servicio=' + id + "&nombre=" + name + "&descripcion=" + description + "&mensualidad=" + payment;
        form += "&tipo=" + type + "&tabla=servicios";
-       connectAndSend("process/update", true, initServicesHandlers, null, form, Services.getAll);
+       connectAndSend("process/update", true, initServicesHandlers, null, form, Services.getAll,heavyLoad);
      } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
      }
@@ -366,21 +366,21 @@
      $("#btn-print-contract").removeAttr("disabled");
    },
 
-   callExtra: function callExtra() {
+   callExtra: function() {
      var $row = $("tr.selected");
      if ($row != undefined) {
        var client = $row.find('td.th-client');
        var dni = client.attr("data-cedula");
 
        $("#extra-client-dni").val(dni);
-       getContracts(dni);
+       Contracts.getAllOfClient(dni);
        $('#add-extra-modal').modal();
      } else {
        displayAlert("Revise", "Seleccione el conrato primero", "error");
      }
    },
 
-   cancel: function cancelContract() {
+   cancel: function() {
      var $row = $("tr.selected");
      var contractId = $row.find(".id_contrato").text().trim();
      var clientId = $row.find(".th-client").attr("data-id-cliente");
@@ -400,7 +400,7 @@
      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
    },
 
-   getOne: function getContract(id_contrato, receiver) {
+   getOne: function(id_contrato, receiver) {
      form = "tabla=contratos&id_contrato=" + id_contrato;
      connectAndSend("process/getone", false, initContractHandlers, receiver, form, null)
    },
@@ -465,18 +465,18 @@
 
      switch (buttonId) {
        case "mejorar":
-         upgradeContract();
+         Contracts.upgrade();
          break;
        case "extender":
-         extendContract();
+         Contracts.extend();
          break;
        case "guardar":
-         addExtra();
+         Contracts.addExtra();
          break;
      }
    },
 
-   upgradeContract: function () {
+   upgrade: function () {
      var form, contractId, selectedService, serviceId, amount;
 
      contractId = $("#extra-client-contract").val();
@@ -556,7 +556,7 @@
        var id_contrato = $("#select-contract").val();
        var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
        var handlers, callback;
-       connectAndSend('process/update', true, initPaymentsHandlers, null, form, getPaymentsLastPage);
+       connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getLastPage);
      } else {
        displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
      }

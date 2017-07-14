@@ -131,9 +131,9 @@ class Caja_chica_model extends CI_MODEL{
     $result = $this->db->query(get_last_query());
     if($result){
       $result = $result->result_array();
-      return count($result);
+      echo count($result);
     }else{
-      return 0;
+      echo 0;
     }
   }
 

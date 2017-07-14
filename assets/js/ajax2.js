@@ -50,7 +50,7 @@ $(function () {
   }
 
   function login() {
-    var user = $("#user-input").val();
+    var user     = $("#user-input").val();
     var password = $("#password-input").val();
     var is_empty = isEmpty([user, password])
     if (!is_empty) {
@@ -75,7 +75,6 @@ $(function () {
     }
    
   }
-
 
   function processLoginData(response) {
     if (response == true) {

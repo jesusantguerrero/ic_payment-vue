@@ -18,7 +18,7 @@
         break;
       case "nuevo_contrato":
         initContractHandlers();
-        getIpList();
+        Contracts.getIpList();
         break;
       case "detalles":
         initPaymentsHandlers();
@@ -40,7 +40,6 @@
 
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
-    console.log("cargados")
     if (currentPage == 'notificaciones') {
       Generals.count_table("averias");
 
@@ -182,7 +181,7 @@
 
     btnRetireMoney.on('click', function (e) {
       e.stopImmediatePropagation();
-      Caja.retire;
+      Caja.retire();
     });
 
     dateSearch.on('change',function(e){
@@ -199,7 +198,7 @@
   //***************************************************  Init client Handlers      ***************************** */
   function initClientHandlers() {
     if (currentPage == 'clientes') {
-      count_table("clientes");
+      Generals.count_table("clientes");
       initPagination("#t-clients", "clientes", Generals.paginate);
     }
 
@@ -217,7 +216,7 @@
       var $row = $("tr.selected");
       if ($row) {
         var id = $row.find('.id_cliente').text().trim();
-        Clients.getOne(id, recieveClientForEdit);
+        Clients.getOne(id, Clients.receiveForEdit);
       }
     });
 
@@ -259,7 +258,7 @@
   }
   //***************************************************  Init Services Handlers    ***************************** */
   function initServicesHandlers() {
-    count_table("servicios");
+    Generals.count_table("servicios");
     initPagination("#t-services", "servicios", Generals.paginate);
     makeRowsClickable();
 
@@ -314,7 +313,7 @@
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    count_table('contratos');
+    Generals.count_table('contratos');
     initPagination("#t-contracts", "v_contratos", Generals.paginate);
     makeRowsClickable();
 
@@ -369,7 +368,7 @@
       var $row = $("tr.selected");
       if ($row) {
         var id = $row.find('.id_contrato').text().trim();
-        Contracts.getOne(id, Clients.recieve);
+        Contracts.getOne(id, Contracts.recieve);
       }
     });
 
@@ -383,13 +382,13 @@
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {
     if (!ran) {
-      getPayments();
+      Payments.getAll();
       ran = true;
     }
 
     verifyPaymentStatus();
     initPagination('#t-pagos', 'pagos_por_contrato', Generals.paginate);
-    count_table("pagos_por_contratos");
+    Generals.count_table("pagos_por_contratos");
 
 
     $("#btn-pay").on('click', function (e) {
