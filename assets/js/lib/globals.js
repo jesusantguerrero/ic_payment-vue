@@ -162,7 +162,7 @@ function fillInstallationsList($content,callback){
   callback();
 }
 
-function makeContracList(response,callback){
+function makeContractList(response,callback){
   if(response != "nada"){
     
     var contracts = JSON.parse(response);
@@ -222,7 +222,7 @@ function isEmpty(values,is_num){
 // |                                                     Pagination Related Funtions                                             |
 // |                                                                                                                             |
 // +-----------------------------------------------------------------------------------------------------------------------------+
-//
+
 /**
  * get Pagination Data: Devuelve la información del pie de la tabla relacionada con la paginación
  * @param {string} tableId 
@@ -329,19 +329,19 @@ function updateCount($content){
 function updateCajaCount($content){
   $("#caja .total-rows").html($content);
 }
+
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     User passwords validations                                              |
 // |                                                                                                                             |
 // +-----------------------------------------------------------------------------------------------------------------------------+
 //
 
-
 function validateModal($modalId){
   var $userPassword = $($modalId+' .password');
   var $userPasswordConfirm = $($modalId+' .password-confirm');
   var $saveButton = $($modalId+' .save');
   
-  $userPasswordConfirm.on('blur',function(){
+  $userPasswordConfirm.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
   $saveButton.on('click',clearForm($modalId));
@@ -373,26 +373,8 @@ function validateThis(){
   });
 }
 
-function validateTwo($firstObject,$secondObject,$button){
-    if($secondObject.val() == $firstObject.val() && $secondObject.val() != ""){
-      replaceClass($firstObject.parent(),"has-error","has-success");
-      replaceClass($secondObject.parent(),"has-error","has-success");
-      $button.removeAttr("disabled","");
-
-    }else{
-       replaceClass($firstObject.parent(),"has-success","has-error");
-       replaceClass($secondObject.parent(),"has-success","has-error");
-       $button.attr("disabled","");
-    }
-}
-
 function clearForm(modalId){
   $(modalId + " input").val("");
-}
-
-function replaceClass($object,oldClass,newClass){
-   $object.addClass(newClass);
-   $object.removeClass(oldClass)
 }
 
 function deleteValidation($inputElement,$buttonToActive){
@@ -417,17 +399,13 @@ function deleteValidation($inputElement,$buttonToActive){
 // +-----------------------------------------------------------------------------------------------------------------------------+
 //
 
-function getNow(){
-  var year, month,day,date,now;
 
-  date = new Date();
-  year = date.getFullYear();
-  month = date.getMonth();
-  day = date.getDate();
-
-  now = year + "-" + month + "-" + day;
-  return now;
+function replaceClass($object,oldClass,newClass){
+   $object.addClass(newClass);
+   $object.removeClass(oldClass)
 }
+
+
 
 /********************************************************
 *                     Row Selection Functions                            
@@ -546,30 +524,27 @@ function verifyClientStatus(){
 *                                                       *
 ********************************************************/
 
-
-  function heavyLoad(stop){
-    if(!stop){
-      var html = '<div class="heavy-loader active">'
-          html +=   '<div class="circle-load"></div>'
-          html +=   '<div class="message">Creando la sección</div>'
-          html += '</div>'
-      $("body").append(html)
-      $("body").css({overflow:"hidden"});
-      var message = $(".heavy-loader .message");
-      setTimeout(function(){
-        message.text("Configurando Sección...")
-      },4000)
-      setTimeout(function(){
-        message.text("Creando las nuevas ips...")
-      },8000)
-      setTimeout(function(){
-        message.text("Terminando el proceso ...")
-      },15000)
-    }else{
-      var loader = $(".heavy-loader");
-      loader.remove();
-      $("body").css({overflow:"auto"})
-    }
+function heavyLoad(stop){
+  if(!stop){
+    var html = '<div class="heavy-loader active">'
+        html +=   '<div class="circle-load"></div>'
+        html +=   '<div class="message">Creando la sección</div>'
+        html += '</div>'
+    $("body").append(html)
+    $("body").css({overflow:"hidden"});
+    var message = $(".heavy-loader .message");
+    setTimeout(function(){
+      message.text("Configurando Sección...")
+    },4000)
+    setTimeout(function(){
+      message.text("Creando las nuevas ips...")
+    },8000)
+    setTimeout(function(){
+      message.text("Terminando el proceso ...")
+    },15000)
+  }else{
+    var loader = $(".heavy-loader");
+    loader.remove();
+    $("body").css({overflow:"auto"})
   }
-
-
+}
