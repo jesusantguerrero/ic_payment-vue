@@ -20,6 +20,7 @@ var SUMMER_SKY = '#1FA1D0'
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
+        
         if (connect.readyState == 4 && connect.status == 200) {
           if(loading)loading(true);
           if (action != null)  {
@@ -27,15 +28,17 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
           }
           else{
             if(is_message){
-               displayMessage(connect.responseText);                            
+              displayMessage(connect.responseText);                            
             }              
           }
           if(callback != null)callback();
         } 
+
         else if (connect.readyState != 4) {
           if(loading)loading(false);      
         }
     }
+
     connect.open("POST",BASE_URL + url, true);
     connect.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     connect.send(form);
@@ -57,33 +60,25 @@ function displayMessage(message){
   var color = "rgba(102,187,106,1)";
   var toast,span;
 
-  if(message.includes("SWAL")){
-    message = message.replace("SWAL","");
-    swal({
-      title: "Exito!",
-      html: message,
-      type: 'success',
-      timer: 3000
-    })
-  }else{
+  console.log(message)
+
     if(message.includes(MESSAGE_ERROR)){
       color = "rgba(244,67,54,1)";
     }else if(message.includes(MESSAGE_INFO)){
       color = "rgba(2,136,209,1)";
     }
+
     toast = $(".toast")
     span = toast.find("span").html(message);
     span.css({background:color});
     toast.css({display:"flex"});
+    
     toast.animate({opacity:"1"},500,function(){
       setTimeout(function() {
         toast.animate({opacity:"0"});
         toast.css({display:"none"});
       }, 2000);
     });
-  }
-  
-  
 }
 
 function displayAlert(title,message,type){

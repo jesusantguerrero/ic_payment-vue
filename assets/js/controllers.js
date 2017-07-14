@@ -56,20 +56,20 @@
      var form, nombres, apellidos, cedula, celular, provincia, sector, calle, casa, telefono,
        lugarTrabajo, telTrabajo, ingresos, fechaRegistro, estado;
 
-     nombres = $("#client-name").val();
-     apellidos = $("#client-lastname").val();
-     cedula = $("#client-dni").val();
-     celular = $("#client-phone").val();
-     provincia = $("#client-provincia").val();
-     sector = $("#client-sector").val();
-     calle = $("#client-street").val();
-     casa = $('#client-house').val();
-     telefono = $('#client-telephone').val();
-     lugarTrabajo = $('#client-job').val();
-     telTrabajo = $('#client-job-telephone').val();
-     ingresos = $('#client-salary').val();
-     fechaRegistro = getNow();
-     estado = "no activo";
+     nombres       = $("#client-name").val();
+     apellidos     = $("#client-lastname").val();
+     cedula        = $("#client-dni").val();
+     celular       = $("#client-phone").val();
+     provincia     = $("#client-provincia").val();
+     sector        = $("#client-sector").val();
+     calle         = $("#client-street").val();
+     casa          = $('#client-house').val();
+     telefono      = $('#client-telephone').val();
+     lugarTrabajo  = $('#client-job').val();
+     telTrabajo    = $('#client-job-telephone').val();
+     ingresos      = $('#client-salary').val();
+     fechaRegistro = moment().format("YYYY-MM-DD");;
+     estado        = "no activo";
 
      var is_empty = isEmpty([nombres, apellidos, cedula, celular, provincia, sector, calle, casa, telefono]);
      if (!is_empty) {
@@ -320,18 +320,18 @@
      var form, table, client_id, user_id, service_id, code, contract_date, payment, duration,
        equipment, eMac, router, rMac, total, nextPayment, model, ip;
 
-     client_id = $("#contract-client-id").val();
-     user_id = $("#contract-user-id").val();
-     service_id = $(".service-card.selected").attr('data-id');
+     client_id     = $("#contract-client-id").val();
+     user_id       = $("#contract-user-id").val();
+     service_id    = $(".service-card.selected").attr('data-id');
      contract_date = $('#contract-client-date').val();
-     duration = $('#contract-client-months').val();
-     equipment = $('#contract-equipment').val();
-     eMac = $('#contract-e-mac').val();
-     router = $('#contract-router').val();
-     rMac = $('#contract-r-mac').val();
-     model = $('#contract-equipment-model').val();
-     ip = $('#contract-ip').val();
-     code = $("#select-contract-code").val();
+     duration      = $('#contract-client-months').val();
+     equipment     = $('#contract-equipment').val();
+     eMac          = $('#contract-e-mac').val();
+     router        = $('#contract-router').val();
+     rMac          = $('#contract-r-mac').val();
+     model         = $('#contract-equipment-model').val();
+     ip            = $('#contract-ip').val();
+     code          = $("#select-contract-code").val();
 
      payment = $("#contract-client-payment").val();
      nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');
@@ -573,7 +573,7 @@
      var is_empty = isEmpty([idCliente, description]);
      if (!is_empty) {
        form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
-       connectAndSend("process/add", true, initGlobalHandlers, null, form, getAverias);
+       connectAndSend("process/add", true, initGlobalHandlers, null, form, Damages.getAll);
      } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
      }

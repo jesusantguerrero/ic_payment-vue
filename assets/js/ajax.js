@@ -1,11 +1,8 @@
-$(function () {
-  initComponents()
-
-
+  var currentPage = $("title").text().split(" ");
+  currentPage = currentPage[4].toLowerCase().trim();
+  var ran = false;
+  
   function initComponents(){
-    var currentPage = $("title").text().split(" ");
-    currentPage = currentPage[4].toLowerCase().trim();
-    var ran = false;
     switch (currentPage) {
       case "home":
         initClientHandlers();
@@ -38,13 +35,12 @@ $(function () {
     }
 
     initCajaHandlers();
-    initGlobalHandlers();
+    initGlobalHandlers()
   }
 
-
-  // Views
-    // **************************************************     globals handlers       *****************************
+  // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
+    console.log("cargados")
     if (currentPage == 'notificaciones') {
       Generals.count_table("averias");
 
@@ -208,7 +204,6 @@ $(function () {
     }
 
     makeRowsClickable();
-
     verifyClientStatus();
 
     $("#btn-save-client").on('click', function (e) {
@@ -384,6 +379,7 @@ $(function () {
     })
 
   }
+
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {
     if (!ran) {
@@ -426,4 +422,8 @@ $(function () {
     })
 
   }
-});
+
+  $(function () {
+    initComponents()
+    console.log("corrio esta vaina")
+  });

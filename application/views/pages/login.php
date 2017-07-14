@@ -34,7 +34,8 @@ ob_start( 'ob_gzhandler' );
           <div class="vertical-line"></div>
           <div>
             <form>
-            
+              <h4>Ingresa tus datos</h4>
+              
               <div class="form-group">
                  <label for="user-input">Usuario</label>
                  <input id="user-input" type="text" class="form-control">
