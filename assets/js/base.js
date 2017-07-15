@@ -1,20 +1,20 @@
 $(function(){
-var currentPage = $("title").text().split(" ");
+  var currentPage = $("title").text().split(" ");
   currentPage   = currentPage[4].toLowerCase().trim();
   if(currentPage == "administrador") {
     newUserForm();
   }
-getDate();
-adminFunctions();
-userInfoTip();
-makeServiceCardClickable();
-detailsFunctions();
-notificationFunctions();
-newContractFunctions();
-checkWindowSize();
-$(window).on('resize',function(){
+  getDate();
+  adminFunctions();
+  userInfoTip();
+  makeServiceCardClickable();
+  detailsFunctions();
+  notificationFunctions();
+  newContractFunctions();
   checkWindowSize();
-})
+  $(window).on('resize',function(){
+    checkWindowSize();
+  })
 /**
  * Get Date:
  * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
@@ -155,6 +155,7 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
   var modal = $(this)
   modal.find('.modal-title').text(title)
   modal.find('.modal-footer .save').text(buttonText)
+  modal.find('tbody').html('')
 })
 
 function detailsFunctions(){

@@ -18,7 +18,7 @@ class App extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 		
-		// update_moras($this);
+		//update_moras($this);
 	}
 
 	public function index(){

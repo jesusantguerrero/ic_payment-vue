@@ -424,5 +424,4 @@
 
   $(function () {
     initComponents()
-    console.log("corrio esta vaina")
   });
