@@ -41,12 +41,21 @@ $(function () {
   }
 
   function othersHandlers(){
+    var $userId          = $("#acount-user-id")
+    var $currentPassword = $("#acount-current-password")
+    var $btnUpdateUser    = $("#update-user-data");
+    var $newPassword      = $("#acount-new-password");
+
     $("#acount-current-password").on('keyup',function(e){
       e.stopImmediatePropagation();    
-      confirmPassword();
+      confirmPassword($userId.val(),$currentPassword.val());
     });
 
-    // validateModal('#acount-section');
+    $btnUpdateUser.on('click',function(e){
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      updatePassword($userId.val(),$currentPassword.val(),$newPassword.val())
+    })
   }
 
   function login() {
@@ -181,34 +190,49 @@ $(function () {
       $("#select-sector").html(content);
     }
   }
+  
   /********************************************************
   *                      Editar cuenta                            
   *                                                       *
   ********************************************************/
 
-  function confirmPassword() {
-    var userId = $("#acount-user-id").val();
-    var password = $("#acount-current-password").val();
-    var form = 'user_id='+ userId +'&current_password=' + password;
+  function confirmPassword(userId,currentPassword) {
+    var form = 'user_id='+ userId +'&current_password=' + currentPassword;
     connectAndSend('user/confirm_password', false, false, processConfirmData, form, null, null);
     
     
     function processConfirmData(response) {
-      var newPassword         =$("#acount-new-password");
-      var newPasswordConfirm = $("#acount-confirm-new-password");
-      var btnUpdateUser = $("#update-user-data");
+      var newPassword         = $("#acount-new-password");
+      var newPasswordConfirm  = $("#acount-confirm-new-password");
       
-    if (response == 1) {      
-      newPassword.removeAttr('disabled');
-      newPasswordConfirm.removeAttr('disabled');
-      btnUpdateUser.attr('disabled',true);
-      validateThis();
-
-    }else{
-      newPassword.attr('disabled',true);
-      newPasswordConfirm.attr('disabled',true);
-      btnUpdateUser.removeAttr('disabled');
+      if (response == 1) {      
+        newPassword.removeAttr('disabled');
+        newPasswordConfirm.removeAttr('disabled');
+        validateThis();
+      }else{
+        newPassword.attr('disabled',true);
+        newPasswordConfirm.attr('disabled',true);
+      }
     }
   }
+
+  function updatePassword(userId,currentPassword,newPassword){
+    var form = 'user_id='+ userId  + "&current_password="+ currentPassword +'&new_password=' + newPassword;
+    connectAndSend('user/update_password', false, false, passwordChanged, form, null, null);
   }
+
+  function passwordChanged(response){
+    if(response==1){
+      displayMessage(MESSAGE_SUCCESS + 'Contraseña Cambiada con exito')
+      setTimeout(function(){
+        window.location.href = BASE_URL + 'app/logout'
+      },3000)
+      
+    }else{
+      displayMessage(MESSAGE_ERROR + ' Error al cambiar de contraseña, revise la contraseña actual')
+    }
+      
+  }
+
+
 });

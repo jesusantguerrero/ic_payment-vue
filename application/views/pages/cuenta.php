@@ -23,7 +23,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="company-name">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="acount-user" value="<?php echo $user_data['nickname'] ?>">
+                <input type="text" class="form-control" id="acount-user" value="<?php echo $user_data['nickname'] ?>" disabled>
               </div>
                <div class="form-group">
                  <label for="password-input">Contraseña actual</label>
@@ -57,7 +57,7 @@
                 <input type="text" class="form-control" id="company-phone2" value="<?php echo $user_data['dni'] ?>" disabled>
               </div>
               <div class="right">
-                <input id="update-user-data" type="submit" value="Guardar Datos" class="save">
+                <input id="update-user-data" type="submit" value="Guardar Datos" class="save" disabled>
               </div>
 
             </div>

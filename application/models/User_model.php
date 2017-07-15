@@ -65,10 +65,10 @@ class User_model extends CI_MODEL{
 
   public function update_user($data){
     $data_for_update = array(
-      'name' => $data['name'],
+      'name'     => $data['name'],
       'lastname' => $data['lastname'],
-      'dni' => $data['dni'],
-      'type' => $data['type']
+      'dni'      => $data['dni'],
+      'type'     => $data['type']
     );
     $this->db->where('nickname',$data['nickname']);
     $result = $this->db->update('ic_users',$data_for_update);
@@ -105,6 +105,13 @@ class User_model extends CI_MODEL{
     if($result){
      return $result->row_array();
     }  
+  }
+
+  public function get_users_list(){
+    $sql    = "SELECT user_id, name,lastname FROM ic_users";
+    $result = $this->db->query($sql);
+    $result = make_users_list($result->result_array());
+    echo $result;
   }
 
   public function delete_user($id){
@@ -149,11 +156,26 @@ class User_model extends CI_MODEL{
     }
   }
 
-  public function get_users_list(){
-    $sql    = "SELECT user_id, name,lastname FROM ic_users";
-    $result = $this->db->query($sql);
-    $result = make_users_list($result->result_array());
-    echo $result;
+  public function update_password($user_id,$current_password,$new_password){
+    $this->db->where('user_id',$user_id);
+    $result = $this->db->get('ic_users',1);
+
+    if($result != false){
+      $result = $result->row_array();
+      if(password_verify($current_password,$result['password'])){
+
+        $new_password =  password_hash($new_password, PASSWORD_DEFAULT);
+        $where = array('user_id' => $user_id);
+        $set   = array('password' => $new_password);
+        $this->db->update('ic_users',$set,$where);
+        return true;
+      }
+      return false; 
+    }else{
+     return false;
+    }
   }
+
+  
   //functions
 }

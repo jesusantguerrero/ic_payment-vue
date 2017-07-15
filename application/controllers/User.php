@@ -52,8 +52,20 @@ class User extends CI_Controller {
 		 if($is_correct){
 			 echo true;
 		 }
-	
   }
+
+	public function update_password(){
+		authenticate();
+  	$user_id 					= $_POST['user_id'];
+  	$current_password = $_POST['current_password'];
+		$new_password 		= $_POST['new_password'];
+
+   	$is_correct = $this->user_model->update_password($user_id,$current_password,$new_password);
+		 if($is_correct){
+			 echo true;
+		 }
+  }
+
 
 
 
