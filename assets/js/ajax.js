@@ -30,7 +30,11 @@
         initClientHandlers();
         verifyContractStatus();
         break;
-      default:
+      case "cuenta":
+        acountHandlers();
+        break;
+      case "secciones":
+        sectionHandlers();
         break;
     }
 
@@ -101,7 +105,7 @@
 
   }
 
-  //***************************************************     Init Handlers          ***************************** */
+  //***************************************************     admin handlers          ***************************** */
   function initAdminHandlers() {
     initPagination("#t-users", "users", Generals.paginate);
 
@@ -421,6 +425,42 @@
     })
 
   }
+
+  function acountHandlers(){
+    var $userId          = $("#acount-user-id")
+    var $currentPassword = $("#acount-current-password")
+    var $btnUpdateUser    = $("#update-user-data");
+    var $newPassword      = $("#acount-new-password");
+
+    $("#acount-current-password").on('keyup',function(e){
+      e.stopImmediatePropagation();    
+      Users.confirmPassword($userId.val(),$currentPassword.val());
+    });
+
+    $btnUpdateUser.on('click',function(e){
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      Users.updatePassword($userId.val(),$currentPassword.val(),$newPassword.val())
+    })
+  }
+
+  function sectionHandlers() {
+    if (!ran) {
+      Sections.getIps();
+      ran = true;
+    }
+
+    $("#btn-add-section").on('click', function (e) {
+      e.stopImmediatePropagation();
+      Sections.add();
+    });
+
+     $("#select-sector").on('change', function (e) {
+      e.stopImmediatePropagation();
+      Sections.getIps();
+    });
+  }
+
 
   $(function () {
     initComponents()

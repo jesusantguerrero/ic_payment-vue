@@ -1,117 +1,25 @@
-$(function () {
+var ran = false;
 
-  var ran = false;
-  loginHandlers();
-  sectionHandlers();
-  othersHandlers();
 
-  function loginHandlers() {
-    $("#send-credentials").on('click', function (e) {
-      e.stopImmediatePropagation();
-      login();
-    });
+function loginHandlers() {
 
-    $("#user-input").on('keydown', function (e) {
-      e.stopImmediatePropagation();
-      sendToLogin(e)
+  $("#send-credentials").on('click', function (e) {
+    e.stopImmediatePropagation();
+    Session.login();
+  });
 
-    })
+  $("#user-input").on('keydown', function (e) {
+    e.stopImmediatePropagation();
+    loginLibrary.sendToLogin(e)
+  })
 
-    $("#password-input").on('keydown', function (e) {
-      e.stopImmediatePropagation();
-      sendToLogin(e)
-    })
-  }
-
-  function sectionHandlers() {
-    if (!ran) {
-      getIps();
-      ran = true;
-    }
-
-    $("#btn-add-section").on('click', function (e) {
-      e.stopImmediatePropagation();
-      addSection();
-    });
-
-     $("#select-sector").on('change', function (e) {
-      e.stopImmediatePropagation();
-      getIps();
-    });
-  }
-
-  function othersHandlers(){
-    var $userId          = $("#acount-user-id")
-    var $currentPassword = $("#acount-current-password")
-    var $btnUpdateUser    = $("#update-user-data");
-    var $newPassword      = $("#acount-new-password");
-
-    $("#acount-current-password").on('keyup',function(e){
-      e.stopImmediatePropagation();    
-      confirmPassword($userId.val(),$currentPassword.val());
-    });
-
-    $btnUpdateUser.on('click',function(e){
-      e.preventDefault()
-      e.stopImmediatePropagation();
-      updatePassword($userId.val(),$currentPassword.val(),$newPassword.val())
-    })
-  }
-
-  function login() {
-    var user     = $("#user-input").val();
-    var password = $("#password-input").val();
-    var is_empty = isEmpty([user, password])
-    if (!is_empty) {
-      var form = 'user=' + user + '&password=' + password;
-      connectAndSend('app/login', false, false, processLoginData, form, null, loading)
-    } else {
-      swal({
-        title:'Complete los datos',
-        text: 'LLene todos los campos indicados para ingresar',
-        type: 'error',
-      });
-    }
-  }
-
-  function loading(stop) {
-    if(!stop){
-       $(".loader").css({
-        display: "block"
-        });
-    }else{
-      $(".loader").css({display: "none"});
-    }
-   
-  }
-
-  function processLoginData(response) {
-    if (response == true) {
-      window.location.href = BASE_URL + 'app/admin/';
-    } else {
-      $(".loader").css({
-        display: "none"
-      });
-      swal({
-        title: 'Credenciales Incorrectas',
-        text: 'Revise los datos ingresados e intente de nuevo',
-        type: 'error',
-        confirmButtonClass: 'btn',
-        buttonsStyling: false
-      });
-    }
-  }
-
-  function sendToLogin(e) {
-    key = e.which
-    console.log('hola');
-    if (key == 13) {
-      login();
-    }
-  }
+  $("#password-input").on('keydown', function (e) {
+    e.stopImmediatePropagation();
+    loginLibrary.sendToLogin(e)
+  })
 
   $("a[href]").on('click', function () {
-    loading();
+    loginLibrary.loading();
     var $this = $(this);
     try {
       var target = $this.attr('target');
@@ -120,119 +28,59 @@ $(function () {
           display: "none"
         });
       }, 3000)
-    } catch (error) {
-
+    }catch (error) {
+      throw error
     }
   })
+}
 
-  /********************************************************
-   *                  Funciones de las Secciones                            
-   *                                                       *
-   ********************************************************/
+var Session = {
+  login: function() {
+    var user     = $("#user-input").val();
+    var password = $("#password-input").val();
+    var is_empty = isEmpty([user, password])
+    if (!is_empty) {
+      var form = 'user=' + user + '&password=' + password;
+      connectAndSend('app/login', false, false, Session.processLoginData, form, null, loginLibrary.loading)
+    } else {
+      displayMessage(MESSAGE_ERROR + " LLene todos los campos indicados para ingresar")
+    }
+  },
 
-  function addSection() {
-    swal.setDefaults({
-      input: 'text',
-      confirmButtonText: 'Next &rarr;',
-      showCancelButton: true,
-      animation: false,
-      progressSteps: ['1', '2', '3']
-    })
-
-    var steps = [{
-        title: 'Nombre del sector'
-      },
-      'Codigo del Sector',
-    ]
-
-    swal.queue(steps).then(function (result) {
-      swal.resetDefaults()
-      save(result)
-    });
-
-    function save(result){
-      var form;
-      var nombre              = result[0],
-          codigoArea          = result[1],
-
-      form = "nombre="+nombre+"&codigo_area="+codigoArea;
-      form += "&tabla=secciones"
-     
-      return new Promise(function(resolve){
-         if(connectAndSend('process/add', true, false, null, form,getSections,heavyLoad)){
-           return resolve();
-         }
-      })
+  processLoginData: function(response) {
+    if (response == true) {
+      window.location.href = BASE_URL + 'app/admin/';
+    } else {
+      $(".loader").css({
+        display: "none"
+      });
+      displayMessage(MESSAGE_INFO + " Usuario y Contraseña no validos")
     }
   }
+}
 
-  function getIps() {
-    var id = $("#select-sector").val();
-    if (id != null) {
-      var form = "tabla=ips&id=" + id;
-      connectAndSend('process/getall', false, null, reorderTable, form,null);
-    }
-  }
+var loginLibrary = {
 
-  function reorderTable(content){
-    var table = $("#t-sections");
-    table.bootstrapTable('destroy');
-    $("#t-sections tbody").html(content);
-    table.bootstrapTable();
-  }
-
-  function getSections() {
-
-      var form = "tabla=secciones";
-      connectAndSend('process/getall', false, null, fillSelect, form,null);
-
-    function fillSelect(content){
-      $("#select-sector").html(content);
-    }
-  }
-  
-  /********************************************************
-  *                      Editar cuenta                            
-  *                                                       *
-  ********************************************************/
-
-  function confirmPassword(userId,currentPassword) {
-    var form = 'user_id='+ userId +'&current_password=' + currentPassword;
-    connectAndSend('user/confirm_password', false, false, processConfirmData, form, null, null);
-    
-    
-    function processConfirmData(response) {
-      var newPassword         = $("#acount-new-password");
-      var newPasswordConfirm  = $("#acount-confirm-new-password");
-      
-      if (response == 1) {      
-        newPassword.removeAttr('disabled');
-        newPasswordConfirm.removeAttr('disabled');
-        validateThis();
-      }else{
-        newPassword.attr('disabled',true);
-        newPasswordConfirm.attr('disabled',true);
-      }
-    }
-  }
-
-  function updatePassword(userId,currentPassword,newPassword){
-    var form = 'user_id='+ userId  + "&current_password="+ currentPassword +'&new_password=' + newPassword;
-    connectAndSend('user/update_password', false, false, passwordChanged, form, null, null);
-  }
-
-  function passwordChanged(response){
-    if(response==1){
-      displayMessage(MESSAGE_SUCCESS + 'Contraseña Cambiada con exito')
-      setTimeout(function(){
-        window.location.href = BASE_URL + 'app/logout'
-      },3000)
-      
+  loading: function(stop) {
+    if(!stop){
+       $(".loader").css({
+        display: "block"
+        });
     }else{
-      displayMessage(MESSAGE_ERROR + ' Error al cambiar de contraseña, revise la contraseña actual')
+      $(".loader").css({display: "none"});
     }
-      
+   
+  },
+  
+  sendToLogin: function(e) {
+    key = e.which
+    if (key == 13) {
+      Session.login();
+    }
   }
 
+}
 
-});
+$(function () {
+  loginHandlers();
+})

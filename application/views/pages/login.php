@@ -7,9 +7,10 @@ ob_start( 'ob_gzhandler' );
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>IC Payment | <?php echo $title; ?></title>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>"/>
     <link rel="stylesheet" href="<?php echo base_url('assets/css/sweetalert2.min.css') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.css') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css') ?>" />
     
     <link rel="icon" type="image/png" sizes="32x32" href="<?php  echo base_url('/favicon-32x32.png')?>">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
@@ -19,7 +20,6 @@ ob_start( 'ob_gzhandler' );
     
 </head>
 <body class="login-body">
-
   <div class="container-fluid">
     <div class="row">
     <div class="loader">
@@ -34,8 +34,10 @@ ob_start( 'ob_gzhandler' );
           <div class="vertical-line"></div>
           <div>
             <form>
-              <h4>Ingresa tus datos</h4>
-              
+              <div class="cabecera">
+                <img src="<?php echo base_url('favicon-96x96.png') ?>" alt="">
+                <h4>Ingresa tus datos</h4>
+              </div>
               <div class="form-group">
                  <label for="user-input">Usuario</label>
                  <input id="user-input" type="text" class="form-control">
@@ -45,7 +47,10 @@ ob_start( 'ob_gzhandler' );
                  <input id="password-input" type="password" class="form-control">
               </div>
               <p class="validation"></p>
-              <input type="button" id="send-credentials" value="Ingresar">
+              <div class="form-group">
+                <input type="button" id="send-credentials" value="Ingresar">
+              </div>
+              
             </form>
 
           </div>
@@ -63,6 +68,7 @@ ob_start( 'ob_gzhandler' );
     <img class="splash-logo" src="<?php echo base_url('assets/img/icpayment_logo_alter.svg') ?>" alt="">
     <h1>IC Payment</h1>
   </div>
+   <div class="toast"><span></span> </div>
   <script src="<?php echo base_url('assets/js/lib/jquery-3.2.1.min.js') ?>"></script>
   <script> 
     setTimeout(function() {
@@ -70,9 +76,8 @@ ob_start( 'ob_gzhandler' );
     }, 2500);
     
   </script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/lib/sweetalert2.min.js') ?>"></script>
   <script src="<?php echo base_url('assets/js/lib/bootstrap.min.js') ?>"> </script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/lib/globals.js')?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/ajax2.js')?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/min/ajax2.min.js')?>"></script>
 </body>
 </html>

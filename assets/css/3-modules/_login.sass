@@ -1,6 +1,6 @@
 .login-body 
   background: #fdfdff
-
+  background-size: cover
   .login-box
     height: 80vh
     margin-top: 10vh
@@ -8,11 +8,18 @@
     justify-content: center
     align-items: center
     
-
     div
       margin-right: 5%
       color: $primary-color
+      height: 100%
 
+      &:nth-child(1),
+        +makeFlex(50%,column,center,center) 
+      .cabecera,
+      form
+        +makeFlex(100%,column,center,center)
+        margin-bottom: 10px
+    
     .vertical-line
       background: $contrast-color
       width: 5px
@@ -20,7 +27,7 @@
 
     input[type='submit']
       background: $contrast-color
-      width: 95%
+      width: 100%
       color: white
       margin: 10px 0
 
@@ -31,6 +38,7 @@
       border-radius: 0 0 0 0
       font-weight: bolder
       min-width: 250px
+      width: 100%
 
       &:hover,
       &:focus
