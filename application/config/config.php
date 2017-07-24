@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/ic/';
+$config['base_url'] = 'http://icpayment-soft.com/';
 date_default_timezone_set('America/Santo_Domingo');
 
 
