@@ -439,7 +439,7 @@ class Process extends CI_Controller {
 			echo MESSAGE_SUCCESS." Contrato extendido con exito";
 		}
 		else{
-			echo MESSAGE_ERROR."No guardado".$this->db->last_query();
+			echo MESSAGE_ERROR."No guardado"." Error";
 		}
 	}
 

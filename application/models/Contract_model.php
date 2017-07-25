@@ -76,7 +76,7 @@ class Contract_model extends CI_MODEL{
       }else{
         
         echo MESSAGE_ERROR."No pudo guardarse el contrato ";
-        echo $this->db->last_query();
+        echo " Error";
         return false;
       } 
   }
@@ -200,7 +200,7 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
-      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." ".$this->db->last_query();
+      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." "." Error";
     } else{
       echo MESSAGE_SUCCESS." Contrato actualizado";
     }
@@ -251,7 +251,7 @@ class Contract_model extends CI_MODEL{
     $this->db->update('ic_pagos',$data_pago);
     $this->db->trans_complete();
     if($this->db->trans_status() === false){
-      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$this->db->last_query();
+      echo MESSAGE_ERROR." No pudo guardarse la actualizacion "." Error";
     } else{
       echo MESSAGE_SUCCESS." Servicio ExtraAgregado";
     }

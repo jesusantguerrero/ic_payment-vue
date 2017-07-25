@@ -65,7 +65,7 @@ class Section_model extends CI_MODEL{
      if($this->db->insert('ic_ips',$row)){
         
       }else{
-        echo $this->db->last_query();
+        echo " Error";
       } 
   }
 

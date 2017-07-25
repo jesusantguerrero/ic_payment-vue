@@ -75,8 +75,8 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'jguerrero',
-	'password' => 'insanecode#1674',
+	'username' => 'grupofcs_jguerrero',
+	'password' => "insanecode#1674",
 	'database' => 'grupofcs_ic_payment',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
@@ -91,5 +91,5 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => (ENVIRONMENT !== 'production')
 );

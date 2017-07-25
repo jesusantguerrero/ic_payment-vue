@@ -58,7 +58,7 @@ class Payment_model extends CI_MODEL{
       if($this->db->insert('ic_pagos',$this)){
         
       }else{
-        echo $this->db->last_query();
+        echo " Error";
       } 
   }
 
@@ -239,7 +239,7 @@ class Payment_model extends CI_MODEL{
       $result = make_next_payments_list($result);
       echo $result; 
     else:
-      echo $this->db->last_query();
+      echo " Error";
     endif;
   }
 

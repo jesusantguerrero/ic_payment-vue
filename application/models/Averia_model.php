@@ -32,7 +32,7 @@ class Averia_model extends CI_MODEL{
     if($this->db->insert('ic_averias',$rows)){
       echo MESSAGE_SUCCESS."Averia Guardada";
     }else{
-      echo MESSAGE_ERROR."error". $this->db->last_query();
+      echo MESSAGE_ERROR."error". " Error";
     }  
   }
   public function update($id_averia){

@@ -24,7 +24,7 @@ class Report_model extends CI_MODEL{
       $result = $result->result_array();
       make_payment_report($result,"Reporte De Pagos Del Dia",$this);
     else:
-      echo $this->db->last_query();
+      echo " Error";
     endif;
   }
 
@@ -43,7 +43,7 @@ class Report_model extends CI_MODEL{
       $result = $result->row_array()['total'];
       return $result;
     else:
-      echo $this->db->last_query();
+      echo " Error";
     endif;
   }
 
