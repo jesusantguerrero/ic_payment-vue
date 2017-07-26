@@ -455,19 +455,18 @@ class Process extends CI_Controller {
 		if(!$report) echo "No hay datos";
 
 		$this->load->library('PHPExcel');
-		$this->load->library('PHPExcel/iofactory');
+		$this->load->library('PHPExcel/IOFactory');
 		
 		$myreport_sheet = create_excel_file($report);
 		$file = "prueba.xlsx";
-		
+		// 
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");
 		header("Content-Disposition: attachment; filename= $file");
 		header("Cache-Control: max-age=0");
 		header("Expires: 0");
-		// Save it as an excel 2003 file
 		$objWriter = IOFactory::createWriter($myreport_sheet, 'Excel2007');
 		$objWriter->save('php://output');
-		
-		// print_r($myreport_sheet);
+		// 
+		print_r($myreport_sheet);
 	}
 }

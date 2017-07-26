@@ -4,10 +4,10 @@
   <li><p><a href="<?php echo base_url('app/admin/cuenta')?>"><b><?php echo $user_data['fullname'] ?></b></a></p></li>
   <li><a href="<?php echo base_url('app/admin/cuenta')?>"><?php echo $user_data['typestr'] ?></a></li>
   <?php if(auth_user_type(0)): ?>
-  <li><a href="<?php echo base_url('app/admin/administrador')?>">
+  <li class="hidden-xs"><a href="<?php echo base_url('app/admin/administrador')?>">
       <i class="material-icons">settings</i>Configuración</a>
   </li>
-  <?php endif; ?>
+  <?php endif;?>
   <li><a href="<?php echo base_url('app/logout')?>">
       <i class="material-icons">power_settings_new</i> Cerrar Sesión</a>
   </li>

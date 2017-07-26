@@ -1,5 +1,5 @@
 <div class="screen clients row">
-  <div class="left-navigation administrador col-md-2">
+  <div class="left-navigation administrador col-md-2 hidden-xs">
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#acount-section"><i class="material-icons">description</i> Cuenta</a></li>
     </ul>
