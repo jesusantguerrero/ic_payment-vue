@@ -26,7 +26,11 @@
           $notifications = $this->report_model->count_moras_view();
         ?>
         <div class="header-low">
+             
             <div class="brand">
+                <a href="">
+                        <i class="material-icons brand__menu">menu</i>
+                    </a>
                 <a href="<?php echo base_url() ?>">
                     <h3>IC<span>Payment</span></h3>
                 </a>

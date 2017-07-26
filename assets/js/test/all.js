@@ -108,10 +108,12 @@ function displayAlert(title,message,type){
  */
 function fillCurrentTable($content,callback,tableID){
   var $table
+  $("html").removeClass("gr__icpayment-soft_com")
   if(tableID != undefined){
     $table = $('#'+tableID + " tbody");
   }else{
-    $table = $("[class*='t-'] tbody");
+    $table = $('[class*="t-"] tbody');
+    console.log("sin id en la tabla");
   }
   $table.html($content);
   if(callback) callback();

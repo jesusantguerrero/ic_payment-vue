@@ -36,7 +36,7 @@
                     <div class="list-nextpayments">
                         <?php $this->payment_model->get_next_payments(); ?>
                     </div>
-                    <div class="centered-container-small">
+                    <div class="centered-container-small hidden-xs">
                         <a href="<?php echo base_url('app/admin/clientes') ?>" class="btn btn-remark search-client">Buscar Cliente</a>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="list-nextpayments">
                         <?php $this->payment_model->get_moras_home(); ?>
                     </div>
-                    <div class="centered-container-small">
+                    <div class="centered-container-small hidden-xs">
                         <a href="<?php echo base_url('app/admin/clientes') ?>" class="btn btn-remark search-client">Buscar Cliente</a>
                     </div>
                 </div>
