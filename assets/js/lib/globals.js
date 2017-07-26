@@ -18,6 +18,7 @@ var SUMMER_SKY = '#1FA1D0'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
+  if(!loading) loading = lineLoad
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         
@@ -529,17 +530,32 @@ function heavyLoad(stop){
     $("body").css({overflow:"hidden"});
     var message = $(".heavy-loader .message");
     setTimeout(function(){
-      message.text("Configurando Sección...")
+      message.text("Configurando...");
     },4000)
     setTimeout(function(){
-      message.text("Creando las nuevas ips...")
+      message.text("Casi Terminamos ...");
     },8000)
     setTimeout(function(){
-      message.text("Terminando el proceso ...")
+      message.text("Terminando el proceso ...");
+      removeLoader();
     },15000)
   }else{
+    removeLoader();
+  }
+
+  function removeLoader(){
     var loader = $(".heavy-loader");
     loader.remove();
-    $("body").css({overflow:"auto"})
+    $("body").css({overflow:"auto"});
+  }
+}
+
+function lineLoad(stop) {
+  if(!stop){
+     $(".loader").css({
+      display: "block"
+      });
+  }else{
+    $(".loader").css({display: "none"});
   }
 }

@@ -62,7 +62,7 @@ if ( ! function_exists('make_installation_report')){
 
     $html_text = $context->table->generate();
     if($for_print):
-      set_report($html_text,$concept,$more);
+      set_report($html_text,$concept);
     else:
       return $html_text;
     endif;
@@ -87,7 +87,7 @@ if ( ! function_exists('make_averias_report')){
 
     $html_text = $context->table->generate()."<div class='real-end'></div>";
     if($for_print):
-      set_report($html_text,$concept,$more);
+      set_report($html_text,$concept);
     else:
       return $html_text;
     endif;
@@ -124,7 +124,7 @@ if ( ! function_exists('make_moras_report')){
 
     $html_text = $context->table->generate();
     if($for_print):
-      set_report($html_text,$concept,$more);
+      set_report($html_text,$concept,$more = '');
     else:
       return $html_text;
     endif;
@@ -132,7 +132,7 @@ if ( ! function_exists('make_moras_report')){
 }
 
 if( ! function_exists('set_report')){
-  function set_report($report_body,$concept,$more,$context){
+  function set_report($report_body,$concept,$more = ''){
      $_SESSION['reporte'] = array('cuerpo' => $report_body, 'concepto' => $concept, 'mas' => $more);
   }
 

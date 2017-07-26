@@ -41,7 +41,7 @@
         </div>
         <div class="form-group print">
           <label for="">Tel.:</label>
-          <input type="text" class="form-control line-input celular" id="">
+          <input type="text" class="form-control line-input telefono" id="">
         </div>
       </div>
       <div class="col-md-6 col-xs-6">
@@ -256,9 +256,9 @@
 </div>
 
 <script>
-  var now = moment()
+  var now   = moment()
   var fecha = now.format("DD-MM-YYYY");
-  var hora = now.format("LTS");
+  var hora  = now.format("LTS");
 
   $(".fecha-reporte").text("Fecha: " + fecha);
   $(".hora-reporte").text('Hora: ' + hora);
@@ -266,13 +266,14 @@
   $('input.cliente').val("<?php echo $contrato['cliente']?>");
   $('input.cedula').val("<?php echo $contrato['cedula']?>");
   $('input.celular').val("<?php echo $cliente['celular']?>");
-  $('input.celular').val("<?php echo $cliente['telefono']?>");
+  $('input.telefono').val("<?php echo $cliente['telefono']?>");
   $('input.provincia').val("<?php echo $cliente['provincia']?>");
   $('input.sector').val("<?php echo $cliente['sector']?>");
   $('input.calle').val("<?php echo $cliente['calle']?>");
   $('input.casa').val("<?php echo $cliente['casa']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.servicio').val("<?php echo $contrato['servicio']?>");
+  $('input.velocidad').val("<?php echo $contrato['descripcion']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.equipo').val("<?php echo $contrato['nombre_equipo']?>");
   $('input.codigo').val("<?php echo $contrato['codigo']?>");

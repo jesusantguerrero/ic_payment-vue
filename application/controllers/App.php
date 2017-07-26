@@ -19,6 +19,18 @@ class App extends CI_Controller {
 		$this->load->model("section_model");
 	
 		//update_moras($this);
+		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
+		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
+		// $result = $this->db->query("
+		// 	truncate ic_cancelaciones
+		// 	"
+		// );
+
+	// $result = $this->db->query("select * from ic_ips")->result_array();
+	// print_r($result);
+	// echo $result;
+	// $this->db->query("SET FOREIGN_KEY_CHECKS = 1;");
+
 		
 	}
 

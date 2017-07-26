@@ -18,6 +18,7 @@ var SUMMER_SKY = '#1FA1D0'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
+  if(!loading) loading = lineLoad
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         
@@ -529,18 +530,33 @@ function heavyLoad(stop){
     $("body").css({overflow:"hidden"});
     var message = $(".heavy-loader .message");
     setTimeout(function(){
-      message.text("Configurando Sección...")
+      message.text("Configurando...");
     },4000)
     setTimeout(function(){
-      message.text("Creando las nuevas ips...")
+      message.text("Casi Terminamos ...");
     },8000)
     setTimeout(function(){
-      message.text("Terminando el proceso ...")
+      message.text("Terminando el proceso ...");
+      removeLoader();
     },15000)
   }else{
+    removeLoader();
+  }
+
+  function removeLoader(){
     var loader = $(".heavy-loader");
     loader.remove();
-    $("body").css({overflow:"auto"})
+    $("body").css({overflow:"auto"});
+  }
+}
+
+function lineLoad(stop) {
+  if(!stop){
+     $(".loader").css({
+      display: "block"
+      });
+  }else{
+    $(".loader").css({display: "none"});
   }
 }
 // funciones de bootstrap
@@ -1212,22 +1228,24 @@ var Contracts = {
   },
 
   cancel: function() {
-    var $row = $("tr.selected");
+    var $row       = $("tr.selected");
     var contractId = $row.find(".id_contrato").text().trim();
-    var clientId = $row.find(".th-client").attr("data-id-cliente");
+    var clientId   = $row.find(".th-client").attr("data-id-cliente");
     var is_penalty = false;
-    var reason = $("#cancelation-reason").val();
-    var checked = $("#check-penalty:checked").length;
+    var reason     = $("#cancelation-reason").val();
+    var checked    = $("#check-penalty:checked").length;
     var form, fecha;
-
-    if (checked > 0) {
-      is_penalty = true;
+    if(contractId){
+      if (checked > 0) {
+        is_penalty = true;
+      }
+      fecha = moment().format("YYYY-MM-DD");
+      form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+      form += "&motivo=" + reason + "&penalidad=" + is_penalty;
+      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage);
+    }else{
+      displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }
-
-    fecha = moment().format("YYYY-MM-DD");
-    form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-    form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-    connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
   },
 
   getOne: function(id_contrato, receiver) {
@@ -1391,7 +1409,6 @@ var Payments = {
 var Damages = {
   add: function () {
     var form, idCliente, description;
-
     idCliente = $("#averias-client-id").val();
     description = $("#a-description").val();
 
@@ -1622,7 +1639,7 @@ var Sections = {
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     if (currentPage == 'notificaciones') {
-      Generals.count_table("averias");
+        Generals.count_table("averias");
 
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
@@ -2104,7 +2121,6 @@ var Session = {
 }
 
 var loginLibrary = {
-
   loading: function(stop) {
     if(!stop){
        $(".loader").css({
@@ -2113,7 +2129,6 @@ var loginLibrary = {
     }else{
       $(".loader").css({display: "none"});
     }
-   
   },
   
   sendToLogin: function(e) {

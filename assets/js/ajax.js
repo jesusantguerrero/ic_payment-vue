@@ -45,7 +45,7 @@
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     if (currentPage == 'notificaciones') {
-      Generals.count_table("averias");
+        Generals.count_table("averias");
 
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();

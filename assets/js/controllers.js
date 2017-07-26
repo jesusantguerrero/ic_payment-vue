@@ -408,22 +408,24 @@ var Contracts = {
   },
 
   cancel: function() {
-    var $row = $("tr.selected");
+    var $row       = $("tr.selected");
     var contractId = $row.find(".id_contrato").text().trim();
-    var clientId = $row.find(".th-client").attr("data-id-cliente");
+    var clientId   = $row.find(".th-client").attr("data-id-cliente");
     var is_penalty = false;
-    var reason = $("#cancelation-reason").val();
-    var checked = $("#check-penalty:checked").length;
+    var reason     = $("#cancelation-reason").val();
+    var checked    = $("#check-penalty:checked").length;
     var form, fecha;
-
-    if (checked > 0) {
-      is_penalty = true;
+    if(contractId){
+      if (checked > 0) {
+        is_penalty = true;
+      }
+      fecha = moment().format("YYYY-MM-DD");
+      form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+      form += "&motivo=" + reason + "&penalidad=" + is_penalty;
+      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage);
+    }else{
+      displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }
-
-    fecha = moment().format("YYYY-MM-DD");
-    form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-    form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-    connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
   },
 
   getOne: function(id_contrato, receiver) {
@@ -587,7 +589,6 @@ var Payments = {
 var Damages = {
   add: function () {
     var form, idCliente, description;
-
     idCliente = $("#averias-client-id").val();
     description = $("#a-description").val();
 

@@ -155,11 +155,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $this->contract_model->get_all_of_client($client_data['id_cliente']) ?>
+                  <!-- <?php //$this->contract_model->get_all_of_client($client_data['id_cliente']) ?> -->
                 </tbody>
               </table>
-             
-
             </div>
 
 
