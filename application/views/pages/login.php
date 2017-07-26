@@ -27,11 +27,10 @@ ob_start( 'ob_gzhandler' );
     </div>
     </div>
         <div class="col-md-10 col-md-offset-1 card login-box">
-          <div>
-            
+          <div class="hidden-xs">
             <h1>IC PAYMENT</h1>
           </div>
-          <div class="vertical-line"></div>
+          <div class="vertical-line hidden-xs"></div>
           <div>
             <form>
               <div class="cabecera">

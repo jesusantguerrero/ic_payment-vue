@@ -167,4 +167,41 @@
     .day
       &:after
         +size(0,0)
+
+@media (max-width: 768px)
+  .welcome-screen
+    display: block
+
+  .main-card,
+  .details-card,
+  .clock-card
+    width: 100%
+    margin-bottom: 15px
+    margin-left: 0
+
+  .main-card
+    padding: 0 0 0 0
+    .row
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      position: relative
+      
+  .welcome-data
+    .row
+      flex-direction: row
+
+  .company-data
+    position: absolute
+    +size(100%,100%)
+    background-image: url("../img/icsservice_logo.svg")
+    background-size: contain
+    background-repeat: no-repeat
+    opacity: .2
+
+  .company-logo
+    display: none
+    
+
+  
      
