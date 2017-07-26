@@ -337,7 +337,7 @@ class Process extends CI_Controller {
 		} 
 	}
 
-	public function details($id,$active_window){
+	public function details($id,$active_window = "pagos"){
 		authenticate();
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
 		$this->session->set_flashdata('active_window',$active_window);

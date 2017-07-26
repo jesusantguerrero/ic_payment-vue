@@ -29,8 +29,10 @@ class Report_model extends CI_MODEL{
   }
 
    public function get_recibos(){
-    $sql = "SELECT id_pago,id_contrato,cliente,concepto, servicio ,total, complete_date,date(complete_date) as fecha,time(complete_date) as hora FROM v_recibos  order by complete_date desc";
-    if($result = $this->db->query($sql)):
+    $this->db->select("id_pago,id_contrato,cliente,concepto, servicio ,total, complete_date,date(complete_date) as fecha,time(complete_date) as hora");
+    $this->db->order_by("complete_date", "DESC");
+    $result = $this->db->get("v_recibos");
+    if($result):
       $result = $result->result_array();
       $result = make_recibos_table($result,0);
       echo $result;
