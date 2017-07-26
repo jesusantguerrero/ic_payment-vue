@@ -368,7 +368,6 @@ if ( ! function_exists('make_recibos_table')){
   * @param int the number for start counting the rows the that is for my custom pagination
   *@return string the tbody with rows of a table 
   */ 
-
   function make_recibos_table($data,$start_at){
     $cont = $start_at + 1;
     $html_text = " "; 
