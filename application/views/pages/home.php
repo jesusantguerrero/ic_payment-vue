@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <?php $user_data = get_user_data(); ?>
     <div class="row welcome-screen">
-        <div class="col-md-8 main-card">
+        <div class="col-md-8 col-xs-12 main-card">
             <h3> </h3>
             <div class="row">
                 <div class="company-data">
@@ -17,7 +17,7 @@
 
 
                         </div>
-                        <div class="col-md-5 date-container">
+                        <div class="col-md-5 col-xs-6 date-container">
                             <p class="day"></p>
                             <p class="month-year"></p>
                             <span class="dayweek"></span>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 details-card">
+        <div class="col-md-4 col-xs-12 details-card">
             <div class="layout-container">
                 <div class="pagos-layer">
                     <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Proximos Pagos</h3>
@@ -72,7 +72,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md-8 shortcuts-container">
+        <div class="col-md-8 hidden-xs shortcuts-container">
             <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
                 <i class="material-icons">supervisor_account</i>
                 <p class="section-title">Nuevo Cliente</h4>

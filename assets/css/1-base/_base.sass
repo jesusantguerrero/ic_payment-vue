@@ -11,6 +11,7 @@ body
   text-rendering: optimizeLegibility
   -moz-font-feature-settings: "liga" on
 
+// header
 header
   height: 70px
   display: flex
@@ -91,6 +92,7 @@ nav
   top: 0
   background: $tomato
 
+//  end header
 .screen
   margin-top: -20px 
   height: 750px
@@ -172,7 +174,6 @@ select
   height: 28px
 
 .company-details
-  // +card()
   margin: 10px
   padding: 25px 50px
   width: 100%
@@ -190,3 +191,11 @@ form
 .subsection-title
   margin-bottom: 20px
   margin-top: -10px
+
+@media (max-width: 768px)
+  header
+    padding: 0 20px
+    height: 60px
+
+  .user-div
+    padding-right: 0
