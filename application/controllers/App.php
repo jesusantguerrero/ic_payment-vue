@@ -34,12 +34,14 @@ class App extends CI_Controller {
 	public function admin($page = 'home'){
 		authenticate();
 		auth_user_type_for_pages($page,1,base_url('app/admin/home'));
-		
-		$tooltip = $this->load->view('layouts/headertooltip','',true);
 		$data['title'] = $page;
+		$tooltip = $this->load->view('layouts/headertooltip',$data,true);
+		$left_navigation_header = $this->load->view('layouts/left_navigation_header',$page,true);
+		
 		$data['tooltip'] = $tooltip;
+		$data['left_navigation_header'] = $left_navigation_header;
 		$this->load->view('layouts/header',$data);
-		$this->load->view('pages/' . $page);
+		$this->load->view('pages/' . $page,$data);
 
 		$modals = get_modals($page);
 		if($modals != FALSE){

@@ -144,10 +144,10 @@ nav
 .busquedas,.table,
 .table-container,
 .subsection-title
-   +size(95%,38px)
+   +size(95%,90px)
    margin: 30px 2.5% 0 2.5%
-   small
-    color: $contrast-color
+   padding-top: 5px
+
    
    &.t-users
     width: 100%
@@ -191,6 +191,12 @@ form
 .subsection-title
   margin-bottom: 20px
   margin-top: -10px
+  display: none
+  h2
+  color: $contrast-color
+
+  small
+   color: $primary-color
 
 @media (max-width: 768px)
   header

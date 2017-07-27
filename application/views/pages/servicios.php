@@ -1,5 +1,6 @@
 <div class="screen clients row">
   <div class="left-navigation col-md-2">
+  <?php echo $left_navigation_header ?>
     <ul class="aside-nav">
       <li class="aside-buttons">
         <a href="" data-toggle="modal" data-target="#new-service-modal"><i class="material-icons">add</i>  Nuevo Servicio</a>

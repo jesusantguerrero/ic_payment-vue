@@ -11,7 +11,9 @@
     <div class="company-name">
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>
-      <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
+      <p class="company-direction"> </p>
+      <p class="company-numbers"></p>
+
       <p></p>
     </div>
     <div class="left-box"> 
@@ -23,8 +25,8 @@
   </div>
   <div class="concepto"> <h4><?php echo $recibo['concepto'] ?></h4></div>
   <div class="cuerpo">
-  <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"><?php echo $recibo['concepto'] ?></span></p>
-   <p class="line"> <span class="text-main">Servicio:</span> <span class="text-placeholder"><?php echo $recibo['servicio'].$recibo['detalles_extra']?></span></p>
+  <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"><?php echo $recibo['servicio'].$recibo['detalles_extra']?></span></span></p>
+  <p class="line"> <span class="text-main">Suma:</span> <span class="text-placeholder"><?php echo strtoupper(number_to_words($recibo['total'])). "PESOS" ?></span></p>
   <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad']) ?></span>
   <span class="text-main center">Mora:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mora']) ?> </span>
   <span class="text-main center">Extras:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['monto_extra']) ?></span></p>
@@ -39,6 +41,7 @@
     $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
     $(".company-statement").text("<?php echo $company['descripcion'] ?>");
     $(".company-direction").text("<?php echo $company['direccion'] ?>");
+    $(".company-numbers").text("<?php echo "Tel.: ".$company['telefono1'].$company["telefonos"]?>");
     print();
 </script>
 <?php 

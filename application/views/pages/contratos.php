@@ -1,5 +1,6 @@
 <div class="screen clients row">
   <div class="left-navigation col-md-2">
+  <?php echo $left_navigation_header ?>
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="" data-toggle="modal" data-target="#search-client-modal"><i class="material-icons">description</i>  Nuevo Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-update-contract"><i class="material-icons">edit</i>Editar Contrato</a></li>

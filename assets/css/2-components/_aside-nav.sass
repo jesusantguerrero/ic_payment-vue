@@ -2,7 +2,19 @@
   padding: 50px 0
   box-shadow: 2px 0px 4px rgba(0,0,0,.4)
   height: 120vh
-  background: #fff
+  background: $special-color
+
+  .company-logo
+    width: 90px
+
+  &__header
+    +makeFlex(100%,column,center,center)
+
+    &-text
+      color: #fff
+      border-bottom: 1px solid #fff
+      width: 90%
+      text-align: center
 
 .main-content
   padding: 50px 0
@@ -128,10 +140,18 @@
     width: 15px
     background-color: transparent
 
-
   &::-webkit-scrollbar-thumb
     background-color: transparentize(#fff,.7)
     border-radius: 3px 
+::-webkit-scrollbar-track
+  background-color: transparent
+  padding: 0 2px
+::-webkit-scrollbar
+  width: 10px
+  background-color: transparent
+::-webkit-scrollbar-thumb
+  background-color: transparentize($primary-color,.7)
+  border-radius: 3px 
 
 // Payment Item
 
