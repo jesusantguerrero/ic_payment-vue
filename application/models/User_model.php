@@ -116,8 +116,7 @@ class User_model extends CI_MODEL{
 
   public function delete_user($id){
     $this->db->where('user_id',$id);
-    $result = $this->db->delete('ic_users');
-    if($result){
+    if($result = $this->db->delete('ic_users')){
       echo MESSAGE_SUCCESS." Usuario Eliminado";
     }else{
       echo MESSAGE_ERROR." El Usuario No Pudo Ser Eliminado";

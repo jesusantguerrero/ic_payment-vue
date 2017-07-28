@@ -854,7 +854,7 @@ var Users = {
     if (!is_empty) {
       form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname;
       form += "&dni=" + dni + "&type=" + type;
-      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll)
+      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll);
     } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -867,7 +867,7 @@ var Users = {
 
   delete: function (id) {
     var form = "user_id=" + id;
-    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, getUsers);
+    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
   },
 
   confirmPassword: function(userId,currentPassword) {

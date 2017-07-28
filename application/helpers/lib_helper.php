@@ -368,6 +368,7 @@ if ( ! function_exists('make_recibos_table')){
   * @param int the number for start counting the rows the that is for my custom pagination
   *@return string the tbody with rows of a table 
   */ 
+
   function make_recibos_table($data,$start_at){
     $cont = $start_at + 1;
     $html_text = " "; 
@@ -460,6 +461,11 @@ function CurrencyFormat($number){
    return number_format($number,$decimalplaces,$decimalcharacter,$thousandseparater);
 }
 
+function number_to_words($number){
+  $formatter = new \NumberFormatter('es', \NumberFormatter::SPELLOUT);
+  return $formatter->format($number) . "\n";
+}
+
 function client_to_xml_format($data){
         $client = "<client>
         <id>".$data['id_cliente']."</id>
@@ -495,7 +501,6 @@ function set_to_session($lastquery){
 function get_from_session(){
   return $_SESSION['id_contrato'];
 }
-
 
 function set_last_page($lastquery){
   $_SESSION['lastpage'] = $lastquery;
