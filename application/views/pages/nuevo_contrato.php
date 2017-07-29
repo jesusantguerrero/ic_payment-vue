@@ -122,7 +122,7 @@
                 <input type="text" class="form-control" id="contract-r-mac" tabindex="8">
               </div>
               <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Codigo</span>
+              <span class="input-group-addon" id="basic-addon1">Codigo IP</span>
               <select class="form-control" id="select-contract-code">
                 <option value="">--seleccione sector--</option>
               </select>

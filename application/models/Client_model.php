@@ -87,6 +87,7 @@ class Client_model extends CI_MODEL{
 
     if($this->db->update('ic_clientes',$rows)){
       if($data['modo'] == 1){
+
         echo MESSAGE_INFO." Monto de abono visto";
       }else{
         echo MESSAGE_SUCCESS." Observación Agregada";

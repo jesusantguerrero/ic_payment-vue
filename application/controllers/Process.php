@@ -357,6 +357,13 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
+	public function get_abono_receipt($id_cliente){
+		authenticate();
+		$recibo_info = $this->client_model->get_client($id_cliente);
+		$this->session->set_flashdata('recibo_info',$recibo_info);
+		redirect(base_url('app/imprimir/recibo_abono'));
+	}
+
 	public function getrequirements($client_id){
 		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
