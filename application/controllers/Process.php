@@ -203,6 +203,9 @@ class Process extends CI_Controller {
 			case "contratos":
 				$this->contract_view_model->last_page();
 				break;
+			case "servicios":
+				$this->service_model->last_page();
+				break;
 			case "caja":
 				$this->caja_chica_model->last_page();
 				break;
@@ -364,10 +367,14 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo_abono'));
 	}
 
-	public function getrequirements($client_id){
+	public function getrequirements($id,$type = "cliente"){
 		authenticate();
-		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
-		$contract_id = $this->contract_model->get_last_id($client_id);
+		if($type = "cliente"){
+			$requirement_info['cliente'] = $this->client_model->get_client($id);
+			$contract_id = $this->contract_model->get_last_id($id);
+		}else{
+			$contract_id = $id
+		}
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
