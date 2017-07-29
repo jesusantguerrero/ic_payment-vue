@@ -311,7 +311,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -320,6 +320,11 @@ var Services = {
   getAll: function () {
     var form = "tabla=servicios";
     connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
+  },
+
+  getLastPage: function () {
+    var form = "tabla=servicios";
+    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
   },
 
   update: function () {

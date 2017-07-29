@@ -41,7 +41,7 @@
     $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
     $(".company-statement").text("<?php echo $company['descripcion'] ?>");
     $(".company-direction").text("<?php echo $company['direccion'] ?>");
-    $(".company-numbers").text("<?php echo "Tel.: ".$company['telefono1'].$company["telefonos"]?>");
+    $(".company-numbers").text("<?php echo "Tel.: ".$company['telefono1']." ".$company["telefonos"]?>");
     print();
 </script>
 <?php 

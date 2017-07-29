@@ -8,6 +8,7 @@
       <li class="aside-buttons"><a href="" id="btn-update-contract"><i class="material-icons">edit</i>Editar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-cancel-contract"><i class="material-icons" >delete</i>Cancelar Contrato</a></li>
       <li class="aside-buttons"><a href="" id="btn-see-in-detail"><i class="material-icons" >find_in_page</i>Ver Detalles</a></li>
+      <!-- <li class="aside-buttons"><a href="" id="btn-see-contract"><i class="material-icons" >find_in_page</i>Imprimir Contrato</a></li> -->
       <li class="aside-buttons"><a href="" id="btn-pay-view"><i class="material-icons" >monetization_on</i>Registrar Pago</a></li>
       <li class="aside-buttons"><a href="" id="btn-add-extra"><i class="material-icons" >more</i>Extras</a></li>
     </ul>

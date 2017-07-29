@@ -418,6 +418,7 @@ function makeRowsClickable(){
     btnNewContract    = $("#client-new-contract");
     btnGoNewContract  = $("#go-new-contract");
 
+
     $this = $(this);
 
     if($this.hasClass('selected')){
@@ -429,39 +430,33 @@ function makeRowsClickable(){
     }else{
       $('tbody tr').removeClass('selected');
       $this.toggleClass('selected');
- 
-    id = $this.find('.id_cliente').text().trim();
-    
+      id = $this.find('.id_cliente').text().trim();
 
-    if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-    if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-    if(btnGoNewContract){
-      if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
-        btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
-      }else{
-        btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+      if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGoNewContract){
+        if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
+          btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
+        }else{
+          btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+        }
       }
-      
+      contractRows($this);
     }
-
-    contractRows($this);
-    }
-    
   });
-
 }
+
 function contractRows($this){
   var id_contrato,id_cliente;
 
   id_contrato = $this.find(".id_contrato").text().trim();
-  id_cliente = $this.find('.th-client').attr("data-id-cliente");
-  
+  id_cliente = $this.find('.th-client').attr("data-id-cliente");  
 
   $("#btn-pay-view").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
   $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
+  $("#btn-see-contract").attr('href',BASE_URL + 'process/getrequirements/' + id_contrato + '/contrato');
   //btnCancelarContrato.attr('data-id-cliente',id_cliente);
   //btnEditarContrato.attr('data-id-cliente',id_cliente);
-
 }
 
 function makeServiceCardClickable(){
@@ -1133,7 +1128,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -1142,6 +1137,11 @@ var Services = {
   getAll: function () {
     var form = "tabla=servicios";
     connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
+  },
+
+  getLastPage: function () {
+    var form = "tabla=servicios";
+    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
   },
 
   update: function () {

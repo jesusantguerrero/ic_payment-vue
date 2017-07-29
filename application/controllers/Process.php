@@ -373,7 +373,7 @@ class Process extends CI_Controller {
 			$requirement_info['cliente'] = $this->client_model->get_client($id);
 			$contract_id = $this->contract_model->get_last_id($id);
 		}else{
-			$contract_id = $id
+			$contract_id = $id;
 		}
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
