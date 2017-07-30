@@ -41,10 +41,10 @@ class Client_model extends CI_MODEL{
     $this->cols['sector']          = $data['sector'];
     $this->cols['calle']           = $data['calle'];
     $this->cols['casa']            = $data['casa'];
-    $this->cols['telefono']        = $data['telefono'];
-    $this->cols['celular']         = $data['celular'];
+    $this->cols['telefono']        = phone_format($data['telefono']);
+    $this->cols['celular']         = phone_format($data['celular']);
     $this->cols['lugar_trabajo']   = $data['lugar_trabajo'];
-    $this->cols['tel_trabajo']     = $data['tel_trabajo'];
+    $this->cols['tel_trabajo']     = phone_format($data['tel_trabajo']);
     $this->cols['ingresos']        = $data['ingresos'] ? $data['ingresos'] : 0 ;
     $this->cols['fecha_registro']  = $data['fecha_registro'];
     $this->cols['estado']          = $data['estado'];
@@ -87,7 +87,8 @@ class Client_model extends CI_MODEL{
 
     if($this->db->update('ic_clientes',$rows)){
       if($data['modo'] == 1){
-
+        $this->db->where('id_cliente',$data['id_cliente']);
+        $this->db->update('ic_clientes',array('observaciones' => ''));
         echo MESSAGE_INFO." Monto de abono visto";
       }else{
         echo MESSAGE_SUCCESS." Observación Agregada";

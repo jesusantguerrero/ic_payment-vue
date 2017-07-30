@@ -173,7 +173,6 @@ if (! function_exists('clear_payments')){
       'ultimo_pago'   => null,
       'estado'        => $state
     );
-    echo $monto_pagado." ID:".$contract_id;
     $context->contract_model->update($data_contract,$contract_id,true); 
   }
 }

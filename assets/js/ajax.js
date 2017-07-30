@@ -143,6 +143,7 @@
       $("#e-name").val(cell.eq(3).text());
       $("#e-lastname").val(cell.eq(4).text());
       $("#e-dni").val(cell.eq(5).text());
+      $("#e-type").val($(this).attr('data-type'));
 
       $('#update-user-modal').modal();
     });
@@ -434,6 +435,7 @@
     $(".abono-value").on('click', function (e) {
       e.stopImmediatePropagation();
       Clients.saveObservations(true);
+      $('#text-observations').val('');
     })
 
   }

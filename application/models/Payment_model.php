@@ -103,7 +103,7 @@ class Payment_model extends CI_MODEL{
 
   public function count_of_contract($id_contrato = null){
     if($id_contrato == null){
-      $id_contrato = get_from_session();
+      $id_contrato = $_SESSION['last_payment_id'];
     }
     $this->db->where('id_contrato',$id_contrato);
     $result = $this->db->count_all_results('ic_pagos');
@@ -126,11 +126,11 @@ class Payment_model extends CI_MODEL{
 
   public function get_all_of_contract($id){
     $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
-    set_last_query($sql);
+    $_SESSION['last_payment_query'] = $sql;
     $sql .= " Limit 5";
-    set_last_page($sql);
+    $_SESSION['last_payment_page'] = $sql;
     $result = $this->db->query($sql);
-    set_to_session($id);
+    $_SESSION['last_payment_id'] = $id;
     if($result){
       $result = make_payment_table($result->result_array(),0);
       echo $result;
@@ -166,8 +166,8 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_payments_paginate($offset,$perpage){
-    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
-    set_last_page($sql);
+    $sql = $_SESSION['last_payment_query']." LIMIT ".$offset.", ".$perpage;
+    $_SESSION['last_payment_page'] = $sql;
     $result = $this->db->query($sql);
     if($result){
       $result = make_payment_table($result->result_array(),$offset);
@@ -178,7 +178,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function last_page(){
-    $result = $this->db->query(get_last_page());
+    $result = $this->db->query($_SESSION['last_payment_page']);
     if($result){
       $result = make_payment_table($result->result_array(),0);
       echo $result;

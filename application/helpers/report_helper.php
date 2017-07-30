@@ -53,7 +53,7 @@ if ( ! function_exists('make_installation_report')){
       $context->table->add_row($cont,
       $line['cliente'],
       $line['direccion'],
-      $line['celular'],
+      phone_format($line['celular']),
       $line['fecha'],
       $line['servicio']);
 
@@ -77,7 +77,7 @@ if ( ! function_exists('make_averias_report')){
       $context->table->add_row($cont,
       $line['cliente'],
       $line['direccion'],
-      $line['celular'],
+      phone_format($line['celular']),
       $line['descripcion'],
       $line['fecha']);
 
@@ -111,7 +111,7 @@ if ( ! function_exists('make_moras_report')){
       $context->table->add_row(
       $line['codigo'],
       $line['cliente'],
-      $line['celular'],
+      phone_format($line['celular']),
       "RD$ ".CurrencyFormat($line['cuota']),
       "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),

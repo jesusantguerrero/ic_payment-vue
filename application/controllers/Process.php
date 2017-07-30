@@ -387,18 +387,25 @@ class Process extends CI_Controller {
 
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
-		$requirement_info['cliente'] = $this->client_model->get_client($id);
-		if($type = "cliente"){
+			$contract_id = '';
+			$requirement_info['cliente'] = "";
+		if($type == "cliente"){
+			$requirement_info['cliente'] = $this->client_model->get_client($id);
 			$contract_id = $this->contract_model->get_last_id_of($id);
 		}else{
 			$contract_id = $id;
 		}
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
+		
+		if($requirement_info['cliente'] == "" ){
+			$id_cliente = $requirement_info['contrato']['id_cliente'];
+			 $requirement_info['cliente'] = $this->client_model->get_client($id_cliente);
+		}
 		$this->session->set_flashdata('requirement_info',$requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
-	// just one
+	
 	public function getrequirement($client_id,$service_id){
 		authenticate();
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
