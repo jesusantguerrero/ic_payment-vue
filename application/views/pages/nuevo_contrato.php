@@ -176,7 +176,9 @@
         <a target="_blank" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
       <div class="row-container requirement-controls">
-        <a target="_blank" href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract"> Requerimiento</a>
+        <a target="_blank" href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" 
+        data-href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" class="btn" 
+        id="btn-print-requirement"> Requerimiento</a>
       </div>
     </div>
 

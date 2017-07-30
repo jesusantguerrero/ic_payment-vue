@@ -460,14 +460,19 @@ function contractRows($this){
 }
 
 function makeServiceCardClickable(){
-    var serviceCard = $(".service-card");
+    var serviceCard      = $(".service-card");
+    var btnPrintContract = $('#btn-print-requirement');
+
     serviceCard.on('click',function(e){
       e.stopImmediatePropagation();
-      var $this = $(this);
-      var payment = $this.attr('data-payment');
+      var $this       = $(this);
+      var service_id  = $this.attr('data-id'); 
+      var payment     = $this.attr('data-payment');
+      var realLink    = btnPrintContract.attr('data-href')
+      
       serviceCard.removeClass('selected');
       $this.addClass('selected');
-      
+      btnPrintContract.attr("href",realLink + "/" + service_id);
       $('#contract-client-payment').val(payment)
     })
 }

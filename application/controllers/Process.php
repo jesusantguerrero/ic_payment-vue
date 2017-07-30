@@ -380,9 +380,10 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
 	// just one
-	public function getrequirement($client_id){
+	public function getrequirement($client_id,$service_id){
 		authenticate();
-		$requirement_info['cliente'] = $this->client_model->get_client($client_id);
+		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
+		$requirement_info['servicio'] = $this->service_model->get_service($service_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimiento'));
 	}
