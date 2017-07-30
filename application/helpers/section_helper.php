@@ -20,14 +20,14 @@ function make_section_dropdown($data){
 
 function create_ips($section_id,$data){
     $ci =& get_instance();
-    
+
     for ($i=2; $i <= 250; $i++) {
       $row = array(
-      'id_ip'        => null,
-      'id_seccion'   => $section_id,
-      'codigo_final' => $i
-    );
-    $ci->section_model->add_ip($row);
+        'id_ip'        => null,
+        'id_seccion'   => $section_id,
+        'codigo_final' => $i
+        );
+        $ci->section_model->add_ip($row);
     }
     echo MESSAGE_SUCCESS." seccion guardada con exito";
 }

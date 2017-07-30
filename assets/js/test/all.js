@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost/ic/';
+var BASE_URL = 'http://localhost.com/';
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
@@ -18,6 +18,7 @@ var SUMMER_SKY = '#1FA1D0'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
+  if(!loading) loading = lineLoad
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         
@@ -107,10 +108,12 @@ function displayAlert(title,message,type){
  */
 function fillCurrentTable($content,callback,tableID){
   var $table
+  $("html").removeClass("gr__icpayment-soft_com")
   if(tableID != undefined){
     $table = $('#'+tableID + " tbody");
   }else{
-    $table = $("[class*='t-'] tbody");
+    $table = $('[class*="t-"] tbody');
+    console.log("sin id en la tabla");
   }
   $table.html($content);
   if(callback) callback();
@@ -415,6 +418,7 @@ function makeRowsClickable(){
     btnNewContract    = $("#client-new-contract");
     btnGoNewContract  = $("#go-new-contract");
 
+
     $this = $(this);
 
     if($this.hasClass('selected')){
@@ -426,39 +430,33 @@ function makeRowsClickable(){
     }else{
       $('tbody tr').removeClass('selected');
       $this.toggleClass('selected');
- 
-    id = $this.find('.id_cliente').text().trim();
-    
+      id = $this.find('.id_cliente').text().trim();
 
-    if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-    if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-    if(btnGoNewContract){
-      if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
-        btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
-      }else{
-        btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+      if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGoNewContract){
+        if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
+          btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
+        }else{
+          btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+        }
       }
-      
+      contractRows($this);
     }
-
-    contractRows($this);
-    }
-    
   });
-
 }
+
 function contractRows($this){
   var id_contrato,id_cliente;
 
   id_contrato = $this.find(".id_contrato").text().trim();
-  id_cliente = $this.find('.th-client').attr("data-id-cliente");
-  
+  id_cliente = $this.find('.th-client').attr("data-id-cliente");  
 
   $("#btn-pay-view").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
   $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
+  $("#btn-see-contract").attr('href',BASE_URL + 'process/getrequirements/' + id_contrato + '/contrato');
   //btnCancelarContrato.attr('data-id-cliente',id_cliente);
   //btnEditarContrato.attr('data-id-cliente',id_cliente);
-
 }
 
 function makeServiceCardClickable(){
@@ -529,18 +527,33 @@ function heavyLoad(stop){
     $("body").css({overflow:"hidden"});
     var message = $(".heavy-loader .message");
     setTimeout(function(){
-      message.text("Configurando Sección...")
+      message.text("Configurando...");
     },4000)
     setTimeout(function(){
-      message.text("Creando las nuevas ips...")
+      message.text("Casi Terminamos ...");
     },8000)
     setTimeout(function(){
-      message.text("Terminando el proceso ...")
+      message.text("Terminando el proceso ...");
+      removeLoader();
     },15000)
   }else{
+    removeLoader();
+  }
+
+  function removeLoader(){
     var loader = $(".heavy-loader");
     loader.remove();
-    $("body").css({overflow:"auto"})
+    $("body").css({overflow:"auto"});
+  }
+}
+
+function lineLoad(stop) {
+  if(!stop){
+     $(".loader").css({
+      display: "block"
+      });
+  }else{
+    $(".loader").css({display: "none"});
   }
 }
 // funciones de bootstrap
@@ -836,7 +849,7 @@ var Users = {
     if (!is_empty) {
       form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname;
       form += "&dni=" + dni + "&type=" + type;
-      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll)
+      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll);
     } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -849,7 +862,7 @@ var Users = {
 
   delete: function (id) {
     var form = "user_id=" + id;
-    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, getUsers);
+    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
   },
 
   confirmPassword: function(userId,currentPassword) {
@@ -1115,7 +1128,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -1124,6 +1137,11 @@ var Services = {
   getAll: function () {
     var form = "tabla=servicios";
     connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
+  },
+
+  getLastPage: function () {
+    var form = "tabla=servicios";
+    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
   },
 
   update: function () {
@@ -1212,22 +1230,24 @@ var Contracts = {
   },
 
   cancel: function() {
-    var $row = $("tr.selected");
+    var $row       = $("tr.selected");
     var contractId = $row.find(".id_contrato").text().trim();
-    var clientId = $row.find(".th-client").attr("data-id-cliente");
+    var clientId   = $row.find(".th-client").attr("data-id-cliente");
     var is_penalty = false;
-    var reason = $("#cancelation-reason").val();
-    var checked = $("#check-penalty:checked").length;
+    var reason     = $("#cancelation-reason").val();
+    var checked    = $("#check-penalty:checked").length;
     var form, fecha;
-
-    if (checked > 0) {
-      is_penalty = true;
+    if(contractId){
+      if (checked > 0) {
+        is_penalty = true;
+      }
+      fecha = moment().format("YYYY-MM-DD");
+      form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+      form += "&motivo=" + reason + "&penalidad=" + is_penalty;
+      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage);
+    }else{
+      displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }
-
-    fecha = moment().format("YYYY-MM-DD");
-    form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-    form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-    connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
   },
 
   getOne: function(id_contrato, receiver) {
@@ -1391,7 +1411,6 @@ var Payments = {
 var Damages = {
   add: function () {
     var form, idCliente, description;
-
     idCliente = $("#averias-client-id").val();
     description = $("#a-description").val();
 
@@ -1622,7 +1641,7 @@ var Sections = {
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     if (currentPage == 'notificaciones') {
-      Generals.count_table("averias");
+        Generals.count_table("averias");
 
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
@@ -2104,7 +2123,6 @@ var Session = {
 }
 
 var loginLibrary = {
-
   loading: function(stop) {
     if(!stop){
        $(".loader").css({
@@ -2113,7 +2131,6 @@ var loginLibrary = {
     }else{
       $(".loader").css({display: "none"});
     }
-   
   },
   
   sendToLogin: function(e) {

@@ -44,11 +44,13 @@ input[type="button"]
 .aside-buttons,
   height: 48px
   margin: 10px 0
+  +makeFlex(100%,row,center,center)
+
 
   a
     display: block
     +makeFlex(100%,row,flex-start,center)
-    +size(100%,100%)
+    +size(90%,100%)
     padding: 2px 20px
     color: #fff
     font:
@@ -56,13 +58,10 @@ input[type="button"]
     transition: all ease .3s
   
     &:hover
-      background: rgba(0,0,0,.1)
-      border-left: 4px solid #fff
     &:focus
       outline: none
 
 .tab-buttons
-  display: inline-block
   height: 38px
   min-width: 100px
   color: #555
@@ -82,6 +81,8 @@ input[type="button"]
 
 .material-icons
   margin-right: 15px 
+&.mi__single
+  margin-right: 0
 
 .btn-more
   border: none

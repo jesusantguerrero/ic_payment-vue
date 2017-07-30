@@ -60,7 +60,6 @@ var Session = {
 }
 
 var loginLibrary = {
-
   loading: function(stop) {
     if(!stop){
        $(".loader").css({
@@ -69,7 +68,6 @@ var loginLibrary = {
     }else{
       $(".loader").css({display: "none"});
     }
-   
   },
   
   sendToLogin: function(e) {

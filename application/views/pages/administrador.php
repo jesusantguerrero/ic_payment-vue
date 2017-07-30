@@ -124,12 +124,12 @@
         <h3> Caja Chica </h3>
         <div class="searcher-container clearfix">
         <h4 class="search-criteria">Historial de caja chica:<span class="presentado"></h4>
-          <a data-toggle="modal" data-target="#retire-money-modal" class="btn"><i class="material-icons">remove</i></a>
-          <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons">add</i></button>
           <select name="" class="form-control" id="caja-user">
             <?php $this->user_model->get_users_list(); ?>
           </select>
-          <input type="date" class="form-control caja-for-date" id="caja-date">
+          <input type="date" class="form-control caja-for-date" id="caja-date" placeholder="Fecha">
+          <a data-toggle="modal" data-target="#retire-money-modal" class="btn"><i class="material-icons mi__single">remove</i></a>
+          <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons mi__single">add</i></button>
         </div>
         <div class="table" id="caja">
         <table class="table caja innertable">

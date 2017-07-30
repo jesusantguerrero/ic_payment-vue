@@ -71,9 +71,18 @@ class Service_model extends CI_MODEL{
 
   public function get_all_services(){
     $sql = "SELECT * FROM ic_servicios order by tipo, mensualidad LIMIT 5";
+    set_last_page($sql);
     $result = $this->db->query($sql);
     $result = make_service_table($result->result_array(),0);
     echo $result;
+  }
+  
+  public function last_page(){
+    $result = $this->db->query(get_last_page());
+    if($result){
+      $result = make_service_table($result->result_array(),0);
+      echo $result;
+    }
   }
 
   public function search_services($word){

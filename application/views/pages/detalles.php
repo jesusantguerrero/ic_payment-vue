@@ -51,6 +51,7 @@
               <span class="input-group-addon" id="addon">Abono! </span>
               <input type="text" name="" id="in-abono-view" class="form-control" value="<?php echo 'RD$ '.CurrencyFormat($client_row['abonos']) ?>" disabled/>
             </div>
+            <a href="<?php echo base_url('process/get_abono_receipt/').$client_data['id_cliente'] ?>" target="_blank" class="btn abono-box__receipt">Comprobante de abono</a>
           </div>
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
@@ -155,11 +156,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $this->contract_model->get_all_of_client($client_data['id_cliente']) ?>
+                  <?php $this->contract_model->get_all_of_client($client_data['id_cliente']) ?> 
                 </tbody>
               </table>
-             
-
             </div>
 
 

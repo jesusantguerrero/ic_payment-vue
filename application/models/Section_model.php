@@ -59,13 +59,10 @@ class Section_model extends CI_MODEL{
 
 
   // funciones para las ips
-
   public function add_ip($row){
-    
      if($this->db->insert('ic_ips',$row)){
-        
       }else{
-        echo $this->db->last_query();
+        echo " Error";
       } 
   }
 

@@ -40,7 +40,7 @@ class Caja_chica_model extends CI_MODEL{
     if($this->db->insert('ic_caja_chica',$rows)){
       echo MESSAGE_SUCCESS."Trasacción Realizada con exito";
     }else{
-      echo MESSAGE_ERROR." hubo un error en la transaccion:". $this->db->last_query();
+      echo MESSAGE_ERROR." hubo un error en la transaccion:". " Error";
     }  
   }
 
@@ -57,7 +57,7 @@ class Caja_chica_model extends CI_MODEL{
     if($this->db->insert('ic_caja_chica',$rows)){
       echo MESSAGE_SUCCESS."Trasacción Realizada con exito";
     }else{
-      echo MESSAGE_ERROR." hubo un error en la transaccion:". $this->db->last_query();
+      echo MESSAGE_ERROR." hubo un error en la transaccion:". " Error";
     }
 
   }
@@ -83,7 +83,7 @@ class Caja_chica_model extends CI_MODEL{
       $result = make_caja_table($result->result_array());
       echo $result;
     }else{
-      echo $this->db->last_query();
+      echo " Error";
     }
     
   }

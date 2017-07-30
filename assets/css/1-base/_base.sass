@@ -99,7 +99,7 @@ nav
 
 .searcher-container
   +size(95%,38px)
-  margin: 0 2.5% 30px 2.5%
+  margin: 22px 2.5% 30px 2.5%
   position: relative
   display: flex
   overflow: hidden
@@ -144,10 +144,17 @@ nav
 .busquedas,.table,
 .table-container,
 .subsection-title
+<<<<<<< HEAD
    +size(95%,90px)
    margin: 30px 2.5% 0 2.5%
    padding-top: 5px
 
+=======
+   +size(95%,38px)
+   margin: 20px 2.5% 0 2.5%
+   small
+    color: $contrast-color
+>>>>>>> production
    
    &.t-users
     width: 100%
@@ -184,11 +191,13 @@ select
 
   .searcher-container
     margin: 0 0 20px 0
-
+.brand__menu
+    display: none
 
 form
   margin-top: 20px
 .subsection-title
+<<<<<<< HEAD
   margin-bottom: 20px
   margin-top: -10px
   display: none
@@ -197,6 +206,11 @@ form
 
   small
    color: $primary-color
+=======
+  margin-bottom: 30px
+  margin-top: -10px
+  display: none
+>>>>>>> production
 
 @media (max-width: 768px)
   header
@@ -204,4 +218,20 @@ form
     height: 60px
 
   .user-div
+<<<<<<< HEAD
     padding-right: 0
+=======
+    padding-right: 0
+  
+  .top-nav
+    display: none
+
+  .brand
+    justify-content: flex-start
+
+  .brand__company-logo
+    +size(90%,90%)
+  
+  .brand__menu
+    display: inline
+>>>>>>> production

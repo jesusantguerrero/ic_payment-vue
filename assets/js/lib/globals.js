@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost/ic/';
+var BASE_URL = 'http://localhost.com/';
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
@@ -18,6 +18,7 @@ var SUMMER_SKY = '#1FA1D0'
  */
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
+  if(!loading) loading = lineLoad
   var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
     connect.onreadystatechange = function() {
         
@@ -107,10 +108,12 @@ function displayAlert(title,message,type){
  */
 function fillCurrentTable($content,callback,tableID){
   var $table
+  $("html").removeClass("gr__icpayment-soft_com")
   if(tableID != undefined){
     $table = $('#'+tableID + " tbody");
   }else{
-    $table = $("[class*='t-'] tbody");
+    $table = $('[class*="t-"] tbody');
+    console.log("sin id en la tabla");
   }
   $table.html($content);
   if(callback) callback();
@@ -415,6 +418,7 @@ function makeRowsClickable(){
     btnNewContract    = $("#client-new-contract");
     btnGoNewContract  = $("#go-new-contract");
 
+
     $this = $(this);
 
     if($this.hasClass('selected')){
@@ -426,39 +430,33 @@ function makeRowsClickable(){
     }else{
       $('tbody tr').removeClass('selected');
       $this.toggleClass('selected');
- 
-    id = $this.find('.id_cliente').text().trim();
-    
+      id = $this.find('.id_cliente').text().trim();
 
-    if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-    if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-    if(btnGoNewContract){
-      if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
-        btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
-      }else{
-        btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
+      if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+      if(btnGoNewContract){
+        if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
+          btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
+        }else{
+          btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
+        }
       }
-      
+      contractRows($this);
     }
-
-    contractRows($this);
-    }
-    
   });
-
 }
+
 function contractRows($this){
   var id_contrato,id_cliente;
 
   id_contrato = $this.find(".id_contrato").text().trim();
-  id_cliente = $this.find('.th-client').attr("data-id-cliente");
-  
+  id_cliente = $this.find('.th-client').attr("data-id-cliente");  
 
   $("#btn-pay-view").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
   $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
+  $("#btn-see-contract").attr('href',BASE_URL + 'process/getrequirements/' + id_contrato + '/contrato');
   //btnCancelarContrato.attr('data-id-cliente',id_cliente);
   //btnEditarContrato.attr('data-id-cliente',id_cliente);
-
 }
 
 function makeServiceCardClickable(){
@@ -529,17 +527,32 @@ function heavyLoad(stop){
     $("body").css({overflow:"hidden"});
     var message = $(".heavy-loader .message");
     setTimeout(function(){
-      message.text("Configurando Sección...")
+      message.text("Configurando...");
     },4000)
     setTimeout(function(){
-      message.text("Creando las nuevas ips...")
+      message.text("Casi Terminamos ...");
     },8000)
     setTimeout(function(){
-      message.text("Terminando el proceso ...")
+      message.text("Terminando el proceso ...");
+      removeLoader();
     },15000)
   }else{
+    removeLoader();
+  }
+
+  function removeLoader(){
     var loader = $(".heavy-loader");
     loader.remove();
-    $("body").css({overflow:"auto"})
+    $("body").css({overflow:"auto"});
+  }
+}
+
+function lineLoad(stop) {
+  if(!stop){
+     $(".loader").css({
+      display: "block"
+      });
+  }else{
+    $(".loader").css({display: "none"});
   }
 }

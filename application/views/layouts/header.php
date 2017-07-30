@@ -16,17 +16,22 @@
 
 
 </head>
-
 <body>
     <div class="loader">
         <span class="load"></span>
     </div>
     <header>
+    
         <?php $user_data = get_user_data(); 
           $notifications = $this->report_model->count_moras_view();
         ?>
+
         <div class="header-low">
+             
             <div class="brand">
+                <a href="">
+                        <i class="material-icons brand__menu">menu</i>
+                    </a>
                 <a href="<?php echo base_url() ?>">
                     <h3>IC<span>Payment</span></h3>
                 </a>
@@ -57,7 +62,7 @@
                         <i class="material-icons">add_shopping_cart</i>
                     </a></li>
                     <li class="navButton">
-                        <a href="" data-target="#new-averia-modal" data-toggle="modal" data-placement="bottom" title="Reportes">
+                        <a href="" data-target="#new-averia-modal" data-toggle="modal" data-placement="bottom" title="Averias">
                         <i class="material-icons">assignment</i>
                     </a></li>
 

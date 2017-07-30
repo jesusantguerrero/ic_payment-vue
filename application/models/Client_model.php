@@ -63,7 +63,7 @@ class Client_model extends CI_MODEL{
       if($this->db->insert('ic_clientes',$this->cols)){
         echo MESSAGE_SUCCESS." Ciente Agregado con exito";
       }else{
-       echo MESSAGE_ERROR."No pudo guardarse el cliente ". $this->db->last_query();
+       echo MESSAGE_ERROR."No pudo guardarse el cliente ". " Error";
       } 
     }  
   }
@@ -87,6 +87,7 @@ class Client_model extends CI_MODEL{
 
     if($this->db->update('ic_clientes',$rows)){
       if($data['modo'] == 1){
+
         echo MESSAGE_INFO." Monto de abono visto";
       }else{
         echo MESSAGE_SUCCESS." Observación Agregada";
@@ -103,7 +104,7 @@ class Client_model extends CI_MODEL{
     if($result = $this->db->get('ic_clientes')){
       return $result->row_array();
     }else{
-      return $this->db->last_query();
+      return " Error";
     }
     
   }

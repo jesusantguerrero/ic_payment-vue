@@ -32,7 +32,7 @@ var Users = {
     if (!is_empty) {
       form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname;
       form += "&dni=" + dni + "&type=" + type;
-      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll)
+      connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll);
     } else {
        displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -45,7 +45,7 @@ var Users = {
 
   delete: function (id) {
     var form = "user_id=" + id;
-    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, getUsers);
+    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
   },
 
   confirmPassword: function(userId,currentPassword) {
@@ -311,7 +311,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -320,6 +320,11 @@ var Services = {
   getAll: function () {
     var form = "tabla=servicios";
     connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
+  },
+
+  getLastPage: function () {
+    var form = "tabla=servicios";
+    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
   },
 
   update: function () {
@@ -408,22 +413,24 @@ var Contracts = {
   },
 
   cancel: function() {
-    var $row = $("tr.selected");
+    var $row       = $("tr.selected");
     var contractId = $row.find(".id_contrato").text().trim();
-    var clientId = $row.find(".th-client").attr("data-id-cliente");
+    var clientId   = $row.find(".th-client").attr("data-id-cliente");
     var is_penalty = false;
-    var reason = $("#cancelation-reason").val();
-    var checked = $("#check-penalty:checked").length;
+    var reason     = $("#cancelation-reason").val();
+    var checked    = $("#check-penalty:checked").length;
     var form, fecha;
-
-    if (checked > 0) {
-      is_penalty = true;
+    if(contractId){
+      if (checked > 0) {
+        is_penalty = true;
+      }
+      fecha = moment().format("YYYY-MM-DD");
+      form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+      form += "&motivo=" + reason + "&penalidad=" + is_penalty;
+      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage);
+    }else{
+      displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }
-
-    fecha = moment().format("YYYY-MM-DD");
-    form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
-    form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-    connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage)
   },
 
   getOne: function(id_contrato, receiver) {
@@ -587,7 +594,6 @@ var Payments = {
 var Damages = {
   add: function () {
     var form, idCliente, description;
-
     idCliente = $("#averias-client-id").val();
     description = $("#a-description").val();
 

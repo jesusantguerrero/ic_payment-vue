@@ -51,7 +51,7 @@ class Settings_model extends CI_MODEL{
     if($result){
       echo MESSAGE_SUCCESS."Actualizado con exito";
     }else{
-      return MESSAGE_ERROR." error". $this->db->last_query();
+      return MESSAGE_ERROR." error". " Error";
     }  
   }
 

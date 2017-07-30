@@ -1,5 +1,5 @@
 .left-navigation
-  padding: 50px 0
+  padding: 20px 0
   box-shadow: 2px 0px 4px rgba(0,0,0,.4)
   height: 120vh
   background: $special-color
@@ -15,6 +15,24 @@
       border-bottom: 1px solid #fff
       width: 90%
       text-align: center
+
+  .company-logo
+    width: 90px
+
+  &__header
+    +makeFlex(100%,column,center,center)
+
+    &-text
+      color: $contrast-color
+      border-bottom: 2px solid $contrast-color
+      width: 90%
+      padding-bottom: 15px
+      text-align: center
+    &.dark
+      .left-navigation__header-text
+        color: #fff
+        border-color: #fff
+
 
 .main-content
   padding: 50px 0
@@ -197,4 +215,6 @@
 
 @media (max-width: 768px)
   .mymenu .dropdown-menu
-    left: -150px
+    left: -90px
+    top: 50px
+    width: 100px

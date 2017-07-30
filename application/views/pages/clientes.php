@@ -1,6 +1,8 @@
 <div class="screen clients row">
   <div class="left-navigation col-md-2">
-    <?php echo $left_navigation_header ?>
+    <div class="left-navigation__header">
+       <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+    </div>
     <ul class="aside-nav">
       <li class="aside-buttons">
         <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Nuevo Cliente</a>
