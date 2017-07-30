@@ -75,11 +75,21 @@
                 <input type="number" class="form-control" id="contract-client-months" tabindex="1" value="<?php echo $settings['meses_por_defecto'] ?>">
               </div>
             </div>
-            <div class="col-md-6 without">
+            <div class="row">
+            <div class="col-md-6">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Fecha</span>
                 <input type="date" class="form-control" id="contract-client-date" tabindex="2">
               </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group hide">
+                <span class="input-group-addon" id="basic-addon1">Pagar Hasta</span>
+                <select class="form-control" id="select-pay-until">
+                  <option value="">--seleccione mes-</option>
+                </select>
+              </div>
+            </div>
             </div>
           </div>
 

@@ -201,6 +201,13 @@ function fillClientFields(response,callback){
   }
 }
 
+function makePaymentList(response,callback){
+  var selectPayUntil = $('#select-pay-until');
+  selectPayUntil.html(response);
+  selectPayUntil.parent().removeClass('hide');
+  if(callback)callback();
+}
+
 
 /**
  * isEmpty
@@ -488,7 +495,7 @@ function verifyPaymentStatus(){
     if(text == "no pagado"){
       $this.css({color:"rgba(200,0,0,.7)"})
     }else if(text == "pagado"){
-      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#555"});
     }
   });
 }
@@ -500,7 +507,7 @@ function verifyContractStatus(){
     if(text == "activo"){
       $this.css({color:"green"})
     }else if(text == "saldado"){
-      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#555"});
     }
   });
 }
@@ -1218,6 +1225,9 @@ var Contracts = {
   getLast: function(id) {
     $("#btn-save-contract").attr("disabled", "");
     $("#btn-print-contract").removeAttr("disabled");
+    var form = "tabla=pagos&id_contrato=" + id;
+    connectAndSend("process/getlist", false, initContractHandlers, makePaymentList, form, null);
+
   },
 
   callExtra: function() {
@@ -1398,18 +1408,24 @@ var Payments = {
     connectAndSend('process/lastpage', false, initPaymentsHandlers, fillCurrentTable, form, null);
   },
 
-
   update: function (id) {
     var abono = $("#input-abono").val();
     if (abono == 0) {
       var date = moment().format("YYYY-MM-DD");
       var id_contrato = $("#select-contract").val();
       var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
-      var handlers, callback;
       connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getLastPage);
     } else {
       displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
     }
+  },
+
+  updateUntil: function(contractId,lastPaymentId){
+    var id_contrato = $("#select-contract").val();
+    var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
+    var handlers, callback;
+    connectAndSend('process/update', true, null, null, form, null, heavyLoad);
+
   }
 }
 
@@ -1910,11 +1926,13 @@ var Sections = {
       Services.update();
     });
 
-     $("#service-searcher").on('keyup', function (e) {
+    $("#service-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
       Generals.search(text, "servicios", fillCurrentTable,initServicesHandlers);
     });
+
+
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
@@ -1963,6 +1981,7 @@ var Sections = {
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
+
       }
 
     });
@@ -1981,6 +2000,15 @@ var Sections = {
       e.stopImmediatePropagation();
       Contracts.getIpList();
     })
+
+    $('#select-pay-until').on('change', function(e){
+      e.stopImmediatePropagation();
+      var $this         = $('#select-pay-until :selected');
+      var contractId    = $this.attr('data-contract');
+      var lastPaymentId = $(this).val();
+      Payments.updateUntil(contractId,lastPaymentId);
+
+    });
 
   }
 

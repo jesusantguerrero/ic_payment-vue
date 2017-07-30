@@ -201,6 +201,13 @@ function fillClientFields(response,callback){
   }
 }
 
+function makePaymentList(response,callback){
+  var selectPayUntil = $('#select-pay-until');
+  selectPayUntil.html(response);
+  selectPayUntil.parent().removeClass('hide');
+  if(callback)callback();
+}
+
 
 /**
  * isEmpty
@@ -488,7 +495,7 @@ function verifyPaymentStatus(){
     if(text == "no pagado"){
       $this.css({color:"rgba(200,0,0,.7)"})
     }else if(text == "pagado"){
-      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#555"});
     }
   });
 }
@@ -500,7 +507,7 @@ function verifyContractStatus(){
     if(text == "activo"){
       $this.css({color:"green"})
     }else if(text == "saldado"){
-      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#999"});
+      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#555"});
     }
   });
 }

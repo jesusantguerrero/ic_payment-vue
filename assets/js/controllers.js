@@ -396,6 +396,9 @@ var Contracts = {
   getLast: function(id) {
     $("#btn-save-contract").attr("disabled", "");
     $("#btn-print-contract").removeAttr("disabled");
+    var form = "tabla=pagos&id_contrato=" + id;
+    connectAndSend("process/getlist", false, initContractHandlers, makePaymentList, form, null);
+
   },
 
   callExtra: function() {
@@ -576,18 +579,24 @@ var Payments = {
     connectAndSend('process/lastpage', false, initPaymentsHandlers, fillCurrentTable, form, null);
   },
 
-
   update: function (id) {
     var abono = $("#input-abono").val();
     if (abono == 0) {
       var date = moment().format("YYYY-MM-DD");
       var id_contrato = $("#select-contract").val();
       var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
-      var handlers, callback;
       connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getLastPage);
     } else {
       displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
     }
+  },
+
+  updateUntil: function(contractId,lastPaymentId){
+    var id_contrato = $("#select-contract").val();
+    var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
+    var handlers, callback;
+    connectAndSend('process/update', true, null, null, form, null, heavyLoad);
+
   }
 }
 

@@ -74,7 +74,6 @@ class Contract_model extends CI_MODEL{
          echo MESSAGE_SUCCESS." Nuevo contrato agregado con exito";
          return true;
       }else{
-        
         echo MESSAGE_ERROR."No pudo guardarse el contrato ";
         echo " Error";
         return false;
@@ -82,7 +81,6 @@ class Contract_model extends CI_MODEL{
   }
 
   public function update($data_for_update,$contract_id,$echo = false){
-   
     $this->db->where('id_contrato',$contract_id);
     if($this->db->update('ic_contratos',$data_for_update)):
       if($echo) echo MESSAGE_SUCCESS." Contrato Actualizado";
@@ -101,11 +99,23 @@ class Contract_model extends CI_MODEL{
     $this->update(array('monto_total' => $amount),$contract_id);
   }
 
-  public function get_last_id($id_cliente){
-    $sql = "SELECT id_contrato FROM ic_contratos where id_cliente =$id_cliente ORDER BY id_contrato DESC LIMIT 1";
-    $result = $this->db->query($sql); 
-    return $result->row_array()['id_contrato'];
+  public function get_last_id(){
+    $this->db->select('id_contrato');
+    $this->db->order_by('id_contrato',"DESC");
+    if($result = $this->db->get('ic_contratos',1)){
+      return $result->row_array()['id_contrato'];
+    }
   }
+
+   public function get_last_id_of($client_id){
+    $this->db->select('id_contrato');
+    $this->db->where('id_cliente',$client_id);
+    $this->db->order_by('id_contrato',"DESC");
+    if($result = $this->db->get('ic_contratos',1)){
+      return $result->row_array()['id_contrato'];
+    }
+  }
+
 
   public function get_all_of_client($id){
     $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id LIMIT 5";
@@ -160,7 +170,6 @@ class Contract_model extends CI_MODEL{
 
     $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
     $sql4 = "UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
-
 
     $this->db->trans_start();
     $this->db->query($sql1);
