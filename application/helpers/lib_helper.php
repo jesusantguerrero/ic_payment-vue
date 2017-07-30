@@ -299,6 +299,18 @@ function make_users_list($data){
     return $html_text;
 }
 
+function make_payment_list($data){
+    $months = $GLOBALS['spanish_months'];
+    $html_text = " ";
+    $count = 1;
+    foreach ($data as $line) {
+      $html_text .= "<option value='".$line['id_pago']."' data-contract='".$line['id_contrato']."' data-count='".$count."'>";
+      $html_text .= $months[$line['mes']]."-".$line['anio']."</option>";
+      $count++;
+    }
+    return $html_text;
+}
+
 function make_next_payments_list($data){
   $html_text = " ";
   $link;

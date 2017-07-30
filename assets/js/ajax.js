@@ -309,11 +309,13 @@
       Services.update();
     });
 
-     $("#service-searcher").on('keyup', function (e) {
+    $("#service-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
       Generals.search(text, "servicios", fillCurrentTable,initServicesHandlers);
     });
+
+
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
@@ -362,6 +364,7 @@
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
+
       }
 
     });
@@ -380,6 +383,15 @@
       e.stopImmediatePropagation();
       Contracts.getIpList();
     })
+
+    $('#select-pay-until').on('change', function(e){
+      e.stopImmediatePropagation();
+      var $this         = $('#select-pay-until :selected');
+      var contractId    = $this.attr('data-contract');
+      var lastPaymentId = $(this).val();
+      Payments.updateUntil(contractId,lastPaymentId);
+
+    });
 
   }
 

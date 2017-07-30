@@ -64,6 +64,7 @@ if ( ! function_exists('create_payments')){
 }
 
 if (! function_exists('refresh_contract')){
+
   /**
   * Actualiza los pagos de un contrato automaticamente
   * @param array $data the result of an select in a query 
@@ -73,10 +74,10 @@ if (! function_exists('refresh_contract')){
 
   function refresh_contract($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
-    $dateYMD = null;
+    $dateYMD   = null;
 
-    $contract = $context->contract_model->get_contract_view($contract_id);
-    $payment = $context->payment_model->get_payment($data_pago['id']);
+    $contract  = $context->contract_model->get_contract_view($contract_id);
+    $payment   = $context->payment_model->get_payment($data_pago['id']);
     $monto_pagado = $contract['monto_pagado'] + $payment['cuota'];
 
     if($monto_pagado == $contract['monto_total']){
@@ -90,10 +91,92 @@ if (! function_exists('refresh_contract')){
       'ultimo_pago'   => $data_pago['fecha_pago'],
       'estado'        => $estado
     );
+
     $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
   }
 }
 
+if (! function_exists('payments_up_to_date')){
+
+  function payments_up_to_date($data){
+    $context      =& get_instance();
+    $contract_id  = $data['id_contrato'];
+    $contract     = $context->contract_model->get_contract_view($contract_id);
+    $payments     = $context->payment_model->get_payments_of_contract($contract_id);
+    $new_payment;
+    $last_date;
+    $state;
+    $count = 0;
+
+    clear_payments($data);
+
+    $id_empleado = $_SESSION['user_data']['user_id'];
+    foreach ($payments as $payment) {
+      if($payment['id_pago'] > $data['id_ultimo_pago'])break;
+      $last_date = $payment['fecha_limite'];
+      $new_payment = array(
+        'id_empleado'   => $id_empleado,
+        'estado'        => 'pagado',
+        'fecha_pago'    => $last_date,
+        'complete_date' => date('Y-m-d H:i:s')
+      );
+      $context->payment_model->update($new_payment,$payment['id_pago']);
+      $count++; 
+    }
+
+    $monto_pagado = $contract['monto_pagado'] + ($payment['total'] * $count);
+    if($monto_pagado == $contract['monto_total']){
+      $state = "saldado";
+    }else{
+      $state = "activo";
+    }
+
+    $data_contract = array(
+      'monto_pagado'  => $monto_pagado,
+      'ultimo_pago'   => $last_date,
+      'estado'        => $state
+    );
+    $context->contract_model->update($data_contract,$contract_id,false); 
+  }
+}
+
+if (! function_exists('clear_payments')){
+
+  function clear_payments($data){
+    $context      =& get_instance();
+    $contract_id  = $data['id_contrato'];
+    $contract     = $context->contract_model->get_contract_view($contract_id);
+    $payments     = $context->payment_model->get_payments_of_contract($contract_id);
+    $new_payment;
+    $state;
+
+    $id_empleado = $_SESSION['user_data']['user_id'];
+    foreach ($payments as $payment) {
+      $new_payment = array(
+        'id_empleado'   => null,
+        'estado'        => 'no pagado',
+        'fecha_pago'    => null,
+        'complete_date' => null
+      );
+      $context->payment_model->update($new_payment,$payment['id_pago']);
+    }
+
+    $monto_pagado = 0.00;
+    if($monto_pagado == $contract['monto_total']){
+      $state = "saldado";
+    }else{
+      $state = "activo";
+    }
+
+    $data_contract = array(
+      'monto_pagado'  => 0.00,
+      'ultimo_pago'   => null,
+      'estado'        => $state
+    );
+    echo $monto_pagado." ID:".$contract_id;
+    $context->contract_model->update($data_contract,$contract_id,true); 
+  }
+}
 if (! function_exists('upgrade_contract')){
   /**
   * Actualiza los pagos de un contrato automaticamente
@@ -172,6 +255,7 @@ if (! function_exists('update_contract_from_service')){
      echo " ".$count." de ".$contratos_a_cambiar." contratos actualizados";
   }
 }
+
 /**
 * Update_moras and Prepare_moras
 * update_moras se informa de la ultima vez que corrió la función (ella misma), si fue hoy no hace nada, pero si ha pasado un dia

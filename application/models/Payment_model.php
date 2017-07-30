@@ -83,6 +83,11 @@ class Payment_model extends CI_MODEL{
       return 0;
     }
   }
+
+  public function update($new_payment,$id_pago){
+    $where = array('id_pago' => $id_pago);
+    $this->db->update('ic_pagos',$new_payment,$where);
+  }
   
 
   public function count_unpaid_per_contract($id_contrato){
@@ -130,8 +135,26 @@ class Payment_model extends CI_MODEL{
       $result = make_payment_table($result->result_array(),0);
       echo $result;
     }
+  } 
+
+  public function get_payments_of_contract($id){
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
+    $result = $this->db->query($sql);
+    if($result){
+      $result = $result->result_array();
+      return $result;
+    }
+  }   
+
+  public function list_all_of_contract($id_contrato){
+    $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
+    $this->db->where('id_contrato',$id_contrato);
+    if($result = $this->db->get("ic_pagos")){
+      $result = make_payment_list($result->result_array());
+      echo $result;
+    }
     
-  }  
+  }
 
   public function get_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);

@@ -1,8 +1,9 @@
 <?php 
   if(isset($_SESSION['requirement_info'])):
     $info = $_SESSION['requirement_info'];
-    $cliente = $info['cliente'];
+    $cliente  = $info['cliente'];
     $contrato = $info['contrato'];
+    $servicio = $info['servicio'];
     $user_data = get_user_data();
     $settings = $this->settings_model->get_settings();
     $company = $this->company_model->get_empresa();
@@ -21,7 +22,7 @@
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>
       <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
-      <p></p>
+      <p class="company-numbers"></p>
     </div>
     <div class="left-box">
       <p><b class="">Contrato No.: <?php echo $contrato['id_contrato'] ?></b></p>
@@ -160,7 +161,7 @@
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>
       <p class="company-direction"> Edificio Moana 2do Nivel. C/ Maria Teresa eq. Avenida Santa Rosa.</p>
-      <p></p>
+      <p class="company-numbers"></p>
     </div>
     <div class="left-box">
       <h4 class="fecha-reporte">Fecha: </h4>
@@ -273,7 +274,7 @@
   $('input.casa').val("<?php echo $cliente['casa']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.servicio').val("<?php echo $contrato['servicio']?>");
-  $('input.velocidad').val("<?php echo $contrato['descripcion']?>");
+  $('input.velocidad').val("<?php echo $servicio['descripcion']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.equipo').val("<?php echo $contrato['nombre_equipo']?>");
   $('input.codigo').val("<?php echo $contrato['codigo']?>");
@@ -282,10 +283,10 @@
   $('input.router').val("<?php echo $contrato['router']?>");
   $('input.mac_router').val("<?php echo $contrato['mac_router']?>");
   $(".line-input").attr('readonly', 'readonly');
-
   $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
   $(".company-statement").text("<?php echo $company['descripcion'] ?>");
   $(".company-direction").text("<?php echo $company['direccion'] ?>");
+  $(".company-numbers").text("<?php echo "Tel.: ".$company['telefono1']." ".$company["telefonos"]?>");
   print();
 </script>
 <?php 

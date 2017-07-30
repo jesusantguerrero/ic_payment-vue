@@ -59,7 +59,7 @@ class Process extends CI_Controller {
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
 					$this->client_model->is_active(true,$data);
-				 	$contract_id = $this->contract_model->get_last_Id($data['id_cliente']);
+				 	$contract_id = $this->contract_model->get_last_id();
 				 	create_payments($contract_id,$data,$this);
 					$this->section_model->update_ip_state($data['codigo'],'ocupado');
 					$this->contract_model->update_amount($contract_id);
@@ -103,6 +103,16 @@ class Process extends CI_Controller {
 				if($was_correct){
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
+				}
+				break;
+			case "pagos_al_dia":
+				$this->db->trans_start();
+				payments_up_to_date($data);
+				$this->db->trans_complete();
+				if($this->db->trans_status() === false){
+					echo MESSAGE_ERROR." error en el status";
+				}else{
+					echo " Proceso Completo";
 				}
 				break;
 			case "empresa":
@@ -190,6 +200,14 @@ class Process extends CI_Controller {
 		}
 	}
 
+	public function getlist(){
+		authenticate();
+		$tabla = $_POST['tabla'];
+		if($tabla == "pagos"){
+				$id_contrato = $this->contract_model->get_last_id();
+				$this->payment_model->list_all_of_contract($id_contrato);
+		}
+	}
 	public function lastpage(){
 		authenticate();
 		$tabla = $_POST['tabla'];
@@ -369,14 +387,15 @@ class Process extends CI_Controller {
 
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
+		$requirement_info['cliente'] = $this->client_model->get_client($id);
 		if($type = "cliente"){
-			$requirement_info['cliente'] = $this->client_model->get_client($id);
-			$contract_id = $this->contract_model->get_last_id($id);
+			$contract_id = $this->contract_model->get_last_id_of($id);
 		}else{
 			$contract_id = $id;
 		}
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
-		$this->session->set_flashdata('requirement_info', $requirement_info);
+		$requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
+		$this->session->set_flashdata('requirement_info',$requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
 	// just one
