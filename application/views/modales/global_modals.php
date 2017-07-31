@@ -18,7 +18,7 @@
             <div class="col-md-12">
             <input type="text" class="form-control hidden" id="averias-client-id">
             <div class="form-group">
-                <label for="user-nickname">Cedula</label>
+                <label for="user-nickname">Cedula(sin guiones)</label>
                 <input type="text" class="form-control" id="a-client-dni">
               </div>
               <div class="form-group">

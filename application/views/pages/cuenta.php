@@ -53,7 +53,7 @@
                 <input type="text" class="form-control" id="company-description" value="<?php echo $user_data['typestr']?>" disabled>
               </div>
               <div class="form-group">
-                <label for="company-name">Cedula</label>
+                <label for="company-name">Cedula(sin guiones)</label>
                 <input type="text" class="form-control" id="company-phone2" value="<?php echo $user_data['dni'] ?>" disabled>
               </div>
               <div class="right">

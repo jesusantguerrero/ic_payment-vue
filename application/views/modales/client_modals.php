@@ -26,7 +26,7 @@
                       <input type="text" class="form-control" id="client-name" tabindex="1">
                     </div>
                     <div class="form-group">
-                      <label for="client-dni">Cedula</label>
+                      <label for="client-dni">Cedula(sin guiones)</label>
                       <input type="text" class="form-control" id="client-dni" tabindex="3">
                     </div>
                     <div class="form-group">
@@ -169,7 +169,7 @@
                       <input type="text" class="form-control" id="u-client-name" tabindex="1">
                     </div>
                     <div class="form-group">
-                      <label for="u-client-dni">Cedula</label>
+                      <label for="u-client-dni">Cedula(sin guiones)</label>
                       <input type="text" class="form-control" id="u-client-dni" tabindex="3">
                     </div>
                     <div class="form-group">
