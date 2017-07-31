@@ -277,7 +277,7 @@ function make_contract_dropdown($data){
     $html_text = " "; 
     foreach ($data as $line) {
         $html_text .= "<option value='".$line['id_contrato']."'>";
-        $html_text .= $line['id_contrato']." ".$line['fecha']."</option>";
+        $html_text .= $line['id_contrato']."</option>";
     }
     return $html_text;
 }

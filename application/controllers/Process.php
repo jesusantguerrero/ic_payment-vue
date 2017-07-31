@@ -380,7 +380,8 @@ class Process extends CI_Controller {
 
 	public function get_abono_receipt($id_cliente){
 		authenticate();
-		$recibo_info = $this->client_model->get_client($id_cliente);
+		$recibo_info['recibo'] 	= $this->client_model->get_client($id_cliente);
+		$recibo_info['pago'] 		= $this->payment_model->get_next_payment_of($recibo_info['recibo']["contrato_abono"]);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
 		redirect(base_url('app/imprimir/recibo_abono'));
 	}
@@ -398,7 +399,7 @@ class Process extends CI_Controller {
 		$this->session->set_flashdata('requirement_info',$requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
-	// just one
+	
 	public function getrequirement($client_id,$service_id){
 		authenticate();
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
@@ -432,7 +433,9 @@ class Process extends CI_Controller {
 			case 'averias':
 					$this->report_model->get_averias_report();
 				break;
-			
+			case 'abonos':
+					$this->report_model->get_abonos_report();
+				break;
 			default:
 				# code...
 				break;

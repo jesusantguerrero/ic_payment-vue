@@ -22,8 +22,8 @@ class App extends CI_Controller {
 		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
 		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
 		// $result = $this->db->query("
-		// 	truncate ic_cancelaciones
-		// 	"
+		// 	alter table ic_clientes add contrato_abono int(11);
+		//  	"
 		// );
 
 	// $result = $this->db->query("select * from ic_ips")->result_array();

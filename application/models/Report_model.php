@@ -49,6 +49,26 @@ class Report_model extends CI_MODEL{
     endif;
   }
 
+  public function get_total_abonos(){
+    $sql = "select SUM(abonos) as all_abonos from ic_clientes where abonos > 0";
+    if($result = $this->db->query($sql)){
+      $result = $result->row_array()['all_abonos'];
+      return $result;
+    }else{
+      echo 0;
+    }
+  }
+
+    public function get_abonos_report($is_print = true){
+    $sql = "SELECT * from ic_clientes where abonos > 0";
+    if($result = $this->db->query($sql)){
+      $result = $result->result_array();
+      make_abonos_report($result,"Reporte de Abonos",$this,$is_print);
+    }else{
+      echo " Error";
+    }
+  }
+
   public function get_installations($is_print = true){
     $this->db->where('estado_instalacion','por instalar');
     $result = $this->db->get('v_instalaciones');

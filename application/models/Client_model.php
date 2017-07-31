@@ -50,6 +50,7 @@ class Client_model extends CI_MODEL{
     $this->cols['estado']          = $data['estado'];
     $this->cols['observaciones']   = '';
     $this->cols['abonos']          = 0;
+    $this->cols['contrato_abono']  = 0;
   }
 
   public function add($data){
@@ -82,7 +83,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_observations($data){
-    $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos']);
+    $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos'], 'contrato_abono' => $data['contrato_abono']);
     $this->db->where('id_cliente',$data['id_cliente']);
 
     if($this->db->update('ic_clientes',$rows)){
