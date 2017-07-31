@@ -121,12 +121,7 @@ var Clients = {
 
   getAll: function () {
     var form = "tabla=clientes";
-    connectAndSend('process/getall', false, initClientHandlers, fillCurrentTable, form, null);
-  },
-
-  getLastPage: function () {
-    var form = "tabla=clientes";
-    connectAndSend('process/lastpage', false, initClientHandlers, fillCurrentTable, form, null);
+    connectAndSend('process/getall', false, initClientHandlers, clientTable.refresh, form, null);
   },
 
   /**
@@ -187,7 +182,7 @@ var Clients = {
         form += "&ingresos=" + $ingresos.val();
         form += $telTrabajo.val() + "&tabla=clientes";
 
-        connectAndSend("process/update", true, initClientHandlers, null, form, Clients.getLastPage);
+        connectAndSend("process/update", true, initClientHandlers, null, form, Clients.getAll);
 
       } else {
         displayAlert("Revise", "LLene todos los campos por favor", "error");

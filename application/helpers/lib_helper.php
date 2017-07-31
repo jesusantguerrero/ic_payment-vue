@@ -80,6 +80,7 @@ if ( ! function_exists('make_client_table')){
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$cont."</td>
+        <td class='hide'></td>
         <td class='id_cliente'>".$line['id_cliente']."</td>
         <td>".$line['nombres']."</td>
         <td>".$line['apellidos']."</td>

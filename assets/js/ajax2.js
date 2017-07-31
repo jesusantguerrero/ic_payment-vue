@@ -1,6 +1,5 @@
 var ran = false;
 
-
 function loginHandlers() {
 
   $("#send-credentials").on('click', function (e) {

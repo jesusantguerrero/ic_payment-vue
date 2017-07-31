@@ -204,8 +204,6 @@ function notificationFunctions(){
 $("#select-extra-service").on('change',function(){
   var $this = $(("#select-extra-service :selected"));
   var cost = $this.attr("data-payment");
-  console.log($this);
-  console.log(cost);
   
   $("#extra-service-cost").val(cost)
 });

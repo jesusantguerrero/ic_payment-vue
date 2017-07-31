@@ -132,14 +132,10 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_all_clients(){
-    $sql = "SELECT * FROM ic_clientes order by apellidos";
-    set_last_query($sql);
-    $sql .= " LIMIT 5";
-    set_last_page($sql);
-    $result = $this->db->query($sql);
+    $this->db->order_by('apellidos');
+    $result = $this->db->get('ic_clientes');
     $result = make_client_table($result->result_array(),0);
     echo $result;
-    unset($_SESSION['offset']);
   }
 
   public function last_page(){

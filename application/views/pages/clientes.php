@@ -17,51 +17,40 @@
 
   </div>
   <div class="main-content col-md-10">
-  <h2 class="subsection-title">Clientes</h2> 
+    <h2 class="subsection-title">Clientes</h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
     </div>
     
-    <div class="table" id="t-clients">
-      <table class="table t-clients innertable">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>ID #</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Cedula</th>
-            <th>Celular</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $this->client_model->get_all_clients(); ?>
-        </tbody>
-      </table>
-      <div class="table-foot">
-        <div class="pagination-labels">
-          <div>
-            <select name="perpage" id="per-page" class="per-page">
-            <option value="5">5</option>
-            <option value="10">10</option>  
-          </select>
-          </div>
-          <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
-            <span class="total-rows">
-              <?php $this->client_model->count_clients()?>
-              </span>
-          </div>
-          <div> Registros</div>
-        </div>
-
-        <div class="pagination-controllers">
-          <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
-        </div>
-      </div>
-    </div>
-
+    <table class="table innertable t-clients" id="t-clients" data-sort-name="id-contrato"
+      data-sort-order="asc" 
+      data-search="false" 
+      data-show-refresh="false"
+      data-show-columns="false"
+      data-show-export="false"
+      data-minimum-count-columns="2" 
+      data-show-pagination-switch="false"
+      data-pagination="true" data-id-field="id-contrato" 
+      data-page-size="5" data-page-list="[5]" 
+      data-show-footer="false"
+      data-striped="true"
+      data-click-to-select="true"
+      data-single-select="true">
+      <thead>
+        <tr>
+          <th data-field="orden">No.</th>
+          <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
+          <th data-field="id">ID #</th>
+          <th data-field="nombres">Nombres</th>
+          <th data-field="apellidos">Apellidos</th>
+          <th data-field="cedula">Cedula</th>
+          <th data-field="celular">Celular</th>
+          <th data-field="estado">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $this->client_model->get_all_clients(); ?>
+      </tbody>
+    </table>
   </div>
-
-
 </div>

@@ -790,8 +790,6 @@ function notificationFunctions(){
 $("#select-extra-service").on('change',function(){
   var $this = $(("#select-extra-service :selected"));
   var cost = $this.attr("data-payment");
-  console.log($this);
-  console.log(cost);
   
   $("#extra-service-cost").val(cost)
 });
@@ -950,12 +948,7 @@ var Clients = {
 
   getAll: function () {
     var form = "tabla=clientes";
-    connectAndSend('process/getall', false, initClientHandlers, fillCurrentTable, form, null);
-  },
-
-  getLastPage: function () {
-    var form = "tabla=clientes";
-    connectAndSend('process/lastpage', false, initClientHandlers, fillCurrentTable, form, null);
+    connectAndSend('process/getall', false, initClientHandlers, clientTable.refresh, form, null);
   },
 
   /**
@@ -1016,7 +1009,7 @@ var Clients = {
         form += "&ingresos=" + $ingresos.val();
         form += $telTrabajo.val() + "&tabla=clientes";
 
-        connectAndSend("process/update", true, initClientHandlers, null, form, Clients.getLastPage);
+        connectAndSend("process/update", true, initClientHandlers, null, form, Clients.getAll);
 
       } else {
         displayAlert("Revise", "LLene todos los campos por favor", "error");
@@ -1821,12 +1814,8 @@ var Sections = {
   //***************************************************  Init client Handlers      ***************************** */
   function initClientHandlers() {
     if (currentPage == 'clientes') {
-      Generals.count_table("clientes");
-      initPagination("#t-clients", "clientes", Generals.paginate);
+      clientTable.init();
     }
-
-    makeRowsClickable();
-    verifyClientStatus();
 
     $("#btn-save-client").on('click', function (e) {
       e.stopImmediatePropagation();
@@ -1836,10 +1825,9 @@ var Sections = {
     $("#update-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row) {
-        var id = $row.find('.id_cliente').text().trim();
-        Clients.getOne(id, Clients.receiveForEdit);
+      var row = clientTable.getSelectedRow()[0];
+      if (row) {
+        Clients.getOne(row.id, Clients.receiveForEdit);
       }
     });
 
@@ -2095,12 +2083,10 @@ var Sections = {
     });
   }
 
-
   $(function () {
     initComponents()
   });
 var ran = false;
-
 
 function loginHandlers() {
 

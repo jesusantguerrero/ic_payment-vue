@@ -203,12 +203,8 @@
   //***************************************************  Init client Handlers      ***************************** */
   function initClientHandlers() {
     if (currentPage == 'clientes') {
-      Generals.count_table("clientes");
-      initPagination("#t-clients", "clientes", Generals.paginate);
+      clientTable.init();
     }
-
-    makeRowsClickable();
-    verifyClientStatus();
 
     $("#btn-save-client").on('click', function (e) {
       e.stopImmediatePropagation();
@@ -218,10 +214,9 @@
     $("#update-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row) {
-        var id = $row.find('.id_cliente').text().trim();
-        Clients.getOne(id, Clients.receiveForEdit);
+      var row = clientTable.getSelectedRow()[0];
+      if (row) {
+        Clients.getOne(row.id, Clients.receiveForEdit);
       }
     });
 
@@ -476,7 +471,6 @@
       Sections.getIps();
     });
   }
-
 
   $(function () {
     initComponents()

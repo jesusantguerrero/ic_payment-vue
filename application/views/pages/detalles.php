@@ -144,9 +144,16 @@
           
 
               <table class="table d-contratos innertable" id="d-contracts" data-sort-name="id-contrato" 
-                data-sort-order="asc" data-search="false" data-show-refresh="false"
-                data-show-columns="false" data-show-export="false" data-minimum-count-columns="2" data-show-pagination-switch="false"
-                data-pagination="true" data-id-field="id-contrato" data-page-size="5" data-page-list="[5]" data-show-footer="false"
+                data-sort-order="asc" 
+                data-search="false" 
+                data-show-refresh="false"
+                data-show-columns="false"
+                data-show-export="false"
+                data-minimum-count-columns="2" 
+                data-show-pagination-switch="false"
+                data-pagination="true" data-id-field="id-contrato" 
+                data-page-size="5" data-page-list="[5]" 
+                data-show-footer="false"
                 data-response-handler="responseHandler">
                 <thead>
                   <tr>

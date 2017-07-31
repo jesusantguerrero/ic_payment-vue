@@ -52,16 +52,21 @@ input[type="button"]
     +makeFlex(100%,row,flex-start,center)
     +size(90%,100%)
     padding: 2px 20px
-    color: #fff
+    color: $contrast-color
     font:
       weight: bolder
     transition: all ease .3s
   
     &:hover
+      color: #fff
+      background: $contrast-color
+      box-shadow:  1px 2px 4px rgba(0,0,0,.4)
+      border-radius: 2px
     &:focus
       outline: none
 
 .tab-buttons
+  display: inline-block
   height: 38px
   min-width: 100px
   color: #555
