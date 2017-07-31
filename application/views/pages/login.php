@@ -10,10 +10,10 @@ ob_start( 'ob_gzhandler' );
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>IC Payment | <?php echo $title; ?></title>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css') ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>"/>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/sweetalert2.min.css') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css?version=1.0') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css?version=1.0') ?>"/>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/sweetalert2.min.css?version=1.0') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=1.0') ?>" />
     
     <link rel="icon" type="image/png" sizes="32x32" href="<?php  echo base_url('/favicon-32x32.png')?>">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
@@ -71,7 +71,7 @@ ob_start( 'ob_gzhandler' );
     <h1>IC Payment</h1>
   </div>
    <div class="toast"><span></span> </div>
-  <script src="<?php echo base_url('assets/js/lib/jquery-3.2.1.min.js') ?>"></script>
+  <script src="<?php echo base_url('assets/js/lib/jquery-3.2.1.min.js?version=1.0') ?>"></script>
   <script> 
     setTimeout(function() {
       $(".splash-screen").hide()
@@ -79,8 +79,8 @@ ob_start( 'ob_gzhandler' );
     
   </script>
   <script src="<?php echo base_url('assets/js/lib/bootstrap.min.js') ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/lib/globals.js')?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/min/ajax2.min.js')?>"></script><script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/lib/globals.js?version=1.0')?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/min/ajax2.min.js?version=1.0')?>"></script><script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
