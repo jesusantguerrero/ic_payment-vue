@@ -66,9 +66,10 @@ class Process extends CI_Controller {
 				 }
 				 $this->db->trans_complete();
 				 if($this->db->trans_status()){
-
+						
 				 }
 				 else{
+					 $this->db->trans_rollback();
 					 echo "No guardado";
 				 }
 				break;

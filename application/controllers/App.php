@@ -17,21 +17,8 @@ class App extends CI_Controller {
 		$this->load->model("caja_chica_model");
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
-	
-		//update_moras($this);
-		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-		//  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-		// $result = $this->db->query("
-		// 	alter table ic_clientes add contrato_abono int(11);
-		//  	"
-		// );
 
-	// $result = $this->db->query("select * from ic_ips")->result_array();
-	// print_r($result);
-	// echo $result;
-	// $this->db->query("SET FOREIGN_KEY_CHECKS = 1;");
-
-		
+	//update_moras($this);
 	}
 
 	public function index(){

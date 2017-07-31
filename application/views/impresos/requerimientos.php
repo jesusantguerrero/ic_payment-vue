@@ -132,7 +132,7 @@
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Cedula:</label>
-          <input type="text" class="form-control line-input" value="<?php echo $user_data['dni'] ?>">
+          <input type="text" class="form-control line-input" value="<?php echo dni_format($user_data['dni']) ?>">
         </div>
       </div>
     </div>
@@ -265,9 +265,9 @@
   $(".hora-reporte").text('Hora: ' + hora);
 
   $('input.cliente').val("<?php echo $contrato['cliente']?>");
-  $('input.cedula').val("<?php echo $contrato['cedula']?>");
-  $('input.celular').val("<?php echo $cliente['celular']?>");
-  $('input.telefono').val("<?php echo $cliente['telefono']?>");
+  $('input.cedula').val("<?php echo dni_format($contrato['cedula'])?>");
+  $('input.celular').val("<?php echo phone_format($cliente['celular'])?>");
+  $('input.telefono').val("<?php echo phone_format($cliente['telefono'])?>");
   $('input.provincia').val("<?php echo $cliente['provincia']?>");
   $('input.sector').val("<?php echo $cliente['sector']?>");
   $('input.calle').val("<?php echo $cliente['calle']?>");

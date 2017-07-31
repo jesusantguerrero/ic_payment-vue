@@ -86,7 +86,6 @@
 <footer></footer>
 
 <script>
- 
   var now = moment()
   var fecha = now.format("DD-MM-YYYY");
   var hora = now.format("LTS");
@@ -95,9 +94,9 @@
   $(".hora-reporte").text("Hora: " + hora);
 
   $('input.cliente').val("<?php echo $cliente['nombres'].' '.$cliente['apellidos']; ?>");
-  $('input.cedula').val("<?php echo $cliente['cedula']?>");
-  $('input.celular').val("<?php echo $cliente['celular']?>");
-  $('input.celular').val("<?php echo $cliente['telefono']?>");
+  $('input.cedula').val("<?php echo dni_format($cliente['cedula'])?>");
+  $('input.celular').val("<?php echo phone_format($cliente['celular'])?>");
+  $('input.celular').val("<?php echo phone_format($cliente['telefono'])?>");
   $('input.provincia').val("<?php echo $cliente['provincia']?>");
   $('input.sector').val("<?php echo $cliente['sector']?>");
   $('input.calle').val("<?php echo $cliente['calle']?>");

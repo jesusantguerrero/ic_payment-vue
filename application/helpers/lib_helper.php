@@ -25,15 +25,15 @@ if ( ! function_exists('make_table')){
         $html_text .= "
         <tr>
           <td>".$cont."</td>
-          <td class='user-id'>".$line['user_id']."</td>
+          <td class='user-id hide'>".$line['user_id']."</td>
           <td>".$line['nickname']."</td>
           <td>".$line['name']."</td>
           <td>".$line['lastname']."</td>
-          <td>".$line['dni']."</td>
+          <td>".dni_format($line['dni'])."</td>
           <td>".$types[$line['type']]."</td>
           <td><button>Actualizar</button></td>
           <td>
-            <a href=''><i class='material-icons edit-user'>edit</i></a>
+            <a href=''><i class='material-icons edit-user' data-type='".$line['type']."'>edit</i></a>
             <a href=''><i class='material-icons delete-user'>delete</i></a>
             <a href=''><i class='material-icons display-user'>find_in_page</i></a>
           </td>
@@ -83,7 +83,7 @@ if ( ! function_exists('make_client_table')){
         <td class='id_cliente'>".$line['id_cliente']."</td>
         <td>".$line['nombres']."</td>
         <td>".$line['apellidos']."</td>
-        <td>".$line['cedula']."</td>
+        <td>".dni_format($line['cedula'])."</td>
         <td>".$line['celular']."</td>
         <td>".$line['estado']."</td>
       </tr>";
@@ -220,8 +220,9 @@ if ( ! function_exists('make_averias_list')){
         $html_text .= "<div class='averia-item'>
             <div class='top-row'>
               <div class='code'>".$line['id_averia']."</div>
-              <div class='info'><span class='client-name'>".$line['cliente']."</span><span class='client-direction'>::".$line['direccion']."</span></div>
-              <button class='btn-update-averia'>Actualizar</button>
+              <div class='info'><span class='client-name'>".$line['cliente']."</span><span class='client-direction'>::".$line['direccion']."</span> </span><span class='client-direction'>".
+                "  <b>Celular: </b>".phone_format($line['celular'])."</span></div>
+              <button class='btn-update-averia'>Actualizar</button> 
             </div>
             <div class='description'>
               <div class='date'>".$line['fecha']."</div>
@@ -544,4 +545,18 @@ function auth_user_type_for_pages($page,$type,$redirect){
     return true;
   }
   return false;
+}
+
+function phone_format($tel){
+  if(strlen($tel) == 10){
+    return "(".substr($tel,0,3).")-".substr($tel,3,3)."-".substr($tel,6,4);
+  }
+  return $tel;
+}
+
+function dni_format($dni){
+  if(strlen($dni) == 11){
+    return substr($dni,0,3)."-".substr($dni,3,7)."-".substr($dni,10);
+  }
+  return $dni;
 }

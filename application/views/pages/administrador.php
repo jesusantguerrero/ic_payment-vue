@@ -77,7 +77,7 @@
           <thead>
             <tr>
               <th>No.</th>
-              <th>ID</th>
+              <th class="hide">ID</th>
               <th>Nick</th>
               <th>Nombre</th>
               <th>Apellido</th>

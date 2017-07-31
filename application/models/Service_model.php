@@ -128,8 +128,10 @@ class Service_model extends CI_MODEL{
   public function get_service($id){
     $sql = "SELECT * FROM ic_servicios WHERE id_servicio=". $id;
     $result = $this->db->query($sql);
-    $result =$result->row_array();
-    return $result;
+    if($result){
+      $result =$result->row_array();
+      return $result;
+    }
   }
 
   public function delete_service($id){

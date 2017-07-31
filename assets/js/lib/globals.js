@@ -533,7 +533,7 @@ function heavyLoad(stop){
   if(!stop){
     var html = '<div class="heavy-loader active">'
         html +=   '<div class="circle-load"></div>'
-        html +=   '<div class="message">Creando la sección</div>'
+        html +=   '<div class="message">Preparando los datos</div>'
         html += '</div>'
     $("body").append(html)
     $("body").css({overflow:"hidden"});
