@@ -34,8 +34,8 @@ class Client_model extends CI_MODEL{
     }else{
       $this->cols['id_cliente'] = null;
     }
-    $this->cols['nombres']         = $data['nombres'];      
-    $this->cols['apellidos']       = $data['apellidos'];     
+    $this->cols['nombres']         = strtoupper($data['nombres']);      
+    $this->cols['apellidos']       = strtoupper($data['apellidos']);     
     $this->cols['cedula']          = $data['cedula'];
     $this->cols['provincia']       = $data['provincia'];
     $this->cols['sector']          = $data['sector'];
@@ -70,12 +70,23 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_client($data){
-    $sql = "UPDATE ic_clientes SET nombres ='".$data['nombres']."', apellidos ='".$data['apellidos']."', cedula ='".$data['cedula'];
-    $sql .="',provincia = '".$data['provincia']."', sector = '".$data['sector']."', calle = '".$data['calle']."' , casa = '".$data['casa']."', telefono ="; 
-    $sql .="'".$data['telefono']."', celular = '".$data['celular']."' ";
-    $sql .= ", lugar_trabajo ='".$data['lugar_trabajo']."', ingresos ='".$data['ingresos']."' WHERE id_cliente = ".$data['id'];
+    $data_for_update = array(
+      'nombres'      => strtoupper($data['nombres']),
+      'apellidos'    => strtoupper($data['apellidos']),
+      'cedula'       => $data['cedula'],
+      'provincia'    => $data['provincia'],
+      'sector'       => $data['sector'],
+      'calle'        => $data['calle'],
+      'casa'         => $data['casa'],
+      'telefono'     => $data['telefono'],
+      'celular'      => $data['celular'],
+      'lugar_trabajo'=> $data['lugar_trabajo'],
+      'ingresos'     => $data['ingresos'],
+    );
 
-    if($result = $this->db->query($sql)){
+    $this->db->where('id_cliente',$data['id']);
+
+    if($result = $this->db->update('ic_clientes',$data_for_update)){
       echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
     }else{
      echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;

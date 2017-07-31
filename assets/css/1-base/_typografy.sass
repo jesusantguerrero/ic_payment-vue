@@ -58,6 +58,16 @@ hr
   color: transparent
   height: 30px
 
+.uppercase
+  text-transform: uppercase
+
+input
+  &#client-name,
+  &#client-lastname
+  &#u-client-name,
+  &#u-client-lastname
+    @extend .uppercase
+
 @media screen and (-webkit-min-device-pixel-ratio: 0)
   input[type=date].form-control, 
   input[type=time].form-control, 

@@ -160,7 +160,7 @@
                     <th data-field="estado">estado</th>
                   </tr>
                 </thead>
-                <tbody>
+                 <tbody>
                   <?php $this->contract_model->get_not_paginated($client_data['id_cliente']) ?> 
                 </tbody>
               </table>
