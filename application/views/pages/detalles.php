@@ -141,22 +141,27 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "contratos"):?> active <?php endif; ?>" id="contracts">
+          
 
-              <table class="table d-contratos wide-table" id="d-contracts">
+              <table class="table d-contratos innertable" id="d-contracts" data-sort-name="id-contrato" 
+                data-sort-order="asc" data-search="false" data-show-refresh="false"
+                data-show-columns="false" data-show-export="false" data-minimum-count-columns="2" data-show-pagination-switch="false"
+                data-pagination="true" data-id-field="id-contrato" data-page-size="5" data-page-list="[5]" data-show-footer="false"
+                data-response-handler="responseHandler">
                 <thead>
                   <tr>
-                    <th>ID #</th>
-                    <th>Fecha</th>
-                    <th>(meses)</th>
-                    <th>Ultimo Pago</th>
-                    <th>Proximo Pago</th>
-                    <th>Monto Pagado</th>
-                    <th>Monto Total</th>
-                    <th>estado</th>
+                    <th data-field="id-contrato">ID #</th>
+                    <th data-field="fecha">Fecha</th>
+                    <th data-field="meses">(meses)</th>
+                    <th data-field="ultimo-pago">Ultimo Pago</th>
+                    <th data-field="proximo-pago">Proximo Pago</th>
+                    <th data-field="monto-pagado">Monto Pagado</th>
+                    <th data-field="monto-total">Monto Total</th>
+                    <th data-field="estado">estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $this->contract_model->get_all_of_client($client_data['id_cliente']) ?> 
+                  <?php $this->contract_model->get_not_paginated($client_data['id_cliente']) ?> 
                 </tbody>
               </table>
             </div>
@@ -164,6 +169,7 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
+              
               <div class="table" id="t-pagos">
               <table class="table t-pagos">
                 <thead>

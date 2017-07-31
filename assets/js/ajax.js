@@ -430,13 +430,15 @@
     $("#btn-save-observations").on('click', function (e) {
       e.stopImmediatePropagation();
       Clients.saveObservations()
-    })
+    });
 
     $(".abono-value").on('click', function (e) {
       e.stopImmediatePropagation();
       Clients.saveObservations(true);
       $('#text-observations').val('');
-    })
+    });
+
+    $("#d-contracts").bootstrapTable();
 
   }
 
