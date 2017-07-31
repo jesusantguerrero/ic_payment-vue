@@ -53,7 +53,7 @@ if ( ! function_exists('make_installation_report')){
       $context->table->add_row($cont,
       $line['cliente'],
       $line['direccion'],
-      phone_format($line['celular']),
+      $line['celular'],
       $line['fecha'],
       $line['servicio']);
 
@@ -77,7 +77,7 @@ if ( ! function_exists('make_averias_report')){
       $context->table->add_row($cont,
       $line['cliente'],
       $line['direccion'],
-      phone_format($line['celular']),
+      $line['celular'],
       $line['descripcion'],
       $line['fecha']);
 
@@ -88,6 +88,43 @@ if ( ! function_exists('make_averias_report')){
     $html_text = $context->table->generate()."<div class='real-end'></div>";
     if($for_print):
       set_report($html_text,$concept);
+    else:
+      return $html_text;
+    endif;
+  }
+}
+
+if ( ! function_exists('make_abonos_report')){
+  /**
+  * create a table for the data from users to display in the interface
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  * @param boolean true para imprimir y false para no imprimir xD
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function make_abonos_report($data,$concept,$context,$for_print){
+    $cont = 0 + 1;
+    $context->table->set_heading("Num","Cliente","Celular","Abono","Total a pagar","Deuda Pendiente"); 
+    
+
+    foreach ($data as $line) {
+      $payment = $context->payment_model->get_next_payment_of($line["contrato_abono"]);
+      $deuda = $payment['total'] - $line['abonos'];
+      $context->table->add_row(
+      $cont,
+      $line['nombres']." ".$line['apellidos'],
+      $line['celular'],
+      "RD$ ".CurrencyFormat($line['abonos']),
+      "RD$ ".CurrencyFormat($payment['total']),
+      "RD$ ".CurrencyFormat($deuda)
+      );
+     $cont+=1;
+    }
+
+    $html_text = $context->table->generate();
+    if($for_print):
+      set_report($html_text,$concept,$more = '');
     else:
       return $html_text;
     endif;
@@ -111,7 +148,7 @@ if ( ! function_exists('make_moras_report')){
       $context->table->add_row(
       $line['codigo'],
       $line['cliente'],
-      phone_format($line['celular']),
+      $line['celular'],
       "RD$ ".CurrencyFormat($line['cuota']),
       "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),
@@ -171,14 +208,14 @@ function get_rich_text($remark,$message,$colors = array('remark'=>'0066ff','mess
 }
 
 function set_image($sheet,$cell,$imagename){
-// Add a drawing to the worksheet
-$objDrawing = new PHPExcel_Worksheet_Drawing();
-$objDrawing->setName('Terms and conditions');
-$objDrawing->setDescription('Terms and conditions');
-$objDrawing->setPath('./assets/img/'.$imagename);
-$objDrawing->setWidth(100);
-$objDrawing->setCoordinates($cell);
-$objDrawing->setWorksheet($sheet);
+  // Add a drawing to the worksheet
+  $objDrawing = new PHPExcel_Worksheet_Drawing();
+  $objDrawing->setName('Terms and conditions');
+  $objDrawing->setDescription('Terms and conditions');
+  $objDrawing->setPath('./assets/img/'.$imagename);
+  $objDrawing->setWidth(100);
+  $objDrawing->setCoordinates($cell);
+  $objDrawing->setWorksheet($sheet);
 }
 
 function create_excel_file($report){

@@ -66,9 +66,10 @@ class Process extends CI_Controller {
 				 }
 				 $this->db->trans_complete();
 				 if($this->db->trans_status()){
-
+						
 				 }
 				 else{
+					 $this->db->trans_rollback();
 					 echo "No guardado";
 				 }
 				break;
@@ -208,6 +209,7 @@ class Process extends CI_Controller {
 				$this->payment_model->list_all_of_contract($id_contrato);
 		}
 	}
+
 	public function lastpage(){
 		authenticate();
 		$tabla = $_POST['tabla'];
@@ -380,28 +382,22 @@ class Process extends CI_Controller {
 
 	public function get_abono_receipt($id_cliente){
 		authenticate();
-		$recibo_info = $this->client_model->get_client($id_cliente);
+		$recibo_info['recibo'] 	= $this->client_model->get_client($id_cliente);
+		$recibo_info['pago'] 		= $this->payment_model->get_next_payment_of($recibo_info['recibo']["contrato_abono"]);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
 		redirect(base_url('app/imprimir/recibo_abono'));
 	}
 
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
-			$contract_id = '';
-			$requirement_info['cliente'] = "";
-		if($type == "cliente"){
-			$requirement_info['cliente'] = $this->client_model->get_client($id);
+		$requirement_info['cliente'] = $this->client_model->get_client($id);
+		if($type = "cliente"){
 			$contract_id = $this->contract_model->get_last_id_of($id);
 		}else{
 			$contract_id = $id;
 		}
 		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
-		
-		if($requirement_info['cliente'] == "" ){
-			$id_cliente = $requirement_info['contrato']['id_cliente'];
-			 $requirement_info['cliente'] = $this->client_model->get_client($id_cliente);
-		}
 		$this->session->set_flashdata('requirement_info',$requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
@@ -439,7 +435,9 @@ class Process extends CI_Controller {
 			case 'averias':
 					$this->report_model->get_averias_report();
 				break;
-			
+			case 'abonos':
+					$this->report_model->get_abonos_report();
+				break;
 			default:
 				# code...
 				break;

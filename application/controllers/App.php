@@ -17,29 +17,8 @@ class App extends CI_Controller {
 		$this->load->model("caja_chica_model");
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
-	
 
 	//update_moras($this);
-	// 	$this->db->trans_start();
-	// 	$this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-
-	// 	// $this->db->query("truncate ic_ips");
-	// 	// $this->db->query("truncate ic_secciones");
-	// 	$this->db->query("TRUNCATE ic_contratos");
-	// 	$this->db->query("truncate ic_pagos");
-	// 	$this->db->query("truncate ic_clientes");
-	// 	$this->db->query("truncate ic_averias");
-	// 	$this->db->query("truncate ic_cancelaciones");
-	// 	$this->db->query("truncate ic_caja_chica");
-	// 	$this->db->query("update ic_ips set estado='disponible' where estado='ocupado'");
-
-	// 	$this->db->trans_complete();
-	//  if($this->db->trans_status() !== false){
-	// 	 echo "exito";
-	//  }else{
-	// 	 echo "error";
-	//  }
-	//  $this->db->query("SET FOREIGN_KEY_CHECKS = 1;");	
 	}
 
 	public function index(){

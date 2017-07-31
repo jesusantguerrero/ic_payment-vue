@@ -196,13 +196,14 @@ var Clients = {
   },
 
   saveObservations: function (abonoWatched) {
-    var form, observations, abono, idCliente, $inputAbono, abonoValue;
+    var form, observations, abono, idCliente, $inputAbono, abonoValue,contractId;
 
     observations = $("#text-observations").val();
-    $inputAbono = $("#input-abono");
-    abono = (abonoWatched) ? 0 : $inputAbono.val();
-    idCliente = $("#detail-client-id").val();
-    abonoValue = $(".abono-value");
+    contractId   = $("#select-contract").val();
+    $inputAbono  = $("#input-abono");
+    abono        = (abonoWatched) ? 0 : $inputAbono.val();
+    idCliente    = $("#detail-client-id").val();
+    abonoValue   = $(".abono-value");
 
     if (abonoWatched != undefined) {
       $inputAbono.val(abono);
@@ -215,7 +216,7 @@ var Clients = {
     }
 
     form = 'observaciones=' + observations + "&abonos=" + abono + "&id_cliente=" + idCliente + "&modo=" + abonoWatched;
-    form += "&tabla=observaciones";
+    form += "&contrato_abono="+contractId+"&tabla=observaciones";
     connectAndSend("process/update", true, initPaymentsHandlers, null, form, null)
 
     abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
