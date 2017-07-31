@@ -31,7 +31,7 @@
                   <div class="col-md-6">
                     <h4>Datos Del Contrato</h4>
                     <div class="form-group">
-                      <label for="client-name">Cedula</label>
+                      <label for="client-name">Cedula(sin guiones)</label>
                       <input type="text" class="form-control" id="extra-client-dni" tabindex="1">
                     </div>
                     <div class="form-group">

@@ -41,7 +41,7 @@
                 <input type="text" class="form-control" id="user-lastname" placeholder="Guerrero Alvarez">
               </div>
               <div class="form-group">
-                <label for="user-dni">Cedula</label>
+                <label for="user-dni">Cedula(sin guiones)</label>
                 <input type="text" class="form-control" id="user-dni" placeholder="ISC Services">
               </div>
             </div>
@@ -102,7 +102,7 @@
                 <input type="text" class="form-control" id="e-lastname" placeholder="Guerrero Alvarez">
               </div>
               <div class="form-group">
-                <label for="e-dni">Cedula</label>
+                <label for="e-dni">Cedula(sin guiones)</label>
                 <input type="text" class="form-control" id="e-dni" placeholder="ISC Services">
               </div>
             </div>
