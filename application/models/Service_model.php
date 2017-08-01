@@ -33,7 +33,7 @@ class Service_model extends CI_MODEL{
   function organize_data($data,$mode){
 
     if($mode == "full"){
-      $this->id_servicio = $data['id_servicio'];
+      $this->id_servicio   = $data['id_servicio'];
     }
     $this->nombre          = $data['nombre'];      
     $this->descripcion     = $data['descripcion'];     
@@ -59,69 +59,53 @@ class Service_model extends CI_MODEL{
   }
 
   public function update_service($data){
-    $this->organize_data($data,"full");
-    $sql = "UPDATE ic_servicios SET nombre = '$this->nombre', descripcion ='$this->descripcion', mensualidad ='$this->mensualidad',";
-    $sql .= "tipo ='$this->tipo' WHERE id_servicio = $this->id_servicio";
-    if($result = $this->db->query($sql)){
+    $data_for_update = array(
+      'nombre'      => $data['nombre'],
+      'descripcion' => $data['descripcion'],
+      'mensualidad' => $data['mensualidad'],
+      'tipo'        => $data['tipo']
+    );
+    $this->db->where('id_servicio', $data['id_servicio']);
+    if($this->db->update('ic_servicios',$data_for_update)){
       echo MESSAGE_SUCCESS." Servicio Actualizado Con Exito!";
     }else{
-      echo MESSAGE_ERROR." No pudo actualizarse el servicio " . $sql;
+      echo MESSAGE_ERROR." No pudo actualizarse el servicio ";
     }   
   }
 
   public function get_all_services(){
-    $sql = "SELECT * FROM ic_servicios order by tipo, mensualidad LIMIT 5";
-    set_last_page($sql);
-    $result = $this->db->query($sql);
-    $result = make_service_table($result->result_array(),0);
-    echo $result;
-  }
-  
-  public function last_page(){
-    $result = $this->db->query(get_last_page());
-    if($result){
-      $result = make_service_table($result->result_array(),0);
-      echo $result;
-    }
+    $this->db->order_by('tipo, mensualidad');
+    $result = $this->db->get('ic_servicios');
+    echo make_service_table($result->result_array(),0);
   }
 
   public function search_services($word){
-    $word = "'%".$this->db->escape_like_str($word)."%'";
-    $sql = "SELECT * FROM ic_servicios WHERE id_servicio LIKE $word || nombre LIKE $word || descripcion LIKE $word";
-    set_last_query($sql);
-    $sql .= " LIMIT 5";
-    set_last_page($sql);
-    if($result = $this->db->query($sql)){
-      $result = make_service_table($result->result_array(),0);
-      echo $result;
-    }else{
-      echo $word.$sql;
+    $fields = array(
+     'id_servicio'  => $word,
+     'nombre'       => $word,
+     'descripcion'  => $word
+    );
+    $this->db->or_like($fields);
+    $this->db->order_by('tipo, mensualidad');
+    if($result = $this->db->get('ic_servicios')){
+      echo  make_service_table($result->result_array(),0);
     }
   }
 
   public function get_services_shortcuts(){
-    $sql = "SELECT * FROM ic_servicios WHERE tipo= 'internet' order by mensualidad";
+    $sql    = "SELECT * FROM ic_servicios WHERE tipo= 'internet' order by mensualidad";
     $result = $this->db->query($sql);
-    $result = make_service_shortcuts($result->result_array());
-    echo $result;
+    echo make_service_shortcuts($result->result_array());
   }
 
   public function get_services_dropdown(){
     $sql = "SELECT * FROM ic_servicios WHERE tipo= 'reparacion'";
     $result = $this->db->query($sql);
-    $result = make_other_services_dropdown($result->result_array());
-    echo $result;
+    echo make_other_services_dropdown($result->result_array());
   }
 
   public function count_services(){
     $result = $this->db->count_all("ic_servicios");
-    echo $result;
-  }
-
-  public function get_services_paginate($offset,$perpage){
-    $sql = "SELECT * FROM ic_servicios order by tipo, mensualidad LIMIT ".$offset.", ".$perpage;
-    $result = $this->db->query($sql);
-    $result = make_service_table($result->result_array(),$offset);
     echo $result;
   }
 
@@ -139,7 +123,7 @@ class Service_model extends CI_MODEL{
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Servicio Eliminado";
     }else{
-      echo MESSAGE_ERROR." Error: Puede que este servicio tenga contratos vinculados";
+      echo MESSAGE_ERROR." Error: Puede que este servicio tenga contratos vinculados". $sql;
     }
   }
 

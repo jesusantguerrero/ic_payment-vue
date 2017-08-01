@@ -1116,7 +1116,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -1124,22 +1124,17 @@ var Services = {
 
   getAll: function () {
     var form = "tabla=servicios";
-    connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
-  },
-
-  getLastPage: function () {
-    var form = "tabla=servicios";
-    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
+    connectAndSend('process/getall', false, initServicesHandlers, serviceTable.refresh, form, null);
   },
 
   update: function () {
     var form, id, name, description, payment, type;
 
-    id = $('#u-service-id').val();
-    name = $('#u-service-name').val();
+    id          = $('#u-service-id').val();
+    name        = $('#u-service-name').val();
     description = $('#u-service-description').val();
-    payment = $('#u-service-monthly-payment').val();
-    type = $('#u-service-type').val();
+    payment     = $('#u-service-monthly-payment').val();
+    type        = $('#u-service-type').val();
 
     var is_empty = isEmpty([id, name, description, payment, type]);
     if (!is_empty) {
@@ -1807,9 +1802,9 @@ var Sections = {
     $("#update-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var row = clientTable.getSelectedRow()[0];
-      if (row) {
-        Clients.getOne(row.id, Clients.receiveForEdit);
+      var id = clientTable.getId();
+      if (id) {
+        Clients.getOne(id, Clients.receiveForEdit);
       }
     });
 
@@ -1832,7 +1827,7 @@ var Sections = {
     $("#delete-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var row = clientTable.getSelectedRow()[0];
+      var row = clientTable.getSelectedRow();
       if (row) {
         swal({
           title: 'Está Seguro?',
@@ -1850,9 +1845,7 @@ var Sections = {
   }
   //***************************************************  Init Services Handlers    ***************************** */
   function initServicesHandlers() {
-    Generals.count_table("servicios");
-    initPagination("#t-services", "servicios", Generals.paginate);
-    makeRowsClickable();
+    serviceTable.init();
 
     $("#btn-save-service").on('click', function (e) {
       e.stopImmediatePropagation();
@@ -1862,12 +1855,11 @@ var Sections = {
     $("#delete-service").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row.length > 0  ) {
-        var id = $row.find('.id_servicio').text().trim();
+      var id = serviceTable.getId();
+      if (id) {
         swal({
           title: 'Está Seguro?',
-          text: "Desea Eliminar  Este Servicio?",
+          text: "Desea Eliminar  el Servicio?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
@@ -1880,16 +1872,15 @@ var Sections = {
 
     $("#edit-service").on('click', function (e) {
       e.preventDefault();
-      var $row = $("tr.selected");
-      var cells = $row.find('td');
-      var inputs = $("#update-service-modal input");
-      $('#u-service-id').val(cells.eq(1).text());
-      $('#u-service-name').val(cells.eq(2).text());
-      $('#u-service-description').val(cells.eq(3).text());
-      $('#u-service-monthly-payment').val(Number(cells.eq(4).text().slice(3)));
-      $('#u-service-type').val(cells.eq(5).text());
+      var row = serviceTable.getSelectedRow();
 
+      $('#u-service-id').val(row.id);
+      $('#u-service-name').val(row.nombre);
+      $('#u-service-description').val(row.descripcion);
+      $('#u-service-monthly-payment').val(Number(row.mensualidad.replace("RD$ ",'')));
+      $('#u-service-type').val(row.tipo);
       $('#update-service-modal').modal();
+
     });
 
     $("#btn-update-service").on('click', function (e) {
@@ -1900,7 +1891,7 @@ var Sections = {
     $("#service-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "servicios", fillCurrentTable,initServicesHandlers);
+      Generals.search(text, "servicios", serviceTable.refresh,initServicesHandlers);
     });
 
 

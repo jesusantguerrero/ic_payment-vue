@@ -190,8 +190,6 @@ class Client_model extends CI_MODEL{
      "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
     );
     $this->db->or_like($fields);
-    // $sql = "SELECT * FROM ic_clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
-    // $sql .= "|| sector LIKE $word || concat(ic_clientes.nombres,' ',ic_clientes.apellidos) LIKE $word";
     if($result = $this->db->get('ic_clientes')){
       $result = make_client_table($result->result_array(),0);
       echo $result;

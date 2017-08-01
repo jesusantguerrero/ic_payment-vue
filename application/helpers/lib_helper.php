@@ -109,6 +109,7 @@ if ( ! function_exists('make_service_table')){
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$cont."</td>
+        <td class='hide'></td>
         <td class='id_servicio hide'>".$line['id_servicio']."</td>
         <td>".$line['nombre']."</td>
         <td>".$line['descripcion']."</td>

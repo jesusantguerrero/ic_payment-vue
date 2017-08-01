@@ -10,7 +10,7 @@ var clientTable = {
 
   getSelectedRow: function(){
     var self = this;
-    return self.el.bootstrapTable('getSelections');
+    return self.el.bootstrapTable('getSelections')[0]
   },
 
   getId: function(){
@@ -54,6 +54,4 @@ var clientTable = {
       btnGoNewContract.attr('href','#');
     }); 
   }
-
-
 }

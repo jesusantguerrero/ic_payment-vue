@@ -19,43 +19,36 @@
       <input type="text" class="searcher" id="service-searcher">
     </div>
 
-    <div class="table" id="t-services">
-      <table class="table t-services innertable">
+      <table class="table t-services" id="t-services" data-sort-name="orden"
+        data-sort-order="asc" 
+        data-search="false" 
+        data-show-refresh="false"
+        data-show-columns="false"
+        data-show-export="false"
+        data-minimum-count-columns="2" 
+        data-show-pagination-switch="false"
+        data-pagination="true" 
+        data-id-field="id" 
+        data-page-size="5" data-page-list="[5]" 
+        data-show-footer="false"
+        data-striped="true"
+        data-click-to-select="true"
+        data-single-select="true">
         <thead>
           <tr>
-            <th>No. </th>
-            <th class="hide">ID #</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Mensualidad</th>
-            <th>Tipo</th>
+            <th data-field="orden" data-sortable="true">No. </th>
+            <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
+            <th data-field="id" class="hide">ID #</th>
+            <th data-field="nombre">Nombre</th>
+            <th data-field="descripcion">Descripción</th>
+            <th data-field="mensualidad">Mensualidad</th>
+            <th data-field="tipo" data-sortable="true">Tipo</th>
           </tr>
         </thead>
         <tbody>
           <?php $this->service_model->get_all_services(); ?>
         </tbody>
       </table>
-      <div class="table-foot">
-        <div class="pagination-labels">
-          <div>
-            <select name="perpage" id="per-page" class="per-page">
-            <option value="5">5</option>
-            <option value="10">10</option> 
-          </select>
-          </div>
-          <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
-            <span class="total-rows">
-              <?php echo $this->service_model->count_services(); ?>
-              </span>
-          </div>
-          <div> Registros</div>
-        </div>
-
-        <div class="pagination-controllers">
-          <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
-        </div>
-      </div>
-    </div>
 
   </div>
 

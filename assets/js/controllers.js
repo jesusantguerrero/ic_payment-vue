@@ -307,7 +307,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getLastPage);
+      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -315,22 +315,17 @@ var Services = {
 
   getAll: function () {
     var form = "tabla=servicios";
-    connectAndSend('process/getall', false, initServicesHandlers, fillCurrentTable, form, null);
-  },
-
-  getLastPage: function () {
-    var form = "tabla=servicios";
-    connectAndSend('process/lastpage', false,  initServicesHandlers, fillCurrentTable, form, null);
+    connectAndSend('process/getall', false, initServicesHandlers, serviceTable.refresh, form, null);
   },
 
   update: function () {
     var form, id, name, description, payment, type;
 
-    id = $('#u-service-id').val();
-    name = $('#u-service-name').val();
+    id          = $('#u-service-id').val();
+    name        = $('#u-service-name').val();
     description = $('#u-service-description').val();
-    payment = $('#u-service-monthly-payment').val();
-    type = $('#u-service-type').val();
+    payment     = $('#u-service-monthly-payment').val();
+    type        = $('#u-service-type').val();
 
     var is_empty = isEmpty([id, name, description, payment, type]);
     if (!is_empty) {
