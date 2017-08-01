@@ -420,34 +420,16 @@ function replaceClass($object,oldClass,newClass){
 function makeRowsClickable(){
    $("tbody tr").on('click',function(e){
     e.stopImmediatePropagation();
-    var $this,id, btnGoNewContract,btnNewContract,btnGetDetails;
-    btnGetDetails     = $("#get-details");
-    btnNewContract    = $("#client-new-contract");
-    btnGoNewContract  = $("#go-new-contract");
-
+    var $this,id;
 
     $this = $(this);
 
     if($this.hasClass('selected')){
-       $('tbody tr').removeClass('selected');
-        btnGetDetails.attr("href","");
-        btnNewContract.attr("href","");
-        btnGoNewContract.attr("href","");
 
     }else{
       $('tbody tr').removeClass('selected');
       $this.toggleClass('selected');
       id = $this.find('.id_cliente').text().trim();
-
-      if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-      if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-      if(btnGoNewContract){
-        if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
-          btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
-        }else{
-          btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-        }
-      }
       contractRows($this);
     }
   });

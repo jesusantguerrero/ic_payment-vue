@@ -293,9 +293,33 @@
             <input type="text" class="searcher" id="client-searcher-newcontract" placeholder="Busque cliente por cedula, nombre, apellidos o id">
           </div>
 
-          <table class="table t-clients" id="t-clients">
-            <tbody class="lobby-results">
-
+          <table class="table t-clients" id="t-clients" data-sort-name="id-contrato"
+            data-sort-order="asc" 
+            data-search="false" 
+            data-show-refresh="false"
+            data-show-columns="false"
+            data-show-export="false"
+            data-minimum-count-columns="2" 
+            data-show-pagination-switch="false"
+            data-pagination="true" data-id-field="id-contrato" 
+            data-page-size="5" data-page-list="[5]" 
+            data-show-footer="false"
+            data-striped="true"
+            data-click-to-select="true"
+            data-single-select="true">
+            <thead>     
+              <tr>
+                <th data-field="orden">No.</th>
+                <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
+                <th data-field="id" class="hide">ID #</th>
+                <th data-field="nombres">Nombres</th>
+                <th data-field="apellidos">Apellidos</th>
+                <th data-field="cedula">Cedula</th>
+                <th data-field="celular">Celular</th>
+                <th data-field="estado">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
             </tbody>
           </table>
 

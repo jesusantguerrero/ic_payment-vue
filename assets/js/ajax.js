@@ -223,14 +223,14 @@
     $("#client-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "clientes", fillCurrentTable);
+      Generals.search(text, "clientes", clientTable.refresh);
     });
 
     $("#client-searcher-newcontract").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
       if (!isEmpty([text])) {
-        Generals.search(text, "clientes", fillClientTable);
+        Generals.search(text, "clientes", clientTable.refresh);
       } else {
         clearTbody(".lobby-results");
       }
@@ -239,18 +239,17 @@
     $("#delete-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row.length > 0) {
-        var id = $row.find('.id_cliente').text().trim();
+      var row = clientTable.getSelectedRow()[0];
+      if (row) {
         swal({
           title: 'Está Seguro?',
-          text: "Desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?",
+          text: "Desea Eliminar al(la) Cliente " + row.nombres + " " + row.apellidos + "?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
           confirmButtonBackground: SUMMER_SKY
         }).then(function(){
-           Generals.deleteRow(id, "clientes")
+           Generals.deleteRow(row.id, "clientes")
         });
       }
     });

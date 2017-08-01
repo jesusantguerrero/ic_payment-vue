@@ -8,8 +8,8 @@
         ga('create', 'UA-97873154-2', 'auto');
         ga('send', 'pageview');
     </script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/sweetalert2.min.js?version=2.0') ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/clientTable.js?version=2.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.0')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/sweetalert2.min.js?version=1.8') ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/clientTable.js?version=1.8')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=1.8')?>"></script>
  </body>
 </html>

@@ -22,7 +22,7 @@
       <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
     </div>
     
-    <table class="table innertable t-clients" id="t-clients" data-sort-name="id-contrato"
+    <table class="table t-clients" id="t-clients" data-sort-name="id-contrato"
       data-sort-order="asc" 
       data-search="false" 
       data-show-refresh="false"
@@ -37,15 +37,16 @@
       data-click-to-select="true"
       data-single-select="true">
       <thead>
+      
         <tr>
-          <th data-field="orden">No.</th>
+          <th data-field="orden" data-sortable="true">No.</th>
           <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
-          <th data-field="id">ID #</th>
-          <th data-field="nombres">Nombres</th>
-          <th data-field="apellidos">Apellidos</th>
+          <th data-field="id" class="hide">ID #</th>
+          <th data-field="nombres" data-sortable="true">Nombres</th>
+          <th data-field="apellidos" data-sortable="true">Apellidos</th>
           <th data-field="cedula">Cedula</th>
           <th data-field="celular">Celular</th>
-          <th data-field="estado">Estado</th>
+          <th data-field="estado" data-sortable="true">Estado</th>
         </tr>
       </thead>
       <tbody>

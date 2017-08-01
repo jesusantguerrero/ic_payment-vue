@@ -112,7 +112,7 @@ var Clients = {
       form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo=" + telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
       form += "&estado=" + estado + "&tabla=clientes";
 
-      connectAndSend("process/add", true, initClientHandlers, null, form, Clients.getLastPage);
+      connectAndSend("process/add", true, initClientHandlers, null, form, Clients.getAll);
 
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
@@ -225,7 +225,7 @@ var Generals = {
     switch (tabla) {
       case 'clientes':
         handlers = initClientHandlers;
-        callback = Clients.getLastPage;
+        callback = Clients.getAll;
         break;
       case 'servicios':
         handlers = initServicesHandlers;

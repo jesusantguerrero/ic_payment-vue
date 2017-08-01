@@ -420,34 +420,16 @@ function replaceClass($object,oldClass,newClass){
 function makeRowsClickable(){
    $("tbody tr").on('click',function(e){
     e.stopImmediatePropagation();
-    var $this,id, btnGoNewContract,btnNewContract,btnGetDetails;
-    btnGetDetails     = $("#get-details");
-    btnNewContract    = $("#client-new-contract");
-    btnGoNewContract  = $("#go-new-contract");
-
+    var $this,id;
 
     $this = $(this);
 
     if($this.hasClass('selected')){
-       $('tbody tr').removeClass('selected');
-        btnGetDetails.attr("href","");
-        btnNewContract.attr("href","");
-        btnGoNewContract.attr("href","");
 
     }else{
       $('tbody tr').removeClass('selected');
       $this.toggleClass('selected');
       id = $this.find('.id_cliente').text().trim();
-
-      if(btnGetDetails)btnGetDetails.attr('href',BASE_URL + 'process/details/'+ id);
-      if(btnNewContract)btnNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-      if(btnGoNewContract){
-        if(btnGoNewContract.text().toLowerCase() == "ir a pagos"){
-          btnGoNewContract.attr('href',BASE_URL + 'process/details/'+ id + "/pagos");
-        }else{
-          btnGoNewContract.attr('href',BASE_URL + 'process/newcontract/'+ id);
-        }
-      }
       contractRows($this);
     }
   });
@@ -729,7 +711,7 @@ function newContractFunctions(){
 
 $('#search-client-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
-
+  clientTable.init();
   var title = button.find('.section-title').text();
   if(!title) title = "Buscar Cliente"
   if(title.toLowerCase().trim() == "registrar pago"){
@@ -939,7 +921,7 @@ var Clients = {
       form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo=" + telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
       form += "&estado=" + estado + "&tabla=clientes";
 
-      connectAndSend("process/add", true, initClientHandlers, null, form, Clients.getLastPage);
+      connectAndSend("process/add", true, initClientHandlers, null, form, Clients.getAll);
 
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
@@ -1052,7 +1034,7 @@ var Generals = {
     switch (tabla) {
       case 'clientes':
         handlers = initClientHandlers;
-        callback = Clients.getLastPage;
+        callback = Clients.getAll;
         break;
       case 'servicios':
         handlers = initServicesHandlers;
@@ -1834,14 +1816,14 @@ var Sections = {
     $("#client-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "clientes", fillCurrentTable);
+      Generals.search(text, "clientes", clientTable.refresh);
     });
 
     $("#client-searcher-newcontract").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
       if (!isEmpty([text])) {
-        Generals.search(text, "clientes", fillClientTable);
+        Generals.search(text, "clientes", clientTable.refresh);
       } else {
         clearTbody(".lobby-results");
       }
@@ -1850,18 +1832,17 @@ var Sections = {
     $("#delete-client").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row.length > 0) {
-        var id = $row.find('.id_cliente').text().trim();
+      var row = clientTable.getSelectedRow()[0];
+      if (row) {
         swal({
           title: 'Está Seguro?',
-          text: "Desea Eliminar al(la) Cliente " + $row.find("td:nth(2)").text() + " " + $row.find("td:nth(3)").text() + "?",
+          text: "Desea Eliminar al(la) Cliente " + row.nombres + " " + row.apellidos + "?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
           confirmButtonBackground: SUMMER_SKY
         }).then(function(){
-           Generals.deleteRow(id, "clientes")
+           Generals.deleteRow(row.id, "clientes")
         });
       }
     });

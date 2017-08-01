@@ -55,9 +55,9 @@ class Client_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data,"normal");
-    $result = $this->db->query("SELECT * FROM ic_clientes WHERE cedula = '".$this->cols['cedula']."'");
-    $result = $result->result_array();
-    $result = count($result);
+    // $result = $this->db->query("SELECT * FROM ic_clientes WHERE cedula = '".$this->cols['cedula']."'");
+    // $result = $result->result_array();
+    $result = $this->has_dni($this->cols['cedula']);
     if($result > 0){
       echo MESSAGE_ERROR." Esta cedula ya está registrada";
     }else{
@@ -70,6 +70,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_client($data){
+    
     $data_for_update = array(
       'nombres'      => strtoupper($data['nombres']),
       'apellidos'    => strtoupper($data['apellidos']),
@@ -179,13 +180,19 @@ class Client_model extends CI_MODEL{
     } 
   }
 
-public function search_clients($word){
-    $word = "'%".$word."%'";
-    $sql = "SELECT * FROM ic_clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
-    $sql .= "|| sector LIKE $word || concat(ic_clientes.nombres,' ',ic_clientes.apellidos) LIKE $word";
-    set_last_query($sql);
-    $sql .= "LIMIT 5";
-    if($result = $this->db->query($sql)){
+  public function search_clients($word){
+    $fields = array(
+     'id_cliente' => $word,
+     'cedula'     => $word,
+     'nombres'    => $word,
+     'apellidos'  => $word,
+     'sector'     => $word,
+     "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
+    );
+    $this->db->or_like($fields);
+    // $sql = "SELECT * FROM ic_clientes WHERE id_cliente LIKE $word || cedula LIKE $word || nombres LIKE $word || apellidos LIKE $word";
+    // $sql .= "|| sector LIKE $word || concat(ic_clientes.nombres,' ',ic_clientes.apellidos) LIKE $word";
+    if($result = $this->db->get('ic_clientes')){
       $result = make_client_table($result->result_array(),0);
       echo $result;
     }
@@ -214,6 +221,11 @@ public function search_clients($word){
     }else{
       echo MESSAGE_ERROR." No se ha podido eliminar el cliente";
     }
+  }
+
+  function has_dni($dni){
+    $this->db->where('cedula',$dni);
+    return  $this->db->count_all_results('ic_clientes');
   }
 
   //functions
