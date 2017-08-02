@@ -393,7 +393,7 @@ class Process extends CI_Controller {
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($id);
-		if($type = "cliente"){
+		if($type == "cliente"){
 			$contract_id = $this->contract_model->get_last_id_of($id);
 		}else{
 			$contract_id = $id;
