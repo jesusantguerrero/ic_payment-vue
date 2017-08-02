@@ -417,23 +417,6 @@ function replaceClass($object,oldClass,newClass){
 *                                                       *
 ********************************************************/
 
-function makeRowsClickable(){
-   $("tbody tr").on('click',function(e){
-    e.stopImmediatePropagation();
-    var $this,id;
-
-    $this = $(this);
-
-    if($this.hasClass('selected')){
-
-    }else{
-      $('tbody tr').removeClass('selected');
-      $this.toggleClass('selected');
-      id = $this.find('.id_cliente').text().trim();
-      contractRows($this);
-    }
-  });
-}
 
 function contractRows($this){
   var id_contrato,id_cliente;
@@ -1176,7 +1159,7 @@ var Contracts = {
       form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
       form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
       form += "&modelo=" + model + "&ip=" + ip;
-      connectAndSend("process/add", true, null, null, form, Contracts.getLast);
+      connectAndSend("process/add", true, null, null, form, Contracts.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -1188,9 +1171,9 @@ var Contracts = {
     connectAndSend("process/extend", true, initContractHandlers, null, form, null);
   },
 
-  getLastPage: function() {
+  getAll: function() {
     var form = "tabla=contratos";
-    connectAndSend('process/lastpage', false, initContractHandlers, fillCurrentTable, form, null);
+    connectAndSend('process/getall', false, null, contractTable.refresh, form, null);
   },
 
   getLast: function(id) {
@@ -1202,13 +1185,10 @@ var Contracts = {
   },
 
   callExtra: function() {
-    var $row = $("tr.selected");
-    if ($row != undefined) {
-      var client = $row.find('td.th-client');
-      var dni = client.attr("data-cedula");
-
-      $("#extra-client-dni").val(dni);
-      Contracts.getAllOfClient(dni);
+    var row = contractTable.getSelectedRow();
+    if (row) {
+      $("#extra-client-dni").val(row.cedula);
+      Contracts.getAllOfClient(row.cedula);
       $('#add-extra-modal').modal();
     } else {
        displayAlert("Revise", "Seleccione el conrato primero", "error");
@@ -1216,21 +1196,19 @@ var Contracts = {
   },
 
   cancel: function() {
-    var $row       = $("tr.selected");
-    var contractId = $row.find(".id_contrato").text().trim();
-    var clientId   = $row.find(".th-client").attr("data-id-cliente");
+    var row        = contractTable.getSelectedRow()
     var is_penalty = false;
     var reason     = $("#cancelation-reason").val();
     var checked    = $("#check-penalty:checked").length;
     var form, fecha;
-    if(contractId){
+    if(row.id){
       if (checked > 0) {
         is_penalty = true;
       }
       fecha = moment().format("YYYY-MM-DD");
-      form = 'id_contrato=' + contractId + '&fecha=' + fecha + '&id_cliente=' + clientId;
+      form = 'id_contrato=' + row.id + '&fecha=' + fecha + '&id_cliente=' + row.id_cliente;
       form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-      connectAndSend('process/cancel', true, null, null, form, Contracts.getLastPage);
+      connectAndSend('process/cancel', true, null, null, form, Contracts.getAll);
     }else{
       displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }
@@ -1242,16 +1220,17 @@ var Contracts = {
   },
 
   recieve: function(content) {
-    var contract = JSON.parse(content);
+    var contract    = JSON.parse(content);
     var id_contrato = contract['id_contrato'];
-    var $equipo = $("#u-contract-equipment");
-    var $macEquipo = $("#u-contract-e-mac");
-    var $router = $("#u-contract-router");
-    var $macRouter = $("#u-contract-r-mac");
-    var $modelo = $("#u-contract-modelo");
-    var $codigo = $("#select-contract-code");
+    console.log(id_contrato);
+    var $equipo     = $("#u-contract-equipment");
+    var $macEquipo  = $("#u-contract-e-mac");
+    var $router     = $("#u-contract-router");
+    var $macRouter  = $("#u-contract-r-mac");
+    var $modelo     = $("#u-contract-modelo");
+    var $codigo     = $("#select-contract-code");
     var $isChangeIp = $("#check-change-ip");
-    var $ip = $("#u-contract-ip");
+    var $ip         = $("#u-contract-ip");
 
     $equipo.val(contract['nombre_equipo']);
     $macEquipo.val(contract['mac_equipo']);
@@ -1277,7 +1256,7 @@ var Contracts = {
         form += "&ip=" + $ip.val() + "&codigo=" + $codigo.val();
       }
 
-      connectAndSend("process/update", true, initContractHandlers, null, form, Contracts.getLastPage);
+      connectAndSend("process/update", true, initContractHandlers, null, form, Contracts.getAll);
     }
   },
 
@@ -1318,7 +1297,7 @@ var Contracts = {
     var is_empty = isEmpty([contractId, serviceId, amount]);
     if (!is_empty) {
       form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
-      connectAndSend('process/upgrade', true, initGlobalHandlers, null, form, Contracts.getLastPage)
+      connectAndSend('process/upgrade', true, initGlobalHandlers, null, form, Contracts.getAll)
     } else {
       displayAlert("Revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
     }
@@ -1339,7 +1318,7 @@ var Contracts = {
     if (!is_empty) {
       form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
       form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
-      connectAndSend('process/addextra', true, initGlobalHandlers, null, form, Contracts.getLastPage);
+      connectAndSend('process/addextra', true, initGlobalHandlers, null, form, Contracts.getAll);
     } else {
       displayAlert("revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
     }
@@ -1353,7 +1332,7 @@ var Contracts = {
     var is_empty = isEmpty([duration, contractId]);
     if (!is_empty) {
       form = 'id_contrato=' + contractId + "&duracion=" + duration;
-      connectAndSend('process/extend_contract', true, initGlobalHandlers, null, form, Contracts.getLastPage)
+      connectAndSend('process/extend_contract', true, initGlobalHandlers, null, form, Contracts.getAll)
     } else {
       displayAlert("revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
     }
@@ -1898,10 +1877,9 @@ var Sections = {
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    Generals.count_table('contratos');
-    initPagination("#t-contracts", "v_contratos", Generals.paginate);
-    makeRowsClickable();
-
+    contractTable.init();
+    Contracts.getAll();
+    
     $("#btn-save-contract").on('click', function (e) {
       e.stopImmediatePropagation();
       Contracts.add();
@@ -1917,23 +1895,19 @@ var Sections = {
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "v_contratos", fillCurrentTable,initContractHandlers);
+      Generals.search(text, "v_contratos", contractTable.refresh,initContractHandlers);
     });
 
     $("#btn-cancel-contract").on('click', function (e) {
       e.preventDefault();
-      var $row = $("tr.selected");
-      var cells = $row.find("td");
-
-      if ($row != undefined) {
-        $(".cancel-name").text(cells.eq(2).text());
-        var $inputElement = $(".confirmed-data");
+      var row = contractTable.getSelectedRow();
+      if (row) {
+        $(".cancel-name").text(row.cliente);
+        var $inputElement   = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
-        var contractId  = $row.find(".id_contrato").text().trim();
-        var clientId    = $row.find(".th-client").attr("data-id-cliente");
 
         deleteValidation($inputElement, $buttonToActive);
-        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ clientId + "/" + contractId);
+        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();
         $buttonToActive.on('click', function (e) {
@@ -1951,9 +1925,9 @@ var Sections = {
     $("#btn-update-contract").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row) {
-        var id = $row.find('.id_contrato').text().trim();
+      var id = contractTable.getId();
+      if (id) {
+        console.log(id);
         Contracts.getOne(id, Contracts.recieve);
       }
     });

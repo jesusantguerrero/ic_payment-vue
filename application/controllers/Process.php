@@ -174,6 +174,9 @@ class Process extends CI_Controller {
 			case "servicios":
 				$this->service_model->get_all_services();
 				break;
+			case "contratos":
+				$this->contract_view_model->get_contract_view('activo');
+				break;
 			case "pagos":
 				$this->payment_model->get_all_of_contract($_POST['id']);
 				break;

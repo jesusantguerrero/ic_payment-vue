@@ -310,10 +310,9 @@
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    Generals.count_table('contratos');
-    initPagination("#t-contracts", "v_contratos", Generals.paginate);
-    makeRowsClickable();
-
+    contractTable.init();
+    Contracts.getAll();
+    
     $("#btn-save-contract").on('click', function (e) {
       e.stopImmediatePropagation();
       Contracts.add();
@@ -329,23 +328,19 @@
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "v_contratos", fillCurrentTable,initContractHandlers);
+      Generals.search(text, "v_contratos", contractTable.refresh,initContractHandlers);
     });
 
     $("#btn-cancel-contract").on('click', function (e) {
       e.preventDefault();
-      var $row = $("tr.selected");
-      var cells = $row.find("td");
-
-      if ($row != undefined) {
-        $(".cancel-name").text(cells.eq(2).text());
-        var $inputElement = $(".confirmed-data");
+      var row = contractTable.getSelectedRow();
+      if (row) {
+        $(".cancel-name").text(row.cliente);
+        var $inputElement   = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
-        var contractId  = $row.find(".id_contrato").text().trim();
-        var clientId    = $row.find(".th-client").attr("data-id-cliente");
 
         deleteValidation($inputElement, $buttonToActive);
-        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ clientId + "/" + contractId);
+        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();
         $buttonToActive.on('click', function (e) {
@@ -363,9 +358,9 @@
     $("#btn-update-contract").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row) {
-        var id = $row.find('.id_contrato').text().trim();
+      var id = contractTable.getId();
+      if (id) {
+        console.log(id);
         Contracts.getOne(id, Contracts.recieve);
       }
     });

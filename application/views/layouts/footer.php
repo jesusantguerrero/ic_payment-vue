@@ -11,6 +11,7 @@
     <script type="text/javascript" src="<?php echo base_url('assets/js/lib/sweetalert2.min.js?version=1.8') ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/clientTable.js?version=1.8')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/serviceTable.js?version=1.8')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=1.8')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/contractTable.js?version=3.0')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.0')?>"></script>
  </body>
 </html>

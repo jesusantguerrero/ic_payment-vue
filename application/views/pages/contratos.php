@@ -20,48 +20,10 @@
       <input type="text" class="searcher" id="contract-searcher"placeholder="Busque contrato por codigo o cliente">
     </div>
 
-    <div class="table" id="t-contracts">
-      <table class="table table-hovered t-contracts innertable">
-        <thead>
-          <tr>
-            <th>Cod</th>
-            <th>IP</th>
-            <th>Cliente</th>
-            <th>Fecha Inicio</th>
-            <th>Servicio</th>
-            <th>Meses</th>
-            <th>Ultimo Pago</th>
-            <th>Proximo Pago</th>
-            <th>Monto Pagado</th>
-            <th>Monto Total</th>
-          </tr>
-        </thead>
+      <table class="table table-hovered t-contracts" id="t-contracts">
         <tbody>
-          <?php $this->contract_view_model->get_contract_view('activo'); ?>
         </tbody>
       </table>
-      <div class="table-foot">
-        <div class="pagination-labels">
-          <div>
-            <select name="perpage" id="per-page" class="per-page">
-            <option value="5">5</option>
-            <option value="10">10</option> 
-          </select>
-          </div>
-          <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
-            <span
-              class="total-rows">
-              <?php $this->contract_view_model->count_contracts()?>
-              </span>
-          </div>
-          <div> Registros</div>
-        </div>
-
-        <div class="pagination-controllers">
-          <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
-        </div>
-      </div>
-    </div>
   </div>
 
 

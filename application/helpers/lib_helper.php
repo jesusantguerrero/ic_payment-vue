@@ -161,22 +161,24 @@ if ( ! function_exists('make_main_contract_table')){
   */ 
 
   function make_main_contract_table($data,$start_at){
-    $cont = $start_at + 1;
     $html_text = " "; 
     foreach ($data as $line) {
-        $html_text .= "<tr>
-        <td class='id_contrato'>".$line['id_contrato']."</td>
-        <td class='codigo'>".$line['codigo']."</td>
-        <td class='th-client 'data-id-cliente='".$line['id_cliente']."' data-cedula='".$line['cedula']."'>".$line['cliente']."</td>
-        <td>".$line['fecha']."</td>
-        <td>".$line['servicio']."</td>
-        <td>".$line['duracion']."</td>
-        <td>".$line['ultimo_pago']."</td>
-        <td>".$line['proximo_pago']."</td>
-        <td> RD$ ". CurrencyFormat($line['monto_pagado'])."</td>
-        <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-      </tr>";
-     $cont+=1;
+        $html_text .= 
+        "<tr>
+          <td class='id_contrato'>".$line['id_contrato']."</td>
+          <td class='hide'></td>
+          <td class='codigo'>".$line['codigo']."</td>
+          <td class='th-client'>".$line['cliente']."</td>
+          <td>".$line['fecha']."</td>
+          <td>".$line['servicio']."</td>
+          <td>".$line['duracion']."</td>
+          <td>".$line['ultimo_pago']."</td>
+          <td>".$line['proximo_pago']."</td>
+          <td> RD$ ". CurrencyFormat($line['monto_pagado'])."</td>
+          <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+          <td class='hide'>".$line['id_cliente']."</td>
+          <td class='hide'>".$line['cedula']."</td>
+        </tr>";
     }
 
     return $html_text;

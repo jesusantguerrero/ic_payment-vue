@@ -16,16 +16,10 @@ class Contract_view_model extends CI_MODEL{
     $this->load->helper('lib_helper');
   }
 
-
   public function get_contract_view($status){
-    $sql = "SELECT * FROM v_contratos where estado = '$status'";
-    set_last_query($sql);
-    $sql .= " ORDER BY id_contrato limit 5";
-    set_last_page($sql);
-    $result = $this->db->query($sql); 
-    if($result){
-       $result = $result->result_array();
-      echo make_main_contract_table($result,0);
+    $this->db->where('estado',$status);
+    if($result = $this->db->get('v_contratos')){
+        echo make_main_contract_table($result->result_array(),0);
     }
   }
 

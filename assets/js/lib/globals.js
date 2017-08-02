@@ -417,23 +417,6 @@ function replaceClass($object,oldClass,newClass){
 *                                                       *
 ********************************************************/
 
-function makeRowsClickable(){
-   $("tbody tr").on('click',function(e){
-    e.stopImmediatePropagation();
-    var $this,id;
-
-    $this = $(this);
-
-    if($this.hasClass('selected')){
-
-    }else{
-      $('tbody tr').removeClass('selected');
-      $this.toggleClass('selected');
-      id = $this.find('.id_cliente').text().trim();
-      contractRows($this);
-    }
-  });
-}
 
 function contractRows($this){
   var id_contrato,id_cliente;
