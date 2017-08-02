@@ -929,7 +929,7 @@ var Clients = {
 
   receiveForEdit: function (content) {
     var client        = JSON.parse(content);
-    var id            = client['id_cliente'];
+    this.id            = client['id_cliente'];
     var $nombres      = $("#u-client-name");
     var $apellidos    = $("#u-client-lastname");
     var $cedula       = $("#u-client-dni");
@@ -957,7 +957,6 @@ var Clients = {
     $ingresos.val(client['salario'])
 
     $("#update-client-modal").modal();
-
     $("#btn-update-client").on('click', function () {
       updateClient();
     });
@@ -1221,8 +1220,7 @@ var Contracts = {
 
   recieve: function(content) {
     var contract    = JSON.parse(content);
-    console.log(contract);
-    var id_contrato = contract['id_contrato'];
+    this.id_contrato = contract['id_contrato'];
     var $equipo     = $("#u-contract-equipment");
     var $macEquipo  = $("#u-contract-e-mac");
     var $router     = $("#u-contract-router");
@@ -1238,19 +1236,15 @@ var Contracts = {
     $macRouter.val(contract['mac_router']);
     $modelo.val(contract['modelo']);
     $ip.val(contract['ip']);
-    console.log("id contrato en receive: " + id_contrato);
 
     $("#update-contract-modal").modal();
     $("#update-contract").on('click', function (e) {
       e.stopImmediatePropagation();
-      console.log("id contrato en llamado de modal: " + id_contrato);
       updateContract(id_contrato);
     });
 
     function updateContract(id_contrato) {
       var checked = $("#check-change-ip:checked").length;
-      console.log("id contrato en update: " + id_contrato);
-
       form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + "&mac_equipo=" + $macEquipo.val();
       form += "&router=" + $router.val() + "&mac_router=" + $macRouter.val();
       form += "&modelo=" + $modelo.val();
@@ -1258,7 +1252,6 @@ var Contracts = {
       if (checked > 0) {
         form += "&ip=" + $ip.val() + "&codigo=" + $codigo.val();
       }
-
       connectAndSend("process/update", true, initContractHandlers, null, form, Contracts.getAll);
     }
   },
