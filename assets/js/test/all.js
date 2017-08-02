@@ -1221,8 +1221,8 @@ var Contracts = {
 
   recieve: function(content) {
     var contract    = JSON.parse(content);
+    console.log(contract);
     var id_contrato = contract['id_contrato'];
-    console.log(id_contrato);
     var $equipo     = $("#u-contract-equipment");
     var $macEquipo  = $("#u-contract-e-mac");
     var $router     = $("#u-contract-router");
@@ -1238,15 +1238,18 @@ var Contracts = {
     $macRouter.val(contract['mac_router']);
     $modelo.val(contract['modelo']);
     $ip.val(contract['ip']);
+    console.log("id contrato en receive: " + id_contrato);
 
     $("#update-contract-modal").modal();
     $("#update-contract").on('click', function (e) {
       e.stopImmediatePropagation();
-      updateContract();
+      console.log("id contrato en llamado de modal: " + id_contrato);
+      updateContract(id_contrato);
     });
 
-    function updateContract() {
+    function updateContract(id_contrato) {
       var checked = $("#check-change-ip:checked").length;
+      console.log("id contrato en update: " + id_contrato);
 
       form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + "&mac_equipo=" + $macEquipo.val();
       form += "&router=" + $router.val() + "&mac_router=" + $macRouter.val();
