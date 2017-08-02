@@ -124,7 +124,7 @@ if (! function_exists('payments_up_to_date')){
       $count++; 
     }
 
-    $monto_pagado = $contract['monto_pagado'] + ($payment['total'] * $count);
+    $monto_pagado = $payment['total'] * $count;
     if($monto_pagado == $contract['monto_total']){
       $state = "saldado";
     }else{

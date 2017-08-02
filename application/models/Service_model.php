@@ -123,7 +123,7 @@ class Service_model extends CI_MODEL{
     if($this->db->query($sql)){
       echo MESSAGE_SUCCESS." Servicio Eliminado";
     }else{
-      echo MESSAGE_ERROR." Error: Puede que este servicio tenga contratos vinculados". $sql;
+      echo MESSAGE_ERROR." Error: Puede que este servicio tenga contratos vinculados";
     }
   }
 
