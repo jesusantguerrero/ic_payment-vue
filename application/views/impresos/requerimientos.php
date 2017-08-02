@@ -8,8 +8,6 @@
     $settings = $this->settings_model->get_settings();
     $company = $this->company_model->get_empresa();
 ?>
-
-
 <!--*******************************************************************************************
                                       Contrato
 
@@ -146,7 +144,6 @@
   </div>
   <h1 class="titulo-lateral">Solicitud de <span>Contrato</span></h1>
 </div>
-
 <footer></footer>
 
 <!--*******************************************************************************************
@@ -251,7 +248,6 @@
       <input type="text" class="form-control line-input lg" id="">
     </div>
   </div>
-
 
   <h1 class="titulo-lateral">Orden de <span>Servicio</span></h1>
 </div>

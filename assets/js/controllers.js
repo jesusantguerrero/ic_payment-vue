@@ -366,7 +366,7 @@ var Contracts = {
       form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
       form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
       form += "&modelo=" + model + "&ip=" + ip;
-      connectAndSend("process/add", true, null, null, form, Contracts.getAll);
+      connectAndSend("process/add", true, null, null, form, Contracts.getLast);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -445,6 +445,7 @@ var Contracts = {
     $modelo.val(contract['modelo']);
     $ip.val(contract['ip']);
 
+    // $("#update-contract-modal select").val('')
     $("#update-contract-modal").modal();
     $("#update-contract").on('click', function (e) {
       e.stopImmediatePropagation();

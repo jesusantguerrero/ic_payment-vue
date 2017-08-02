@@ -116,13 +116,19 @@ body
 @media print
   @page
   body
+    position: relative
+    display: block
   
   .document-body
     width: 100%
     color: #666 !important
     margin: 0 0 0 0
     background: #fff
-    padding: 10px
+    padding: 50px 20px
+    position: relative
+    page-break-after: always !important
+    page-break-inside: avoid !important
+
   .concepto
     background: $contrast-color !important
     color: white !important
@@ -137,6 +143,7 @@ body
     position: relative
     display: block
     margin-bottom: 50px
+  
   .real-end
     break-after: avoid
     webkit-column-break-after: avoid
