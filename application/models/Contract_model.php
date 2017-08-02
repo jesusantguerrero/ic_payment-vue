@@ -84,6 +84,7 @@ class Contract_model extends CI_MODEL{
     $this->db->where('id_contrato',$contract_id);
     if($this->db->update('ic_contratos',$data_for_update)):
       if($echo) echo MESSAGE_SUCCESS." Contrato Actualizado ";
+      $this->get_next_payment_for_contract($contract_id);
       return true;
     else:
       if($echo) echo MESSAGE_ERROR."El Contrato No Pudo Ser Actualizado";
@@ -173,31 +174,32 @@ class Contract_model extends CI_MODEL{
 
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
     $id_empleado = $_SESSION['user_data']['user_id'];
-    $sql1 = " UPDATE ic_pagos SET id_empleado = $id_empleado, estado='".$data_pago['estado']."', fecha_pago='".$data_pago['fecha_pago']."', complete_date=now() WHERE id_pago=".$data_pago['id'];
-
-    $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
-    $sql4 = "UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+    $update_pago = array(
+      'id_empleado' => $id_empleado,
+      'estado'      => $data_pago['estado'],
+      'fecha_pago'  => $data_pago['fecha_pago']
+    );
 
     $this->db->trans_start();
-    $this->db->query($sql1);
-
-    $proximo_pago = $this->payment_model->get_next_payment_of($current_contract['id_contrato']);
-    if($proximo_pago == 0) $proximo_pago['fecha_limite'] = null;
-    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
-
+    $this->db->set('complete_date','NOW()',false);
+    $this->db->update('ic_pagos',$update_pago,array('id_pago' => $data_pago['id']));
     $this->db->where('id_contrato',$current_contract['id_contrato']);
     $this->db->update('ic_contratos',$data_contrato);
+    $this->get_next_payment_for_contract($current_contract['id_contrato']);
+
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
       echo MESSAGE_ERROR." No pudo guardarse el pago";
     } else{
       echo MESSAGE_SUCCESS." Pago Registrado";
-      $has_contracts = $this->db->query($sql3);
-      $has_contracts = $has_contracts->result_array();
-      $has_contracts = count($has_contracts);
+
+      $this->db->where('estado','activo');
+      $this->db->where('id_cliente',$current_contract['id_cliente']);
+      $has_contracts = $this->db->count_all_results('ic_clientes');
       if($has_contracts == 0){
-        $this->db->query($sql4);
+        $this->db->where('id_cliente',$current_contract['id_cliente']);
+        $this->db->update('ic_clientes',array('estado' => 'no activo'));
         $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
       }
     }
@@ -281,5 +283,14 @@ class Contract_model extends CI_MODEL{
       return $result->row_array();
     }
   }
-  //functions
+  
+  public function get_next_payment_for_contract($id_contrato){
+    $proximo_pago = $this->payment_model->get_next_payment_of($id_contrato);
+    if($proximo_pago == 0){
+      $proximo_pago['fecha_limite'] = null;
+    } 
+    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->update('ic_contratos',$data_contrato);
+  }
 }
