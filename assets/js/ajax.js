@@ -23,12 +23,10 @@
       case "detalles":
         initPaymentsHandlers();
         detailHandlers();
-        verifyContractStatus();
         break;
       case "contratos":
         initContractHandlers();
         initClientHandlers();
-        verifyContractStatus();
         break;
       case "cuenta":
         acountHandlers();
@@ -328,7 +326,7 @@
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "v_contratos", contractTable.refresh,initContractHandlers);
+      Generals.search(text, "v_contratos", contractTable.refresh,null);
     });
 
     $("#btn-cancel-contract").on('click', function (e) {

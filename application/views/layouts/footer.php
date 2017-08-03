@@ -13,6 +13,6 @@
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/serviceTable.js?version=1.8')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/contractTable.js?version=3.0')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/paymentTable.js?version=3.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.9')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.11')?>"></script>
  </body>
 </html>

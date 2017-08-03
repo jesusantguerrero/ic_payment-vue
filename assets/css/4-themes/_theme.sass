@@ -77,7 +77,6 @@ th
   background-position: right
   background-repeat: no-repeat
   padding-right: 30px
-  // background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC')
   cursor: pointer
   &:last-child
     border-radius: 0 4px 0 0
@@ -103,10 +102,21 @@ tbody
       background: lighten($contrast-color,25)
       color: #555
       border: 2px solid white
+      border-left: none
+      border-right: none
       td 
         border-color: transparent
       &:hover
         color: #555
+    &.marked
+      background: lighten(#1FD1A8,40%)
+      color: #222
+      border: 2px solid white
+      border-left: none
+      border-right: none
+
+.table-hover>tbody>tr.marked:hover 
+  background-color: lighten(#1FD1A8,20%)
 
 .fixed-table-container tbody .selected td
   background: lighten($contrast-color,25)
@@ -138,6 +148,8 @@ tbody td
   border-right: 1px solid #ddd
   &:last-child
     border-right: none
+  &.done
+    color: #1FD1A8
     
 .table>tbody>tr>td
   padding-top: 15px

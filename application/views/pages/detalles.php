@@ -201,7 +201,7 @@
                     <th data-field="extra">Extra</th>
                     <th data-field="monto">Monto</th>
                     <th data-field="fecha_pago">Fecha de Pago</th>
-                    <th data-field="estado">Estado</th>
+                    <th data-field="estado" data-align="center">Estado</th>
                     <th data-field="fecha_limite">Vence En</th>
                     <th data-field="action">Recibo</th>
                     <th data-field="id_contrato" class='hide'>ID Contrato</th>

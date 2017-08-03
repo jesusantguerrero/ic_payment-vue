@@ -132,10 +132,14 @@ if ( ! function_exists('make_contract_table')){
   */ 
 
   function make_contract_table($data,$start_at){
-    $cont = $start_at + 1;
+   
     $html_text = " "; 
     foreach ($data as $line) {
-        $html_text .= "<tr>
+       $class = '';
+        if($line['estado'] == 'saldado'){
+          $class = "marked";
+        }
+        $html_text .= "<tr class='$class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='hide'></td>
         <td>".$line['fecha']."</td>
@@ -146,7 +150,7 @@ if ( ! function_exists('make_contract_table')){
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
         <td class='td-estado'>".$line['estado']."</td>
       </tr>";
-     $cont+=1;
+     
     }
 
     return $html_text;
@@ -357,6 +361,7 @@ if ( ! function_exists('make_payment_table')){
   function make_payment_table($data,$start_at){
     $html_text = " "; 
     foreach ($data as $line) {
+        $state = is_marked($line['estado'],'pagado');
         $html_text .= "<tr>
         <td class='hide'>".$line['id_pago']."</td>
         <td class='hide'></td>
@@ -365,8 +370,8 @@ if ( ! function_exists('make_payment_table')){
         <td>RD$ ".CurrencyFormat($line['mora'])."</td>
         <td>RD$ ".CurrencyFormat($line['monto_extra'])."</td>
         <td>RD$ ".CurrencyFormat($line['total'])."</td>
-        <td>".$line['fecha_pago']."</td>
-        <td class='td-estado'>".$line['estado']."</td>
+        <td class='{$state['class']}'>".$line['fecha_pago']."</td>
+        <td class='{$state['class']}'>".$state['text']."</td>
         <td>".$line['fecha_limite']."</td>
         <td>";
           if($line['fecha_pago'] != null):
@@ -546,4 +551,15 @@ function dni_format($dni){
     return substr($dni,0,3)."-".substr($dni,3,7)."-".substr($dni,10);
   }
   return $dni;
+}
+
+function is_marked($estado,$comparison){
+   $class['text']  = $estado;
+   $class['class'] ='';
+
+    if($estado== $comparison){
+      $class['text'] = "&#10004;";
+      $class['class'] = "done";
+    }
+  return $class;
 }
