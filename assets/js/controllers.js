@@ -554,13 +554,8 @@ var Payments = {
     var id = $("#select-contract").val();
     if (id != null) {
       var form = "tabla=pagos&id=" + id;
-      connectAndSend('process/getall', false, initPaymentsHandlers, fillCurrentTable, form, null);
+      connectAndSend('process/getall', false, initPaymentsHandlers, paymentTable.refresh, form, null);
     }
-  },
-
-  getLastPage: function () {
-    var form = "tabla=pagos";
-    connectAndSend('process/lastpage', false, initPaymentsHandlers, fillCurrentTable, form, null);
   },
 
   update: function (id) {
@@ -569,7 +564,7 @@ var Payments = {
       var date = moment().format("YYYY-MM-DD");
       var id_contrato = $("#select-contract").val();
       var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
-      connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getLastPage);
+      connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getAll);
     } else {
       displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
     }
@@ -580,8 +575,8 @@ var Payments = {
     var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
     var handlers, callback;
     connectAndSend('process/update', true, null, null, form, null, heavyLoad);
-
   }
+  
 }
 
 var Damages = {

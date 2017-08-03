@@ -10,7 +10,6 @@ var contractTable = {
         pageSize:"5",
         pageList: "[5]", 
         showFooter: false,
-        striped: "true",
         clickToSelect: "true",
         singleSelect: "true",
         columns:[

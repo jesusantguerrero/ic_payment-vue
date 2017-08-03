@@ -137,6 +137,7 @@ if ( ! function_exists('make_contract_table')){
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td class='id_contrato'>".$line['id_contrato']."</td>
+        <td class='hide'></td>
         <td>".$line['fecha']."</td>
         <td>".$line['duracion']."</td>
         <td>".$line['ultimo_pago']."</td>
@@ -204,6 +205,7 @@ if ( ! function_exists('make_caja_table')){
     return $html_text;
   }
 }
+
 if ( ! function_exists('make_averias_list')){
 
   function make_averias_list($data){
@@ -353,10 +355,11 @@ if ( ! function_exists('make_payment_table')){
   */ 
 
   function make_payment_table($data,$start_at){
-    $cont = $start_at + 1;
     $html_text = " "; 
     foreach ($data as $line) {
         $html_text .= "<tr>
+        <td class='hide'>".$line['id_pago']."</td>
+        <td class='hide'></td>
         <td>".$line['concepto']."</td>
         <td>RD$ ".CurrencyFormat($line['cuota'])."</td>
         <td>RD$ ".CurrencyFormat($line['mora'])."</td>
@@ -365,13 +368,13 @@ if ( ! function_exists('make_payment_table')){
         <td>".$line['fecha_pago']."</td>
         <td class='td-estado'>".$line['estado']."</td>
         <td>".$line['fecha_limite']."</td>
-        <td class='id_pago' data-id='".$line['id_pago']."'>";
+        <td>";
           if($line['fecha_pago'] != null):
           $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
           endif;
         $html_text .="</td>
-      </tr>";
-     $cont+=1;
+        <td> class='hide'".$line['id_contrato']."</td>
+        </tr>";
     }
 
     return $html_text;
@@ -481,26 +484,6 @@ function CurrencyFormat($number){
 function number_to_words($number){
   $formatter = new \NumberFormatter('es', \NumberFormatter::SPELLOUT);
   return $formatter->format($number) . "\n";
-}
-
-function client_to_xml_format($data){
-        $client = "<client>
-        <id>".$data['id_cliente']."</id>
-        <name>".$data['nombres']."</name>
-        <lastname>".$data['apellidos']."</lastname>
-        <dni>".$data['cedula']."</dni>
-        <province>".$data['provincia']."</province>
-        <sector>".$data['sector']."</sector>
-        <street>".$data['calle']."</street>
-        <house>".$data['casa']."</house>
-        <telephone>".$data['telefono']."</telephone>
-        <cellphone>".$data['celular']."</cellphone>
-        <job>".$data['lugar_trabajo']."</job>
-        <jobphone>".$data['tel_trabajo']."</jobphone>
-        <salary>".$data['ingresos']."</salary>
-      </client>";
-    
-    return $client;
 }
 
 function set_last_query($lastquery){

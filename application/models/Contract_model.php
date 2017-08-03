@@ -127,9 +127,8 @@ class Contract_model extends CI_MODEL{
 
   public function get_not_paginated($id_cliente){
     $this->db->where('id_cliente',$id_cliente);
-    $result =$this->db->get('ic_contratos');
-    $result = make_contract_table($result->result_array(),0);
-    echo $result;
+    $result = $this->db->get('ic_contratos');
+    echo make_contract_table($result->result_array(),0);
   }
 
   public function get_all_of_clientjson($id){

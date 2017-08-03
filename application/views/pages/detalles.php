@@ -153,11 +153,13 @@
                 data-show-pagination-switch="false"
                 data-pagination="true" data-id-field="id-contrato" 
                 data-page-size="5" data-page-list="[5]" 
-                data-show-footer="false"
-                data-response-handler="responseHandler">
+                data-show-footer="false" 
+                data-click-to-select="true"
+                data-single-select="true">
                 <thead>
                   <tr>
-                    <th data-field="id-contrato">ID #</th>
+                    <th data-field="id-contrato">COD</th>
+                    <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
                     <th data-field="fecha">Fecha</th>
                     <th data-field="meses">(meses)</th>
                     <th data-field="ultimo-pago">Ultimo Pago</th>
@@ -177,47 +179,36 @@
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
               
-              <div class="table" id="t-pagos">
-              <table class="table t-pagos">
+              <table class="table t-pagos" id="t-pagos" 
+                data-sort-name="id" 
+                data-minimum-count-columns="2" 
+                data-show-pagination-switch="false"
+                data-pagination="true" 
+                data-id-field="id" 
+                data-page-size="5" 
+                data-page-list="[5]" 
+                data-show-footer="false"
+                data-striped="true"
+                data-click-to-select="true"
+                data-single-select="true">
                 <thead>
                   <tr>
-                    <th>Concepto</th>
-                    <th>Cuota</th>
-                    <th>Mora</th>
-                    <th>Extra</th>
-                    <th>Monto</th>
-                    <th>Fecha de Pago</th>
-                    <th>Estado</th>
-                    <th>Vence En</th>
-                    <th>Recibo</th>
+                    <th data-field="id" class="hide">ID Pago</th>
+                    <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
+                    <th data-field="concepto">Concepto</th>
+                    <th data-field="cuota">Cuota</th>
+                    <th data-field="mora">Mora</th>
+                    <th data-field="extra">Extra</th>
+                    <th data-field="monto">Monto</th>
+                    <th data-field="fecha_pago">Fecha de Pago</th>
+                    <th data-field="estado">Estado</th>
+                    <th data-field="fecha_limite">Vence En</th>
+                    <th data-field="action">Recibo</th>
+                    <th data-field="id_contrato" class='hide'>ID Contrato</th>
                   </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
               </table>
-              <div class="table-foot">
-                <div class="pagination-labels">
-                  <div>
-                    <select name="perpage" id="per-page" class="per-page">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>  
-                  </select>
-                  </div>
-                  <div><span class="min-limit">1</span>-<span class="max-limit-visible">5</span><span class="max-limit">5</span> de
-                    <span class="total-rows">
-                      <?php ?>
-                      </span>
-                  </div>
-                  <div> Registros</div>
-                </div>
-              
-                <div class="pagination-controllers">
-                  <div><i class="material-icons previous-page">keyboard_arrow_left</i> <i class="material-icons next-page">keyboard_arrow_right</i></div>
-                </div>
-              </div>
-            </div>
             </div>
 
             <!---->
@@ -265,6 +256,4 @@
 
 
   </div>
-
-
 </div>

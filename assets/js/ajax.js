@@ -360,7 +360,6 @@
       e.stopImmediatePropagation();
       var id = contractTable.getId();
       if (id) {
-        console.log(id);
         Contracts.getOne(id, Contracts.recieve);
       }
     });
@@ -376,29 +375,25 @@
       var contractId    = $this.attr('data-contract');
       var lastPaymentId = $(this).val();
       Payments.updateUntil(contractId,lastPaymentId);
-
     });
 
   }
 
   //***************************************************  Init Payments  Handlers   ***************************** */
   function initPaymentsHandlers() {
+    paymentTable.init();
     if (!ran) {
       Payments.getAll();
       ran = true;
     }
 
-    verifyPaymentStatus();
-    initPagination('#t-pagos', 'pagos_por_contrato', Generals.paginate);
-    Generals.count_table("pagos_por_contratos");
-
-
     $("#btn-pay").on('click', function (e) {
       e.stopImmediatePropagation();
-      var $row = $("tr.selected");
-      if ($row) {
-        var id = $row.find('.id_pago').attr("data-id").trim();
+      var id = paymentTable.getId();
+      if(id) {
         Payments.update(id);
+      }else{
+        // TODO: MESSAGE Select a payment
       }
     });
 
@@ -407,7 +402,6 @@
       Payments.getAll();
     });
 
-    makeRowsClickable();
   }
 
   //***************************************************      detail Handlers       ***************************** */
@@ -423,7 +417,7 @@
       $('#text-observations').val('');
     });
 
-    $("#d-contracts").bootstrapTable();
+    detailsContractTable.init();
 
   }
 

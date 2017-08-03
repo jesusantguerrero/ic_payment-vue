@@ -453,17 +453,7 @@ function makeServiceCardClickable(){
 *                          Verify Rows                            
 *                                                       *
 ********************************************************/
-function verifyPaymentStatus(){
-  $(".td-estado").each(function(i,value){
-    var $this = $(this);
-    var text = $this.text().trim();
-    if(text == "no pagado"){
-      $this.css({color:"rgba(200,0,0,.7)"})
-    }else if(text == "pagado"){
-      $this.parents("tr").css({background:"rgba(22,255,0,.3)",color:"#555"});
-    }
-  });
-}
+
 
 function verifyContractStatus(){
   $(".td-estado").each(function(i,value){

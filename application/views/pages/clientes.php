@@ -22,7 +22,8 @@
       <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
     </div>
     
-    <table class="table t-clients" id="t-clients" data-sort-name="orden"
+    <table class="table t-clients" id="t-clients" 
+      data-sort-name="orden"
       data-sort-order="asc" 
       data-search="false" 
       data-show-refresh="false"
@@ -32,9 +33,9 @@
       data-show-pagination-switch="false"
       data-pagination="true" 
       data-id-field="id" 
-      data-page-size="5" data-page-list="[5]" 
+      data-page-size="5" 
+      data-page-list="[5]" 
       data-show-footer="false"
-      data-striped="true"
       data-click-to-select="true"
       data-single-select="true">
       <thead>

@@ -125,15 +125,9 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_all_of_contract($id){
-    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
-    $_SESSION['last_payment_query'] = $sql;
-    $sql .= " Limit 5";
-    $_SESSION['last_payment_page'] = $sql;
-    $result = $this->db->query($sql);
-    $_SESSION['last_payment_id'] = $id;
-    if($result){
-      $result = make_payment_table($result->result_array(),0);
-      echo $result;
+    $this->db->where('id_contrato',$id);
+    if($result = $this->db->get('ic_pagos')){
+      echo make_payment_table($result->result_array(),0);
     }
   } 
 
