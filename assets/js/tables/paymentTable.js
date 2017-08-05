@@ -2,6 +2,7 @@ var paymentTable = {
   init: function(page,row){
     this.el = $('#t-pagos');
     this.el.bootstrapTable();
+    this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
     
     if(page,row){
@@ -45,6 +46,7 @@ var detailsContractTable = {
   init: function(){
     this.el = $("#d-contracts");
     this.el.bootstrapTable();
+    this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
     
   },

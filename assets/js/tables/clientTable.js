@@ -4,6 +4,10 @@ var clientTable = {
     var self = this;
     this.el = $('#t-clients');
     this.el.bootstrapTable();
+    this.el.find('tbody').css({display:"table-row-group"});
+    this.el.on('all.bs.table',function(name,args){
+      console.log(name);
+    })
     self.el.addClass('innertable');
     clientTable.detectClicks();
   },

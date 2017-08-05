@@ -4,6 +4,7 @@ var serviceTable = {
     var self = this;
     this.el = $('#t-services');
     this.el.bootstrapTable();
+    this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
   },
 

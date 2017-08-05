@@ -71,6 +71,7 @@ var contractTable = {
           }
         ]
     });
+    this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     contractTable.detectClicks();
   },
