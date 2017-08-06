@@ -139,25 +139,6 @@ class Client_model extends CI_MODEL{
     echo $result;
   }
 
-  public function last_page(){
-    $result = $this->db->query(get_last_page());
-    if($result){
-      isset($_SESSION['offset']) ? $offset = $_SESSION['offset']  : $offset = 0;
-      $result = make_client_table($result->result_array(),$offset);
-      echo $result;
-    }  
-  }
-
-  public function count_clients(){
-    $result = $this->db->query(get_last_query());
-    $result = $result->result_array();
-    if($result){
-      echo count($result);
-    }else{
-      echo 0;
-    }
-  }
-
   public function count_all_clients(){
     $result = $this->db->count_all('ic_clientes');
     if($result){
@@ -165,19 +146,6 @@ class Client_model extends CI_MODEL{
     }else{
       echo 0;
     }
-  }
-
-  public function get_clients_paginate($offset,$perpage){
-    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
-    set_last_page($sql);
-    $_SESSION['offset'] = $offset;
-    $result = $this->db->query($sql);
-    if($result){
-      $result = make_client_table($result->result_array(),$offset);
-      echo $result;
-    }else{
-      echo $sql;
-    } 
   }
 
   public function search_clients($word){

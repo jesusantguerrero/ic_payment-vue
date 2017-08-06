@@ -907,15 +907,13 @@ var Generals = {
     var handlers, callback;
     switch (tabla) {
       case 'clientes':
-        handlers = initClientHandlers;
         callback = Clients.getAll;
         break;
       case 'servicios':
-        handlers = initServicesHandlers;
         callback = Services.getAll;
         break;
     }
-    connectAndSend('process/delete', true, handlers, null, form, callback);
+    connectAndSend('process/delete', true,null, null, form, callback);
   },
   /**
    * Search manda un mensaje al servidor de los valores a buscar

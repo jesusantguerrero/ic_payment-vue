@@ -90,13 +90,6 @@ class User_model extends CI_MODEL{
     $result = $this->db->count_all("ic_users");
     echo $result;
   }
-
-  public function get_users_paginate($offset,$perpage){
-    $sql = "SELECT * FROM ic_users LIMIT ".$offset.", ".$perpage;
-    $result = $this->db->query($sql);
-    $result = make_table($result->result_array(),$offset);
-    echo $result;
-  }
   
   public function get_user($id){
     $sql = "SELECT * FROM ic_users WHERE user_id=". $id;

@@ -492,30 +492,6 @@ function number_to_words($number){
   return $formatter->format($number) . "\n";
 }
 
-function set_last_query($lastquery){
-  $_SESSION['lastquery'] = $lastquery;
-}
-
-function get_last_query(){
-  return $_SESSION['lastquery'];
-}
-
-function set_to_session($lastquery){
-  $_SESSION['id_contrato'] = $lastquery;
-}
-
-function get_from_session(){
-  return $_SESSION['id_contrato'];
-}
-
-function set_last_page($lastquery){
-  $_SESSION['lastpage'] = $lastquery;
-}
-
-function get_last_page(){
-  return $_SESSION['lastpage'];
-}
-
 function authenticate(){
   if(!isset($_SESSION['user_data'])){
 		redirect(base_url());

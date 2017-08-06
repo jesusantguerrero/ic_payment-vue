@@ -23,14 +23,6 @@ class Contract_view_model extends CI_MODEL{
     }
   }
 
-  public function last_page(){
-    $result = $this->db->query(get_last_page());
-    if($result){
-      $result = make_main_contract_table($result->result_array(),0);
-      echo $result;
-    }
-  }
-
   public function get_contract_view_of_service($service_id){
     $this->db->where('id_servicio',$service_id);
     $this->db->where('estado','activo');
@@ -42,33 +34,17 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function count_contracts(){
-    $result = $this->db->query(get_last_query());
-    $result = $result->result_array();
+    $result = $this->db->count_all('ic_contratos');
     if($result){
-      echo count($result);
-    }else{
-      echo 0;
-    }
-  }
-
-  public function get_contracts_paginate($offset,$perpage){
-    $sql = get_last_query()." ORDER BY id_contrato LIMIT ".$offset.", ".$perpage;
-    $result = $this->db->query($sql);
-    set_last_page($sql);
-    if($result){
-      $result = make_main_contract_table($result->result_array(),$offset);
       echo $result;
     }else{
-      
+      echo 0;
     }
   }
 
   public function search_contracts($word){
     $word = "'%".$this->db->escape_like_str($word)."%'";
     $sql = "SELECT * FROM v_contratos WHERE (codigo LIKE $word || cliente LIKE $word || id_contrato LIKE $word) AND estado = 'activo'";
-    set_last_query($sql);
-    $sql .= "LIMIT 5";
-    set_last_page($sql);
     if($result = $this->db->query($sql)){
       $result = make_main_contract_table($result->result_array(),0);
       echo $result;

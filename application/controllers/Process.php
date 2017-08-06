@@ -161,6 +161,7 @@ class Process extends CI_Controller {
 		$data_cambio = $_POST;
 		upgrade_contract($this,$data_cambio);
 	}
+
 	public function getall(){
 		authenticate();
 		$tabla = $_POST['tabla'];
@@ -178,7 +179,7 @@ class Process extends CI_Controller {
 				$this->contract_view_model->get_contract_view('activo');
 				break;
 			case "contratos_cliente":
-				$this->contract_model->get_not_paginated($_POST['id']);
+				$this->contract_model->get_all_of_client($_POST['id']);
 				break;
 			case "pagos":
 				$this->payment_model->get_all_of_contract($_POST['id']);
@@ -218,25 +219,6 @@ class Process extends CI_Controller {
 				$this->payment_model->list_all_of_contract($id_contrato);
 		}
 	}
-	public function lastpage(){
-		authenticate();
-		$tabla = $_POST['tabla'];
-		switch ($tabla){
-			case "pagos":
-				$this->payment_model->last_page();
-				break;
-			case "clientes":
-				$this->client_model->last_page();
-				break;
-			case "contratos":
-				$this->contract_view_model->last_page();
-				break;
-			case "servicios":
-				$this->service_model->last_page();
-				break;
-		}
-
-	}
 
 	public function getone(){
 		authenticate();
@@ -264,31 +246,6 @@ class Process extends CI_Controller {
 					$result = $this->caja_chica_model->get_last_saldo();
 					echo $result;
 					break;
-		}
-	}
-
-	public function paginate(){
-		authenticate();
-		$offset = $_POST['offset'];
-		$perpage = $_POST['perpage'];
-		$table = $_POST['table'];
-		if($offset == 1) $offset = 0;
-		switch ($table) {
-			case "clientes":
-				$this->client_model->get_clients_paginate($offset,$perpage);
-				break;
-			case "servicios":
-				$this->service_model->get_services_paginate($offset,$perpage);
-				break;
-			case "v_contratos":
-				$this->contract_view_model->get_contracts_paginate($offset,$perpage);
-			break;
-			case "pagos_por_contrato":
-				$this->payment_model->get_payments_paginate($offset,$perpage);
-			break;
-			case "caja":
-				$this->caja_chica_model->paginate($offset,$perpage);
-			break;
 		}
 	}
 
@@ -326,14 +283,8 @@ class Process extends CI_Controller {
 			case 'servicios':
 				$this->service_model->count_services();
 				break;
-			case 'pagos':
-				$this->payment_model->count_payments();
-				break;
 			case 'pagos_por_contratos':
 				$this->payment_model->count_of_contract();
-			case 'caja':
-				$this->caja_chica_model->count();
-				break;
 			case 'averias':
 				$this->averia_model->count();
 				break;

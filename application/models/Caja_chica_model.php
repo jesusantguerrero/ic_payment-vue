@@ -90,16 +90,6 @@ class Caja_chica_model extends CI_MODEL{
     endif;
   }
 
-  public function count(){
-    $result = $this->db->query(get_last_query());
-    if($result){
-      $result = $result->result_array();
-      echo count($result);
-    }else{
-      echo 0;
-    }
-  }
-
   public function get_transactions_per_month($field){
     $resultado_por_mes = array();
     

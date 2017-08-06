@@ -147,7 +147,6 @@ class Payment_model extends CI_MODEL{
       $result = make_payment_list($result->result_array());
       echo $result;
     }
-    
   }
 
   public function get_unpaid_per_contract($id_contrato){
@@ -158,26 +157,6 @@ class Payment_model extends CI_MODEL{
       return $result->result_array();
     }
   }
-
-  public function get_payments_paginate($offset,$perpage){
-    $sql = $_SESSION['last_payment_query']." LIMIT ".$offset.", ".$perpage;
-    $_SESSION['last_payment_page'] = $sql;
-    $result = $this->db->query($sql);
-    if($result){
-      $result = make_payment_table($result->result_array(),$offset);
-      echo $result;
-    }else{
-      echo "nada que mostrar";
-    } 
-  }
-
-  public function last_page(){
-    $result = $this->db->query($_SESSION['last_payment_page']);
-    if($result){
-      $result = make_payment_table($result->result_array(),0);
-      echo $result;
-    }  
-  } 
 
   public function year_income(){
     $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
