@@ -223,57 +223,11 @@ function isEmpty(values,is_num){
   }
   return false;
 }
-// +-----------------------------------------------------------------------------------------------------------------------------+
-// |                                                     Pagination Related Funtions                                             |
-// |                                                                                                                             |
-// +-----------------------------------------------------------------------------------------------------------------------------+
 
-/**
- * get Pagination Data: Devuelve la información del pie de la tabla relacionada con la paginación
- * @param {string} tableId 
- * @return {{perpage: number,$maxLimit: HTMLElement,$minLimit: HTMLElement,$maxLimitVisible: HTMLElement,previous:number,next:number,min:number,max: number,total:number}}
- * 
- */
-function getPaginationData(tableId){
-  var perpage = $(tableId + " .per-page").val();
-  var $maxLimit = $(tableId + " .max-limit");
-  var $maxLimitVisible = $(tableId + " .max-limit-visible");
-  var $minLimit = $(tableId + " .min-limit");
-  var $totalRows = $(tableId + " .total-rows");
-  var total = $(tableId + " .total-rows").text();
-  var previous = Number($minLimit.text());
-  var next = Number($maxLimit.text());
-  var min = previous;
-  var max = next;
-  total = Number(total)
-  perpage = Number(perpage);
-  next = next + perpage;
-  previous = previous + perpage;
-
-  return {"perpage": perpage,
-          "min": min,
-          "max": max,
-          "previous": previous,
-          "next":next,
-          "$maxLimit": $maxLimit,
-          "$maxLimitVisible": $maxLimitVisible,
-          "$minLimit": $minLimit,
-          "$totalRows": $totalRows,
-          "total": total
-        }
-}
 
 function updateSaldo(money){
   money = "RD$ "+ CurrencyFormat(money)
   $(".current-saldo").text(money);
-}
-
-function updateCount($content){
-  $(".total-rows").html($content);
-}
-
-function updateCajaCount($content){
-  $("#caja .total-rows").html($content);
 }
 
 // +-----------------------------------------------------------------------------------------------------------------------------+
@@ -351,6 +305,23 @@ function replaceClass($object,oldClass,newClass){
    $object.removeClass(oldClass)
 }
 
+function makeServiceCardClickable(){
+    var serviceCard      = $(".service-card");
+    var btnPrintContract = $('#btn-print-requirement');
+
+    serviceCard.on('click',function(e){
+      e.stopImmediatePropagation();
+      var $this       = $(this);
+      var service_id  = $this.attr('data-id'); 
+      var payment     = $this.attr('data-payment');
+      var realLink    = btnPrintContract.attr('data-href')
+      
+      serviceCard.removeClass('selected');
+      $this.addClass('selected');
+      btnPrintContract.attr("href",realLink + "/" + service_id);
+      $('#contract-client-payment').val(payment)
+    })
+}
 /********************************************************
 *                          Verify Rows                            
 *                                                       *

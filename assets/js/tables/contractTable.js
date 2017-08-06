@@ -12,6 +12,7 @@ var contractTable = {
         showFooter: false,
         clickToSelect: "true",
         singleSelect: "true",
+        stripped: false,
         columns:[
           {
             title:"Cod",

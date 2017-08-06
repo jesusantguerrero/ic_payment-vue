@@ -39,7 +39,7 @@
                       <input type="text" class="form-control" id="extra-client-name" tabindex="3" disabled>
                     </div>
                     <div class="form-group">
-                      <label for="client-dni">Codigo del contrato</label>
+                      <label for="client-dni">Codigo IP</label>
                       <input type="text" class="form-control" id="extra-code" tabindex="3" disabled>
                     </div>
                   </div>
@@ -47,7 +47,7 @@
                   <div class="col-md-6">
                     <h4 class="placeholder">... </h4>
                     <div class="form-group">
-                      <label for="client-lastname">id del contrato</label>
+                      <label for="client-lastname">Condigo del contrato</label>
                       <select type="text" class="form-control" id="extra-client-contract" tabindex="2">
                         <option value="">--Selecciona--</option>
                       </select>

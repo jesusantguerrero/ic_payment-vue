@@ -23,7 +23,6 @@
     </div>
     
     <table class="table t-clients" id="t-clients" 
-      data-sort-name="orden"
       data-sort-order="asc" 
       data-search="false" 
       data-show-refresh="false"
@@ -37,7 +36,8 @@
       data-page-list="[5]" 
       data-show-footer="false"
       data-click-to-select="true"
-      data-single-select="true">
+      data-single-select="true"
+      data-striped="false">
       <thead>
       
         <tr>
