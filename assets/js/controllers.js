@@ -40,7 +40,7 @@ var Users = {
 
   getAll: function () {
     var form = "table=users";
-    connectAndSend('user/getusers', false, initAdminHandlers, fillCurrentTable, form, null);
+    connectAndSend('user/getusers', false, initAdminHandlers, userTable.refresh, form, null);
   },
 
   delete: function (id) {
@@ -211,7 +211,7 @@ var Clients = {
 
     form = 'observaciones=' + observations + "&abonos=" + abono + "&id_cliente=" + idCliente + "&modo=" + abonoWatched;
     form += "&contrato_abono="+contractId+"&tabla=observaciones";
-    connectAndSend("process/update", true, initPaymentsHandlers, null, form, null)
+    connectAndSend("process/update", true, null, null, form, null)
 
     abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
   }
@@ -233,40 +233,6 @@ var Generals = {
     }
     connectAndSend('process/delete', true, handlers, null, form, callback);
   },
-
-  paginate: function (offset, perpage, tableName) {
-    var path = "user/";
-    var handlers;
-    if (tableName != "users") {
-      path = "process/";
-    }
-    tableFill = fillCurrentTable;
-
-    switch (tableName) {
-      case "users":
-        handlers = initAdminHandlers;
-        break;
-      case "clientes":
-        handlers = initClientHandlers;
-        break;
-      case "servicios":
-        handlers = initServicesHandlers;
-        break;
-      case "v_contratos":
-        handlers = initContractHandlers;
-        break;
-      case "pagos_por_contrato":
-        handlers = initPaymentsHandlers;
-        break;
-      case "caja":
-        handlers = initCajaHandlers;
-        tableFill = fillCajaTable
-        break;
-    }
-    var form = "table=" + tableName + "&offset=" + offset + "&perpage=" + perpage;
-    connectAndSend(path + 'paginate', false, handlers, tableFill, form, null);
-  },
-
   /**
    * Search manda un mensaje al servidor de los valores a buscar
    * @param {string} text el valor a ser buscado
@@ -306,7 +272,7 @@ var Services = {
     if (!is_empty) {
       form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
       form += "&tabla=servicios";
-      connectAndSend("process/add", true, initServicesHandlers, null, form, Services.getAll);
+      connectAndSend("process/add", true, null, null, form, Services.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -314,7 +280,7 @@ var Services = {
 
   getAll: function () {
     var form = "tabla=servicios";
-    connectAndSend('process/getall', false, initServicesHandlers, serviceTable.refresh, form, null);
+    connectAndSend('process/getall', false, null, serviceTable.refresh, form, null);
   },
 
   update: function () {
@@ -330,7 +296,7 @@ var Services = {
     if (!is_empty) {
       form = 'id_servicio=' + id + "&nombre=" + name + "&descripcion=" + description + "&mensualidad=" + payment;
       form += "&tipo=" + type + "&tabla=servicios";
-      connectAndSend("process/update", true, initServicesHandlers, null, form, Services.getAll,heavyLoad);
+      connectAndSend("process/update", true, null, null, form, Services.getAll,heavyLoad);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -375,7 +341,7 @@ var Contracts = {
   extend: function(idContrato) {
     var form;
     form = 'id_contrato=' + idContrator;
-    connectAndSend("process/extend", true, initContractHandlers, null, form, null);
+    connectAndSend("process/extend", true, null, null, form, null);
   },
 
   getAll: function() {
@@ -387,7 +353,7 @@ var Contracts = {
     $("#btn-save-contract").attr("disabled", "");
     $("#btn-print-contract").removeAttr("disabled");
     var form = "tabla=pagos&id_contrato=" + id;
-    connectAndSend("process/getlist", false, initContractHandlers, makePaymentList, form, null);
+    connectAndSend("process/getlist", false, null, makePaymentList, form, null);
 
   },
 
@@ -423,7 +389,7 @@ var Contracts = {
 
   getOne: function(id_contrato, receiver) {
     form = "tabla=contratos&id_contrato=" + id_contrato;
-    connectAndSend("process/getone", false, initContractHandlers, receiver, form, null)
+    connectAndSend("process/getone", false, null, receiver, form, null)
   },
 
   recieve: function(content) {
@@ -461,7 +427,7 @@ var Contracts = {
       if (checked > 0) {
         form += "&ip=" + $ip.val() + "&codigo=" + $codigo.val();
       }
-      connectAndSend("process/update", true, initContractHandlers, null, form, Contracts.getAll);
+      connectAndSend("process/update", true, null, null, form, Contracts.getAll);
     }
   },
 
@@ -554,7 +520,7 @@ var Payments = {
     var id = $("#select-contract").val();
     if (id != null) {
       var form = "tabla=pagos&id=" + id;
-      connectAndSend('process/getall', false, initPaymentsHandlers, paymentTable.refresh, form, null);
+      connectAndSend('process/getall', false, null, paymentTable.refresh, form, Payments.contractRefresh);
     }
   },
 
@@ -564,7 +530,7 @@ var Payments = {
       var date = moment().format("YYYY-MM-DD");
       var id_contrato = $("#select-contract").val();
       var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
-      connectAndSend('process/update', true, initPaymentsHandlers, null, form, Payments.getAll);
+      connectAndSend('process/update', true, null, null, form, Payments.getAll);
     } else {
       displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
     }
@@ -575,6 +541,12 @@ var Payments = {
     var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
     var handlers, callback;
     connectAndSend('process/update', true, null, null, form, null, heavyLoad);
+  },
+
+  contractRefresh: function(){
+    var id_cliente = $('#detail-client-id').val()
+     var form = "tabla=contratos_cliente&id=" + id_cliente;
+    connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);
   }
   
 }
@@ -630,7 +602,7 @@ var Caja = {
     form = "entrada=" + amount + "&descripcion=" + description + "&tabla=caja";
     is_empty = isEmpty([amount, description]);
     if (!is_empty) {
-      connectAndSend('process/add', true, initCajaHandlers, null, form, Caja.getLastPage);
+      connectAndSend('process/add', true, null, null, form, Caja.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -644,20 +616,20 @@ var Caja = {
     form = "salida=" + amount + "&descripcion=" + description;
     is_empty = isEmpty([amount, description]);
     if (!is_empty) {
-       connectAndSend('process/retire', true, initCajaHandlers, null, form, Caja.getLastPage);
+       connectAndSend('process/retire', true, null, null, form, Caja.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
   },
 
-  getLastPage: function () {
+  getAll: function () {
     var form = "tabla=caja";
-    connectAndSend('process/lastpage', false, initCajaHandlers, fillCajaTable, form, Caja.getSaldo);
+    connectAndSend('process/getAll', false, null, cajaTable.refresh, form, Caja.getSaldo);
   },
 
   getSaldo: function () {
     var form = "tabla=caja";
-    connectAndSend('process/getone', false, initCajaHandlers, updateSaldo, form, null)
+    connectAndSend('process/getone', false, null, updateSaldo, form, null)
   },
 
   search: function () {
@@ -667,7 +639,7 @@ var Caja = {
     var userId = ($userSearch.val()) ? $userSearch.val() : '%';
 
     var form = "tabla=caja&id_empleado=" + userId + "&fecha=" + date;
-    connectAndSend('process/search', false, initCajaHandlers, fillCajaTable, form, null);
+    connectAndSend('process/search', false, null, cajaTable.refresh, form, null);
   }
 }
 

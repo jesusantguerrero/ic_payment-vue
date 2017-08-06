@@ -263,65 +263,6 @@ function getPaginationData(tableId){
         }
 }
 
-/**
- * init Pagination: make a table paginatable
- * mi metodo de paginacion propio habilita las funciones next, y previous
- * @constructor
- * @param {string} tableId Id de la <table> de la vista example '#t-table'
- * @param {string} serverTable Tabla de la base de datos a paginar
- * @param {function} paginate La funcion paginate como parametro
- * @return {void}
- */
-function initPagination(tableId,serverTable,paginate){ 
-   var pagination = getPaginationData(tableId);
-   var $total = pagination.$totalRows;
-  setTimeout(function(){
-    if (Number($total.text()) <= 5) pagination.$maxLimitVisible.text(Number($total.text()));
-  },2000) 
-  $(tableId + " .next-page").on('click',function(e){
-    e.stopImmediatePropagation()
-
-    var pagination = getPaginationData(tableId);
-    if(pagination.max < pagination.total){
-      var nextMax = pagination.max + pagination.perpage;
-      paginate(pagination.max ,pagination.perpage,serverTable);
-      if(nextMax > pagination.total){
-        pagination.$maxLimitVisible.text(pagination.total);
-      }else{
-        pagination.$maxLimitVisible.text(nextMax);
-      } 
-      pagination.$maxLimit.text(pagination.max + pagination.perpage); 
-      pagination.$minLimit.text(pagination.min + pagination.perpage);
-    }
-  });
-
-  $(tableId + " .previous-page").on('click',function(e){
-    e.stopImmediatePropagation()
-    var pagination = getPaginationData(tableId);
-    if(pagination.min != 1){
-      var previousMax = pagination.max - pagination.perpage;
-      pagination.$maxLimit.text(previousMax);
-      pagination.$maxLimitVisible.text(previousMax);
-      pagination.$minLimit.text(pagination.min - pagination.perpage);
-      paginate(pagination.min - pagination.perpage - 1,pagination.perpage,serverTable);
-    }
-  });
-
-  $(tableId + " .per-page").on('change',function(e){
-    e.stopImmediatePropagation();
-    var pagination = getPaginationData(tableId)
-    pagination.$maxLimit.text(pagination.perpage);
-    if(pagination.perpage > pagination.total){
-      pagination.$maxLimitVisible.text(pagination.total);
-    }else{
-      pagination.$maxLimitVisible.text(pagination.perpage);
-    }
-    
-    pagination.$minLimit.text(pagination.min);
-    paginate(pagination.min,pagination.perpage,serverTable);
-  })
-}
-
 function updateSaldo(money){
   money = "RD$ "+ CurrencyFormat(money)
   $(".current-saldo").text(money);
@@ -408,45 +349,6 @@ function deleteValidation($inputElement,$buttonToActive){
 function replaceClass($object,oldClass,newClass){
    $object.addClass(newClass);
    $object.removeClass(oldClass)
-}
-
-
-
-/********************************************************
-*                     Row Selection Functions                            
-*                                                       *
-********************************************************/
-
-
-function contractRows($this){
-  var id_contrato,id_cliente;
-
-  id_contrato = $this.find(".id_contrato").text().trim();
-  id_cliente = $this.find('.th-client').attr("data-id-cliente");  
-
-  $("#btn-pay-view").attr('href',BASE_URL + 'process/details/'+ id_cliente + "/pagos");
-  $("#btn-see-in-detail").attr('href',BASE_URL + 'process/details/'+ id_cliente);
-  $("#btn-see-contract").attr('href',BASE_URL + 'process/getrequirements/' + id_contrato + '/contrato');
-  //btnCancelarContrato.attr('data-id-cliente',id_cliente);
-  //btnEditarContrato.attr('data-id-cliente',id_cliente);
-}
-
-function makeServiceCardClickable(){
-    var serviceCard      = $(".service-card");
-    var btnPrintContract = $('#btn-print-requirement');
-
-    serviceCard.on('click',function(e){
-      e.stopImmediatePropagation();
-      var $this       = $(this);
-      var service_id  = $this.attr('data-id'); 
-      var payment     = $this.attr('data-payment');
-      var realLink    = btnPrintContract.attr('data-href')
-      
-      serviceCard.removeClass('selected');
-      $this.addClass('selected');
-      btnPrintContract.attr("href",realLink + "/" + service_id);
-      $('#contract-client-payment').val(payment)
-    })
 }
 
 /********************************************************

@@ -105,7 +105,7 @@
 
   //***************************************************     admin handlers          ***************************** */
   function initAdminHandlers() {
-    initPagination("#t-users", "users", Generals.paginate);
+    userTable.init();
 
     $("#btn-save-user").on('click', function (e) {
       e.stopImmediatePropagation();
@@ -121,9 +121,10 @@
       e.preventDefault();
       var $row = $(this).parents("tr");
       var id = $row.find('.user-id').text().trim();
+      var row = userTable.getRow(id);
       swal({
           title: 'Está Seguro?',
-          text: "Desea Eliminar al Usuario " + $row.find("td:nth(3)").text()  + "?",
+          text: "Desea Eliminar al Usuario " + row.nombres +" "+ row.apellidos + "?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
@@ -135,14 +136,15 @@
 
     $(".edit-user").on('click', function (e) {
       e.preventDefault();
-      var $row = $(this).parents("tr");
-      var cell = $row.find('td');
-      $("#e-nickname").val(cell.eq(2).text());
-      $("#e-name").val(cell.eq(3).text());
-      $("#e-lastname").val(cell.eq(4).text());
-      $("#e-dni").val(cell.eq(5).text());
-      $("#e-type").val($(this).attr('data-type'));
+      var id  = $(this).attr('data-user-id');
+      var row = userTable.getRow(id);
+      
 
+      $("#e-nickname").val(row.nick);
+      $("#e-name").val(row.nombres);
+      $("#e-lastname").val(row.apellidos);
+      $("#e-dni").val(row.cedula);
+      $("#e-type").val(row.tipo_codigo);
       $('#update-user-modal').modal();
     });
 
@@ -169,9 +171,11 @@
   
   function initCajaHandlers() {
     if (currentPage == 'administrador') {
-      initPagination("#caja", "caja", Generals.paginate);
-      Generals.count_table('caja');
+      cajaTable.init();
     }
+
+
+
     var btnAddMoney     = $("#btn-add-money");
     var btnRetireMoney  = $("#btn-retire-money");
     var userSearch      = $("#caja-user");

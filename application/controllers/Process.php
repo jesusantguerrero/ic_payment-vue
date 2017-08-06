@@ -177,6 +177,9 @@ class Process extends CI_Controller {
 			case "contratos":
 				$this->contract_view_model->get_contract_view('activo');
 				break;
+			case "contratos_cliente":
+				$this->contract_model->get_not_paginated($_POST['id']);
+				break;
 			case "pagos":
 				$this->payment_model->get_all_of_contract($_POST['id']);
 				break;
@@ -200,6 +203,9 @@ class Process extends CI_Controller {
 				break;
 			case "secciones":
 				$this->section_model->get_sections_dropdown();
+				break;
+			case "caja":
+				$this->caja_chica_model->get_rows();
 				break;
 		}
 	}
@@ -228,10 +234,6 @@ class Process extends CI_Controller {
 			case "servicios":
 				$this->service_model->last_page();
 				break;
-			case "caja":
-				$this->caja_chica_model->last_page();
-				break;
-
 		}
 
 	}

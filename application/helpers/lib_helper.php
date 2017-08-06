@@ -32,8 +32,9 @@ if ( ! function_exists('make_table')){
           <td>".dni_format($line['dni'])."</td>
           <td>".$types[$line['type']]."</td>
           <td><button>Actualizar</button></td>
+          <td class='hide'>".$line['type']."</td>
           <td>
-            <a href=''><i class='material-icons edit-user' data-type='".$line['type']."'>edit</i></a>
+            <a href=''><i class='material-icons edit-user'' data-user-id='".$line['user_id']."'>edit</i></a>
             <a href=''><i class='material-icons delete-user'>delete</i></a>
             <a href=''><i class='material-icons display-user'>find_in_page</i></a>
           </td>

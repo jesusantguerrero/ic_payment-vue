@@ -64,21 +64,13 @@ class Caja_chica_model extends CI_MODEL{
 
 
   public function get_rows(){
-    $sql = "SELECT * FROM v_caja";
-    set_last_query($sql);
-    $sql .= " LIMIT 5";
-    set_last_page($sql);
-    $result = $this->db->query($sql);
-    $result = make_caja_table($result->result_array());
-    echo $result;
+    $result = $this->db->get('v_caja');
+    echo make_caja_table($result->result_array());
   }
 
   public function search_in_rows($id_empleado = '%',$fecha = '%'){
     $mydatabase = $this->db;
     $sql = "SELECT * FROM v_caja WHERE id_empleado like".$mydatabase->escape($id_empleado)." AND date(fecha) like ".$mydatabase->escape($fecha);
-    set_last_query($sql);
-    $sql .= " LIMIT 5";
-    set_last_page($sql);
     if($result = $this->db->query($sql)){
       $result = make_caja_table($result->result_array());
       echo $result;
@@ -86,35 +78,6 @@ class Caja_chica_model extends CI_MODEL{
       echo " Error";
     }
     
-  }
-
-  public function get_for_print(){
-    $result = $this->db->get('v_caja');
-    $result = make_caja_table($result->result_array());
-    $style  = "th{background:#06f;}";
-    $cuerpo ="<HTML>
-              <head>
-                <TITLE>::. Exportacion de Datos .::</TITLE>
-                <link rel='stylesheet' href='".base_url('assets/css/main.css')."'/>
-              </head>
-              <body>";
-    $header = "<table border='1'>
-            <thead>            
-            <tr>
-              <th>COD</th>
-              <th>Fecha de Trasaccion</th>
-              <th>Descripcion</th>
-              <th>Ingreso</th>
-              <th>Salida</th>
-              <th>Saldo de Caja</th>
-              <th>Hecha Por</th>
-            </tr>
-            </thead>
-            <tbody>";
-    $footer = "</tbody>
-              </table>
-              </body></html>";
-    return $cuerpo.$header.$result.$footer;
   }
 
   public function get_last_saldo(){
@@ -136,26 +99,6 @@ class Caja_chica_model extends CI_MODEL{
       echo 0;
     }
   }
-
-  public function paginate($offset,$perpage){
-    $sql = get_last_query()." LIMIT ".$offset.", ".$perpage;
-    set_last_page($sql);
-    $result = $this->db->query($sql);
-    if($result){
-      $result = make_caja_table($result->result_array(),$offset);
-      echo $result;
-    }else{
-      echo $sql;
-    } 
-  }
-
-  public function last_page(){
-    $result = $this->db->query(get_last_page());
-    if($result){
-      $result = make_caja_table($result->result_array());
-      echo $result;
-    }  
-  } 
 
   public function get_transactions_per_month($field){
     $resultado_por_mes = array();

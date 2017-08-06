@@ -1,14 +1,12 @@
-var paymentTable = {
-  init: function(page,row){
-    this.el = $('#t-pagos');
+var userTable = {
+  init: function(page){
+    this.el = $('#t-users');
     this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
-    
-    if(page,row){
-      var id = row.id_contrato;
-      if(id == paymentTable.getRow().id_contrato)
-        this.el.bootstrapTable('selectPage',page);
+
+    if(page){
+      this.el.bootstrapTable('selectPage',page);
     }
   },
 
@@ -25,26 +23,24 @@ var paymentTable = {
   },
 
   getRow: function(id){
-    var data = this.el.bootstrapTable('getData');
-    return data[0];
-
+    var data = this.el.bootstrapTable('getRowByUniqueId',id);
+    return data;
   },
 
   refresh: function(content,callback){
-    var options = paymentTable.el.bootstrapTable('getOptions');
-    var row     = paymentTable.getRow();
+    var options = userTable.el.bootstrapTable('getOptions');
 
-    paymentTable.el.bootstrapTable('destroy');
-    paymentTable.el.find('tbody').html(content);
-    paymentTable.init(options.pageNumber, row);
+    userTable.el.bootstrapTable('destroy');
+    userTable.el.find('tbody').html(content);
+    userTable.init(options.pageNumber);
     if(callback)
        callback();
   },   
 }
 
-var detailsContractTable = {
+var cajaTable = {
   init: function(page){
-    this.el = $("#d-contracts");
+    this.el = $("#caja");
     this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
@@ -60,11 +56,13 @@ var detailsContractTable = {
   },
 
   refresh: function(content,callback){
-    var options = detailsContractTable.el.bootstrapTable('getOptions');
-    detailsContractTable.el.bootstrapTable('destroy');
-    detailsContractTable.el.find('tbody').html(content);
-    detailsContractTable.init(options.pageNumber);
+    var options = cajaTable.el.bootstrapTable('getOptions');
+    
+    cajaTable.el.bootstrapTable('destroy');
+    cajaTable.el.find('tbody').html(content);
+    cajaTable.init(options.PageNumber);
     if(callback)
        callback();
   }   
 }
+
