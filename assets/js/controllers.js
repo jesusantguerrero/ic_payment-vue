@@ -6,7 +6,7 @@ var Users = {
     password  = $("#user-password").val();
     name      = $("#user-name").val();
     lastname  = $("#user-lastname").val();
-    dni       = $("#user-dni").val();
+    dni       = getVal($("#user-dni"));
     type      = $("#user-type").val();
 
     var is_empty = isEmpty([nick, password, name, lastname, dni, type]);
@@ -92,15 +92,15 @@ var Clients = {
 
     nombres       = $("#client-name").val();
     apellidos     = $("#client-lastname").val();
-    cedula        = $("#client-dni").val();
-    celular       = $("#client-phone").val();
+    cedula        = getVal($("#client-dni"));
+    celular       = getVal($("#client-phone"));
     provincia     = $("#client-provincia").val();
     sector        = $("#client-sector").val();
     calle         = $("#client-street").val();
     casa          = $('#client-house').val();
-    telefono      = $('#client-telephone').val();
+    telefono      = getVal($('#client-telephone'));
     lugarTrabajo  = $('#client-job').val();
-    telTrabajo    = $('#client-job-telephone').val();
+    telTrabajo    = getVal($('#client-job-telephone'));
     ingresos      = $('#client-salary').val();
     fechaRegistro = moment().format("YYYY-MM-DD");;
     estado        = "no activo";
@@ -175,11 +175,11 @@ var Clients = {
       ]);
 
       if (!is_empty) {
-        form = 'id=' + id + '&nombres=' + $nombres.val() + "&apellidos=" + $apellidos.val() + "&cedula=" + $cedula.val();
-        form += "&celular=" + $celular.val() + "&provincia=" + $provincia.val() + "&sector=" + $sector.val() + "&calle=" + $calle.val();
-        form += "&casa=" + $casa.val() + "&telefono=" + $telefono.val() + "&lugar_trabajo=" + $lugarTrabajo.val() + "&tel_trabajo =";
+        form = 'id=' + id + '&nombres=' + $nombres.val() + "&apellidos=" + $apellidos.val() + "&cedula=" + getVal($cedula);
+        form += "&celular=" + getVal($celular) + "&provincia=" + $provincia.val() + "&sector=" + $sector.val() + "&calle=" + $calle.val();
+        form += "&casa=" + $casa.val() + "&telefono=" + getVal($telefono) + "&lugar_trabajo=" + $lugarTrabajo.val() + "&tel_trabajo =";
+        form += getVal($telTrabajo) + "&tabla=clientes";
         form += "&ingresos=" + $ingresos.val();
-        form += $telTrabajo.val() + "&tabla=clientes";
 
         connectAndSend("process/update", true, initClientHandlers, null, form, Clients.getAll);
 
@@ -646,10 +646,10 @@ var Company = {
     var form,
     companyName = $("#company-name").val(),
     companyStatement = $("#company-statement").val(),
-    companyPhone1 = $("#company-phone1").val(),
+    companyPhone1 = getVal($("#company-phone1")),
     companyDirection = $("#company-direction").val(),
     companyDescription = $("#company-description").val(),
-    companyPhone2 = $("#company-phone2").val()
+    companyPhone2 = getVal($("#company-phone2"))
 
     form = 'nombre=' + companyName + '&lema=' + companyStatement + '&descripcion=' + companyDescription + "&direccion="
     form += companyDirection + "&telefono1=" + companyPhone1 + "&telefonos=" + companyPhone2 + "&tabla=empresa";

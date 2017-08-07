@@ -42,6 +42,7 @@
 
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
+    var averiaClientDni = $("#a-client-dni");
     if (currentPage == 'notificaciones') {
         Generals.count_table("averias");
 
@@ -66,11 +67,12 @@
       Damages.add();
     });
 
-    $("#a-client-dni").on('keydown', function (e) {
-      var key = e.which;
-      var dni = $(this).val()
-      if (key == 13) {
+    averiaClientDni.on('keypress', function (e) {
+      if (isComplete(averiaClientDni)) {
+        var dni = getVal(averiaClientDni);
         Clients.getOne(dni,fillClientFields)
+      }else{
+        $('#a-client').val('');
       }
     });
 

@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                       <label for="client-dni">Cedula(sin guiones)</label>
-                      <input type="text" class="form-control" id="client-dni" tabindex="3">
+                      <input type="text" class="form-control" id="client-dni" tabindex="3" role="cedula">
                     </div>
                     <div class="form-group">
                       <label for="client-telephone">Telefono</label>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                       <label for="client-phone">Celular</label>
-                      <input type="text" class="form-control" id="client-phone" tabindex="4">
+                      <input type="tel" class="form-control" id="client-phone" tabindex="4">
                     </div>
 
                   </div>
@@ -186,7 +186,7 @@
                     </div>
                     <div class="form-group">
                       <label for="u-client-phone">Celular</label>
-                      <input type="text" class="form-control" id="u-client-phone" tabindex="4">
+                      <input type="tel" class="form-control" id="u-client-phone" tabindex="4">
                     </div>
                   </div>
                 </div>

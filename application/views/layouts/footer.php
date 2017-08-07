@@ -15,5 +15,28 @@
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/adminTables.js?version=3.0')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/paymentTable.js?version=3.0')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.19')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/adminlte.min.js?version=3.19')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/jquery.inputmask.js?version=3.19')?>"></script>
+    <script>
+        $(function(){
+            $('[type="tel"]').inputmask({"mask": "(999) 999-9999"});
+            $('[role="cedula"]').inputmask({"mask": "999-9999999-9"});
+            $('[id*="dni"]').inputmask({"mask": "999-9999999-9"});
+
+            window.getVal = function (element){
+                console.log(element)
+                console.log(element.val)
+                return element.inputmask('unmaskedvalue');
+            }
+
+            window.isComplete = function(element){
+                return element.inputmask('isComplete');
+            }
+        })
+        
+
+    </script>
  </body>
+
+
 </html>

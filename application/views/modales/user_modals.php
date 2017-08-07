@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="user-nickname">Nick o Correo</label>
+                <label for="user-nickname">Usuario</label>
                 <input type="text" class="form-control" id="user-nickname" placeholder="jguerrero">
               </div>
               <div class="form-group">
@@ -42,7 +42,7 @@
               </div>
               <div class="form-group">
                 <label for="user-dni">Cedula(sin guiones)</label>
-                <input type="text" class="form-control" id="user-dni" placeholder="ISC Services">
+                <input type="text" class="form-control" id="user-dni">
               </div>
             </div>
           </div>

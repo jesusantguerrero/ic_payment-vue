@@ -35,7 +35,7 @@
               </div>
               <div class="form-group">
                 <label for="company-phone1">Telefono1</label>
-                <input type="text" class="form-control" id="company-phone1" value="<?php echo $empresa['telefono1'] ?>">
+                <input type="tel" class="form-control" id="company-phone1" value="<?php echo $empresa['telefono1'] ?>">
               </div>
             </div>
 
@@ -50,7 +50,7 @@
               </div>
               <div class="form-group">
                 <label for="company-name">Telefono2</label>
-                <input type="text" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
+                <input type="tel" class="form-control" id="company-phone2" value="<?php echo $empresa['telefonos'] ?>">
               </div>
               <div class="right">
                 <input id="update-company-data" type="submit" value="Guardar Datos">
