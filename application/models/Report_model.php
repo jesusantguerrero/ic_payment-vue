@@ -59,7 +59,7 @@ class Report_model extends CI_MODEL{
     }
   }
 
-    public function get_abonos_report($is_print = true){
+  public function get_abonos_report($is_print = true){
     $sql = "SELECT * from ic_clientes where abonos > 0";
     if($result = $this->db->query($sql)){
       $result = $result->result_array();

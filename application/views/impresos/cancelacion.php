@@ -23,7 +23,7 @@ if(isset($_SESSION['requirement_info'])):
       <h2 class="company-oficial-name"><?php echo $company['nombre'] ?></h2>
       <p class="company-statement"><?php echo $company['lema'] ?></p>
       <p class="company-direction"><?php echo $company['direccion'] ?></p>
-      <p class="company-tel">Tel.: <?php echo $company['telefono1']." ". $company['telefonos'] ?></p>
+      <p class="company-tel">Tel.: <?php echo phone_format($company['telefono1'])." ". phone_format($company['telefonos'])?></p>
       <p></p>
     </div>
     <div class="left-box">

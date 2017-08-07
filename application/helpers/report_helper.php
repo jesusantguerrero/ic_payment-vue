@@ -114,7 +114,7 @@ if ( ! function_exists('make_abonos_report')){
       $context->table->add_row(
       $cont,
       $line['nombres']." ".$line['apellidos'],
-      $line['celular'],
+      phone_format($line['celular']),
       "RD$ ".CurrencyFormat($line['abonos']),
       "RD$ ".CurrencyFormat($payment['total']),
       "RD$ ".CurrencyFormat($deuda)
@@ -148,7 +148,7 @@ if ( ! function_exists('make_moras_report')){
       $context->table->add_row(
       $line['codigo'],
       $line['cliente'],
-      $line['celular'],
+      phone_format($line['celular']),
       "RD$ ".CurrencyFormat($line['cuota']),
       "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),

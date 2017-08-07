@@ -56,6 +56,8 @@
         Installations.getAll();
       });
 
+      $('tbody').css({display:"table-row-group"});
+
     }
 
     if (currentPage == 'contratos') {

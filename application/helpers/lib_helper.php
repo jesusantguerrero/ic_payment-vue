@@ -231,7 +231,7 @@ if ( ! function_exists('make_averias_list')){
         $html_text .= "<div class='averia-item'>
             <div class='top-row'>
               <div class='code'>".$line['id_averia']."</div>
-              <div class='info'><span class='client-name'>".$line['cliente']."</span><span class='client-direction'>::".$line['direccion']."</span> </span><span class='client-direction'>".
+              <div class='info'><span class='client-name'>".$line['cliente']. "</span><span class='client-direction'>::".$line['direccion']."</span> </span><span class='client-direction'>".
                 "  <b>Celular: </b>".phone_format($line['celular'])."</span></div>
               <button class='btn-update-averia'>Actualizar</button> 
             </div>

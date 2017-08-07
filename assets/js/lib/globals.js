@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost/ic/';
+var BASE_URL = 'http://icpayment-soft.com/';
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
@@ -145,7 +145,6 @@ function fillCajaTable($content,callback){
 function fillPaymentsList($content,callback){
   var $container = $(".list-nextpayments");
   $container.html($content);
-
 }
 
 function fillAveriasList($content,callback){
@@ -229,7 +228,9 @@ function updateSaldo(money){
   money = "RD$ "+ CurrencyFormat(money)
   $(".current-saldo").text(money);
 }
-
+function updateCount($content){
+  $(".total-rows").html($content);
+}
 // +-----------------------------------------------------------------------------------------------------------------------------+
 // |                                                     User passwords validations                                              |
 // |                                                                                                                             |
