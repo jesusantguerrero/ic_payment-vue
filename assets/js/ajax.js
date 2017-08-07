@@ -350,6 +350,7 @@
         $buttonToActive.on('click', function (e) {
           e.stopImmediatePropagation();
           Contracts.cancel()
+          $buttonToActive.attr('disable');
         })
 
         $inputElement.val('');

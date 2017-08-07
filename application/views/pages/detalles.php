@@ -219,10 +219,7 @@
                 <h5>Escribe tus observaciones para este cliente</h5>
 
                 
-                <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php 
-                  echo $client_row['observaciones'];
-                 ?>
-                </textarea>
+                <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php echo $client_row['observaciones'];?></textarea>
 
                 <h5>Control de abono de mes:</h5>
 

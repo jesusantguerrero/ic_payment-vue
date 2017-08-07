@@ -27,8 +27,7 @@
               </div>
               <div class="form-group">
                 <label for="service-description">Descripción</label>
-                <textarea  class="form-control "cols="30" rows="5"  id="a-description" >
-               </textarea>
+                <textarea  class="form-control "cols="30" rows="5"  id="a-description"></textarea>
               </div>              
             </div>
           </div>
@@ -73,8 +72,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="income-description">Descripción</label>
-                <textarea  class="form-control "cols="30" rows="5"  id="caja-r-description" >
-               </textarea>
+                <textarea  class="form-control "cols="30" rows="5"  id="caja-r-description"></textarea>
               </div>
 
             </div>
