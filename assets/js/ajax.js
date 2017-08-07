@@ -343,7 +343,7 @@
         var $inputElement   = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
 
-        deleteValidation($inputElement, $buttonToActive);
+        deleteValidation($inputElement,row.cliente, $buttonToActive);
         $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();

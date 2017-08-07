@@ -277,14 +277,13 @@ function clearForm(modalId){
   $(modalId + " input").val("");
 }
 
-function deleteValidation($inputElement,$buttonToActive){
+function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   $inputElement.on("keyup",function(e){
     e.stopImmediatePropagation();
     innerText = $(this).val() 
-    var text = $('tr.selected').find(".th-client").text().trim();
-    
-    if(innerText == text){
+    var some = "";
+    if(innerText.toLowerCase() == text.toLowerCase()){
       $buttonToActive.removeAttr("disabled");
 
     }else{
@@ -1735,7 +1734,7 @@ var Sections = {
         var $inputElement   = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
 
-        deleteValidation($inputElement, $buttonToActive);
+        deleteValidation($inputElement,row.cliente, $buttonToActive);
         $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();

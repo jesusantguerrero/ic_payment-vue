@@ -277,14 +277,13 @@ function clearForm(modalId){
   $(modalId + " input").val("");
 }
 
-function deleteValidation($inputElement,$buttonToActive){
+function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   $inputElement.on("keyup",function(e){
     e.stopImmediatePropagation();
     innerText = $(this).val() 
-    var text = $('tr.selected').find(".th-client").text().trim();
-    
-    if(innerText == text){
+    var some = "";
+    if(innerText.toLowerCase() == text.toLowerCase()){
       $buttonToActive.removeAttr("disabled");
 
     }else{

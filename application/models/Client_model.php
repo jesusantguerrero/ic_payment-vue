@@ -34,8 +34,8 @@ class Client_model extends CI_MODEL{
     }else{
       $this->cols['id_cliente'] = null;
     }
-    $this->cols['nombres']         = strtoupper($data['nombres']);      
-    $this->cols['apellidos']       = strtoupper($data['apellidos']);     
+    $this->cols['nombres']         = strtoupper(trim($data['nombres']));  
+    $this->cols['apellidos']       = strtoupper(trim($data['apellidos']));     
     $this->cols['cedula']          = $data['cedula'];
     $this->cols['provincia']       = $data['provincia'];
     $this->cols['sector']          = $data['sector'];
@@ -72,8 +72,8 @@ class Client_model extends CI_MODEL{
   public function update_client($data){
     
     $data_for_update = array(
-      'nombres'      => strtoupper($data['nombres']),
-      'apellidos'    => strtoupper($data['apellidos']),
+      'nombres'      => strtoupper(trim($data['nombres'])),
+      'apellidos'    => strtoupper(trim($data['apellidos'])),
       'cedula'       => $data['cedula'],
       'provincia'    => $data['provincia'],
       'sector'       => $data['sector'],

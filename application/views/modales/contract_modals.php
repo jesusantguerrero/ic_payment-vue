@@ -171,7 +171,7 @@
       <div class="modal-body">
         
         <div class="form-group">
-          <input type="text" class="form-control confirmed-data" id="" placeholder="nombre del cliente">
+          <input type="text" class="form-control confirmed-data uppercase" id="" placeholder="nombre del cliente">
         </div>
 
         <div class="form-group">
@@ -181,7 +181,7 @@
         </div>
 
         <div class="form-group">
-          <label for="check-change-ip">Aplica Penalidad?</label>
+          <label for="check-change-ip">Aplica Penalidad?</label><br>
           <input class="form-control" id="check-penalty" type="checkbox">
         </div>
         
