@@ -102,18 +102,31 @@
   a:focus
     outline: none
 .mymenu
-  +size(50px,100%)
+  height: 100%
+  .user-name
+    color: #fff
   a#dLabel
-    +makeFlex(50px,row,center,baseline)
+    +makeFlex(50px,row,center,center)
+    width: fit-content
+    height: 100%
+    &:hover
+      background: transparentize(#fff,.9)
   .dropdown-menu
-    left: -120px
+    left: -90px
     width: 210px
+    box-shadow: 0 6px 12px rgba(0,0,0,.175)
+    border-radius: 0
+    border: 1px solid rgba(0,0,0,.15)
+    padding-top: 0  
   li
     margin: 5px 0
     height: 48px
+    cursor: pointer
     &:hover
       background: $contrast-color
       color: #fff
+      a
+        color: #fff
     a
       +makeFlex(100%,row,null, center)
       height: 100%

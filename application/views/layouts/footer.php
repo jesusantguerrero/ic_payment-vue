@@ -10,9 +10,9 @@
 		ga('send', 'pageview');
 	</script>
 
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.0.1') ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.0.1')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.0.1')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.0.2') ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.0.2')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.0.2')?>"></script>
 
 	<script>
 		$(function(){

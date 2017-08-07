@@ -1,4 +1,4 @@
-var BASE_URL = 'http://icpayment-soft.com/';
+var BASE_URL = 'http://localhost/ic/';
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
