@@ -95,7 +95,10 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_observations($data){
-    if($data['modo'] == 1) $data['observaciones'] = '';
+    if($data['modo'] == 1){
+       $data['observaciones'] = '';
+       $data['contrato_abono'] = null;
+    }
 
     $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos'], 'contrato_abono' => $data['contrato_abono']);
     $this->db->where('id_cliente',$data['id_cliente']);

@@ -68,7 +68,7 @@
             <li role="presentation" <?php if ($active_window=="pagos" ):?>class="active"
               <?php endif; ?>><a href="#payments" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
             <li role="presentation" <?php if ($active_window=="observaciones" ): ?>class="active"
-              <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a></li>
+              <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Abonos</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -111,7 +111,7 @@
                   </div>
 
                   <div class="col-md-6">
-                    <h4 class="placeholder"> ...</h4>
+                    <h4 class="placeholder-lg"> ...</h4>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Cedula</span>
                       <input type="text" role="cedula" class="form-control" value="<?php  echo $client_data['cedula']?>" disabled>
@@ -216,7 +216,7 @@
 
               <div class="form-group">
               
-                <h5>Escribe tus observaciones para este cliente</h5>
+                <h5>Escribe los detalles de este abono</h5>
 
                 
                 <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php echo $client_row['observaciones'];?></textarea>
