@@ -102,76 +102,7 @@ var contractTable = {
   init: function(){
     var self = this;
     this.el = $('#t-contracts');
-    this.el.bootstrapTable({
-        sortName: "id",
-        minimumCountColumns: "2", 
-        pagination: "true", 
-        idField:"id", 
-        pageSize:"5",
-        pageList: "[5]", 
-        showFooter: false,
-        clickToSelect: "true",
-        singleSelect: "true",
-        stripped: false,
-        columns:[
-          {
-            title:"Cod",
-            field:"id",
-            sortable: true,
-            titleTooltip: "codigo",
-          },
-          {
-            checkbox: true,
-            field: "checkbox",
-            class:  "hide"
-          },
-          {
-            title: "IP",
-            titleTooltip: "codigo corto de ip",
-            field: "ip"
-          },{
-            title: "Cliente",
-            field: "cliente",
-            titleTooltip: "Nombre del cliente"
-          },{
-            title: "Fecha Inicio",
-            field: "fecha_inicio",
-            titleTooltip: "Fecha de inicio del contrato"
-          },{
-            title: "Servicio",
-            field: "servicio",
-            titleTooltip: "servicio"
-          },{
-            title: "Meses",
-            field: "meses",
-            titleTooltip: "Duracion en meses del contrato"
-          },{
-            title: "Ultimo Pago",
-            field: "fecha_inicio",
-            titleTooltip: "Fecha del ultimo pago"
-          },{
-            title: "Proximo Pago",
-            field: "proximo_pago",
-            titleTooltip: "Fecha del Proximo Pago"
-          },{
-            title: "Monto Pagado",
-            field: "monto_pagado",
-            titleTooltip: "Monto pagado del contrato"
-          },{
-            title: "Monto Total",
-            field: "monto_total",
-            titleTooltip: "Monto Total"
-          },{
-            title: "ID Cliente",
-            field: "id_cliente",
-            class: "hide"
-          },{
-            title: "cedula",
-            field: "cedula",
-            class: "hide"
-          }
-        ]
-    });
+    this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     contractTable.detectClicks();

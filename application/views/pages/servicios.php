@@ -19,7 +19,8 @@
       <input type="text" class="searcher" id="service-searcher">
     </div>
 
-      <table class="table t-services" id="t-services" data-sort-name="orden"
+      <table class="table t-services" id="t-services" 
+        data-sort-name="orden"
         data-sort-order="asc" 
         data-search="false" 
         data-show-refresh="false"
