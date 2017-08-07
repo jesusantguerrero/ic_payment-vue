@@ -95,17 +95,17 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_observations($data){
+    if($data['modo'] == 1) $data['observaciones'] = '';
+
     $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos'], 'contrato_abono' => $data['contrato_abono']);
     $this->db->where('id_cliente',$data['id_cliente']);
 
     if($this->db->update('ic_clientes',$rows)){
       if($data['modo'] == 1){
-
         echo MESSAGE_INFO." Monto de abono visto";
       }else{
         echo MESSAGE_SUCCESS." Observación Agregada";
       }
-        
     }else{
      echo MESSAGE_ERROR." No pudo guardarse la observacion";
     }   
