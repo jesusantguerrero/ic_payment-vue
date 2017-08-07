@@ -174,6 +174,7 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_start();
     $this->db->set('complete_date','NOW()',false);
     $this->db->update('ic_pagos',$update_pago,array('id_pago' => $data_pago['id']));
+
     $this->db->where('id_contrato',$current_contract['id_contrato']);
     $this->db->update('ic_contratos',$data_contrato);
     $this->get_next_payment_for_contract($current_contract['id_contrato']);
@@ -181,22 +182,18 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
+      $this->db->trans_rollback();
       echo MESSAGE_ERROR." No pudo guardarse el pago";
     } else{
+      $this->check_is_active_client($current_contract);
+      $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
       echo MESSAGE_SUCCESS." Pago Registrado";
-
-      $this->db->where('estado','activo');
-      $this->db->where('id_cliente',$current_contract['id_cliente']);
-      $has_contracts = $this->db->count_all_results('ic_clientes');
-      if($has_contracts == 0){
-        $this->db->where('id_cliente',$current_contract['id_cliente']);
-        $this->db->update('ic_clientes',array('estado' => 'no activo'));
-        $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
-      }
     }
+
   }
 
   public function upgrade_contract($data_pago,$data_contrato){ 
+    // TODO: PAsar esto a active record
     $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
     $sql1 .=" WHERE id_contrato=".$data_contrato['id_contrato'];
 
@@ -209,50 +206,56 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
+      	$this->db->trans_rollback();
       echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." "." Error";
     } else{
       echo MESSAGE_SUCCESS." Contrato actualizado";
     }
   }
 
-  public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){ 
-    $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."',monto_pagado='".$data_contrato['monto_total']."', estado='cancelado',";
-    $sql1 .=" ultimo_pago='".$data_contrato['ultimo_pago']."',proximo_pago=null WHERE id_contrato=".$data_contrato['id_contrato'];
-
-    $sql2 = " DELETE FROM ic_pagos WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato']; 
-    $sql3 = "SELECT * FROM ic_contratos where estado = 'activo' and id_cliente = ".$current_contract['id_cliente'];
-    $sql4 = " UPDATE ic_clientes SET estado = 'no activo' WHERE id_cliente = ".$current_contract['id_cliente'];
+  public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){
     
+    $update_contract = array(
+      'monto_total'   => $data_contrato['monto_total'],
+      'monto_pagado'  => $data_contrato['monto_pagado'],
+      'estado'        => 'cancelado',
+      'ultimo_pago'   => $data_contrato['ultimo_pago'],
+      'proximo_pago'  => null,
+    );
     
     $this->db->select('estado');
     $this->db->where('id_contrato',$data_contrato['id_contrato']);
     $estado = $this->db->get('ic_contratos')->row_array()['estado'];
+
     if($estado != 'activo'){
       echo MESSAGE_INFO." Este contrato ya ha sido cancelado o Saldado";
     }else{
       $this->db->trans_start();
-      $this->db->query($sql1);
-      $this->db->query($sql2);
+      // actualizando el contrato con los nuevos datos de cancelacion
+      $this->db->where('id_contrato',$data_contrato['id_contrato']);
+      $this->db->update('ic_contratos',$update_contract);
+      // borrando los pagos restantes
+      $this->db->where('estado','no pagado');
+      $this->db->where('id_contrato',$data_contrato['id_contrato']);
+      $this->db->delete('ic_pagos');
+      // agregando el pago de la cancelacion
       $this->db->insert('ic_pagos',$data_pago);
+      // agregando la cancelacion a la tabla de cancelaciones
       $this->db->insert('ic_cancelaciones',$data_cancel);
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
-        echo MESSAGE_ERROR." No pudo guardarse la actualizacion";
+        $this->db->trans_rollback();
+        echo MESSAGE_ERROR. "No se pudo concretar la trasaccion, verifique de nuevo";
       } else{
-        echo MESSAGE_SUCCESS." Contrato Cancelado";
         $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
-        $has_contracts = $this->db->query($sql3);
-        $has_contracts = $has_contracts->result_array();
-        $has_contracts = count($has_contracts);
-        if($has_contracts == 0){
-          $this->db->query($sql4);
-        }     
+        $this->check_is_active_client($current_contract); 
+        echo MESSAGE_SUCCESS." Contrato Cancelado";
       }
     }
     
   }
 
-  public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){     
+  public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){
     $this->db->trans_start();
     $this->db->where('id_contrato',$id_contrato);
     $this->db->update('ic_contratos',$data_contract);
@@ -260,6 +263,7 @@ class Contract_model extends CI_MODEL{
     $this->db->update('ic_pagos',$data_pago);
     $this->db->trans_complete();
     if($this->db->trans_status() === false){
+      $this->db->trans_rollback();
       echo MESSAGE_ERROR." No pudo guardarse la actualizacion "." Error";
     } else{
       echo MESSAGE_SUCCESS." Servicio ExtraAgregado";
@@ -284,4 +288,15 @@ class Contract_model extends CI_MODEL{
     $this->db->where('id_contrato',$id_contrato);
     $this->db->update('ic_contratos',$data_contrato);
   }
+
+  public function check_is_active_client($current_contract){
+      $this->db->where('estado','activo');
+      $this->db->where('id_cliente',$current_contract['id_cliente']);
+      $has_contracts = $this->db->count_all_results('ic_contratos');
+      if($has_contracts == 0){
+        $this->db->where('id_cliente',$current_contract['id_cliente']);
+        $this->db->update('ic_clientes',array('estado' => 'no activo'));
+      }
+  }
+
 }

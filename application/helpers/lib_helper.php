@@ -78,7 +78,17 @@ if ( ! function_exists('make_client_table')){
   function make_client_table($data,$start_at){
     $cont = $start_at + 1;
     $html_text = " "; 
+    $state = '';
+    $posible_states = array(
+      'done'      => 'activo',
+      'error'     => 'no activo',
+      'process'   => '',
+      'saldado'   => '',
+      'cancelado' => ''
+    );
     foreach ($data as $line) {
+
+        $state = verify_state($line['estado'],$posible_states);
         $html_text .= "<tr>
         <td>".$cont."</td>
         <td class='hide'></td>
@@ -87,7 +97,7 @@ if ( ! function_exists('make_client_table')){
         <td>".$line['apellidos']."</td>
         <td>".dni_format($line['cedula'])."</td>
         <td>".phone_format($line['celular'])."</td>
-        <td>".$line['estado']."</td>
+        <td class='{$state['class']}'>".$state['text']."</td>
       </tr>";
      $cont+=1;
     }
@@ -135,12 +145,21 @@ if ( ! function_exists('make_contract_table')){
   function make_contract_table($data,$start_at){
    
     $html_text = " "; 
+    $state = '';
+    $row_class = '';
+    $posible_states = array(
+      'done'      => 'activo',
+      'error'     => 'no activo',
+      'process'   => '',
+      'saldado'   => 'saldado',
+      'cancelado' => 'cancelado'
+    );
+
     foreach ($data as $line) {
-       $class = '';
-        if($line['estado'] == 'saldado'){
-          $class = "marked";
-        }
-        $html_text .= "<tr class='$class'>
+       $state = verify_state($line['estado'],$posible_states);
+       $row_class = $state['row_class'];
+  
+        $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='hide'></td>
         <td>".$line['fecha']."</td>
@@ -149,7 +168,7 @@ if ( ! function_exists('make_contract_table')){
         <td>".$line['proximo_pago']."</td>
         <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-        <td class='td-estado'>".$line['estado']."</td>
+        <td class='td-estado {$state['class']}'>".$state['text']."</td>
       </tr>";
      
     }
@@ -539,4 +558,21 @@ function is_marked($estado,$comparison){
       $class['class'] = "done";
     }
   return $class;
+}
+
+function verify_state($state,$posible_states){
+  $classes     = array("done","error","process",'saldado','cancelado');
+  $row_classes = array("active","fail","process","marked","cancel");
+  $icons       = array(STATE_GREEN,STATE_RED,CIRCLE,'','');
+  $states      = array_values($posible_states);
+
+  foreach ($states as $i => $value) {
+    if($state == $value){
+      return array(
+        'text'      => $icons[$i]." ".$state,
+        'class'     => $classes[$i],
+        'row_class' => $row_classes[$i]
+      );
+    }
+  }
 }

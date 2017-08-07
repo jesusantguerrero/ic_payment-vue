@@ -115,9 +115,18 @@ tbody
       border: 2px solid white
       border-left: none
       border-right: none
+    &.cancel
+      background: lighten(#dF0a00,50%)
+      color: #222
+      border: 2px solid white
+      border-left: none
+      border-right: none
 
 .table-hover>tbody>tr.marked:hover 
   background-color: lighten(#1FD1A8,20%)
+
+.table-hover>tbody>tr.cancel:hover 
+  background-color: lighten(#dF0a00,40%)
 
 .fixed-table-container tbody .selected td
   background: lighten($contrast-color,25)
@@ -151,6 +160,8 @@ tbody td
     border-right: none
   &.done
     color: #1FD1A8
+  &.error
+    color: lighten(#dF0a00,10%)
     
 .table>tbody>tr>td
   padding-top: 15px

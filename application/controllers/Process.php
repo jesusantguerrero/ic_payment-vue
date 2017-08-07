@@ -94,6 +94,7 @@ class Process extends CI_Controller {
 				update_contract_from_service($data);
 				$this->db->trans_complete();
 				if($this->db->trans_status() === false):
+					$this->db->trans_rollback();
 					echo MESSAGE_ERROR." error en el status";
 				else:
 					echo " proceso completo";
@@ -111,6 +112,7 @@ class Process extends CI_Controller {
 				payments_up_to_date($data);
 				$this->db->trans_complete();
 				if($this->db->trans_status() === false){
+						$this->db->trans_rollback();
 					echo MESSAGE_ERROR." error en el status";
 				}else{
 					echo " Proceso Completo";
