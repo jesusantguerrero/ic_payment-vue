@@ -1,46 +1,42 @@
-    <div class="toast"><span></span> </div>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	<div class="toast"><span></span> </div>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-97873154-2', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/sweetalert2.min.js?version=1.8') ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/clientTable.js?version=1.8')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/serviceTable.js?version=1.8')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/contractTable.js?version=3.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/adminTables.js?version=3.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/tables/paymentTable.js?version=3.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.25')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/adminlte.min.js?version=3.19')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/jquery.inputmask.js?version=3.19')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/lib/icheck.min.js?version=3.19')?>"></script>
-    <script>
-        $(function(){
-            $('[type="tel"]').inputmask({"mask": "(999) 999-9999"});
-            $('[role="cedula"]').inputmask({"mask": "999-9999999-9"});
-            $('[id*="dni"]').inputmask({"mask": "999-9999999-9"});
+		ga('create', 'UA-97873154-2', 'auto');
+		ga('send', 'pageview');
+	</script>
 
-            window.getVal = function (element){
-                return element.inputmask('unmaskedvalue');
-            }
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.0.0') ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.0.0')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.0.0')?>"></script>
 
-            window.isComplete = function(element){
-                return element.inputmask('isComplete');
-            }
-             
-             $('input').iCheck({
-              checkboxClass: 'icheckbox_square-blue',
-              radioClass: 'iradio_square-blue',
-              increaseArea: '20%' // optional
+	<script>
+		$(function(){
+			$('[type="tel"]').inputmask({"mask": "(999) 999-9999"});
+			$('[role="cedula"]').inputmask({"mask": "999-9999999-9"});
+			$('[id*="dni"]').inputmask({"mask": "999-9999999-9"});
+
+			window.getVal = function (element){
+				return element.inputmask('unmaskedvalue');
+			}
+
+			window.isComplete = function(element){
+				return element.inputmask('isComplete');
+			}
+			 
+			 $('input').iCheck({
+			  checkboxClass: 'icheckbox_square-blue',
+			  radioClass: 'iradio_square-blue',
+			  increaseArea: '20%' // optional
   					});
-        })
-        
+		})
+		
 
-    </script>
+	</script>
  </body>
 
 

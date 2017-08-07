@@ -9,13 +9,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css?version=1.0') ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=2.1') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/AdminLTE.min.css?version=2.2') ?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/blue.css?version=2.2') ?>"/>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/square.css?version=2.2') ?>"/>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=2.2') ?>" />
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/headLibraries.min.js?version=2.1') ?>"></script>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/material-icons.css?version=2.0.0') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=2.0.0') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=2.0.0') ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=2.0.0') ?>" />
+    <script type="text/javascript" src="<?php echo base_url('assets/js/min/headLibraries.min.js?version=2.0.0') ?>"></script>
     <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
     <link rel="manifest" href="<?php  echo base_url('/manifest.json')?>">
 
