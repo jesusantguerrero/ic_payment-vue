@@ -114,11 +114,11 @@
                     <h4 class="placeholder"> ...</h4>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Cedula</span>
-                      <input type="text" class="form-control" value="<?php  echo $client_data['cedula']?>" disabled>
+                      <input type="text" role="cedula" class="form-control" value="<?php  echo $client_data['cedula']?>" disabled>
                     </div>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Celular</span>
-                      <input type="text" class="form-control" value="<?php  echo $client_data['celular']?>" disabled>
+                      <input type="tel" class="form-control" value="<?php  echo $client_data['celular']?>" disabled>
                     </div>
                     <h4 class="placeholder"> ...</h4>
                     <h4 class="placeholder"> ...</h4>

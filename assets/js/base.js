@@ -15,6 +15,7 @@ $(function(){
   $(window).on('resize',function(){
     checkWindowSize();
   })
+  
 /**
  * Get Date:
  * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
@@ -158,6 +159,13 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
   modal.find('tbody').html('')
 })
 
+
+
+/********************************************************
+*              other functions                            
+*                                                       *
+********************************************************/
+
 function detailsFunctions(){
 
   $('[role="tab"]').on('click',function(){
@@ -181,7 +189,7 @@ function notificationFunctions(){
   var btnPagos        = $("#btn-see-pagos");
   var btnCajaChica    = $('#btn-see-caja');
   var btnDeudores     = $("#btn-see-deudores")
-  var btnDayIncomes     = $("#btn-see-day-incomes")
+  var btnDayIncomes   = $("#btn-see-day-incomes")
   var layoutContainer = $(".layout-container");
 
   btnAverias.on('click',function(){

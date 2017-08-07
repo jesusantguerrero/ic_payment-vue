@@ -1,14 +1,14 @@
 var clientTable = {
 
-  init: function($tableId){
+  init: function(page){
     var self = this;
     this.el = $('#t-clients');
     this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
-    this.el.on('all.bs.table',function(name,args){
-      console.log(name);
-    })
     self.el.addClass('innertable');
+    if(page){
+      self.el.bootstrapTable('selectPage',page);
+    }
     clientTable.detectClicks();
   },
 
@@ -25,9 +25,11 @@ var clientTable = {
   },
 
   refresh: function(content,callback){
+    var options = clientTable.el.bootstrapTable('getOptions');
+
     clientTable.el.bootstrapTable('destroy');
     clientTable.el.find('tbody').html(content);
-    clientTable.init();
+    clientTable.init(options.pageNumber);
     if(callback)
        callback;
   },

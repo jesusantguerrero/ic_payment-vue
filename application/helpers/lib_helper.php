@@ -86,7 +86,7 @@ if ( ! function_exists('make_client_table')){
         <td>".$line['nombres']."</td>
         <td>".$line['apellidos']."</td>
         <td>".dni_format($line['cedula'])."</td>
-        <td>".$line['celular']."</td>
+        <td>".phone_format($line['celular'])."</td>
         <td>".$line['estado']."</td>
       </tr>";
      $cont+=1;
@@ -518,7 +518,7 @@ function auth_user_type_for_pages($page,$type,$redirect){
 
 function phone_format($tel){
   if(strlen($tel) == 10){
-    return "(".substr($tel,0,3).")-".substr($tel,3,3)."-".substr($tel,6,4);
+    return "(".substr($tel,0,3).")  ".substr($tel,3,3)."-".substr($tel,6,4);
   }
   return $tel;
 }

@@ -67,7 +67,7 @@
       Damages.add();
     });
 
-    averiaClientDni.on('keypress', function (e) {
+    averiaClientDni.on('keyup', function (e) {
       if (isComplete(averiaClientDni)) {
         var dni = getVal(averiaClientDni);
         Clients.getOne(dni,fillClientFields)

@@ -724,6 +724,7 @@ var Sections = {
     table.bootstrapTable('destroy');
     $("#t-sections tbody").html(content);
     table.bootstrapTable();
+    table.find('tbody').css({display:"table-row-group"});
   },
 
   getAll: function() {

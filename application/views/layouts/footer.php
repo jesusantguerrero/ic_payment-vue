@@ -14,7 +14,7 @@
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/contractTable.js?version=3.0')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/adminTables.js?version=3.0')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/tables/paymentTable.js?version=3.0')?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.19')?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=3.25')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/lib/adminlte.min.js?version=3.19')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/lib/jquery.inputmask.js?version=3.19')?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/lib/icheck.min.js?version=3.19')?>"></script>

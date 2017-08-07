@@ -1,11 +1,14 @@
 var serviceTable = {
-
-  init: function(){
+  init: function(page){
     var self = this;
     this.el = $('#t-services');
     this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
+    if(page){
+      self.el.bootstrapTable('selectPage',page);
+    }
     self.el.addClass('innertable');
+
   },
 
   getSelectedRow: function(){
@@ -21,9 +24,11 @@ var serviceTable = {
   },
 
   refresh: function(content,callback){
+    var options = serviceTable.el.bootstrapTable('getOptions');
+
     serviceTable.el.bootstrapTable('destroy');
     serviceTable.el.find('tbody').html(content);
-    serviceTable.init();
+    serviceTable.init(options.pageNumber);
     if(callback)
        callback;
   }
