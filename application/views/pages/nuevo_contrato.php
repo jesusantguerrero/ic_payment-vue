@@ -1,5 +1,8 @@
 <div class="screen  row">
   <?php 
+    if(!isset($_SESSION['client_data']){
+      redirect(base_url())
+    }
     $client_data = get_client_data();
     $user_data = get_user_data();
     $settings = $this->settings_model->get_settings();
