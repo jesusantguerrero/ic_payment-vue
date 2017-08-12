@@ -42,7 +42,7 @@
             <div class="col-md-6">
             <div class="form-group">
                 <label for="company-name">COD</label>
-                <input type="text" class="form-control" id="acount-user-id" value="<?php echo $user_data['user_id'] ?>" disabled>
+                <input type="text" class="form-control transparent" id="acount-user-id" value="<?php echo $user_data['user_id'] ?>" disabled>
               </div>
               <div class="form-group">
                 <label for="company-name">Nombre</label>

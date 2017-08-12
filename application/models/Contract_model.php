@@ -186,14 +186,13 @@ class Contract_model extends CI_MODEL{
       echo MESSAGE_ERROR." No pudo guardarse el pago";
     } else{
       $this->check_is_active_client($current_contract);
-      $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
       echo MESSAGE_SUCCESS." Pago Registrado";
     }
 
   }
 
   public function upgrade_contract($data_pago,$data_contrato){ 
-    // TODO: PAsar esto a active record
+    // TODO: Pasar esto a active record
     $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
     $sql1 .=" WHERE id_contrato=".$data_contrato['id_contrato'];
 
@@ -242,12 +241,12 @@ class Contract_model extends CI_MODEL{
       $this->db->insert('ic_pagos',$data_pago);
       // agregando la cancelacion a la tabla de cancelaciones
       $this->db->insert('ic_cancelaciones',$data_cancel);
+      $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
         $this->db->trans_rollback();
         echo MESSAGE_ERROR. "No se pudo concretar la trasaccion, verifique de nuevo";
       } else{
-        $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
         $this->check_is_active_client($current_contract); 
         echo MESSAGE_SUCCESS." Contrato Cancelado";
       }

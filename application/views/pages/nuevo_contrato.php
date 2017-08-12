@@ -1,10 +1,8 @@
 <div class="screen  row">
-
   <?php 
     $client_data = get_client_data();
     $user_data = get_user_data();
     $settings = $this->settings_model->get_settings();
-    
   ?>
   <div class="col-md-6">
     <div class="tabs-container contract-form">

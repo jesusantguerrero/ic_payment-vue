@@ -71,7 +71,7 @@
         <form action="">
           <div class="row">
             <div class="col-md-12">
-            <div class="form-group">
+            <div class="form-group hide">
                 <label for="user-nickname">ID</label>
                 <input type="text" class="form-control" id="u-service-id" disabled>
               </div>

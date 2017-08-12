@@ -82,6 +82,40 @@ if (! function_exists('refresh_contract')){
 
     if($monto_pagado == $contract['monto_total']){
       $estado = "saldado";
+      $context->section_model->update_ip_state($current_contract['codigo'],'disponible');
+    }else{
+      $estado = "activo";
+    }
+    
+    $data_contract = array(
+      'monto_pagado'  => $monto_pagado,
+      'ultimo_pago'   => $data_pago['fecha_pago'],
+      'estado'        => $estado
+    );
+
+    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
+  }
+}
+// TODO: Hacer opcion de cancelar pago
+if (! function_exists('cancel_payment')){
+
+  /**
+  * Actualiza los pagos de un contrato automaticamente
+  * @param array $data the result of an select in a query 
+  * @param int the number for start counting the rows the that is for my custom pagination
+  *@return string the tbody with rows of a table 
+  */ 
+
+  function cancel_payment($contract_id,$context,$data_pago){
+    $time_zone = new DateTimeZone('America/Santo_Domingo');
+    $dateYMD   = null;
+
+    $contract  = $context->contract_model->get_contract_view($contract_id);
+    $payment   = $context->payment_model->get_payment($data_pago['id']);
+    $monto_pagado = $contract['monto_pagado'] - $payment['cuota'];
+
+    if($monto_pagado == $contract['monto_total']){
+      $estado = "saldado";
     }else{
       $estado = "activo";
     }
@@ -110,33 +144,35 @@ if (! function_exists('payments_up_to_date')){
 
     clear_payments($data);
 
-    $id_empleado = $_SESSION['user_data']['user_id'];
-    foreach ($payments as $payment) {
-      if($payment['id_pago'] > $data['id_ultimo_pago'])break;
-      $last_date = $payment['fecha_limite'];
-      $new_payment = array(
-        'id_empleado'   => $id_empleado,
-        'estado'        => 'pagado',
-        'fecha_pago'    => $last_date,
-        'complete_date' => date('Y-m-d H:i:s')
+    if($payments){
+       $id_empleado = $_SESSION['user_data']['user_id'];
+      foreach ($payments as $payment) {
+        if($payment['id_pago'] > $data['id_ultimo_pago'])break;
+        $last_date = $payment['fecha_limite'];
+        $new_payment = array(
+          'id_empleado'   => $id_empleado,
+          'estado'        => 'pagado',
+          'fecha_pago'    => $last_date,
+          'complete_date' => date('Y-m-d H:i:s')
+        );
+        $context->payment_model->update($new_payment,$payment['id_pago']);
+        $count++; 
+      }
+
+      $monto_pagado = $payment['total'] * $count;
+      if($monto_pagado == $contract['monto_total']){
+        $state = "saldado";
+      }else{
+        $state = "activo";
+      }
+
+      $data_contract = array(
+        'monto_pagado'  => $monto_pagado,
+        'ultimo_pago'   => $last_date,
+        'estado'        => $state
       );
-      $context->payment_model->update($new_payment,$payment['id_pago']);
-      $count++; 
+      $context->contract_model->update($data_contract,$contract_id,false); 
     }
-
-    $monto_pagado = $payment['total'] * $count;
-    if($monto_pagado == $contract['monto_total']){
-      $state = "saldado";
-    }else{
-      $state = "activo";
-    }
-
-    $data_contract = array(
-      'monto_pagado'  => $monto_pagado,
-      'ultimo_pago'   => $last_date,
-      'estado'        => $state
-    );
-    $context->contract_model->update($data_contract,$contract_id,false); 
   }
 }
 
