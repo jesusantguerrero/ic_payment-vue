@@ -1,19 +1,30 @@
 .left-navigation
   padding: 20px 0
   box-shadow: 2px 0px 4px rgba(0,0,0,.4)
-  height: 120vh
+  min-height: 100%
   background: #fff
+  width: 230px
+  position: absolute
+  top: 0
+  left: 0
+
+  .aside-nav-container
+    height: auto
+    position: fixed
+    width: 230px
+    &.moved
+      animation: move-to-top .3s 
 
   .company-logo
     width: 90px
 
   &__header
     +makeFlex(100%,column,center,center)
-
+    
     &-text
       color: #fff
       border-bottom: 1px solid #fff
-      width: 90%
+      width: 100%
       text-align: center
 
   .company-logo
@@ -25,7 +36,7 @@
     &-text
       color: $contrast-color
       border-bottom: 2px solid $contrast-color
-      width: 90%
+      width: 100%
       padding-bottom: 15px
       text-align: center
     &.dark
@@ -36,7 +47,11 @@
 
 .main-content
   padding: 50px 0
-  height: 120vh
+  min-height: 120vh
+  margin-left: 230px
+
+.main-content.detalles
+  margin-left: 0
 
 .row
   margin-left: 0
@@ -224,6 +239,16 @@
       color: $contrast-color 
   .nombre
     font-weight: bolder
+
+@keyframes move-to-top
+  0%
+    top: 90px
+  100%
+    top: 0
+
+@keyframes move-to-bottom
+  100%
+    top: 80px
 
 
 @media (max-width: 768px)

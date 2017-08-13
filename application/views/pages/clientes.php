@@ -1,19 +1,21 @@
 <div class="screen clients row">
   <div class="left-navigation col-md-2">
-    <div class="left-navigation__header">
-       <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+    <div class="aside-nav-container">
+      <div class="left-navigation__header">
+         <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+      </div>
+      <ul class="aside-nav">
+        <li class="aside-buttons">
+          <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Nuevo Cliente</a>
+        </li>
+        <li class="aside-buttons">
+          <a href="" id="update-client" data-toggle="modal" data-target="#update-client-modal"><i class="material-icons">edit</i>Editar Cliente</a>
+        </li>
+        <li class="aside-buttons"><a href="" id="delete-client"><i class="material-icons">delete</i>Eliminar Cliente</a></li>
+        <li class="aside-buttons"><a href="" id="get-details"><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
+        <li class="aside-buttons"><a href="" id="client-new-contract"><i class="material-icons">description</i>  Nuevo Contrato</a></li>
+      </ul>
     </div>
-    <ul class="aside-nav">
-      <li class="aside-buttons">
-        <a href="" data-toggle="modal" data-target="#new-client-modal"><i class="material-icons">supervisor_account</i> Nuevo Cliente</a>
-      </li>
-      <li class="aside-buttons">
-        <a href="" id="update-client" data-toggle="modal" data-target="#update-client-modal"><i class="material-icons">edit</i>Editar Cliente</a>
-      </li>
-      <li class="aside-buttons"><a href="" id="delete-client"><i class="material-icons">delete</i>Eliminar Cliente</a></li>
-      <li class="aside-buttons"><a href="" id="get-details"><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
-      <li class="aside-buttons"><a href="" id="client-new-contract"><i class="material-icons">description</i>  Nuevo Contrato</a></li>
-    </ul>
 
   </div>
   <div class="main-content col-md-10">
@@ -32,8 +34,8 @@
       data-show-pagination-switch="false"
       data-pagination="true" 
       data-id-field="id" 
-      data-page-size="5" 
-      data-page-list="[5]" 
+      data-page-size="20" 
+      data-page-list="[10,20]" 
       data-show-footer="false"
       data-click-to-select="true"
       data-single-select="true"

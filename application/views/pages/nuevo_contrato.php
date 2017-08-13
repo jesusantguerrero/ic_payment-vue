@@ -1,7 +1,7 @@
 <div class="screen  row">
   <?php 
-    if(!isset($_SESSION['client_data']){
-      redirect(base_url())
+    if(!isset($_SESSION['client_data'])){
+      redirect(base_url());
     }
     $client_data = get_client_data();
     $user_data = get_user_data();

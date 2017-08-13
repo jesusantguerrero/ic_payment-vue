@@ -16,9 +16,9 @@
 
 	<script>
 		$(function(){
-			$('[type="tel"]').inputmask({"mask": "(999) 999-9999"});
-			$('[role="cedula"]').inputmask({"mask": "999-9999999-9"});
-			$('[id*="dni"]').inputmask({"mask": "999-9999999-9"});
+			$('[type="tel"]').inputmask({"mask": "(999) 999[9]-9999",greede: false});
+			$('[role="cedula"]').inputmask({"mask": ["999-9999999-9","**-*******-*","************"],greede: false});
+			$('[id*="dni"]').inputmask({"mask": ["999-9999999-9","**-*******-*","************"],greede: false});
 
 			window.getVal = function (element){
 				return element.inputmask('unmaskedvalue');

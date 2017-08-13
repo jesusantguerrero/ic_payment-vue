@@ -389,8 +389,10 @@ function extend_contract($data,$context){
 
     $new_data = array(
       'duracion'       => $duration,
-      'monto_total' =>  $contract['monto_total'] + ($data['duracion'] * $contract['cuota'])
+      'monto_total'    => $contract['monto_total'] + ($data['duracion'] * $contract['cuota']),
+      'estado'         => 'activo'
     );  
+
     $is_saved = $context->contract_model->update($new_data,$contract_id);
     if($is_saved){
       for ($i= $num_pago; $i <= $duration; $i++) {

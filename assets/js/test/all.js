@@ -662,6 +662,16 @@ function checkWindowSize() {
   }
 }
 
+$(window).scroll(function () {
+  position = $(window).scrollTop()
+  movableNav = $('.aside-nav-container')
+
+  if(position >= 40){
+    movableNav.addClass('moved')
+  }else{
+    movableNav.removeClass('moved')
+  }
+})
 var Users = {
   add: function () {
     var form, nick, password, name, lastname, dni, type, is_empty;

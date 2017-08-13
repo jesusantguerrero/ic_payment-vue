@@ -11,10 +11,8 @@
     if(isset($_SESSION['active_window'])) $active_window = $_SESSION['active_window'];
   
     if($client_row['abonos'] > 0) $abono_box_class = "have-abono";
-                
-  
   ?>
-  <div class="main-content col-md-12">
+  <div class="main-content detalles col-md-12">
 
     <div class="row">
       <div class="col-xs-6 col-md-3 center-row">

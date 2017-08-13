@@ -124,14 +124,14 @@ class Contract_model extends CI_MODEL{
   }
 
   public function get_all_of_clientjson($id){
-    $sql = "SELECT * FROM v_contratos WHERE id_cliente = $id and estado = 'activo'";
+    $sql = "SELECT * FROM v_contratos WHERE id_cliente = $id and  (estado='activo' || estado = 'saldado')";
     $result = $this->db->query($sql);
     $result = $result->result();
     return $result;
   } 
 
   public function get_contracts_dropdown($id_cliente){
-    $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente and (estado='activo' || estado = 'cancelado') ORDER BY id_contrato desc";
+    $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente ORDER BY id_contrato desc";
     $result = $this->db->query($sql);
     $result = make_contract_dropdown($result->result_array(),0);
     echo $result;

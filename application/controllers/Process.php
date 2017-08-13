@@ -412,6 +412,7 @@ class Process extends CI_Controller {
 	public function data_for_extra(){
 		authenticate();
 		$dni = $_POST['dni'];
+		$dni = str_replace('-','',$dni);
 		$data;
 		$client = $this->client_model->get_clientjson($dni);
 		if($client){
