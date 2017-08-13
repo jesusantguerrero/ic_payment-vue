@@ -79,10 +79,31 @@ class Report_model extends CI_MODEL{
   }
 
   public function get_moras_view($is_print = false){
+    $sql = "
+    id_contrato,
+    codigo,
+    cliente,
+    celular,
+    group_concat(concepto) as concepto,
+    group_concat(detalles_extra) as detalles_extra,
+    sum(cuota) as cuota,
+    sum(mora) as mora,
+    sum(monto_extra) as monto_extra,
+    sum(total) as total,
+    count(id_pago) as pagos_pendientes,
+    group_concat(monthname(fecha_limite)) as meses";
+
+    $this->db->select($sql,true);
+    $this->db->group_by('cliente');
     $result = $this->db->get('v_morosos');
     if($result){
       $result = $result->result_array();
-      echo make_moras_report($result," Con Moras",$this,$is_print);
+      if (!$is_print){
+        echo make_moras_report_smart($result,"Clientes Con Moras",$this,$is_print);
+      }else{
+        echo make_moras_report($result,"Clientes Con Moras",$this,$is_print);
+
+      }
     }
   }
 

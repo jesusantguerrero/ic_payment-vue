@@ -249,7 +249,7 @@ function checkWindowSize() {
 
 $(window).scroll(function () {
   position = $(window).scrollTop()
-  movableNav = $('.aside-nav-container')
+  movableNav = $('.aside-nav-container, .aside-wide-left')
 
   if(position >= 40){
     movableNav.addClass('moved')

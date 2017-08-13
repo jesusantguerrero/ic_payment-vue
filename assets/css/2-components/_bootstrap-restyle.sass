@@ -181,6 +181,11 @@ textarea
   cursor: pointer
 
 .fixed-table-toolbar
+  display: flex
+  display: flex
+  height: fit-content
+  align-items: center
+
   .btn,
   input
     height: 38px
@@ -190,3 +195,22 @@ textarea
     margin-right: 10px
   label
     +makeFlex(100%,row,center,center)
+
+  .searcher-container
+    margin: 0 0 0 0
+    width: 100%
+  
+  .pull-right
+    display: flex
+    width: fit-content
+    margin-left: auto
+  .bs-bars
+    width: 100%
+
+.mylists
+  .fixed-table-toolbar
+    margin-top: 10px
+    margin-bottom: 20px
+
+  .bootstrap-table
+    margin-top: 0

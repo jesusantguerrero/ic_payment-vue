@@ -35,11 +35,12 @@
       data-pagination="true" 
       data-id-field="id" 
       data-page-size="20" 
-      data-page-list="[10,20]" 
+      data-page-list="[10,20,50,All]" 
       data-show-footer="false"
       data-click-to-select="true"
       data-single-select="true"
-      data-striped="false">
+      data-striped="false",
+      data-fixed="true">
       <thead>
       
         <tr>

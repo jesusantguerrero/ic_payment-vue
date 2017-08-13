@@ -56,12 +56,45 @@
           
         </div>
         <div role="tabpanel" class="tab-pane" id="balance">
-          <div class="searcher-container clearfix">
+          <div class="searcher-container clearfix" id="moras-toolbar">
             <h4 class="search-criteria">Clientes en fecha de corte </span> (
               <?php echo $this->report_model->count_moras_view(); ?> )</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <?php $this->report_model->get_moras_view() ?>
+          <table data-toggle="table" 
+            class="innertable general-table" 
+            data-sort-name="num" 
+            data-sort-order="asc" 
+            data-search="true" 
+            data-show-refresh="false"
+            data-show-columns="false" 
+            data-show-export="false" 
+            data-minimum-count-columns="2"
+            data-toolbar="#moras-toolbar"
+            data-pagination="true" 
+            data-id-field="contrato" 
+            data-page-size="20" 
+            data-page-list="[10,20,50, ALL]" 
+            data-show-footer="false">
+            <thead>
+              <tr>
+                <th data-field="contrato" data-sortable="true">Contrato</th>
+                <th data-field="cliente" data-sortable="true">Cliente</th>
+                <th data-field="celular" data-sortable="true">Celular</th>
+                <th data-field="concepto" data-sortable="true">Concepto</th>
+                <th data-field="detalles" data-sortable="true">Detalles</th>
+                <th data-field="cuota" data-sortable="true">Cuota</th>
+                <th data-field="mora" data-sortable="true">Mora</th>
+                <th data-field="extra" data-sortable="true">Extra</th>
+                <th data-field="total" data-sortable="true">Total</th>
+                <th data-field="pagos_pendiente" data-sortable="true">Pagos Pendientes</th>
+                <th data-field="meses" data-sortable="true">Meses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $this->report_model->get_moras_view()?>
+            </tbody>
+          </table>
         </div>
         
          <?php if(auth_user_type(0)):?>
@@ -73,14 +106,23 @@
           </div>
           <table data-toggle="table" 
             class="innertable general-table" 
-            data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
-            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
+            data-sort-name="num" 
+            data-sort-order="asc" 
+            data-search="true" 
+            data-show-refresh="true"
+            data-show-columns="true" 
+            data-show-export="true" 
+            data-minimum-count-columns="2"
             data-toolbar="#pagos-toolbar"
-            data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false">
+            data-pagination="true" 
+            data-id-field="payment" 
+            data-page-size="20" 
+            data-page-list="[10,20,50, ALL]" 
+            data-show-footer="false">
             <thead>
               <tr>
                 <th data-field="num" data-sortable="true">Num</th>
-                <th data-field="payment" data-sortable="true">Pago</th>
+                <th data-field="payment" data-sortable="true" class="hide">Pago</th>
                 <th data-field="contract" data-sortable="true">Cont</th>
                 <th data-field="client" data-sortable="true">Cliente</th>
                 <th data-field="service" data-sortable="true">Servicio</th>
@@ -101,10 +143,20 @@
             <h4 class="search-criteria">Historial de moras</span>
             <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <table data-toggle="table" class="innertable general-table" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
+          <table data-toggle="table" class="innertable general-table" 
+            data-sort-name="num" 
+            data-sort-order="asc" 
+            data-search="true" 
+            data-show-refresh="true"
             data-toolbar="#history-toolbar"
-            data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
-            data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false">
+            data-show-columns="true"
+            data-show-export="true" 
+            data-minimum-count-columns="2"
+            data-pagination="true" 
+            data-id-field="payment"
+            data-page-size="20" 
+            data-page-list="[10,20,50, All]" 
+            data-show-footer="false">
             <thead>
               <tr>
                 <th data-field="num" data-sortable="true">Num</th>

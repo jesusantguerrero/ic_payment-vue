@@ -15,7 +15,7 @@
   <div class="main-content detalles col-md-12">
 
     <div class="row">
-      <div class="col-xs-6 col-md-3 center-row">
+      <div class="col-xs-6 col-md-3 center-row aside-wide-left">
         <div class="page-header">
           <h3>Detalles del Cliente</h3>
         </div>
@@ -54,7 +54,7 @@
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 wide-main-content">
         <div>
 
           <!-- Nav tabs -->
@@ -104,7 +104,7 @@
                     </div>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Telefono</span>
-                      <input type="tel" class="form-control" value="<?php  echo $client_data['telefono']?>" disabled>
+                      <input type="tel" class="form-control" value="<?php  echo phone_format($client_data['telefono'])?>" disabled>
                     </div>
                   </div>
 
@@ -112,11 +112,11 @@
                     <h4 class="placeholder-lg"> ...</h4>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Cedula</span>
-                      <input type="text" role="cedula" class="form-control" value="<?php  echo $client_data['cedula']?>" disabled>
+                      <input type="text" class="form-control" value="<?php  echo dni_format($client_data['cedula'])?>" disabled>
                     </div>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Celular</span>
-                      <input type="tel" class="form-control" value="<?php  echo $client_data['celular']?>" disabled>
+                      <input type="tel" class="form-control" value="<?php  echo phone_format($client_data['celular'])?>" disabled>
                     </div>
                     <h4 class="placeholder"> ...</h4>
                     <h4 class="placeholder"> ...</h4>
@@ -150,7 +150,8 @@
                 data-minimum-count-columns="2" 
                 data-show-pagination-switch="false"
                 data-pagination="true" data-id-field="id-contrato" 
-                data-page-size="5" data-page-list="[5]" 
+                data-page-size="20" 
+                data-page-list="[10,20,50,All]" 
                 data-show-footer="false" 
                 data-click-to-select="true"
                 data-single-select="true">
@@ -183,8 +184,8 @@
                 data-show-pagination-switch="false"
                 data-pagination="true" 
                 data-id-field="id" 
-                data-page-size="5" 
-                data-page-list="[5]" 
+                data-page-size="20" 
+                data-page-list="[10,20,50,ALL]" 
                 data-show-footer="false"
                 data-striped="true"
                 data-click-to-select="true"
@@ -203,6 +204,7 @@
                     <th data-field="fecha_limite">Vence En</th>
                     <th data-field="action">Recibo</th>
                     <th data-field="id_contrato" class='hide'>ID Contrato</th>
+                    <th data-field="control">Control</th>
                   </tr>
                 </thead>
                 <tbody></tbody>

@@ -82,11 +82,11 @@ if (! function_exists('refresh_contract')){
 
     if($monto_pagado == $contract['monto_total']){
       $estado = "saldado";
-      $context->section_model->update_ip_state($current_contract['codigo'],'disponible');
+      $context->section_model->update_ip_state($contract['codigo'],'disponible');
     }else{
       $estado = "activo";
     }
-    
+  
     $data_contract = array(
       'monto_pagado'  => $monto_pagado,
       'ultimo_pago'   => $data_pago['fecha_pago'],
@@ -146,6 +146,7 @@ if (! function_exists('payments_up_to_date')){
 
     if($payments){
        $id_empleado = $_SESSION['user_data']['user_id'];
+       $acum = 0;
       foreach ($payments as $payment) {
         if($payment['id_pago'] > $data['id_ultimo_pago'])break;
         $last_date = $payment['fecha_limite'];
@@ -156,10 +157,11 @@ if (! function_exists('payments_up_to_date')){
           'complete_date' => date('Y-m-d H:i:s')
         );
         $context->payment_model->update($new_payment,$payment['id_pago']);
-        $count++; 
+        $count++;
+        $acum += $payment['cuota'];
       }
 
-      $monto_pagado = $payment['total'] * $count;
+      $monto_pagado = $acum;
       if($monto_pagado == $contract['monto_total']){
         $state = "saldado";
       }else{
@@ -340,7 +342,7 @@ if (! function_exists('cancel_contract')){
     $contract = $context->contract_model->get_contract_view($contract_id);
     $settings = $context->settings_model->get_settings();
     if($data_cancel['penalidad'] == "true"){
-      $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * $contract['monto_total'];
+      $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * ($contract['cuota'] * 12);
     }else{
       $penalizacion = 0;
     }

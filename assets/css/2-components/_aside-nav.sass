@@ -13,20 +13,17 @@
     position: fixed
     width: 230px
     &.moved
+      top: 0
       animation: move-to-top .3s 
-
-  .company-logo
-    width: 90px
-
-  &__header
-    +makeFlex(100%,column,center,center)
+      .left-navigation__header
+        background: $contrast-color
     
-    &-text
-      color: #fff
-      border-bottom: 1px solid #fff
-      width: 100%
-      text-align: center
-
+        &-text
+          color: #fff
+          border-bottom: 1px solid transparent
+          width: 100%
+          text-align: center
+    
   .company-logo
     width: 90px
 
@@ -35,7 +32,7 @@
 
     &-text
       color: $contrast-color
-      border-bottom: 2px solid $contrast-color
+      border-bottom: 4px solid $contrast-color
       width: 100%
       padding-bottom: 15px
       text-align: center
@@ -44,6 +41,18 @@
         color: #fff
         border-color: #fff
 
+.aside-wide-left
+    height: auto
+    position: fixed
+    width: 280px
+    &.moved
+      top: 0
+      animation: move-to-top-wide .3s 
+    
+
+.wide-main-content
+  min-height: 120vh
+  margin-left: 280px
 
 .main-content
   padding: 50px 0
@@ -196,8 +205,8 @@
   width: 10px
   background-color: transparent
 ::-webkit-scrollbar-thumb
-  background-color: transparentize($primary-color,.7)
-  border-radius: 3px 
+  background-color: transparentize($primary-color,.9)
+  border-radius: 0
 
 // Payment Item
 
@@ -246,9 +255,9 @@
   100%
     top: 0
 
-@keyframes move-to-bottom
+@keyframes move-to-top-wide
   100%
-    top: 80px
+    top: 10px
 
 
 @media (max-width: 768px)

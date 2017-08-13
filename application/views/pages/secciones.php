@@ -40,10 +40,19 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in  active" id="payments">
-              <table data-toggle="table" class="t-sections innertable" id="t-sections" data-sort-name="num" data-sort-order="asc" data-search="true" data-show-refresh="true"
-                data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-show-pagination-switch="true"
-                data-pagination="true" data-id-field="payment" data-page-size="5" data-page-list="[5]" data-show-footer="false"
-                data-response-handler="responseHandler">
+              <table data-toggle="table" 
+              class="t-sections innertable" 
+              id="t-sections" 
+              data-sort-name="num" 
+              data-sort-order="asc"
+              data-search="true" 
+              data-minimum-count-columns="2" 
+              data-pagination="true" 
+              data-id-field="num" 
+              data-page-size="20" 
+              data-page-list="[10,20,50,ALL]" 
+              data-show-footer="false"
+              data-response-handler="responseHandler">
                 <thead>
                   <tr>
                     <th data-field="num" data-sortable="true">Num</th>

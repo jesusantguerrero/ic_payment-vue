@@ -46,7 +46,7 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Cedula:</label>
-          <input type="text" class="form-control line-input cedula" id="" value="<?php echo $contrato['cedula'] ?>">
+          <input type="text" class="form-control line-input cedula" id="" value="<?php echo dni_format($contrato['cedula']) ?>">
         </div>
       </div>
     </div>
@@ -61,11 +61,11 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Celular:</label>
-          <input type="text" class="form-control line-input celular" value="<?php echo $cliente['celular'] ?>">
+          <input type="text" class="form-control line-input celular" value="<?php echo phone_format($cliente['celular'])?>">
         </div>
         <div class="form-group print">
           <label for="">Telefono:</label>
-          <input type="text" class="form-control line-input telefono" value="<?php echo $cliente['telefono'] ?>">
+          <input type="text" class="form-control line-input telefono" value="<?php echo phone_format($cliente['telefono'])?>">
         </div>
       </div>
     </div>

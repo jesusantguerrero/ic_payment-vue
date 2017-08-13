@@ -213,9 +213,8 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function get_moras_view(){
-    $sql = "SELECT * FROM v_morosos";
-    $result = $this->db->query($sql);
+  public function get_moras_view($mode = 'normal'){
+    $result = $this->db->get('v_morosos');
     return $result->result_array(); 
   }
 

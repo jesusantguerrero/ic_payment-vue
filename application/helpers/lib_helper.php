@@ -399,6 +399,7 @@ if ( ! function_exists('make_payment_table')){
           endif;
         $html_text .="</td>
         <td> class='hide'".$line['id_contrato']."</td>
+        <td> <a data-target='#advanced-payment' class='payment-advanced-controls' data-id-pago='".$line['id_pagop']."' data-toggle='modal' title='Opciones Avanzadas'> ... </a></td>
         </tr>";
     }
 

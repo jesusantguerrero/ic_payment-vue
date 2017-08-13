@@ -4,7 +4,9 @@ var clientTable = {
   init: function(page){
     var self = this;
     this.el = $('#t-clients');
-    this.el.bootstrapTable();
+    this.el.bootstrapTable({
+      height: getHeight()
+    });
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     if(page){
@@ -62,6 +64,10 @@ var clientTable = {
     }); 
   }
 }
+ window.getHeight = function () {
+    var h =  450;
+    return h;
+  }
 var serviceTable = {
   init: function(page){
     var self = this;

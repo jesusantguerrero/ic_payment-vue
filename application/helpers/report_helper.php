@@ -142,18 +142,24 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","celular","Cuota","Mora","Extra","Total","Fecha Limite"); 
+    $context->table->set_heading("Contrato","Cliente","celular","Concepto","Detalles","Cuota","Mora","Extra","Total","Pagos Pendientes","Meses"); 
+    $spanish_months = $GLOBALS['spanish_months'];
+    $in_english = array_keys($spanish_months);
+    $in_spanish = array_values($spanish_months);
 
     foreach ($data as $line) {
       $context->table->add_row(
-      $line['codigo'],
+      $line['id_contrato'],
       $line['cliente'],
       phone_format($line['celular']),
+      $line['concepto'],
+      $line['detalles_extra'],
       "RD$ ".CurrencyFormat($line['cuota']),
       "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),
       "RD$ ".CurrencyFormat($line['total']),
-      $line['fecha_limite']
+      $line['pagos_pendientes'],
+      str_replace($in_english,$in_spanish,$line['meses'])
       );
 
      $cont+=1;
@@ -167,6 +173,29 @@ if ( ! function_exists('make_moras_report')){
     endif;
   }
 }
+function make_moras_report_smart($data,$concept,$context,$for_print){ 
+    $spanish_months = $GLOBALS['spanish_months'];
+    $in_english = array_keys($spanish_months);
+    $in_spanish = array_values($spanish_months);
+
+    foreach ($data as $line) {
+      $html_text= "
+      <tr>
+        <td>{$line['id_contrato']}</td>
+        <td>{$line['cliente']}</td>
+        <td>".phone_format($line['celular'])." </td>
+        <td>{$line['concepto']}</td>
+        <td>{$line['detalles_extra']}</td>
+        <td>RD$".CurrencyFormat($line['cuota'])."</td>
+        <td>RD$".CurrencyFormat($line['mora'])."</td>
+        <td>RD$".CurrencyFormat($line['monto_extra'])."</td>
+        <td>RD$".CurrencyFormat($line['total'])."</td>
+        <td>{$line['pagos_pendientes']}</td>
+        <td>".str_replace($in_english,$in_spanish,$line['meses'])."</td>
+      </tr>";
+    }
+    return $html_text;
+  }
 
 if( ! function_exists('set_report')){
   function set_report($report_body,$concept,$more = ''){

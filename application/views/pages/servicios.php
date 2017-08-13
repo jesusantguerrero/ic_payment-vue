@@ -1,17 +1,18 @@
 <div class="screen clients row">
-  <div class="left-navigation col-md-2">
-    <div class="left-navigation__header">
-       <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+  <div class="left-navigation">
+    <div class="aside-nav-container">
+      <div class="left-navigation__header">
+         <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+      </div>
+      <ul class="aside-nav">
+        <li class="aside-buttons">
+          <a href="" data-toggle="modal" data-target="#new-service-modal"><i class="material-icons">add</i>  Nuevo Servicio</a>
+        </li>
+        <li class="aside-buttons"><a href="" id="edit-service"><i class="material-icons">edit</i>Editar Servico</a></li>
+        <li class="aside-buttons"><a href="" id="delete-service"><i class="material-icons">delete</i>Eliminar Servicio</a></li>
+        <li class="aside-buttons"><a href=""><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
+      </ul>
     </div>
-    <ul class="aside-nav">
-      <li class="aside-buttons">
-        <a href="" data-toggle="modal" data-target="#new-service-modal"><i class="material-icons">add</i>  Nuevo Servicio</a>
-      </li>
-      <li class="aside-buttons"><a href="" id="edit-service"><i class="material-icons">edit</i>Editar Servico</a></li>
-      <li class="aside-buttons"><a href="" id="delete-service"><i class="material-icons">delete</i>Eliminar Servicio</a></li>
-      <li class="aside-buttons"><a href=""><i class="material-icons">find_in_page</i>Ver Detalles</a></li>
-    </ul>
-
   </div>
   <div class="main-content col-md-10">
   <h2 class="subsection-title">Servicios</h2> 
@@ -30,7 +31,8 @@
         data-show-pagination-switch="false"
         data-pagination="true" 
         data-id-field="id" 
-        data-page-size="5" data-page-list="[5]" 
+        data-page-size="20"
+        data-page-list="[10, 20, 50, All]" 
         data-show-footer="false"
         data-striped="true"
         data-click-to-select="true"
