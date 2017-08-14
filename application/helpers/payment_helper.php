@@ -95,19 +95,20 @@ if (! function_exists('refresh_contract')){
     $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
   }
 }
-// TODO: Hacer opcion de cancelar pago
-if (! function_exists('cancel_payment')){
 
+// TODO: Hacer opcion de cancelar pago
+
+if (! function_exists('cancel_payment')){
+  
   /**
   * Actualiza los pagos de un contrato automaticamente
   * @param array $data the result of an select in a query 
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
+  * @return string the tbody with rows of a table 
   */ 
 
   function cancel_payment($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
-
     $contract  = $context->contract_model->get_contract_view($contract_id);
     $payment   = $context->payment_model->get_payment($data_pago['id']);
     $monto_pagado = $contract['monto_pagado'] - $payment['cuota'];

@@ -18,7 +18,26 @@ class App extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 
-	//update_moras($this);
+		//update_moras($this);
+		$this->db->trans_start();
+		$this->db->where('estado','pagado');
+		$pagos = $this->db->get('ic_pagos');
+		$pagos = $pagos->result_array('');
+		foreach ($pagos as $pago) {
+			$data['fecha_pago'] = $pago['fecha_limite'];
+			$this->payment_model->update($data,$pago['id_pago']);
+			if($pago['fecha_pago'] != $pago['fecha_limite']):
+				echo '<i style="color: red">'.$pago['fecha_pago'].'</i> --- '.$pago['fecha_limite'].'</br>';
+			endif;
+		}
+		$this->db->trans_complete();
+		if($this->db->trans_status()){
+			echo 'exito';
+		}
+		else{
+			$this->db->trans_rollback();
+			echo "No guardado";
+		}
 	}
 
 	public function index(){
