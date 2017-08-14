@@ -177,9 +177,10 @@ function make_moras_report_smart($data,$concept,$context,$for_print){
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
+    $html_text = '';
 
     foreach ($data as $line) {
-      $html_text= "
+      $html_text .= "
       <tr>
         <td>{$line['id_contrato']}</td>
         <td>{$line['cliente']}</td>
