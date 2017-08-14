@@ -101,7 +101,7 @@ class Process extends CI_Controller {
 				endif;
 				break;
 			case "pagos":
-				$was_correct = $this->payment_model->check_for_update($data);
+				$was_correct = $this->payment_model->check_for_update($data['id']);
 				if($was_correct){
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
@@ -116,6 +116,20 @@ class Process extends CI_Controller {
 					echo MESSAGE_ERROR." error en el status";
 				}else{
 					echo " Proceso Completo";
+				}
+				break;
+			case "discount_pagos":
+				$was_correct = $this->payment_model->check_for_update($data['id_pago']);
+				if($was_correct){
+					$this->db->trans_start();
+					payment_discount($data,$this);
+					$this->db->trans_complete();
+					if($this->db->trans_status() === false){
+						$this->db->trans_rollback();
+						echo MESSAGE_ERROR." error en la operacion";
+					}else{
+						echo " Proceso Completo";
+					}
 				}
 				break;
 			case "empresa":
@@ -244,10 +258,19 @@ class Process extends CI_Controller {
 					echo "nada";
 				}
 				break;
-				case "caja":
-					$result = $this->caja_chica_model->get_last_saldo();
-					echo $result;
-					break;
+			case "pagos":
+				$result = $this->payment_model->get_payment($_POST['id_pago']);
+				if($result){
+					 $dataJson = json_encode($result);
+					 echo $dataJson;
+				}else{
+					echo "nada";
+				}
+				break;
+			case "caja":
+				$result = $this->caja_chica_model->get_last_saldo();
+				echo $result;
+				break;
 		}
 	}
 

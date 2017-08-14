@@ -545,6 +545,70 @@ var Payments = {
     var id_cliente = $('#detail-client-id').val()
      var form = "tabla=contratos_cliente&id=" + id_cliente;
     connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);
+  },
+
+  getOne: function(id_pago, receiver) {
+    form = "tabla=pagos&id_pago=" + id_pago;
+    connectAndSend("process/getone", false, null, receiver, form, null)
+  },
+
+  receiveForEdit: function(content){
+    var pago          = JSON.parse(content);
+    this.id_contrato  = pago['id_contrato'];
+    this.id_pago     = pago['id_pago']
+    var $concepto     = $("#payment-concept");
+    var $fechaLimite  = $("#payment-limit-date");
+    var $cuota        = $("#payment-cuota");
+    var $mora         = $("#payment-mora");
+    var $extra        = $("#payment-extra");
+    var $total        = $("#payment-total");
+    var $descuento    = $("#payment-discount-amount");
+    var $razon        = $("#payment-discount-reason");
+    var $modal        = $("#advanced-payment");
+
+    $concepto.val(pago['concepto']);
+    $fechaLimite.val(pago['fecha_limite']);
+    $cuota.val(pago['cuota']);
+    $mora.val(pago['mora']);
+    $extra.val(pago['monto_extra']);
+    $total.val(pago['total']);
+    interactiveSum();
+
+    $modal.modal();
+    $modal.on('hide.bs.modal',function(){
+      $modal.find('input').val('')
+    });
+    $("#btn-apply-discount").on('click', function (e) {
+      e.stopImmediatePropagation();
+      swal({
+          title: 'Está Seguro?',
+          text: "Seguro de que quiere aplicar este descuento de " + $descuento.val() + "?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          confirmButtonBackground: SUMMER_SKY
+        }).then(function(){
+           applyDiscount(id_pago);
+        });
+    });
+
+    function applyDiscount(id_pago) {
+      var date = moment().format("YYYY-MM-DD");
+      form = 'id_pago=' + id_pago + '&id_contrato=' + id_contrato + "&cuota=" + $cuota.val();
+      form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
+      form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val() + '&fecha_pago=' + date ;
+      form += "&tabla=discount_pagos";
+      connectAndSend("process/update", true, null, null, form, Payments.getAll);
+      $modal.hide();
+    }
+
+    function interactiveSum(){
+      $('.payment-sumandos').on('keyup',function(){
+        $cuota.val(pago['cuota'] - $descuento.val());
+        var suma = Number($cuota.val()) + Number($mora.val()) + Number($extra.val());
+        $total.val(Number(suma))
+      })
+    }
   }
   
 }

@@ -62,8 +62,8 @@ class Payment_model extends CI_MODEL{
       } 
   }
 
-  public function check_for_update($data){
-    $sql = "SELECT estado from ic_pagos where id_pago =".$data['id'];
+  public function check_for_update($id_pago){
+    $sql = "SELECT estado from ic_pagos where id_pago =".$id_pago;
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){

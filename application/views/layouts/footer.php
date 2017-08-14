@@ -10,14 +10,14 @@
 		ga('send', 'pageview');
 	</script>
 
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.0.7') ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.0.7')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.0.7')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.10.0') ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.10.0')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.10.0')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});
 			$('[role="cedula"]').inputmask({"mask": ["999-9999999-9","**-*******-*","************"],greede: false});
-			$('[id*="dni"]').inputmask({"mask": ["999-9999999-9","**-*******-*","*{1,20}"],greede: false});
+			$('[id*="dni"]').inputmask({"mask": ["999-9999999-9","**-*******","*{1,20}"],greede: false});
 
 			window.getVal = function (element){
 				return element.inputmask('unmaskedvalue');

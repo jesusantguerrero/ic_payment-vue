@@ -27,9 +27,13 @@
   <div class="cuerpo">
   <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"><?php echo $recibo['servicio'].$recibo['detalles_extra']?></span></span></p>
   <p class="line"> <span class="text-main">Suma:</span> <span class="text-placeholder"><?php echo strtoupper(number_to_words($recibo['total'])). "PESOS" ?></span></p>
-  <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad']) ?></span>
+  <p> <span class="text-main">Mensualidad:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad'] + $recibo['descuento']) ?></span>
   <span class="text-main center">Mora:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mora']) ?> </span>
   <span class="text-main center">Extras:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['monto_extra']) ?></span></p>
+  <?php if($recibo['descuento'] > 0): ?>
+    <p class="line"> <span class="text-main">Descuento:</span> <span class="text-placeholder"><i>RD$ <?php echo CurrencyFormat($recibo['descuento'])?></i></span></span></p>
+    <p class="line"> <span class="text-main">Por:</span> <span class="text-placeholder"><?php echo $recibo['razon_descuento'] ?></span></p>
+  <?php endif; ?>
   <p><span class="text-main">Vendedor:</span><span class="text-placeholder lg"><?php echo $recibo['empleado'] ?></span>
     <span class="text-main center">Total:</span><span class="text-placeholder md" > RD$<?php echo CurrencyFormat($recibo['total']) ?></span></p>
   </div>

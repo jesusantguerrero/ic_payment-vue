@@ -37,7 +37,7 @@
     }
 
     initCajaHandlers();
-    initGlobalHandlers()
+    initGlobalHandlers();
   }
 
   // **************************************************     globals handlers       *****************************
@@ -57,7 +57,6 @@
       });
 
       $('tbody').css({display:"table-row-group"});
-
     }
 
     if (currentPage == 'contratos') {
@@ -402,7 +401,7 @@
       }else{
         // TODO: MESSAGE Select a payment
       }
-    });
+    }); 
 
     $("#select-contract").on('change', function (e) {
       e.stopImmediatePropagation();
@@ -423,6 +422,7 @@
       Clients.saveObservations(true);
       $('#text-observations').val('');
     });
+
 
     detailsContractTable.init();
 

@@ -109,3 +109,19 @@ $spanish_months = array(
   'November' =>"Noviembre",
   'December' =>"Diciembre");
 
+$months_short = array(
+  'Jan' =>"Ene",
+  'Feb' =>"Feb",
+  'Mar' =>"Mar",
+  'Apr' =>"Abr",
+  'May' =>"May",
+  'Jun' =>"Jun",
+  'Jul' =>"Jul",
+  'Aug' =>"Ago",
+  'Sep' =>"Sep",
+  'Oct' =>"Oct",
+  'Nov' =>"Nov",
+  'Dec' =>"Dic");
+$months_esp = array_values($months_short);
+$months_eng = array_keys($months_short);
+

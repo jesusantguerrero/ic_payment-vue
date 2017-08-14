@@ -74,7 +74,6 @@ if (! function_exists('refresh_contract')){
 
   function refresh_contract($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
-    $dateYMD   = null;
 
     $contract  = $context->contract_model->get_contract_view($contract_id);
     $payment   = $context->payment_model->get_payment($data_pago['id']);
@@ -108,7 +107,6 @@ if (! function_exists('cancel_payment')){
 
   function cancel_payment($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
-    $dateYMD   = null;
 
     $contract  = $context->contract_model->get_contract_view($contract_id);
     $payment   = $context->payment_model->get_payment($data_pago['id']);
@@ -291,6 +289,36 @@ if (! function_exists('update_contract_from_service')){
     }
      echo " ".$count." de ".$contratos_a_cambiar." contratos actualizados";
   }
+}
+
+function payment_discount($data,$context){
+  $data_pago = array(
+    'id'          => $data['id_pago'],
+    'estado'      => 'pagado',
+    'fecha_pago'  => $data['fecha_pago'],
+    'id_contrato' => $data['id_contrato']
+  );
+
+  $data_discount = array(
+    'cuota'           => $data['cuota'],
+    'mora'            => $data['mora'],
+    'monto_extra'     => $data['monto_extra'],
+    'total'           => $data['total'],
+    'descuento'       => $data['descuento'],
+    'razon_descuento' => $data['razon_descuento']     
+    );
+
+  $context->payment_model->update($data_discount,$data['id_pago']);
+
+	$context->db->where('id_contrato',$data['id_contrato']);
+	$context->db->select_sum('cuota');
+	$suma = $context->db->get('ic_pagos');
+	$suma = $suma->row_array()['cuota'];
+	$context->db->where('id_contrato',$data['id_contrato']);
+	$context->db->update('ic_contratos',array('monto_total' => $suma));
+	
+
+  refresh_contract($data['id_contrato'],$context,$data_pago);
 }
 
 /**

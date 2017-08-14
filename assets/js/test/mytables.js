@@ -4,9 +4,7 @@ var clientTable = {
   init: function(page){
     var self = this;
     this.el = $('#t-clients');
-    this.el.bootstrapTable({
-      height: getHeight()
-    });
+    this.el.bootstrapTable()
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     if(page){
@@ -224,17 +222,23 @@ var cajaTable = {
 
 
 var paymentTable = {
+  
   init: function(page,row){
     this.el = $('#t-pagos');
-    this.el.bootstrapTable();
+    this.el.bootstrapTable({
+      height: 370
+    });
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
-    
     if(page,row){
       var id = row.id_contrato;
       if(id == paymentTable.getRow().id_contrato)
         this.el.bootstrapTable('selectPage',page);
     }
+    paymentTable.clickEvents();
+    this.el.on('all.bs.table',function(name,args){
+      paymentTable.clickEvents()
+    })
   },
 
   getSelectedRow: function(){
@@ -264,7 +268,34 @@ var paymentTable = {
     paymentTable.init(options.pageNumber, row);
     if(callback)
        callback();
-  },   
+  },  
+  
+  filter: function(value, type){
+    if(type == 'estado'){
+      this.el.bootstrapTable('filterBy',{
+        estado: value
+      });
+    }else{
+      hoy = moment().format("YYYY-MM-DD")
+      this.el.bootstrapTable('filterBy',{
+        fecha_limite: []
+      });
+
+    }
+    
+  },
+
+  clickEvents: function(){
+    $(".payment-advanced").on('click',function(e) {
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      console.log('yo si funciono')
+      var id = $(this).attr('data-id-pago').trim();
+      if (id) {
+        Payments.getOne(id, Payments.receiveForEdit);
+      }
+    });
+  }
 }
 
 var detailsContractTable = {

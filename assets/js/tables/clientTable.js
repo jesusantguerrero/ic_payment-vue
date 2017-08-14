@@ -3,9 +3,7 @@ var clientTable = {
   init: function(page){
     var self = this;
     this.el = $('#t-clients');
-    this.el.bootstrapTable({
-      height: getHeight()
-    });
+    this.el.bootstrapTable()
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     if(page){

@@ -162,10 +162,10 @@ if ( ! function_exists('make_contract_table')){
         $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='hide'></td>
-        <td>".$line['fecha']."</td>
+        <td>".date_spanish_format($line['fecha'])."</td>
         <td>".$line['duracion']."</td>
-        <td>".$line['ultimo_pago']."</td>
-        <td>".$line['proximo_pago']."</td>
+        <td>".date_spanish_format($line['ultimo_pago'])."</td>
+        <td>".date_spanish_format($line['proximo_pago'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
         <td class='td-estado {$state['class']}'>".$state['text']."</td>
@@ -194,12 +194,12 @@ if ( ! function_exists('make_main_contract_table')){
           <td class='hide'></td>
           <td class='codigo'>".$line['codigo']."</td>
           <td class='th-client'>".$line['cliente']."</td>
-          <td>".$line['fecha']."</td>
+          <td>".date_spanish_format($line['fecha'])."</td>
           <td>".$line['servicio']."</td>
           <td>".$line['duracion']."</td>
-          <td>".$line['ultimo_pago']."</td>
-          <td>".$line['proximo_pago']."</td>
-          <td> RD$ ". CurrencyFormat($line['monto_pagado'])."</td>
+          <td>".date_spanish_format($line['ultimo_pago'])."</td>
+          <td>".date_spanish_format($line['proximo_pago'])."</td>
+          <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
           <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
           <td class='hide'>".$line['id_cliente']."</td>
           <td class='hide'>".$line['cedula']."</td>
@@ -390,16 +390,16 @@ if ( ! function_exists('make_payment_table')){
         <td>RD$ ".CurrencyFormat($line['mora'])."</td>
         <td>RD$ ".CurrencyFormat($line['monto_extra'])."</td>
         <td>RD$ ".CurrencyFormat($line['total'])."</td>
-        <td class='{$state['class']}'>".$line['fecha_pago']."</td>
+        <td class='{$state['class']}'>".date_spanish_format($line['fecha_pago'])."</td>
         <td class='{$state['class']}'>".$state['text']."</td>
-        <td>".$line['fecha_limite']."</td>
+        <td>".date_spanish_format($line['fecha_limite'])."</td>
         <td>";
           if($line['fecha_pago'] != null):
           $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
           endif;
         $html_text .="</td>
         <td> class='hide'".$line['id_contrato']."</td>
-        <td> <a data-target='#advanced-payment' class='payment-advanced-controls' data-id-pago='".$line['id_pagop']."' data-toggle='modal' title='Opciones Avanzadas'> ... </a></td>
+        <td><a href='#' class='payment-advanced' data-id-pago='".$line['id_pago']."'><i class='material-icons'>add</i></a></td>
         </tr>";
     }
 
@@ -576,4 +576,13 @@ function verify_state($state,$posible_states){
       );
     }
   }
+}
+
+function date_spanish_format($english_date){
+  if($english_date){
+    $new_date = date('d M. Y',strtotime($english_date));
+    $new_date = str_replace($GLOBALS['months_eng'],$GLOBALS['months_esp'],$new_date);
+    return $new_date;
+  }
+  return '';
 }
