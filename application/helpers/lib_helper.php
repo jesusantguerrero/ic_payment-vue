@@ -383,7 +383,6 @@ if ( ! function_exists('make_payment_table')){
     foreach ($data as $line) {
         $state = is_marked($line['estado'],'pagado');
         $html_text .= "<tr>
-        <td><a href='#' class='payment-delete' data-id-pago='".$line['id_pago']."'><i class='material-icons'>delete</i></a></td>
         <td class='hide'>".$line['id_pago']."</td>
         <td class='hide'></td>
         <td>".$line['concepto']."</td>

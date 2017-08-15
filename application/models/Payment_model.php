@@ -28,36 +28,6 @@ class Payment_model extends CI_MODEL{
     parent::__construct();
      
     $this->load->helper('lib_helper');
-    //   $this->db->trans_start();
-    //   $this->db->query("drop view if exists v_recibos");
-    //   $this->db->query("CREATE VIEW v_recibos
-    //                     AS select 
-    //                     `p`.`fecha_pago` AS `fecha_pago`,
-    //                     `p`.`id_pago` AS `id_pago`,
-    //                     `p`.`id_contrato` AS `id_contrato`,
-    //                     concat(`cli`.`nombres`,' ',`cli`.`apellidos`) AS `cliente`,
-    //                     `p`.`concepto` AS `concepto`,
-    //                     `p`.`detalles_extra` AS `detalles_extra`,
-    //                     `s`.`nombre` AS `servicio`,`p`.`cuota` AS `mensualidad`,
-    //                     `p`.`mora` AS `mora`,`p`.`monto_extra` AS `monto_extra`,
-    //                     `p`.`total` AS `total`,
-    //                     `p`.`estado` AS `estado`,
-    //                     `p`.`descuento` as `descuento`,
-    //                     `p`.`razon_descuento` as `razon_descuento`,
-    //                     concat(`u`.`name`,' ',`u`.`lastname`) AS `empleado`,
-    //                     `p`.`complete_date` AS `complete_date`,
-    //                     `p`.`fecha_limite` as `fecha_limite`
-    //                      from ((((`ic_pagos` `p` join `ic_contratos` `c` on((`c`.`id_contrato` = `p`.`id_contrato`))) 
-    //                      join `ic_clientes` `cli` on((`cli`.`id_cliente` = `c`.`id_cliente`))) 
-    //                      join `ic_servicios` `s` on((`p`.`id_servicio` = `s`.`id_servicio`))) 
-    //                      join `ic_users` `u` on((`p`.`id_empleado` = `u`.`user_id`)))");
-    // $this->db->trans_complete();
-    // if($this->db->trans_status() !== false){
-    //   echo 'Todo correcto';  
-    // }else{
-    //   echo 'error'.$this->db->last_query();
-    //   $this->db->trans_rollback();
-    // }
   }
 
   /**
@@ -99,7 +69,7 @@ class Payment_model extends CI_MODEL{
     if($result == "no pagado"){
         return true;
       }else{
-        return false;
+        echo MESSAGE_INFO."Este pago ya ha sido realizado";
     }
     
   }

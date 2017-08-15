@@ -80,10 +80,9 @@
             <div class="col-md-6">
               <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Fecha</span>
-                <input type="text" class="date-picker" class="form-control" id="contract-client-date" tabindex="2">
+                <input type="date" class="form-control" id="contract-client-date" tabindex="2">
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="input-group hide">
                 <span class="input-group-addon" id="basic-addon1">Pagar Hasta</span>

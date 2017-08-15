@@ -73,16 +73,14 @@
             data-toolbar="#moras-toolbar"
             data-pagination="true" 
             data-id-field="contrato" 
-            data-page-size="20" 
-            data-page-list="[10,20,50, ALL]" 
+            data-page-size="50" 
+            data-page-list="[10,20,50, 100,200,500]" 
             data-show-footer="false">
             <thead>
               <tr>
                 <th data-field="contrato" data-sortable="true">Contrato</th>
                 <th data-field="cliente" data-sortable="true">Cliente</th>
                 <th data-field="celular" data-sortable="true">Celular</th>
-                <th data-field="concepto" data-sortable="true">Concepto</th>
-                <th data-field="detalles" data-sortable="true">Detalles</th>
                 <th data-field="cuota" data-sortable="true">Cuota</th>
                 <th data-field="mora" data-sortable="true">Mora</th>
                 <th data-field="extra" data-sortable="true">Extra</th>
@@ -116,8 +114,8 @@
             data-toolbar="#pagos-toolbar"
             data-pagination="true" 
             data-id-field="payment" 
-            data-page-size="20" 
-            data-page-list="[10,20,50, ALL]" 
+            data-page-size="500" 
+            data-page-list="[100,200,500, 1000, 2000, 5000, 8000]" 
             data-show-footer="false">
             <thead>
               <tr>

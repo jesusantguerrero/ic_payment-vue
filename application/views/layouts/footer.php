@@ -13,7 +13,6 @@
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=2.10.0') ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=2.10.0')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=2.10.0')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/lib/bootstrap-datepicker.min.js?version=2.10.0')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});
@@ -32,14 +31,7 @@
 			  checkboxClass: 'icheckbox_square-blue',
 			  radioClass: 'iradio_square-blue',
 			  increaseArea: '20%' // optional
-			 });
-
-			    var fecha = new Date()
-   				var y =	fecha.getFullYear()
-   				var d = fecha.getDate()
-   				var m = fecha.getMonth() + 1
-			 
-			$("#contract-client-date").datepicker();
+  		 });
 		})
 		
 	</script>

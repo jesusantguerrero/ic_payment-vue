@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-group">
                       <label for="payment-limit-date">Fecha</label>
-                      <input type="text" class="date-picker" class="form-control" id="payment-limit-date" tabindex="8" disabled>
+                      <input type="date" class="form-control" id="payment-limit-date" tabindex="8" disabled>
                     </div>
                     <div class="form-group">
                       <label for="payment-cuota">Cuota</label>
@@ -143,7 +143,7 @@
                   <div class="col-md-6">
                     <div class="form-group hide">
                       <label for="payment-contract-id-edit">ID Contrato</label>
-                      <input type="text" class="form-control" id="u-client-lastname" tabindex="2" disabled>
+                      <input type="text" class="form-control" id="payment-id-cliente" tabindex="2" disabled>
                     </div>
                     <div class="form-group">
                       <label for="payment-extra-services">Servicios Extra</label>

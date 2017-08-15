@@ -28,8 +28,8 @@
       data-minimum-count-columns= "2"  
       data-pagination="true"  
       data-id-field= "id"  
-      data-page-size= "5"  
-      data-page-list= "[10,20,50,All]"  
+      data-page-size= "50"  
+      data-page-list= "[10,20,50,100,200 ,300, 400, 500, 1000]"  
       data-show-footer= false  
       data-click-to-select="true"  
       data-single-select= "true" 

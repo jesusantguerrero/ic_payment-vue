@@ -109,7 +109,6 @@
   //***************************************************     admin handlers          ***************************** */
   function initAdminHandlers() {
     userTable.init();
-
     $("#btn-save-user").on('click', function (e) {
       e.stopImmediatePropagation();
       Users.add();

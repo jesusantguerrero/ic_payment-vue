@@ -114,7 +114,7 @@
           <select name="" class="form-control" id="caja-user">
             <?php $this->user_model->get_users_list(); ?>
           </select>
-          <input type="text" class="date-picker" class="form-control caja-for-date" id="caja-date" placeholder="Fecha">
+          <input type="date" class="form-control caja-for-date" id="caja-date" placeholder="Fecha">
           <a data-toggle="modal" data-target="#retire-money-modal" class="btn"><i class="material-icons mi__single">remove</i></a>
           <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons mi__single">add</i></button>
         </div>

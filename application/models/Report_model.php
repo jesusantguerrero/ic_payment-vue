@@ -95,13 +95,14 @@ class Report_model extends CI_MODEL{
 
     $this->db->select($sql,true);
     $this->db->group_by('cliente');
+    $this->db->order_by('id_contrato'); 
     $result = $this->db->get('v_morosos');
     if($result){
       $result = $result->result_array();
       if (!$is_print){
         echo make_moras_report_smart($result,"Clientes Con Moras",$this,$is_print);
       }else{
-        echo make_moras_report($result,"Clientes Con Moras",$this,$is_print);
+        echo make_moras_report($result,"Clientes Moras",$this,$is_print);
 
       }
     }
@@ -169,7 +170,9 @@ class Report_model extends CI_MODEL{
   }
 
   public function count_moras_view(){
-    $result = $this->db->count_all('v_morosos');
+    $this->db->group_by('cliente');
+    $this->db->order_by('id_contrato');
+    $result = $this->db->count_all_results('v_morosos');
     if($result){
      return $result;
     }else{

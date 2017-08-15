@@ -3,11 +3,6 @@
   if(isset($_SESSION['recibo_info'])):
     $recibo = $_SESSION['recibo_info'];
     $company = $this->company_model->get_empresa();
-    if($recibo['concepto'] != 'instalacion' and $recibo['concepto'] != 'abono'){
-      $fecha = new DATETIME($recibo['fecha_limite']);
-      $fecha = $fecha->format('d F Y');
-      $recibo['concepto'] = 'Pago Correspondiente al '.str_replace($GLOBALS['full_months_eng'],$GLOBALS['full_months_esp'],$fecha);
-    }
 ?>
 
 <div class="recibo-body">
@@ -22,7 +17,7 @@
       <p></p>
     </div>
     <div class="left-box"> 
-      <h4 class="fecha-recibo">Fecha de pago: <?php echo $recibo['fecha_pago'] ?></h4>
+      <h4 class="fecha-recibo">Fecha: <?php echo $recibo['fecha_pago'] ?></h4>
       <p><b>Recibo  :</b> <span><?php echo $recibo['id_pago'] ?></span></p>
       <p><b>Contrato: </b><span><?php echo $recibo['id_contrato'] ?></span></p>
       <p><b>Cliente : </b><span><?php echo $recibo['cliente'] ?></span></p>

@@ -20,12 +20,11 @@ if ( ! function_exists('make_payment_report')){
 
   function make_payment_report($data,$concept,$context){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Pago","Cont","Cliente","Servicio","Concepto","Total","Hora"); 
+    $context->table->set_heading("Num","Contrato","Cliente","Servicio","Concepto","Total","Hora"); 
 
     foreach ($data as $line) {
       $hora = new DATETIME($line['complete_date']);
       $context->table->add_row($cont,
-      $line['id_pago'],
       $line['id_contrato'],
       $line['cliente'],
       $line['servicio'],
@@ -142,7 +141,7 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","celular","Concepto","Detalles","Cuota","Mora","Extra","Total","Pagos Pendientes","Meses"); 
+    $context->table->set_heading("Contrato","Cliente","celular","Cuota","Mora","Extra","Total","PP","Meses"); 
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
@@ -152,8 +151,6 @@ if ( ! function_exists('make_moras_report')){
       $line['id_contrato'],
       $line['cliente'],
       phone_format($line['celular']),
-      $line['concepto'],
-      $line['detalles_extra'],
       "RD$ ".CurrencyFormat($line['cuota']),
       "RD$ ".CurrencyFormat($line['mora']),
       "RD$ ".CurrencyFormat($line['monto_extra']),
@@ -167,6 +164,7 @@ if ( ! function_exists('make_moras_report')){
 
     $html_text = $context->table->generate();
     if($for_print):
+      $html_text = '<h4>PP = Pagos Pendientes</h4>' . $html_text;
       set_report($html_text,$concept,$more = '');
     else:
       return $html_text;
@@ -185,14 +183,12 @@ function make_moras_report_smart($data,$concept,$context,$for_print){
         <td>{$line['id_contrato']}</td>
         <td>{$line['cliente']}</td>
         <td>".phone_format($line['celular'])." </td>
-        <td>{$line['concepto']}</td>
-        <td>{$line['detalles_extra']}</td>
         <td>RD$".CurrencyFormat($line['cuota'])."</td>
         <td>RD$".CurrencyFormat($line['mora'])."</td>
         <td>RD$".CurrencyFormat($line['monto_extra'])."</td>
         <td>RD$".CurrencyFormat($line['total'])."</td>
         <td>{$line['pagos_pendientes']}</td>
-        <td>".str_replace($in_english,$in_spanish,$line['meses'])."</td>
+        <td><p>".str_replace($in_english,$in_spanish,$line['meses'])."</p></td>
       </tr>";
     }
     return $html_text;

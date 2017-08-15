@@ -105,16 +105,6 @@ class Process extends CI_Controller {
 				if($was_correct){
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
-				}else{
-					echo MESSAGE_INFO."Este pago ya ha sido realizado";
-				}
-				break;
-			case "deshacer_pago":
-				$was_correct = $this->payment_model->check_for_update($data['id_pago']);
-				if(!$was_correct){
-
-				}else{
-					echo "Este pago no ha sido realizado para deshacerse";
 				}
 				break;
 			case "pagos_al_dia":
@@ -488,7 +478,7 @@ class Process extends CI_Controller {
 		$this->load->library('PHPExcel/IOFactory');
 		
 		$myreport_sheet = create_excel_file($report);
-		$file = "prueba.xlsx";
+		$file = "reporte_tecnico.xlsx";
 		// 
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");
 		header("Content-Disposition: attachment; filename= $file");

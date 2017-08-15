@@ -30,7 +30,7 @@ header
 
 
 // table theme
-.table 
+table 
   border: 1px solid #ddd
   border-radius: 4px
   position: relative
@@ -43,10 +43,10 @@ header
     line-height: 0
     height: 30px
   
-  td
-    font-size: 13px
-  thead
-    border: none
+td
+  font-size: 13px
+thead
+  border: none
   tr
     background: $contrast-color
     color: #fff
@@ -74,65 +74,56 @@ header
   margin-right: 50px
 .pagination-controlls
   width: 200px
-.table
-  th
-    height: 42px
-    border-right: 1px solid white
-    background-position: right
-    background-repeat: no-repeat
-    padding-right: 30px
+th
+  height: 42px
+  border-right: 1px solid white
+  background-position: right
+  background-repeat: no-repeat
+  padding-right: 30px
+  cursor: pointer
+  &:last-child
+    border-radius: 0 4px 0 0
+    border-right: none
+  &:first-child
+    border-radius: 4px 0 0 0
+tbody
+  max-height: 220px 
+  width: 100%
+  overflow: auto
+  display: none
+  tr
     cursor: pointer
-    &:last-child
-      border-radius: 0 4px 0 0
-      border-right: none
+    background: #fdfdfd
+    color: #555
+    font-weight: bolder
+    &:nth-child(2n)
+      background: #fff
     &:first-child
-      border-radius: 4px 0 0 0
-  tbody
-    max-height: 220px 
-    width: 100%
-    overflow: auto
-    display: none
-    tr
-      cursor: pointer
-      background: #fdfdfd
+      box-shadow: inset 0 3px 4px rgba(0,0,0,.2)
+    &:hover
+      background: transparentize(#888,.7)
+    &.selected
+      background: lighten($contrast-color,25)
       color: #555
-      font-weight: bolder
-      &:nth-child(2n)
-        background: #fff
-      &:first-child
-        box-shadow: inset 0 3px 4px rgba(0,0,0,.2)
-      &:hover
-        background: transparentize(#888,.7)
-      &.selected
-        background: lighten($contrast-color,25)
-        color: #555
-        border: 2px solid white
-        border-left: none
-        border-right: none
-        td 
-          border-color: transparent
-        &:hover
-          color: #555
-      &.marked
-        background: lighten(#1FD1A8,40%)
-        color: #222
-        border: 2px solid white
-        border-left: none
-        border-right: none
-      &.cancel
-        background: lighten(#dF0a00,50%)
-        color: #222
-        border: 2px solid white
-        border-left: none
-        border-right: none
-  tbody td 
-    border-right: 1px solid #ddd
-    &:last-child
+      border: 2px solid white
+      border-left: none
       border-right: none
-    &.done
-      color: darken(#1FD1A8,10%)
-    &.error
-      color: lighten(#dF0a00,10%)
+      td 
+        border-color: transparent
+      &:hover
+        color: #555
+    &.marked
+      background: lighten(#1FD1A8,40%)
+      color: #222
+      border: 2px solid white
+      border-left: none
+      border-right: none
+    &.cancel
+      background: lighten(#dF0a00,50%)
+      color: #222
+      border: 2px solid white
+      border-left: none
+      border-right: none
 
 .table-hover>tbody>tr.marked:hover 
   background-color: lighten(#1FD1A8,20%)
@@ -148,12 +139,6 @@ header
   .dropdown-toggle
     width: fit-content
     height: fit-content
-
-.payment-delete
-  color: transparentize($contrast-color,.7)
-
-  &:hover
-    color: $contrast-color
 
 ul.pagination
   margin: 0 0 0 0
@@ -177,8 +162,14 @@ ul.pagination
       &:hover
         color: $contrast-color
         background: transparent
-
-
+tbody td 
+  border-right: 1px solid #ddd
+  &:last-child
+    border-right: none
+  &.done
+    color: darken(#1FD1A8,10%)
+  &.error
+    color: lighten(#dF0a00,10%)
     
 .table>tbody>tr>td
   padding-top: 15px
@@ -188,6 +179,7 @@ ul.pagination
     background: $primary-color
   tfoot tr
     background: white
+
   // Cards
 .card-title
   +size(100%,48px)

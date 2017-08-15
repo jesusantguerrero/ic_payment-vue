@@ -18,28 +18,24 @@ class App extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 
-		//update_moras($this);
-		// $this->db->trans_start();
-		// $this->db->where('estado','pagado');
-		// $this->db->where('id_contrato',60)
-		// $pagos = $this->db->get('ic_pagos');
-		// $pagos = $pagos->result_array('');
-		// foreach ($pagos as $pago) {
-		// 	$data['fecha_pago'] = $pago['fecha_limite'];
-		// 	$this->payment_model->update($data,$pago['id_pago']);
-		// 	if($pago['fecha_pago'] != $pago['fecha_limite']):
-		// 		echo '<i style="color: red">'.$pago['fecha_pago'].'</i> --- '.$pago['fecha_limite'].'</br>';
-		// 	endif;
-		// }
-		// $this->db->trans_complete();
-		// if($this->db->trans_status()){
-		// 	echo 'exito';
-		// }
-		// else{
-		// 	$this->db->trans_rollback();
-		// 	echo "No guardado";
-		// }
-	}
+	//update_moras($this);
+	//  $this->db->trans_start();
+	// // //  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
+	// // //  $this->db->where('id_contrato',19);
+	// // //  $this->db->delete('ic_pagos');
+	// // //  $this->db->where('id_contrato',19);
+	// // //  $this->db->delete('ic_contratos');
+	// // // $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
+	// 	$this->db->where('estado_instalacion','por instalar');
+	// 	$this->db->update('ic_pagos',array('estado_instalacion' => 'instalado'));
+	// if($this->db->trans_status() !== false){
+		
+	// }else{
+	// echo "error";
+	// }
+	// $this->db->trans_complete();
+	// // $this->section_model->update_ip_state('41/53','disponible');
+ }
 
 	public function index(){
 		if(!isset($_SESSION['user_data'])):	
@@ -100,6 +96,8 @@ class App extends CI_Controller {
   }
 
 	private function truncate_database(){
+		$this->db->query("SET FOREIGN_KEY_CHECKS = 1;");	
+
 		$this->db->trans_start();
 		$this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
 		$this->db->query("TRUNCATE ic_contratos");

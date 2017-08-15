@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost/ic/';
+var BASE_URL = 'http://icpayment-soft.com/';
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
@@ -261,23 +261,6 @@ function validateTwo($firstObject,$secondObject,$button){
     }
 }
 
-function validateThis(){
-  var $userPassword = $('.password');
-  var $userPasswordConfirm = $('.password-confirm');
-  var $saveButton = $('.save');
-  
-  $userPassword.on('blur keyup',function(){
-    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
-  });
-  $userPasswordConfirm.on('blur keyup',function(){
-    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
-  });
-}
-
-function clearForm(modalId){
-  $(modalId + " input").val("");
-}
-
 function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   this.text = text;
@@ -292,6 +275,23 @@ function deleteValidation($inputElement, text, $buttonToActive){
       $buttonToActive.attr("disabled","");
     }
   })
+}
+
+function validateThis(){
+  var $userPassword = $('.password');
+  var $userPasswordConfirm = $('.password-confirm');
+  var $saveButton = $('.save');
+
+  $userPassword.on('blur keyup',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+  $userPasswordConfirm.on('blur keyup',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+}
+
+function clearForm(modalId){
+  $(modalId + " input").val("");
 }
 
 // +-----------------------------------------------------------------------------------------------------------------------------+
