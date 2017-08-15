@@ -1209,7 +1209,9 @@ var Payments = {
   },
 
   removePayment: function (id) {
-    
+    var id_contrato = $("#select-contract").val();
+    var form = "tabla=deshacer_pago&id_pago=" + id + "&estado=no pagado&fecha_pago=null&id_contrato=" + id_contrato;
+    connectAndSend('process/update', true, null, null, form, Payments.getAll);
   },
 
   updateUntil: function(contractId,lastPaymentId){

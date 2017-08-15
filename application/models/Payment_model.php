@@ -99,7 +99,7 @@ class Payment_model extends CI_MODEL{
     if($result == "no pagado"){
         return true;
       }else{
-        echo MESSAGE_INFO."Este pago ya ha sido realizado";
+        return false;
     }
     
   }
