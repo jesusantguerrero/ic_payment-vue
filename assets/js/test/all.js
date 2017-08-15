@@ -1208,6 +1208,10 @@ var Payments = {
     }
   },
 
+  removePayment: function (id) {
+    
+  },
+
   updateUntil: function(contractId,lastPaymentId){
     var id_contrato = $("#select-contract").val();
     var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;

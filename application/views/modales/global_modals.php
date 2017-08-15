@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-group">
                       <label for="payment-limit-date">Fecha</label>
-                      <input type="date" class="form-control" id="payment-limit-date" tabindex="8" disabled>
+                      <input type="text" class="date-picker" class="form-control" id="payment-limit-date" tabindex="8" disabled>
                     </div>
                     <div class="form-group">
                       <label for="payment-cuota">Cuota</label>
