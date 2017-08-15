@@ -124,4 +124,6 @@ $months_short = array(
   'Dec' =>"Dic");
 $months_esp = array_values($months_short);
 $months_eng = array_keys($months_short);
+$full_months_esp = array_values($spanish_months);
+$full_months_eng = array_keys($spanish_months);
 
