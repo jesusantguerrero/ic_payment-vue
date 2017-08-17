@@ -95,37 +95,36 @@ if (! function_exists('refresh_contract')){
     $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
   }
 }
-// TODO: Hacer opcion de cancelar pago
 if (! function_exists('cancel_payment')){
 
-  /**
-  * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
-
-  function cancel_payment($contract_id,$context,$data_pago){
-    $time_zone = new DateTimeZone('America/Santo_Domingo');
-
-    $contract  = $context->contract_model->get_contract_view($contract_id);
-    $payment   = $context->payment_model->get_payment($data_pago['id']);
+  function cancel_payment($payment_id,$context){
+    $payment   = $context->payment_model->get_payment($payment_id);
+    $contract  = $context->contract_model->get_contract_view($payment['id_contrato']);
     $monto_pagado = $contract['monto_pagado'] - $payment['cuota'];
-
-    if($monto_pagado == $contract['monto_total']){
-      $estado = "saldado";
-    }else{
-      $estado = "activo";
-    }
-    
+ 
+    $data_payment = array(
+      'estado'      => 'no pagado',
+      'fecha_pago'  => null
+    );
+ 
+    $context->payment_model->update($data_payment,$payment_id);
+    $context->db->where('id_contrato',$payment['id_contrato'])
+      ->where('estado','pagado')
+      ->select('fecha_pago')
+      ->order_by('fecha_pago','DESC');
+    $last_pay_date = $context->db->get('ic_pagos',1)->row_array()['fecha_pago'];
+ 
     $data_contract = array(
       'monto_pagado'  => $monto_pagado,
-      'ultimo_pago'   => $data_pago['fecha_pago'],
-      'estado'        => $estado
+      'ultimo_pago'   => $last_pay_date,
+      'proximo_pago'  => $payment['fecha_limite'],
+      'estado'        => 'activo'
     );
-
-    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
+ 
+    $context->contract_model->update($data_contract,$payment['id_contrato']);
+ 
   }
+ 
 }
 
 if (! function_exists('payments_up_to_date')){

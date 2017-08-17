@@ -362,7 +362,7 @@ function make_next_payments_list($data){
                     </div>
                      <div class='right-part'>
                         <div class='payment-day'>{$row['dia']}</div>
-                        <div class='payment-month'>".$months[$row['mes']]."</div>
+                        <div class='payment-month'>".$row['mes']."</div>
                     </div>
                     
                 </div></a>";
@@ -383,6 +383,7 @@ if ( ! function_exists('make_payment_table')){
     foreach ($data as $line) {
         $state = is_marked($line['estado'],'pagado');
         $html_text .= "<tr>
+        <td><a href='#' class='payment-delete' data-id-pago='".$line['id_pago']."'><i class='material-icons'>delete</i></a></td>
         <td class='hide'>".$line['id_pago']."</td>
         <td class='hide'></td>
         <td>".$line['concepto']."</td>
@@ -579,7 +580,7 @@ function verify_state($state,$posible_states){
 }
 
 function date_spanish_format($english_date){
-  if($english_date){
+  if($english_date and $english_date != '0000-00-00'){
     $new_date = date('d M. Y',strtotime($english_date));
     $new_date = str_replace($GLOBALS['months_eng'],$GLOBALS['months_esp'],$new_date);
     return $new_date;

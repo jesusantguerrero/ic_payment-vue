@@ -540,6 +540,11 @@ var Payments = {
     var handlers, callback;
     connectAndSend('process/update', true, null, null, form, null, heavyLoad);
   },
+    
+  removePayment: function (id) {
+    var form = "tabla=deshacer_pago&id_pago=" + id;
+    connectAndSend('process/update', true, null, null, form, Payments.getAll);
+  },
 
   contractRefresh: function(){
     var id_cliente = $('#detail-client-id').val()

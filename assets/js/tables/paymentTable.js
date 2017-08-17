@@ -70,6 +70,25 @@ var paymentTable = {
         Payments.getOne(id, Payments.receiveForEdit);
       }
     });
+
+    $(".payment-delete").on('click',function(e) {
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      var id = $(this).attr('data-id-pago').trim();
+      if (id) {
+         swal({
+          title: 'Está Seguro?',
+          text: "Seguro de que quiere deshacer este pago?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          'cancelButtonText': 'Cancelar'
+        }).then(function(){
+          Payments.removePayment(id);
+        });
+      }
+    });
+
   }
 }
 

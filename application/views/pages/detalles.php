@@ -192,6 +192,7 @@
                 data-single-select="true">
                 <thead>
                   <tr>
+                    <th data-field="deshacer"></th>
                     <th data-field="id" class="hide">ID Pago</th>
                     <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
                     <th data-field="concepto">Concepto</th>

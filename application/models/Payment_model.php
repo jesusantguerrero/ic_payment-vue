@@ -69,7 +69,7 @@ class Payment_model extends CI_MODEL{
     if($result == "no pagado"){
         return true;
       }else{
-        echo MESSAGE_INFO."Este pago ya ha sido realizado";
+       return false;
     }
     
   }
@@ -192,7 +192,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function day_income(){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and day(fecha_pago)=day(now())";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado = 'pagado' and fecha_pago = '".$GLOBALS['ahora']."'";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){

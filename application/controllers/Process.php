@@ -70,7 +70,7 @@ class Process extends CI_Controller {
 				 }
 				 else{
 					 $this->db->trans_rollback();
-					 echo "No guardado";
+					 echo MESSAGE_ERROR." El Contrato No Pudo ser guardado";
 				 }
 				break;
 		}
@@ -95,7 +95,7 @@ class Process extends CI_Controller {
 				$this->db->trans_complete();
 				if($this->db->trans_status() === false):
 					$this->db->trans_rollback();
-					echo MESSAGE_ERROR." error en el status";
+					echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
 				else:
 					echo " proceso completo";
 				endif;
@@ -105,6 +105,8 @@ class Process extends CI_Controller {
 				if($was_correct){
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
+				}else{
+					echo MESSAGE_INFO." Este pago ya ha sido realizados";
 				}
 				break;
 			case "pagos_al_dia":
@@ -113,11 +115,28 @@ class Process extends CI_Controller {
 				$this->db->trans_complete();
 				if($this->db->trans_status() === false){
 						$this->db->trans_rollback();
-					echo MESSAGE_ERROR." error en el status";
+					echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
 				}else{
 					echo " Proceso Completo";
 				}
 				break;
+			case "deshacer_pago":
+        $was_correct = $this->payment_model->check_for_update($data['id_pago']);
+        if(!$was_correct){
+          $this->db->trans_start();
+          cancel_payment($data['id_pago'],$this);
+          $this->db->trans_complete();
+          if($this->db->trans_status() === false){
+            $this->db->trans_rollback();
+            echo MESSAGE_ERROR." No Pudo deshacerse el Pago";
+          }else{
+            echo MESSAGE_SUCCESS." Pago cancelado";
+          }
+        }else{
+          echo MESSAGE_INFO." Este pago no ha sido realizado para deshacerse";
+        }
+        break;
+
 			case "discount_pagos":
 				$was_correct = $this->payment_model->check_for_update($data['id_pago']);
 				if($was_correct){
@@ -153,13 +172,13 @@ class Process extends CI_Controller {
 					'modelo'				=> $data['modelo'],
 				);
 
-					if(isset($data['codigo'])){
-							$contract = $this->contract_model->get_contract_view($data['id_contrato']);
-							$this->section_model->update_ip_state($contract['codigo'],'disponible');
-							$data_for_update['ip'] = $data['ip'];
-							$data_for_update['codigo'] = $data['codigo'];	
-							$this->section_model->update_ip_state($data['codigo'],'ocupado');			
-					}
+				if(isset($data['codigo'])){
+						$contract = $this->contract_model->get_contract_view($data['id_contrato']);
+						$this->section_model->update_ip_state($contract['codigo'],'disponible');
+						$data_for_update['ip'] = $data['ip'];
+						$data_for_update['codigo'] = $data['codigo'];	
+						$this->section_model->update_ip_state($data['codigo'],'ocupado');			
+				}
 				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
 				break;
 			
