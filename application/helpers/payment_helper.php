@@ -342,7 +342,6 @@ function update_moras($context){
 }
 
 function prepare_moras($data,$context,$settings){
-
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = $pago['cuota'];
@@ -356,7 +355,6 @@ function prepare_moras($data,$context,$settings){
       'total'   => $total
     );
     $result = $context->payment_model->update_moras($updated_data);
-    
   }
 }
 
