@@ -19,7 +19,7 @@ class Report_model extends CI_MODEL{
 
 
   public function get_payments_report($status){
-    $sql = "SELECT id_pago,id_contrato,cliente,concepto,servicio ,total, complete_date,time(complete_date) as hora FROM v_recibos where day(fecha_pago) = day(now()) order by complete_date";
+    $sql = "SELECT id_pago,id_contrato,cliente,concepto,servicio ,total, complete_date,time(complete_date) as hora FROM v_recibos where date(fecha_pago) = date(now()) order by complete_date";
     if($result = $this->db->query($sql)):
       $result = $result->result_array();
       make_payment_report($result,"Reporte De Pagos Del Dia",$this);
@@ -29,8 +29,8 @@ class Report_model extends CI_MODEL{
   }
 
    public function get_recibos(){
-    $this->db->select("id_pago,id_contrato,cliente,concepto, servicio ,total, complete_date,date(complete_date) as fecha,time(complete_date) as hora");
-    $this->db->order_by("complete_date", "DESC");
+    $this->db->select("id_pago,id_contrato,cliente,concepto, servicio ,total, complete_date,date(fecha_pago) as fecha,time(complete_date) as hora");
+    $this->db->order_by("fecha_pago DESC, hora DESC");
     $result = $this->db->get("v_recibos");
     if($result):
       $result = $result->result_array();

@@ -192,7 +192,8 @@ class Payment_model extends CI_MODEL{
   }
 
   public function day_income(){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado = 'pagado' and fecha_pago = '".$GLOBALS['ahora']."'";
+    $now = date('Y-m-d');
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado = 'pagado' and fecha_pago = '$now'";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){

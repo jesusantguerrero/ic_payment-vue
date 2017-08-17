@@ -17,6 +17,8 @@ class Process extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("caja_chica_model");
 		$this->load->model("section_model");
+		$this->db->query('SET time_zone = "' . date('P') . '"');
+    $this->db->query('SET lc_time_names = "es_DO"');
 	}
 
 	public function add(){ 
