@@ -586,9 +586,14 @@ var Payments = {
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
-          confirmButtonBackground: SUMMER_SKY
+          cancelButtonText: 'Cancelar'
         }).then(function(){
-           applyDiscount(id_pago);
+          applyDiscount(id_pago);
+          $modal.hide();
+          $modal.modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+ 
         });
     });
 

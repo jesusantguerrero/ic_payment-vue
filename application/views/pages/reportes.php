@@ -173,13 +173,13 @@
         datasets: [{
           label: 'ingresos',
           data: [
-            <?php echo $this->payment_model->weekday_income("monday") ?>,
-            <?php echo $this->payment_model->weekday_income("tuesday") ?>,
-            <?php echo $this->payment_model->weekday_income("wednesday") ?>,
-            <?php echo $this->payment_model->weekday_income("thursday") ?>,
-            <?php echo $this->payment_model->weekday_income("friday") ?>,
-            <?php echo $this->payment_model->weekday_income("saturday") ?>,
-            <?php echo $this->payment_model->weekday_income("sunday") ?>
+            <?php echo $this->payment_model->weekday_income("lunes") ?>,
+            <?php echo $this->payment_model->weekday_income("martes") ?>,
+            <?php echo $this->payment_model->weekday_income("miercoles") ?>,
+            <?php echo $this->payment_model->weekday_income("jueves") ?>,
+            <?php echo $this->payment_model->weekday_income("viernes") ?>,
+            <?php echo $this->payment_model->weekday_income("sabado") ?>,
+            <?php echo $this->payment_model->weekday_income("domingo") ?>
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',

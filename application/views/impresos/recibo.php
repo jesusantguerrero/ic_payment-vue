@@ -3,6 +3,12 @@
   if(isset($_SESSION['recibo_info'])):
     $recibo = $_SESSION['recibo_info'];
     $company = $this->company_model->get_empresa();
+    if($recibo['concepto'] != 'instalacion' and $recibo['concepto'] != 'abono'){
+      $fecha = new DATETIME($recibo['fecha_limite']);
+      $fecha = $fecha->format('F');
+      $recibo['concepto'] = 'Correspondiente al Mes de '.str_replace($GLOBALS['full_months_eng'],$GLOBALS['full_months_esp'],$fecha);
+    }
+ 
 ?>
 
 <div class="recibo-body">

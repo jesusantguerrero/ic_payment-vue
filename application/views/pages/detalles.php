@@ -187,7 +187,7 @@
                 data-page-size="-1" 
                 data-page-list="[10,20,50,-1]" 
                 data-show-footer="false"
-                data-striped="true"
+                data-striped="false"
                 data-click-to-select="true"
                 data-single-select="true">
                 <thead>

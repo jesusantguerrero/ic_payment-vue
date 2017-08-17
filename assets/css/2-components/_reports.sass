@@ -1,5 +1,6 @@
 .reports
   background: #fdfdfd
+  position: initial
 
 .small-data-card
   +makeFlex(30%,row,center,center)
@@ -86,3 +87,15 @@ canvas
   .today-data
     font-size: 20px
     margin: 0 0 40px 0
+
+@media (max-width: 991px)
+  .right-panel,
+  .wide-chart
+    width: 100%
+  .reports
+    .shortcuts-container
+      width: 100%
+      display: flex
+      justify-content: space-around
+      align-items: center
+ 

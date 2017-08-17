@@ -1,12 +1,10 @@
 var paymentTable = {
-  
   init: function(page,row){
     this.el = $('#t-pagos');
-    this.el.bootstrapTable({
-      height: 370
-    });
+    this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
+    
     if(page,row){
       var id = row.id_contrato;
       if(id == paymentTable.getRow().id_contrato)

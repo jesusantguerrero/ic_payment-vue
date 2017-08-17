@@ -130,7 +130,7 @@
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
-          confirmButtonBackground: SUMMER_SKY
+          cancelButtonText: 'Cancelar'
         }).then(function(){
            Users.delete(id);
         });
@@ -251,7 +251,7 @@
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
-          confirmButtonBackground: SUMMER_SKY
+          cancelButtonText: 'Cancelar'
         }).then(function(){
            Generals.deleteRow(row.id, "clientes")
         });
@@ -279,7 +279,7 @@
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
-          confirmButtonBackground: SUMMER_SKY
+          cancelButtonText: 'Cancelar'
         }).then(function(){
            Generals.deleteRow(id, "servicios");
         });
