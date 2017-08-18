@@ -2,7 +2,6 @@
   $reporte = get_report();
   $company = $this->company_model->get_empresa();
 ?>
-
 <div class="document-body">
   <div class="cabecera">
     <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
@@ -25,9 +24,8 @@
   <div class="pie-pagina">
   </div>
 </div>
+<script src="<?php echo base_url('assets/js/min/mobileDetect.min.js?version=2.20.0')?>"></script>
 <script>
- //print();
-
  var now = moment()
  var fecha = now.format("DD-MM-YYYY");
  var hora = now.format("LTS");
@@ -36,6 +34,10 @@
  $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
  $(".company-statement").text("<?php echo $company['descripcion'] ?>");
  $(".company-direction").text("<?php echo $company['direccion']  ?>");
- print();
 
+  var md = new MobileDetect(window.navigator.userAgent);
+  if(!md.mobile() || !md.tablet())
+      print();
 </script>
+ </body>
+</html>

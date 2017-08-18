@@ -1,6 +1,3 @@
-<?php
-ob_start( 'ob_gzhandler' );
-?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -17,6 +14,5 @@ ob_start( 'ob_gzhandler' );
 
         <!--<link href="favicon.png" rel="icon" type="image/png"/>-->
     </head>
-
     <body>
     
