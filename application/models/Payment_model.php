@@ -46,6 +46,7 @@ class Payment_model extends CI_MODEL{
       $this->id_empleado = $data['id_empleado'];
       $this->deuda   = $data['deuda'];
       $this->abono_a = $data['abono_a'];
+      $this->detalles_extra = $data['detalles_extra'];
     }
     $this->id_contrato  = $data['id_contrato'];
     $this->id_servicio  = $data['id_servicio'];
@@ -131,7 +132,7 @@ class Payment_model extends CI_MODEL{
 
   public function get_all_of_contract($id){
     $this->db->where('id_contrato',$id);
-    $this->db->order_by('fecha_limite');
+    $this->db->order_by('fecha_limite,fecha_pago');
     if($result = $this->db->get('ic_pagos')){
       echo make_payment_table($result->result_array(),0);
     }

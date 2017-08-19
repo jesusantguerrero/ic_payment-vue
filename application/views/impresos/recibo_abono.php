@@ -27,12 +27,12 @@
   <div class="concepto"> <h4><?php echo ucfirst($recibo['concepto']) ?></h4></div>
   <div class="cuerpo">
   <p class="line"> <span class="text-main">Detalle:</span> <span class="text-placeholder"><?php echo $recibo['detalles_extra']?></span></span></p>
-  <p><span class="text-main">Suma:</span><span class="text-placeholder lg"> <?php echo strtoupper(number_to_words($recibo['total'])). "PESOS" ?></span>
-    <span class="text-main center">RD$: </span><span class="text-placeholder md" > <?php echo CurrencyFormat($recibo['total']) ?></span></p>
-  <p><span class="text-main">Antes:</span><span class="text-placeholder lg"> RD$ <?php echo CurrencyFormat($antes) ?></span>
-    <span class="text-main center">Deuda:</span><span class="text-placeholder md" > RD$<?php echo CurrencyFormat($deuda) ?></span></p>
-  <p><span class="text-main">Caja:</span><span class="text-placeholder lg" > <?php echo $recibo['empleado'] ?></span>
-      <span class="text-main center">Fecha Pago:</span><span class="text-placeholder md"> <?php echo $recibo['fecha_limite'] ?></span></p>
+  <p class="line"> <span class="text-main">Suma:</span> <span class="text-placeholder"><?php echo strtoupper(number_to_words($recibo['total'])). "PESOS" ?></span></p>
+  <p> <span class="text-main">Abono:</span> <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['total']) ?></span>
+  <span class="text-main center">Antes:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($antes) ?> </span>
+  <span class="text-main center">Deuda:</span><span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($deuda) ?></span></p>
+  <p><span class="text-main">Vendedor:</span><span class="text-placeholder lg"><?php echo $recibo['empleado'] ?></span>
+    <span class="text-main center">Total:</span><span class="text-placeholder md" > RD$<?php echo CurrencyFormat($recibo['total']) ?></span></p>
   </div>
   <div class="pie-pagina">
     <br><br>

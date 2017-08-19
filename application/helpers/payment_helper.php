@@ -217,8 +217,7 @@ if (! function_exists('cancel_abono')){
     }
  
   }
- 
- 
+} 
 
 if (! function_exists('payments_up_to_date')){
 
@@ -534,8 +533,6 @@ function extend_contract($data,$context){
         $next_payment_date = get_next_date($next_payment_date);
       }
     }
-    
-  
 }
 
 if (! function_exists('add_extra')){

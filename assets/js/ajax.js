@@ -413,7 +413,7 @@
   function detailHandlers() {
     $("#btn-save-observations").on('click', function (e) {
       e.stopImmediatePropagation();
-      Clients.saveAbonos()
+      Payments.saveAbonos();
     });
 
     $('#btn-save-real-observations').on('click',function(e){

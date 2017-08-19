@@ -217,7 +217,7 @@
             <!---->
             <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="abonos">
 
-              <div class="form-group">
+              <div class="form-group details-forms">
               
                 <h5>Escribe los detalles de este abono</h5>
 
@@ -248,11 +248,10 @@
             <!---->
             <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="observations">
 
-              <div class="form-group">
+              <div class="form-group details-form">
                 <h5>Escribe las observaciones para este cliente</h5>
                 <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php echo $client_row['observaciones'];?></textarea>
               </div>
-              <p>Abono pendiente a registrar <?php echo $client_row['observaciones']?></p>
               <div class="form-group">
                 <div class="col-sm-2 col-sm-offset-10">
                   <button type="submit" class="btn btn-primary" id="btn-save-real-observations">Guardar</button>

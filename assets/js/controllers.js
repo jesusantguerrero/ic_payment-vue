@@ -514,7 +514,7 @@ var Payments = {
       connectAndSend('process/update', true, null, null, form, Payments.getAll);
   },
 
-  saveAbonos: function (abonoWatched) {
+  saveAbonos: function () {
     var form, observations, abono$inputAbono,$textAbono,contractId;
 
     $textAbono   = $('#text-abono-detail');
@@ -525,7 +525,7 @@ var Payments = {
 
     form = 'observaciones=' + observations + "&abonos=" + abono;
     form += "&contrato_abono="+contractId+"&tabla=abonos";
-    connectAndSend("process/update", true, null, null, form, null)
+    connectAndSend("process/update", true, null, null, form, payments.getAll)
 
     $inputAbono.val('')
   },
