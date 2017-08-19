@@ -863,32 +863,17 @@ var Clients = {
     }
   },
 
-  saveObservations: function (abonoWatched) {
-    var form, observations, abono, idCliente, $inputAbono, abonoValue,contractId;
-
-    observations = $("#text-observations").val();
-    contractId   = $("#select-contract").val();
-    $inputAbono  = $("#input-abono");
-    abono        = (abonoWatched) ? 0 : $inputAbono.val();
-    idCliente    = $("#detail-client-id").val();
-    abonoValue   = $(".abono-value");
-
-    if (abonoWatched != undefined) {
-      $inputAbono.val(abono);
-      $(".abono-box").removeClass("have-abono");
-      abonoWatched = 1;
-    } else {
-      $inputAbono.attr("disabled");
-      $(".abono-box").addClass("have-abono");
-      abonoWatched = 0;
-    }
-
-    form = 'observaciones=' + observations + "&abonos=" + abono + "&id_cliente=" + idCliente + "&modo=" + abonoWatched;
-    form += "&contrato_abono="+contractId+"&tabla=observaciones";
-    connectAndSend("process/update", true, null, null, form, null)
-
+  saveObservations: function () {
+    var form, observations,idCliente;
+ 
     abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
+    observations = $("#text-observations").val();
+    idCliente    = $("#detail-client-id").val();
+ 
+    form = 'observaciones=' + observations + "&tabla=observaciones&id_cliente=" + idCliente;
+    connectAndSend("process/update", true, null, null, form, null)
   }
+ 
 }
 
 var Generals = {
@@ -1197,15 +1182,26 @@ var Payments = {
   },
 
   update: function (id) {
-    var abono = $("#input-abono").val();
-    if (abono == 0) {
       var date = moment().format("YYYY-MM-DD");
       var id_contrato = $("#select-contract").val();
       var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
       connectAndSend('process/update', true, null, null, form, Payments.getAll);
-    } else {
-      displayAlert("Favor Leer", "has click en la zona roja de abono para confirmar que le viste antes de registrar el pago", "info");
-    }
+  },
+
+  saveAbonos: function (abonoWatched) {
+    var form, observations, abono$inputAbono,$textAbono,contractId;
+
+    $textAbono   = $('#text-abono-detail');
+    observations = $textAbono.val();
+    contractId   = $("#select-contract").val();
+    $inputAbono  = $("#input-abono");
+    abono        = $inputAbono.val();
+
+    form = 'observaciones=' + observations + "&abonos=" + abono;
+    form += "&contrato_abono="+contractId+"&tabla=abonos";
+    connectAndSend("process/update", true, null, null, form, null)
+
+    $inputAbono.val('')
   },
 
   updateUntil: function(contractId,lastPaymentId){
@@ -1899,15 +1895,13 @@ var Sections = {
   function detailHandlers() {
     $("#btn-save-observations").on('click', function (e) {
       e.stopImmediatePropagation();
-      Clients.saveObservations()
+      Clients.saveAbonos()
     });
 
-    $(".abono-value").on('click', function (e) {
+    $('#btn-save-real-observations').on('click',function(e){
       e.stopImmediatePropagation();
-      Clients.saveObservations(true);
-      $('#text-observations').val('');
-    });
-
+      Clients.saveObservations();
+    })
 
     detailsContractTable.init();
 

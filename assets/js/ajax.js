@@ -413,15 +413,13 @@
   function detailHandlers() {
     $("#btn-save-observations").on('click', function (e) {
       e.stopImmediatePropagation();
-      Clients.saveObservations()
+      Clients.saveAbonos()
     });
 
-    $(".abono-value").on('click', function (e) {
+    $('#btn-save-real-observations').on('click',function(e){
       e.stopImmediatePropagation();
-      Clients.saveObservations(true);
-      $('#text-observations').val('');
-    });
-
+      Clients.saveObservations();
+    })
 
     detailsContractTable.init();
 

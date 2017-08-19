@@ -65,8 +65,10 @@
               <?php endif; ?>><a href="#contracts" aria-controls="profile" role="tab" data-toggle="tab">Contratos</a></li>
             <li role="presentation" <?php if ($active_window=="pagos" ):?>class="active"
               <?php endif; ?>><a href="#payments" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
+            <li role="presentation" <?php if ($active_window=="abonos" ): ?>class="active"
+              <?php endif; ?>><a href="#abonos" aria-controls="settings" role="tab" data-toggle="tab">Abonos</a></li>
             <li role="presentation" <?php if ($active_window=="observaciones" ): ?>class="active"
-              <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Abonos</a></li>
+              <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -149,7 +151,8 @@
                 data-show-export="false"
                 data-minimum-count-columns="2" 
                 data-show-pagination-switch="false"
-                data-pagination="true" data-id-field="id-contrato" 
+                data-pagination="true"
+                data-id-field="id-contrato" 
                 data-page-size="20" 
                 data-page-list="[10,20,50,All]" 
                 data-show-footer="false" 
@@ -178,8 +181,7 @@
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in <?php if ($active_window == "pagos"):?> active <?php endif; ?>" id="payments">
               
-              <table class="table t-pagos" id="t-pagos" 
-                data-sort-name="id" 
+              <table class="table t-pagos" id="t-pagos"  
                 data-minimum-count-columns="2" 
                 data-show-pagination-switch="false"
                 data-pagination="false" 
@@ -213,14 +215,14 @@
             </div>
 
             <!---->
-            <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="observations">
+            <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="abonos">
 
               <div class="form-group">
               
                 <h5>Escribe los detalles de este abono</h5>
 
                 
-                <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php echo $client_row['observaciones'];?></textarea>
+                <textarea name="" id="text-abono-detail" class="form-control" rows="5" required="required"></textarea>
 
                 <h5>Control de abono de mes:</h5>
 
@@ -243,15 +245,25 @@
 
             </div>
 
+            <!---->
+            <div role="tabpanel" class="tab-pane fade in <?php if ($active_window == "observaciones"):?> active <?php endif; ?>" id="observations">
 
+              <div class="form-group">
+                <h5>Escribe las observaciones para este cliente</h5>
+                <textarea name="" id="text-observations" class="form-control" rows="5" required="required" ><?php echo $client_row['observaciones'];?></textarea>
+              </div>
+              <p>Abono pendiente a registrar <?php echo $client_row['observaciones']?></p>
+              <div class="form-group">
+                <div class="col-sm-2 col-sm-offset-10">
+                  <button type="submit" class="btn btn-primary" id="btn-save-real-observations">Guardar</button>
+                </div>
+              </div>
+
+            </div>
           </div>
-
         </div>
-
       </div>
     </div>
-
-
 
   </div>
 </div>
