@@ -382,11 +382,13 @@ if ( ! function_exists('make_payment_table')){
     $html_text = " "; 
     foreach ($data as $line) {
         $state = is_marked($line['estado'],'pagado');
+        $is_abono = is_abono($line['concepto']);
+
         $html_text .= "<tr>
         <td><a href='#' class='payment-delete' data-id-pago='".$line['id_pago']."'><i class='material-icons'>delete</i></a></td>
         <td class='hide'>".$line['id_pago']."</td>
         <td class='hide'></td>
-        <td>".$line['concepto']."</td>
+        <td class='$is_abono'>".$line['concepto']."</td>
         <td>RD$ ".CurrencyFormat($line['cuota'])."</td>
         <td>RD$ ".CurrencyFormat($line['mora'])."</td>
         <td>RD$ ".CurrencyFormat($line['monto_extra'])."</td>
@@ -586,4 +588,19 @@ function date_spanish_format($english_date){
     return $new_date;
   }
   return '';
+}
+
+function is_abono($concept){
+  if(str_contains('abono',$concept)){
+    return $concept;
+  }
+  return '';
+}
+
+function str_contains($word_to_search,$string){
+
+  if(strpos($string,$word_to_search) !== FALSE){
+    return TRUE;
+  }
+  return FALSE;
 }

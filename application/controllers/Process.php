@@ -17,8 +17,6 @@ class Process extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("caja_chica_model");
 		$this->load->model("section_model");
-		$this->db->query('SET time_zone = "' . date('P') . '"');
-    $this->db->query('SET lc_time_names = "es_DO"');
 	}
 
 	public function add(){ 
@@ -90,6 +88,15 @@ class Process extends CI_Controller {
 			case "observaciones":
 				$this->client_model->update_observations($data);
 				break;
+      case "abonos":
+        $this->db->trans_start();
+        set_abono($data,$this);
+        $this->db->trans_complete();
+        if($this->db->trans_status() === false){
+          $this->db->trans_rollback();
+          echo MESSAGE_ERROR." No se pudo completar el abono";
+        }
+        break;
 			case "servicios":
 				$this->db->trans_start();
 				$this->service_model->update_service($data);
@@ -131,8 +138,6 @@ class Process extends CI_Controller {
           if($this->db->trans_status() === false){
             $this->db->trans_rollback();
             echo MESSAGE_ERROR." No Pudo deshacerse el Pago";
-          }else{
-            echo MESSAGE_SUCCESS." Pago cancelado";
           }
         }else{
           echo MESSAGE_INFO." Este pago no ha sido realizado para deshacerse";
@@ -378,15 +383,10 @@ class Process extends CI_Controller {
 		authenticate();
 		$recibo_info = $this->payment_model->get_recibo($id);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
+    if(str_contains('abono',$recibo_info['concepto'])){
+      redirect(base_url('app/imprimir/recibo_abono'));
+    }
 		redirect(base_url('app/imprimir/recibo'));
-	}
-
-	public function get_abono_receipt($id_cliente){
-		authenticate();
-		$recibo_info['recibo'] 	= $this->client_model->get_client($id_cliente);
-		$recibo_info['pago'] 		= $this->payment_model->get_next_payment_of($recibo_info['recibo']["contrato_abono"]);
-		$this->session->set_flashdata('recibo_info',$recibo_info);
-		redirect(base_url('app/imprimir/recibo_abono'));
 	}
 
 	public function getrequirements($id,$type = "cliente"){

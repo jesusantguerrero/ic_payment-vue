@@ -95,20 +95,12 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_observations($data){
-    if($data['modo'] == 1){
-       $data['observaciones'] = '';
-       $data['contrato_abono'] = null;
-    }
 
-    $rows = array('observaciones' => $data['observaciones'], 'abonos' => $data['abonos'], 'contrato_abono' => $data['contrato_abono']);
+    $rows = array('observaciones' => $data['observaciones']);
     $this->db->where('id_cliente',$data['id_cliente']);
 
     if($this->db->update('ic_clientes',$rows)){
-      if($data['modo'] == 1){
-        echo MESSAGE_INFO." Monto de abono visto";
-      }else{
-        echo MESSAGE_SUCCESS." Observación Agregada";
-      }
+     echo MESSAGE_INFO." Observación Agregada";
     }else{
      echo MESSAGE_ERROR." No pudo guardarse la observacion";
     }   
@@ -176,8 +168,8 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_clientjson($id){
-    $sql = "SELECT * FROM ic_clientes WHERE cedula ='$id' || id_cliente =$id";
-    if($result = $this->db->query($sql)){
+    $this->db->where('cedula',$id)->or_where('id_cliente',$id);
+    if($result = $this->db->get('ic_clientes')){
       $result = $result->row();
       return $result; 
     }

@@ -19,8 +19,18 @@ class Report_model extends CI_MODEL{
 
 
   public function get_payments_report($status){
-    $sql = "SELECT id_pago,id_contrato,cliente,concepto,servicio ,total, complete_date,time(complete_date) as hora FROM v_recibos where date(fecha_pago) = date(now()) order by complete_date";
-    if($result = $this->db->query($sql)):
+    $select = "
+    id_contrato,
+    cliente,
+    group_concat(monthname(fecha_limite)) as concepto,
+    sum(total) as total, 
+    complete_date,
+    fecha_pago";
+    $this->db->select($select,true);
+    $this->db->where('date(fecha_pago)',date('Y-m-d'),true);
+    $this->db->group_by('cliente');
+    $this->db->order_by('complete_date');
+    if($result = $this->db->get('v_recibos')):
       $result = $result->result_array();
       make_payment_report($result,"Reporte De Pagos Del Dia",$this);
     else:
