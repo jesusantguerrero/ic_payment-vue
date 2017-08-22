@@ -19,6 +19,7 @@ class App extends CI_Controller {
 		$this->load->model("section_model");
 
 	update_moras($this);
+
  }
 
 	public function index(){

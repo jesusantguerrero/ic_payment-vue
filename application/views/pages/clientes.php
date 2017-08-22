@@ -22,6 +22,7 @@
     <h2 class="subsection-title">Clientes</h2> 
     <div class="searcher-container">
       <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+      
     </div>
     
     <table class="table t-clients" id="t-clients" 

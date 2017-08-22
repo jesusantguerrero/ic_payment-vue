@@ -211,7 +211,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function weekday_income($day){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and week(fecha_pago) = week(now())";
+    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and yearweek(fecha_pago) = yearweek(now())";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){

@@ -35,6 +35,7 @@ var clientTable = {
     }
     clientTable.detectClicks();
     this.el.on('all.bs.table', function (name,param) {
+      console.log("hello");
        clientTable.changeStates();
     });
   },

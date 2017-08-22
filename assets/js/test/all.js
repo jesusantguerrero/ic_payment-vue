@@ -860,7 +860,6 @@ var Clients = {
   saveObservations: function () {
     var form, observations,idCliente;
  
-    abonoValue.find("input").val("RD$ " + CurrencyFormat(abono));
     observations = $("#text-observations").val();
     idCliente    = $("#detail-client-id").val();
  

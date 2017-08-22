@@ -102,7 +102,7 @@ if ( ! function_exists('make_client_table')){
         <td>".$line['apellidos']."</td>
         <td>".dni_format($line['cedula'])."</td>
         <td>".phone_format($line['celular'])."</td>
-        <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
+         <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
         <td class='hide'>".$line['estado']."</td>
       </tr>";
      $cont+=1;
@@ -168,7 +168,6 @@ if ( ! function_exists('make_contract_table')){
     foreach ($data as $line) {
        $state = verify_state($line['estado'],$posible_states);
        $row_class = $state['row_class'];
-
         $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='hide'></td>
@@ -178,8 +177,7 @@ if ( ! function_exists('make_contract_table')){
         <td>".date_spanish_format($line['proximo_pago'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-        <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
-        <td class='hide'>".$line['estado']."</td>
+        <td class='{$state['class']}'>".$state['text']."</td>
       </tr>";
     }
 

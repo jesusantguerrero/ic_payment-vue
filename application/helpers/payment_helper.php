@@ -424,7 +424,7 @@ function update_moras($context){
   $settings = $context->settings_model->get_settings();
 
   $next_check = $settings['next_check'];
-  if($next_check != $today){
+  if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
 
     update_state_moras($moras,$context);

@@ -6,11 +6,9 @@
     $active_window = "cliente";
     $active = "";
     $abono_box_class = "";
-    $client_row = $this->client_model->get_column(array('observaciones','abonos'),$client_data['id_cliente']);
+    $client_row = $this->client_model->get_column(array('observaciones'),$client_data['id_cliente']);
 
     if(isset($_SESSION['active_window'])) $active_window = $_SESSION['active_window'];
-  
-    if($client_row['abonos'] > 0) $abono_box_class = "have-abono";
   ?>
   <div class="main-content detalles col-md-12">
 
@@ -47,9 +45,9 @@
             <h5>Este cliente ha abonado</h5>
             <div class="input-group abono-value" >
               <span class="input-group-addon" id="addon">Abono! </span>
-              <input type="text" name="" id="in-abono-view" class="form-control" value="<?php echo 'RD$ '.CurrencyFormat($client_row['abonos']) ?>" disabled/>
+              <input type="text" name="" id="in-abono-view" class="form-control" value="" disabled/>
             </div>
-            <a href="<?php echo base_url('process/get_abono_receipt/').$client_data['id_cliente'] ?>" target="_blank" class="btn abono-box__receipt">Comprobante de abono</a>
+            <a href="" target="_blank" class="btn abono-box__receipt">Comprobante de abono</a>
           </div>
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
@@ -228,7 +226,7 @@
 
                 <div class="input-group">
                   <div class="input-group-addon">RD$ </div>
-                  <input type="number" class="form-control" id="input-abono" value="<?php echo $client_row['abonos'] ?>">
+                  <input type="number" class="form-control" id="input-abono" value="">
                   <div class="input-group-addon">Pesos</div>
                 </div>
 
