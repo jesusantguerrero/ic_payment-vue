@@ -544,4 +544,9 @@ class Process extends CI_Controller {
 		// 
 		print_r($myreport_sheet);
 	}
+
+  public function get_date(){
+		echo $this->db->query("select now()")->row_array()['now()']."<br>";
+		echo date('Y-d-m')."<br>";
+	}
 }

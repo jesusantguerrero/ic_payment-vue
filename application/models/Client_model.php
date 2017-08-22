@@ -165,6 +165,7 @@ class Client_model extends CI_MODEL{
      "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
     );
     $this->db->or_like($fields);
+    $this->db->or_where('estado',$word);
     if($result = $this->db->get('ic_clientes')){
       $result = make_client_table($result->result_array(),0);
       echo $result;
