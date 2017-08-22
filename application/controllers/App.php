@@ -18,23 +18,7 @@ class App extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 
-	//update_moras($this);
-	//  $this->db->trans_start();
-	// // //  $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-	// // //  $this->db->where('id_contrato',19);
-	// // //  $this->db->delete('ic_pagos');
-	// // //  $this->db->where('id_contrato',19);
-	// // //  $this->db->delete('ic_contratos');
-	// // // $this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-	// 	$this->db->where('estado_instalacion','por instalar');
-	// 	$this->db->update('ic_pagos',array('estado_instalacion' => 'instalado'));
-	// if($this->db->trans_status() !== false){
-		
-	// }else{
-	// echo "error";
-	// }
-	// $this->db->trans_complete();
-	// // $this->section_model->update_ip_state('41/53','disponible');
+	update_moras($this);
  }
 
 	public function index(){

@@ -424,10 +424,13 @@ function update_moras($context){
   $settings = $context->settings_model->get_settings();
 
   $next_check = $settings['next_check'];
-  if($next_check == $today){
-    $data = $context->payment_model->get_moras_view();
-    if($data){
-			prepare_moras($data,$context,$settings);
+  if($next_check != $today){
+    $moras = $context->payment_model->get_moras_view("group");
+
+    update_state_moras($moras,$context);
+    if($moras){
+      $data = $context->payment_model->get_moras_view();
+			// prepare_moras($data,$context,$settings);
 		}
     $result = $context->settings_model->update('last_check_moras',$today);
   }	 
@@ -450,6 +453,16 @@ function prepare_moras($data,$context,$settings){
     $result = $context->payment_model->update_moras($updated_data);
     
   }
+}
+
+function update_state_moras($data,$context){
+  $id = array();
+  foreach ($data as $pago) {
+    array_push($id,$pago['id_cliente']);
+  }
+
+  $context->db->where_in('id_cliente',$id);
+  $context->db->update('ic_clientes',array('estado'=> 'mora'));
 }
 
 if (! function_exists('cancel_contract')){
