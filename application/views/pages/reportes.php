@@ -7,6 +7,7 @@
   $balances      = $this->caja_chica_model->get_balance_per_month();
   $services      = $this->contract_view_model->get_statics_of_services();
   $installations = $this->report_model->get_installations_per_month();
+  
  ?>
   <div class="col-md-9">
     <div class="row shortcuts-container data-card-container">

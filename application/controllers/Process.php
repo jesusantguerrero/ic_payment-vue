@@ -548,5 +548,6 @@ class Process extends CI_Controller {
   public function get_date(){
 		echo $this->db->query("select now()")->row_array()['now()']."<br>";
 		echo date('Y-d-m')."<br>";
+		print_r($this->db->query('select dayname(now())')->row_array()['dayname(now())']);
 	}
 }
