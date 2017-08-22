@@ -1,4 +1,7 @@
-var BASE_URL = 'http://icpayment-soft.com/';
+var BASE_URL = window.location.origin + "/";
+if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io'))
+  BASE_URL += 'icpayment/';
+
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
@@ -61,8 +64,6 @@ function displayMessage(message){
   var color = "rgba(102,187,106,1)";
   var toast,span;
 
-  console.log(message)
-
     if(message.includes(MESSAGE_ERROR)){
       color = "rgba(244,67,54,1)";
     }else if(message.includes(MESSAGE_INFO)){
@@ -113,7 +114,6 @@ function fillCurrentTable($content,callback,tableID){
     $table = $('#'+tableID + " tbody");
   }else{
     $table = $('[class*="t-"] tbody');
-    console.log("sin id en la tabla");
   }
   $table.html($content);
   if(callback) callback();
@@ -261,6 +261,23 @@ function validateTwo($firstObject,$secondObject,$button){
     }
 }
 
+function validateThis(){
+  var $userPassword = $('.password');
+  var $userPasswordConfirm = $('.password-confirm');
+  var $saveButton = $('.save');
+  
+  $userPassword.on('blur keyup',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+  $userPasswordConfirm.on('blur keyup',function(){
+    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
+  });
+}
+
+function clearForm(modalId){
+  $(modalId + " input").val("");
+}
+
 function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   this.text = text;
@@ -275,23 +292,6 @@ function deleteValidation($inputElement, text, $buttonToActive){
       $buttonToActive.attr("disabled","");
     }
   })
-}
-
-function validateThis(){
-  var $userPassword = $('.password');
-  var $userPasswordConfirm = $('.password-confirm');
-  var $saveButton = $('.save');
-
-  $userPassword.on('blur keyup',function(){
-    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
-  });
-  $userPasswordConfirm.on('blur keyup',function(){
-    validateTwo($userPassword,$userPasswordConfirm,$saveButton);
-  });
-}
-
-function clearForm(modalId){
-  $(modalId + " input").val("");
 }
 
 // +-----------------------------------------------------------------------------------------------------------------------------+
@@ -798,12 +798,6 @@ var Clients = {
     connectAndSend('process/getall', false, initClientHandlers, clientTable.refresh, form, null);
   },
 
-  /**
-   * Get Client: obtiene un cliente y sus datos a partir de una cedula o id
-   * @param {integer} id 
-   * @param {*} receiver funcion que recibe la respuesta de servidor
-   */
-
   getOne: function (id, receiver) {
     form = "tabla=clientes&id=" + id;
     connectAndSend("process/getone", false, initClientHandlers, receiver, form, null)
@@ -872,8 +866,12 @@ var Clients = {
  
     form = 'observaciones=' + observations + "&tabla=observaciones&id_cliente=" + idCliente;
     connectAndSend("process/update", true, null, null, form, null)
+  },
+  
+  updateState: function (client) {
+    form = 'data='+ JSON.stringify(client)+ '&module=clientes&action=update';
+      connectAndSend('process/getjson',true,null,null,form, null);
   }
- 
 }
 
 var Generals = {

@@ -87,10 +87,15 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('MESSAGE_SUCCESS','<i class="material-icons">done_all</i>');
 define('MESSAGE_ERROR','<i class="material-icons">error_outline</i>');
 define('MESSAGE_INFO','<i class="material-icons">info_outline</i>');
-define('STATE_GREEN','<i class="material-icons">fiber_smart_record</i>');
-define('STATE_RED','<i class="material-icons">remove_circle_outline</i>');
-define('STATE_ORANGE','<span data-toggle="tooltip" title="%title%" class="badge bg-orange" data-original-title="%realtitle%"></span>');
-define('CIRCLE','<i class="material-icons">fiber_manual_record</i>');
+define('ICON','<i class="material-icons">%icon%</i>'); 
+define('SUSPENDIDO','report_problem'); 
+define('EN_CORTE', 'signal_wifi_off'); 
+define('EXONERADO','local_offer'); 
+define('ACTIVO','fiber_smart_record'); 
+define('INACTIVO','remove_circle_outline'); 
+define('MORA','timer'); 
+define('STATE_ORANGE','<span data-toggle="tooltip" title="%title%" class="badge bg-orange" data-original-title="%realtitle%"></span>');  
+define('CIRCLE','fiber_manual_record'); 
 
 date_default_timezone_set('America/Santo_Domingo');
 global $lastCheckedForMoras;

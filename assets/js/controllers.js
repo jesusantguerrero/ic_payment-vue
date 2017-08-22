@@ -124,12 +124,6 @@ var Clients = {
     connectAndSend('process/getall', false, initClientHandlers, clientTable.refresh, form, null);
   },
 
-  /**
-   * Get Client: obtiene un cliente y sus datos a partir de una cedula o id
-   * @param {integer} id 
-   * @param {*} receiver funcion que recibe la respuesta de servidor
-   */
-
   getOne: function (id, receiver) {
     form = "tabla=clientes&id=" + id;
     connectAndSend("process/getone", false, initClientHandlers, receiver, form, null)
@@ -198,8 +192,12 @@ var Clients = {
  
     form = 'observaciones=' + observations + "&tabla=observaciones&id_cliente=" + idCliente;
     connectAndSend("process/update", true, null, null, form, null)
+  },
+  
+  updateState: function (client) {
+    form = 'data='+ JSON.stringify(client)+ '&module=clientes&action=update';
+      connectAndSend('process/getjson',true,null,null,form, null);
   }
- 
 }
 
 var Generals = {

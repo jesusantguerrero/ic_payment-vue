@@ -76,6 +76,40 @@ class Process extends CI_Controller {
 		}
 
 	}
+	
+	public function getjson() {
+    $data = json_decode($_POST['data']);
+    $data = json_decode($_POST['data'],true);
+    $action = $_POST['action'];
+    $module = $_POST['module'];
+      switch ($action) {
+        case 'add':
+            if($module == "gastos"){
+              $this->caja_mayor->add_gasto($data);
+            }else{
+ 
+            }
+          break;
+        case 'getAll':
+            if($module == "gastos"){
+              $this->caja_mayor->mostrar_gastos($data['fecha']);
+            }else{
+ 
+            }
+          break;
+        case 'get_total_day':
+          $this->caja_mayor->get_total_gastos_of($data['fecha']);
+          break;
+				case 'update':
+          $this->client_model->update($data);
+					break;
+        case 'delete':
+          $this->caja_mayor->delete_gasto($data['id']);
+          break;
+      }
+ 
+  }
+ 
 
 	public function update(){
 		authenticate();

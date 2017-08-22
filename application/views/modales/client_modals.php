@@ -317,6 +317,7 @@
                 <th data-field="cedula">Cedula</th>
                 <th data-field="celular">Celular</th>
                 <th data-field="estado">Estado</th>
+                <th data-field="estadoreal" class="hide" data-sortable="true" data-searchable="true">Estado</th>
               </tr>
             </thead>
             <tbody>

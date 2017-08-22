@@ -1,3 +1,27 @@
+var activo      = '<i class="material-icons">fiber_smart_record</i> Activo'; 
+var noActivo    = '<i class="material-icons">remove_circle_outline</i> No Activo';
+var suspendido  = '<i class="material-icons">report_problem</i> Suspendido';
+var enCorte     = '<i class="material-icons">signal_wifi_off</i> En Corte';
+var mora        = '<i class="material-icons">timer</i> Mora';
+var exonerado   = '<i class="material-icons">local_offer</i> Exonerado';
+var filtros     = [[activo,noActivo],activo,noActivo];
+var estadosiconos = {
+  'activo' : {text: activo,class: 'done'},
+  'no activo': {text: noActivo, class: 'error'},
+  'en corte':  {text: enCorte,class: 'en-corte'},
+  'mora': {text: mora, class: 'mora'},
+  'suspendido': {text: suspendido,class: 'suspendido'},
+  'exonerado': {text: exonerado,class: 'exonerado'}
+}
+var estados = ['activo','no activo','en corte','mora','suspendido','exonerado'];
+var selectState = "<select>"
+estados.forEach(function(estado) {
+  selectState += "<option value='"+estado+"'>"+estado+"</value>"
+  }, this);
+selectState +="<select>"
+
+// My Objects
+ 
 var clientTable = {
 
   init: function(page){
@@ -10,6 +34,7 @@ var clientTable = {
       self.el.bootstrapTable('selectPage',page);
     }
     clientTable.detectClicks();
+    clientTable.changeStates();
   },
 
   getSelectedRow: function(){
@@ -59,7 +84,32 @@ var clientTable = {
       btnNewContract.attr('href','#');
       btnGoNewContract.attr('href','#');
     }); 
+  },
+
+  changeStates: function () {
+    $(".estado-cliente").on('click',function(e){
+      e.stopImmediatePropagation();
+      var select = $(selectState);
+      var $this = $(this);
+      var state;
+      var id = $this.parent().find('.id_cliente').text().trim();
+      $this.html(select);
+      select.focus();
+
+      select.on('change blur',function(e){ 
+        state = select.val()
+        $this.html(estadosiconos[state].text)
+        $this.removeClass(" done error en-corte exonerado mora suspendido");
+        $this.addClass(estadosiconos[state].class);
+        Clients.updateState({'id':id,'estado':state});
+      });
+
+      select.on('click',function(e){ 
+        e.stopImmediatePropagation();
+      })
+    })
   }
+ 
 }
  window.getHeight = function () {
     var h =  450;

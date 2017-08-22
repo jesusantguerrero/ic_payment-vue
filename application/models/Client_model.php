@@ -94,6 +94,18 @@ class Client_model extends CI_MODEL{
     }   
   }
 
+    public function update($data){
+      $this->db->where('id_cliente',$data['id']);
+      unset($data['id']);
+      $result = $this->db->update('ic_clientes',$data);
+      if(!$result){
+        echo MESSAGE_ERROR."No pudo guardarse el cliente ";
+      }else{
+        echo MESSAGE_SUCCESS." Estado actualizado";
+      }
+ 
+  }
+ 
   public function update_observations($data){
 
     $rows = array('observaciones' => $data['observaciones']);
