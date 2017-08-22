@@ -181,7 +181,6 @@ if ( ! function_exists('make_contract_table')){
         <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
         <td class='hide'>".$line['estado']."</td>
       </tr>";
-     
     }
 
     return $html_text;

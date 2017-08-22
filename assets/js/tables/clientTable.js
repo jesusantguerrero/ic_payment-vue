@@ -34,7 +34,9 @@ var clientTable = {
       self.el.bootstrapTable('selectPage',page);
     }
     clientTable.detectClicks();
-    clientTable.changeStates();
+    this.el.on('all.bs.table', function (name,param) {
+       clientTable.changeStates();
+    });
   },
 
   getSelectedRow: function(){
@@ -106,6 +108,7 @@ var clientTable = {
 
       select.on('click',function(e){ 
         e.stopImmediatePropagation();
+        
       })
     })
   }

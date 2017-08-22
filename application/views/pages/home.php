@@ -67,11 +67,6 @@
 
                         <a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
                         <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($day_income); ?></h2></a>
-                        <br>
-                        <h4>-- Abonos Actuales --</h4>
-                        <a target="_blank" href="<?php echo base_url('process/getreport/abonos') ?>">
-                            <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($abonos_all); ?></h2></a>
-                        <br>
                     </div>
                 </div>
             </div>
