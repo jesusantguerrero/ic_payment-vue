@@ -132,7 +132,7 @@ class Payment_model extends CI_MODEL{
 
   public function get_all_of_contract($id){
     $this->db->where('id_contrato',$id);
-    $this->db->order_by('fecha_limite,fecha_pago');
+    $this->db->order_by('fecha_limite,-fecha_pago DESC,complete_date','',false);
     if($result = $this->db->get('ic_pagos')){
       echo make_payment_table($result->result_array(),0);
     }
@@ -166,7 +166,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function year_income(){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now())";
+    $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)=year(now())";
     $result = $this->db->query($sql);
     $result = $result->row_array()['sum(total)'];
     if($result){
@@ -177,7 +177,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function month_income($mes){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
+    $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
     $result = $this->db->query($sql);
     $result = $result->row_array()['sum(total)'];
     if($result){
@@ -200,7 +200,7 @@ class Payment_model extends CI_MODEL{
 
   public function day_income(){
     $now = date('Y-m-d');
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado = 'pagado' and fecha_pago = '$now'";
+    $sql = "SELECT sum(total) FROM v_recibos WHERE fecha_pago = '$now'";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){
@@ -211,7 +211,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function weekday_income($day){
-    $sql = "SELECT sum(total) FROM ic_pagos WHERE estado= 'pagado' and dayname(fecha_pago)='$day' and yearweek(fecha_pago) = yearweek(now())";
+    $sql = "SELECT sum(total) FROM v_recibos WHERE dayname(fecha_pago)='$day' and yearweek(fecha_pago) = yearweek(now())";
     $result = $this->db->query($sql);
     $result->row_array()['sum(total)'];
     if ($result != null){

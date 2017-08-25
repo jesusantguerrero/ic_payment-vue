@@ -170,17 +170,17 @@
     var chartOptions = {
       type: 'bar',
       data: {
-        labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+        labels: ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
         datasets: [{
           label: 'ingresos',
           data: [
+            <?php echo $this->payment_model->weekday_income("domingo") ?>,
             <?php echo $this->payment_model->weekday_income("lunes") ?>,
             <?php echo $this->payment_model->weekday_income("martes") ?>,
             <?php echo $this->payment_model->weekday_income("miercoles") ?>,
             <?php echo $this->payment_model->weekday_income("jueves") ?>,
             <?php echo $this->payment_model->weekday_income("viernes") ?>,
-            <?php echo $this->payment_model->weekday_income("sabado") ?>,
-            <?php echo $this->payment_model->weekday_income("domingo") ?>
+            <?php echo $this->payment_model->weekday_income("sabado") ?>
           ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
