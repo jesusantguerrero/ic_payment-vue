@@ -522,8 +522,7 @@ var Payments = {
 
     form = 'observaciones=' + observations + "&abonos=" + abono;
     form += "&contrato_abono="+contractId+"&tabla=abonos";
-    connectAndSend("process/update", true, null, null, form, payments.getAll)
-
+    connectAndSend("process/update", true, null, null, form, Payments.getAll)
     $inputAbono.val('')
   },
 

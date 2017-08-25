@@ -10,6 +10,14 @@ var paymentTable = {
       if(id == paymentTable.getRow().id_contrato)
         this.el.bootstrapTable('selectPage',page);
     }
+    this.el.on('dbl-click-row.bs.table',function(event,row,$el,field){
+       Payments.getOne(row.id, Payments.receiveForEdit);
+       console.log(row);
+       console.log($el);
+       console.log(field);
+       console.log("hola desde aqui");
+    });
+
     paymentTable.clickEvents();
     this.el.on('all.bs.table',function(name,args){
       paymentTable.clickEvents()

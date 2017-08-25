@@ -161,8 +161,8 @@ class Report_model extends CI_MODEL{
     
   }
 
-  public function update_installation($id_pago){
-    $this->db->where('id_pago',$id_pago);
+  public function update_installation($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
     $result = $this->db->get('v_instalaciones',1);
     $status = $result->row_array()['estado_instalacion'];
     switch ($status) {
@@ -172,8 +172,8 @@ class Report_model extends CI_MODEL{
       default: 
        $status =  'por instalar';
     }
-    $this->db->where('id_pago',$id_pago);
-    if($this->db->update('ic_pagos',array("estado_instalacion" => $status))){
+    $this->db->where('id_contrato',$id_contrato);
+    if($this->db->update('ic_contratos',array("estado_instalacion" => $status))){
       echo MESSAGE_SUCCESS." Estado de la instalacion cambiado a ". $status;
     }
 

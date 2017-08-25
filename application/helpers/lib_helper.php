@@ -294,7 +294,7 @@ if ( ! function_exists('make_installations_list')){
         }
         $html_text .= "<div class='averia-item'>
             <div class='top-row'>
-              <div class='code'>".$line['id_pago']."</div>
+              <div class='code'>".$line['id_contrato']."</div>
               <div class='info'><span class='client-name'>".$line['cliente']."</span><span class='client-direction'>::".$line['direccion']."</span></div>
               <button class='btn-update-installation'>Actualizar</button>
             </div>
