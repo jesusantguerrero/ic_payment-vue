@@ -169,7 +169,8 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 function detailsFunctions(){
 
   $('[role="tab"]').on('click',function(){
-    if($(this).attr("href") == "#payments"){  
+    var href = (this).attr("href")
+    if(href == "#payments" ||href == "#detalles_de_pago" || href == "descuento") {
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");

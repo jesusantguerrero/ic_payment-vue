@@ -443,7 +443,7 @@ function prepare_moras($data,$context,$settings){
     $cuota = $pago['cuota'];
     $monto_extra = $pago['monto_extra'];
     $total = $pago['total'];
-    $mora =   ($settings['cargo_mora'] / 100) * $pago['cuota'];
+    $mora  =   ($settings['cargo_mora'] / 100) * $pago['cuota'];
     $total = $cuota + $monto_extra + $mora;
     $updated_data = array(
       'id_pago' => $pago['id_pago'],
@@ -456,13 +456,15 @@ function prepare_moras($data,$context,$settings){
 }
 
 function update_state_moras($data,$context){
-  $id = array();
+  $estado = 'mora';
   foreach ($data as $pago) {
-    array_push($id,$pago['id_cliente']);
+    if($pago['estado_cliente'] != 'activo'){
+      $estado = $pago['estado_cliente'];
+    } 
+    $context->db->where('id_cliente',$pago['id']);
+    $context->db->update('ic_clientes',array('estado'=> $estado));
   }
 
-  $context->db->where_in('id_cliente',$id);
-  $context->db->update('ic_clientes',array('estado'=> 'mora'));
 }
 
 if (! function_exists('cancel_contract')){
@@ -486,7 +488,7 @@ if (! function_exists('cancel_contract')){
       'id_contrato'   => $contract_id,
       'monto_total'   => $monto_total,
       'monto_pagado'  => $monto_total,
-      'proximo_pago'   => null,
+      'proximo_pago'  => null,
       'ultimo_pago'   => $data_cancel['fecha']
     );
 

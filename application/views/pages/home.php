@@ -63,7 +63,6 @@
                     <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Ganancias del dia</h3>
                     <div class="list-repair centered-container">
                         <?php  $day_income = $this->payment_model->day_income("today"); ?>
-                        <?php $abonos_all = $this->report_model->get_total_abonos(); ?>
 
                         <a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
                         <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($day_income); ?></h2></a>
