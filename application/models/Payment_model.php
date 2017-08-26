@@ -224,9 +224,8 @@ class Payment_model extends CI_MODEL{
   public function get_moras_view($mode = 'normal'){
     if($mode == "group"){
       $result = $this->db->group_by('cliente')->select('id_cliente')->get('v_morosos');
-    }else{
-      $result = $this->db->get('v_morosos');
     }
+    $result = $this->db->get('v_morosos');
     return $result->result_array(); 
   }
 

@@ -81,6 +81,7 @@ class Report_model extends CI_MODEL{
 
   public function get_installations($is_print = true){
     $this->db->where('estado_instalacion','por instalar');
+    $this->db->order_by('fecha','DESC');
     $result = $this->db->get('v_instalaciones');
     if($result){
       $result = $result->result_array();
@@ -147,11 +148,11 @@ class Report_model extends CI_MODEL{
   }
 
   public function get_installations_list($status='por instalar'){
-    $sql = "SELECT * FROM v_instalaciones";
     if($status != 'todos'){
-       $sql .= " WHERE estado_instalacion ='$status'";
+      $this->db->where('estado_instalacion',$status);
     }
-    $result = $this->db->query($sql);
+    $this->db->order_by('fecha','DESC');
+    $result = $this->db->get('v_instalaciones');
     if($result and count($result) > 0){
       $result = make_installations_list($result->result_array());
       echo $result;

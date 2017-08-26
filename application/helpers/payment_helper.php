@@ -464,7 +464,6 @@ function update_state_moras($data,$context){
     $context->db->where('id_cliente',$pago['id']);
     $context->db->update('ic_clientes',array('estado'=> $estado));
   }
-
 }
 
 if (! function_exists('cancel_contract')){
