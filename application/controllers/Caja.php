@@ -30,9 +30,9 @@ class Caja extends CI_Controller {
 			$data = json_decode($_POST,true);
 		}
 		$response['pagos_efectivo'] = $this->caja_mayor->get_ingresos($data['fecha'],'efectivo');
-		$response['pagos_banco'] =    $this->caja_mayor->get_ingresos($data['fecha'],'','efectivo');
-		$response['pagos_facturas'] =  $this->caja_mayor->get_extras_or_recibos($data['fecha'],'','extra');
-		$response['pagos_extras'] =    $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extra');
+		$response['pagos_banco'] 		= $this->caja_mayor->get_ingresos($data['fecha'],'banco','efectivo');
+		$response['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'','extra');
+		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extra');
 		echo json_encode($response);
 	}
 
@@ -72,6 +72,10 @@ class Caja extends CI_Controller {
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_cierre($data);
 
+	}
+
+	public function get_last_cierre(){
+		$this->caja_mayor->get_last_cierre();
 	}
 
 

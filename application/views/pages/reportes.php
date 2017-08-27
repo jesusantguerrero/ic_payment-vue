@@ -24,9 +24,10 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Ingresos Este Año: </a></li>
+        <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Ingresos Este Año</a></li>
         <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Balance</a></li>
+        <li role="presentation"><a href="#ganancias" aria-controls="messages" role="tab" data-toggle="tab">Ganancias y Cierres</a></li> 
       </ul>
 
       <!-- Tab panes -->
@@ -35,7 +36,7 @@
          <div class="wide-chart">
             <canvas class="graphics chart" id="mychart"></canvas>
           </div>
-          <h4>RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></h4>
+          <h4 class="t-right">RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></h4>
         </div>
         <div role="tabpanel" class="tab-pane" id="pagos">
           <div class="wide-chart">
@@ -45,6 +46,12 @@
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="wide-chart">
             <canvas class="graphics chart" id="balance-chart"></canvas>
+          </div>
+        </div>
+        
+        <div role="tabpanel" class="tab-pane" id="ganancias">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="ganancias-chart"></canvas>
           </div>
         </div>
       </div>
@@ -87,6 +94,7 @@
             <canvas class="little-chart" id="week-chart"></canvas>
           </div>
         </div>
+
       </div>
 
     </div>

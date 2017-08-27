@@ -2119,6 +2119,12 @@ $(function () {
     cierreCajaFunctions();
   }
 
+  if(isCurrentPage("reportes")){
+    var script = document.createElement("script");
+    script.src = BASE_URL + "assets/js/min/reportes.min.js";
+    $("body").append(script);
+  }
+
   function cierreCajaFunctions(){
     var totales = {
           total1: 0,
@@ -2171,6 +2177,12 @@ $(function () {
 
       created: function(){
         $('.will-load').css({visibility:"visible"})
+      },
+
+      filters: {
+        currencyFormat: function(number){
+          return CurrencyFormat(number);
+        }
       },
 
       methods:{

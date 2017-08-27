@@ -232,11 +232,11 @@
 				
 
 						<a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
-							<h2 class="current-saldo will-load"> RD$ {{ data_cierre.pagos_efectivo}}</h2>
+							<h2 class="current-saldo will-load"> RD$ {{ data_cierre.pagos_efectivo | currencyFormat}}</h2>
 						</a>
 						<br>
 						<h4 data-toggle="modal" data-target="#caja-mayor-modal" class="special-caller"><i class="material-icons">lock_open</i>Dinero Real en Caja</h4>
-						<h2 class="current-saldo my-caja will-load"> RD$ {{ suma }} </h2>
+						<h2 class="current-saldo my-caja will-load"> RD$ {{ suma | currencyFormat }} </h2>
 					</div>
 				</div>
 				<div class="pagos-layer">
@@ -256,24 +256,24 @@
 		<div class="col-md-8 hidden-xs shortcuts-container">
 			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
 				<p class="section-title">Pagos de factura</h4>
-					<p class="will-load">RD$ {{data_cierre.pagos_facturas}}</p>
+					<p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
 			</div>
 			<div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
 				<p class="section-title">Pagos Extras</p>
-				<p class="will-load">RD$ {{data_cierre.pagos_extras}}</p>
+				<p class="will-load">RD$ {{data_cierre.pagos_extras | currencyFormat}}</p>
 			</div>
 			<div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
 				<p class="section-title">Pagos Via Banco</h4>
-					<p class="will-load">RD$ {{ data_cierre.pagos_banco}}</p>
+					<p class="will-load">RD$ {{ data_cierre.pagos_banco | currencyFormat}}</p>
 			</div>
 			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#add-extra-modal">
 				<p class="section-title">Total Ingresos</p>
-				<p class="will-load">RD$ {{ data_cierre.total_ingresos}}</p>
+				<p class="will-load">RD$ {{ data_cierre.total_ingresos | currencyFormat}}</p>
 			</div>
 		</div>
 		<div class="col-md-4 clock-card">
 			<h3 class="card-title t-center">Diferencia</h3>
-			<h4 class="t-center will-load"> RD$ {{ data_cierre.total_descuadre}}</h4>
+			<h4 class="t-center will-load"> RD$ {{ data_cierre.total_descuadre | currencyFormat}}</h4>
 		</div>
 
 	</div>

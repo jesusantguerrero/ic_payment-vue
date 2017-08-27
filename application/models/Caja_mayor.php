@@ -27,9 +27,9 @@ class Caja_mayor extends CI_MODEL{
     $id_cierre = $this->db->count_all_results('ic_caja_mayor');
     if(!$id_cierre){
       if($this->db->insert('ic_caja_mayor',$data)){
-        $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso";
+        $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso"  ;
       }else{
-        $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre".$this->db->last_query();
+        $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre"  ;
       }
       echo json_encode($response);
     }else{
@@ -38,12 +38,42 @@ class Caja_mayor extends CI_MODEL{
     
   }
 
+  public function get_last_cierre(){
+    $this->db->select("pagos_facturas as pago_de_facturas,
+    pagos_extras as pagos_de_extras,
+    total_ingresos as total_de_ingresos,
+    pagos_banco as pagos_via_banco,
+    pagos_efectivo as pagos_en_efectivo,
+    efectivo_caja as dinero_real_en_caja,
+    total_descuadre,
+    banco,
+    autor,
+    fecha");
+    $this->db->order_by('id_cierre','DESC');
+    
+    if($result = $this->db->get('ic_caja_mayor',1)):
+      $result = $result->result_array()[0];
+      $response['autor']  = $result['autor'];
+      $response['fecha']  = date_spanish_format($result['fecha']);
+      unset($result['autor']);
+      unset($result['fecha']);
+      $response['labels'] = array_keys($result);
+      $response['values'] = array_values($result);
+    else:
+      $response['autor'] = 'n/a';
+      $response['fecha'] = 'n/a';
+      $response['labels'] = 'n/a';
+      $response['values'] = 'n/a';
+    endif;
+      echo json_encode($response);
+  }
+
   public function update_cierre($data,$id_cierre){
     $this->db->where('id_cierre',$id_cierre);
     if($this->db->update('ic_caja_mayor',$data)){
-      $response['mensaje'] =  MESSAGE_SUCCESS." Cierre Actualizado";
+      $response['mensaje'] =  MESSAGE_SUCCESS." Cierre Actualizado"  ;
     }else{
-      $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre".$this->db->last_query();
+      $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre"  ;
     }
     echo json_encode($response);
   }
@@ -72,7 +102,7 @@ class Caja_mayor extends CI_MODEL{
       $response['total_gastos'] = $this->get_total_gastos_of($data['fecha']);
       echo json_encode($response);
     }else{
-      echo MESSAGE_ERROR." error al agregar este gasto".$this->db->last_query();
+      echo MESSAGE_ERROR." error al agregar este gasto"  ;
     }
   }
 
