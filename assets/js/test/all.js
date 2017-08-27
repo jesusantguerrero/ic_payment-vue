@@ -3,9 +3,9 @@ if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io'))
   BASE_URL += 'icpayment/';
 
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
-var MESSAGE_ERROR = '<i class="material-icons">error_outline</i>';
-var MESSAGE_INFO = '<i class="material-icons">info_outline</i>';
-var SUMMER_SKY = '#1FA1D0'
+var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
+var MESSAGE_INFO    = '<i class="material-icons">info_outline</i>';
+var SUMMER_SKY      = '#1FA1D0'
 
 /**
  * Connect And Send
@@ -584,7 +584,7 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 function detailsFunctions(){
 
   $('[role="tab"]').on('click',function(){
-    var href = (this).attr("href")
+    var href = $(this).attr("href")
     if(href == "#payments" ||href == "#detalles_de_pago" || href == "descuento") {
       $(".payment-controls").addClass("visible");
     }else{
@@ -1286,6 +1286,57 @@ var Payments = {
         $total.val(Number(suma))
       })
     }
+  },
+
+  edit: function(content){
+    var pago          = JSON.parse(content);
+    this.id_contrato  = pago['id_contrato'];
+    this.id_pago      = pago['id_pago']
+    var $modal        = $('#edit-payment-modal') 
+    console.log(pago)
+
+    $modal.modal();
+
+    $modal.on('hide.bs.modal',function(){
+      $modal.find('input').val('')
+    });
+
+    $("#btn-save-edited-payment").on('click', function (e) {
+      e.stopImmediatePropagation();
+      swal({
+          title: 'Está Seguro?',
+          text: "Seguro de que quiere aplicar este descuento de " + $descuento.val() + "?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          cancelButtonText: 'Cancelar'
+        }).then(function(){
+          applyDiscount(id_pago);
+          $modal.hide();
+          $modal.modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+ 
+        });
+    });
+
+    // function applyDiscount(id_pago) {
+    //   var date = moment().format("YYYY-MM-DD");
+    //   form = 'id_pago=' + id_pago + '&id_contrato=' + id_contrato + "&cuota=" + $cuota.val();
+    //   form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
+    //   form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val() + '&fecha_pago=' + date ;
+    //   form += "&tabla=discount_pagos";
+    //   connectAndSend("process/update", true, null, null, form, Payments.getAll);
+    //   $modal.hide();
+    // }
+
+    // function interactiveSum(){
+    //   $('.payment-sumandos').on('keyup',function(){
+    //     $cuota.val(pago['cuota'] - $descuento.val());
+    //     var suma = Number($cuota.val()) + Number($mora.val()) + Number($extra.val());
+    //     $total.val(Number(suma))
+    //   })
+    // }
   }
   
 }
@@ -1885,6 +1936,8 @@ var Sections = {
       e.stopImmediatePropagation();
       Payments.getAll();
     });
+
+    $("#payment-detail-box").collapse()
 
   }
 

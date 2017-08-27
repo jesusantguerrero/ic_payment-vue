@@ -281,19 +281,30 @@ var paymentTable = {
     this.el.bootstrapTable();
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
+    this.detailBox = $('#payment-detail-box');
+    this.detailBox.hide()
     
     if(page,row){
       var id = row.id_contrato;
       if(id == paymentTable.getRow().id_contrato)
         this.el.bootstrapTable('selectPage',page);
     }
+
     this.el.on('dbl-click-row.bs.table',function(event,row,$el,field){
-       Payments.getOne(row.id, Payments.receiveForEdit);
-       console.log(row);
-       console.log($el);
-       console.log(field);
-       console.log("hola desde aqui");
+      //  Payments.getOne(row.id, Payments.edit);
     });
+
+    this.el.on('click-row.bs.table',function(event,row,$el,field){
+      event.stopImmediatePropagation();
+      var self = paymentTable;
+      if(!$el.hasClass('selected') && row.estado == "no pagado"){
+        self.detailBox.show();
+        self.detailBox.collapse();
+      }else{
+         self.detailBox.hide();
+      }
+      console.log(row.estado)
+    })
 
     paymentTable.clickEvents();
     this.el.on('all.bs.table',function(name,args){

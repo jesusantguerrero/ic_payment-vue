@@ -41,14 +41,31 @@
             <?php $this->contract_model->get_contracts_dropdown($client_data['id_cliente']) ?>
           </select>
           </div>
-          <div class="abono-box <?php echo $abono_box_class ?>">
-            <h5>Este cliente ha abonado</h5>
-            <div class="input-group abono-value" >
-              <span class="input-group-addon" id="addon">Abono! </span>
-              <input type="text" name="" id="in-abono-view" class="form-control" value="" disabled/>
+          <div class="box" id="payment-detail-box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Detalles de Pago</h3>
+              <div class="box-tools pull-right">
+                <!-- Collapse Button -->
+                <button type="button" class="mybtn btn-box-tool" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
             </div>
-            <a href="" target="_blank" class="btn abono-box__receipt">Comprobante de abono</a>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <div class="input-group abono-value">
+              <input type="date" name="" id="in-abono-view" class="form-control" value=""/>
+            </div>
+            <h6>Forma de pago</h6>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-small">efectivo</button>
+              <button type="button" class="btn btn-small">banco</button>
+            </div>
+            </div>
+            <!-- /.box-body -->
           </div>
+          <!-- /.box -->
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
       </div>
@@ -83,7 +100,7 @@
                     </div>
                     <div class="input-group">
                       <span class="input-group-addon" id="addon">Nombre</span>
-                      <input type="text" class="form-control" value="<?php echo $nombre_completo; ?>" disabled>
+                      <input type="text" class="form-control" id="detail-client-name" value="<?php echo $nombre_completo; ?>" disabled>
                     </div>
 
                     <div class="input-group">
