@@ -232,3 +232,49 @@ textarea
 
 .box
   border-top: 0
+  &:hover
+    color: $color-error
+
+[data-toggle="modal"] 
+  cursor: pointer
+.form-group.has-info
+  label 
+    color: $contrast-color
+  input
+    border-color: $contrast-color
+    color: $contrast-color
+.special-caller
+  transition: all .3s ease
+  &:hover
+    color: $color-error
+
+.normal-height
+  height: 28px
+  .input-group-btn .btn
+    height: 38px
+    border: none
+    &:hover
+      background: lighten($contrast-color,10%)
+      color: #fff
+  input
+    height: 100%
+  .material-icons
+    margin-top: 7px
+ 
+.list-action
+  float: right
+  background: transparent
+  color: $contrast-color
+  height: fit-content
+  width: fit-content
+  border: 0
+  &:hover,
+  &:focus,
+  &:active,
+  &:active:focus
+    border: 0
+    outline: 0
+    background: transparent
+ 
+.borrar-gasto 
+  @extend .special-caller

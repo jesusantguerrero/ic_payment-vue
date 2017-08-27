@@ -2078,3 +2078,277 @@ var loginLibrary = {
 $(function () {
   loginHandlers();
 })
+
+  function isCurrentPage(pageName){
+    if(getCurrentPage() == pageName){
+      return true
+    }  
+    return false;
+  }
+
+  function getCurrentPage(){
+    var currentPage = $("title").text().split(" ");
+    currentPage = currentPage[4].toLowerCase().trim();
+    return currentPage;
+  }
+
+
+  if(isCurrentPage("cierre") || isCurrentPage("cierre2")){
+    cierreCajaFunctions();
+  }
+
+  function cierreCajaFunctions(){
+    var totales = {
+          total1: 0,
+          total5: 0,
+          total10: 0,
+          total20: 0,
+          total25: 0,
+          total50: 0,
+          total100: 0,
+          total200: 0,
+          total500: 0,
+          total1000: 0,
+          total2000: 0
+        }
+
+    var gasto = {
+        'fecha': '',
+        'descripcion': '',
+        'monto': '',
+      }
+    var gastos = [{fecha: now(),descripcion:"hola",monto: 2000, id_gasto: 1}]
+
+    var appCierre = new Vue({
+      el: '#app-cierre',
+      data: {
+        fecha: now(),
+        data_cierre:{
+          autor: '',
+          pagos_factura: 0,
+          pagos_extras: 0,
+          pagos_efectivo: 0,
+          pagos_banco: 0,
+          total_ingresos: 0,
+          efectivo_caja: 0,
+          total_descuadre: 0,
+          total_gastos: 0,
+          banco: 0
+        },
+        conteo:totales,
+        suma: 0,
+        gasto: gasto,
+        gastos: gastos
+      },
+
+      mounted: function() {
+        this.getGastos();
+        this.setIngresos();
+      },
+
+      created: function(){
+        $('.will-load').css({visibility:"visible"})
+      },
+
+      methods:{
+        changeTotal: function(e){
+          var unit = e.srcElement.attributes['data-unit'].value
+          var cantidad = e.srcElement.value
+          var total = cantidad * unit
+          totales['total'+ unit] = cantidad * unit * 1.00    
+        }, 
+
+        addGasto: function(e) {
+          var gasto = this.gasto;
+          gasto.fecha = now();
+          form = 'data='+ JSON.stringify(gasto);
+          var send = axios.post( BASE_URL + 'caja/add_gasto',form)
+          send.then(function(response){
+            var data = response.data
+            displayMessage(data.mensaje)
+            appCierre.fillGastos(data.gastos,"normal")
+            appCierre.setGastoTotal(data.total_gastos)
+          });
+          send.catch(function(){
+            console.log(error);
+          });
+        },
+
+        fillGastos: function(gastos_servidor,mode){
+          if(mode == "group"){
+            if(gastos_servidor != null || gastos_servidor.length > 0){
+              console.log([gastos_servidor]);
+              appCierre.gastos = gastos_servidor;
+            }else{
+              appCierre.gastos = [];
+            }
+          }else{
+            appCierre.gastos.push(JSON.parse(gastos_servidor)[0]);
+          }
+        },
+
+        setGastoTotal: function(totalGastos){
+          this.data_cierre.total_gastos = totalGastos
+        },
+
+        getGasto: function(e){
+          var gasto = this.gasto;
+          form = 'data='+ JSON.stringify(gasto);
+          connectAndSend('caja/get_gasto',false,null,appCierre.fillGastos,form,null, null);
+        },
+
+        deleteGasto: function(e){
+          console.log(e);
+          var caller = e.target;
+          if(caller.localname == "i"){
+            caller = caller.parentElement;
+          }
+          var id = caller.attributes['data-id'].value
+          swal({
+            title: 'Está Seguro?',
+            text: "Seguro de que quiere eliminar este gasto?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Estoy Seguro!',
+            cancelButtonText: 'Cancelar'
+          }).then(function(){
+            form = 'data='+ JSON.stringify({id: id, fecha:now()})
+            var send = axios.post(BASE_URL + 'caja/delete_gasto',form)
+            send.then(function(response){
+              var data = response.data
+              displayMessage(data.mensaje)
+              appCierre.fillGastos(data.gastos,"group")
+              appCierre.setGastoTotal(data.total_gastos) 
+            });
+            send.catch(function(error){
+
+            });
+          });      
+        },
+
+        getGastos: function(){
+          var data = {fecha: now()}
+          form = 'data='+ JSON.stringify(data)
+          var send = axios.post( BASE_URL + 'caja/get_gastos',form)
+          send.then(function(response){
+            var data = response.data
+            displayMessage(data.mensaje)
+            appCierre.fillGastos(data.gastos,"group")
+            appCierre.setGastoTotal(data.total_gastos)
+          });
+          send.catch(function(){
+            console.log(error);
+          })
+        },
+
+        setIngresos: function(){
+          var form = 'data=' + JSON.stringify({fecha: now()})
+          var self = this.data_cierre;
+          var send = axios.post( BASE_URL + 'caja/get_ingresos',form)
+          send.then(function(response){
+            var data = response.data
+            self.pagos_factura = data.pagos_factura;
+            self.pagos_extras = data.pagos_extras;
+            self.pagos_efectivo = data.pagos_efectivo;
+            self.pagos_banco = data.pagos_banco;
+            self.total_ingresos = parseFloat(data.pagos_factura) + parseFloat(self.pagos_extras);
+            self.total_descuadre = - self.pagos_efectivo + self.efectivo_caja;
+          });
+          send.catch(function(){
+            console.log(error);
+          })
+        },
+
+        cerrarCaja: function(){
+          if(cierre.total_descuadre != 0){
+            swal({
+              title: 'Está Seguro?',
+              text: "Hay un descuadre en la caja, quiere hacer el cierre de todos modos?",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Si',
+              cancelButtonText: 'No'
+            }).then(function(){
+              self.cerrar();
+            })
+          }else{
+            self.cerrar();
+          }
+          
+        },
+
+        cerrar: function(){
+          var self = this;
+          var cierre = this.data_cierre;
+          cierre.fecha = now();
+          form = 'data='+ JSON.stringify(cierre);
+          var send = axios.post( BASE_URL + 'caja/add_cierre',form)
+          send.then(function(response){
+            var data = response.data
+            displayMessage(data.mensaje)
+            
+          });
+          send.catch(function(){
+            console.log(error);
+          });
+        }
+
+
+        
+      },
+
+      computed:{
+        getTotal: function(e){
+          var t = totales;
+          var self = this.data_cierre;
+          var suma = sumar([t.total1,t.total5,t.total10, t.total20, t.total25, t.total50, t.total100, t.total200, t.total500, t.total1000, t.total2000]);
+          this.suma = suma;
+
+          self.efectivo_caja = suma.toFixed(2);
+          self.total_descuadre = parseFloat(-self.pagos_efectivo) + parseFloat(self.efectivo_caja);
+          self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos)
+          return this.suma;
+        }
+      }
+    })
+
+    function sumar (valores){
+      var suma = 0;
+      for (var i = 0; i < valores.length; i++) {
+        suma += parseFloat(valores[i]); 
+      }
+      return suma;
+    }
+
+    function now(){
+      return moment().format("YYYY-MM-DD");
+    }
+  }
+ 
+  //   var cierreData = {
+  //     'fecha_cuadre': moment().format('YYYY-MM-DD'),
+  //     'ingresos_pagos': $ingresosPagos.getNumber(),
+  //     'ingresos_extras': $ingresosExtras.getNumber(),
+  //     'ingresos_totales': $ingresosTotal.getNumber(),
+  //     'dinero_fisico': $dineroFisico.getNumber(),
+  //     'descuadre': $totalDescuadre.getNumber(),
+  //     'gastos_totales': $gastosTotales.getNumber(),
+  //     'banco': $banco.getNumber()
+  //   }
+  //   btnCerrarCaja.on('click', function (e) {
+  //     e.stopImmediatePropagation()
+  //     CajaMayor.addCierre(cierreData);
+  //   });
+      
+
+  //   function changeState($inputElement,value){
+  //      if(value < 0){
+  //       replaceClass($inputElement.parent(),'has-success has-info','has-error')
+  //     }else if(value > 0){
+  //       replaceClass($inputElement.parent(),'has-error has-info','has-success')
+  //     }else{
+  //       replaceClass($inputElement.parent(),'has-success has-error','has-info')
+  //     }
+  //   }
+
+  // }
