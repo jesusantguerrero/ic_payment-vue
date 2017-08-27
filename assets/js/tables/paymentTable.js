@@ -20,6 +20,8 @@ var paymentTable = {
     this.el.on('click-row.bs.table',function(event,row,$el,field){
       event.stopImmediatePropagation();
       var self = paymentTable;
+      $(".payment-mode").removeClass("selected");
+      
       if(!$el.hasClass('selected') && row.estado == "no pagado"){
         self.detailBox.show();
         self.detailBox.collapse();

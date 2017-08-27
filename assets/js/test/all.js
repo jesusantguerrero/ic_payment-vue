@@ -582,6 +582,7 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 ********************************************************/
 
 function detailsFunctions(){
+  var smallButtonsSelect = $('.btn-small');
 
   $('[role="tab"]').on('click',function(){
     var href = $(this).attr("href")
@@ -593,6 +594,11 @@ function detailsFunctions(){
 
     getTabControls($(this));
   });
+
+  $('.btn-small').on('click',function(){
+    smallButtonsSelect.removeClass('selected');
+    $(this).addClass('selected');
+  })
 }
 
 function getTabControls($this){
@@ -1927,6 +1933,7 @@ var Sections = {
       var id = paymentTable.getId();
       if(id) {
         Payments.update(id);
+        update_mode(id);
       }else{
         // TODO: MESSAGE Select a payment
       }
@@ -1938,6 +1945,21 @@ var Sections = {
     });
 
     $("#payment-detail-box").collapse()
+
+    function update_mode(id){
+      var mode = $('.payment-mode.selected').text();
+      var extraInfo = {id: id.toString(),module:'pagos'}
+      var form = 'data='+JSON.stringify({tipo: mode})+'&extra_info='+JSON.stringify(extraInfo);
+
+      var send = axios.post( BASE_URL + 'process/axiosupdate',form)
+      send.then(function(response){
+        var data = response.data
+        displayMessage(data.mensaje)
+      });
+      send.catch(function(){
+        console.log(error);
+      });
+    }
 
   }
 
@@ -2112,20 +2134,21 @@ $(function () {
           total2000: 0
         }
 
-    var gasto = {
+    var gasto   = {
         'fecha': '',
         'descripcion': '',
         'monto': '',
       }
-    var gastos = [{fecha: now(),descripcion:"hola",monto: 2000, id_gasto: 1}]
+    var gastos  = [{fecha: now(),descripcion:"hola",monto: 2000, id_gasto: 1}]
+    var autor   = $('#autor-cierre').text().trim()
 
     var appCierre = new Vue({
       el: '#app-cierre',
       data: {
         fecha: now(),
         data_cierre:{
-          autor: '',
-          pagos_factura: 0,
+          autor: autor,
+          pagos_facturas: 0,
           pagos_extras: 0,
           pagos_efectivo: 0,
           pagos_banco: 0,
@@ -2247,11 +2270,11 @@ $(function () {
           var send = axios.post( BASE_URL + 'caja/get_ingresos',form)
           send.then(function(response){
             var data = response.data
-            self.pagos_factura = data.pagos_factura;
+            self.pagos_facturas = data.pagos_facturas;
             self.pagos_extras = data.pagos_extras;
             self.pagos_efectivo = data.pagos_efectivo;
             self.pagos_banco = data.pagos_banco;
-            self.total_ingresos = parseFloat(data.pagos_factura) + parseFloat(self.pagos_extras);
+            self.total_ingresos = parseFloat(data.pagos_facturas) + parseFloat(self.pagos_extras);
             self.total_descuadre = - self.pagos_efectivo + self.efectivo_caja;
           });
           send.catch(function(){
@@ -2260,6 +2283,9 @@ $(function () {
         },
 
         cerrarCaja: function(){
+          var self   = this;
+          var cierre = this.data_cierre;
+          window.cierre = cierre;
           if(cierre.total_descuadre != 0){
             swal({
               title: 'Está Seguro?',
@@ -2269,17 +2295,15 @@ $(function () {
               confirmButtonText: 'Si',
               cancelButtonText: 'No'
             }).then(function(){
-              self.cerrar();
+              self.cerrar(cierre);
             })
           }else{
-            self.cerrar();
+            self.cerrar(cierre);
           }
-          
         },
 
-        cerrar: function(){
-          var self = this;
-          var cierre = this.data_cierre;
+        cerrar: function(cierre){
+          
           cierre.fecha = now();
           form = 'data='+ JSON.stringify(cierre);
           var send = axios.post( BASE_URL + 'caja/add_cierre',form)
@@ -2292,9 +2316,6 @@ $(function () {
             console.log(error);
           });
         }
-
-
-        
       },
 
       computed:{
@@ -2303,11 +2324,17 @@ $(function () {
           var self = this.data_cierre;
           var suma = sumar([t.total1,t.total5,t.total10, t.total20, t.total25, t.total50, t.total100, t.total200, t.total500, t.total1000, t.total2000]);
           this.suma = suma;
-
           self.efectivo_caja = suma.toFixed(2);
           self.total_descuadre = parseFloat(-self.pagos_efectivo) + parseFloat(self.efectivo_caja);
           self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos)
           return this.suma;
+        },
+
+        decimals: function(){
+          var fields = ["pagos_facturas","pagos_extra","pagos_efectivo","pagos_banco","total_ingresos","efectivo_caja","total_descuadre","total_gasto","banco"];
+          fields.forEach(function(field) {
+            this.data_cierre[field] = this.data_cierre[field].toFixed(2)
+          }, this);
         }
       }
     })

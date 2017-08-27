@@ -397,6 +397,7 @@
       var id = paymentTable.getId();
       if(id) {
         Payments.update(id);
+        update_mode(id);
       }else{
         // TODO: MESSAGE Select a payment
       }
@@ -408,6 +409,21 @@
     });
 
     $("#payment-detail-box").collapse()
+
+    function update_mode(id){
+      var mode = $('.payment-mode.selected').text();
+      var extraInfo = {id: id.toString(),module:'pagos'}
+      var form = 'data='+JSON.stringify({tipo: mode})+'&extra_info='+JSON.stringify(extraInfo);
+
+      var send = axios.post( BASE_URL + 'process/axiosupdate',form)
+      send.then(function(response){
+        var data = response.data
+        displayMessage(data.mensaje)
+      });
+      send.catch(function(){
+        console.log(error);
+      });
+    }
 
   }
 

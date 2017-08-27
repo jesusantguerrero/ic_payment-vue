@@ -3,7 +3,7 @@
 <ul class="dropdown-menu" aria-labelledby="dLabel">
   <li><p><a href="<?php echo base_url('app/admin/cuenta')?>"><b><?php echo $user_data['fullname'] ?></b></a></p></li>
   <li><a href="<?php echo base_url('app/admin/cuenta')?>"><?php echo $user_data['typestr'] ?></a></li>
-  <li><a href="<?php echo base_url('app/admin/cierre')?>">cerrar caja</a></li>
+  <li><a href="<?php echo base_url('app/admin/cierre')?>"><i class="material-icons">lock_open</i>Cerrar Caja</a></li>
   <?php if(auth_user_type(0)): ?>
   <li class="hidden-xs"><a href="<?php echo base_url('app/admin/administrador')?>">
       <i class="material-icons">settings</i>Configuración</a>

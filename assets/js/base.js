@@ -167,6 +167,7 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 ********************************************************/
 
 function detailsFunctions(){
+  var smallButtonsSelect = $('.btn-small');
 
   $('[role="tab"]').on('click',function(){
     var href = $(this).attr("href")
@@ -178,6 +179,11 @@ function detailsFunctions(){
 
     getTabControls($(this));
   });
+
+  $('.btn-small').on('click',function(){
+    smallButtonsSelect.removeClass('selected');
+    $(this).addClass('selected');
+  })
 }
 
 function getTabControls($this){

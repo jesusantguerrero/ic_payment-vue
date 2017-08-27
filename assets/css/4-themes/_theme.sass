@@ -30,7 +30,7 @@ header
 
 
 // table theme
-table 
+table.table
   border: 1px solid #ddd
   border-radius: 4px
   position: relative
@@ -43,14 +43,14 @@ table
     line-height: 0
     height: 30px
   
-td
-  font-size: 13px
-  @extend .unselectable
-thead
-  border: none
-  tr
-    background: $contrast-color
-    color: #fff
+  td
+    font-size: 13px
+    @extend .unselectable
+  thead
+    border: none
+    tr
+      background: $contrast-color
+      color: #fff
       
 .table-foot,
 .fixed-table-pagination
@@ -75,56 +75,57 @@ thead
   margin-right: 50px
 .pagination-controlls
   width: 200px
-th
-  height: 42px
-  border-right: 1px solid white
-  background-position: right
-  background-repeat: no-repeat
-  padding-right: 30px
-  cursor: pointer
-  &:last-child
-    border-radius: 0 4px 0 0
-    border-right: none
-  &:first-child
-    border-radius: 4px 0 0 0
-tbody
-  max-height: 220px 
-  width: 100%
-  overflow: auto
-  display: none
-  tr
+.table
+  th
+    height: 42px
+    border-right: 1px solid white
+    background-position: right
+    background-repeat: no-repeat
+    padding-right: 30px
     cursor: pointer
-    background: #fdfdfd
-    color: #555
-    font-weight: bolder
-    &:nth-child(2n)
-      background: #fff
+    &:last-child
+      border-radius: 0 4px 0 0
+      border-right: none
     &:first-child
-      box-shadow: inset 0 3px 4px rgba(0,0,0,.2)
-    &:hover
-      background: transparentize(#888,.7)
-    &.selected
-      background: lighten($contrast-color,25)
+      border-radius: 4px 0 0 0
+  tbody
+    max-height: 220px 
+    width: 100%
+    overflow: auto
+    display: none
+    tr
+      cursor: pointer
+      background: #fdfdfd
       color: #555
-      border: 2px solid white
-      border-left: none
-      border-right: none
-      td 
-        border-color: transparent
+      font-weight: bolder
+      &:nth-child(2n)
+        background: #fff
+      &:first-child
+        box-shadow: inset 0 3px 4px rgba(0,0,0,.2)
       &:hover
+        background: transparentize(#888,.7)
+      &.selected
+        background: lighten($contrast-color,25)
         color: #555
-    &.marked
-      background: lighten(#1FD1A8,40%)
-      color: #222
-      border: 2px solid white
-      border-left: none
-      border-right: none
-    &.cancel
-      background: lighten(#dF0a00,50%)
-      color: #222
-      border: 2px solid white
-      border-left: none
-      border-right: none
+        border: 2px solid white
+        border-left: none
+        border-right: none
+        td 
+          border-color: transparent
+        &:hover
+          color: #555
+      &.marked
+        background: lighten(#1FD1A8,40%)
+        color: #222
+        border: 2px solid white
+        border-left: none
+        border-right: none
+      &.cancel
+        background: lighten(#dF0a00,50%)
+        color: #222
+        border: 2px solid white
+        border-left: none
+        border-right: none
  
 
 .table-hover>tbody>tr.marked:hover 
@@ -171,33 +172,34 @@ ul.pagination
       &:hover
         color: $contrast-color
         background: transparent
-tbody td 
-  border-right: 1px solid #ddd
-  vertical-align: middle
- 
-  &:last-child
-    border-right: none
-  &.done
-    color: darken(#1FD1A8,10%)
-  &.error
-    color: lighten(#dF0a00,10%)
-  &.mora
-    color: #5C6BC0
-  &.suspendido
-    color: #FFC107
-  &.exonerado
-    color: lighten($primary-color,10%)
-  &.en-corte
-    color: lighten(#f44336,20%)
-  i.material-icons
-    height: 100%
+.table
+  tbody td 
+    border-right: 1px solid #ddd
     vertical-align: middle
-  &.abono
-    color: #f30
-    text-transform: capitalize
-    &:hover
-      background-color: #f30
-      color: white
+  
+    &:last-child
+      border-right: none
+    &.done
+      color: darken(#1FD1A8,10%)
+    &.error
+      color: lighten(#dF0a00,10%)
+    &.mora
+      color: #5C6BC0
+    &.suspendido
+      color: #FFC107
+    &.exonerado
+      color: lighten($primary-color,10%)
+    &.en-corte
+      color: lighten(#f44336,20%)
+    i.material-icons
+      height: 100%
+      vertical-align: middle
+    &.abono
+      color: #f30
+      text-transform: capitalize
+      &:hover
+        background-color: #f30
+        color: white
 .table>tbody>tr>td
   padding-top: 15px
 
@@ -225,14 +227,14 @@ tbody td
   .table
     border: none
     margin-top: 0
-  thead
-    height: 58px
-    tr
-      background: $primary-color
-      color: #fff
-  tbody tr
-    &:first-child
-      box-shadow: none
+    thead
+      height: 58px
+      tr
+        background: $primary-color
+        color: #fff
+    tbody tr
+      &:first-child
+        box-shadow: none
 
 .modal
   .table

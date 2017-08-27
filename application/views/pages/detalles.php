@@ -54,13 +54,10 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-            <div class="input-group abono-value">
-              <input type="date" name="" id="in-abono-view" class="form-control" value=""/>
-            </div>
             <h6>Forma de pago</h6>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-small">efectivo</button>
-              <button type="button" class="btn btn-small">banco</button>
+              <button type="button" class="btn btn-small payment-mode">efectivo</button>
+              <button type="button" class="btn btn-small payment-mode">banco</button>
             </div>
             </div>
             <!-- /.box-body -->

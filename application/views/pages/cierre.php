@@ -256,7 +256,7 @@
 		<div class="col-md-8 hidden-xs shortcuts-container">
 			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
 				<p class="section-title">Pagos de factura</h4>
-					<p class="will-load">RD$ {{data_cierre.pagos_factura}}</p>
+					<p class="will-load">RD$ {{data_cierre.pagos_facturas}}</p>
 			</div>
 			<div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
 				<p class="section-title">Pagos Extras</p>

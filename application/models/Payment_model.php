@@ -92,7 +92,10 @@ class Payment_model extends CI_MODEL{
 
   public function update($new_payment,$id_pago){
     $where = array('id_pago' => $id_pago);
-    $this->db->update('ic_pagos',$new_payment,$where);
+    if($this->db->update('ic_pagos',$new_payment,$where)){
+      return TRUE;
+    }
+    return FALSE;
   }
   
 

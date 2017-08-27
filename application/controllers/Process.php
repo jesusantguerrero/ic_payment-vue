@@ -109,11 +109,10 @@ class Process extends CI_Controller {
       }
  
   }
- 
 
 	public function update(){
 		authenticate();
-		$data = $_POST;
+		$data  = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case "clientes":
@@ -149,7 +148,7 @@ class Process extends CI_Controller {
 					$id_contrato = $data['id_contrato'];
 					refresh_contract($id_contrato,$this,$data);
 				}else{
-					echo MESSAGE_INFO." Este pago ya ha sido realizados";
+					echo MESSAGE_INFO." Este pago ya ha sido realizado";
 				}
 				break;
 			case "pagos_al_dia":
@@ -223,6 +222,28 @@ class Process extends CI_Controller {
 				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
 				break;
 			
+		}
+	}
+
+	public function axiosupdate(){
+		$data   = json_decode($_POST['data'],true);
+		$info = json_decode($_POST['extra_info'],true);
+		$response['mensaje'] = '';
+		switch ($info['module']) {
+			case 'pagos':
+				if($data['tipo'] == '') $data['tipo'] = 'efectivo';
+				
+				if($this->payment_model->update($data,$info['id'])):
+					$response['mensaje'] = MESSAGE_SUCCESS." procesando cambios";
+					echo json_encode($response['mensaje']);
+				else:
+					echo $this->db->last_query();
+				endif;
+				break;
+			
+			default:
+				# code...
+				break;
 		}
 	}
 

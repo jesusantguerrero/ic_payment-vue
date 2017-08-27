@@ -22,10 +22,28 @@ class Caja_mayor extends CI_MODEL{
   }
 
   public function add_cierre($data){
-    if($this->db->insert('ic_caja_mayor',$data)){
-      $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso";
+    $this->db->select('id_cierre');
+    $this->db->where('fecha',$data['fecha']);
+    $id_cierre = $this->db->count_all_results('ic_caja_mayor');
+    if(!$id_cierre){
+      if($this->db->insert('ic_caja_mayor',$data)){
+        $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso";
+      }else{
+        $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre".$this->db->last_query();
+      }
+      echo json_encode($response);
     }else{
-      $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre";
+      $this->update_cierre($data,$id_cierre);
+    }
+    
+  }
+
+  public function update_cierre($data,$id_cierre){
+    $this->db->where('id_cierre',$id_cierre);
+    if($this->db->update('ic_caja_mayor',$data)){
+      $response['mensaje'] =  MESSAGE_SUCCESS." Cierre Actualizado";
+    }else{
+      $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre".$this->db->last_query();
     }
     echo json_encode($response);
   }
@@ -103,17 +121,7 @@ class Caja_mayor extends CI_MODEL{
     echo json_encode($response);
   }
 
-  //  monedas
-
-  public function add_moneda($data){
-    $this->db->insert("ic_monedas",$data);
-  }
-
-  public function delete_moneda($id){
-    $this->db->delete('ic_monedas',array('id'=> $id));
-  }
-
-   public function mostrar_monedas(){
+  public function mostrar_monedas(){
     $result = $this->db->get('ic_monedas');
     echo json_encode($result->result_array());
   }
