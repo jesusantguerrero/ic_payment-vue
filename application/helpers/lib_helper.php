@@ -429,6 +429,13 @@ if ( ! function_exists('make_recibos_table')){
     $html_text = " "; 
     foreach ($data as $line) {
         $hora = new DATETIME($line['complete_date']);
+        if(str_contains('abono',$line['concepto_real'])){
+          $line['concepto'] = str_replace("Pago de",'Abono a',$line['concepto']);
+        }
+        if(str_contains('Cancelación',$line['concepto_real'])){
+          $line['concepto'] = str_replace("Pago de",'Cancelación - ',$line['concepto']);
+        }
+      
         $html_text .= 
         "<tr>
         <td>".$cont."</td>
