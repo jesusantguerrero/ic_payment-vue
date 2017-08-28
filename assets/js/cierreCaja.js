@@ -49,6 +49,7 @@
     var appCierre = new Vue({
       el: '#app-cierre',
       data: {
+        isHide: false,
         fecha: now(),
         data_cierre:{
           autor: autor,
@@ -205,7 +206,7 @@
               confirmButtonText: 'Si',
               cancelButtonText: 'No'
             }).then(function(){
-              self.cerrar(cierre);
+              self.cerrar(cierre)
             })
           }else{
             self.cerrar(cierre);
@@ -220,6 +221,12 @@
           send.then(function(response){
             var data = response.data
             displayMessage(data.mensaje)
+            self.isHide = true;
+            appSummaryView.isHide = false;
+            appSummaryView.cierre = cierre;
+            $("#app-cierre").addClass('hide');
+            $(".top-nav").addClass('hide');
+            $("#print-view").css({visibility: "visible"})
             
           });
           send.catch(function(){
@@ -249,6 +256,7 @@
       }
     })
 
+    window.appCierre = appCierre;
     function sumar (valores){
       var suma = 0;
       for (var i = 0; i < valores.length; i++) {
@@ -261,31 +269,70 @@
       return moment().format("YYYY-MM-DD");
     }
   }
- 
-  //   var cierreData = {
-  //     'fecha_cuadre': moment().format('YYYY-MM-DD'),
-  //     'ingresos_pagos': $ingresosPagos.getNumber(),
-  //     'ingresos_extras': $ingresosExtras.getNumber(),
-  //     'ingresos_totales': $ingresosTotal.getNumber(),
-  //     'dinero_fisico': $dineroFisico.getNumber(),
-  //     'descuadre': $totalDescuadre.getNumber(),
-  //     'gastos_totales': $gastosTotales.getNumber(),
-  //     'banco': $banco.getNumber()
-  //   }
-  //   btnCerrarCaja.on('click', function (e) {
-  //     e.stopImmediatePropagation()
-  //     CajaMayor.addCierre(cierreData);
-  //   });
-      
 
-  //   function changeState($inputElement,value){
-  //      if(value < 0){
-  //       replaceClass($inputElement.parent(),'has-success has-info','has-error')
-  //     }else if(value > 0){
-  //       replaceClass($inputElement.parent(),'has-error has-info','has-success')
-  //     }else{
-  //       replaceClass($inputElement.parent(),'has-success has-error','has-info')
-  //     }
-  //   }
+  Vue.component('summary-print-view',{
+    template: '\
+    <div class="print-container">\
+      <div class="__header">\
+      <h2 class="__title t-center"> {{title}}</h2>\
+      </div>\
+      <div class="__body">\
+      <printeable></printeable>\
+      </div>\
+    <div>\
+    \
+    ',
+    props:['somevalue'],
+    methods:{
+      goBack: function(){
+        appSummaryView.isHide = true;
+        window.appCierre.isHide = false;
+        self.isHide = true;
+        $(".top-nav").removeClass('hide');
+        $("#app-cierre").removeClass('hide');
+      }
+    },
+    data: function(){
+      return {
+        back: {link:"somelink",text:"volver a cierre"},
+        foward: {link: BASE_URL + "app/logout",text:"cerrar session"},
+        title:"Resumen de cierre de hoy",
 
-  // }
+      }
+    }
+  })
+
+  var appSummaryView = new Vue({
+    el: "#print-view",
+    data: {
+      isHide: true,
+      back: {link:"somelink",text:"volver a cierre"},
+      foward: {link: BASE_URL + "app/logout",text:"cerrar session"},
+      cierre:{
+          autor: '',
+          pagos_facturas: 0,
+          pagos_extras: 0,
+          pagos_efectivo: 0,
+          pagos_banco: 0,
+          total_ingresos: 0,
+          efectivo_caja: 0,
+          total_descuadre: 0,
+          total_gastos: 0,
+          banco: 0
+        }
+    },
+    filters: {
+      currencyFormat: function(number){
+        return "RD$ "+ CurrencyFormat(number);
+      }
+    },
+    methods:{
+      goBack: function(){
+        appSummaryView.isHide = true;
+        window.appCierre.isHide = false;
+        self.isHide = true;
+        $(".top-nav").removeClass('hide');
+        $("#app-cierre").removeClass('hide');
+      }
+    }
+  })

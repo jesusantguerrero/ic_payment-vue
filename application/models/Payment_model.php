@@ -124,7 +124,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function get_last_pay_of($id_contrato){
-    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato order by id_pago desc limit 1";
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato and concepto not like '%abono%' order by id_pago desc limit 1";
     $result = $this->db->query($sql);
     if($result){
       return $result->row_array();

@@ -9,11 +9,9 @@
 		ga('create', 'UA-97873154-2', 'auto');
 		ga('send', 'pageview');
 	</script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/lib/vue.js?version=2.20.0')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/lib/axios.min.js?version=2.20.0')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=4.0.2') ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=4.0.2')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=4.0.2')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/mytables.min.js?version=4.0.8') ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/all.min.js?version=4.0.8')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/frontend.min.js?version=4.0.8')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});

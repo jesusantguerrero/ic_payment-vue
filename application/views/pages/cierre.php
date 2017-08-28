@@ -253,7 +253,7 @@
 
 	</div>
 	<div class="row home-options-container">
-		<div class="col-md-8 hidden-xs shortcuts-container">
+		<div class="col-md-8 hidden-xs shortcuts-container" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
 			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
 				<p class="section-title">Pagos de factura</h4>
 					<p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
@@ -280,6 +280,39 @@
 
 </div>
 
+<div id="print-view" :class="{hide: isHide}">
+	<?php 
+		$company = $this->company_model->get_empresa();
+	?>
+	<summary-print-view></summary-print-view>
+
+	<div class="factura-body">
+	<div class="cabecera">
+    <div class="company-name">
+      <h4 class="company-oficial-name t-center">ICS Service</h4>
+      <p></p>
+    </div>
+      <p class="fecha-reporte">Fecha:{{cierre.fecha}}</p>
+      <p><b class="hora-reporte">Autor {{cierre.autor}}<b></p>
+  </div>
+  <div class="concepto"><h4>Cierre de Caja</h4></div>
+  
+  <div class="cuerpo">
+   <p><b>Total de ingresos:</b><span class="right">{{cierre.total_ingresos | currencyFormat}}</span></p>
+	 <p><b>Pagos via Banco: </b><span class="right">{{cierre.pagos_banco | currencyFormat}}<span></p>
+	 <p><b>Pagos en efectivo: </b><span class="right">{{cierre.pagos_efectivo | currencyFormat}}<span></p>
+	 <p><b>Efectivo en caja: </b><span class="right">{{cierre.efectivo_caja | currencyFormat}}<span></p>
+	 <p><b>Total Descuadre: </b><span class="right">{{cierre.total_descuadre | currencyFormat}}<span></p>
+	 <p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
+  </div>
+  <div class="pie-pagina">
+  </div>
+</div>
+<div class="centered-container-small">
+	<a href="#" @click.prevent="goBack" class="link btn"><i class="material-icons">lock_open</i> {{back.text}}</a>
+	<a :href="foward.link" class="link btn"><i class="material-icons">power_settings_new</i> {{foward.text}}</a>
+</div>
+<div>
 
 <script>
 	$(function () {
@@ -288,5 +321,8 @@
 			height: "100%",
 			overflow: "auto"
 		})
+
+		$(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
+    $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])." ".phone_format($company["telefonos"])?>");
 	})
 </script>
