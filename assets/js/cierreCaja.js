@@ -333,6 +333,10 @@
         self.isHide = true;
         $(".top-nav").removeClass('hide');
         $("#app-cierre").removeClass('hide');
+      },
+
+      print: function(){
+        print()
       }
     }
   })

@@ -55,6 +55,7 @@ class Caja_mayor extends CI_MODEL{
       $result = $result->result_array()[0];
       $response['autor']  = $result['autor'];
       $response['fecha']  = date_spanish_format($result['fecha']);
+      $response['cierre'] = $result;
       unset($result['autor']);
       unset($result['fecha']);
       $response['labels'] = array_keys($result);
@@ -192,6 +193,33 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
+  public function get_banco_of_month($month,$year = 'now()'){
+    $sql    = "SELECT sum(banco) as banco FROM ic_caja_mayor WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
+    $result = $this->db->query($sql);
+    if($result){
+      $result = $result->row_array();
+      if(!$result){
+        $result = 0;
+      }
+      return $result;
+    }else{
+      echo $this->db->last_query();
+    }
+  }
+
+  public function get_gastos_of_month($month,$year = 'now()'){
+    $sql    = "SELECT sum(monto) as monto FROM ic_gastos WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
+    $result = $this->db->query($sql);
+    if($result){
+      $result = $result->row_array();
+      if(!$result){
+        $result = 0;
+      }
+      return $result;
+    }else{
+      echo $this->db->last_query();
+    }
+  }
 
 
 }

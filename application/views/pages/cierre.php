@@ -253,8 +253,8 @@
 
 	</div>
 	<div class="row home-options-container">
-		<div class="col-md-8 hidden-xs shortcuts-container" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
-			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
+		<div class="col-md-8 hidden-xs shortcuts-container">
+			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
 				<p class="section-title">Pagos de factura</h4>
 					<p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
 			</div>
@@ -306,6 +306,7 @@
 	 <p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
   </div>
   <div class="pie-pagina">
+		<p class="t-center"><a href="#" @click.prevent="print">Imprimir</a></p>
   </div>
 </div>
 <div class="centered-container-small">
@@ -320,6 +321,14 @@
 		$(".tab-content-cierre").css({
 			height: "100%",
 			overflow: "auto"
+		})
+
+		$('[data-toggle="popover"]').on('mouseover',function(){
+			$(this).popover('show');
+		})
+
+		$('[data-toggle="popover"]').on('mouseleave',function(){
+			$(this).popover('hide');
 		})
 
 		$(".company-oficial-name").text("<?php echo $company['nombre'] ?>");

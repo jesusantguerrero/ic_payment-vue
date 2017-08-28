@@ -78,5 +78,22 @@ class Caja extends CI_Controller {
 		$this->caja_mayor->get_last_cierre();
 	}
 
+	public function get_year_info(){
+		$data = json_decode($_POST['data'],true);
+		$ganancias = array();
+		$gastos = array();
+		$meses = array_values($GLOBALS['spanish_months']);
+
+		foreach ($meses as $mes) {
+			$result = $this->caja_mayor->get_banco_of_month($mes);
+			array_push($ganancias,$result['banco']);
+			$result = $this->caja_mayor->get_gastos_of_month($mes);
+			array_push($gastos,$result['monto']);
+		}
+		$response['gastos'] 	= $gastos;
+		$response['ganancias'] = $ganancias;
+		echo json_encode($response);
+	}
+
 
 }

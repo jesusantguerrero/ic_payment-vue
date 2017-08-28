@@ -39,7 +39,7 @@ class Report_model extends CI_MODEL{
   }
 
    public function get_recibos(){
-    $this->db->select("id_pago,id_contrato,cliente,concepto, servicio ,total, complete_date,date(fecha_pago) as fecha,time(complete_date) as hora");
+    $this->db->select("id_pago,id_contrato,cliente,monthname(fecha_limite) as concepto, servicio ,total, complete_date,date(fecha_pago) as fecha,time(complete_date) as hora");
     $this->db->order_by("fecha_pago DESC, hora DESC");
     $result = $this->db->get("v_recibos");
     if($result):

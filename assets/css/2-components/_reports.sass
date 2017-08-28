@@ -1,6 +1,11 @@
 .reports
   background: #fdfdfd
-  position: initial
+  position: initial;
+  margin-top: -20px;
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
 .small-data-card
   +makeFlex(30%,row,center,center)
@@ -56,6 +61,7 @@
 .wide-chart
   +size(92%,400px)
   background: transparent
+  margin-bottom: 20px
 
 .little-chart
   padding: 5px
@@ -78,6 +84,7 @@ canvas
   border-left: 1px solid #ddd
   box-shadow: -1px 2px 2px 2px transparentize(#555,.9)
   padding: 0 0 0 0
+  overflow: hidden
 
   .amount
     color: $contrast-color
@@ -87,6 +94,26 @@ canvas
   .today-data
     font-size: 20px
     margin: 0 0 40px 0
+
+.card-text
+  .fecha
+    color: $color-error
+  .autor
+    color: $contrast-color
+  p
+    padding: 0 20%
+    text-align: left
+    color: $contrast-color
+    b
+      width: 150px;
+      display: inline-block
+    .right
+      text-align: left;
+      padding-left: 50px;
+      color: #4E5962;
+      width: 200px;
+      display: inline-block;
+
 
 @media (max-width: 991px)
   .right-panel,
@@ -98,4 +125,31 @@ canvas
       display: flex
       justify-content: space-around
       align-items: center
- 
+
+@media print
+  header,
+  #app-cierre,
+  button,
+  a,
+  a.link.btn,
+  .__header,
+  .__title,
+  .data-card-container,
+  .nav-tabs,
+  .wide-chart,
+  .small-data-card,
+  .tab-pane + h4
+    display: none
+  .factura-body
+    display: block
+    margin: 0 0 0 0
+  .fecha-recibo
+    color: #06f !important
+  .concepto h4
+    background: whitesmoke !important
+    border-top: 1px solid #aaaaaa
+    border-bottom: 1px solid #aaaaaa
+  .company-name h2
+    color: #f20 !important
+  .cuerpo
+  .data-card-container
