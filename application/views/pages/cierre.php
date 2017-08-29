@@ -258,15 +258,15 @@
 				<p class="section-title">Pagos de factura</h4>
 					<p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
+			<div class="col-md-4 shortcut"  data-toggle="popover" data-container="body" data-placement="right" title="Pagos Extras" data-content="Los pagos a los servicios extras que hacen los clientes">
 				<p class="section-title">Pagos Extras</p>
 				<p class="will-load">RD$ {{data_cierre.pagos_extras | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">
+			<div class="col-md-4 shortcut"  data-toggle="popover" data-container="body" data-placement="right" title="Pagos Via Banco" data-content="Los pagos del <b>total de ingresos</b> que se hacen via banco">
 				<p class="section-title">Pagos Via Banco</h4>
 					<p class="will-load">RD$ {{ data_cierre.pagos_banco | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#add-extra-modal">
+			<div class="col-md-4 shortcut" id="caller-new-client"  data-toggle="popover" data-container="body" data-placement="right" title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
 				<p class="section-title">Total Ingresos</p>
 				<p class="will-load">RD$ {{ data_cierre.total_ingresos | currencyFormat}}</p>
 			</div>
@@ -321,6 +321,9 @@
 		$(".tab-content-cierre").css({
 			height: "100%",
 			overflow: "auto"
+		})
+		$('[data-toggle="popover"]').popover({
+			html: true
 		})
 
 		$('[data-toggle="popover"]').on('mouseover',function(){

@@ -26,7 +26,6 @@ window.chartColors = {
   purple: 'rgb(153, 102, 255)',
   grey: 'rgb(201, 203, 207)'
 };
-
 var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 var colors = {
@@ -47,7 +46,7 @@ function cajaWeekChart(data) {
       datasets: [{
         label: "Valores",
         data: data.values,
-        backgroundColor: [colors.lightBlue6, colors.lightBlue6, colors.blue7, colors.lightBlue6, colors.green, colors.blueGreen, window.chartColors.red, colors.blue7],
+        backgroundColor: [colors.lightBlue6, colors.lightBlue6, colors.blue7, window.chartColors.blue,window.chartColors.green, colors.blueGreen, window.chartColors.red,  window.chartColors.blue],
       }]
     },
     options: {

@@ -461,7 +461,7 @@ function update_state_moras($data,$context){
     if($pago['estado_cliente'] != 'activo'){
       $estado = $pago['estado_cliente'];
     } 
-    $context->db->where('id_cliente',$pago['id']);
+    $context->db->where('id_cliente',$pago['id_cliente']);
     $context->db->update('ic_clientes',array('estado'=> $estado));
   }
 }

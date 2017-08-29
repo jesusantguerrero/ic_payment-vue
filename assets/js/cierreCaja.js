@@ -19,7 +19,7 @@
 
   if(isCurrentPage("reportes")){
     var script = document.createElement("script");
-    script.src = BASE_URL + "assets/js/min/reportes.min.js";
+    script.src = BASE_URL + "assets/js/min/reportes.min.js?version=4.0.22";
     $("body").append(script);
   }
 
