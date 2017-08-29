@@ -417,8 +417,7 @@
 
       var send = axios.post( BASE_URL + 'process/axiosupdate',form)
       send.then(function(response){
-        var data = response.data
-        displayMessage(data.mensaje)
+        //TODO: something whith that / algo con esto
       });
       send.catch(function(){
         console.log(error);

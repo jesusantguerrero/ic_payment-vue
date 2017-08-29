@@ -155,7 +155,7 @@ class Payment_model extends CI_MODEL{
     $this->db->where('id_contrato',$id_contrato);
     if($result = $this->db->get("ic_pagos")){
       $result = make_payment_list($result->result_array());
-      echo $result;
+      return $result;
     }
   }
 

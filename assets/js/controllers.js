@@ -312,7 +312,7 @@ var Contracts = {
       form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
       form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
       form += "&modelo=" + model + "&ip=" + ip;
-      connectAndSend("process/add", true, null, null, form, Contracts.getLast);
+      connectAndSend("process/add", null, null, Contracts.getLast, form, null);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -323,18 +323,23 @@ var Contracts = {
     form = 'id_contrato=' + idContrator;
     connectAndSend("process/extend", true, null, null, form, null);
   },
+  
 
   getAll: function() {
     var form = "tabla=contratos";
     connectAndSend('process/getall', false, null, contractTable.refresh, form, null);
   },
 
-  getLast: function(id) {
+  getLast: function(data) {
+    data = JSON.parse(data);
+    console.log(data);
+    console.log(data.mensaje);
+    displayMessage(data.mensaje)
     $("#btn-save-contract").attr("disabled", "");
     $("#btn-print-contract").removeAttr("disabled");
-    var form = "tabla=pagos&id_contrato=" + id;
-    connectAndSend("process/getlist", false, null, makePaymentList, form, null);
-
+    if(data.tabla_pagos){
+      makePaymentList(data.tabla_pagos);
+    }
   },
 
   callExtra: function() {

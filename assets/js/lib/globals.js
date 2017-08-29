@@ -204,6 +204,7 @@ function makePaymentList(response,callback){
   var selectPayUntil = $('#select-pay-until');
   selectPayUntil.html(response);
   selectPayUntil.parent().removeClass('hide');
+  selectPayUntil.change();
   if(callback)callback();
 }
 

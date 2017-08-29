@@ -637,3 +637,25 @@ function get_first_date($date){
   } 
   return $newdate;
 }
+
+
+function generar_facturas_cliente(){
+  // $this->contract_model->
+  // foreach ($variable as $key => $value) {
+  //   # code...
+  // }
+
+}
+
+function generar_facturas_mes(){
+
+}
+
+function suspender_contratos(){
+
+}
+
+function cancelar_por_suspencion(){
+
+}
+
