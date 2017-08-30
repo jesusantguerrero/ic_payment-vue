@@ -674,7 +674,7 @@ $(window).scroll(function () {
   position = $(window).scrollTop()
   movableNav = $('.aside-nav-container, .aside-wide-left')
 
-  if(position >= 70){
+  if(position >= 50){
     movableNav.addClass('moved')
   }else{
     movableNav.removeClass('moved')

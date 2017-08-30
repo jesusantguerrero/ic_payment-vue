@@ -103,6 +103,7 @@ if (! function_exists('cancel_payment')){
     $monto_pagado = $contract['monto_pagado'] - $payment['cuota'];
  
     if(!str_contains('abono',$payment['concepto'])){
+
       $data_payment = array(
         'estado'      => 'no pagado',
         'fecha_pago'  => null
@@ -113,6 +114,7 @@ if (! function_exists('cancel_payment')){
         ->where('estado','pagado')
         ->select('fecha_pago')
         ->order_by('fecha_pago','DESC');
+
       $last_pay_date = $context->db->get('ic_pagos',1)->row_array()['fecha_pago'];
  
       $data_contract = array(
@@ -479,7 +481,6 @@ if (! function_exists('cancel_contract')){
     }else{
       $penalizacion = 0;
     }
-    
 
     $monto_total = $contract['monto_pagado'] + $penalizacion;
     
@@ -508,6 +509,7 @@ if (! function_exists('cancel_contract')){
       'id_contrato' => $data_cancel['id_contrato'],
       'motivo'      => $data_cancel['motivo']
     );
+    
     $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save); 
   }
 }
@@ -639,23 +641,88 @@ function get_first_date($date){
 }
 
 
-function generar_facturas_cliente(){
-  // $this->contract_model->
-  // foreach ($variable as $key => $value) {
-  //   # code...
-  // }
+function generar_facturas_primera_vez($context){
+  $settings = get_settings();
+  $hoy = date('Y-m-d');
+  $ultima_suspension = 0;
+  if($settings['fecha_generacion_todas_facturas'] == $hoy){
 
+    $contratos = $context->db->get('v_pagos_generados')->result_array();
+    foreach ($contratos as $contrato) {
+      $context->db->select('id_pago,estado');
+      $pagos = $context->db->where('id_contrato',$contrato['contrato'])
+      ->where('fecha_limite < current_date()')
+      ->get('ic_pagos')->result_array();
+
+      foreach ($pagos as $pago) {
+        if($contrato['pagos_generados'] < 3){
+          $context->payment_model->update(['generado' => true],$pago['id_pago']);
+          if($pago['estado'] == 'no pagado')$contrato['pagos_generados'] += 1;
+
+        }else{
+          if($ultima_suspension != $contrato['contrato']){
+            suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
+            $ultima_suspension = $contrato['contrato'];
+          }
+        }
+      }
+    }
+  }else{
+
+  }
 }
 
-function generar_facturas_mes(){
-
+function generar_facturas_mes($context){
+  $settings = get_settings();
+  $hoy = date('Y-m-d');
+    if(date('d') == $settings['dia_generacion_factura'] and $hoy == $settings['ultima_generacion_factura']){
+      $contratos = $context->db->get('v_pagos_generados')->result_array();
+      foreach ($contratos as $contrato) {
+        if($contrato['estado'] == 'activo'){
+          if($contrato['pagos_generados'] < 3){
+            $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
+            $context->db->where('id_contrato',$contrato['contrato']);
+            $context->db->update('ic_pagos',['generado' => true]);
+          }else{
+            suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
+          }
+        }
+      }
+      $context->settings_model->update('ultima_generacion_factura',$hoy);
+    }
 }
 
-function suspender_contratos(){
+function suspender_contrato($id_contrato,$id_cliente,$context){
+  $context->db->trans_start();
+  $context->contract_model->update(['estado' => 'suspendido'],$id_contrato);
+  $context->db->where('id_cliente',$id_cliente);
+  $context->db->update('ic_clientes',['estado' => 'suspendido']);
 
+  //borrando los pagos y actualizando la deuda
+  $context->db->where('estado ="no pagado" and generado = false')
+  ->where('id_contrato',$id_contrato)
+  ->delete('ic_pagos');
+
+  $suma = $context->db->where('id_contrato',$id_contrato)
+          ->select_sum('cuota')
+          ->get('ic_pagos')->row_array()['cuota'];
+
+  $context->contract_model->update(['monto_total' => $suma],$id_contrato);
+  $context->db->trans_complete();
+  
+  if($context->db->trans_status() == false){
+     $context->db->trans_rollback();
+     echo "no se pudo suspender el cliente";
+  }
 }
 
 function cancelar_por_suspencion(){
 
+}
+
+function get_settings(){
+  $ci =& get_instance();
+  $settings = $ci->db->get('ic_settings',1);
+  return $settings->row_array();
 }
 

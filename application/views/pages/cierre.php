@@ -309,7 +309,7 @@
 		<p class="t-center"><a href="#" @click.prevent="print">Imprimir</a></p>
   </div>
 </div>
-<div class="centered-container-small">
+<div class="centered-container-small fixed">
 	<a href="#" @click.prevent="goBack" class="link btn"><i class="material-icons">lock_open</i> {{back.text}}</a>
 	<a :href="foward.link" class="link btn"><i class="material-icons">power_settings_new</i> {{foward.text}}</a>
 </div>

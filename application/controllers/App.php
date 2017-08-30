@@ -19,6 +19,8 @@ class App extends CI_Controller {
 		$this->load->model("section_model");
 
 	update_moras($this);
+		generar_facturas_primera_vez($this);
+		generar_facturas_mes($this);
 
  }
 
