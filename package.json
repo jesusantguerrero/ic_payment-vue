@@ -1,0 +1,37 @@
+{
+  "name": "icpayment",
+  "version": "1.0.0",
+  "description": "Programa de facturacion y administracion de ISP",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-clean-css": "3.7.0",
+    "gulp-concat": "2.6.1",
+    "gulp-rev": "8.0.0",
+    "gulp-minify": "1.0.0",
+    "gulp-sourcemaps": "2.6.1",
+    "gulp-sass": "3.1.0",
+    "html-webpack-plugin": "2.30.1",
+    "jquery": "3.2.1",
+    "pump": "1.0.2",
+    "uglifyjs-webpack-plugin": "0.4.6",
+    "webpack": "3.5.5"
+  },
+  "devDependencies": {
+    "del": "3.0.0",
+    "gulp-uglify": "3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/freesgen1/icpayment.git"
+  },
+  "author": "Jesus Guerrero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/freesgen1/icpayment/issues"
+  },
+  "homepage": "https://gitlab.com/freesgen1/icpayment#README"
+}
