@@ -1098,7 +1098,7 @@ var Contracts = {
     }
   },
 
-  getIpList: function getIpList() {
+  getIpList: function () {
     var section_id = $("#select-contract-sector").val();
     var form = "id_seccion=" + section_id + "&tabla=ip_list";
     connectAndSend("process/getall", false, null, makeIpList, form, null);
@@ -1179,6 +1179,18 @@ var Contracts = {
   getAllOfClient: function(dni) {
     var form = "dni=" + dni;
     connectAndSend("process/data_for_extra", false, null, makeContractList, form, null);
+  },
+  // Note: lo siento, de aqui en adelante uso axios, es mucho mas comodo
+  suspend: function (id_contrato) {
+    form = "data=" + JSON.stringify({id_contrato:id_contrato})
+    var send = axios.post(BASE_URL + 'contract/suspend',form);
+    send.then(function(res){
+      display(res.mensaje);
+      Contracts.getAll();
+    })
+    send.catch(function(error){
+      console.log(error);
+    })
   }
 }
 
@@ -1897,8 +1909,27 @@ var Sections = {
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
-
+      }else{
+        swal("Debes seleccionar un contrato")
       }
+    });
+
+    $("#btn-suspend-contract").on('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+       var row = contractTable.getSelectedRow();
+       if (row) {
+        swal({
+          title: 'Está Seguro?',
+          text: "Desea Suspender el contrato de " + row.cliente +" ?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          cancelButtonText: 'Cancelar'
+        }).then(function(){
+           Contracts.suspend(id);
+        });
+       }
 
     });
 

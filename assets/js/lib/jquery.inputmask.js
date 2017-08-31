@@ -5,7 +5,6 @@
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 * Version: 0.0.0
 */
-
 (function ($) {
     if ($.fn.inputmask === undefined) {
         //helper functions    

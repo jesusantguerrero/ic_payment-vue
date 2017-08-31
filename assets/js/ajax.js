@@ -355,8 +355,26 @@
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
-
+      }else{
+        swal("Debes seleccionar un contrato primero")
       }
+    });
+    $("#btn-suspend-contract").on('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+       var row = contractTable.getSelectedRow();
+       if (row) {
+        swal({
+          title: 'Está Seguro?',
+          text: "Desea Suspender el contrato de " + row.cliente +" ?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          cancelButtonText: 'Cancelar'
+        }).then(function(){
+           Contracts.suspend(id);
+        });
+       }
 
     });
 

@@ -712,7 +712,9 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
   
   if($context->db->trans_status() == false){
      $context->db->trans_rollback();
-     echo "no se pudo suspender el cliente";
+     return false;
+  }else{
+    return true;
   }
 }
 
