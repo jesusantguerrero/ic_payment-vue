@@ -624,3 +624,10 @@ function str_contains($word_to_search,$string){
   }
   return FALSE;
 }
+
+function get_manifest(){
+  $manifest = file_get_contents(base_url('assets/js/dist/assets/js/dist/manifest.json'));
+  $manifest = json_decode($manifest, true);
+  var_dump($manifest);
+
+}

@@ -16,6 +16,9 @@
 <?php $user_data = get_user_data(); 
 	$notifications = $this->report_model->count_moras_view();
 ?>
+<?php 
+	get_manifest();
+?>
 <body>
 	<div class="loader">
 		<span class="load"></span>

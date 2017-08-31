@@ -1,4 +1,3 @@
-
   function isCurrentPage(pageName){
     if(getCurrentPage() == pageName){
       return true
@@ -11,7 +10,6 @@
     currentPage = currentPage[4].toLowerCase().trim();
     return currentPage;
   }
-
 
   if(isCurrentPage("cierre") || isCurrentPage("cierre2")){
     cierreCajaFunctions();
@@ -269,7 +267,6 @@
       return moment().format("YYYY-MM-DD");
     }
   }
-
   Vue.component('summary-print-view',{
     template: '\
     <div class="print-container">\

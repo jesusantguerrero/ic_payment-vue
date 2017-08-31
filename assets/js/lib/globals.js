@@ -1,6 +1,7 @@
 var BASE_URL = window.location.origin + "/";
-if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io'))
+if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io')){
   BASE_URL += 'icpayment/';
+}
 
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
@@ -47,8 +48,6 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
     connect.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     connect.send(form);
 }
-
-
 /********************************************************
 *         Funciones de mensajes y notificaciones                            
 *                                                       *
