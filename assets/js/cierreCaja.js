@@ -321,6 +321,11 @@
     filters: {
       currencyFormat: function(number){
         return "RD$ "+ CurrencyFormat(number);
+      },
+
+      spanishDateFormat: function(date){
+        moment.locale('es-DO');
+        return moment(date).format('dddd DD [de] MMMM [del] YYYY')
       }
     },
     methods:{

@@ -1909,9 +1909,10 @@ var Sections = {
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
       }else{
-        swal("Debes seleccionar un contrato primero")
+        swal("Debes seleccionar un contrato")
       }
     });
+
     $("#btn-suspend-contract").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -1925,8 +1926,10 @@ var Sections = {
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
         }).then(function(){
-           Contracts.suspend(id);
+           Contracts.suspend(row.id);
         });
+       }else{
+         swal("Debe seleccionar un contrato")
        }
 
     });
@@ -2457,6 +2460,11 @@ $(function () {
     filters: {
       currencyFormat: function(number){
         return "RD$ "+ CurrencyFormat(number);
+      },
+
+      spanishDateFormat: function(date){
+        moment.locale('es-DO');
+        return moment(date).format('dddd DD [de] MMMM [del] YYYY')
       }
     },
     methods:{

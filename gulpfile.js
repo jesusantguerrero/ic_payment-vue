@@ -9,6 +9,7 @@ var concat      = require('gulp-concat');
 var rev         = require('gulp-rev');
 var cleanCss    = require('gulp-clean-css')
 var del         = require('del')
+var merge       = require('merge-stream')
 const _         = require('lodash');
 
 
@@ -90,26 +91,27 @@ gulp.task('sass', function() {
 
 
 gulp.task('compress', function (){
-  return [gulp.src(footLibraries)
+  var foot1 = gulp.src(footLibraries)
   .pipe(concat("foot.bundle.js"))
-  .pipe(gulp.dest(distTest)),
+  .pipe(gulp.dest(distTest))
 
-  gulp.src(footLibraries2)
+  var foot2 = gulp.src(footLibraries2)
   .pipe(concat("foot2.bundle.js"))
   .pipe(gulp.dest(distTest))
-  ]  
+  
+  return merge(foot1,foot2)
 })
    
 gulp.task('final-compress',['clean-js','compress'], function (){
-  return [ 
-    gulp.src(headLibraries)
+  
+    var head = gulp.src(headLibraries)
     .pipe(concat("head.bundle.js"))
     .pipe(gulp.dest(distTest))
     .pipe(minify({
       ext: {
         min: '.js'
       },
-      noSource: 'true'
+      noSource: 'false'
     }))
     .pipe(gulp.dest(distMin))
     .pipe(rev())
@@ -118,25 +120,25 @@ gulp.task('final-compress',['clean-js','compress'], function (){
       merge: true
     }))
     .pipe(gulp.dest(dist))
-    ,
+    
+    var foot = gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
+    .pipe(concat("final.bundle.js"))
+    .pipe(gulp.dest(distTest))
+    .pipe(minify({
+      ext:{
+        min: '.js'
+      },
+      noSource: false
+    }))
+    .pipe(gulp.dest(distMin))
+    .pipe(rev())
+    .pipe(gulp.dest(dist))
+    .pipe(rev.manifest(dist + '/manifest.json',{
+      merge: true
+    }))
+    .pipe(gulp.dest(dist))
 
-  gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
-  .pipe(concat("final.bundle.js"))
-  .pipe(gulp.dest(distTest))
-  .pipe(minify({
-    ext:{
-      min: '.js'
-    },
-    noSource: true
-  }))
-  .pipe(gulp.dest(distMin))
-  .pipe(rev())
-  .pipe(gulp.dest(dist))
-  .pipe(rev.manifest(dist + '/manifest.json',{
-    merge: true
-  }))
-  .pipe(gulp.dest(dist))
-]
+  return merge(head,foot)
 })
 
 gulp.task('clean-js', function () {

@@ -356,9 +356,10 @@
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
       }else{
-        swal("Debes seleccionar un contrato primero")
+        swal("Debes seleccionar un contrato")
       }
     });
+
     $("#btn-suspend-contract").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -372,8 +373,10 @@
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
         }).then(function(){
-           Contracts.suspend(id);
+           Contracts.suspend(row.id);
         });
+       }else{
+         swal("Debe seleccionar un contrato")
        }
 
     });
