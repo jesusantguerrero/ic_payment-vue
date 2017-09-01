@@ -175,7 +175,14 @@ function detailsFunctions(){
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");
-    } 
+    }
+
+    if(href == "#contracts"){
+      $(".contract-controls").addClass("visible")
+    }else{
+      $(".contract-controls")
+    }
+
 
     getTabControls($(this));
   });
@@ -258,7 +265,7 @@ $(window).scroll(function () {
   position = $(window).scrollTop()
   movableNav = $('.aside-nav-container, .aside-wide-left')
 
-  if(position >= 40){
+  if(position >= 50){
     movableNav.addClass('moved')
   }else{
     movableNav.removeClass('moved')

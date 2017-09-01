@@ -59,19 +59,22 @@ class Process extends CI_Controller {
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
 					$this->client_model->is_active(true,$data);
-				 	$contract_id = $this->contract_model->get_last_id();
+					$contract_id = $this->contract_model->get_last_id_of($data['id_cliente']); 
 				 	create_payments($contract_id,$data,$this);
 					$this->section_model->update_ip_state($data['codigo'],'ocupado');
 					$this->contract_model->update_amount($contract_id);
 				 }
 				 $this->db->trans_complete();
 				 if($this->db->trans_status()){
-						
+					$res['mensaje'] =  MESSAGE_SUCCESS." Nuevo contrato agregado con exito";
+					$res['tabla_pagos'] = $this->payment_model->list_all_of_contract($contract_id);
 				 }
 				 else{
 					 $this->db->trans_rollback();
-					 echo MESSAGE_ERROR." El Contrato No Pudo ser guardado";
+					 $res['mensaje'] = MESSAGE_ERROR." El Contrato No Pudo ser guardado";
+					 $res['tabla_pagos'] = null;
 				 }
+				 echo json_encode($res);
 				break;
 		}
 
@@ -312,8 +315,9 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		if($tabla == "pagos"){
+				// TODO: Buscar la forma de saber el id del cliente
 				$id_contrato = $this->contract_model->get_last_id();
-				$this->payment_model->list_all_of_contract($id_contrato);
+				echo $this->payment_model->list_all_of_contract($id_contrato);
 		}
 	}
 

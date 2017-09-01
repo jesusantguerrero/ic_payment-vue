@@ -292,8 +292,8 @@
       <h4 class="company-oficial-name t-center">ICS Service</h4>
       <p></p>
     </div>
-      <p class="fecha-reporte">Fecha:{{cierre.fecha}}</p>
-      <p><b class="hora-reporte">Autor {{cierre.autor}}<b></p>
+      <p class="fecha-reporte">Fecha: {{cierre.fecha | spanishDateFormat}}</p>
+      <p><b class="hora-reporte">Autor {{cierre.autor}}</b></p>
   </div>
   <div class="concepto"><h4>Cierre de Caja</h4></div>
   
@@ -303,6 +303,7 @@
 	 <p><b>Pagos en efectivo: </b><span class="right">{{cierre.pagos_efectivo | currencyFormat}}<span></p>
 	 <p><b>Efectivo en caja: </b><span class="right">{{cierre.efectivo_caja | currencyFormat}}<span></p>
 	 <p><b>Total Descuadre: </b><span class="right">{{cierre.total_descuadre | currencyFormat}}<span></p>
+	 <p><b>Gastos : </b><span class="right">{{cierre.total_gastos | currencyFormat}}<span></p>
 	 <p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
   </div>
   <div class="pie-pagina">

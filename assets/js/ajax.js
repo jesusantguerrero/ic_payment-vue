@@ -355,8 +355,29 @@
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
-
+      }else{
+        swal("Debes seleccionar un contrato")
       }
+    });
+
+    $("#btn-suspend-contract").on('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+       var row = contractTable.getSelectedRow();
+       if (row) {
+        swal({
+          title: 'Está Seguro?',
+          text: "Desea Suspender el contrato de " + row.cliente +" ?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          cancelButtonText: 'Cancelar'
+        }).then(function(){
+           Contracts.suspend(row.id);
+        });
+       }else{
+         swal("Debe seleccionar un contrato")
+       }
 
     });
 
@@ -417,8 +438,7 @@
 
       var send = axios.post( BASE_URL + 'process/axiosupdate',form)
       send.then(function(response){
-        var data = response.data
-        displayMessage(data.mensaje)
+        //TODO: something whith that / algo con esto
       });
       send.catch(function(){
         console.log(error);

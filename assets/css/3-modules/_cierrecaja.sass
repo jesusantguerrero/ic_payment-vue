@@ -41,6 +41,10 @@ html,body
     @extend .done
 #print-view
   visibility: hidden
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 .print-container
   .__header
     +makeFlex(100%,row,center,center)
@@ -56,7 +60,6 @@ a.link
   
 .factura-body
   width: 300px
-  margin: 20px 38%
   margin-bottom: 100px
   height: auto
   min-height: 350px
@@ -64,7 +67,13 @@ a.link
   overflow: hidden
   font-family: 'Times New Roman', Times, serif
   background: #fff
+  &.wide
+    width: 735px
   
+  p
+    margin: 1px 0 0 0
+  .small-title
+    text-decoration: underline
   .cabecera
     +makeFlex(100%,column,center,center)
     margin-bottom: 10px
@@ -79,13 +88,14 @@ a.link
         margin-bottom: 0 
         font-weight: bolder
         color: #f20
-  .concepto h4
+  .concepto
     text-align: center
     font-weight: bolder
     color: #666
     padding: 5px 0
     background: whitesmoke
-    margin: 0 0 0 0
+    h4
+      margin: 0 0 0 0
   .fecha-recibo
     color: #06f !important
   .logo-recibo
@@ -97,7 +107,7 @@ a.link
     font-size: 12px
     margin: 20px
   .cuerpo
-    padding: 10px 15px
+    padding: 15px 15px
     margin: 10px
     margin-bottom: 3px 
     border-radius: 4px
@@ -126,6 +136,18 @@ a.link
 
   .right
     float: right
+  i
+    visibility: hidden
+  .section-part
+    border: 1px solid #aaa
+    border-radius: 2px
+    padding: 10px
+    margin: 5px 0
+.fixed
+  position: fixed
+  height: 48px
+b.total
+  margin-right: 20px
 
 @media print
   header,
@@ -138,13 +160,17 @@ a.link
     display: none
   .factura-body
     display: block
-    margin: 0 0 0 0
+    margin: 0 0 0 
+    &.wide
+      width: 100%
   .fecha-recibo
     color: #06f !important
-  .concepto h4
+  .concepto 
     background: whitesmoke !important
     border-top: 1px solid #aaaaaa
     border-bottom: 1px solid #aaaaaa
   .company-name h2
     color: #f20 !important
   .cuerpo
+  #print-view
+    display: block;

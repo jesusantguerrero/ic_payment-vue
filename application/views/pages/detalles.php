@@ -187,6 +187,17 @@
                   <?php $this->contract_model->get_all_of_client($client_data['id_cliente']) ?> 
                 </tbody>
               </table>
+
+              <div class="card original-card">
+                <div class="card-header">
+                 Featured
+               </div>
+                <div class="card-body">
+                  <h4 class="card-title">Special title treatment</h4>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
             </div>
 
 

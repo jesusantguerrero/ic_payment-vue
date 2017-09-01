@@ -1,4 +1,3 @@
-
   function isCurrentPage(pageName){
     if(getCurrentPage() == pageName){
       return true
@@ -11,7 +10,6 @@
     currentPage = currentPage[4].toLowerCase().trim();
     return currentPage;
   }
-
 
   if(isCurrentPage("cierre") || isCurrentPage("cierre2")){
     cierreCajaFunctions();
@@ -243,7 +241,7 @@
           this.suma = suma;
           self.efectivo_caja = suma.toFixed(2);
           self.total_descuadre = parseFloat(-self.pagos_efectivo) + parseFloat(self.efectivo_caja);
-          self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos)
+          self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos) + parseFloat(self.total_descuadre)
           return this.suma;
         },
 
@@ -269,7 +267,6 @@
       return moment().format("YYYY-MM-DD");
     }
   }
-
   Vue.component('summary-print-view',{
     template: '\
     <div class="print-container">\
@@ -324,6 +321,11 @@
     filters: {
       currencyFormat: function(number){
         return "RD$ "+ CurrencyFormat(number);
+      },
+
+      spanishDateFormat: function(date){
+        moment.locale('es-DO');
+        return moment(date).format('dddd DD [de] MMMM [del] YYYY')
       }
     },
     methods:{
@@ -334,7 +336,6 @@
         $(".top-nav").removeClass('hide');
         $("#app-cierre").removeClass('hide');
       },
-
       print: function(){
         print()
       }

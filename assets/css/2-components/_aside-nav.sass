@@ -10,9 +10,10 @@
 
   .aside-nav-container
     height: auto
-    position: fixed
+    position: sticky
     width: 230px
     &.moved
+      position: fixed
       top: 0
       animation: move-to-top .3s 
       .left-navigation__header
@@ -46,7 +47,8 @@
     position: fixed
     width: 280px
     &.moved
-      top: 0
+      position: fixed
+      top: 5px
       animation: move-to-top-wide .3s 
     
 

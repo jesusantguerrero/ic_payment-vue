@@ -93,6 +93,7 @@ class Report_model extends CI_MODEL{
     $sql = "
     id_contrato,
     codigo,
+    id_cliente,
     cliente,
     celular,
     group_concat(concepto) as concepto,
@@ -105,6 +106,7 @@ class Report_model extends CI_MODEL{
     group_concat(monthname(fecha_limite)) as meses";
 
     $this->db->select($sql,true);
+    $this->db->where_not_in('estado_cliente','suspendido');
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato'); 
     $result = $this->db->get('v_morosos');
@@ -183,6 +185,7 @@ class Report_model extends CI_MODEL{
   public function count_moras_view(){
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato');
+    $this->db->where_not_in('estado_cliente','suspendido');
     $result = $this->db->count_all_results('v_morosos');
     if($result){
      return $result;
