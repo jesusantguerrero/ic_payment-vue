@@ -175,7 +175,14 @@ function detailsFunctions(){
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");
-    } 
+    }
+
+    if(href == "#contracts"){
+      $(".contract-controls").addClass("visible")
+    }else{
+      $(".contract-controls")
+    }
+
 
     getTabControls($(this));
   });

@@ -503,7 +503,8 @@ var Contracts = {
     form = "data=" + JSON.stringify({id_contrato:id_contrato})
     var send = axios.post(BASE_URL + 'contract/suspend',form);
     send.then(function(res){
-      display(res.mensaje);
+      var data = res.data
+      displayMessage(data.mensaje);
       Contracts.getAll();
     })
     send.catch(function(error){

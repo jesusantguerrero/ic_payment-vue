@@ -58,8 +58,8 @@ a.link
     vertical-align: middle
     
   
-.factura-body.wide
-  width: 735px
+.factura-body
+  width: 300px
   margin-bottom: 100px
   height: auto
   min-height: 350px
@@ -67,6 +67,8 @@ a.link
   overflow: hidden
   font-family: 'Times New Roman', Times, serif
   background: #fff
+  &.wide
+    width: 735px
   
   p
     margin: 1px 0 0 0
@@ -159,7 +161,8 @@ b.total
   .factura-body
     display: block
     margin: 0 0 0 
-    width: 100%
+    &.wide
+      width: 100%
   .fecha-recibo
     color: #06f !important
   .concepto 
@@ -169,3 +172,5 @@ b.total
   .company-name h2
     color: #f20 !important
   .cuerpo
+  #print-view
+    display: block;

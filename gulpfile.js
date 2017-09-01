@@ -21,6 +21,7 @@ var headLibraries = [
   path + "assets/js/lib/jquery.js",
 	path + "assets/js/lib/bootstrap.min.js",
   path + "assets/js/lib/moment.min.js",
+  path + "assets/js/lib/locale/es-do.js",
   path + "assets/js/lib/Chart.js",
   path + "assets/js/lib/currencyFormat.js"
 ]
@@ -92,11 +93,15 @@ gulp.task('sass', function() {
 
 gulp.task('compress', function (){
   var foot1 = gulp.src(footLibraries)
-  .pipe(concat("foot.bundle.js"))
+  .pipe(sourcemaps.init())
+    .pipe(concat("foot.bundle.js"))
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest(distTest))
 
   var foot2 = gulp.src(footLibraries2)
-  .pipe(concat("foot2.bundle.js"))
+  .pipe(sourcemaps.init())
+    .pipe(concat("foot2.bundle.js"))
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest(distTest))
   
   return merge(foot1,foot2)
@@ -113,14 +118,8 @@ gulp.task('final-compress',['clean-js','compress'], function (){
       },
       noSource: 'false'
     }))
-    .pipe(gulp.dest(distMin))
-    .pipe(rev())
-    .pipe(gulp.dest(dist))
-    .pipe(rev.manifest(dist + '/manifest.json',{
-      merge: true
-    }))
-    .pipe(gulp.dest(dist))
-    
+    .pipe(gulp.dest(distMin))    
+
     var foot = gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
     .pipe(concat("final.bundle.js"))
     .pipe(gulp.dest(distTest))
@@ -131,12 +130,6 @@ gulp.task('final-compress',['clean-js','compress'], function (){
       noSource: false
     }))
     .pipe(gulp.dest(distMin))
-    .pipe(rev())
-    .pipe(gulp.dest(dist))
-    .pipe(rev.manifest(dist + '/manifest.json',{
-      merge: true
-    }))
-    .pipe(gulp.dest(dist))
 
   return merge(head,foot)
 })

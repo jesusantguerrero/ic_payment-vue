@@ -167,7 +167,7 @@ if ( ! function_exists('make_contract_table')){
 
     foreach ($data as $line) {
        $state = verify_state($line['estado'],$posible_states);
-       $row_class = $state['row_class'];
+       $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
         $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
         <td class='hide'></td>

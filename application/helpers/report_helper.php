@@ -179,7 +179,7 @@ function make_moras_report_smart($data,$concept,$context,$for_print){
       $html_text .= "
       <tr>
         <td>{$line['id_contrato']}</td>
-        <td>{$line['cliente']}</td>
+        <td><a href='http://localhost/icpayment/process/details/{$line['id_cliente']}'>{$line['cliente']}</a></td>
         <td>".phone_format($line['celular'])." </td>
         <td>RD$".CurrencyFormat($line['cuota'])."</td>
         <td>RD$".CurrencyFormat($line['mora'])."</td>

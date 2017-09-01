@@ -241,7 +241,7 @@
           this.suma = suma;
           self.efectivo_caja = suma.toFixed(2);
           self.total_descuadre = parseFloat(-self.pagos_efectivo) + parseFloat(self.efectivo_caja);
-          self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos)
+          self.banco = parseFloat(self.pagos_banco) + parseFloat(self.pagos_efectivo) - parseFloat(self.total_gastos) + parseFloat(self.total_descuadre)
           return this.suma;
         },
 
@@ -336,7 +336,6 @@
         $(".top-nav").removeClass('hide');
         $("#app-cierre").removeClass('hide');
       },
-
       print: function(){
         print()
       }
