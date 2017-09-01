@@ -112,23 +112,13 @@ gulp.task('final-compress',['compress'], function (){
     var head = gulp.src(headLibraries)
     .pipe(concat("head.bundle.js"))
     .pipe(gulp.dest(distTest))
-    .pipe(minify({
-      ext: {
-        min: '.js'
-      },
-      noSource: 'false'
-    }))
+    .pipe(uglify())
     .pipe(gulp.dest(distMin))    
 
     var foot = gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
     .pipe(concat("final.bundle.js"))
     .pipe(gulp.dest(distTest))
-    .pipe(minify({
-      ext:{
-        min: '.js'
-      },
-      noSource: false
-    }))
+    .pipe(uglify())
     .pipe(gulp.dest(distMin))
 
   return merge(head,foot)

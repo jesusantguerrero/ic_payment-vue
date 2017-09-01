@@ -171,7 +171,7 @@ function detailsFunctions(){
 
   $('[role="tab"]').on('click',function(){
     var href = $(this).attr("href")
-    if(href == "#payments" ||href == "#detalles_de_pago" || href == "descuento") {
+    if(href == "#payments" ||href == "#detalles_de_pago" || href == "#descuento" || href == "#month-and-date" || href == "#reconect-service") {
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");

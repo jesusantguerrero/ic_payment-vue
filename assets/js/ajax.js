@@ -429,6 +429,11 @@
       Payments.getAll();
     });
 
+    $("#btn-reconnect").on('click',function(e) {
+      e.stopImmediatePropagation()
+      Contracts.reconnect()
+    })
+
     $("#payment-detail-box").collapse()
 
     function update_mode(id){
@@ -444,9 +449,7 @@
         console.log(error);
       });
     }
-
   }
-
   //***************************************************      detail Handlers       ***************************** */
   function detailHandlers() {
     $("#btn-save-observations").on('click', function (e) {

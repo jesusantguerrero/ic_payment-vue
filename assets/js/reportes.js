@@ -46,7 +46,7 @@ function cajaWeekChart(data) {
       datasets: [{
         label: "Valores",
         data: data.values,
-        backgroundColor: [colors.lightBlue6, colors.lightBlue6, colors.blue7, window.chartColors.blue,window.chartColors.green, colors.blueGreen, window.chartColors.red,  window.chartColors.blue],
+        backgroundColor: [colors.lightBlue6, colors.lightBlue6, colors.blue7, window.chartColors.blue,window.chartColors.green, colors.blueGreen, window.chartColors.red,window.chartColors.red,  window.chartColors.blue],
       }]
     },
     options: {

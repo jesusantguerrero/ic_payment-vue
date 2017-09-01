@@ -315,7 +315,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		if($tabla == "pagos"){
-				// TODO: Buscar la forma de saber el id del cliente
 				$id_contrato = $this->contract_model->get_last_id();
 				echo $this->payment_model->list_all_of_contract($id_contrato);
 		}

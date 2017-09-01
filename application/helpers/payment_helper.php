@@ -186,7 +186,6 @@ if (! function_exists('set_abono')){
   }
 }
  
- 
 if (! function_exists('cancel_abono')){
  
   function cancel_abono($abono,$contract,$context){
@@ -549,6 +548,37 @@ function extend_contract($data,$context){
         $next_payment_date = get_next_date($next_payment_date);
       }
     }
+}
+
+function reconnect_contract($data,$context){
+  // {id_contrato, fecha, id_servicio, duracon, ip}
+  $contract = $context->contract_model->get_contract_view($data['id_contrato']);
+  $service = $context->service_model->get_service($data['id_servicio']);
+  $duration = $contract['duracion'] + $data['duracion'];
+
+  $payment_data = array(
+    'mensualidad' => $service['mensualidad'],
+    'duracion'    => $data['duracion'],
+    'id_servicio' => $data['id_servicio'],
+    'fecha'       => $data['fecha']
+  );
+
+  create_payments($data['id_contrato'],$payment_data,$context);
+  
+  $context->client_model->update(array('estado' => 'activo','id'=> $contract['id_cliente']),false);
+
+  $monto_total  = $context->payment_model->get_sum_monto_total_of($data['id_contrato']);
+
+  $new_data_contract = array(
+    'duracion'           => $duration,
+    'monto_total'        => $monto_total,
+    'estado'             => 'activo',
+    'id_servicio'        => $data['id_servicio'],
+    'estado_instalacion' => 'por instalar',
+  );  
+
+  $context->contract_model->update($new_data_contract,$data['id_contrato']);
+
 }
 
 if (! function_exists('add_extra')){

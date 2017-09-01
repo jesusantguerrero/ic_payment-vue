@@ -323,7 +323,6 @@ var Contracts = {
     form = 'id_contrato=' + idContrator;
     connectAndSend("process/extend", true, null, null, form, null);
   },
-  
 
   getAll: function() {
     var form = "tabla=contratos";
@@ -457,6 +456,43 @@ var Contracts = {
     } else {
       displayAlert("Revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
     }
+  },
+
+  reconnect: function () {
+    var form, contractId, selectedService, serviceId, duration, date,send, is_empty,info;
+
+    contractId = $("#select-contract").val();
+    selectedService = $(".service-card.selected");
+    serviceId = selectedService.attr("data-id");
+    duration  = $("#reconnection-months").val();
+    date = $("#reconnection-date").val()
+
+    is_empty = isEmpty([contractId,serviceId,date,duration]);
+    console.log("service id" + serviceId + " duration " + duration + " date" + date + " contract "+ contractId )
+    if(!is_empty){
+      info = {
+        'id_contrato': contractId,
+        'fecha': date,
+        'id_servicio': serviceId,
+        'duracion': duration
+      }
+      form = "data=" + JSON.stringify(info);
+      send = axios.post(BASE_URL + "contract/reconnect",form);
+      send.then(function(res){
+        displayMessage(res.data.mensaje);
+        Payments.getAll();
+        $("#btn-reconnect").removeAttr("disabled");
+        $(".reconnect-caller").removeClass('visible');
+        
+      })
+      send.catch(function(err){
+        console.log(err);
+      })
+    }else{
+      swal("Llene todos los campos")
+    }
+   
+
   },
 
   addExtra: function () {

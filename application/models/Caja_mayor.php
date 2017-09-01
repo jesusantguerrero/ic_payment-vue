@@ -24,7 +24,10 @@ class Caja_mayor extends CI_MODEL{
   public function add_cierre($data){
     $this->db->select('id_cierre');
     $this->db->where('fecha',$data['fecha']);
-    $id_cierre = $this->db->count_all_results('ic_caja_mayor');
+    $this->db->order_by('id_cierre','DESC');
+    if($id_cierre = $this->db->get('ic_caja_mayor',1)):
+      $id_cierre = $id_cierre->row_array()['id_cierre'];
+    endif;
     if(!$id_cierre){
       if($this->db->insert('ic_caja_mayor',$data)){
         $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso"  ;
@@ -46,6 +49,7 @@ class Caja_mayor extends CI_MODEL{
     pagos_efectivo as pagos_en_efectivo,
     efectivo_caja as dinero_real_en_caja,
     total_descuadre,
+    total_gastos,
     banco,
     autor,
     fecha");

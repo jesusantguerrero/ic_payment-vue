@@ -73,6 +73,7 @@ class Payment_model extends CI_MODEL{
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){
+        $this->update('complete_date','now()',false);
         return true;
       }else{
        return false;
@@ -269,6 +270,14 @@ class Payment_model extends CI_MODEL{
     $sql = "SELECT * FROM ic_pagos WHERE id_pago = $id";
     $result = $this->db->query($sql)->row_array();
     return $result;
+  }
+
+  public function get_sum_monto_total_of($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->select_sum('cuota');
+    $monto_total = $this->db->get('ic_pagos',1)->row_array()['cuota'];
+    return $monto_total;
+
   }
 
   //functions

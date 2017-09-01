@@ -98,7 +98,7 @@
 		{
 			"scope": "invalid",
 			"settings": {
-				"foreground": "#f44747"
+				"foreground": "#FDDDAB"
 			}
 		},
 		{
@@ -461,7 +461,7 @@
 		{
 			"scope": "token.error-token",
 			"settings": {
-				"foreground": "#f44747"
+				"foreground": "#FDDDAB"
 			}
 		},
 		{

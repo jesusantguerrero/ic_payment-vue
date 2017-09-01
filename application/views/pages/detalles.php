@@ -188,16 +188,6 @@
                 </tbody>
               </table>
 
-              <!-- <div class="card original-card">
-                <div class="card-header">
-                 Featured
-               </div>
-                <div class="card-body">
-                  <h4 class="card-title">Special title treatment</h4>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div> -->
             </div>
 
 
@@ -235,6 +225,11 @@
                 </thead>
                 <tbody></tbody>
               </table>
+
+        <div class="alert alert-info reconnect-caller <?php if($client_data['estado'] == 'suspendido'): ?> visible<?php endif; ?>" role="alert" data-toggle="modal" data-target="#reconnect-modal">
+                Este cliente se encuantra suspendido, para activarlo y dar un nuevo contrato presione aqui
+              </div>
+            
             </div>
 
             <!---->
