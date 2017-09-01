@@ -188,7 +188,7 @@
                 </tbody>
               </table>
 
-              <div class="card original-card">
+              <!-- <div class="card original-card">
                 <div class="card-header">
                  Featured
                </div>
@@ -197,7 +197,7 @@
                   <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                   <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
-              </div>
+              </div> -->
             </div>
 
 

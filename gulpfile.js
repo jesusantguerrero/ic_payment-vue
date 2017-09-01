@@ -107,7 +107,7 @@ gulp.task('compress', function (){
   return merge(foot1,foot2)
 })
    
-gulp.task('final-compress',['clean-js','compress'], function (){
+gulp.task('final-compress',['compress'], function (){
   
     var head = gulp.src(headLibraries)
     .pipe(concat("head.bundle.js"))
@@ -134,10 +134,15 @@ gulp.task('final-compress',['clean-js','compress'], function (){
   return merge(head,foot)
 })
 
-gulp.task('clean-js', function () {
-  return del([
-    dist + '/*.js'
-  ])
+gulp.task('js', function(cb) {
+  pump([
+  gulp.src([path +'assets/js/*.js',"!" + path + 'assets/js/lib/', '!' + path + 'assets/js/min/'] ),
+  uglify(),
+  rename({suffix: '.min'}),
+  gulp.dest(path + "assets/js/min")
+],
+cb
+);   
 })
 
 gulp.task('css', function() {
@@ -156,7 +161,7 @@ gulp.task('css2', function() {
 
 gulp.task('watch', function() {
  gulp.watch(path + 'assets/css/**',['sass']);
- gulp.watch([superPath + 'assets/js/**.js', '!' + superPath + 'assets/js/dist','!' + superPath + 'assets/js/test'],['final-compress']);
+ gulp.watch([superPath + 'assets/js/**.js', '!' + superPath + 'assets/js/dist','!' + superPath + 'assets/js/test'],['js','final-compress']);
 });
 
 gulp.task('default',['watch',"css","css2"]);
