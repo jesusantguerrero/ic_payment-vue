@@ -431,7 +431,10 @@ function update_moras($context){
     update_state_moras($moras,$context);
     if($moras){
       $data = $context->payment_model->get_moras_view();
-			// prepare_moras($data,$context,$settings);
+      if(date('d') == $settings['fecha_corte'] + 1){
+        prepare_moras($data,$context,$settings);
+        suspension_automatica();
+      }
 		}
     $result = $context->settings_model->update('last_check_moras',$today);
   }	 
@@ -708,14 +711,11 @@ function generar_facturas_mes($context){
     if(date('d') == $settings['dia_generacion_factura'] and $hoy == $settings['ultima_generacion_factura']){
       $contratos = $context->db->get('v_pagos_generados')->result_array();
       foreach ($contratos as $contrato) {
-        if($contrato['estado'] == 'activo'){
-          if($contrato['pagos_generados'] < 3){
-            $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
-            $context->db->where('id_contrato',$contrato['contrato']);
-            $context->db->update('ic_pagos',['generado' => true]);
-          }else{
-            suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
-          }
+        if($contrato['estado'] == 'activo' and $contrato['pagos_generados'] < 3){
+
+          $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
+          $context->db->where('id_contrato',$contrato['contrato']);
+          $context->db->update('ic_pagos',['generado' => true]);
         }
       }
       $context->settings_model->update('ultima_generacion_factura',$hoy);
@@ -748,8 +748,12 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
   }
 }
 
-function cancelar_por_suspencion(){
-
+function suspension_automatica(){
+  $context =& get_instance();
+  $context->db->where('pagos_generados' >= 3);
+  foreach ($contratos as $contrato) {
+    suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
+  }
 }
 
 function get_settings(){

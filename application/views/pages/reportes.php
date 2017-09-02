@@ -62,7 +62,7 @@
                 <p></p>
               </div>
               <p class="fecha-reporte">Fecha:{{cierre.fecha}}</p>
-              <p><b class="hora-reporte">Autor {{cierre.autor}}<b></p>
+              <p><b class="hora-reporte">Autor {{cierre.autor}}</b></p>
           </div>
           <div class="concepto"><h4>Cierre de Caja</h4></div>
   
