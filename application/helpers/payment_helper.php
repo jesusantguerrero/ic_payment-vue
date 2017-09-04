@@ -723,6 +723,8 @@ function generar_facturas_mes($context){
 }
 
 function suspender_contrato($id_contrato,$id_cliente,$context){
+  generar_facturas_contrato($id_contrato,$context);
+
   $context->db->trans_start();
   $context->contract_model->update(['estado' => 'suspendido'],$id_contrato);
   $context->db->where('id_cliente',$id_cliente);
@@ -745,6 +747,23 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
      return false;
   }else{
     return true;
+  }
+}
+
+function generar_facturas_contrato($id_contrato, $context){
+  $context->db->where('contrato',$id_contrato);
+  $contrato = $context->db->get('v_pagos_generados')->row_array();
+  
+  $context->db->select('id_pago,estado');
+  $pagos = $context->db->where('id_contrato',$contrato['contrato'])
+  ->where('fecha_limite < current_date()')
+  ->get('ic_pagos')->result_array();
+  
+  foreach ($pagos as $pago) {
+    if($contrato['pagos_generados'] < 3){
+      $context->payment_model->update(['generado' => true],$pago['id_pago']);
+      if($pago['estado'] == 'no pagado')$contrato['pagos_generados'] += 1;
+    }
   }
 }
 

@@ -163,8 +163,11 @@ function makeContractList(response,callback){
     
     var contracts = JSON.parse(response);
     var value,service,equipment,eMac,router,rMac,code;
+    var selectContract = $("#extra-client-contract");
     var element = "<option value=''>--Selecciona--</option>";
     var cliente = contracts.cliente;
+    var contractId = contractTable.getId();
+
     for (var i = 0; i < contracts.contratos.length; i++) {
       value     = contracts.contratos[i]["id_contrato"];
       service   = contracts.contratos[i]["servicio"];
@@ -177,8 +180,10 @@ function makeContractList(response,callback){
       element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
       element += value +"</option>";  
     }
-    $("#extra-client-contract").html(element);
-    $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos'])
+    selectContract.html(element);
+    selectContract.val(contractId).change();
+    $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos']);
+
   }else{
     displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
   }

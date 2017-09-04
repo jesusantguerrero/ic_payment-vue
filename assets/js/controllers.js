@@ -534,6 +534,7 @@ var Contracts = {
     var form = "dni=" + dni;
     connectAndSend("process/data_for_extra", false, null, makeContractList, form, null);
   },
+
   // Note: lo siento, de aqui en adelante uso axios, es mucho mas comodo
   suspend: function (id_contrato) {
     form = "data=" + JSON.stringify({id_contrato:id_contrato})
