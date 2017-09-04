@@ -10,7 +10,10 @@
 		ga('send', 'pageview');
 	</script>
 	
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=4.1.48')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=4.1.5
+	
+	
+	3')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});

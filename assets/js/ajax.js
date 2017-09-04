@@ -486,6 +486,7 @@
 
   function sectionHandlers() {
     if (!ran) {
+      Sections.init()
       Sections.getIps();
       ran = true;
     }

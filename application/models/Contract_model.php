@@ -290,7 +290,7 @@ class Contract_model extends CI_MODEL{
       $this->db->where('estado','activo');
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $has_contracts = $this->db->count_all_results('ic_contratos');
-      if($has_contracts == 0){
+      if(!$has_contracts || $has_contracts == 0){
         $this->db->where('id_cliente',$current_contract['id_cliente']);
         $this->db->update('ic_clientes',array('estado' => 'no activo'));
       }

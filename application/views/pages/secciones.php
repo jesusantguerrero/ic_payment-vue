@@ -6,7 +6,7 @@
   <div class="main-content detalles col-md-12">
 
     <div class="row">
-      <div class="col-xs-6 col-md-3 center-row">
+      <div class="col-xs-6 col-md-3 center-row  no-print">
         <div class="page-header">
           <h3>Cobertura y Secciones</h3>
         </div>
@@ -40,17 +40,29 @@
 
             <!---->
             <div role="tabpanel" class="tab-pane detail-panel fade in  active" id="payments">
+              <div class="concepto t-center print-only"> <h4>Reporte de Secciones</h4></div>
+
+              <div id="toolbar">
+                <button id="btn-print-sections" class="btn btn-default pull-right">Imprimir</button>
+                <select id="filter-sections" class="btn btn-default pull-right">
+                  <option value="['ocupado','disponible']">Todos</option>
+                  <option value="ocupado">ocupadas</option>
+                  <option value="disponible">disponibles</option>
+                </select>
+              </div>
+
               <table data-toggle="table" 
               class="t-sections innertable" 
               id="t-sections" 
               data-sort-name="num" 
+              data-toolbar="#toolbar"
               data-sort-order="asc"
               data-search="true" 
               data-minimum-count-columns="2" 
               data-pagination="true" 
               data-id-field="num" 
-              data-page-size="20" 
-              data-page-list="[10,20,50,ALL]" 
+              data-page-size="50" 
+              data-page-list="[10,20,50,100,250]" 
               data-show-footer="false"
               data-response-handler="responseHandler">
                 <thead>

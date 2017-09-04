@@ -75,7 +75,6 @@ var loginLibrary = {
       Session.login();
     }
   }
-
 }
 
 $(function () {

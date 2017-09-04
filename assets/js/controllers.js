@@ -906,5 +906,28 @@ var Sections = {
     function fillSelect(content){
       $("#select-sector").html(content);
     }
+  },
+
+  init: function(){
+    var $table = $("#t-sections");
+    var $btnPrint = $("#btn-print-sections");
+    var $selectState = $("#filter-sections");
+    
+
+    $selectState.on('change',function(){
+      var filter = $(this).val()
+      if(filter.includes("]"))
+        filter = ['ocupado','disponible']
+      console.log(filter)
+
+      $table.bootstrapTable('filterBy',{
+        estado:  filter
+      })
+    })
+
+    $btnPrint.on('click', function(){
+      print();
+    })
+
   }
 }
