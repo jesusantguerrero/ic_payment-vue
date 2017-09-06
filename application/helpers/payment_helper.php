@@ -425,7 +425,7 @@ function update_moras($context){
   $settings = $context->settings_model->get_settings();
 
   $next_check = $settings['next_check'];
-  if($next_check == $today){
+  if($next_check != $today){
     $moras = $context->payment_model->get_moras_view("group");
 
     update_state_moras($moras,$context);
@@ -787,7 +787,10 @@ function generar_facturas_contrato($id_contrato, $context){
 
 function suspension_automatica(){
   $context =& get_instance();
-  $context->db->where('pagos_generados' >= 3);
+  $context->db->where('pagos_generados >= 3','',false);
+  $contratos = $context->db->get('v_pagos_generados')->result_array();
+  //var_dump("ando aqui");
+  //var_dump($contratos);
   foreach ($contratos as $contrato) {
     suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
   }

@@ -135,7 +135,7 @@ var appPagoExtra = new Vue({
         var data = res.data
         displayMessage(data.mensaje);
         extraTable.refresh(data.extras);
-        self.getPayments(extra.id_extra);
+        self.getPayments(self.extra.id_extra);
         extraTable.el.parents(".bootstrap-table").addClass("hide");
       })
       send.catch(function(error){
