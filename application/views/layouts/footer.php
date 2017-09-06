@@ -10,7 +10,7 @@
 		ga('send', 'pageview');
 	</script>
 	
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=4.1.21
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=beta-3.0.0
 	
 	
 	3')?>"></script>

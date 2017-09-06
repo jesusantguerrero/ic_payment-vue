@@ -425,7 +425,7 @@ function update_moras($context){
   $settings = $context->settings_model->get_settings();
 
   $next_check = $settings['next_check'];
-  if($next_check != $today){
+  if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
 
     update_state_moras($moras,$context);
@@ -444,11 +444,11 @@ function prepare_moras($data,$context,$settings){
 
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
-    $cuota = $pago['cuota'];
+    $cuota = get_cuota($pago['id_contrato'],$context);
     $monto_extra = $pago['monto_extra'];
     $total = $pago['total'];
-    $mora  =   ($settings['cargo_mora'] / 100) * $pago['cuota'];
-    $total = $cuota + $monto_extra + $mora;
+    $mora  =   ($settings['cargo_mora'] / 100) * $cuota;
+    $total = $pago['cuota'] + $monto_extra + $mora;
     $updated_data = array(
       'id_pago' => $pago['id_pago'],
       'mora'    => $mora,
@@ -794,6 +794,12 @@ function suspension_automatica(){
   foreach ($contratos as $contrato) {
     suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
   }
+}
+
+function get_cuota($id_contrato,$context){
+  $context->db->where('id_contrato',$id_contrato)
+  ->select('cuota');
+  return $context->db->get('v_contratos',1)->row_array()['cuota'];
 }
 
 function get_settings(){

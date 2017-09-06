@@ -360,8 +360,8 @@
                   <br>
                 </div>
                 <div class="col-md-3 mb-3">
-                  <label for="validationCustom04">Recibo</label>
-                  <input type="text" class="form-control" id="validationCustom04">
+                  <label for="">Recibo</label><br>
+                  <p :class="{hide: hide_recibo}"><a  target="_blank" :href="url_recibo"><i class="material-icons">description</i></a>  {{recibo.estado}}</p>
                 </div>
               </div>
               <div class="row" :class="firstControls">

@@ -18,8 +18,7 @@ class Extra_model extends CI_MODEL{
 
   public function add_extra($data){
     if($this->db->insert('ic_servicios_extra',$data)){
-      $response['mensaje'] =  MESSAGE_SUCCESS." extra agregado";
-      echo json_encode($response);
+      echo MESSAGE_SUCCESS." extra agregado";
     }else{
       echo MESSAGE_ERROR." error al agregar este gasto";
     }
@@ -49,13 +48,15 @@ class Extra_model extends CI_MODEL{
   public function generate_extra_payment($data){
     $hoy = date('Y-m-d');
     $id_empleado = $_SESSION['user_data']['user_id'];
+    $detalles_extra = 'por editar';
 
     $data_extra = array(
       'id_extra'    => $data['id_extra'],
       'id_servicio' => $data['id_servicio'],
       'fecha_pago'  => $hoy,
-      'concepto'    => "extra ($hoy)",
+      'concepto'    => "extra ($detalles_extra)",
       'estado'      => 'no pagado',
+      'detalles_extra' => $detalles_extra,
       'id_empleado' => $id_empleado,
       'fecha_limite'=> ''
     );
@@ -94,6 +95,8 @@ class Extra_model extends CI_MODEL{
     
     $this->payment_model->update($data,$info['id_pago']);
     $monto_pagado = $this->get_monto_pagado_of($info['id_extra']);
+    $deuda = $extra['monto_total'] - $monto_pagado;
+    $this->payment_model->update(['deuda' => $deuda],$info['id_pago']);
 
     if($monto_pagado >= $extra['monto_total']){
       $estado = "saldado";

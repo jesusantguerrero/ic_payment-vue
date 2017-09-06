@@ -7,7 +7,7 @@
 	<title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=4.0.6') ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=4.0.6') ?>" />
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=4.1.11') ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=beta-3.0.0') ?>" />
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/head.bundle.js?version=4.1.11') ?>"></script>
 	<link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
 	<link rel="manifest" href="<?php  echo base_url('/manifest.json')?>">
