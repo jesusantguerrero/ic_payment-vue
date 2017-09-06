@@ -34,6 +34,7 @@
  $(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
  $(".company-statement").text("<?php echo $company['descripcion'] ?>");
  $(".company-direction").text("<?php echo $company['direccion']  ?>");
+ print();
 </script>
  </body>
 </html>

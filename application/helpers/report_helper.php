@@ -139,7 +139,7 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","celular","Cuota","Mora","Extra","Total","PP","Meses"); 
+    $context->table->set_heading("Contrato","Cliente","Celular","Codigo IP","Direccion IP"); 
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
@@ -149,12 +149,8 @@ if ( ! function_exists('make_moras_report')){
       $line['id_contrato'],
       $line['cliente'],
       phone_format($line['celular']),
-      "RD$ ".CurrencyFormat($line['cuota']),
-      "RD$ ".CurrencyFormat($line['mora']),
-      "RD$ ".CurrencyFormat($line['monto_extra']),
-      "RD$ ".CurrencyFormat($line['total']),
-      $line['pagos_pendientes'],
-      str_replace($in_english,$in_spanish,$line['meses'])
+      $line['codigo'],
+      $line['ip_final']
       );
 
      $cont+=1;
@@ -162,7 +158,6 @@ if ( ! function_exists('make_moras_report')){
 
     $html_text = $context->table->generate();
     if($for_print):
-      $html_text = '<h4>PP = Pagos Pendientes</h4>' . $html_text;
       set_report($html_text,$concept,$more = '');
     else:
       return $html_text;

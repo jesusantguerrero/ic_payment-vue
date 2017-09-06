@@ -768,6 +768,16 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
   }
 }
 
+function estabilizar_moras($context){
+  $contratos = $context->db->group_by('cliente')->select('id_cliente')->get('v_morosos')->result_array();
+    foreach ($contratos as $contrato) {
+      var_dump($contrato['id_cliente']);
+      echo "<br>";
+      $context->db->where('id_cliente',$contrato['id_cliente']);
+      $context->db->update('ic_clientes',['estado' => 'mora']);
+    }
+}
+
 function generar_facturas_contrato($id_contrato, $context){
   $context->db->where('contrato',$id_contrato);
   $contrato = $context->db->get('v_pagos_generados')->row_array();
@@ -789,10 +799,10 @@ function suspension_automatica(){
   $context =& get_instance();
   $context->db->where('pagos_generados >= 3','',false);
   $contratos = $context->db->get('v_pagos_generados')->result_array();
-  //var_dump("ando aqui");
-  //var_dump($contratos);
   foreach ($contratos as $contrato) {
-    suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
+    if($contrato['pagos_generados'] >= 3){
+      suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
+    }
   }
 }
 

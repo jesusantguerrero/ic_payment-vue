@@ -93,6 +93,7 @@ class Report_model extends CI_MODEL{
     $sql = "
     id_contrato,
     codigo,
+    ip_final,
     id_cliente,
     cliente,
     celular,
