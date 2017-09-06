@@ -404,10 +404,11 @@
     });
 
   }
-
   //***************************************************  Init Payments  Handlers   ***************************** */
+  
   function initPaymentsHandlers() {
     paymentTable.init();
+    extraTable.init();
     if (!ran) {
       Payments.getAll();
       ran = true;

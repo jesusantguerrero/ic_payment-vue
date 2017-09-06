@@ -491,12 +491,10 @@ var Contracts = {
     }else{
       swal("Llene todos los campos")
     }
-   
-
   },
 
   addExtra: function () {
-    var form, contractId, extraService, serviceCost, equipment, eMac, router, rMac;
+    var form, contractId, extraService, serviceCost, equipment, eMac, router, rMac,paymentMode;
 
     contractId = $("#extra-client-contract").val();
     serviceCost = $("#extra-service-cost").val();
@@ -505,11 +503,13 @@ var Contracts = {
     eMac = $("#extra-e-mac").val();
     router = $("#extra-router").val();
     rMac = $("#extra-r-mac").val();
+    paymentMode = $("#select-payment-mode").val();
 
-    var is_empty = isEmpty([contractId, extraService, serviceCost]);
+    var is_empty = isEmpty([contractId, extraService, serviceCost,paymentMode]);
     if (!is_empty) {
       form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
       form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
+      form += '&modo_pago=' + paymentMode;
       connectAndSend('process/addextra', true, initGlobalHandlers, null, form, Contracts.getAll);
     } else {
       displayAlert("revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
@@ -581,6 +581,10 @@ var Payments = {
     $inputAbono.val('')
   },
 
+  saveExtra: function () {
+    var send = axios.post(BASE_URL + 'process/')
+  },
+
   updateUntil: function(contractId,lastPaymentId){
     var id_contrato = $("#select-contract").val();
     var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
@@ -595,7 +599,7 @@ var Payments = {
 
   contractRefresh: function(){
     var id_cliente = $('#detail-client-id').val()
-     var form = "tabla=contratos_cliente&id=" + id_cliente;
+    var form = "tabla=contratos_cliente&id=" + id_cliente;
     connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);
   },
 
@@ -928,6 +932,26 @@ var Sections = {
     $btnPrint.on('click', function(){
       print();
     })
+
+  }
+}
+
+var Extras = {
+  remove: function (id) {
+    var id_cliente, send;
+    
+    id_cliente = $('#detail-client-id').val()
+    form = "data=" + JSON.stringify({id: id,id_cliente: id_cliente});
+    send = axios.post(BASE_URL + 'extra/delete_extra', form);
+    send.then(function(res){
+      var data = res.data;
+      displayMessage(data.mensaje);
+      extraTable.refresh(data.extras);
+    });
+    
+    send.catch(function(error){
+      console.log(error);
+    });
 
   }
 }

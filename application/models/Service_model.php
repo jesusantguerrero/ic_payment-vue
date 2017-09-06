@@ -110,7 +110,7 @@ class Service_model extends CI_MODEL{
   }
 
   public function get_service($id){
-    $sql = "SELECT * FROM ic_servicios WHERE id_servicio=". $id;
+    $sql = "SELECT * FROM ic_servicios WHERE id_servicio='$id' or nombre='$id' limit 1";
     $result = $this->db->query($sql);
     if($result){
       $result =$result->row_array();

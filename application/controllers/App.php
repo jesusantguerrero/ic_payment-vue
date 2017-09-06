@@ -17,6 +17,7 @@ class App extends CI_Controller {
 		$this->load->model("caja_chica_model");
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
+		$this->load->model("extra_model");
 
 	update_moras($this);
 		generar_facturas_primera_vez($this);

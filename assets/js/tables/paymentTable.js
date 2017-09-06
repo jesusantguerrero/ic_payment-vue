@@ -21,7 +21,6 @@ var paymentTable = {
       event.stopImmediatePropagation();
       var self = paymentTable;
       $(".payment-mode").removeClass("selected");
-      
       if(!$el.hasClass('selected') && row.estado == "no pagado"){
         self.detailBox.show();
         self.detailBox.collapse();
@@ -138,4 +137,118 @@ var detailsContractTable = {
     if(callback)
        callback();
   }   
+}
+
+
+var bus = new Vue()
+
+var extraTable = {
+  init: function(page,row){
+    this.el = $('#t-extras');
+    this.el.bootstrapTable();
+    this.el.find('tbody').css({display:"table-row-group"});
+    this.el.addClass('innertable');
+    this.detailBox = $('#payment-detail-box');
+    this.detailBox.hide()
+    
+    if(page,row){
+      var id = row.id_contrato;
+      if(id == extraTable.getRow().id_contrato)
+        this.el.bootstrapTable('selectPage',page);
+    }
+
+    this.el.on('dbl-click-row.bs.table',function(event,row,$el,field){
+      //  Payments.getOne(row.id, Payments.edit);
+    });
+
+    this.el.on('click-row.bs.table',function(event,row,$el,field){
+      event.stopImmediatePropagation();
+      var self = extraTable;
+      $(".payment-mode").removeClass("selected");
+      
+      if(!$el.hasClass('selected')){
+        bus.$emit('row-selected',row);
+      }
+    })
+
+    extraTable.clickEvents();
+    this.el.on('all.bs.table',function(name,args){
+      extraTable.clickEvents()
+    })
+  },
+
+  getSelectedRow: function(){
+    var self = this;
+    return self.el.bootstrapTable('getSelections')[0]
+  },
+
+  getId: function(){
+    var self = this;
+    return $.map(self.el.bootstrapTable('getSelections'),function(row){
+      return row.id;
+    });
+  },
+
+  getRow: function(id){
+    var data = this.el.bootstrapTable('getData');
+    return data[0];
+
+  },
+
+  refresh: function(content,callback){
+    var options = extraTable.el.bootstrapTable('getOptions');
+    var row     = extraTable.getRow();
+
+    extraTable.el.bootstrapTable('destroy');
+    extraTable.el.find('tbody').html(content);
+    extraTable.init(options.pageNumber, row);
+    if(callback)
+       callback();
+  },  
+  
+  filter: function(value, type){
+    if(type == 'estado'){
+      this.el.bootstrapTable('filterBy',{
+        estado: value
+      });
+    }else{
+      hoy = moment().format("YYYY-MM-DD")
+      this.el.bootstrapTable('filterBy',{
+        fecha_limite: []
+      });
+
+    }
+    
+  },
+
+  clickEvents: function(){
+    $(".payment-advanced").on('click',function(e) {
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      console.log('yo si funciono')
+      var id = $(this).attr('data-id-pago').trim();
+      if (id) {
+        Payments.getOne(id, Payments.receiveForEdit);
+      }
+    });
+
+    $(".extra-delete").on('click',function(e) {
+      e.preventDefault()
+      e.stopImmediatePropagation();
+      var id = $(this).attr('data-id-extra').trim();
+      if (id) {
+         swal({
+          title: 'Está Seguro?',
+          text: "Seguro de que quiere deshacer servicio extra?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Estoy Seguro!',
+          'cancelButtonText': 'Cancelar'
+        }).then(function(){
+          Extras.remove(id);
+        });
+      }
+    });
+
+  }
 }

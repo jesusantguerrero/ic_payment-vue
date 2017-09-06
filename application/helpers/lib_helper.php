@@ -185,6 +185,44 @@ if ( ! function_exists('make_contract_table')){
   }
 }
 
+function make_extra_table($data,$start_at){
+  
+   $html_text = " "; 
+   $state = '';
+   $row_class = '';
+   $posible_states = array(
+     'done'      => 'activo',
+     'error'     => 'no activo',
+     'process'   => '',
+     'saldado'   => 'saldado',
+     'cancelado' => 'cancelado',
+     'mora'      => 'mora',
+     'suspendido'=> 'suspendido',
+     'exonerado' => 'exonerado',
+     'en corte'  => 'en corte'
+   );
+
+   foreach ($data as $line) {
+      $state = verify_state($line['estado'],$posible_states);
+      $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
+       $html_text .= "<tr class='$row_class'>
+       <td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>
+       <td class='id_extra hide'>".$line['id_extra']."</td>
+       <td class='id_servicio hide'>".$line['id_servicio']."</td>
+       <td class='hide'></td>
+       <td>".date_spanish_format($line['fecha'])."</td>
+       <td>".$line['servicio']."</td>
+       <td>".date_spanish_format($line['ultimo_pago'])."</td>
+       <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
+       <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+       <td class='{$state['class']}'>".$line['estado']."</td>
+     </tr>";
+   }
+
+   return $html_text;
+ }
+
+
 if ( ! function_exists('make_main_contract_table')){
   /**
   * create a table for the data from users to display in the interface
@@ -347,6 +385,15 @@ function make_payment_list($data){
       $count++;
     }
     return $html_text;
+}
+
+function make_extra_payment_list($data){
+  $html_text = "";
+  foreach ($data as $line) {
+    $html_text .= "<option value='{$line['id_pago']}' data-extra='{$line['id_extra']}'>";
+    $html_text .= "{$line['concepto']}</option>";
+  }
+  return $html_text;
 }
 
 function make_next_payments_list($data){

@@ -47,6 +47,7 @@ var footLibraries2 = [
   path + "assets/js/ajax.js",
   path + "assets/js/ajax2.js",
   path + "assets/js/cierreCaja.js",
+  path + "assets/js/extras.js",
 	path + "assets/js/lib/adminlte.min.js",
 	path + "assets/js/lib/jquery.inputmask.js",
 	path + "assets/js/lib/icheck.min.js"

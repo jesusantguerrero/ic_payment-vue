@@ -31,8 +31,8 @@ class Caja extends CI_Controller {
 		}
 		$response['pagos_efectivo'] = $this->caja_mayor->get_ingresos($data['fecha'],'efectivo');
 		$response['pagos_banco'] 		= $this->caja_mayor->get_ingresos($data['fecha'],'banco','efectivo');
-		$response['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'','extra');
-		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extra');
+		$response['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'facturas');
+		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extras');
 		echo json_encode($response);
 	}
 

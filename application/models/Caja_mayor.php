@@ -179,12 +179,16 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
-  public function get_extras_or_recibos($fecha,$concepto,$not_in = null){
+  public function get_extras_or_recibos($fecha,$mode = null){
     $tabla = 'ic_pagos';
     $where = array('fecha'=> $fecha);
-    $this->db->where("fecha_pago= '$fecha' and estado= 'pagado' and concepto like '%$concepto%'")
-    ->where_not_in('concepto',$not_in)
-    ->select_sum('total');
+    $this->db->where("fecha_pago= '$fecha' and estado= 'pagado'");
+    if($mode == "facturas"){
+      $this->db->where('id_extra',null);
+    }else{
+      $this->db->where('id_extra > 0');
+    }
+    $this->db->select_sum('total');
     
     if($ingreso = $this->db->get($tabla,1) and $ingreso != null){
       $ingreso = $ingreso->row_array()['total'];

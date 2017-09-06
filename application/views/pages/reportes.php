@@ -1,5 +1,4 @@
 <div class="screen reports row">
-
   <?php 
   $ingresos      = $this->payment_model->get_incomes_per_month(); 
   $salidas       = $this->caja_chica_model->get_transactions_per_month('salida');

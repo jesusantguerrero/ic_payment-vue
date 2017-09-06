@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
 * IC Payment
 *@author Jesus Guerrero

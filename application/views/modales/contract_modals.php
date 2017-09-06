@@ -83,6 +83,14 @@
                       <label for="cient-sector">Router</label>
                       <input class="form-control" id="extra-router" tabindex="6">
                     </div>
+                    <div class="form-group">
+                    <label for="cient-sector">Modo de Pago</label>
+                    <select class="form-control" id="select-payment-mode">
+                        <option value="">-- Seleccione un modo de pago--</option>
+                        <option value="1">Cargar al proximo pago</option>
+                        <option value="2">Factura aparte</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="col-md-6">

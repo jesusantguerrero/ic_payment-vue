@@ -186,8 +186,7 @@ function makeContractList(response,callback){
 
   }else{
     displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
-  }
-  
+  } 
 }
 
 function clearTbody(objecId){
