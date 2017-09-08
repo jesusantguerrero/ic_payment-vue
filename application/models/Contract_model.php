@@ -176,7 +176,6 @@ class Contract_model extends CI_MODEL{
     $this->db->where('id_contrato',$current_contract['id_contrato']);
     $this->db->update('ic_contratos',$data_contrato);
     $this->get_next_payment_for_contract($current_contract['id_contrato']);
-
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
@@ -287,17 +286,19 @@ class Contract_model extends CI_MODEL{
   }
 
   public function check_is_active_client($current_contract){
-      $this->db->where('estado','activo');
-      $this->db->where('id_cliente',$current_contract['id_cliente']);
-      $has_contracts = $this->db->count_all_results('ic_contratos');
-      if(!$has_contracts || $has_contracts == 0){
-        $this->db->where('id_cliente',$current_contract['id_cliente']);
-        $this->db->update('ic_clientes',array('estado' => 'no activo'));
-      }
-      if($current_contract['proximo_pago'] >= date('Y-m-d')){
-        $this->db->where('id_cliente',$current_contract['id_cliente']);
-        $this->db->update('ic_clientes',array('estado' => 'activo'));
-      }
-  }
+    $this->db->where('estado','activo');
+    $this->db->where('id_cliente',$current_contract['id_cliente']);
+    $has_contracts = $this->db->count_all_results('ic_contratos');
+    $contract = $this->get_contract_view($current_contract['id_contrato']);
 
+    if(!$has_contracts || $has_contracts == 0){
+      $this->db->where('id_cliente',$current_contract['id_cliente']);
+      $this->db->update('ic_clientes',array('estado' => 'no activo'));
+    }
+
+    if($contract['proximo_pago'] >= date('Y-m-d')){
+      $this->db->where('id_cliente',$current_contract['id_cliente']);
+      $this->db->update('ic_clientes',array('estado' => 'activo'));
+    }
+  }
 }
