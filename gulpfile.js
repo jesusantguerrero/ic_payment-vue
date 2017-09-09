@@ -32,6 +32,8 @@ var footLibraries = [
 	path + "assets/bt/bootstrap-table.min.js",
   path + "assets/bt/locale/bootstrap-table-es-SP.min.js",
   path + "assets/js/lib/sweetalert2.min.js",
+  path + "assets/js/lib/peace.min.js",
+  path + "assets/js/lib/select2.full.min.js",
   path + "assets/js/tables/clientTable.js",
   path + "assets/js/tables/serviceTable.js",
   path + "assets/js/tables/contractTable.js",
@@ -53,6 +55,8 @@ var footLibraries2 = [
 	path + "assets/js/lib/icheck.min.js"
 ]
 
+var Components = `${path}assets/js/components/**.js`
+
 // sass files
 
 var cssFiles = [
@@ -66,7 +70,9 @@ var cssFiles = [
 var frontendCss = [
   path + "assets/css/5-others/AdminLTE.min.css",
   path + "assets/css/5-others/square/blue.css",
-  path + "assets/css/5-others/square/square.css"
+  path + "assets/css/5-others/square/square.css",
+  path + "assets/css/5-others/select2.min.css",
+  path + "assets/css/5-others/peace-material.min.css"
 ]
 
 const superPath = 'C:/xampp/htdocs/icpayment/'
@@ -104,30 +110,38 @@ gulp.task('compress', function (){
     .pipe(concat("foot2.bundle.js"))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest(distTest))
+
   
   return merge(foot1,foot2)
 })
-   
+
 gulp.task('final-compress',['compress'], function (){
   
-    var head = gulp.src(headLibraries)
-    .pipe(concat("head.bundle.js"))
-    .pipe(gulp.dest(distTest))
+  var head = gulp.src(headLibraries)
+  .pipe(concat("head.bundle.js"))
+  .pipe(gulp.dest(distTest))
+  .pipe(uglify())
+  .pipe(gulp.dest(distMin))    
+  
+  var foot = gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
+  .pipe(concat("final.bundle.js"))
+  .pipe(gulp.dest(distTest))
+  .pipe(uglify())
+  .pipe(gulp.dest(distMin))
+  
+  var components = gulp.src(Components)
+    .pipe(sourcemaps.init())
+    .pipe(concat('components.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(distMin))    
-
-    var foot = gulp.src([distTest + '/foot.bundle.js', distTest + '/foot2.bundle.js'])
-    .pipe(concat("final.bundle.js"))
-    .pipe(gulp.dest(distTest))
-    .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(distMin))
 
-  return merge(head,foot)
+  return merge(head,foot,components)
 })
 
 gulp.task('js', function(cb) {
   pump([
-  gulp.src([path +'assets/js/*.js',"!" + path + 'assets/js/lib/', '!' + path + 'assets/js/min/'] ),
+  gulp.src([path +'assets/js/**.js',"!" + path + 'assets/js/lib/', '!' + path + 'assets/js/min/'] ),
   uglify(),
   rename({suffix: '.min'}),
   gulp.dest(path + "assets/js/min")
@@ -152,7 +166,7 @@ gulp.task('css2', function() {
 
 gulp.task('watch', function() {
  gulp.watch(path + 'assets/css/**',['sass']);
- gulp.watch([superPath + 'assets/js/**.js', '!' + superPath + 'assets/js/dist','!' + superPath + 'assets/js/test'],['js','final-compress']);
+ gulp.watch([superPath + 'assets/js/**.js',`${superPath}assets/js/components/*.js`, '!' + superPath + 'assets/js/dist','!' + superPath + 'assets/js/test'],['js','final-compress']);
 });
 
 gulp.task('default',['watch',"css","css2"]);

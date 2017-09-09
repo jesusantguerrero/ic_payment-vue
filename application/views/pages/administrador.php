@@ -5,6 +5,7 @@
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
       <li class="aside-buttons"><a href="#caja-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
       <li class="aside-buttons"><a href="#settings-section"><i class="material-icons">settings</i> Ajustes</a></li>
+      <li class="aside-buttons"><a href="#message-settings-section"><i class="material-icons">phonelink_setup</i> Ajustes de Mensajes</a></li>
     </ul>
   </div>
 
@@ -146,13 +147,13 @@
         </table>
       </div>
 
-<!-- ******************************
-      *     Sección de los usuarios   *
+  <!-- ******************************
+      *     Ajustes de progamas       *
       *                               *
     ********************************-->
-<div class="company-details" id="settings-section">
+  <div class="company-details" id="settings-section">
   <?php $empresa = $this->company_model->get_empresa();
-         ?>
+          ?>
   <h3> Ajustes del Programa</h3>
   <form action="">
     <div class="row">
@@ -215,7 +216,72 @@
       </div>
   </form>
   </div>
+
 </div>
+  <!-- ******************************
+      *     Ajustes de progamas       *
+      *                               *
+    ********************************-->
+    
+    <div class="company-details" id="message-settings-section">
+  <h3> Ajustes de Mensajes</h3>
+  <form action="">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="company-name">Correo Electronico</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">email</i></div>
+            <input type="number" class="form-control" v-model="config.email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="company-phrase">Codigo Pais</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">settings_phone</i> </div>
+            <select name="" class="form-control" v-model="config.country_id">
+              <option value="+1">RD(+1)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="company-phone1">ID Telefono</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">phone</i></div>
+            <input type="number" class="form-control" v-model="config.device_id">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="company-name">Contraseña</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">lock_outline</i></div>
+            <input type="password" class="form-control" v-model="config.password" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="company-name">Margen Entre Mensajes</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">access_time</i></div>
+            <input type="number" class="form-control" v-model="config.start_at">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="company-name">Tiempo de Expiracion</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="material-icons">access_time</i></div>
+            <input type="number" class="form-control" v-model="config.expires_at" >
+          </div>
+        </div>
+        <div class="right">
+          <input  type="submit" value="Revisar" @click.prevent.stop="saveSettings">
+        </div>
+
+      </div>
+  </form>
+  </div>
 </div>
 
 </div>

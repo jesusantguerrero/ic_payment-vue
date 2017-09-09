@@ -57,7 +57,6 @@ var Session = {
     }
   }
 }
-
 var loginLibrary = {
   loading: function(stop) {
     if(!stop){

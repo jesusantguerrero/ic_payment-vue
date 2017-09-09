@@ -185,7 +185,6 @@ var appPagoExtra = new Vue({
 
 });
 
-
 bus.$on('row-selected',function (row) {
   extraTable.el.parents(".bootstrap-table").addClass("hide");
   appPagoExtra.visible = true
