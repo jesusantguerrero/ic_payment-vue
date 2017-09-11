@@ -282,15 +282,13 @@ if ( ! function_exists('make_averias_list')){
     $html_text = " "; 
     foreach ($data as $line) {
       $icono = 'check_box_outline_blank';
-      $color = 'red';
+      $color = '#dF0a00';
+      $fecha_class = 'hide';
         switch ($line['estado']) {
-          case 'en proceso':
-            $icono = 'av_timer';
-            $color = '#f60';
-            break;
           case 'reparado':
             $icono = 'check_box';
-            $color = 'green';
+            $color = '#1FD1A8';
+            $fecha_class = '';
             break;
         }
         $html_text .= "<div class='averia-item'>
@@ -301,11 +299,13 @@ if ( ! function_exists('make_averias_list')){
               <button class='btn-update-averia'>Actualizar</button> 
             </div>
             <div class='description'>
-              <div class='date'>".$line['fecha']."</div>
-              <div class='title-item'>Averia :</div>
-              <div class='text'>".$line['descripcion']."</div>
+            <div class='title-item'>Averia :</div>
+            <div class='text'>".$line['descripcion']."</div>
             </div>
-            <div class='status-bar'><span class='status' style='color: $color'><i class='material-icons'>$icono</i><span>".$line['estado']."</span></span></div>
+            <div class='status-bar'>
+              <span><i class='material-icons'>event</i> Fecha de Reporte: ".$line['fecha']."</span>
+              <span class='$fecha_class' style='color:#06f'><i class='material-icons'>event</i> Fecha de Reparacion:".$line['fecha_reparacion']." </span>
+              <span class='status' style='color: $color'><i class='material-icons'>$icono</i>". $line['estado']."</span></div>
             </div>";
     }
 

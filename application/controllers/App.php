@@ -20,7 +20,7 @@ class App extends CI_Controller {
 		$this->load->model("extra_model");
 
 		update_moras($this);
-		suspension_automatica();
+		suspension_automatica();//estabilizar_moras($this);
 		generar_facturas_mes($this);
 
  }

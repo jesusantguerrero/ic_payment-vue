@@ -42,12 +42,14 @@ class Averia_model extends CI_MODEL{
     switch ($status) {
       case 'por reparar':
         $status = 'reparado';
+        $fecha_reparacion = date('Y-m-d');
         break;
       default: 
-       $status =  'por reparar';
+        $status =  'por reparar';
+        $fecha_reparacion = '';
     }
     $this->db->where('id_averia',$id_averia);
-    if($this->db->update('ic_averias',array("estado" => $status))){
+    if($this->db->update('ic_averias',array("estado" => $status,"fecha_reparacion" => $fecha_reparacion))){
       echo MESSAGE_SUCCESS." Estado de averia cambiado a ". $status;
     }
 

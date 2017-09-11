@@ -6,7 +6,6 @@ Class Message_model extends CI_Model {
   function __construct(){
     parent::__construct();
     $this->load->library('my_firebase');
-    $this->config->load('message_settings',TRUE);
   }
 
   function add_config($data){

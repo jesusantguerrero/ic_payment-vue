@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-include_once(dirname(__FILE__).'/third/SmsGateway.php');
+require(APPPATH . 'libraries/third/SmsGateway.php');
 
 Class Messagegate{
 
