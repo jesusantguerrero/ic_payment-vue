@@ -23,12 +23,35 @@
             <div class="col-md-12">
               <input type="text" class="form-control hidden" id="averias-client-id">
               <div class="form-group">
-                <label for="user-nickname">Numero de telefono</label>
-                <input type="text" class="form-control" id="message-phone">
+                <div id="el"></div>
+                <label for="user-nickname">Tipo de Mensaje</label>
+                <select type="text" style="width: 100%; border-radius:0;" id="message-type">
+                  <option value="mora">Morosos</option>
+                  <option value="suspendido">Suspendidos</option>
+                  <option value="activo">Activos</option>
+                  <option value="no activo">No activos</option>
+                  <option value="personalizado">Personalizado</option>
+                  <option value="otros">Otros</option>
+                </select>
               </div>
+              
+              <div :class="{hide: hide_clients}" class="from-control">
+                <label for="user-nickname">Clientes</label>
+                <select type="text" class="form-control" id="clients-for-message" style="width: 100%; border-radius:0;" multiple>
+                  <option value="">clientes/clientes</option>
+                </select>
+              </div>
+
+              <div :class="{hide: hide_numbers}" class="from-group" >
+                <label for="user-nickname">Numero(s)</label>
+                <input type="text" class="form-control" id="message-phone" v-model="message_data.numeros">
+              </div>
+
               <div class="form-group">
                 <label for="service-description">Mensaje</label>
-                <textarea class="form-control " cols="30" rows="5" id="message-text"></textarea>
+                <textarea class="form-control " cols="30" rows="5" id="message-text" v-model="message_data.mensaje"></textarea>
+                <p>Caracteres utilizados <span style="color: #06f">{{letters_count}}</span></p>
+                <p>El limite por minimensajes son 160 caracteres</p>
               </div>
             </div>
           </div>
@@ -36,7 +59,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn save" id="btn-send-message">enviar</button>
+        <button type="button" class="btn save" id="btn-send-message" @click.stop.prevent="sendMessage">enviar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -311,3 +334,17 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<script type="text/x-template" id="demo-template">
+  <div>
+    <select2 :options="options" v-model="selected">
+      <option disabled value="0">Select one</option>
+    </select2>
+  </div>
+</script>
+
+<script type="text/x-template" id="select2-template">
+  <select>
+    <slot></slot>
+  </select>
+</script>

@@ -176,6 +176,23 @@ class Client_model extends CI_MODEL{
       echo $result;
     }
   }
+
+  public function search_clients_for_message($word){
+    $fields = array(
+     'id_cliente' => $word,
+     'cedula'     => $word,
+     'nombres'    => $word,
+     'apellidos'  => $word,
+     "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
+    );
+    
+    $this->db->select("concat(nombres,' ',apellidos) as text, celular as id");
+    $this->db->or_like($fields);
+    if($result = $this->db->get('ic_clientes')){
+      return $result->result_array();
+    }
+    var_dump($this->db->last_query());
+  }
   
   public function get_client($id){
     $sql = "SELECT * FROM ic_clientes WHERE id_cliente = $id || cedula ='$id'";

@@ -2,41 +2,165 @@ var configMessage = {
   email: '',
   password: '',
   device_id: '',
-  countryCode: '',
-  send_at: '',
-  expires_at: ''
+  country_code: '',
+  send_at: '1 second',
+  expires_at: '1 hour'
 }
-
-var gatewayPath = 'http://smsgateway.me/api/v3/devices/view/[id]'
 
 var configMessagesForm = new Vue({
   el: '#message-settings-section',
   data: {
     config: configMessage
   },
+  mounted: function () {
+    this.getConfig()
+  },
+
   methods:{
     confirmPhone: function () {
-      var config, deviceUrl, send
-      config = this.config
+    },
 
+    getConfig: function () {
+      var send
+      var self = this;
+      send = axios.get(BASE_URL + 'messages/get_config')
+      send.then(function (res) {
+        self.config = res.data.config
+      })
+      send.catch(function (error) {
+        console.log(error)
+      })
+    },
+    
+    saveSettings: function (e) {
+      var config, form, send
+      config = this.config
+  
       if(!isEmpty([config.email, config.password, config.device_id])){
-        devicesUrl = gatewayPath.replace('[id]', config.device_id)
-        send = axios.get(devicesUrl,{email: config.email, password: config.password})
+        form = 'data=' + JSON.stringify(config)
+        send = axios.post(BASE_URL +'messages/save_config',form)
         send.then(function (res) {
-          console.log(res)
+          displayMessage(res.data.mensaje)
         })
         send.catch(function (err) {
           console.log(err)
         })
-
+  
       }else{
         swal('Campos Requeridos','Por favor llene los campos correo electronico, contrasenia y id telefono para verificar')
       }
+    }
+  }
+})
+
+var sendMessageApp = new Vue({
+  el: '#send-message-modal',
+  
+  data: {
+    hide_clients: true,
+    hide_numbers: true,      
+    
+    message_data: {
+      tipo: '',
+      clientes: '',
+      numeros: '',
+      mensaje: ''
+    }
+  },
+  
+  mounted: function () {
+    this.initSelect2()
+  },
+
+  computed: {
+    letters_count: function () {
+      return this.message_data.mensaje.length
+    }
+  },
+
+  methods: {
+    sendMessage: function () {
+      var form, send
+  
+      if(!isEmpty([this.message_data.tipo, this.message_data.mensaje])){
+        form = 'data=' + JSON.stringify(this.message_data)
+        send = axios.post(BASE_URL +'messages/send_message',form)
+        send.then(function (res) {
+          displayMessage(res.data.mensaje)
+        })
+        send.catch(function (err) {
+          console.log(err)
+        })
+  
+      }else{
+        swal('Campos Requeridos','Por favor selecciones el tipo de mensaje y escriba su mensaje')
+      }
     },
 
-    saveSettings: function (e) {
-      console.log(e)
-      this.confirmPhone()
+    initSelect2: function() {
+      var self = this
+      var options = {
+        dropdownParent: $('#send-message-modal')
+      }
+      
+      var selectMessageType = $('#message-type').select2(options).change()
+      var selectClientsForMessage = $('#clients-for-message').select2({
+        dropdownParent: $('#send-message-modal'),
+        ajax: {
+          url : BASE_URL + 'messages/search_clients',
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term,
+              page : params.page
+            }
+          },
+  
+          processResults: function (data, params) {
+            params.page = params.page || 1
+            return {
+              results: data.items,
+              pagination: {
+                more: (params.page * 30) < data.total_count
+              }
+            }
+          },
+          cache: true
+        }
+      })
+      var selects = {clients: selectClientsForMessage, messageType: selectMessageType}
+      this.selec2Liteners(selects)
+    },
+
+    selec2Liteners: function(selects) {
+      var self = this
+      selects.messageType.on('select2:select', function (e) {
+        var select = e.params.data.element
+        var attributes = select.attributes
+        var tipo = e.params.data.id
+        self.message_data.tipo = tipo
+  
+        if(tipo == 'otros'){
+          self.hide_clients = true
+          self.hide_numbers = false
+        }else if( tipo == 'personalizado'){
+          self.hide_numbers = true
+          self.hide_clients = false
+        }else{
+          self.hide_clients = true
+          self.hide_numbers = true
+        }
+      })
+  
+      selects.clients.on('select2:select', function (e) {
+        var clientes = selects.clients.select2('data')
+        var items = [];
+        for (var i = 0; i < clientes.length; i++) {
+          items.push({'nombre_completo': clientes[i].text, 'celular': clientes[i].id})
+        }
+        self.message_data.clientes = items
+      })
     }
   }
 })

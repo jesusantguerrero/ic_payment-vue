@@ -241,7 +241,7 @@ class Process extends CI_Controller {
 					$response['mensaje'] = MESSAGE_SUCCESS." procesando cambios";
 					echo json_encode($response['mensaje']);
 				else:
-					echo $this->db->last_query();
+					//echo $this->db->last_query();
 				endif;
 				break;
 			

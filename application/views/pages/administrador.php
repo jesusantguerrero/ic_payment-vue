@@ -232,7 +232,7 @@
           <label for="company-name">Correo Electronico</label>
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">email</i></div>
-            <input type="number" class="form-control" v-model="config.email">
+            <input type="email" class="form-control" v-model="config.email">
           </div>
         </div>
         <div class="form-group">
@@ -240,7 +240,7 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">settings_phone</i> </div>
             <select name="" class="form-control" v-model="config.country_id">
-              <option value="+1">RD(+1)</option>
+              <option value="1">RD (+1)</option>
             </select>
           </div>
         </div>

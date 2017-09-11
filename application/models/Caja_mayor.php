@@ -211,7 +211,7 @@ class Caja_mayor extends CI_MODEL{
       }
       return $result;
     }else{
-      echo $this->db->last_query();
+      //echo $this->db->last_query();
     }
   }
 
@@ -225,7 +225,7 @@ class Caja_mayor extends CI_MODEL{
       }
       return $result;
     }else{
-      echo $this->db->last_query();
+      //echo $this->db->last_query();
     }
   }
 

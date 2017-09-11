@@ -1,12 +1,4 @@
- <?php
-/**
-* IC Payment
-*@author Jesus Guerrero
-*@copyright Copyright (c) 2017 Insane Code
-*@version 1.0.0
-*
-*/
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Contract_model extends CI_MODEL{
   
@@ -30,18 +22,10 @@ class Contract_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
     $this->load->model('payment_model');
     $this->load->helper('lib_helper');
     $this->load->model('section_model');
   }
-
-  /**
-  *
-  *@param array $data array with the data of the user
-  *@param string $mode "normal" for save it in an insert, "full" to storage all the data
-  *@return void
-  */
 
   function organize_data($data,$mode){
 

@@ -9,15 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Company_model extends CI_MODEL{
-  
-  // public $id = null;
-  #id_empresa 
-  #nombre 
-  #lema 
-  #descripcion 
-  #direccion 
-  #telefono1 
-  #telefonos 
+
   
   public function __construct(){
     parent::__construct();
