@@ -32,12 +32,12 @@ class Caja_mayor extends CI_MODEL{
       if($this->db->insert('ic_caja_mayor',$data)){
         $response['mensaje'] =  MESSAGE_SUCCESS." Cierre exitoso"  ;
       }else{
-        $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre"  ;
+        $response['mensaje'] = MESSAGE_ERROR." error al agregar el cierre";
       }
-      echo json_encode($response);
     }else{
-      $this->update_cierre($data,$id_cierre);
+      $response['mensaje'] = MESSAGE_ERROR." El cierre del dia ya ha sido realizado";
     }
+    echo json_encode($response);
     
   }
 

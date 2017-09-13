@@ -27,7 +27,7 @@ Class Messagegate{
       return $this->custom_send($data, $message_settings);
     }else{
       $clientes = $this->get_clients($data);
-      $default_message = $this->get_default_message($data);
+      $default_message = $data['mensaje'];
       return $this->send_many($clientes,$default_message,$message_settings);
     }
   }
@@ -53,14 +53,14 @@ Class Messagegate{
     return $clientes;
   }
 
-  private function get_default_message($data){
-    if($data['tipo'] == 'mora'){ 
-      $default_message = $this->default_message;
-    }else{
-      $default_message = $data['mensaje'];
-    }
-    return $default_message;
-  }
+  // private function get_default_message($data){
+  //   if($data['tipo'] == 'mora'){ 
+  //     $default_message = $this->default_message;
+  //   }else{
+  //     $default_message = $data['mensaje'];
+  //   }
+  //   return $default_message;
+  // }
 
   private function send_many($clientes,$default_message,$message_settings){
     $email = $message_settings['email'];

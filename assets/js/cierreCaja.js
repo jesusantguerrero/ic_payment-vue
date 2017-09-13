@@ -22,6 +22,7 @@
   }
 
   function cierreCajaFunctions(){
+    
     var totales = {
           total1: 0,
           total5: 0,
@@ -41,6 +42,7 @@
         'descripcion': '',
         'monto': '',
       }
+
     var gastos  = [{fecha: now(),descripcion:"hola",monto: 2000, id_gasto: 1}]
     var autor   = $('#autor-cierre').text().trim()
 
@@ -267,6 +269,7 @@
       return moment().format("YYYY-MM-DD");
     }
   }
+
   Vue.component('summary-print-view',{
     template: '\
     <div class="print-container">\

@@ -1,5 +1,6 @@
 <div class="container-fluid cierre2" id="app-cierre">
 	<?php $user_data = get_user_data(); ?>
+
 	<div class="row welcome-screen">
 		<div class="col-md-8 col-xs-12 main-card">
 			<div class="tab-content-cierre">
@@ -229,7 +230,7 @@
 				<div class="day-income-layer">
 					<h3 class="card-title" data-toggle="modal" data-target="#notification-view">Ingresos en Efectivo</h3>
 					<div class="list-repair centered-container">
-				
+
 
 						<a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
 							<h2 class="current-saldo will-load"> RD$ {{ data_cierre.pagos_efectivo | currencyFormat}}</h2>
@@ -252,21 +253,25 @@
 		</div>
 
 	</div>
+
 	<div class="row home-options-container">
 		<div class="col-md-8 hidden-xs shortcuts-container">
-			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
+			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"
+			  title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
 				<p class="section-title">Pagos de factura</h4>
 					<p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut"  data-toggle="popover" data-container="body" data-placement="right" title="Pagos Extras" data-content="Los pagos a los servicios extras que hacen los clientes">
+			<div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Extras" data-content="Los pagos a los servicios extras que hacen los clientes">
 				<p class="section-title">Pagos Extras</p>
 				<p class="will-load">RD$ {{data_cierre.pagos_extras | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut"  data-toggle="popover" data-container="body" data-placement="right" title="Pagos Via Banco" data-content="Los pagos del <b>total de ingresos</b> que se hacen via banco">
+			<div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Via Banco"
+			  data-content="Los pagos del <b>total de ingresos</b> que se hacen via banco">
 				<p class="section-title">Pagos Via Banco</h4>
 					<p class="will-load">RD$ {{ data_cierre.pagos_banco | currencyFormat}}</p>
 			</div>
-			<div class="col-md-4 shortcut" id="caller-new-client"  data-toggle="popover" data-container="body" data-placement="right" title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
+			<div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"
+			  title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
 				<p class="section-title">Total Ingresos</p>
 				<p class="will-load">RD$ {{ data_cierre.total_ingresos | currencyFormat}}</p>
 			</div>
@@ -281,40 +286,43 @@
 </div>
 
 <div id="print-view" :class="{hide: isHide}">
-	<?php 
-		$company = $this->company_model->get_empresa();
-	?>
+	<?php 	$company = $this->company_model->get_empresa(); ?>
 	<summary-print-view></summary-print-view>
 
 	<div class="factura-body">
-	<div class="cabecera">
-    <div class="company-name">
-      <h4 class="company-oficial-name t-center">ICS Service</h4>
-      <p></p>
-    </div>
-      <p class="fecha-reporte">Fecha: {{cierre.fecha | spanishDateFormat}}</p>
-      <p><b class="hora-reporte">Autor {{cierre.autor}}</b></p>
-  </div>
-  <div class="concepto"><h4>Cierre de Caja</h4></div>
-  
-  <div class="cuerpo">
-   <p><b>Total de ingresos:</b><span class="right">{{cierre.total_ingresos | currencyFormat}}</span></p>
-	 <p><b>Pagos via Banco: </b><span class="right">{{cierre.pagos_banco | currencyFormat}}<span></p>
-	 <p><b>Pagos en efectivo: </b><span class="right">{{cierre.pagos_efectivo | currencyFormat}}<span></p>
-	 <p><b>Efectivo en caja: </b><span class="right">{{cierre.efectivo_caja | currencyFormat}}<span></p>
-	 <p><b>Total Descuadre: </b><span class="right">{{cierre.total_descuadre | currencyFormat}}<span></p>
-	 <p><b>Gastos : </b><span class="right">{{cierre.total_gastos | currencyFormat}}<span></p>
-	 <p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
-  </div>
-  <div class="pie-pagina">
-		<p class="t-center"><a href="#" @click.prevent="print">Imprimir</a></p>
-  </div>
+		<div class="cabecera">
+			<div class="company-name">
+				<h4 class="company-oficial-name t-center">ICS Service</h4>
+				<p></p>
+			</div>
+			<p class="fecha-reporte">Fecha: {{cierre.fecha | spanishDateFormat}}</p>
+			<p><b class="hora-reporte">Autor {{cierre.autor}}</b></p>
+		</div>
+
+		<div class="concepto">
+			<h4>Cierre de Caja</h4>
+		</div>
+
+		<div class="cuerpo">
+			<p><b>Total de ingresos:</b><span class="right">{{cierre.total_ingresos | currencyFormat}}</span></p>
+			<p><b>Pagos via Banco: </b><span class="right">{{cierre.pagos_banco | currencyFormat}}<span></p>
+	 		<p><b>Pagos en efectivo: </b><span class="right">{{cierre.pagos_efectivo | currencyFormat}}<span></p>
+	 		<p><b>Efectivo en caja: </b><span class="right">{{cierre.efectivo_caja | currencyFormat}}<span></p>
+	 		<p><b>Total Descuadre: </b><span class="right">{{cierre.total_descuadre | currencyFormat}}<span></p>
+	 		<p><b>Gastos : </b><span class="right">{{cierre.total_gastos | currencyFormat}}<span></p>
+	 		<p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
+  	</div>
+
+ 	 	<div class="pie-pagina">
+			<p class="t-center"><a href="#" @click.prevent="print">Imprimir</a></p>
+  	</div>
+
+	</div>
+
+	<div class="centered-container-small">
+		<a :href="foward.link" class="link btn"><i class="material-icons">power_settings_new</i> {{foward.text}}</a>
+	</div>
 </div>
-<div class="centered-container-small">
-	<a href="#" @click.prevent="goBack" class="link btn"><i class="material-icons">lock_open</i> {{back.text}}</a>
-	<a :href="foward.link" class="link btn"><i class="material-icons">power_settings_new</i> {{foward.text}}</a>
-</div>
-<div>
 
 <script>
 	$(function () {
@@ -337,5 +345,5 @@
 
 		$(".company-oficial-name").text("<?php echo $company['nombre'] ?>");
     $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])." ".phone_format($company["telefonos"])?>");
-	})
+	});
 </script>
