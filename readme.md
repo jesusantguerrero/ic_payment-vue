@@ -1,3 +1,9 @@
+#IC Payment
+
+![ICNOTE](./assets/img/ic_payment.png)
+
+Es un sistema de facturacion y administracion de una ISP desarrollada en PHP nos enfocamos en la simpleza de uso para un usuario no tecnico y cuenta con una gran variedad de features que complementan a la plicacion base
+
 # Secciones
 
 1. **Login:** sección donde el cliente ingresa su contraseña y su usuario para entrar a la aplicación
@@ -24,11 +30,28 @@
 
 12. **Control de secciones y cobertura**
 
-# Features
+# Capturas de pantalla
 
-- Tablas Paginadas
-- Extensión de contratos
-- Imprimir solo requerimientos
-- estado de instalaciones
-- ip seleccionables desde el contrato
-- cambio de ip para contratos
+![Login](./assets/img/login.png)
+![Login](./assets/img/home.png)
+![Login](./assets/img/clientes.png)
+
+
+# Funcionalidades extras
+
+- Reportes Graficas
+- SMS a usuarios utilizando la API smsgateway
+- Cierres de caja
+- Control de ventas/pagos de servicios extras
+
+## Technologias
+
+* HTML/CSS/ JavaScript
+* PHP/ Codeigniter
+* Vue.js
+
+## License
+
+Copyright (c) Jesus Guerrero. All rights reserved.
+
+Licensed under the MIT License.
