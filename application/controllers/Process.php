@@ -403,15 +403,24 @@ class Process extends CI_Controller {
 
 	public function search(){
 		authenticate();
-		$data = $_POST;
-		$tabla = $data['tabla'];
-		if(isset($_POST['word'])):
-			$word = $_POST['word'];
-		endif;
+		if(isset($_POST['tabla'])){
+			$data = $_POST;
+			$tabla = $data['tabla'];
+			if(isset($_POST['word'])){
+				$word = $_POST['word'];
+			}
+		}else{
+			$query = $_GET['q'];
+			$tabla = $_GET['tabla'];
+		}
 
 		switch ($tabla) {
 			case 'clientes':
 				$this->client_model->search_clients($word);
+				break;
+			case 'clientes_para_averias':
+				$res['items'] = $this->client_model->search_clients_for_message($query,'id_cliente');
+				echo json_encode($res);
 				break;
 			case 'servicios':
 				 $this->service_model->search_services($word);

@@ -197,6 +197,7 @@ class Report_model extends CI_MODEL{
 
   public function get_averias_report($is_print = true){
     $this->db->where('estado','por reparar');
+    $this->db->order_by('fecha', 'DESC');
     $result = $this->db->get('v_averias');
      if($result){
       $result = $result->result_array();

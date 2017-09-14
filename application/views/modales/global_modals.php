@@ -86,14 +86,11 @@
         <form action="">
           <div class="row">
             <div class="col-md-12">
-            <input type="text" class="form-control hidden" id="averias-client-id">
-            <div class="form-group">
-                <label for="user-nickname">Cedula(sin guiones)</label>
-                <input type="text" class="form-control" id="a-client-dni">
-              </div>
               <div class="form-group">
                 <label for="user-nickname">Cliente</label>
-                <input type="text" class="form-control" id="a-client" disabled>
+                <select class="form-control" id="a-client">
+                  <option value="" >Escriba el nombre del cliente</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="service-description">Descripción</label>

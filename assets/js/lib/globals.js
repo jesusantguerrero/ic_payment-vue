@@ -193,16 +193,6 @@ function clearTbody(objecId){
   $(objecId).html("");
 }
 
-function fillClientFields(response,callback){
-  if(response != "nada"){ 
-    var cliente = JSON.parse(response);
-    $("#averias-client-id").val(cliente['id_cliente']);
-    $("#a-client").val(cliente['nombres'] + " " + cliente['apellidos'])
-  }else{
-    displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
-  }
-}
-
 function makePaymentList(response,callback){
   var selectPayUntil = $('#select-pay-until');
   selectPayUntil.html(response);

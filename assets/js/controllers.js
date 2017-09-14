@@ -703,32 +703,13 @@ var Payments = {
  
         });
     });
-
-    // function applyDiscount(id_pago) {
-    //   var date = moment().format("YYYY-MM-DD");
-    //   form = 'id_pago=' + id_pago + '&id_contrato=' + id_contrato + "&cuota=" + $cuota.val();
-    //   form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
-    //   form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val() + '&fecha_pago=' + date ;
-    //   form += "&tabla=discount_pagos";
-    //   connectAndSend("process/update", true, null, null, form, Payments.getAll);
-    //   $modal.hide();
-    // }
-
-    // function interactiveSum(){
-    //   $('.payment-sumandos').on('keyup',function(){
-    //     $cuota.val(pago['cuota'] - $descuento.val());
-    //     var suma = Number($cuota.val()) + Number($mora.val()) + Number($extra.val());
-    //     $total.val(Number(suma))
-    //   })
-    // }
   }
   
 }
 
 var Damages = {
-  add: function () {
-    var form, idCliente, description;
-    idCliente = $("#averias-client-id").val();
+  add: function (idCliente) {
+    var form, description;
     description = $("#a-description").val();
 
     var is_empty = isEmpty([idCliente, description]);

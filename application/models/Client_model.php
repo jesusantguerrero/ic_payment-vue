@@ -177,7 +177,7 @@ class Client_model extends CI_MODEL{
     }
   }
 
-  public function search_clients_for_message($word){
+  public function search_clients_for_message($word,$id_field = 'celular'){
     $fields = array(
      'id_cliente' => $word,
      'cedula'     => $word,
@@ -186,12 +186,11 @@ class Client_model extends CI_MODEL{
      "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
     );
     
-    $this->db->select("concat(nombres,' ',apellidos) as text, celular as id");
+    $this->db->select("concat(nombres,' ',apellidos) as text, $id_field as id");
     $this->db->or_like($fields);
     if($result = $this->db->get('ic_clientes')){
       return $result->result_array();
     }
-    var_dump($this->db->last_query());
   }
   
   public function get_client($id){

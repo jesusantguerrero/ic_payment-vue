@@ -35,6 +35,7 @@ class Averia_model extends CI_MODEL{
       echo MESSAGE_ERROR."error". " Error";
     }  
   }
+
   public function update($id_averia){
     $this->db->where('id_averia',$id_averia);
     $result = $this->db->get('v_averias',1);
@@ -52,19 +53,20 @@ class Averia_model extends CI_MODEL{
     if($this->db->update('ic_averias',array("estado" => $status,"fecha_reparacion" => $fecha_reparacion))){
       echo MESSAGE_SUCCESS." Estado de averia cambiado a ". $status;
     }
-
   }
 
   public function get($status = 'por reparar'){
-    $sql = "SELECT * FROM v_averias";
     if($status != 'todos'){
-       $sql .= " WHERE estado ='$status'";
+      $this->db->where('estado',$status);
     }
-    $_SESSION['averias'] = $sql;
-    $result = $this->db->query($sql);
+    
+    $this->db->order_by('fecha','DESC');
+    $result = $this->db->get('v_averias');
+    
     if($result and count($result) > 0){
-      $result = make_averias_list($result->result_array());
-      echo $result;
+      $result = $result->result_array();
+      $_SESSION['averias'] = $result;
+      echo make_averias_list($result);
     }else{
       echo "<h3>No hay Datos Para Esta Busqueda</h3>";
     }
@@ -72,9 +74,9 @@ class Averia_model extends CI_MODEL{
   }
 
   public function count(){
-    $result = $this->db->query($_SESSION['averias']);
+    $result = $_SESSION['averias'];
     if($result){
-      $result = count($result->result_array());
+      $result = count($result);
       echo $result;
     }else{
       echo 0;

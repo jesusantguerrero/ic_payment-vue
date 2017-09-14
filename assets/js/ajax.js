@@ -1,8 +1,8 @@
   var currentPage = $("title").text().split(" ");
   currentPage = currentPage[4].toLowerCase().trim();
   var ran = false;
-  
-  function initComponents(){
+
+  function initComponents() {
     switch (currentPage) {
       case "home":
         initClientHandlers();
@@ -43,66 +43,87 @@
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
     var averiaClientDni = $("#a-client-dni");
+
     if (currentPage == 'notificaciones') {
-        Generals.count_table("averias");
+      Generals.count_table("averias");
 
       $("#averias-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
         Damages.getAll();
       });
 
-       $("#installations-view-mode").on('change', function (e) {
+      $("#installations-view-mode").on('change', function (e) {
         e.stopImmediatePropagation();
         Installations.getAll();
       });
 
-      $('tbody').css({display:"table-row-group"});
+      $('tbody').css({
+        display: "table-row-group"
+      });
     }
 
     if (currentPage == 'contratos') {
-     initContractHandlers();
+      initContractHandlers();
     }
+
+    var averiaClient = $("#a-client").select2({
+      dropdownParent: $('#new-averia-modal'),
+      width: '100%',
+      ajax: {
+        url: BASE_URL + 'process/search',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            q: params.term,
+            tabla: 'clientes_para_averias'
+          }
+        },
+
+        processResults: function (data, params) {
+          params.page = params.page || 1
+          return {
+            results: data.items,
+            pagination: {
+              more: (params.page * 30) < data.total_count
+            }
+          }
+        },
+        cache: true
+      }
+    })
 
     $("#btn-save-averia").on('click', function (e) {
       e.stopImmediatePropagation();
-      Damages.add();
+      Damages.add(averiaClient.val());
     });
 
-    averiaClientDni.on('keyup', function (e) {
-      if (isComplete(averiaClientDni)) {
-        var dni = getVal(averiaClientDni);
-        Clients.getOne(dni,fillClientFields)
-      }else{
-        $('#a-client').val('');
-      }
-    });
+  $(".btn-update-averia").on('click', function (e) {
+    e.stopImmediatePropagation();
+    var id_averia = $(this).parents('.averia-item').find('.code')
+    id_averia = id_averia.text().trim();
+    Damages.update(id_averia);
+  });
 
-    $(".btn-update-averia").on('click', function (e) {
-      e.stopImmediatePropagation();
-      var id_averia = $(this).parents('.averia-item').find('.code')
-      id_averia = id_averia.text().trim();
-      Damages.update(id_averia);
-    });
-    
-    $(".btn-update-installation").on('click', function (e) {
-      e.stopImmediatePropagation();
-      var id_pago = $(this).parents('.averia-item').find('.code');
-      id_pago = id_pago.text().trim();
-      Installations.update(id_pago);
-    });
+  $(".btn-update-installation").on('click', function (e) {
+    e.stopImmediatePropagation();
+    var id_pago = $(this).parents('.averia-item').find('.code');
+    id_pago = id_pago.text().trim();
+    Installations.update(id_pago);
+  });
 
-    $("#extra-controls").on('click',function(e){
-      e.stopImmediatePropagation();
-      Contracts.btnExtraPressed($(this));
-    });
+  $("#extra-controls").on('click', function (e) {
+    e.stopImmediatePropagation();
+    Contracts.btnExtraPressed($(this));
+  });
 
-    $("#extra-client-dni").on('keydown',function(e){
-      var key = e.which;
-      var dni = $(this).val()
-      if(key == 13){
-        Contracts.getAllOfClient(dni);
-      }
-    });
+  $("#extra-client-dni").on('keydown', function (e) {
+    var key = e.which;
+    var dni = $(this).val()
+    if (key == 13) {
+      Contracts.getAllOfClient(dni);
+    }
+  });
 
   }
 
@@ -125,22 +146,22 @@
       var id = $row.find('.user-id').text().trim();
       var row = userTable.getRow(id);
       swal({
-          title: 'Está Seguro?',
-          text: "Desea Eliminar al Usuario " + row.nombres +" "+ row.apellidos + "?",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
-          cancelButtonText: 'Cancelar'
-        }).then(function(){
-           Users.delete(id);
-        });
+        title: 'Está Seguro?',
+        text: "Desea Eliminar al Usuario " + row.nombres + " " + row.apellidos + "?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Estoy Seguro!',
+        cancelButtonText: 'Cancelar'
+      }).then(function () {
+        Users.delete(id);
+      });
     });
 
     $(".edit-user").on('click', function (e) {
       e.preventDefault();
-      var id  = $(this).attr('data-user-id');
+      var id = $(this).attr('data-user-id');
       var row = userTable.getRow(id);
-      
+
 
       $("#e-nickname").val(row.nick);
       $("#e-name").val(row.nombres);
@@ -156,21 +177,14 @@
       Company.update();
     });
 
-    $("#btn-update-settings").on('click',function(e){
-        e.preventDefault();
-        Settings.update();
-    });
-
-    // some globals handlers
-
-    $("#btn-save-averia").on('click', function (e) {
-      e.stopImmediatePropagation();
-      Damages.add()
+    $("#btn-update-settings").on('click', function (e) {
+      e.preventDefault();
+      Settings.update();
     });
 
   }
   //***************************************************     Init caja          ***************************** */
-  
+
   function initCajaHandlers() {
     if (currentPage == 'administrador') {
       cajaTable.init();
@@ -178,10 +192,10 @@
 
 
 
-    var btnAddMoney     = $("#btn-add-money");
-    var btnRetireMoney  = $("#btn-retire-money");
-    var userSearch      = $("#caja-user");
-    var dateSearch      = $("#caja-date");
+    var btnAddMoney = $("#btn-add-money");
+    var btnRetireMoney = $("#btn-retire-money");
+    var userSearch = $("#caja-user");
+    var dateSearch = $("#caja-date");
 
     btnAddMoney.on('click', function (e) {
       e.stopImmediatePropagation();
@@ -193,12 +207,12 @@
       Caja.retire();
     });
 
-    dateSearch.on('change',function(e){
+    dateSearch.on('change', function (e) {
       e.stopImmediatePropagation();
       Caja.search();
     });
 
-    userSearch.on('change',function(e){
+    userSearch.on('change', function (e) {
       e.stopImmediatePropagation();
       Caja.search();
     });
@@ -252,8 +266,8 @@
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
-        }).then(function(){
-           Generals.deleteRow(row.id, "clientes")
+        }).then(function () {
+          Generals.deleteRow(row.id, "clientes")
         });
       }
     });
@@ -280,8 +294,8 @@
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
-        }).then(function(){
-           Generals.deleteRow(id, "servicios");
+        }).then(function () {
+          Generals.deleteRow(id, "servicios");
         });
       }
     });
@@ -293,7 +307,7 @@
       $('#u-service-id').val(row.id);
       $('#u-service-name').val(row.nombre);
       $('#u-service-description').val(row.descripcion);
-      $('#u-service-monthly-payment').val(Number(row.mensualidad.replace("RD$ ",'')));
+      $('#u-service-monthly-payment').val(Number(row.mensualidad.replace("RD$ ", '')));
       $('#u-service-type').val(row.tipo);
       $('#update-service-modal').modal();
 
@@ -307,7 +321,7 @@
     $("#service-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "servicios", serviceTable.refresh,initServicesHandlers);
+      Generals.search(text, "servicios", serviceTable.refresh, initServicesHandlers);
     });
 
 
@@ -316,7 +330,7 @@
   function initContractHandlers() {
     contractTable.init();
     Contracts.getAll();
-    
+
     $("#btn-save-contract").on('click', function (e) {
       e.stopImmediatePropagation();
       Contracts.add();
@@ -332,7 +346,7 @@
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
-      Generals.search(text, "v_contratos", contractTable.refresh,null);
+      Generals.search(text, "v_contratos", contractTable.refresh, null);
     });
 
     $("#btn-cancel-contract").on('click', function (e) {
@@ -340,11 +354,11 @@
       var row = contractTable.getSelectedRow();
       if (row) {
         $(".cancel-name").text(row.cliente);
-        var $inputElement   = $(".confirmed-data");
+        var $inputElement = $(".confirmed-data");
         var $buttonToActive = $("#cancel-permanently");
 
-        deleteValidation($inputElement,row.cliente, $buttonToActive);
-        $("#cancel-print").attr("href",BASE_URL + 'process/getcancelcontract/'+ row.id_cliente + "/" + row.id);
+        deleteValidation($inputElement, row.cliente, $buttonToActive);
+        $("#cancel-print").attr("href", BASE_URL + 'process/getcancelcontract/' + row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();
         $buttonToActive.on('click', function (e) {
@@ -355,7 +369,7 @@
 
         $inputElement.val('');
         $buttonToActive.attr('disabled', '');
-      }else{
+      } else {
         swal("Debes seleccionar un contrato")
       }
     });
@@ -363,21 +377,21 @@
     $("#btn-suspend-contract").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-       var row = contractTable.getSelectedRow();
-       if (row) {
+      var row = contractTable.getSelectedRow();
+      if (row) {
         swal({
           title: 'Está Seguro?',
-          text: "Desea Suspender el contrato de " + row.cliente +" ?",
+          text: "Desea Suspender el contrato de " + row.cliente + " ?",
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
-        }).then(function(){
-           Contracts.suspend(row.id);
+        }).then(function () {
+          Contracts.suspend(row.id);
         });
-       }else{
-         swal("Debe seleccionar un contrato")
-       }
+      } else {
+        swal("Debe seleccionar un contrato")
+      }
 
     });
 
@@ -390,22 +404,22 @@
       }
     });
 
-    $("#select-contract-sector").on('change',function(e){
+    $("#select-contract-sector").on('change', function (e) {
       e.stopImmediatePropagation();
       Contracts.getIpList();
     })
 
-    $('#select-pay-until').on('change', function(e){
+    $('#select-pay-until').on('change', function (e) {
       e.stopImmediatePropagation();
-      var $this         = $('#select-pay-until :selected');
-      var contractId    = $this.attr('data-contract');
+      var $this = $('#select-pay-until :selected');
+      var contractId = $this.attr('data-contract');
       var lastPaymentId = $(this).val();
-      Payments.updateUntil(contractId,lastPaymentId);
+      Payments.updateUntil(contractId, lastPaymentId);
     });
 
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
-  
+
   function initPaymentsHandlers() {
     paymentTable.init();
     extraTable.init();
@@ -417,36 +431,41 @@
     $("#btn-pay").on('click', function (e) {
       e.stopImmediatePropagation();
       var id = paymentTable.getId();
-      if(id) {
+      if (id) {
         Payments.update(id);
         update_mode(id);
-      }else{
+      } else {
         // TODO: MESSAGE Select a payment
       }
-    }); 
+    });
 
     $("#select-contract").on('change', function (e) {
       e.stopImmediatePropagation();
       Payments.getAll();
     });
 
-    $("#btn-reconnect").on('click',function(e) {
+    $("#btn-reconnect").on('click', function (e) {
       e.stopImmediatePropagation()
       Contracts.reconnect()
     })
 
     $("#payment-detail-box").collapse()
 
-    function update_mode(id){
+    function update_mode(id) {
       var mode = $('.payment-mode.selected').text();
-      var extraInfo = {id: id.toString(),module:'pagos'}
-      var form = 'data='+JSON.stringify({tipo: mode})+'&extra_info='+JSON.stringify(extraInfo);
+      var extraInfo = {
+        id: id.toString(),
+        module: 'pagos'
+      }
+      var form = 'data=' + JSON.stringify({
+        tipo: mode
+      }) + '&extra_info=' + JSON.stringify(extraInfo);
 
-      var send = axios.post( BASE_URL + 'process/axiosupdate',form)
-      send.then(function(response){
+      var send = axios.post(BASE_URL + 'process/axiosupdate', form)
+      send.then(function (response) {
         //TODO: something whith that / algo con esto
       });
-      send.catch(function(){
+      send.catch(function () {
         console.log(error);
       });
     }
@@ -458,7 +477,7 @@
       Payments.saveAbonos();
     });
 
-    $('#btn-save-real-observations').on('click',function(e){
+    $('#btn-save-real-observations').on('click', function (e) {
       e.stopImmediatePropagation();
       Clients.saveObservations();
     })
@@ -467,21 +486,21 @@
 
   }
 
-  function acountHandlers(){
-    var $userId          = $("#acount-user-id")
+  function acountHandlers() {
+    var $userId = $("#acount-user-id")
     var $currentPassword = $("#acount-current-password")
-    var $btnUpdateUser    = $("#update-user-data");
-    var $newPassword      = $("#acount-new-password");
+    var $btnUpdateUser = $("#update-user-data");
+    var $newPassword = $("#acount-new-password");
 
-    $("#acount-current-password").on('keyup',function(e){
-      e.stopImmediatePropagation();    
-      Users.confirmPassword($userId.val(),$currentPassword.val());
+    $("#acount-current-password").on('keyup', function (e) {
+      e.stopImmediatePropagation();
+      Users.confirmPassword($userId.val(), $currentPassword.val());
     });
 
-    $btnUpdateUser.on('click',function(e){
+    $btnUpdateUser.on('click', function (e) {
       e.preventDefault()
       e.stopImmediatePropagation();
-      Users.updatePassword($userId.val(),$currentPassword.val(),$newPassword.val())
+      Users.updatePassword($userId.val(), $currentPassword.val(), $newPassword.val())
     })
   }
 
@@ -497,7 +516,7 @@
       Sections.add();
     });
 
-     $("#select-sector").on('change', function (e) {
+    $("#select-sector").on('change', function (e) {
       e.stopImmediatePropagation();
       Sections.getIps();
     });
