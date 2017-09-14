@@ -1,4 +1,4 @@
-#IC Payment
+# IC Payment
 
 ![ICNOTE](./assets/img/ic_payment.png)
 
@@ -30,7 +30,6 @@ Es un sistema de facturacion y administracion de una ISP desarrollada en PHP nos
 
 12. **Control de secciones y cobertura**
 
-<<<<<<< HEAD:readme.md
 # Capturas de pantalla
 
 ![Login](./assets/img/login.png)
@@ -51,31 +50,9 @@ Es un sistema de facturacion y administracion de una ISP desarrollada en PHP nos
 * PHP/ Codeigniter
 * Vue.js
 
-## License
+
+## Licencia
 
 Copyright (c) Jesus Guerrero. All rights reserved.
 
-=======
-
-# Funcionalidades extras
-
-- Reportes Graficas
-- SMS a usuarios utilizando la API smsgateway
-- Cierres de caja
-- Control de ventas/pagos de servicios extras
-
-TODO:
-- 
-
-## Technologies
-
-* HTML/CSS/ JavaScript
-* PHP/ Codeigniter
-* Vue.js
-
-## License
-
-Copyright (c) Jesus Guerrero. All rights reserved.
-
->>>>>>> 9083c9d127e65d72fb596d5c1b5ce2e1b9eb7572:readme.md
 Licensed under the MIT License.
