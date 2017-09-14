@@ -5,7 +5,7 @@
             <h3> </h3>
             <div class="row">
                 <div class="company-data">
-                    <img class="company-logo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
+                    <img class="company-logo" src="<?php echo base_url('assets/img/ic_payment.png') ?>" alt="">
                 </div>
                 <div class="welcome-data">
                     <div class="row">

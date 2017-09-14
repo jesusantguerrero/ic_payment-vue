@@ -39,7 +39,7 @@
               </div>
               <div class="form-group">
                  <label for="user-input">Usuario</label>
-                 <input id="user-input" type="text" class="form-control">
+                 <input id="user-input" type="text" class="form-control" placeholder="usuario:demo contraseña:demo">
               </div>
               <div class="form-group">
                  <label for="password-input">Contraseña</label>
