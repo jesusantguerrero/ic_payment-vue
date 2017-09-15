@@ -73,6 +73,15 @@ class Caja_mayor extends CI_MODEL{
       echo json_encode($response);
   }
 
+  public function get_last_close_date(){
+    $this->db->select('fecha');
+    $this->db->order_by('id_cierre','DESC');
+    if($result = $this->db->get('ic_caja_mayor',1)){
+      $date = $result->row_array()['fecha'];
+      return $date;
+    }
+  }
+
   public function update_cierre($data,$id_cierre){
     $this->db->where('id_cierre',$id_cierre);
     if($this->db->update('ic_caja_mayor',$data)){
@@ -154,11 +163,6 @@ class Caja_mayor extends CI_MODEL{
     $response['gastos']  = $this->mostrar_gastos($data['fecha'],"after_delete");
     $response['total_gastos'] = $this->get_total_gastos_of($data['fecha']);
     echo json_encode($response);
-  }
-
-  public function mostrar_monedas(){
-    $result = $this->db->get('ic_monedas');
-    echo json_encode($result->result_array());
   }
 
   public function get_ingresos($fecha,$tipo,$not_in = null){

@@ -168,6 +168,5 @@ class User_model extends CI_MODEL{
     }
   }
 
-  
   //functions
 }

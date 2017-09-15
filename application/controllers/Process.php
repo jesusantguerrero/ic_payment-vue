@@ -125,15 +125,18 @@ class Process extends CI_Controller {
 			case "observaciones":
 				$this->client_model->update_observations($data);
 				break;
-      case "abonos":
-        $this->db->trans_start();
-        set_abono($data,$this);
-        $this->db->trans_complete();
-        if($this->db->trans_status() === false){
-          $this->db->trans_rollback();
-          echo MESSAGE_ERROR." No se pudo completar el abono";
-        }
-        break;
+			case "abonos":
+				if (!$this->is_day_closed()) {
+					$this->db->trans_start();
+					set_abono($data,$this);
+					$this->db->trans_complete();
+					if($this->db->trans_status() === false){
+						$this->db->trans_rollback();
+						echo MESSAGE_ERROR." No se pudo completar el abono";
+					}
+				}
+				break;
+				
 			case "servicios":
 				$this->db->trans_start();
 				$this->service_model->update_service($data);
@@ -147,51 +150,61 @@ class Process extends CI_Controller {
 				endif;
 				break;
 			case "pagos":
-				$was_correct = $this->payment_model->check_for_update($data['id']);
-				if($was_correct){
-					$id_contrato = $data['id_contrato'];
-					refresh_contract($id_contrato,$this,$data);
-				}else{
-					echo MESSAGE_INFO." Este pago ya ha sido realizado";
+				if (!$this->is_day_closed()) {
+					$was_correct = $this->payment_model->check_for_update($data['id']);
+					if($was_correct){
+						$id_contrato = $data['id_contrato'];
+						refresh_contract($id_contrato,$this,$data);
+					}else{
+						echo MESSAGE_INFO." Este pago ya ha sido realizado";
+					}
 				}
 				break;
+
 			case "pagos_al_dia":
-				$this->db->trans_start();
-				payments_up_to_date($data);
-				$this->db->trans_complete();
-				if($this->db->trans_status() === false){
-						$this->db->trans_rollback();
-					echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
-				}else{
-					echo " Proceso Completo";
+				if(!$this-is_day_closed()){
+					$this->db->trans_start();
+					payments_up_to_date($data);
+					$this->db->trans_complete();
+					if($this->db->trans_status() === false){
+							$this->db->trans_rollback();
+						echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
+					}else{
+						echo " Proceso Completo";
+					}
 				}
 				break;
+
 			case "deshacer_pago":
-        $was_correct = $this->payment_model->check_for_update($data['id_pago']);
-        if(!$was_correct){
-          $this->db->trans_start();
-          cancel_payment($data['id_pago'],$this);
-          $this->db->trans_complete();
-          if($this->db->trans_status() === false){
-            $this->db->trans_rollback();
-            echo MESSAGE_ERROR." No Pudo deshacerse el Pago";
-          }
-        }else{
-          echo MESSAGE_INFO." Este pago no ha sido realizado para deshacerse";
-        }
+			  if(!$this->is_day_closed()){
+					$was_correct = $this->payment_model->check_for_update($data['id_pago']);
+					if(!$was_correct){
+						$this->db->trans_start();
+						cancel_payment($data['id_pago'],$this);
+						$this->db->trans_complete();
+						if($this->db->trans_status() === false){
+							$this->db->trans_rollback();
+							echo MESSAGE_ERROR." No Pudo deshacerse el Pago";
+						}
+					}else{
+						echo MESSAGE_INFO." Este pago no ha sido realizado para deshacerse";
+					}
+				}
         break;
 
 			case "discount_pagos":
-				$was_correct = $this->payment_model->check_for_update($data['id_pago']);
-				if($was_correct){
-					$this->db->trans_start();
-					payment_discount($data,$this);
-					$this->db->trans_complete();
-					if($this->db->trans_status() === false){
-						$this->db->trans_rollback();
-						echo MESSAGE_ERROR." error en la operacion";
-					}else{
-						echo " Proceso Completo";
+			  if (!$this->is_day_closed()) {
+					$was_correct = $this->payment_model->check_for_update($data['id_pago']);
+					if($was_correct){
+						$this->db->trans_start();
+						payment_discount($data,$this);
+						$this->db->trans_complete();
+						if($this->db->trans_status() === false){
+							$this->db->trans_rollback();
+							echo MESSAGE_ERROR." error en la operacion";
+						}else{
+							echo " Proceso Completo";
+						}
 					}
 				}
 				break;
@@ -371,9 +384,6 @@ class Process extends CI_Controller {
 			case 'servicios':
 				$this->service_model->delete_service($id);
 				break;
-			default:
-				# code...
-				break;
 		}
 	}
 
@@ -517,8 +527,10 @@ class Process extends CI_Controller {
 	
 	public function cancel(){
 		authenticate();
-		$data_cancel = $_POST;
-		cancel_contract($this,$data_cancel);
+		if(!$this->is_day_closed()){
+			$data_cancel = $_POST;
+			cancel_contract($this,$data_cancel);
+		}
 	}
 
 	public function data_for_extra(){
@@ -568,14 +580,14 @@ class Process extends CI_Controller {
 		
 		$myreport_sheet = create_excel_file($report);
 		$file = "reporte_tecnico.xlsx";
-		// 
+		
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");
 		header("Content-Disposition: attachment; filename= $file");
 		header("Cache-Control: max-age=0");
 		header("Expires: 0");
 		$objWriter = IOFactory::createWriter($myreport_sheet, 'Excel2007');
 		$objWriter->save('php://output');
-		// 
+		
 		print_r($myreport_sheet);
 	}
 
@@ -583,5 +595,15 @@ class Process extends CI_Controller {
 		echo $this->db->query("select now()")->row_array()['now()']."<br>";
 		echo date('Y-d-m')."<br>";
 		print_r($this->db->query('select dayname(now())')->row_array()['dayname(now())']);
+	}
+
+	private function is_day_closed($mode = 'break'){
+		$this->load->model('caja_mayor');
+		$last_close_date =$this->caja_mayor->get_last_close_date();
+		$today = date('Y-m-d');
+		if ($last_close_date == $today){
+			echo MESSAGE_INFO.'No puede realizar transacciones luego del cierre de caja';
+			return true;
+		}
 	}
 }

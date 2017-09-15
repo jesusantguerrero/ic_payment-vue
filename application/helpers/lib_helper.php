@@ -580,6 +580,7 @@ function authenticate(){
 		redirect(base_url());
 	}
 }
+
 function auth_user_type($type){
   if($_SESSION['user_data']['type'] == $type){
     return true;
