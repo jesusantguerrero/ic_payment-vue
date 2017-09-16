@@ -361,6 +361,7 @@
         $("#cancel-print").attr("href", BASE_URL + 'process/getcancelcontract/' + row.id_cliente + "/" + row.id);
 
         $("#cancel-contract-modal").modal();
+        
         $buttonToActive.on('click', function (e) {
           e.stopImmediatePropagation();
           Contracts.cancel()
@@ -368,6 +369,7 @@
         })
 
         $inputElement.val('');
+        $('#cancel-contract-modal .alert').removeClass('hide');
         $buttonToActive.attr('disabled', '');
       } else {
         swal("Debes seleccionar un contrato")
@@ -384,7 +386,7 @@
           text: "Desea Suspender el contrato de " + row.cliente + " ?",
           type: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
+          confirmButtonText: 'Estoy Seguro',
           cancelButtonText: 'Cancelar'
         }).then(function () {
           Contracts.suspend(row.id);

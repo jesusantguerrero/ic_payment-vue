@@ -271,19 +271,21 @@ function validateThis(){
 function clearForm(modalId){
   $(modalId + " input").val("");
 }
-
 function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   this.text = text;
   var self  = this;
+  var warning = $('#cancel-contract-modal .alert');
+
   $inputElement.on("keyup",function(e){
     e.stopImmediatePropagation();
     innerText = $(this).val() 
     if(innerText.toLowerCase() == self.text.toLowerCase()){
       $buttonToActive.removeAttr("disabled");
-
+      warning.addClass('hide');
     }else{
       $buttonToActive.attr("disabled","");
+      warning.removeClass('hide');
     }
   })
 }

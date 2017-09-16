@@ -691,7 +691,6 @@ function get_first_date($date){
   return $newdate;
 }
 
-
 function generar_facturas_primera_vez($context){
   $settings = get_settings();
   $hoy = date('Y-m-d');
@@ -817,4 +816,3 @@ function get_settings(){
   $settings = $ci->db->get('ic_settings',1);
   return $settings->row_array();
 }
-

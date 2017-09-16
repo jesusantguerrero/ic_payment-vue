@@ -65,6 +65,14 @@
           <!-- /.box -->
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
+        <div class="contract-controls <?php echo $controls_class ?>">
+          <button class="btn" id="btn-pay"><i class="material-icons" >delete</i></button>
+          <button class="btn" id="btn-pay"><i class="material-icons" >report_problem</i></button>
+          <button class="btn" id="btn-pay"><i class="material-icons" >delete</i></button>
+          <button class="btn" id="btn-pay"><i class="material-icons" >more</i></button>
+          <button class="btn" id="btn-pay"><i class="material-icons" >description</i></button>
+          <button class="btn" id="btn-pay"><i class="material-icons" >description</i></button>
+        </div>
       </div>
       <div class="col-md-9 wide-main-content">
         <div>

@@ -529,7 +529,13 @@ class Process extends CI_Controller {
 		authenticate();
 		if(!$this->is_day_closed()){
 			$data_cancel = $_POST;
-			cancel_contract($this,$data_cancel);
+			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
+			$estado = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
+			if($pendents == false and $estado != 'mora'){
+				cancel_contract($this,$data_cancel);
+			}else{
+				echo 'El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar';
+			}
 		}
 	}
 

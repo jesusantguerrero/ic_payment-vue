@@ -75,4 +75,13 @@ class Contract_view_model extends CI_MODEL{
     );
   }
 
+  public function get_pendent_payments($contract_id){
+    $this->db->select('pagos_generados')
+    ->where('id_contrato',$contract_id);
+    $pendents = $this->db->get('v_pagos_generados');
+    if($pendents){
+      return $pendents->row_array()['pagos_generados'];
+    }
+  }
+
 }
