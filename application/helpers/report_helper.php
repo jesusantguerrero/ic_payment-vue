@@ -139,7 +139,7 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","Celular","Codigo IP","Direccion IP"); 
+    $context->table->set_heading("Contrato","Cliente","Celular","Pagos Pendientes","Meses"); 
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
@@ -149,8 +149,8 @@ if ( ! function_exists('make_moras_report')){
       $line['id_contrato'],
       $line['cliente'],
       phone_format($line['celular']),
-      $line['codigo'],
-      $line['ip_final']
+      $line['pagos_pendientes'],
+      $line['meses']
       );
 
      $cont+=1;

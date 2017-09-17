@@ -27,7 +27,6 @@ var paymentTable = {
       }else{
          self.detailBox.hide();
       }
-      console.log(row.estado)
     })
 
     paymentTable.clickEvents();
@@ -119,9 +118,42 @@ var detailsContractTable = {
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
     
+    var controls = {
+      'cancel': 'btn-detail-cancel-contract',
+      'suspend': 'btn-detail-suspend-contract',
+      'reconnect': 'btn-call-reconnect',
+      'extra': 'btn-call-extra'
+    }
+    
+    this.el.on('click-row.bs.table',function(event,row,$el,field){
+      event.stopImmediatePropagation();
+      var self = detailsContractTable;
+      $(".payment-mode").removeClass("selected");
+      console.log(row.estado)
+      if(!$el.hasClass('selected')){
+        switch (row.estado) {
+          case 'saldado':
+            self.activeButtons([controls.reconnect, controls.extra])
+            break;
+          case 'activo':
+            self.activeButtons([controls.cancel,controls.suspend, controls.extra])
+            break;
+          case 'cancelado':
+            self.activeButtons([controls.reconnect])
+            break;
+          case 'suspendido':
+            self.activeButtons([controls.reconnect, controls.cancel])
+            break;
+        }
+      }else{
+         self.desactiveButtons('icon')
+      }
+    })
+    
     if(page){
       this.el.bootstrapTable('selectPage',page);
     }
+
   },
 
   getSelectedRow: function(){
@@ -136,9 +168,19 @@ var detailsContractTable = {
     detailsContractTable.init(options.pageNumber);
     if(callback)
        callback();
-  }   
-}
+  },
+  
+  activeButtons: function (buttonsId,btnClass) {
+    this.desactiveButtons('icon');
+    buttonsId.forEach( function (button) {
+      $('#'+button).removeAttr('disabled');
+    }, this);
+  },
 
+  desactiveButtons: function(btnClass){
+    $('.contract-controls .' + btnClass).attr('disabled','');
+  }
+}
 
 var bus = new Vue()
 

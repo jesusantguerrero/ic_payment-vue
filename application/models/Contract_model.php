@@ -101,7 +101,8 @@ class Contract_model extends CI_MODEL{
 
   public function get_all_of_client($id_cliente){
     $this->db->where('id_cliente',$id_cliente);
-    $result = $this->db->get('ic_contratos');
+    $this->db->order_by('id_contrato');
+    $result = $this->db->get('v_contratos');
     echo make_contract_table($result->result_array(),0);
   }
 
@@ -280,9 +281,17 @@ class Contract_model extends CI_MODEL{
       $this->db->update('ic_clientes',array('estado' => 'no activo'));
     }
 
-    if($contract['proximo_pago'] >= date('Y-m-d')){
+    if($contract['proximo_pago'] >= date('Y-m-d') and $contract['estado'] != 'suspendido'){
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $this->db->update('ic_clientes',array('estado' => 'activo'));
     }
+  }
+
+  public function delete_cancelation($contract_id){
+    $this->db->where('id_contrato',$contract_id);
+    if($this->db->delete('ic_cancelaciones')){
+      return true;
+    }
+    return false;
   }
 }

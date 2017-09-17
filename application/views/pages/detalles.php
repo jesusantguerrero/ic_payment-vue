@@ -65,13 +65,11 @@
           <!-- /.box -->
           <button class="btn" id="btn-pay">Registrar Pago</button>
         </div>
-        <div class="contract-controls <?php echo $controls_class ?>">
-          <button class="btn" id="btn-pay"><i class="material-icons" >delete</i></button>
-          <button class="btn" id="btn-pay"><i class="material-icons" >report_problem</i></button>
-          <button class="btn" id="btn-pay"><i class="material-icons" >delete</i></button>
-          <button class="btn" id="btn-pay"><i class="material-icons" >more</i></button>
-          <button class="btn" id="btn-pay"><i class="material-icons" >description</i></button>
-          <button class="btn" id="btn-pay"><i class="material-icons" >description</i></button>
+        <div class="contract-controls hide">
+          <button class="btn icon" id="btn-detail-cancel-contract" disabled><i class="material-icons" title="cancelar contrato" >delete</i></button>
+          <button class="btn icon" id="btn-detail-suspend-contract" title="suspender contrato" disabled><i class="material-icons" >report_problem</i></button>
+          <button class="btn icon" id="btn-call-reconnect" title="Reconectar" disabled><i class="material-icons" >fiber_smart_record</i></button>
+          <button class="btn icon" id="btn-call-extra" title="extras" disabled><i class="material-icons" >more</i></button>
         </div>
       </div>
       <div class="col-md-9 wide-main-content">
@@ -174,7 +172,7 @@
                 data-minimum-count-columns="2" 
                 data-show-pagination-switch="false"
                 data-pagination="true"
-                data-id-field="id-contrato" 
+                data-id-field="id_contrato" 
                 data-page-size="20" 
                 data-page-list="[10,20,50,All]" 
                 data-show-footer="false" 
@@ -182,15 +180,19 @@
                 data-single-select="true">
                 <thead>
                   <tr>
-                    <th data-field="id-contrato">COD</th>
+                    <th data-field="id_contrato">COD</th>
+                    <th data-field="ip">IP</th>
                     <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
                     <th data-field="fecha">Fecha</th>
-                    <th data-field="meses">(meses)</th>
+                    <th data-field="meses">(Meses)</th>
                     <th data-field="ultimo-pago">Ultimo Pago</th>
                     <th data-field="proximo-pago">Proximo Pago</th>
                     <th data-field="monto-pagado">Monto Pagado</th>
                     <th data-field="monto-total">Monto Total</th>
-                    <th data-field="estado">estado</th>
+                    <th data-field="estado">Estado</th>
+                    <th data-field="actions">Acciones</th>
+                    <th data-field="id_cliente" class="hide">id cliente</th>
+                    <th data-field="cedula" class="hide">cedula</th>
                   </tr>
                 </thead>
                  <tbody>
@@ -235,11 +237,6 @@
                 </thead>
                 <tbody></tbody>
               </table>
-
-        <div class="alert alert-info reconnect-caller <?php if($client_data['estado'] == 'suspendido'): ?> visible<?php endif; ?>" role="alert" data-toggle="modal" data-target="#reconnect-modal">
-                Este cliente se encuantra suspendido, para activarlo y dar un nuevo contrato presione aqui
-              </div>
-            
             </div>
 
             <!---->

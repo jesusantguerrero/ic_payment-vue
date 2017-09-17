@@ -160,13 +160,17 @@ function fillInstallationsList($content,callback){
 
 function makeContractList(response,callback){
   if(response != "nada"){
-    
     var contracts = JSON.parse(response);
     var value,service,equipment,eMac,router,rMac,code;
     var selectContract = $("#extra-client-contract");
     var element = "<option value=''>--Selecciona--</option>";
     var cliente = contracts.cliente;
-    var contractId = contractTable.getId();
+    var contractId 
+    if(currentPage != 'detalles'){
+      contractId = contractTable.getId();
+    }else{
+      contractId = detailsContractTable.getSelectedRow().id_contrato
+    }
 
     for (var i = 0; i < contracts.contratos.length; i++) {
       value     = contracts.contratos[i]["id_contrato"];

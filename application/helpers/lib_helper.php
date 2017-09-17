@@ -170,6 +170,7 @@ if ( ! function_exists('make_contract_table')){
        $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
         $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
+        <td class='codigo'>".$line['codigo']."</td>
         <td class='hide'></td>
         <td>".date_spanish_format($line['fecha'])."</td>
         <td>".$line['duracion']."</td>
@@ -177,7 +178,15 @@ if ( ! function_exists('make_contract_table')){
         <td>".date_spanish_format($line['proximo_pago'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-        <td class='{$state['class']}'>".$state['text']."</td>
+        <td class='{$state['class']}'>".$line['estado']."</td>
+        <td class='actions'>";
+        $html_text .="<a  target='_blank' title='imprimir contrato' href='".base_url('process/getrequirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
+        if($line['estado'] == 'cancelado'):
+          $html_text .="<a  target='_blank' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
+          endif;
+        $html_text.="</td>
+        <td class='hide'>".$line['id_cliente']."</td>
+        <td class='hide'>".$line['cedula']."</td>
       </tr>";
     }
 

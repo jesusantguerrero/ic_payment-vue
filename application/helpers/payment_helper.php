@@ -83,7 +83,11 @@ if (! function_exists('refresh_contract')){
       $estado = "saldado";
       $context->section_model->update_ip_state($contract['codigo'],'disponible');
     }else{
-      $estado = "activo";
+      if($contract['estado'] == 'suspendido'){
+        $estado = "suspendido";
+      }else{
+        $estado = "activo";
+      }
     }
   
     $data_contract = array(
@@ -131,7 +135,6 @@ if (! function_exists('cancel_payment')){
     } 
   }
 }
-
  
 if (! function_exists('set_abono')){
  

@@ -341,8 +341,14 @@ var Contracts = {
     }
   },
 
-  callExtra: function() {
-    var row = contractTable.getSelectedRow();
+  callExtra: function(context) {
+    var row
+    if (context == "details"){
+      row = detailsContractTable.getSelectedRow();
+    }else{
+      row = contractTable.getSelectedRow();
+    }
+    
     if (row) {
       $("#extra-client-dni").val(row.cedula);
       Contracts.getAllOfClient(row.cedula);
@@ -458,17 +464,15 @@ var Contracts = {
     }
   },
 
-  reconnect: function () {
-    var form, contractId, selectedService, serviceId, duration, date,send, is_empty,info;
+  reconnect: function (contractId,callback) {
+    var form, selectedService, serviceId, duration, date,send, is_empty,info;
 
-    contractId = $("#select-contract").val();
     selectedService = $(".service-card.selected");
     serviceId = selectedService.attr("data-id");
     duration  = $("#reconnection-months").val();
     date = $("#reconnection-date").val()
-
+    console.log(contractId)
     is_empty = isEmpty([contractId,serviceId,date,duration]);
-    console.log("service id" + serviceId + " duration " + duration + " date" + date + " contract "+ contractId )
     if(!is_empty){
       info = {
         'id_contrato': contractId,
@@ -476,6 +480,7 @@ var Contracts = {
         'id_servicio': serviceId,
         'duracion': duration
       }
+
       form = "data=" + JSON.stringify(info);
       send = axios.post(BASE_URL + "contract/reconnect",form);
       send.then(function(res){
@@ -483,7 +488,8 @@ var Contracts = {
         Payments.getAll();
         $("#btn-reconnect").removeAttr("disabled");
         $(".reconnect-caller").removeClass('visible');
-        
+        if(callback)
+          callback()
       })
       send.catch(function(err){
         console.log(err);
@@ -536,13 +542,16 @@ var Contracts = {
   },
 
   // Note: lo siento, de aqui en adelante uso axios, es mucho mas comodo
-  suspend: function (id_contrato) {
-    form = "data=" + JSON.stringify({id_contrato:id_contrato})
+
+  suspend: function (contractId, callback) {
+    var form = "data=" + JSON.stringify({id_contrato: contractId})
     var send = axios.post(BASE_URL + 'contract/suspend',form);
     send.then(function(res){
       var data = res.data
       displayMessage(data.mensaje);
       Contracts.getAll();
+      if(callback)
+        callback()
     })
     send.catch(function(error){
       console.log(error);

@@ -168,21 +168,26 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
 
 function detailsFunctions(){
   var smallButtonsSelect = $('.btn-small');
+  var tabs = {
+    contractControls : ["#contracts","#month-and-date","#reconnect-service",'#extra-contract','#extra-service','#extra-extension','#extra-upgrade'],
+    paymentControls: ["#payments", "#detalles_de_pago","#descuento"] 
+  }
 
   $('[role="tab"]').on('click',function(){
     var href = $(this).attr("href")
-    if(href == "#payments" ||href == "#detalles_de_pago" || href == "#descuento" || href == "#month-and-date" || href == "#reconnect-service") {
+    
+    if(compare(href,tabs.paymentControls)) {
       $(".payment-controls").addClass("visible");
     }else{
       $(".payment-controls").removeClass("visible");
     }
 
-    if(href == "#contracts"){
-      $(".contract-controls").addClass("visible")
+    
+    if(compare(href,tabs.contractControls)){
+      $(".contract-controls").removeClass("hide")
     }else{
-      $(".contract-controls")
+      $(".contract-controls").addClass("hide")
     }
-
 
     getTabControls($(this));
   });
@@ -191,6 +196,18 @@ function detailsFunctions(){
     smallButtonsSelect.removeClass('selected');
     $(this).addClass('selected');
   })
+
+  function compare(value, posibleValues){
+    var returnValue = false;
+    posibleValues.forEach( function(theValue) {
+      if(value == theValue){
+        console.log(value + ' igual a ' + theValue + ' ?');
+        returnValue = true;
+      }
+    }, this);
+    
+    return returnValue;
+  }
 }
 
 function getTabControls($this){

@@ -27,11 +27,12 @@ if ( ! function_exists('get_modals'))
          array_push($modals,'modales/service_modals');
         break;
       case 'contratos':
-           array_push($modals,'modales/client_modals');
-           array_push($modals, 'modales/contract_modals');
-         break;
-      // case 'reportes':
-      //   break;
+        array_push($modals,'modales/client_modals');
+        array_push($modals, 'modales/contract_modals');
+        break;
+      case 'detalles':
+        array_push($modals, 'modales/contract_modals');
+        break;
       // case 'notificaciones':
       //   # code...
       //   break;
