@@ -23,6 +23,7 @@
       case "detalles":
         initPaymentsHandlers();
         detailHandlers();
+        initContractHandlers();
         break;
       case "contratos":
         initContractHandlers();
@@ -329,8 +330,10 @@
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    contractTable.init();
-    Contracts.getAll();
+    if(currentPage == 'contratos'){
+      contractTable.init();
+      Contracts.getAll();
+    }
 
     $("#btn-save-contract").on('click', function (e) {
       e.stopImmediatePropagation();
@@ -342,17 +345,28 @@
       e.stopImmediatePropagation();
       Contracts.callExtra();
     });
-    var cont = 0;
-
+    
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
       Generals.search(text, "v_contratos", contractTable.refresh, null);
     });
 
-    $("#btn-cancel-contract").on('click', function (e) {
+    $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {
       e.preventDefault();
-      var row = contractTable.getSelectedRow();
+      var row, callback 
+      console.log('hello world');
+        if(currentPage == 'contratos'){
+          row = contractTable.getSelectedRow();
+          callback = Contracts.getAll;
+        }else{
+          row = detailsContractTable.getSelectedRow();
+          row.id = row.id_contrato;
+          row.id_cliente = $('#datail-client-id').val();
+          row.cliente = $('#detail-client-name').val();
+          callback = Payments.contractRefresh;
+        }
+      
       if (row) {
         $(".cancel-name").text(row.cliente);
         var $inputElement = $(".confirmed-data");
@@ -365,7 +379,8 @@
         
         $buttonToActive.on('click', function (e) {
           e.stopImmediatePropagation();
-          Contracts.cancel()
+          console.log(row)
+          Contracts.cancel(row, callback)
           $buttonToActive.attr('disable');
         })
 
@@ -418,7 +433,7 @@
       var lastPaymentId = $(this).val();
       Payments.updateUntil(contractId, lastPaymentId);
     });
-
+    
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
 
@@ -542,7 +557,7 @@
     });
 
     $btnUpdateUser.on('click', function (e) {
-      e.preventDefault()
+      e.preventDefault();
       e.stopImmediatePropagation();
       Users.updatePassword($userId.val(), $currentPassword.val(), $newPassword.val())
     })

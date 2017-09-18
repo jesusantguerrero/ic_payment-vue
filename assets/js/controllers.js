@@ -358,12 +358,12 @@ var Contracts = {
     }
   },
 
-  cancel: function() {
-    var row        = contractTable.getSelectedRow()
+  cancel: function(row,callback) {
     var is_penalty = false;
     var reason     = $("#cancelation-reason").val();
     var checked    = $("#check-penalty:checked").length;
     var form, fecha;
+    console.log(row)
     if(row.id){
       if (checked > 0) {
         is_penalty = true;
@@ -371,7 +371,7 @@ var Contracts = {
       fecha = moment().format("YYYY-MM-DD");
       form = 'id_contrato=' + row.id + '&fecha=' + fecha + '&id_cliente=' + row.id_cliente;
       form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-      connectAndSend('process/cancel', true, null, null, form, Contracts.getAll);
+      connectAndSend('process/cancel', true, null, null, form, callback);
     }else{
       displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
     }

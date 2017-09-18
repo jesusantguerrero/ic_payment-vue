@@ -20,14 +20,27 @@
   </div>
   <div class="main-content col-md-10">
     <h2 class="subsection-title">Clientes</h2> 
-    <div class="searcher-container">
-      <input type="text" class="searcher" id="client-searcher" placeholder="Busque cliente por cedula, nombre, apellidos o id">
-      
+    <div class="searcher-container main-toolbar" id="clients-toolbar">
+      <div class="input-group search">
+        <div class="input-group-addon"><i class="material-icons">search</i></div>
+        <input type="text" class="form-control searcher"  placeholder="Busque cliente por cedula, nombre, apellidos o id">
+      </div>
+      <div class="pull-right">
+        <select id="client-filter" class="form-group filter btn btn-dafault">
+          <option value="todo">Todos</option>
+          <option value="activo">Activos</option>
+          <option value="no activo">No Activos</option>
+          <option value="suspendido">Suspendidos</option>
+          <option value="en corte">En corte</option>
+          <option value="mora">Morosos</option>
+        </select>  
+      </div>
     </div>
     
     <table class="table t-clients" id="t-clients" 
       data-sort-order="asc" 
-      data-search="false" 
+      data-search="true" 
+      data-toolbar="#clients-toolbar"
       data-show-refresh="false"
       data-show-columns="false"
       data-show-export="false"

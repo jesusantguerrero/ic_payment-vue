@@ -16,14 +16,25 @@
   </div>
   <div class="main-content col-md-10">
   <h2 class="subsection-title">Servicios</h2> 
-    <div class="searcher-container">
-      <input type="text" class="searcher" id="service-searcher">
-    </div>
+      <div class="searcher-container main-toolbar" id="toolbar">
+        <div class="input-group search">
+          <div class="input-group-addon"><i class="material-icons">search</i></div>
+          <input type="text" class="form-control searcher"  placeholder="Buscar servicio">
+        </div>
+        <div class="pull-right">
+          <select id="client-filter" class="form-group filter btn btn-dafault">
+            <option value="todo">Todos</option>
+            <option value="internet">Internet</option>
+            <option value="reparacion">Reparacion</option>
+          </select>  
+        </div>
+      </div>
 
       <table class="table t-services" id="t-services" 
         data-sort-name="orden"
         data-sort-order="asc" 
-        data-search="false" 
+        data-search="true"
+        data-toolbar="#toolbar" 
         data-show-refresh="false"
         data-show-columns="false"
         data-show-export="false"

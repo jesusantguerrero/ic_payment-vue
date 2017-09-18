@@ -162,7 +162,7 @@ class Process extends CI_Controller {
 				break;
 
 			case "pagos_al_dia":
-				if(!$this-is_day_closed()){
+				if(!$this->is_day_closed()){
 					$this->db->trans_start();
 					payments_up_to_date($data);
 					$this->db->trans_complete();

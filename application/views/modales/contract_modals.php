@@ -184,8 +184,7 @@
 
         <div class="form-group">
           <label for="u-service-description">Motivo</label>
-          <textarea  class="form-control "cols="30" rows="5"  id="cancelation-reason" >
-           </textarea>
+          <textarea  class="form-control "cols="30" rows="5"  id="cancelation-reason"></textarea>
         </div>
 
         <div class="form-group">

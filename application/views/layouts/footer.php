@@ -1,8 +1,6 @@
-	<div class="toast"><span></span> </div>
-	
-	
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=beta-3.5.5')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=beta-3.5.5')?>"></script>
+	<div class="toast"><span></span> </div>	
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=beta-3.5.7')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=beta-3.5.7')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});

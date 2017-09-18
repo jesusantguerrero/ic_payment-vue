@@ -19,13 +19,23 @@
   </div>
   <div class="main-content col-md-10">
     <h2 class="subsection-title">Contratos</h2>
-    <div class="searcher-container">
-      <input type="text" class="searcher" id="contract-searcher" placeholder="Busque contrato por codigo o cliente">
+    <div class="searcher-container main-toolbar" id="toolbar">
+    <div class="input-group search">
+      <div class="input-group-addon"><i class="material-icons">search</i></div>
+      <input type="text" class="form-control searcher"  placeholder="Buscar contrato">
     </div>
+    <div class="pull-right">
+      <select id="client-filter" class="form-group filter btn btn-dafault">
+        <option value="activos">Activos</option>
+      </select>  
+    </div>
+  </div>
 
     <table class="table table-hovered t-contracts" id="t-contracts" 
       data-sort-name= "id"  
       data-minimum-count-columns= "2"  
+      data-search="true"
+      data-toolbar="#toolbar"
       data-pagination="true"  
       data-id-field= "id"  
       data-page-size= "50"  
