@@ -366,7 +366,7 @@
                 </div>
                 <div class="col-md-3 mb-3">
                   <label for="">Recibo</label><br>
-                  <p :class="{hide: hide_recibo}"><a  target="_blank" :href="url_recibo"><i class="material-icons">description</i></a>  {{recibo.estado}}</p>
+                  <p :class="{hide: hide_recibo}"><a  target="printframe" :href="url_recibo"><i class="material-icons">description</i></a>  {{recibo.estado}}</p>
                 </div>
               </div>
               <div class="row" :class="firstControls">

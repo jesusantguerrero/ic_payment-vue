@@ -1,4 +1,5 @@
-	<div class="toast"><span></span> </div>	
+	<div class="toast"><span></span> </div>
+	<iframe src="" frameborder="0" name="printframe" class="hide"></iframe>	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=beta-3.5.7')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=beta-3.5.7')?>"></script>
 	<script>

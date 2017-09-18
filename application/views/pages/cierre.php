@@ -232,7 +232,7 @@
 					<div class="list-repair centered-container">
 
 
-						<a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
+						<a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
 							<h2 class="current-saldo will-load"> RD$ {{ data_cierre.pagos_efectivo | currencyFormat}}</h2>
 						</a>
 						<br>

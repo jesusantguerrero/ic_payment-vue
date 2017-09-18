@@ -67,6 +67,7 @@
           <th data-field="celular">Celular</th>
           <th data-field="estado" data-sortable="true">Estado</th>
           <th data-field="estadoreal" class="hide">Estado</th>
+          <th data-field="nombre_completo" class="hide">Nombre Completo</th>
  
         </tr>
       </thead>

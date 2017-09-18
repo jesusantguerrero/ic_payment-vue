@@ -102,9 +102,10 @@ if ( ! function_exists('make_client_table')){
         <td>".$line['apellidos']."</td>
         <td>".dni_format($line['cedula'])."</td>
         <td>".phone_format($line['celular'])."</td>
-         <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
+        <td data-value='{$line['estado']}' class='{$state['class']} estado-cliente'>".$state['text']."</td>
         <td class='hide'>".$line['estado']."</td>
-      </tr>";
+        <td>".$line['nombres']." ".$line['apellidos']."</td>
+        </tr>";
      $cont+=1;
     }
 
@@ -180,9 +181,9 @@ if ( ! function_exists('make_contract_table')){
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
         <td class='{$state['class']}'>".$line['estado']."</td>
         <td class='actions'>";
-        $html_text .="<a  target='_blank' title='imprimir contrato' href='".base_url('process/getrequirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
+        $html_text .="<a  target='printframe' title='imprimir contrato' href='".base_url('process/getrequirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
         if($line['estado'] == 'cancelado'):
-          $html_text .="<a  target='_blank' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
+          $html_text .="<a  target='printframe' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
           endif;
         $html_text.="</td>
         <td class='hide'>".$line['id_cliente']."</td>
@@ -460,7 +461,7 @@ if ( ! function_exists('make_payment_table')){
         <td>".date_spanish_format($line['fecha_limite'])."</td>
         <td>";
           if($line['fecha_pago'] != null):
-          $html_text .="<a  target='_blank' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
+          $html_text .="<a  target='printframe' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
           endif;
         $html_text .="</td>
         <td> class='hide'".$line['id_contrato']."</td>

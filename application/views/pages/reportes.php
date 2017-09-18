@@ -106,7 +106,7 @@
         <div role="tabpanel" class="tab-pane active" id="general">
           <div class="today-data">
             <h5>Ventas de hoy</h5>
-            <p> <a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
+            <p> <a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
               <span class="amount">RD$ <?php echo CurrencyFormat($this->payment_model->day_income("today")) ?></span></a>
               </p>
             </div>

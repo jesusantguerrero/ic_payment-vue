@@ -289,25 +289,19 @@
       </div>
       <div class="modal-body">
         <div>
-          <div class="searcher-container">
-            <input type="text" class="searcher" id="client-searcher-newcontract" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+
+          <div class="searcher-container main-toolbar" id="clients-toolbar" style="margin-bottom: 0">
+            <div class="input-group search" style="width: 100%; margin-bottom: 5px">
+              <div class="input-group-addon"><i class="material-icons">search</i></div>
+              <input type="text" class="form-control searcher" id="client-searcher-newcontract" placeholder="Busque cliente por cedula, nombre, apellidos o id">
+            </div>
           </div>
 
-          <table class="table t-clients" id="t-clients" data-sort-name="id-contrato"
-            data-sort-order="asc" 
-            data-search="false" 
-            data-show-refresh="false"
-            data-show-columns="false"
-            data-show-export="false"
-            data-minimum-count-columns="2" 
-            data-show-pagination-switch="false"
-            data-pagination="true" data-id-field="id-contrato" 
-            data-page-size="5" data-page-list="[5]" 
-            data-show-footer="false"
-            data-striped="true"
-            data-click-to-select="true"
-            data-single-select="true">
-            <thead>     
+          <table class="table t-clients" id="t-clients" data-sort-name="id-contrato" data-sort-order="asc" data-search="false" data-show-refresh="false"
+            data-show-columns="false" data-show-export="false" data-minimum-count-columns="2" data-show-pagination-switch="false"
+            data-pagination="true" data-id-field="id-contrato" data-page-size="5" data-page-list="[5]" data-show-footer="false"
+            data-striped="true" data-click-to-select="true" data-single-select="true">
+            <thead>
               <tr>
                 <th data-field="orden">No.</th>
                 <th data-field="checkbox" data-checkbox="true" class="hide"> </th>
@@ -318,6 +312,7 @@
                 <th data-field="celular">Celular</th>
                 <th data-field="estado">Estado</th>
                 <th data-field="estadoreal" class="hide" data-sortable="true" data-searchable="true">Estado</th>
+                <th data-field="nombre_completo" class="hide">Nombre Completo</th>
               </tr>
             </thead>
             <tbody>
@@ -369,4 +364,3 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
