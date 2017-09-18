@@ -158,8 +158,13 @@ class Contract_model extends CI_MODEL{
     $this->db->set('complete_date','NOW()',false);
     $this->db->update('ic_pagos',$update_pago,array('id_pago' => $data_pago['id']));
 
+    $contract_debt = $this->get_debt_of($current_contract['id_contrato']);
+    $data_contrato = array_merge($data_contrato,$contract_debt);
+    $data_contrato['estado'] = $this->get_status_for($current_contract,$contract_debt);
+
     $this->db->where('id_contrato',$current_contract['id_contrato']);
     $this->db->update('ic_contratos',$data_contrato);
+
     $this->get_next_payment_for_contract($current_contract['id_contrato']);
     $this->db->trans_complete();
 
@@ -170,7 +175,6 @@ class Contract_model extends CI_MODEL{
       $this->check_is_active_client($current_contract);
       echo MESSAGE_SUCCESS." Pago Registrado";
     }
-
   }
 
   public function upgrade_contract($data_pago,$data_contrato){ 
@@ -197,8 +201,6 @@ class Contract_model extends CI_MODEL{
   public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){
     
     $update_contract = array(
-      'monto_total'   => $data_contrato['monto_total'],
-      'monto_pagado'  => $data_contrato['monto_pagado'],
       'estado'        => 'cancelado',
       'ultimo_pago'   => $data_contrato['ultimo_pago'],
       'proximo_pago'  => null,
@@ -212,9 +214,6 @@ class Contract_model extends CI_MODEL{
       echo MESSAGE_INFO." Este contrato ya ha sido cancelado o Saldado";
     }else{
       $this->db->trans_start();
-      // actualizando el contrato con los nuevos datos de cancelacion
-      $this->db->where('id_contrato',$data_contrato['id_contrato']);
-      $this->db->update('ic_contratos',$update_contract);
       // borrando los pagos restantes
       $this->db->where('estado','no pagado');
       $this->db->where('id_contrato',$data_contrato['id_contrato']);
@@ -224,6 +223,13 @@ class Contract_model extends CI_MODEL{
       // agregando la cancelacion a la tabla de cancelaciones
       $this->db->insert('ic_cancelaciones',$data_cancel);
       $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
+
+      // actualizando el contrato con los nuevos datos de cancelacion
+      $contract_debt = $this->get_debt_of($data_contrato['id_contrato']);
+      $update_contract = array_merge($update_contract,$contract_debt);
+      $this->db->where('id_contrato',$data_contrato['id_contrato']);
+      $this->db->update('ic_contratos',$update_contract);
+
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
         $this->db->trans_rollback();
@@ -293,5 +299,31 @@ class Contract_model extends CI_MODEL{
       return true;
     }
     return false;
+  }
+
+  public function get_debt_of($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->select_sum('cuota');
+    $to_pay = $this->db->get('ic_pagos',1)->row_array()['cuota'];
+    
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->select_sum('mensualidad');
+    $paid = $this->db->get('v_recibos',1)->row_array()['mensualidad'];
+
+    return array('monto_pagado' => $paid, 'monto_total' => $to_pay);
+  }
+
+  public function get_status_for($contract,$debt){
+    if($debt['monto_pagado'] == $debt['monto_total']){
+      $estado = "saldado";
+      $this->section_model->update_ip_state($contract['codigo'],'disponible');
+    }else{
+      if($contract['estado'] == 'suspendido'){
+        $estado = "suspendido";
+      }else{
+        $estado = "activo";
+      }
+    }
+    return $estado;
   }
 }

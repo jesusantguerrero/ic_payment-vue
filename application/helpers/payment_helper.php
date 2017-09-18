@@ -77,23 +77,9 @@ if (! function_exists('refresh_contract')){
 
     $contract  = $context->contract_model->get_contract_view($contract_id);
     $payment   = $context->payment_model->get_payment($data_pago['id']);
-    $monto_pagado = $contract['monto_pagado'] + $payment['cuota'];
-
-    if($monto_pagado == $contract['monto_total']){
-      $estado = "saldado";
-      $context->section_model->update_ip_state($contract['codigo'],'disponible');
-    }else{
-      if($contract['estado'] == 'suspendido'){
-        $estado = "suspendido";
-      }else{
-        $estado = "activo";
-      }
-    }
   
     $data_contract = array(
-      'monto_pagado'  => $monto_pagado,
       'ultimo_pago'   => $data_pago['fecha_pago'],
-      'estado'        => $estado
     );
 
     $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
@@ -104,7 +90,6 @@ if (! function_exists('cancel_payment')){
   function cancel_payment($payment_id,$context){
     $payment   = $context->payment_model->get_payment($payment_id);
     $contract  = $context->contract_model->get_contract_view($payment['id_contrato']);
-    $monto_pagado = $contract['monto_pagado'] - $payment['cuota'];
  
     if(!str_contains('abono',$payment['concepto'])){
 
@@ -114,6 +99,7 @@ if (! function_exists('cancel_payment')){
       );
  
       $context->payment_model->update($data_payment,$payment_id);
+      
       $context->db->where('id_contrato',$payment['id_contrato'])
         ->where('estado','pagado')
         ->select('fecha_pago')
@@ -122,13 +108,15 @@ if (! function_exists('cancel_payment')){
       $last_pay_date = $context->db->get('ic_pagos',1)->row_array()['fecha_pago'];
  
       $data_contract = array(
-        'monto_pagado'  => $monto_pagado,
         'ultimo_pago'   => $last_pay_date,
         'proximo_pago'  => $payment['fecha_limite'],
         'estado'        => 'activo'
       );
- 
+      
+      $contract_debt = $context->contract_model->get_debt_of($payment['id_contrato']);
+      $data_contract = array_merge($data_contract, $contract_debt);
       $context->contract_model->update($data_contract,$payment['id_contrato']);
+
       echo MESSAGE_SUCCESS." Pago cancelado";
     }else{
       cancel_abono($payment,$contract,$context);
@@ -141,11 +129,9 @@ if (! function_exists('set_abono')){
   function set_abono($data,$context){
     $date     = date('Y-m-d');
     $payment  = $context->payment_model->get_next_payment_of($data['contrato_abono']);
+    $contract  = $context->contract_model->get_contract_view($data['contrato_abono']);
  
-    if($payment and $data['abonos'] < $payment['cuota']){
-      $context->db->where('id_contrato',$data['contrato_abono']);
-      $context->db->select('monto_pagado');
-      $monto_pagado = $context->db->get('ic_contratos',1)->row_array()['monto_pagado'];
+    if($payment and $data['abonos'] < $payment['cuota'] and $data['abonos'] > 0){
       $id_empleado = $_SESSION['user_data']['user_id'];
       $to_pay = new DATETIME($payment['fecha_limite']);
       $to_pay = str_replace($GLOBALS['full_months_eng'],$GLOBALS['full_months_esp'],$to_pay->format('F'));
@@ -175,16 +161,16 @@ if (! function_exists('set_abono')){
  
       $context->payment_model->update($updated_payment,$payment['id_pago']);
  
-      $data_contract = array(
-        'monto_pagado'  => $monto_pagado + $data['abonos'],
-        'ultimo_pago'   => $date,
-        'estado'        => 'activo'
-      );
+      $data_contract = array('ultimo_pago'   => $date);
+      $contract_debt = $context->contract_model->get_debt_of($contract['id_contrato']);
+      $data_contract = array_merge($data_contract,$contract_debt);
+      $data_contract['estado'] = $context->contract_model->get_status_for($contract,$contract_debt);
  
-      $context->contract_model->update($data_contract,$data['contrato_abono']);
+      $context->contract_model->update($data_contract,$contract['id_contrato']);
+
       echo MESSAGE_SUCCESS." El abono ha sido registrado correctamente";
     }else{
-      echo MESSAGE_INFO." El abonono puede ser mayor a la cuota del pago";
+      echo MESSAGE_INFO." El abono no puede ser mayor a la cuota del pago";
     }
   }
 }
@@ -208,11 +194,10 @@ if (! function_exists('cancel_abono')){
  
       $context->payment_model->update($updated_payment,$abono_owner['id_pago']);
  
-      $data_contract = array(
-        'monto_pagado'  => $contract['monto_pagado'] - $total,
-        'ultimo_pago'   => $last_payment['fecha_pago'],
-        'estado'        => 'activo'
-      );
+      $data_contract = array('ultimo_pago'   => $last_payment['fecha_pago']);
+      $contract_debt = $context->contract_model->get_debt_of($contract['id_contrato']);
+      $data_contract = array_merge($data_contract,$contract_debt);
+      $data_contract['estado'] = $context->contract_model->get_status_for($contract,$contract_debt);
  
       $context->contract_model->update($data_contract,$contract['id_contrato']);
       echo MESSAGE_SUCCESS." Pago eliminado";
@@ -503,7 +488,7 @@ if (! function_exists('cancel_contract')){
         'id_servicio' => $contract['id_servicio'],
         'fecha_pago'  => $data_cancel['fecha'],
         'concepto'    => 'Cancelación de Contrato',
-        'cuota'       => 0,
+        'cuota'       => $penalizacion,
         'mora'        => 0,
         'total'       => $penalizacion,
         'estado'      => "pagado",
