@@ -68,11 +68,11 @@ var cssFiles = [
 ]
 
 var frontendCss = [
+  path + "assets/css/5-others/peace-material.min.css",
   path + "assets/css/5-others/select2.min.css",
   path + "assets/css/5-others/AdminLTE.min.css",
   path + "assets/css/5-others/square/blue.css",
   path + "assets/css/5-others/square/square.css",
-  path + "assets/css/5-others/peace-material.min.css"
 ]
 
 const superPath = 'C:/xampp/htdocs/icpayment/'

@@ -287,9 +287,13 @@ class Contract_model extends CI_MODEL{
       $this->db->update('ic_clientes',array('estado' => 'no activo'));
     }
 
-    if($contract['proximo_pago'] >= date('Y-m-d') and $contract['estado'] != 'suspendido'){
+    if($contract['proximo_pago'] >= date('Y-m-d')){
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $this->db->update('ic_clientes',array('estado' => 'activo'));
+    }else{
+      $this->db->where('id_cliente',$current_contract['id_cliente']);
+      $this->db->update('ic_clientes',array('estado' => 'mora'));
+
     }
   }
 
@@ -318,11 +322,7 @@ class Contract_model extends CI_MODEL{
       $estado = "saldado";
       $this->section_model->update_ip_state($contract['codigo'],'disponible');
     }else{
-      if($contract['estado'] == 'suspendido'){
-        $estado = "suspendido";
-      }else{
-        $estado = "activo";
-      }
+      $estado = "activo";
     }
     return $estado;
   }

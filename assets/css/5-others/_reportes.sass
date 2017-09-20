@@ -129,9 +129,11 @@ body
     page-break-after: always !important
     page-break-inside: avoid !important
 
-  .concepto
-    background: $contrast-color !important
-    color: white !important
+    .concepto
+      -webkit-print-color-adjust: exact !important
+      background: $contrast-color !important
+      color: white !important
+
   .table
     font-size: 12px !important
     thead
@@ -147,3 +149,13 @@ body
   .real-end
     break-after: avoid
     webkit-column-break-after: avoid
+
+  table
+    table-layout: auto
+    th
+      vertical-align: top
+      word-wrap: normal
+      min-width: fit-content
+
+    th.expanded
+      min-height: 300px

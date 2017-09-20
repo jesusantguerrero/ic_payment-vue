@@ -24,7 +24,6 @@
   <div class="pie-pagina">
   </div>
 </div>
-<script src="<?php echo base_url('assets/js/min/mobileDetect.min.js?version=2.20.0')?>"></script>
 <script>
  var now = moment()
  var fecha = now.format("DD-MM-YYYY");

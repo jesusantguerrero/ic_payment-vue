@@ -713,11 +713,10 @@ function generar_facturas_primera_vez($context){
 function generar_facturas_mes($context){
   $settings = get_settings();
   $hoy = date('Y-m-d');
-    if(date('d') == $settings['dia_generacion_factura'] and $hoy == $settings['ultima_generacion_factura']){
+    if(date('d') == $settings['dia_generacion_factura'] and $hoy != $settings['ultima_generacion_factura']){
       $contratos = $context->db->get('v_pagos_generados')->result_array();
       foreach ($contratos as $contrato) {
         if($contrato['estado'] == 'activo' and $contrato['pagos_generados'] < 3){
-
           $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
           $context->db->where('id_contrato',$contrato['contrato']);
           $context->db->update('ic_pagos',['generado' => true]);
@@ -747,7 +746,7 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
   $context->contract_model->update(['monto_total' => $suma],$id_contrato);
   $context->db->trans_complete();
   
-  if($context->db->trans_status() == false){
+  if($context->db->trans_status() === false){
      $context->db->trans_rollback();
      return false;
   }else{

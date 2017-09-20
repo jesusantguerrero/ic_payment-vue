@@ -69,12 +69,12 @@ if ( ! function_exists('make_averias_report')){
 
   function make_averias_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Cliente","Direccion","Celular","Descripcion","Fecha"); 
+    $context->table->set_heading("Num","Cliente","Dirección",['data' => 'Numero de Celular', 'width' => '150px'],"Descripcion",['data' => 'Fecha del Reporte', 'width' => '150px']); 
     foreach ($data as $line) {
       $context->table->add_row($cont,
       $line['cliente'],
       $line['direccion'],
-      $line['celular'],
+      phone_format($line['celular']),
       $line['descripcion'],
       $line['fecha']);
 
@@ -139,7 +139,7 @@ if ( ! function_exists('make_moras_report')){
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Cliente","Celular","Pagos Pendientes","Meses"); 
+    $context->table->set_heading("Contrato","Codigo","Cliente","Celular","Pagos Pendientes","Meses"); 
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
@@ -147,6 +147,7 @@ if ( ! function_exists('make_moras_report')){
     foreach ($data as $line) {
       $context->table->add_row(
       $line['id_contrato'],
+      $line['codigo'],
       $line['cliente'],
       phone_format($line['celular']),
       $line['pagos_pendientes'],
