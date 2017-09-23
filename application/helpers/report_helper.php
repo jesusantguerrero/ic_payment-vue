@@ -68,10 +68,11 @@ if ( ! function_exists('make_installation_report')){
 if ( ! function_exists('make_averias_report')){
 
   function make_averias_report($data,$concept,$context,$for_print){
-    $cont = 0 + 1;
-    $context->table->set_heading("Num","Cliente","Dirección",['data' => 'Numero de Celular', 'width' => '150px'],"Descripcion",['data' => 'Fecha del Reporte', 'width' => '150px']); 
+    $cont = 1;
+    $context->table->set_heading("Num","IP","Cliente","Dirección",['data' => 'Numero de Celular', 'width' => '150px'],"Descripcion",['data' => 'Fecha del Reporte', 'width' => '150px']); 
     foreach ($data as $line) {
       $context->table->add_row($cont,
+      $line['codigo'],
       $line['cliente'],
       $line['direccion'],
       phone_format($line['celular']),
@@ -85,43 +86,6 @@ if ( ! function_exists('make_averias_report')){
     $html_text = $context->table->generate()."<div class='real-end'></div>";
     if($for_print):
       set_report($html_text,$concept);
-    else:
-      return $html_text;
-    endif;
-  }
-}
-
-if ( ! function_exists('make_abonos_report')){
-  /**
-  * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  * @param boolean true para imprimir y false para no imprimir xD
-  *@return string the tbody with rows of a table 
-  */ 
-
-  function make_abonos_report($data,$concept,$context,$for_print){
-    $cont = 0 + 1;
-    $context->table->set_heading("Num","Cliente","Celular","Abono","Total a pagar","Deuda Pendiente"); 
-    
-
-    foreach ($data as $line) {
-      $payment = $context->payment_model->get_next_payment_of($line["contrato_abono"]);
-      $deuda = $payment['total'] - $line['abonos'];
-      $context->table->add_row(
-      $cont,
-      $line['nombres']." ".$line['apellidos'],
-      phone_format($line['celular']),
-      "RD$ ".CurrencyFormat($line['abonos']),
-      "RD$ ".CurrencyFormat($payment['total']),
-      "RD$ ".CurrencyFormat($deuda)
-      );
-     $cont+=1;
-    }
-
-    $html_text = $context->table->generate();
-    if($for_print):
-      set_report($html_text,$concept,$more = '');
     else:
       return $html_text;
     endif;
@@ -166,10 +130,10 @@ if ( ! function_exists('make_moras_report')){
   }
 }
 function make_moras_report_smart($data,$concept,$context,$for_print){ 
-    $spanish_months = $GLOBALS['spanish_months'];
-    $in_english = array_keys($spanish_months);
-    $in_spanish = array_values($spanish_months);
-    $html_text = '';
+  $spanish_months = $GLOBALS['spanish_months'];
+  $in_english = array_keys($spanish_months);
+  $in_spanish = array_values($spanish_months);
+  $html_text = '';
 
     foreach ($data as $line) {
       $html_text .= "
@@ -186,7 +150,7 @@ function make_moras_report_smart($data,$concept,$context,$for_print){
       </tr>";
     }
     return $html_text;
-  }
+}
 
 if( ! function_exists('set_report')){
   function set_report($report_body,$concept,$more = ''){

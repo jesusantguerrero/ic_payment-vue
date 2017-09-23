@@ -196,12 +196,16 @@ class Report_model extends CI_MODEL{
   }
 
   public function get_averias_report($is_print = true){
-    $this->db->where('estado','por reparar');
+    $this->db->select('v_averias.* , v_contratos.codigo',false);
+    $this->db->where('v_averias.estado','por reparar');
+    $this->db->join('v_contratos','id_cliente','LEFT');
     $this->db->order_by('fecha', 'DESC');
     $result = $this->db->get('v_averias');
      if($result){
       $result = $result->result_array();
       echo make_averias_report($result," Reporte De Averias",$this,$is_print);
+    }else{
+      //echo var_dump($this->db->last_query());
     }
   }
 

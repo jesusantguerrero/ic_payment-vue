@@ -59,7 +59,6 @@ class Averia_model extends CI_MODEL{
     if($status != 'todos'){
       $this->db->where('estado',$status);
     }
-    
     $this->db->order_by('fecha','DESC');
     $result = $this->db->get('v_averias');
     

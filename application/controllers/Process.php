@@ -480,6 +480,7 @@ class Process extends CI_Controller {
 
 	public function getreport($table,$type = 'nada'){
 		authenticate();
+
 		switch ($table) {
 			case 'payment':
 					$this->report_model->get_payments_report($type);
@@ -492,12 +493,6 @@ class Process extends CI_Controller {
 				break;
 			case 'averias':
 					$this->report_model->get_averias_report();
-				break;
-			case 'abonos':
-					$this->report_model->get_abonos_report();
-				break;
-			default:
-				# code...
 				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
@@ -591,4 +586,5 @@ class Process extends CI_Controller {
 			return true;
 		}
 	}
+
 }

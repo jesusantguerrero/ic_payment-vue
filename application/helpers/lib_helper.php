@@ -309,8 +309,7 @@ if ( ! function_exists('make_averias_list')){
               <button class='btn-update-averia'>Actualizar</button> 
             </div>
             <div class='description'>
-            <div class='title-item'>Averia :</div>
-            <div class='text'>".$line['descripcion']."</div>
+            <div class='text'>". ucfirst($line['descripcion'])."</div>
             </div>
             <div class='status-bar'>
               <span><i class='material-icons'>event</i> Fecha de Reporte: ".$line['fecha']."</span>
