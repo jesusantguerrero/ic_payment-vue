@@ -65,6 +65,7 @@ if ( ! function_exists('make_installation_report')){
     endif;
   }
 }
+
 if ( ! function_exists('make_averias_report')){
 
   function make_averias_report($data,$concept,$context,$for_print){
@@ -78,28 +79,47 @@ if ( ! function_exists('make_averias_report')){
       phone_format($line['celular']),
       $line['descripcion'],
       $line['fecha']);
-
      $cont+=1;
     }
 
-
     $html_text = $context->table->generate()."<div class='real-end'></div>";
-    if($for_print):
+    if ($for_print) {
       set_report($html_text,$concept);
-    else:
+    } else {
       return $html_text;
-    endif;
+    }
+  }
+}
+
+if ( ! function_exists('make_clients_report')){
+  
+  function make_clients_report($data,$concept,$context,$for_print){
+    $cont = 1;
+    $context->table->set_heading("Num","IP","Cliente",["data"=>"Cedula", "width"=> "155px"],"Dirección",["data" => "Celular", 'width'=> '150px']); 
+    
+    foreach ($data as $line) {
+      $context->table->add_row(
+        $cont,
+        $line['codigo'],
+        $line['nombres']." ".$line['apellidos'],
+        dni_format($line['cedula']),
+        "{$line['calle']} #{$line['casa']}, {$line['sector']}",
+        phone_format($line['celular'])
+      );
+     $cont+=1;
+    }
+  
+    $html_text = $context->table->generate()."<div class='real-end'></div>";
+    if ($for_print) {
+      set_report($html_text,$concept);
+    } else {
+      return $html_text;
+    
+    }
   }
 }
 
 if ( ! function_exists('make_moras_report')){
-  /**
-  * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  * @param boolean true para imprimir y false para no imprimir xD
-  *@return string the tbody with rows of a table 
-  */ 
 
   function make_moras_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
@@ -129,6 +149,7 @@ if ( ! function_exists('make_moras_report')){
     endif;
   }
 }
+
 function make_moras_report_smart($data,$concept,$context,$for_print){ 
   $spanish_months = $GLOBALS['spanish_months'];
   $in_english = array_keys($spanish_months);
@@ -171,7 +192,6 @@ if( ! function_exists('erase_report')){
     session_unset($_SESSION['reporte']);
   }
 }
-
 
 function get_rich_text($remark,$message,$colors = array('remark'=>'0066ff','message'=>'0066ff'),$size = 30){
   $objRichText = new PHPExcel_RichText();

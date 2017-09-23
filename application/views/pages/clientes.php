@@ -26,6 +26,9 @@
         <input type="text" class="form-control searcher"  placeholder="Busque cliente por cedula, nombre, apellidos o id">
       </div>
       <div class="pull-right">
+        <a target="_blank" href="<?php echo base_url('process/getreport/clientes') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+      </div>
+      <div class="pull-right">
         <select id="client-filter" class="form-group filter btn btn-dafault">
           <option value="todo">Todos</option>
           <option value="activo">Activos</option>

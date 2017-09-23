@@ -285,12 +285,10 @@ class Contract_model extends CI_MODEL{
     if(!$has_contracts || $has_contracts == 0){
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $this->db->update('ic_clientes',array('estado' => 'no activo'));
-    }
-
-    if($contract['proximo_pago'] >= date('Y-m-d')){
+    } elseif ($contract['proximo_pago'] >= date('Y-m-d') and $contract['proximo_pago'] != null){
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $this->db->update('ic_clientes',array('estado' => 'activo'));
-    }else{
+    }else {
       $this->db->where('id_cliente',$current_contract['id_cliente']);
       $this->db->update('ic_clientes',array('estado' => 'mora'));
 

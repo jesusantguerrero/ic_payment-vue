@@ -119,6 +119,7 @@ var clientTable = {
   customSearch: function () {
     $('.pull-right.search').addClass('hide')
     var $inputSearch = $('.search input');
+    var $printTable = $('.print-table');
     this.$filter = $('.filter');
     var self = this
 
@@ -134,9 +135,13 @@ var clientTable = {
 
     this.$filter.on('change', function (e) {
       var _filtro = $(this).val(); 
+      var _status = _filtro;
+
       if(_filtro == 'todo'){
         _filtro = estados;
+        _status = '';  
       }
+      $printTable.attr('href', BASE_URL + 'process/getreport/clientes/' + _status);
       self.applyFilter(_filtro);
     })
   },

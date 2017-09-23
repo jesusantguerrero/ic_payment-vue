@@ -218,5 +218,24 @@ class Report_model extends CI_MODEL{
       echo make_moras_history_table($result," Historico de Moras",$this,$is_print);
     }
   }
+
+  public function get_client_report($status){
+    $db = $this->db;
+    
+    $db->select('cli.*, co.codigo',false);
+    $db->from('ic_clientes cli');
+    
+    if ($status == "nada") {
+      $status = "";
+      $db->like('cli.estado',$status);
+    }else{
+      $db->where('cli.estado',$status);
+    }
+    $db->join('ic_contratos co','id_cliente','left');
+
+    if ($result = $db->get()) {  
+      echo make_clients_report($result->result_array(),"Clientes en estado {$status}",$this,true);
+    }
+  }
   
 }

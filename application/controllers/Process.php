@@ -402,7 +402,9 @@ class Process extends CI_Controller {
 
 		switch ($tabla) {
 			case 'clientes':
-				$this->client_model->search_clients($word);
+				$clients = $this->client_model->search_clients($word);
+				if ($clients) 
+				echo make_client_table($clients, 0);	
 				break;
 			case 'clientes_para_averias':
 				$res['items'] = $this->client_model->search_clients_for_message($query,'id_cliente');
@@ -494,6 +496,9 @@ class Process extends CI_Controller {
 			case 'averias':
 					$this->report_model->get_averias_report();
 				break;
+			case 'clientes':
+				$this->report_model->get_client_report($type);
+				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
 	
@@ -504,7 +509,7 @@ class Process extends CI_Controller {
 		if(!$this->is_day_closed()){
 			$data_cancel = $_POST;
 			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
-			$estado = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
+			$estado   = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
 			if($pendents == false and $estado != 'mora'){
 				cancel_contract($this,$data_cancel);
 			}else{

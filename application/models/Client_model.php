@@ -94,7 +94,7 @@ class Client_model extends CI_MODEL{
     }   
   }
 
-    public function update($data,$echo = true){
+  public function update($data,$echo = true){
       $this->db->where('id_cliente',$data['id']);
       unset($data['id']);
       $result = $this->db->update('ic_clientes',$data);
@@ -160,21 +160,26 @@ class Client_model extends CI_MODEL{
     }
   }
 
-  public function search_clients($word){
-    $fields = array(
-     'id_cliente' => $word,
-     'cedula'     => $word,
-     'nombres'    => $word,
-     'apellidos'  => $word,
-     'sector'     => $word,
-     "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
-    );
-    $this->db->or_like($fields);
-    $this->db->or_where('estado',$word);
-    if($result = $this->db->get('ic_clientes')){
-      $result = make_client_table($result->result_array(),0);
-      echo $result;
+  public function search_clients($word,$is_status = false){
+    if (!$is_status) {
+      $fields = array(
+        'id_cliente' => $word,
+        'cedula'     => $word,
+        'nombres'    => $word,
+        'apellidos'  => $word,
+        'sector'     => $word,
+        "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
+       );
+      $this->db->or_like($fields);
     }
+
+    $this->db->or_where('estado',$word);
+    if ($result = $this->db->get('ic_clientes')) {
+      return $result->result_array();
+    }
+    
+    return false;
+    
   }
 
   public function search_clients_for_message($word,$id_field = 'celular'){
@@ -218,7 +223,7 @@ class Client_model extends CI_MODEL{
     }
   }
 
-  function has_dni($dni){
+  private function has_dni($dni){
     $this->db->where('cedula',$dni);
     return  $this->db->count_all_results('ic_clientes');
   }
