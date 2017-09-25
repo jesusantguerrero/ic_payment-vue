@@ -20,7 +20,7 @@
         <div role="tabpanel" class="tab-pane active" id="ingresos">
           <div class="searcher-container clearfix">
             <h4 class="search-criteria">Presentado:<span class="presentado"> Por Reparar </span> (<span class="total-rows"></span>)</h4>
-            <a target="printframe" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
+            <a target="_blank" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
             <select name="" id="averias-view-mode">
             <option value="por reparar">Por Reparar</option>
             <option value="reparado">Reparados</option>
@@ -39,7 +39,7 @@
           <div class="searcher-container clearfix">
             <h4 class="search-criteria">Instalaciones de Hoy </span> (
               <?php echo $this->report_model->count_installations(); ?> )</h4>
-            <a target="printframe" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
+            <a target="_blank" href="<?php echo base_url('process/getreport/installations') ?>" type="button" class="btn">Imprimir Reporte</a>
            <select name="" id="installations-view-mode">
             <option value="por instalar">Por Instalar</option>
             <option value="instalado">Instalados</option>
@@ -59,11 +59,11 @@
           <div class="searcher-container clearfix" id="moras-toolbar">
             <h4 class="search-criteria">Clientes en fecha de corte </span> (
               <?php echo $this->report_model->count_moras_view(); ?> )</h4>
-            <a target="printframe" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+            <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
           <table data-toggle="table" 
             class="innertable general-table" 
-            data-sort-name="num" 
+            data-sort-name="cliente" 
             data-sort-order="asc" 
             data-search="true" 
             data-show-refresh="false"
@@ -100,7 +100,7 @@
         <div role="tabpanel" class="tab-pane" id="recibos">
           <div class="searcher-container clearfix" id="pagos-toolbar">
             <h4 class="search-criteria">Historial de pagos</span>
-            <a target="printframe" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+            <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
           <table data-toggle="table" 
             class="innertable general-table" 
@@ -139,7 +139,7 @@
         <div role="tabpanel" class="tab-pane" id="historial">
           <div class="searcher-container clearfix" id="history-toolbar">
             <h4 class="search-criteria">Historial de moras</span>
-            <a target="printframe" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+            <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
           <table data-toggle="table" class="innertable general-table" 
             data-sort-name="num" 
