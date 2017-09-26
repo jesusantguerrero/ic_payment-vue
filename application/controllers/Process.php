@@ -497,6 +497,7 @@ class Process extends CI_Controller {
 					$this->report_model->get_averias_report();
 				break;
 			case 'clientes':
+				$type = str_replace('%20',' ',$type);
 				$this->report_model->get_client_report($type);
 				break;
 		}
