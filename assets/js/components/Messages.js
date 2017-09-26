@@ -100,7 +100,8 @@ var sendMessageApp = new Vue({
         dropdownParent: $('#send-message-modal')
       }
 
-      var selectMessageType = $('#message-type').select2(options).change()
+      var selectMessageType = $('#message-type')
+      selectMessageType.select2(options)
       var selectClientsForMessage = $('#clients-for-message').select2({
         dropdownParent: $('#send-message-modal'),
         ajax: {
@@ -126,6 +127,7 @@ var sendMessageApp = new Vue({
           cache: true
         }
       })
+
       var selects = {
         clients: selectClientsForMessage,
         messageType: selectMessageType
@@ -152,6 +154,8 @@ var sendMessageApp = new Vue({
           self.hide_numbers = true
         }
       })
+
+      selects.messageType.select2('val','mora');
 
       selects.clients.on('select2:select', function (e) {
         var clientes = selects.clients.select2('data')

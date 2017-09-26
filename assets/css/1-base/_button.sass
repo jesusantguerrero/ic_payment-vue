@@ -29,11 +29,14 @@ input[type="button"]
     border: 2px solid $contrast-color
     background: #fff
   
-a
+a,
 button
   &.btn
     &:focus
       color: white
+    &:active:focus,
+    &:focus:hover
+      color: $contrast-color
 
 .btn-gray
   background: #dfdfdf
