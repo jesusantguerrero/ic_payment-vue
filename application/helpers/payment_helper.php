@@ -433,14 +433,16 @@ function prepare_moras($data,$context,$settings){
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = get_cuota($pago['id_contrato'],$context);
-    $monto_extra = $pago['monto_extra'];
+    $monto_extra = $pago['monto_extra'] + $settings['reconexion'];
     $total = $pago['total'];
     $mora  =   ($settings['cargo_mora'] / 100) * $cuota;
     $total = $pago['cuota'] + $monto_extra + $mora;
+    
     $updated_data = array(
       'id_pago' => $pago['id_pago'],
       'mora'    => $mora,
-      'total'   => $total
+      'total'   => $total,
+      'detalles_extra' => 'Reconexion'
     );
     $result = $context->payment_model->update_moras($updated_data);
     

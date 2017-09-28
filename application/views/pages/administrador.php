@@ -3,7 +3,7 @@
     <ul class="aside-nav">
       <li class="aside-buttons"><a href="#company-section"><i class="material-icons">description</i> Empresa</a></li>
       <li class="aside-buttons"><a href="#user-section"><i class="material-icons">person_pin</i> Usuarios</a></li>
-      <li class="aside-buttons"><a href="#caja-section"><i class="material-icons">person_pin</i> Caja Chica</a></li>
+      <li class="aside-buttons"><a href="#caja-section"><i class="material-icons">move_to_inbox</i> Caja Chica</a></li>
       <li class="aside-buttons"><a href="#settings-section"><i class="material-icons">settings</i> Ajustes</a></li>
       <li class="aside-buttons"><a href="#message-settings-section"><i class="material-icons">phonelink_setup</i> Ajustes de Mensajes</a></li>
     </ul>
@@ -163,7 +163,6 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">&percnt;</i></div>
             <input type="number" class="form-control" id="settings-mora" value="<?php echo $settings['cargo_mora'] ?>">
-            <div class="input-group-addon"> pc</div>
           </div>
         </div>
         <div class="form-group">
@@ -171,15 +170,13 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">event</i> </div>
             <input type="number" class="form-control" id="settings-fecha-corte" value="<?php echo $settings['fecha_corte'] ?>">
-            <div class="input-group-addon">De Cada Mes </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="company-phone1">Apertura de Caja Chica</label>
+          <label for="company-phone1">Monto de Reconexion</label>
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">attach_money</i></div>
-            <input type="number" class="form-control" id="settings-apertura-caja" value="<?php echo $settings['apertura_caja'] ?>">
-            <div class="input-group-addon">Pesos </div>
+            <input type="number" class="form-control" id="settings-reconexion" value="<?php echo $settings['reconexion'] ?>">
           </div>
         </div>
       </div>
@@ -190,7 +187,6 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">&percnt;</i></div>
             <input type="number" class="form-control" id="settings-penalizacion-cancelacion" value="<?php echo $settings['penalizacion_cancelacion'] ?>">
-            <div class="input-group-addon"> pc</div>
           </div>
         </div>
         <div class="form-group">
@@ -198,7 +194,6 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">event_note</i></div>
             <input type="number" class="form-control" id="settings-meses-por-defecto" value="<?php echo $settings['meses_por_defecto'] ?>">
-            <div class="input-group-addon">Meses </div>
           </div>
         </div>
         <div class="form-group">
@@ -206,7 +201,6 @@
           <div class="input-group">
             <div class="input-group-addon"><i class="material-icons">event</i></div>
             <input type="number" class="form-control" id="settings-split-day" value="<?php echo $settings['split_day'] ?>">
-            <div class="input-group-addon">Dia</div>
           </div>
         </div>
         <div class="right">
@@ -219,7 +213,7 @@
 
 </div>
   <!-- ******************************
-      *     Ajustes de progamas       *
+      *     Ajustes de programas       *
       *                               *
     ********************************-->
     

@@ -197,14 +197,6 @@
                       <label for="payment-limit-date">Fecha</label>
                       <input type="date" class="form-control" id="payment-limit-date" tabindex="8" disabled>
                     </div>
-                    <div class="form-group">
-                      <label for="payment-cuota">Cuota</label>
-                      <input type="number" class="form-control payment-sumandos" id="payment-cuota"  tabindex="8">
-                    </div>
-                    <div class="form-group">
-                      <label for="payment-extra">Monto Extra</label>
-                      <input type="number" class="form-control payment-sumandos" id="payment-extra"   tabindex="8">
-                    </div>
                   </div>
 
                   <div class="col-md-6">
@@ -218,15 +210,34 @@
                     </div>
                     <h4 class="placeholder">...</h4>
                     <h4 class="placeholder">...</h4>
-                     <div class="form-group">
-                      <label for="payment-mora">Mora</label>
-                      <input type="number" class="form-control payment-sumandos" id="payment-mora"   tabindex="4">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="payment-cuota">Cuota</label>
+                        <input type="number" class="form-control payment-sumandos" id="payment-cuota"  tabindex="8">
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <label for="payment-total">Total</label>
-                      <input type="number" class="form-control payment-sumandos" id="payment-total"   tabindex="8">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="payment-mora">Mora</label>
+                        <input type="number" class="form-control payment-sumandos" id="payment-mora"   tabindex="4">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="payment-extra">Monto Extra</label>
+                        <input type="number" class="form-control payment-sumandos" id="payment-extra"   tabindex="8">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="payment-total">Total</label>
+                        <input type="number" class="form-control payment-sumandos" id="payment-total"   tabindex="8">
+                      </div>  
                     </div>
                   </div>
+
                 </div>
               </form>
 

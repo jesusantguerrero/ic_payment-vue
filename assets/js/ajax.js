@@ -191,9 +191,6 @@
     if (currentPage == 'administrador') {
       cajaTable.init();
     }
-
-
-
     var btnAddMoney = $("#btn-add-money");
     var btnRetireMoney = $("#btn-retire-money");
     var userSearch = $("#caja-user");
