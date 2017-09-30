@@ -204,14 +204,23 @@
                       <label for="payment-contract-id-edit">ID Contrato</label>
                       <input type="text" class="form-control" id="payment-id-cliente" tabindex="2" disabled>
                     </div>
+
                     <div class="form-group">
                       <label for="payment-extra-services">Servicios Extra</label>
                       <input type="text" class="form-control" id="payment-extra-services" tabindex="4" disabled>
                     </div>
-                    <h4 class="placeholder">...</h4>
-                    <h4 class="placeholder">...</h4>
+
+                    <div class="form-group">
+                      <label >Opciones</label><br>
+                      <input id="c_mora" class="form-control" type="checkbox"/>
+                      <label for="c_mora" class="inline">Aplicar Mora</label>
+                      <input id="c_reconexion" class="form-control" type="checkbox"/>
+                      <label for="c_reconexion" class="inline">Aplicar Reconexion</label>
+                    </div>
+
+                    <div class="placeholder">...</div>
                   </div>
-                  <div class="row">
+                  
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="payment-cuota">Cuota</label>
@@ -236,8 +245,6 @@
                         <input type="number" class="form-control payment-sumandos" id="payment-total"   tabindex="8">
                       </div>  
                     </div>
-                  </div>
-
                 </div>
               </form>
 
@@ -267,7 +274,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal" tabindex="9">Cancelar</button>
-        <button type="button" class="btn save" id="btn-apply-discount" tabindex="10">Aplicar Descuento</button>
+        <button type="button" class="btn save" id="btn-apply-discount" tabindex="10">Aplicar Pago</button>
       </div>
     </div>
     <!-- /.modal-content -->

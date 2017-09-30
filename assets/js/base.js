@@ -170,38 +170,39 @@ function detailsFunctions(){
   var smallButtonsSelect = $('.btn-small');
   var tabs = {
     contractControls : ["#contracts","#month-and-date","#reconnect-service",'#extra-contract','#extra-service','#extra-extension','#extra-upgrade'],
-    paymentControls: ["#payments", "#detalles_de_pago","#descuento"] 
+    paymentControls: ["#payments", "#detalles-de-pago","#descuentos"] 
   }
 
-  $('[role="tab"]').on('click',function(){
-    var href = $(this).attr("href")
+  if (currentPage == 'detalles') {
+
+    $('[role="tab"]').on('click',function(){
+      var href = $(this).attr("href")
     
-    if(compare(href,tabs.paymentControls)) {
-      $(".payment-controls").addClass("visible");
-    }else{
-      $(".payment-controls").removeClass("visible");
-    }
-
+      if (compare(href,tabs.paymentControls)) {
+        $(".payment-controls").addClass("visible");
+      } else {
+        $(".payment-controls").removeClass("visible");
+      }
     
-    if(compare(href,tabs.contractControls)){
-      $(".contract-controls").removeClass("hide")
-    }else{
-      $(".contract-controls").addClass("hide")
-    }
+      if (compare(href,tabs.contractControls)) {
+        $(".contract-controls").removeClass("hide")
+      } else {
+       $(".contract-controls").addClass("hide")
+      }
 
-    getTabControls($(this));
-  });
+      getTabControls($(this));
+    });
 
-  $('.btn-small').on('click',function(){
-    smallButtonsSelect.removeClass('selected');
-    $(this).addClass('selected');
-  })
+    $('.btn-small').on('click',function(){
+      smallButtonsSelect.removeClass('selected');
+      $(this).addClass('selected');
+    })
+  }
 
   function compare(value, posibleValues){
     var returnValue = false;
     posibleValues.forEach( function(theValue) {
       if(value == theValue){
-        console.log(value + ' igual a ' + theValue + ' ?');
         returnValue = true;
       }
     }, this);

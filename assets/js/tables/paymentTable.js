@@ -13,10 +13,6 @@ var paymentTable = {
         this.el.bootstrapTable('selectPage',page);
     }
 
-    this.el.on('dbl-click-row.bs.table',function(event,row,$el,field){
-      //  Payments.getOne(row.id, Payments.edit);
-    });
-
     this.el.on('click-row.bs.table',function(event,row,$el,field){
       event.stopImmediatePropagation();
       var self = paymentTable;
@@ -199,10 +195,6 @@ var extraTable = {
         this.el.bootstrapTable('selectPage',page);
     }
 
-    this.el.on('dbl-click-row.bs.table',function(event,row,$el,field){
-      //  Payments.getOne(row.id, Payments.edit);
-    });
-
     this.el.on('click-row.bs.table',function(event,row,$el,field){
       event.stopImmediatePropagation();
       var self = extraTable;
@@ -258,16 +250,13 @@ var extraTable = {
       this.el.bootstrapTable('filterBy',{
         fecha_limite: []
       });
-
     }
-    
   },
 
   clickEvents: function(){
     $(".payment-advanced").on('click',function(e) {
       e.preventDefault()
       e.stopImmediatePropagation();
-      console.log('yo si funciono')
       var id = $(this).attr('data-id-pago').trim();
       if (id) {
         Payments.getOne(id, Payments.receiveForEdit);

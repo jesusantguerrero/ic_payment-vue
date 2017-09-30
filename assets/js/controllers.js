@@ -331,8 +331,6 @@ var Contracts = {
 
   getLast: function(data) {
     data = JSON.parse(data);
-    console.log(data);
-    console.log(data.mensaje);
     displayMessage(data.mensaje)
     $("#btn-save-contract").attr("disabled", "");
     $("#btn-print-contract").removeAttr("disabled");
@@ -471,7 +469,6 @@ var Contracts = {
     serviceId = selectedService.attr("data-id");
     duration  = $("#reconnection-months").val();
     date = $("#reconnection-date").val()
-    console.log(contractId)
     is_empty = isEmpty([contractId,serviceId,date,duration]);
     if(!is_empty){
       info = {
@@ -618,11 +615,14 @@ var Payments = {
   },
 
   receiveForEdit: function(content){
-    var pago          = JSON.parse(content);
+    var data          = JSON.parse(content);
+    var pago          = data.pago
+    var settings      = data.settings;
     this.id_contrato  = pago['id_contrato'];
-    this.id_pago     = pago['id_pago']
+    this.id_pago      = pago['id_pago']
     var $concepto     = $("#payment-concept");
     var $fechaLimite  = $("#payment-limit-date");
+    var $serviciosExtra = $("#payment-extra-services");
     var $cuota        = $("#payment-cuota");
     var $mora         = $("#payment-mora");
     var $extra        = $("#payment-extra");
@@ -630,6 +630,8 @@ var Payments = {
     var $descuento    = $("#payment-discount-amount");
     var $razon        = $("#payment-discount-reason");
     var $modal        = $("#advanced-payment");
+    var $cMora        = $("#c_mora");
+    var $cReconexion  = $("#c_reconexion");
 
     $concepto.val(pago['concepto']);
     $fechaLimite.val(pago['fecha_limite']);
@@ -637,15 +639,31 @@ var Payments = {
     $mora.val(pago['mora']);
     $extra.val(pago['monto_extra']);
     $total.val(pago['total']);
+    $serviciosExtra.val(pago['detalles_extra']);
     interactiveSum();
 
     $modal.modal();
+
     $modal.on('hide.bs.modal',function(){
       $modal.find('input').val('')
     });
+
+    if (pago['mora'] > 0) {
+      $cMora.addClass('cheked');
+    } else {
+      $cMora.removeClass('checked');
+    }
+
+    if (pago['detalles_extra'].includes('reconexion')) {
+      $cReconexion.addClass('checked');
+    } else {
+      $cReconexion.removeClass('checked');
+    }
+
     $("#btn-apply-discount").on('click', function (e) {
       e.stopImmediatePropagation();
-      swal({
+      if ($descuento.val() > 0) {
+        swal({
           title: 'Está Seguro?',
           text: "Seguro de que quiere aplicar este descuento de " + $descuento.val() + "?",
           type: 'warning',
@@ -653,21 +671,48 @@ var Payments = {
           confirmButtonText: 'Estoy Seguro!',
           cancelButtonText: 'Cancelar'
         }).then(function(){
-          applyDiscount(id_pago);
-          $modal.hide();
-          $modal.modal('hide');
-          $('body').removeClass('modal-open');
-          $('.modal-backdrop').remove();
- 
+          apply();
         });
+      } else {
+        apply();
+      } 
     });
+
+    $cMora.on('ifChecked', function () {
+      var mora = pago['cuota'] * settings['cargo_mora'] / 100;
+      $mora.val(mora).trigger('keyup');
+    });
+    
+    $cReconexion.on('ifChecked', function () {
+      $extra.val(settings['reconexion']).trigger('keyup');
+      $serviciosExtra.val('Reconexion');
+    })
+    
+    $cMora.on('ifUnchecked', function () {
+      $mora.val(0).trigger('keyup');
+    })
+    
+    $cReconexion.on('ifUnchecked', function () {
+      $extra.val(0).trigger('keyup');
+      $serviciosExtra.val('');
+    })
+
+
+    function apply () {
+      applyDiscount(id_pago);
+      $modal.hide();
+      $modal.modal('hide');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    }
 
     function applyDiscount(id_pago) {
       var date = moment().format("YYYY-MM-DD");
       form = 'id_pago=' + id_pago + '&id_contrato=' + id_contrato + "&cuota=" + $cuota.val();
       form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
-      form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val() + '&fecha_pago=' + date ;
-      form += "&tabla=discount_pagos";
+      form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val();
+      form += '&fecha_pago=' + date + '&detalles_extra=' + $serviciosExtra.val() + "&tabla=discount_pagos";
+
       connectAndSend("process/update", true, null, null, form, Payments.getAll);
       $modal.hide();
     }
@@ -681,39 +726,6 @@ var Payments = {
     }
   },
 
-  edit: function(content){
-    var pago          = JSON.parse(content);
-    this.id_contrato  = pago['id_contrato'];
-    this.id_pago      = pago['id_pago']
-    var $modal        = $('#edit-payment-modal') 
-    console.log(pago)
-
-    $modal.modal();
-
-    $modal.on('hide.bs.modal',function(){
-      $modal.find('input').val('')
-    });
-
-    $("#btn-save-edited-payment").on('click', function (e) {
-      e.stopImmediatePropagation();
-      swal({
-          title: 'Está Seguro?',
-          text: "Seguro de que quiere aplicar este descuento de " + $descuento.val() + "?",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
-          cancelButtonText: 'Cancelar'
-        }).then(function(){
-          applyDiscount(id_pago);
-          $modal.hide();
-          $modal.modal('hide');
-          $('body').removeClass('modal-open');
-          $('.modal-backdrop').remove();
- 
-        });
-    });
-  }
-  
 }
 
 var Damages = {
@@ -912,7 +924,6 @@ var Sections = {
       var filter = $(this).val()
       if(filter.includes("]"))
         filter = ['ocupado','disponible']
-      console.log(filter)
 
       $table.bootstrapTable('filterBy',{
         estado:  filter

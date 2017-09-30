@@ -385,6 +385,7 @@ function payment_discount($data,$context){
     'monto_extra'     => $data['monto_extra'],
     'total'           => $data['total'],
     'descuento'       => $data['descuento'],
+    'detalles_extra'  => $data['detalles_extra'],
     'razon_descuento' => $data['razon_descuento']     
     );
 

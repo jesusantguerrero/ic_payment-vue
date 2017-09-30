@@ -41,7 +41,7 @@ class Settings_model extends CI_MODEL{
     $rows = array(
       'cargo_mora'                 => $settings['cargo_mora'],
       'fecha_corte'                => $settings['fecha_corte'],
-      'reconexion'                 => $settings['apertura_caja'], 
+      'reconexion'                 => $settings['reconexion'], 
       'penalizacion_cancelacion'   => $settings['penalizacion_cancelacion'],
       'meses_por_defecto'          => $settings['meses_por_defecto'],
       'split_day'                  => $settings['split_day']

@@ -333,10 +333,10 @@ class Process extends CI_Controller {
 				}
 				break;
 			case "pagos":
-				$result = $this->payment_model->get_payment($_POST['id_pago']);
+				$result['pago'] 		= $this->payment_model->get_payment($_POST['id_pago']);
+				$result['settings'] = $this->settings_model->get_settings();
 				if($result){
-					 $dataJson = json_encode($result);
-					 echo $dataJson;
+					echo json_encode($result);
 				}else{
 					echo "nada";
 				}

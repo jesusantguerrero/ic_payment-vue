@@ -111,7 +111,6 @@
         fillGastos: function(gastos_servidor,mode){
           if(mode == "group"){
             if(gastos_servidor != null || gastos_servidor.length > 0){
-              console.log([gastos_servidor]);
               appCierre.gastos = gastos_servidor;
             }else{
               appCierre.gastos = [];
