@@ -82,4 +82,15 @@ class Averia_model extends CI_MODEL{
     }
     
   }
+
+  public function search($word,$status){
+    if ($status != "todo") {
+      $this->db->where('estado',$status);
+    }
+    $this->db->like('cliente',$word);
+    if ($result = $this->db->get('v_averias')) {
+      return make_averias_list($result->result_array());
+    }
+    return false;
+  }
 }

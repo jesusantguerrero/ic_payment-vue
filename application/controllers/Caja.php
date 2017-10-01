@@ -7,23 +7,27 @@ class Caja extends CI_Controller {
 		parent::__construct();
 		$this->load->model("caja_mayor");
 	}
-
+	
 	public function add_gasto(){
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_gasto($data);
 	}
-
+	
 	public function get_gastos(){
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->mostrar_gastos($data['fecha'],"full");
 	}
-
+	
 	public function delete_gasto(){
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->delete_gasto($data);
 	}
-
+	
 	public function get_ingresos(){
+		authenticate();
 		if(isset($_POST['data'])){
 			$data = json_decode($_POST['data'],true);
 		}else{
@@ -35,8 +39,9 @@ class Caja extends CI_Controller {
 		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extras');
 		echo json_encode($response);
 	}
-
+	
 	public function getjson() {
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$action = $_POST['action'];
 		$module = $_POST['module'];
@@ -69,16 +74,18 @@ class Caja extends CI_Controller {
 	}
 
 	public function add_cierre(){
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_cierre($data);
-
 	}
 
 	public function get_last_cierre(){
+		authenticate();
 		$this->caja_mayor->get_last_cierre();
 	}
 
 	public function get_year_info(){
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$ganancias = array();
 		$gastos = array();

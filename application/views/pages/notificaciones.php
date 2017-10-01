@@ -6,7 +6,7 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
+        <li role="presentation" class="active"><a href="#averias-list-view" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
         <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Deudores</a></li>
         <?php if(auth_user_type(0)):?>
@@ -17,18 +17,27 @@
 
       <!-- Tab panes -->
       <div class="tab-content mylists">
-        <div role="tabpanel" class="tab-pane active" id="ingresos">
-          <div class="searcher-container clearfix">
-            <h4 class="search-criteria">Presentado:<span class="presentado"> Por Reparar </span> (<span class="total-rows"></span>)</h4>
-            <a target="_blank" href="<?php echo base_url('process/getreport/averias') ?>" class="btn">Imprimir Reporte</a>
-            <select name="" id="averias-view-mode">
-            <option value="por reparar">Por Reparar</option>
-            <option value="reparado">Reparados</option>
-            <option value="todos">Todos</option>
-            
-          </select>
-          </div>
+        <div role="tabpanel" class="tab-pane active" id="averias-list-view">
 
+          <div class="searcher-container main-toolbar" id="clients-toolbar">
+            <div class="input-group search">
+              <div class="input-group-addon"><i class="material-icons">search</i></div>
+              <input type="text" class="form-control searcher" v-model="dataSearch.text" @keyup="search" placeholder="Busque averia por cliente">
+            </div>
+            <div class="pull-right">
+              <a target="_blank" href="#" class="btn"><i class="material-icons">build</i><span class="total-rows"></span></a>
+            </div>
+            <div class="pull-right">
+              <a target="_blank" href="<?php echo base_url('process/getreport/averias')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+            </div>
+            <div class="pull-right">
+              <select id="averias-view-mode" class="form-group filter btn btn-dafault" v-model="dataSearch.status">
+                <option value="por reparar">Por Reparar</option>
+                <option value="reparado">Reparados</option>
+                <option value="todos">Todos</option>
+              </select>  
+            </div>
+          </div>
           <div class="averia-item-list" id="averias-list">
 
             <?php $this->averia_model->get() ?>

@@ -8,13 +8,14 @@ class Messages extends CI_Controller {
     $this->load->model('message_model');
     $this->load->model('client_model');
     $this->load->library('messagegate');
+    authenticate();
   }
     
   public function send_message(){  
     $data = json_decode($_POST['data'],true);
     $status = $this->messagegate->send_message($data);
     
-    if(!isset($status['error'])){
+    if(!isset($status['error']) && $status['response']){
       $res['mensaje'] = MESSAGE_SUCCESS ." Mensajes enviados correctamente";
     }else{
       $res['mensaje'] = MESSAGE_ERROR . " Mensajes no enviados, revise la configuracion de mensajes";

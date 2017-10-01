@@ -177,9 +177,7 @@ class Client_model extends CI_MODEL{
     if ($result = $this->db->get('ic_clientes')) {
       return $result->result_array();
     }
-    
     return false;
-    
   }
 
   public function search_clients_for_message($word,$id_field = 'celular'){

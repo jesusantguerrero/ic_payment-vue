@@ -28,7 +28,7 @@ Class Messagegate{
     }else{
       $clientes = $this->get_clients($data);
       $default_message = $data['mensaje'];
-      return $this->send_many($clientes,$default_message,$message_settings);
+      return $this->send_many_test($clientes,$default_message,$message_settings);
     }
   }
   
@@ -53,15 +53,6 @@ Class Messagegate{
     return $clientes;
   }
 
-  // private function get_default_message($data){
-  //   if($data['tipo'] == 'mora'){ 
-  //     $default_message = $this->default_message;
-  //   }else{
-  //     $default_message = $data['mensaje'];
-  //   }
-  //   return $default_message;
-  // }
-
   private function send_many($clientes,$default_message,$message_settings){
     $email = $message_settings['email'];
     $password = $message_settings['password'];
@@ -80,6 +71,30 @@ Class Messagegate{
         'number' => '+'.$country_id . $Cliente['celular'],
         'message' => str_replace(['[cliente]','[empresa]','[lema]'],$this->reemplazo,$default_message) ,
         'send_at' => $options['send_at'],
+        'expire_at' => $options['expire_at']
+      ];
+      
+      array_push($data, $item);
+    }
+    
+    return $smsgate->sendManyMessages($data);
+  }
+
+  private function send_many_test($clientes,$default_message,$message_settings){
+    $email = $message_settings['email'];
+    $password = $message_settings['password'];
+    $country_id = $message_settings['country_id'];
+    $device_id = $message_settings['device_id'];
+    $smsgate = new SmsGateway($email,$password);
+    $options = $this->options;
+    
+    $data = array();
+    for ($i=0; $i < 20; $i++) {
+      
+      $item = [
+        'device' => $device_id,
+        'number' => '+18298441674',
+        'message' => str_replace(['[cliente]','[empresa]','[lema]'],$this->reemplazo,"prueba no $i") ,
         'expire_at' => $options['expire_at']
       ];
       
