@@ -28,7 +28,7 @@ Class Messagegate{
     }else{
       $clientes = $this->get_clients($data);
       $default_message = $data['mensaje'];
-      return $this->send_many_test($clientes,$default_message,$message_settings);
+      return $this->send_many($clientes,$default_message,$message_settings);
     }
   }
   
@@ -61,23 +61,27 @@ Class Messagegate{
     $smsgate = new SmsGateway($email,$password);
     $options = $this->options;
     
+    $interval = 0;
     $data = array();
-    foreach ($clientes as $Cliente) {
-      
+
+    foreach ($clientes as $Cliente => $index) {
+      if($index % 10 == 0) $interval += 1;
       $client =  $Cliente['nombre_completo'];
       $this->reemplazo[0] = $client;
       $item = [
         'device' => $device_id,
         'number' => '+'.$country_id . $Cliente['celular'],
         'message' => str_replace(['[cliente]','[empresa]','[lema]'],$this->reemplazo,$default_message) ,
-        'send_at' => $options['send_at'],
+        'send_at' => strtotime("+ $interval minute"),
         'expire_at' => $options['expire_at']
-      ];
-      
+      ];      
       array_push($data, $item);
     }
-    
-    return $smsgate->sendManyMessages($data);
+    try {
+      return $smsgate->sendManyMessages($data);
+    } catch (Exception $e) {
+      return "{'response':false,'status':0, 'message':'{$e->message}'}";
+    }
   }
 
   private function send_many_test($clientes,$default_message,$message_settings){
@@ -89,12 +93,15 @@ Class Messagegate{
     $options = $this->options;
     
     $data = array();
-    for ($i=0; $i < 20; $i++) {
+    $margin = 0;
+    for ($i=0; $i < 30; $i++) {
+      if($i % 10 == 0) $margin += 1;
       
       $item = [
         'device' => $device_id,
-        'number' => '+18298441674',
+        'number' => '+18293271958',
         'message' => str_replace(['[cliente]','[empresa]','[lema]'],$this->reemplazo,"prueba no $i") ,
+        'send_at' => strtotime("+ $margin minute"),
         'expire_at' => $options['expire_at']
       ];
       

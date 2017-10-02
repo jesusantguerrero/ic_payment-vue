@@ -729,6 +729,7 @@ var Payments = {
 }
 
 var Damages = {
+  
   add: function (idCliente) {
     var form, description;
     description = $("#a-description").val();
@@ -754,6 +755,7 @@ var Damages = {
     var form = "tabla=averias&id_averia=" + $id_averia;
     connectAndSend('process/update', true, initGlobalHandlers, null, form, Damages.getAll);
   }
+
 }
 
 var Installations = {

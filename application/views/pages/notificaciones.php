@@ -6,7 +6,7 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#averias-list-view" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
+        <li role="presentation" class="active"><a href="#averias" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
         <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Deudores</a></li>
         <?php if(auth_user_type(0)):?>
@@ -17,33 +17,41 @@
 
       <!-- Tab panes -->
       <div class="tab-content mylists">
-        <div role="tabpanel" class="tab-pane active" id="averias-list-view">
-
-          <div class="searcher-container main-toolbar" id="clients-toolbar">
+        <div role="tabpanel" class="tab-pane active" id="averias">
+          <div id="averias-list-view">
+          <div class="searcher-container main-toolbar" :class="{hide:hide}" id="clients-toolbar">
             <div class="input-group search">
               <div class="input-group-addon"><i class="material-icons">search</i></div>
               <input type="text" class="form-control searcher" v-model="dataSearch.text" @keyup="search" placeholder="Busque averia por cliente">
             </div>
             <div class="pull-right">
-              <a target="_blank" href="#" class="btn"><i class="material-icons">build</i><span class="total-rows"></span></a>
+              <a target="_blank" href="#" class="btn icon"><i class="material-icons">build</i><span class="total-rows"></span></a>
             </div>
             <div class="pull-right">
               <a target="_blank" href="<?php echo base_url('process/getreport/averias')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
             </div>
             <div class="pull-right">
-              <select id="averias-view-mode" class="form-group filter btn btn-dafault" v-model="dataSearch.status">
+              <select id="averias-view-mode" class="form-group filter btn btn-dafault" v-model="dataSearch.state">
                 <option value="por reparar">Por Reparar</option>
                 <option value="reparado">Reparados</option>
                 <option value="todos">Todos</option>
               </select>  
             </div>
           </div>
-          <div class="averia-item-list" id="averias-list">
-
+          <div class="averia-item-list" :class="{hide:hide}" id="averias-list">
             <?php $this->averia_model->get() ?>
           </div>
+          </div>
 
+          <div id="ticket-view" class="invisible" :class="{hide: classes.hide}">
+            <div class="screen">
+              <h4>{{ ticket.cliente }}</h4>
+            </div>
+            <button class="btn">Agregar</button>
+          </div>
+          
         </div>
+
         <div role="tabpanel" class="tab-pane" id="pagos">
           <div class="searcher-container clearfix">
             <h4 class="search-criteria">Instalaciones de Hoy </span> (

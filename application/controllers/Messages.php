@@ -8,10 +8,10 @@ class Messages extends CI_Controller {
     $this->load->model('message_model');
     $this->load->model('client_model');
     $this->load->library('messagegate');
-    authenticate();
   }
-    
+  
   public function send_message(){  
+    authenticate();
     $data = json_decode($_POST['data'],true);
     $status = $this->messagegate->send_message($data);
     
@@ -24,8 +24,9 @@ class Messages extends CI_Controller {
     $res['status'] = $status;
     echo json_encode($res);
   }
-
+  
   public function save_config(){
+    authenticate();
     $data = $_POST['data'];
     $status = $this->message_model->add_config($data);
     if ($status ){
@@ -37,15 +38,18 @@ class Messages extends CI_Controller {
   }
   
   public function get_config(){
+    authenticate();
+    authenticate();
     $res['config'] = $this->message_model->get_config();
     $res['mensaje'] = MESSAGE_INFO . 'Configuracion de Mensajes';
     echo json_encode($res);
   }
   
   public function search_clients(){
+    authenticate();
     $query = $_GET['q'];
     $res['items'] = $this->client_model->search_clients_for_message($query);
     echo json_encode($res);
   }
-
+  
 }

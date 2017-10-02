@@ -93,4 +93,15 @@ class Averia_model extends CI_MODEL{
     }
     return false;
   }
+
+  public function get_averia($id_averia){
+    $this->db->select('v_averias.* , v_contratos.codigo',false);
+    $this->db->where('id_averia',$id_averia);
+    $this->db->join('v_contratos','id_cliente','LEFT');
+    
+    if ($averia = $this->db->get('v_averias',1)) {
+      return $averia->row_array();
+    }
+    return false;
+  }
 }

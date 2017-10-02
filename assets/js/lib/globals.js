@@ -7,6 +7,7 @@ var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO    = '<i class="material-icons">info_outline</i>';
 var SUMMER_SKY      = '#1FA1D0'
+var busAveria       = new Vue();
 
 /**
  * Connect And Send
@@ -149,7 +150,9 @@ function fillPaymentsList($content,callback){
 function fillAveriasList($content,callback){
   var $container = $("#averias-list");
   $container.html($content);
+  busAveria.$emit('tickets-listed',1);
   callback();
+
 }
 
 function fillInstallationsList($content,callback){

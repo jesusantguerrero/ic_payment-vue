@@ -182,7 +182,6 @@ var appPagoExtra = new Vue({
       })
     }
   }
-
 });
 
 bus.$on('row-selected',function (row) {

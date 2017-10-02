@@ -32,6 +32,8 @@ var footLibraries = [
 	path + "assets/bt/bootstrap-table.min.js",
   path + "assets/bt/locale/bootstrap-table-es-SP.min.js",
   path + "assets/js/lib/sweetalert2.min.js",
+  path + "assets/js/lib/jquery.inputmask.js",
+	path + "assets/js/lib/icheck.min.js",
   path + "assets/js/lib/peace.min.js",
   path + "assets/js/lib/select2.full.min.js",
   path + "assets/js/tables/clientTable.js",
@@ -49,10 +51,7 @@ var footLibraries2 = [
   path + "assets/js/ajax.js",
   path + "assets/js/ajax2.js",
   path + "assets/js/cierreCaja.js",
-  path + "assets/js/extras.js",
-	path + "assets/js/lib/adminlte.min.js",
-	path + "assets/js/lib/jquery.inputmask.js",
-	path + "assets/js/lib/icheck.min.js"
+  path + "assets/js/extras.js"
 ]
 
 var Components = `${path}assets/js/components/**.js`
