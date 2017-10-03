@@ -1,5 +1,3 @@
-$(function () {
-
   var ticketListView = new Vue({
     el: '#averias-list-view',
     data: {
@@ -39,14 +37,13 @@ $(function () {
       },
 
       itemClickListener: function () {
-        $('.averia-item').on('click', function () {
+        $('#averias-list-view .averia-item').on('click', function () {
           var id_averia = $(this).find('.code').text().trim();
           ticketView.getTicket(id_averia);
         })
       }
     }
-
-  })
+  });
 
   var emptyTicket = {
     "id_averia": "",
@@ -60,18 +57,25 @@ $(function () {
     "fecha_reparacion": "",
     "codigo": '',
   }
+  
   var ticketView = new Vue({
     el: '#ticket-view',
-
+    
     data: {
       classes: {
         hide: true
       },
+      mode: {
+        newComment: false,
+        edit: false,
+      },
+      new_comment: '',
       comments: [],
       ticket: emptyTicket
     },
-
-    mounted: function () {},
+    created: function () {
+      $('#ticket-view').removeClass('invisible')
+    },
 
     methods: {
       getTicket: function (id_averia) {
@@ -79,10 +83,9 @@ $(function () {
           id_averia: id_averia
         })
         var send = axios.post(BASE_URL + 'api/averias/get_averia', form);
-
+        
         send.then(function (res) {
           var data = res.data;
-          $('#ticket-view').removeClass('invisible');
           ticketView.classes.hide = false;
           ticketListView.hide = true;
           ticketView.ticket = data.ticket;
@@ -91,9 +94,10 @@ $(function () {
       },
 
       quit: function () {
-        this.ticket = null;
+        this.ticket = emptyTicket;
         this.comments = null;
-        this.hide = true;
+        this.classes.hide = true;
+        this.closeCommentMode();
         ticketListView.hide = false;
       },
 
@@ -101,16 +105,71 @@ $(function () {
         print();
       },
 
-      addComment: function () {
-
+      startComment: function () {
+        this.mode.newComment = true;
       },
 
-      deleteComment: function () {
+      addComment: function () {
+        var form = getForm({id_averia: this.ticket.id_averia, descripcion: this.new_comment});
+        var send = axios.post(BASE_URL + 'api/averias/add_comment',form);
+        var self = this;
+        send.then( function (res) {
+          self.getComments();
+          self.closeCommentMode()
+          displayMessage(res.data.mensaje);
+        });
+      },
 
+      _deleteComment: function (e) {
+        var commentItem = e.target.parentNode.parentNode
+        var idComment = e.target.parentNode.attributes['data-id'].value
+        var self = this;
+        commentItem.classList.add('to-delete');
+
+        swal({
+          title: 'Está Seguro?',
+          text: "Seguro de que eliminar este reporte?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar'
+        })
+        .then(function(){
+          self.deleteComment(idComment);
+          commentItem.classList.remove('to-delete')
+        })
+        .catch(function () {
+          commentItem.classList.remove('to-delete')
+        })
+      },
+
+      deleteComment: function (idComment){
+        var self = this;
+        var form = getForm({ id_reporte: idComment});
+        var send = axios.post(BASE_URL + 'api/averias/delete_comment',form);
+
+        send.then( function (res) {
+          self.getComments();
+          displayMessage(res.data.mensaje);
+        });
       },
 
       editComment: function () {
 
+      },
+      
+      closeCommentMode: function () {
+        this.mode.newComment = false;
+        this.new_comment = '';
+      },
+
+      getComments: function () {
+        var form = getForm({id_averia: this.ticket.id_averia});
+        var send = axios.post(BASE_URL + 'api/averias/get_comments',form);
+        var self = this
+        send.then( function (res) {
+          self.comments = res.data.comments;
+        });
       },
 
       editTicket: function () {
@@ -120,7 +179,10 @@ $(function () {
       deleteTicket: function () {
         console.info('deleted');
       }
+
     }
   })
 
-})()
+  function getForm(object){
+    return "data=" + JSON.stringify(object);
+  }

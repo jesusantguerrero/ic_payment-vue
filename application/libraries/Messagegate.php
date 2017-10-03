@@ -64,10 +64,11 @@ Class Messagegate{
     $interval = 0;
     $data = array();
 
-    foreach ($clientes as $Cliente => $index) {
+    foreach ($clientes as $index => $Cliente) {
       if($index % 10 == 0) $interval += 1;
       $client =  $Cliente['nombre_completo'];
       $this->reemplazo[0] = $client;
+
       $item = [
         'device' => $device_id,
         'number' => '+'.$country_id . $Cliente['celular'],

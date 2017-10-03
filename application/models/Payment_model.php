@@ -62,9 +62,9 @@ class Payment_model extends CI_MODEL{
   public function add($data){
     $this->organize_data($data,"normal");
       if($this->db->insert('ic_pagos',$this)){
-        
+        return true;
       }else{
-        echo " Error";
+        return false;
       } 
   }
 

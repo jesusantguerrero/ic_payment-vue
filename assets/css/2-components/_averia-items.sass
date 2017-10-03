@@ -4,7 +4,8 @@
   margin-bottom: 50px
 .search-criteria
   width: 100%
-.averia-item
+.averia-item,
+.comment-item
   display: flex
   flex-direction: column
   width: 95%
@@ -82,11 +83,66 @@
 .presentado
   text-transform: capitalize
   margin-left: 5px
+#ticket-view
+  background: white
+  box-shadow: 2px 2px 4px rgba(0,0,0,.2)
+  border: 1px solid #ddd
+  border-radius: 4px 
+  
+  .screen
+    .screen-body,
+    .screen-comment-list,
+    .comment-list
+      margin: 0 2.5%
+    .description
+      font-size: 20px
+      margin-bottom: 20px
+    .main-toolbar
+      border-bottom: 1px solid #ddd
+      .btn
+        box-shadow: none
+    .comment-item
+      width: 100%
+      border: 0 
+      box-shadow: none
+      border-radius: 0
+      .status-bar
+        border: 0
+      .comment-control
+        visibility: hidden
+      &:hover
+        .comment-control
+          visibility: visible
+      &.to-delete
+        opacity: .2
+    .comment-control
+      &:hover
+        color: $contrast-color
+    .new-comment
+      margin:
+        bottom: 25px
+        top: 25px
+      border: 0
+      padding-bottom: 15px
+      border-bottom: 1px solid #eee
+       
+      textarea.form-control
+        border: 0
 
 @media print
-  .averia-item
+  .averia-item,
+  .screen
     width: 100%
-    button
+    button,
+    a,
+    .btn,
+    .new-comment,
+    input
       display: none
+      &[type="submit"]
+      &[type="button"]
+        display: none
     .info
       width: 100%
+  #ticket-view
+    border: 0

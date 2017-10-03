@@ -28,18 +28,20 @@ class Contract extends CI_Controller {
 		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->db->where("id_contrato",$data['id_contrato'])
-			->where('fecha_limite',$data['fecha']);
-
+							->where('fecha_limite',$data['fecha']);
 		$number = $this->db->count_all_results('ic_pagos');
+
 		if($number == 0){
 			$this->db->trans_start();
 			reconnect_contract($data,$this);
 			$this->db->trans_complete();
-			if($this->db->trans_status() == false){
+			
+			if ($this->db->trans_status() === false){
 		 		$res['mensaje']	= MESSAGE_ERROR. " El contrato/cliente no pudo ser reconectado";
-			}
+			} else {
 				$res['mensaje'] = MESSAGE_SUCCESS." El contrato/cliente ha sido reconectado";
 			$this->contract_model->delete_cancelation($data['id_contrato']);
+			}
 		}else{
 			  $res['mensaje'] = MESSAGE_INFO." ya hay pagos para esta fecha";
 		}

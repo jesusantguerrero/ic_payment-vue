@@ -32,8 +32,6 @@ input[type="button"]
 a,
 button
   &.btn
-    &:focus
-      color: white
     &:active:focus,
     &:focus:hover
       color: $contrast-color
@@ -60,6 +58,21 @@ button
     border: 2px solid #fff
 
 
+.btn-transparent
+  background: transparent
+  color: $primary-color
+  transition: all ease .3s
+  border: 0
+
+  &:hover
+    color: $contrast-color
+    border: 2px solid #fff
+  &:focus
+    color: $contrast-color
+  &:active:focus,
+  &:focus:hover
+    color: $contrast-color
+    outline: 0
 
 .aside-buttons,
   height: 48px
