@@ -55,6 +55,10 @@ class Averia_model extends CI_MODEL{
     }
   }
 
+  public function update_all($id_averia,$data) {
+    $this->db->where('id_averia',$id_averia);
+    return (bool) $this->db->update('ic_averias',$data);
+  }
   public function get($status = 'por reparar'){
     if($status != 'todos'){
       $this->db->where('estado',$status);

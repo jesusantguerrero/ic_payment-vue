@@ -24,7 +24,17 @@ class Averias extends CI_Controller {
   }
 
   public function update_averia(){
+    authenticate();
+    $data = json_decode($this->input->post('data'),true);
+    $id_averia = $data['id_averia'];
+    unset($data['id_averia']);
+    $response['mensaje'] = MESSAGE_ERROR. " No se pudieron guardar los cambios";
+    
+    if($this->averia_model->update_all($id_averia,$data)){
+      $response['mensaje'] = MESSAGE_SUCCESS . "Cambios Guardados";
+    }
 
+    echo json_encode($response);
   }
 
   public function delete_averia(){

@@ -25,6 +25,7 @@
         send.then(function (res) {
           this.fillAveriasList(res.data);
         })
+
         send.catch(function () {
           console.error(res.data.mensaje);
         })
@@ -172,12 +173,41 @@
         });
       },
 
-      editTicket: function () {
+      updateDescription: function () {
+        this.updateTicket(['id_averia','descripcion']);
+      },
 
+      updateTicket: function (fields) {
+        this.closeEditMode();
+        var form = getForm(this.getFields(fields));
+        var send = axios.post(BASE_URL + 'api/averias/update_averia',form);
+
+        send.then( function (res) {
+          ticketListView.search();
+          displayMessage(res.data.mensaje)
+        })
       },
 
       deleteTicket: function () {
         console.info('deleted');
+      },
+
+      closeEditMode: function () {
+        this.mode.edit = false;
+      },
+
+      enterEditMode: function () {
+        this.mode.edit = true;
+      },
+
+      getFields: function (fields) {
+        var selectedFields = {};
+        var self = this;
+        fields.forEach(function(field) {
+          selectedFields[field] = self.ticket[field]
+        }, this);
+
+        return selectedFields;
       }
 
     }

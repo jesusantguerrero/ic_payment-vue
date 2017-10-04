@@ -89,7 +89,7 @@
   border: 1px solid #ddd
   border-radius: 4px 
   
-  .screen
+  .ticket-screen
     .screen-body,
     .screen-comment-list,
     .comment-list
@@ -98,7 +98,6 @@
       font-size: 20px
       margin-bottom: 20px
     .main-toolbar
-      border-bottom: 1px solid #ddd
       .btn
         box-shadow: none
     .comment-item
@@ -118,7 +117,8 @@
     .comment-control
       &:hover
         color: $contrast-color
-    .new-comment
+    .new-comment,
+    .ticket-editor
       margin:
         bottom: 25px
         top: 25px
@@ -131,7 +131,7 @@
 
 @media print
   .averia-item,
-  .screen
+  .ticket-screen
     width: 100%
     button,
     a,

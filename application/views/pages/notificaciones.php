@@ -44,7 +44,7 @@
           </div>
 
           <div id="ticket-view" class="invisible" :class="{hide: classes.hide}">
-            <div class="screen">
+            <div class="ticket-screen">
               <div class="searcher-container main-toolbar">
                 <h4 class="col-md-9">{{ticket.cliente}}</h4>
                 <div class="pull-right">
@@ -54,22 +54,27 @@
                   <button class="btn btn-transparent lg" type="submit" @click.prevent.stop="print"><i class="material-icons">print</i></button>
                 </div>
                 <div class="pull-right">
-                  <button class="btn btn-transparent lg" type="submit" @click.prevent.stop="editTicket"><i class="material-icons">edit</i></button>
+                  <button class="btn btn-transparent lg" type="submit" @click.prevent.stop="enterEditMode"><i class="material-icons">edit</i></button>
                 </div>
               </div>
               <div class="screen-body">
                 <div class="row">
-                  <div class="col-md-12 text-contrast">{{ticket.direccion}}</div>
-                  <div class="col-md-12 text-contrast">{{ticket.codigo}}</div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-md-9 description">{{ticket.descripcion}}</div>
-                  <div class="col-md-3 more">
+                  <div class="col-md-9 col-xs-8">
+                    <div class="text-contrast">{{ticket.direccion}}</div>
+                    <div class="text-contrast">{{ticket.codigo}}</div>
+                    <br>
+                    <div class="description" v-if="!mode.edit">{{ticket.descripcion}}</div>
+                    <div class="ticket-editor" v-if="mode.edit">
+                      <textarea id="" cols="30" rows="5" class="form-control" v-model="ticket.descripcion"></textarea>
+                      <button class="btn btn-remark" @click="closeEditMode">Cancelar</button>
+                      <button class="btn" @click="updateDescription" >Guardar</button>
+                  </div>
+                  </div>
+                  <div class="col-md-3 col-xs-4 more">
                     <p><i class='material-icons'>person_pin</i>Tecnico</p>
                     <p><i class='material-icons'>check</i>{{ticket.estado}}</p>
-                    <p><i class='material-icons'>event</i>Fecha Reporte: {{ticket.fecha}}</p>
-                    <p><i class='material-icons'>event</i>Fecha Reparacion: {{ticket.fecha_reparacion}}</p>
+                    <p><i class='material-icons'>event</i>Reporte: {{ticket.fecha}}</p>
+                    <p><i class='material-icons'>event</i>Reparacion: {{ticket.fecha_reparacion}}</p>
                   </div>
                 </div>
               </div>
