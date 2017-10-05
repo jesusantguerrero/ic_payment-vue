@@ -43,7 +43,7 @@
 
   // **************************************************     globals handlers       *****************************
   function initGlobalHandlers() {
-    
+
     var averiaClientDni = $("#a-client-dni");
 
     if (currentPage == 'notificaciones') {
@@ -100,32 +100,32 @@
       Damages.add(averiaClient.val());
     });
 
-  $(".btn-update-averia").on('click', function (e) {
-    e.stopImmediatePropagation();
-    var id_averia = $(this).parents('.averia-item').find('.code')
-    id_averia = id_averia.text().trim();
-    Damages.update(id_averia);
-  });
+    $(".btn-update-averia").on('click', function (e) {
+      e.stopImmediatePropagation();
+      var id_averia = $(this).parents('.averia-item').find('.code')
+      id_averia = id_averia.text().trim();
+      Damages.update(id_averia);
+    });
 
-  $(".btn-update-installation").on('click', function (e) {
-    e.stopImmediatePropagation();
-    var id_pago = $(this).parents('.averia-item').find('.code');
-    id_pago = id_pago.text().trim();
-    Installations.update(id_pago);
-  });
+    $(".btn-update-installation").on('click', function (e) {
+      e.stopImmediatePropagation();
+      var id_pago = $(this).parents('.averia-item').find('.code');
+      id_pago = id_pago.text().trim();
+      Installations.update(id_pago);
+    });
 
-  $("#extra-controls").on('click', function (e) {
-    e.stopImmediatePropagation();
-    Contracts.btnExtraPressed($(this));
-  });
+    $("#extra-controls").on('click', function (e) {
+      e.stopImmediatePropagation();
+      Contracts.btnExtraPressed($(this));
+    });
 
-  $("#extra-client-dni").on('keydown', function (e) {
-    var key = e.which;
-    var dni = $(this).val()
-    if (key == 13) {
-      Contracts.getAllOfClient(dni);
-    }
-  });
+    $("#extra-client-dni").on('keydown', function (e) {
+      var key = e.which;
+      var dni = $(this).val()
+      if (key == 13) {
+        Contracts.getAllOfClient(dni);
+      }
+    });
 
   }
 
@@ -327,7 +327,7 @@
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
-    if(currentPage == 'contratos'){
+    if (currentPage == 'contratos') {
       contractTable.init();
       Contracts.getAll();
     }
@@ -342,7 +342,7 @@
       e.stopImmediatePropagation();
       Contracts.callExtra();
     });
-    
+
     $("#contract-searcher").on('keyup', function (e) {
       e.stopImmediatePropagation();
       var text = $(this).val();
@@ -351,19 +351,19 @@
 
     $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {
       e.preventDefault();
-      var row, callback 
+      var row, callback
       console.log('hello world');
-        if(currentPage == 'contratos'){
-          row = contractTable.getSelectedRow();
-          callback = Contracts.getAll;
-        }else{
-          row = detailsContractTable.getSelectedRow();
-          row.id = row.id_contrato;
-          row.id_cliente = $('#datail-client-id').val();
-          row.cliente = $('#detail-client-name').val();
-          callback = Payments.contractRefresh;
-        }
-      
+      if (currentPage == 'contratos') {
+        row = contractTable.getSelectedRow();
+        callback = Contracts.getAll;
+      } else {
+        row = detailsContractTable.getSelectedRow();
+        row.id = row.id_contrato;
+        row.id_cliente = $('#datail-client-id').val();
+        row.cliente = $('#detail-client-name').val();
+        callback = Payments.contractRefresh;
+      }
+
       if (row) {
         $(".cancel-name").text(row.cliente);
         var $inputElement = $(".confirmed-data");
@@ -373,7 +373,7 @@
         $("#cancel-print").attr("href", BASE_URL + 'process/getcancelcontract/' + row.id);
 
         $("#cancel-contract-modal").modal();
-        
+
         $buttonToActive.on('click', function (e) {
           e.stopImmediatePropagation();
           console.log(row)
@@ -430,7 +430,7 @@
       var lastPaymentId = $(this).val();
       Payments.updateUntil(contractId, lastPaymentId);
     });
-    
+
   }
   //***************************************************  Init Payments  Handlers   ***************************** */
 
@@ -519,9 +519,9 @@
     $("#btn-call-reconnect").on('click', function (e) {
       e.stopImmediatePropagation()
       var row = detailsContractTable.getSelectedRow();
-      if(row){
+      if (row) {
         $("#reconnect-modal").modal();
-      }else{
+      } else {
         swal("Debe seleccionar un contrato primero");
       }
     })
@@ -529,8 +529,8 @@
     $("#btn-reconnect").on('click', function (e) {
       e.stopImmediatePropagation()
       var row = detailsContractTable.getSelectedRow();
-      if(row){
-        Contracts.reconnect(row.id_contrato,Payments.contractRefresh);
+      if (row) {
+        Contracts.reconnect(row.id_contrato, Payments.contractRefresh);
       }
     })
 

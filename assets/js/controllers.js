@@ -318,15 +318,15 @@ var Contracts = {
     }
   },
 
-  extend: function(idContrato) {
-    var form;
-    form = 'id_contrato=' + idContrator;
-    connectAndSend("process/extend", true, null, null, form, null);
-  },
-
   getAll: function() {
     var form = "tabla=contratos";
-    connectAndSend('process/getall', false, null, contractTable.refresh, form, null);
+    var callback = null
+    var refresh = contractTable.refresh;
+    if (contractTable.el == 'detalles') {
+      callback = Payments.getAll()
+      refresh = null
+    }
+    connectAndSend('process/getall', false, null, refresh, form, callback);
   },
 
   getLast: function(data) {
