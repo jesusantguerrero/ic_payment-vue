@@ -56,6 +56,7 @@
     "fecha": "",
     "estado": "",
     "fecha_reparacion": "",
+    "tecnico": "",
     "codigo": '',
   }
   
@@ -174,7 +175,15 @@
       },
 
       updateDescription: function () {
-        this.updateTicket(['id_averia','descripcion']);
+        this.updateTicket(['id_averia','descripcion','tecnico','estado','fecha_reparacion']);
+      },
+
+      updateState: function () {
+        if (this.ticket.estado == 'por reparar') {
+          this.ticket.fecha_reparacion = ''
+        } else {
+          this.ticket.fecha_reparacion = moment().format('YYYY-MM-DD');
+        }
       },
 
       updateTicket: function (fields) {

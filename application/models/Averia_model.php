@@ -59,6 +59,7 @@ class Averia_model extends CI_MODEL{
     $this->db->where('id_averia',$id_averia);
     return (bool) $this->db->update('ic_averias',$data);
   }
+
   public function get($status = 'por reparar'){
     if($status != 'todos'){
       $this->db->where('estado',$status);
@@ -92,6 +93,7 @@ class Averia_model extends CI_MODEL{
       $this->db->where('estado',$status);
     }
     $this->db->like('cliente',$word);
+    $this->db->order_by('fecha','DESC');
     if ($result = $this->db->get('v_averias')) {
       return make_averias_list($result->result_array());
     }

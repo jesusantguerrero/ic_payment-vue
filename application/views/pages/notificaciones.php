@@ -71,8 +71,19 @@
                   </div>
                   </div>
                   <div class="col-md-3 col-xs-4 more">
-                    <p><i class='material-icons'>person_pin</i>Tecnico</p>
-                    <p><i class='material-icons'>check</i>{{ticket.estado}}</p>
+                    <p v-if="!mode.edit"><i class='material-icons'>person_pin</i>Tecnico: {{ ticket.tecnico}}</p>
+                    <div class="input-group" v-if="mode.edit">
+                      <span class="input-group-addon"><i class='material-icons'>person_pin</i></span>
+                      <input type="text" class="form-control" placeholder="Tecnico Asignado" v-model="ticket.tecnico">
+                    </div>
+                    <p v-if="!mode.edit"><i class='material-icons'>check</i>{{ticket.estado}}</p>
+                    <div class="input-group" v-if="mode.edit">
+                      <span class="input-group-addon"><i class='material-icons'>check</i></span>
+                      <select class="form-control" v-model="ticket.estado" @change="updateState">
+                        <option value="por reparar">Por Reparar</option>
+                        <option value="reparado">Reparado</option>
+                      </select>
+                    </div>
                     <p><i class='material-icons'>event</i>Reporte: {{ticket.fecha}}</p>
                     <p><i class='material-icons'>event</i>Reparacion: {{ticket.fecha_reparacion}}</p>
                   </div>
