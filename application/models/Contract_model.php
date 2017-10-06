@@ -201,6 +201,7 @@ class Contract_model extends CI_MODEL{
   public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){
     
     $update_contract = array(
+      'codigo'        => '',
       'estado'        => 'cancelado',
       'ultimo_pago'   => $data_contrato['ultimo_pago'],
       'proximo_pago'  => null,
@@ -239,7 +240,6 @@ class Contract_model extends CI_MODEL{
         echo MESSAGE_SUCCESS." Contrato Cancelado";
       }
     }
-    
   }
 
   public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){

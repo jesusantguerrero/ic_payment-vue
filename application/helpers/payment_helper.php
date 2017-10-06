@@ -85,6 +85,7 @@ if (! function_exists('refresh_contract')){
     $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
   }
 }
+
 if (! function_exists('cancel_payment')){
 
   function cancel_payment($payment_id,$context){
@@ -416,13 +417,13 @@ function update_moras($context){
   $next_check = $settings['next_check'];
   if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
-    //update_state_moras($moras,$context);
+    update_state_moras($moras,$context);
     
     if($moras){
       $data = $context->payment_model->get_moras_view();
       if(date('d') == $settings['fecha_corte'] + 1){
         prepare_moras($data,$context,$settings);
-        //suspension_automatica();
+        suspension_automatica();
       }
     }
     
@@ -452,12 +453,13 @@ function prepare_moras($data,$context,$settings){
 }
 
 function update_state_moras($data,$context){
-  $estado = 'mora';
-
   foreach ($data as $pago) {
     if($pago['estado_cliente'] != 'activo'){
       $estado = $pago['estado_cliente'];
-    } 
+    } else {
+      $estado = 'mora';
+    }
+
     $context->db->where('id_cliente',$pago['id_cliente']);
     $context->db->update('ic_clientes',array('estado'=> $estado));
   }

@@ -653,7 +653,7 @@ var Payments = {
     } else {
       $cMora.iCheck('uncheck'); 
     }
-
+    
     if (pago['detalles_extra'].includes('Reconexion')) {
       $cReconexion.iCheck('check');
     } else {
