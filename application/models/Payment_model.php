@@ -226,19 +226,19 @@ class Payment_model extends CI_MODEL{
 
   public function get_moras_view($mode = 'normal'){
     if($mode == "group"){
-      $result = $this->db->group_by('cliente')->select('id_cliente')->get('v_morosos');
+      $result = $this->db->group_by('cliente');
     }
     $result = $this->db->get('v_morosos');
     return $result->result_array(); 
   }
 
-  public function update_moras($updated_data){
-    $sql = " UPDATE ic_pagos SET mora ='".$updated_data['mora']."',total ='".$updated_data['total']."'";
-    $sql .= "WHERE id_pago=".$updated_data['id_pago'];
-    if($this->db->query($sql)){
-    }else{
-      echo "algo anda mal";
+  public function update_moras($id_pago,$updated_data){
+    $this->db->where('id_pago',$id_pago);
+    
+    if($this->db->update('ic_pagos',$updated_data)){
+      return true;
     }
+    return false;
   }
 
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){

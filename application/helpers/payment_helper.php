@@ -416,15 +416,16 @@ function update_moras($context){
   $next_check = $settings['next_check'];
   if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
-
-    update_state_moras($moras,$context);
+    //update_state_moras($moras,$context);
+    
     if($moras){
       $data = $context->payment_model->get_moras_view();
       if(date('d') == $settings['fecha_corte'] + 1){
         prepare_moras($data,$context,$settings);
-        suspension_automatica();
+        //suspension_automatica();
       }
-		}
+    }
+    
     $result = $context->settings_model->update('last_check_moras',$today);
   }	 
 }
@@ -434,24 +435,25 @@ function prepare_moras($data,$context,$settings){
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = get_cuota($pago['id_contrato'],$context);
-    $monto_extra = $pago['monto_extra'] + $settings['reconexion'];
+    $monto_extra = $settings['reconexion'];
     $total = $pago['total'];
-    $mora  =   ($settings['cargo_mora'] / 100) * $cuota;
+    $mora  = ($settings['cargo_mora'] / 100) * $cuota;
     $total = $pago['cuota'] + $monto_extra + $mora;
     
     $updated_data = array(
-      'id_pago' => $pago['id_pago'],
       'mora'    => $mora,
       'total'   => $total,
+      'monto_extra' => $monto_extra,
       'detalles_extra' => 'Reconexion'
     );
-    $result = $context->payment_model->update_moras($updated_data);
-    
+
+    $result = $context->payment_model->update_moras($pago['id_pago'],$updated_data);
   }
 }
 
 function update_state_moras($data,$context){
   $estado = 'mora';
+
   foreach ($data as $pago) {
     if($pago['estado_cliente'] != 'activo'){
       $estado = $pago['estado_cliente'];
@@ -757,7 +759,6 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
 function estabilizar_moras($context){
   $contratos = $context->db->group_by('cliente')->select('id_cliente')->get('v_morosos')->result_array();
     foreach ($contratos as $contrato) {
-      var_dump($contrato['id_cliente']);
       echo "<br>";
       $context->db->where('id_cliente',$contrato['id_cliente']);
       $context->db->update('ic_clientes',['estado' => 'mora']);
