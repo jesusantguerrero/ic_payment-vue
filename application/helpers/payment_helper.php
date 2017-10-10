@@ -7,8 +7,6 @@
 *
 */
 
-$client_details;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('create_payments')){
@@ -293,6 +291,7 @@ if (! function_exists('clear_payments')){
     $context->contract_model->update($data_contract,$contract_id,true); 
   }
 }
+
 if (! function_exists('upgrade_contract')){
   /**
   * Actualiza los pagos de un contrato automaticamente

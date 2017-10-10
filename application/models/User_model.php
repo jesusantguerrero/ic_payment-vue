@@ -63,19 +63,15 @@ class User_model extends CI_MODEL{
     }  
   }
 
-  public function update_user($data){
-    $data_for_update = array(
-      'name'     => $data['name'],
-      'lastname' => $data['lastname'],
-      'dni'      => $data['dni'],
-      'type'     => $data['type']
-    );
-    $this->db->where('nickname',$data['nickname']);
-    $result = $this->db->update('ic_users',$data_for_update);
+  public function update_user($data, $id){
+    $this->db->where('nickname',$id);
+    $this->db->or_where('user_id',$id);
+    $result = $this->db->update('ic_users',$data);
+    
     if($result){
       echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
     }else{
-     echo MESSAGE_ERROR." No pudo guardarse el usuario " . $sql;
+     echo MESSAGE_ERROR." No pudo guardarse el usuario ";
     }   
   }
 
@@ -85,16 +81,10 @@ class User_model extends CI_MODEL{
     $result = make_table($result->result_array(),0);
     echo $result;
   }
-
-  public function count_users(){
-    $result = $this->db->count_all("ic_users");
-    echo $result;
-  }
   
   public function get_user($id){
-    $sql = "SELECT * FROM ic_users WHERE user_id=". $id;
     $this->db->where('user_id',$id);
-    $result =$this->db->get('users',1);
+    $result =$this->db->get('ic_users',1);
     if($result){
      return $result->row_array();
     }  
@@ -136,7 +126,6 @@ class User_model extends CI_MODEL{
   public function confirm_password($user_id,$password){
     $this->db->where('user_id',$user_id);
     $result = $this->db->get('ic_users',1);
-
     if($result != false){
       $result = $result->row_array();
       if(password_verify($password,$result['password'])){

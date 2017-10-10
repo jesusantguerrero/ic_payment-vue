@@ -612,6 +612,11 @@ function auth_user_type($type){
   return false;
 }
 
+function get_role($type){
+  $roles = ['admnistrador','secretaria(o)','tecnico'];
+  return $roles[$type];
+}
+
 function auth_user_type_for_pages($page,$type,$redirect){
   $forbiden_sections[1] = array("administrador","reportes",'secciones');
 

@@ -29,9 +29,6 @@
         initContractHandlers();
         initClientHandlers();
         break;
-      case "cuenta":
-        acountHandlers();
-        break;
       case "secciones":
         sectionHandlers();
         break;
@@ -541,24 +538,6 @@
       e.stopImmediatePropagation();
       var context = 'details';
       Contracts.callExtra(context);
-    })
-  }
-
-  function acountHandlers() {
-    var $userId = $("#acount-user-id")
-    var $currentPassword = $("#acount-current-password")
-    var $btnUpdateUser = $("#update-user-data");
-    var $newPassword = $("#acount-new-password");
-
-    $("#acount-current-password").on('keyup', function (e) {
-      e.stopImmediatePropagation();
-      Users.confirmPassword($userId.val(), $currentPassword.val());
-    });
-
-    $btnUpdateUser.on('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      Users.updatePassword($userId.val(), $currentPassword.val(), $newPassword.val())
     })
   }
 

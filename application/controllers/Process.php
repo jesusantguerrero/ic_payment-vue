@@ -369,9 +369,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case 'users':
-				$this->user_model->count_users();
-				break;
 			case 'clientes':
 				$this->client_model->count_clients();
 				break;
