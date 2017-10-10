@@ -11,7 +11,7 @@ $(function () {
   userInfoTip();
   makeServiceCardClickable();
   
-  if (currentPage == "detalles") {
+  if (currentPage == "detalles" || currentPage != 'nuevo_contrato') {
     detailsFunctions();
   }
 
@@ -24,7 +24,6 @@ $(function () {
   })
 
   onWindowLoadFunctions();
-
   /**
    * Get Date:
    * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
@@ -155,7 +154,6 @@ function newContractFunctions() {
     contractControls.addClass("hide")
   }
 }
-
 /********************************************************
  *                          Modals Functions                            
  *                                                       *

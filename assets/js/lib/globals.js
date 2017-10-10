@@ -168,10 +168,10 @@ function makeContractList(response,callback){
     var selectContract = $("#extra-client-contract");
     var element = "<option value=''>--Selecciona--</option>";
     var cliente = contracts.cliente;
-    var contractId 
-    if(currentPage != 'detalles'){
+    var contractId = ''
+    if(currentPage != 'detalles' && currentPage != 'home'){
       contractId = contractTable.getId();
-    }else{
+    }else if( currentPage != 'home'){
       contractId = detailsContractTable.getSelectedRow().id_contrato
     }
 

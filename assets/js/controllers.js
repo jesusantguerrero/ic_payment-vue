@@ -649,15 +649,15 @@ var Payments = {
     });
 
     if (pago['mora'] > 0) {
-      $cMora.parent().addClass('cheked');
+      $cMora.iCheck('check');      
     } else {
-      $cMora.parent().removeClass('checked');
+      $cMora.iCheck('uncheck'); 
     }
 
-    if (pago['detalles_extra'].includes('reconexion')) {
-      $cReconexion.parent().addClass('checked');
+    if (pago['detalles_extra'].includes('Reconexion')) {
+      $cReconexion.iCheck('check');
     } else {
-      $cReconexion.parent().removeClass('checked');
+      $cReconexion.iCheck('uncheck');     
     }
 
     $("#btn-apply-discount").on('click', function (e) {

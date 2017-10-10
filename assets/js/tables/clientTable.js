@@ -27,7 +27,7 @@ var clientTable = {
   init: function(page){
     var self = this;
     this.el = $('#t-clients');
-    this.$filter = $('.filter');
+    this.$filter = $('#t-clients .filter');
     this.el.bootstrapTable();
     this.customSearch();
     this.el.find('tbody').css({display:"table-row-group"});
@@ -36,6 +36,7 @@ var clientTable = {
     if(page){
       self.el.bootstrapTable('selectPage',page);
     }
+
     clientTable.detectClicks();
     this.el.on('all.bs.table', function (name,param) {
        clientTable.changeStates();
@@ -56,7 +57,6 @@ var clientTable = {
 
   refresh: function(content,callback){
     var options = clientTable.el.bootstrapTable('getOptions');
-
     clientTable.el.bootstrapTable('destroy');
     clientTable.el.find('tbody').html(content);
     clientTable.init(options.pageNumber);
@@ -120,7 +120,7 @@ var clientTable = {
     $('.pull-right.search').addClass('hide')
     var $inputSearch = $('.search input');
     var $printTable = $('.print-table');
-    this.$filter = $('.filter');
+    this.$filter = $('#t-clients .filter');
     var self = this
 
     $inputSearch.on('click', function (e) {
@@ -153,7 +153,3 @@ var clientTable = {
   }
  
 }
- window.getHeight = function () {
-    var h =  450;
-    return h;
-  }
