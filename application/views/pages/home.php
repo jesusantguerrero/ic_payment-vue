@@ -8,7 +8,7 @@
             <h3> </h3>
             <div class="row">
                 <div class="company-data">
-                    <img class="company-logo" src="<?php echo base_url('assets/img/ic_payment.png') ?>" alt="">
+                    <img class="company-logo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="company-logo" style="width: 170px">
                 </div>
                 <div class="welcome-data">
                     <div class="row">
@@ -67,7 +67,7 @@
                     <div class="list-repair centered-container">
                         <?php  $day_income = $this->payment_model->day_income("today"); ?>
 
-                        <a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
+                        <a target="_blank" href="<?php echo base_url('process/getreport/payment/today') ?>">
                         <h2 class="current-saldo"><?php echo "RD$ ".CurrencyFormat($day_income); ?></h2></a>
                     </div>
                 </div>
