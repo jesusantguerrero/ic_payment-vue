@@ -25,8 +25,14 @@
       <input type="text" class="form-control searcher"  placeholder="Buscar contrato">
     </div>
     <div class="pull-right">
+        <a href="#" title="vista en detalle" class="btn icon print-table"><i class="material-icons">remove_red_eye</i></a>
+      </div>
+    <div class="pull-right">
       <select id="client-filter" class="form-group filter btn btn-dafault">
-        <option value="activos">Activos</option>
+        <option value="activo">Activos</option>
+        <option value="saldado">Saldados</option>
+        <option value="suspendido">Suspendidos</option>
+        <option value="cancelado">Cancelados</option>
       </select>  
     </div>
   </div>
@@ -57,10 +63,10 @@
           <th data-field= "proximo_pago"  data-title-tooltip= "Fecha del Proximo Pago">Proximo Pago</th>
           <th data-field= "monto_pagado"  data-title-tooltip= "Monto pagado del contrato">Monto Pagado</th>
           <th data-field= "monto_total"  data-title-tooltip= "Monto Total">Monto Total</th>
+          <th data-field= "estado"  data-title-tooltip= "Estado">E</th>
           <th data-field= "id_cliente"  class= "hide">ID Cliente</th>
           <th data-field= "cedula"  class= "hide">Cedula</th>
-        </tr>
-        
+        </tr>        
       </thead>
       <tbody>
       </tbody>

@@ -22,6 +22,9 @@
           <input type="text" class="form-control searcher"  placeholder="Buscar servicio">
         </div>
         <div class="pull-right">
+          <a href="#" title="vista en detalle" class="btn icon print-table"><i class="material-icons">remove_red_eye</i></a>
+        </div>
+        <div class="pull-right">
           <select id="client-filter" class="form-group filter btn btn-dafault">
             <option value="todo">Todos</option>
             <option value="internet">Internet</option>

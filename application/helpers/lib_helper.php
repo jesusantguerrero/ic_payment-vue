@@ -257,6 +257,7 @@ if ( ! function_exists('make_main_contract_table')){
           <td>".date_spanish_format($line['proximo_pago'])."</td>
           <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
           <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+          <td>". $line['estado']."</td>
           <td class='hide'>".$line['id_cliente']."</td>
           <td class='hide'>".$line['cedula']."</td>
         </tr>";
