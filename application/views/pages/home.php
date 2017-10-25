@@ -1,5 +1,8 @@
 <div class="container-fluid">
-    <?php $user_data = get_user_data(); ?>
+    <?php 
+        $user_data = get_user_data();
+        $empresa = $this->company_model->get_empresa();
+    ?>
     <div class="row welcome-screen">
         <div class="col-md-8 col-xs-12 main-card">
             <h3> </h3>
@@ -10,7 +13,7 @@
                 <div class="welcome-data">
                     <div class="row">
                         <div class="col-md-6 without-padding">
-                            <h4>ICS Services</h4>
+                            <h4><?php  echo $empresa['nombre']?></h4>
                             <h4>Bienvenido
                                 <?php echo $user_data['name'] ?>
                             </h4>
