@@ -18,7 +18,7 @@ const Path =  require('path');
 // my files
 
 var headLibraries = [
-  path + "assets/js/lib/jquery.js",
+  path + "assets/js/lib/jquery-3.2.1.min.js",
 	path + "assets/js/lib/bootstrap.min.js",
   path + "assets/js/lib/moment.min.js",
   path + "assets/js/lib/locale/es-do.js",
@@ -70,7 +70,6 @@ var cssFiles = [
 var frontendCss = [
   path + "assets/css/5-others/peace-material.min.css",
   path + "assets/css/5-others/select2.min.css",
-  path + "assets/css/5-others/AdminLTE.min.css",
   path + "assets/css/5-others/square/blue.css",
   path + "assets/css/5-others/square/square.css",
 ]
@@ -116,7 +115,6 @@ gulp.task('compress', function (){
 })
 
 gulp.task('final-compress',['compress'], function (){
-  
   var head = gulp.src(headLibraries)
   .pipe(concat("head.bundle.js"))
   .pipe(gulp.dest(distTest))

@@ -45,28 +45,6 @@ if ( ! function_exists('make_table')){
   }
 }
 
-if( !function_exists('get_user_data')){
-
-  
-  function get_user_data(){
-    if(isset($_SESSION['user_data'])){
-      $user = $_SESSION['user_data'];
-      $fullname = $user['name']." ".$user['lastname'];
-      if($user['type'] == 0){
-        $type = "Administrador";
-      }else{
-        $type = "Secretaria(o)";
-      }
-
-      $user['fullname'] = $fullname;
-      $user['typestr'] = $type;
-      $user['password'] = '';
-
-      return $user;
-    }
-  }
-}
-
 if ( ! function_exists('make_client_table')){
   /**
   * create a table for the data from users to display in the interface
@@ -196,7 +174,6 @@ if ( ! function_exists('make_contract_table')){
 }
 
 function make_extra_table($data,$start_at){
-  
    $html_text = " "; 
    $state = '';
    $row_class = '';
@@ -230,7 +207,7 @@ function make_extra_table($data,$start_at){
    }
 
    return $html_text;
- }
+}
 
 
 if ( ! function_exists('make_main_contract_table')){
@@ -559,6 +536,28 @@ if ( ! function_exists('make_service_shortcuts')){
     }
 
     return $html_text;
+  }
+}
+
+
+// utils functions
+if( !function_exists('get_user_data')){
+  function get_user_data(){
+    if(isset($_SESSION['user_data'])){
+      $user = $_SESSION['user_data'];
+      $fullname = $user['name']." ".$user['lastname'];
+      if($user['type'] == 0){
+        $type = "Administrador";
+      }else{
+        $type = "Secretaria(o)";
+      }
+
+      $user['fullname'] = $fullname;
+      $user['typestr'] = $type;
+      $user['password'] = '';
+
+      return $user;
+    }
   }
 }
 

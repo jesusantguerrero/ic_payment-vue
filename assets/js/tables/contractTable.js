@@ -7,6 +7,7 @@ var contractTable = {
     this.customSearch();
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
+    this.$filter.change();
     contractTable.detectClicks();
   },
 

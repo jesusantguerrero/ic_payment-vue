@@ -19,7 +19,7 @@
       <div class="tab-content mylists">
         <div role="tabpanel" class="tab-pane active" id="averias">
           <div id="averias-list-view">
-            <div class="searcher-container main-toolbar" :class="{hide:hide}" id="clients-toolbar">
+            <div class="searcher-container main-toolbar" :class="{hide:hide}">
               <div class="input-group search">
                 <div class="input-group-addon"><i class="material-icons">search</i></div>
                 <input type="text" class="form-control searcher" v-model="dataSearch.text" @keyup="search" placeholder="Busque averia por cliente">
@@ -31,7 +31,7 @@
                 <a target="_blank" href="<?php echo base_url('process/getreport/averias')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
               </div>
               <div class="pull-right">
-                <select id="averias-view-mode" class="form-group filter btn btn-dafault" v-model="dataSearch.state">
+                <select id="averias-view-mode" class="form-group filter btn btn-primary" v-model="dataSearch.state">
                   <option value="por reparar">Por Reparar</option>
                   <option value="reparado">Reparados</option>
                   <option value="todos">Todos</option>
@@ -145,7 +145,7 @@
               <?php echo $this->report_model->count_moras_view(); ?> )</h4>
             <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <table data-toggle="table" class="innertable general-table" data-sort-name="cliente" data-sort-order="asc" data-search="true"
+          <table data-toggle="table" class="innertable table general-table" data-sort-name="cliente" data-sort-order="asc" data-search="true"
             data-show-refresh="false" data-show-columns="false" data-show-export="false" data-minimum-count-columns="2" data-toolbar="#moras-toolbar"
             data-pagination="true" data-id-field="contrato" data-page-size="50" data-page-list="[10,20,50, 100,200,500]" data-show-footer="false">
             <thead>
@@ -174,7 +174,7 @@
             <h4 class="search-criteria">Historial de pagos</span>
               <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <table data-toggle="table" class="innertable general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
+          <table data-toggle="table" class="innertable table general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
             data-show-refresh="true" data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-toolbar="#pagos-toolbar"
             data-pagination="true" data-id-field="payment" data-page-size="500" data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
             data-show-footer="false">
@@ -202,7 +202,7 @@
             <h4 class="search-criteria">Historial de moras</span>
               <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
           </div>
-          <table data-toggle="table" class="innertable general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
+          <table data-toggle="table" class="innertable table general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
             data-show-refresh="true" data-toolbar="#history-toolbar" data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
             data-pagination="true" data-id-field="payment" data-page-size="20" data-page-list="[10,20,50, All]" data-show-footer="false">
             <thead>

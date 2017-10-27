@@ -23,22 +23,24 @@ selectState +="<select>"
 // My Objects
  
 var clientTable = {
-
   init: function(page){
     var self = this;
     this.el = $('#t-clients');
-    this.$filter = $('#t-clients .filter');
+    this.$filter = $('.filter');
     this.el.bootstrapTable();
     this.customSearch();
     this.el.find('tbody').css({display:"table-row-group"});
     self.el.addClass('innertable');
     this.$filter.change();
+    console.log(this.$filter)
+    console.log(' the filter')
+    console.log(document.querySelector('.filter'))
     if(page){
       self.el.bootstrapTable('selectPage',page);
     }
 
     clientTable.detectClicks();
-    this.el.on('all.bs.table', function (name,param) {
+    this.el.on('all.bs.table', function (name, param) {
        clientTable.changeStates();
     });
   },
@@ -120,7 +122,7 @@ var clientTable = {
     $('.pull-right.search').addClass('hide')
     var $inputSearch = $('.search input');
     var $printTable = $('.print-table');
-    this.$filter = $('#t-clients .filter');
+    this.$filter = $('#clients-toolbar .filter');
     var self = this
 
     $inputSearch.on('click', function (e) {
@@ -136,11 +138,12 @@ var clientTable = {
     this.$filter.on('change', function (e) {
       var _filtro = $(this).val(); 
       var _status = _filtro;
-
+      console.log('cambio detectado')
       if(_filtro == 'todo'){
         _filtro = estados;
         _status = '';  
       }
+
       $printTable.attr('href', BASE_URL + 'process/getreport/clientes/' + _status);
       self.applyFilter(_filtro);
     })

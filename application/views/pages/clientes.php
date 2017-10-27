@@ -29,7 +29,7 @@
         <a target="_blank" href="<?php echo base_url('process/getreport/clientes') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
       </div>
       <div class="pull-right">
-        <select id="client-filter" class="form-group filter btn btn-dafault">
+        <select id="client-filter" class="form-group filter btn btn-primary">
           <option value="todo">Todos</option>
           <option value="activo">Activos</option>
           <option value="no activo">No Activos</option>

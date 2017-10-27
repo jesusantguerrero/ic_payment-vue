@@ -28,7 +28,7 @@
         <a href="#" title="vista en detalle" class="btn icon print-table"><i class="material-icons">remove_red_eye</i></a>
       </div>
     <div class="pull-right">
-      <select id="client-filter" class="form-group filter btn btn-dafault">
+      <select id="client-filter" class="form-group filter btn btn-primary">
         <option value="activo">Activos</option>
         <option value="saldado">Saldados</option>
         <option value="suspendido">Suspendidos</option>
@@ -46,7 +46,7 @@
       data-id-field= "id"  
       data-page-size= "50"  
       data-page-list= "[10,20,50,100,200 ,300, 400, 500, 1000]"  
-      data-show-footer= false  
+      data-show-footer= "false" 
       data-click-to-select="true"  
       data-single-select= "true" 
       data-stripped= "false">

@@ -25,7 +25,7 @@
           <a href="#" title="vista en detalle" class="btn icon print-table"><i class="material-icons">remove_red_eye</i></a>
         </div>
         <div class="pull-right">
-          <select id="client-filter" class="form-group filter btn btn-dafault">
+          <select id="client-filter" class="form-group filter btn btn-primary">
             <option value="todo">Todos</option>
             <option value="internet">Internet</option>
             <option value="reparacion">Reparacion</option>

@@ -134,6 +134,12 @@ nav
     
     &:last-child
       margin-right: 0
+
+  .input-group
+    +makeFlex(100%, row, flex-start, center)
+    position: static
+    [class*=addon]
+      width: 40px
   
 .fixed-table-toolbar 
   .main-toolbar
@@ -167,6 +173,7 @@ nav
   box-shadow: 3px 4px #eee
   border: 1px solid #ccc
   overflow: hidden
+  margin: 0 2px
   .focus
     box-shadow: 3px 4px lighten($contrast-color, 10%)
     .material-icons
@@ -175,7 +182,8 @@ nav
     color: #ddd
   
   input,
-  input.form-control
+  .form-control,
+  select
     height: 42px
     color: #eee
     border: 0

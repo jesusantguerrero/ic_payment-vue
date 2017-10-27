@@ -37,6 +37,7 @@
         break;
       case "secciones2":
         sectionHandlers();
+        console.log('here')
         break;
     }
 
@@ -355,7 +356,6 @@
     $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {
       e.preventDefault();
       var row, callback
-      console.log('hello world');
       if (currentPage == 'contratos') {
         row = contractTable.getSelectedRow();
         callback = Contracts.getAll;
@@ -379,7 +379,6 @@
 
         $buttonToActive.on('click', function (e) {
           e.stopImmediatePropagation();
-          console.log(row)
           Contracts.cancel(row, callback)
           $buttonToActive.attr('disable');
         })
@@ -478,7 +477,7 @@
         //TODO: something whith that / algo con esto
       });
       send.catch(function () {
-        console.log(error);
+        console.error(error);
       });
     }
   }
@@ -571,6 +570,7 @@
     }
 
     $("#btn-add-section").on('click', function (e) {
+      e.preventDefault()
       e.stopImmediatePropagation();
       Sections.add();
     });

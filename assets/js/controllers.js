@@ -895,49 +895,18 @@ var Sections = {
     var id = $("#select-sector").val();
     if (id != null) {
       var form = "tabla=ips&id=" + id;
-      connectAndSend('process/getall', false, null, Sections.reorderTable, form,null);
+      connectAndSend('process/getall', false, null, sectionTable.refresh, form,null);
     }
   },
 
-  reorderTable: function(content){
-    // trying
-    sectionTable.refresh(content);
-    // fallback
-    var table = $("#t-sections");
-    table.bootstrapTable('destroy');
-    $("#t-sections tbody").html(content);
-    table.bootstrapTable();
-    table.find('tbody').css({display:"table-row-group"});
-  },
-
   getAll: function() {
-      var form = "tabla=secciones";
-      connectAndSend('process/getall', false, null, fillSelect, form,heavyLoad);
+    var form = "tabla=secciones";
+    connectAndSend('process/getall', false, null, fillSelect, form,heavyLoad);
 
     function fillSelect(content){
       $("#select-sector").html(content);
     }
   },
-
-  init: function(){
-    var $table = $("#t-sections");
-    var $btnPrint = $("#btn-print-sections");
-    var $selectState = $("#filter-sections");
-
-    $selectState.on('change',function(){
-      var filter = $(this).val()
-      if(filter.includes("]"))
-        filter = ['ocupado','disponible']
-
-      $table.bootstrapTable('filterBy',{
-        estado:  filter
-      })
-    })
-
-    $btnPrint.on('click', function(){
-      print();
-    })
-  }
 }
 
 var Extras = {

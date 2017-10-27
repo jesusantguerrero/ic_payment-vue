@@ -10,10 +10,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 function make_section_dropdown($data){
-    $html_text = "<option value=''> - sector - </option>"; 
+    $html_text = ""; 
     foreach ($data as $row) {
-        $html_text .= "<option value='".$row['id_seccion']."'>";
-        $html_text .= $row['nombre']." | ".$row['codigo_area']."</option>";
+        $html_text .= "<option value='{$row['id_seccion']}'>
+                      {$row['nombre']} | {$row['codigo_area']}</option>";
     }
     return $html_text;
 }
@@ -33,23 +33,30 @@ function create_ips($section_id,$data){
 }
 
 
-  function make_ips_table($data,$start_at){
-    $cont = $start_at + 1;
-    $html_text = " "; 
-    foreach ($data as $line) {
-        $html_text .= 
-        "<tr>
-        <td>".$cont."</td>
-        <td>". $line['seccion']."</td>
-        <td>".$line['codigo']."</td>
-        <td>".$line['ip_final']."</td>
-        <td>".$line['estado']."</td>";
-        $html_text .="</tr>";
-     $cont+=1;
-    }
+function make_ips_table($data,$start_at){
+  $state_class = [
+      'disponible' => 'text-success',
+      'ocupada'    => 'text-danger',
+      'sectorial'  => 'text-primary'
+  ];
 
-    return $html_text;
+  $cont = $start_at + 1;
+  $html_text = " "; 
+  foreach ($data as $line) {
+      $estado = $line['estado'];
+      $html_text .=  "<tr>
+                        <td>".$cont."</td>
+                        <td></td>
+                        <td>{$line['seccion']}</td>
+                        <td>{$line['codigo']}</td>
+                        <td>{$line['ip_final']}</td>
+                        <td class='{$state_class[$estado]}'>{$estado}</td>
+                        <td> <button> cambiar </button> </td>
+                       </tr>";
+   $cont+=1;
   }
+  return $html_text;
+}
 
 function make_ips_list($data){
     $html_text = "<option value=''> - codigo - </option>"; 

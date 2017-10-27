@@ -22,7 +22,7 @@
           $empresa = $this->company_model->get_empresa();
           $settings = $this->settings_model->get_settings();
          ?>
-        <h3> Detalles de la Empresa</h3>
+        <h3 class="section-title"> Detalles de la Empresa</h3>
         <form action="">
           <div class="row">
             <div class="col-md-6">
@@ -68,7 +68,7 @@
     ********************************-->
 
       <div class="company-details" id="user-section">
-        <h3> Usuarios </h3>
+        <h3 class="section-title"> Usuarios </h3>
         <div class="searcher-container clearfix">
           <h4 class="search-criteria">Todos los Usuarios :<span class="presentado"></h4>
           <button class="btn" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar <i class="material-icons">add</i></button>
@@ -109,22 +109,39 @@
     ********************************-->
 
       <div class="company-details" id="caja-section">
-        <h3> Caja Chica </h3>
-        <div class="searcher-container clearfix">
-          <h4 class="search-criteria">Historial de caja chica:<span class="presentado"></h4>
-          <select name="" class="form-control" id="caja-user">
-            <?php $this->user_model->get_users_list(); ?>
-          </select>
-          <input type="date" class="form-control caja-for-date" id="caja-date" placeholder="Fecha">
-          <a data-toggle="modal" data-target="#retire-money-modal" class="btn"><i class="material-icons mi__single">remove</i></a>
-          <button class="btn" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons mi__single">add</i></button>
+        <h3 class="section-title"> Caja Chica </h3>
+
+        <div class="searcher-container main-toolbar" id="caja-toolbar">
+          <div class="input-group search">
+            <div class="input-group-addon"><i class="material-icons">search</i></div>
+            <input type="text" class="form-control searcher"  placeholder=" descripcion">
+          </div>
+          <div class="input-group search">
+            <div class="input-group-addon"><i class="material-icons">person_pin</i></div>
+            <select name="" class="form-control" id="caja-user">
+              <?php $this->user_model->get_users_list(); ?>
+            </select>
+          </div>
+          <div class="input-group search">
+            <div class="input-group-addon"><i class="material-icons">event</i></div>
+            <input type="date" class="form-control caja-for-date" id="caja-date" placeholder="Fecha">
+          </div>
+          <div class="pull-right">
+            <button class="btn btn-primary icon" data-toggle="modal" data-target="#retire-money-modal"><i class="material-icons">remove</i></button>
+          </div>
+          <div class="pull-right">
+            <button class="btn btn-primary icon" data-toggle="modal" data-target="#add-money-modal"><i class="material-icons mi__single">add</i></button>
+          </div>
         </div>
 
         <table class="table t-users" id="caja" 
           data-sort-name="order" 
           data-minimum-count-columns="2" 
           data-show-pagination-switch="false"
+          data-search="true"
+          data-toolbar="#caja-toolbar"
           data-pagination="true" 
+          data-search= "true"
           data-unique-id="id" 
           data-page-size="5" 
           data-page-list="[5]" 
@@ -154,7 +171,7 @@
   <div class="company-details" id="settings-section">
   <?php $empresa = $this->company_model->get_empresa();
           ?>
-  <h3> Ajustes del Programa</h3>
+  <h3 class="section-title"> Ajustes del Programa</h3>
   <form action="">
     <div class="row">
       <div class="col-md-6">
@@ -218,7 +235,7 @@
     ********************************-->
     
     <div class="company-details" id="message-settings-section">
-  <h3> Ajustes de Mensajes</h3>
+  <h3 class="section-title"> Ajustes de Mensajes</h3>
   <form action="">
     <div class="row">
       <div class="col-md-6">
