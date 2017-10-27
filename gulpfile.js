@@ -40,7 +40,8 @@ var footLibraries = [
   path + "assets/js/tables/serviceTable.js",
   path + "assets/js/tables/contractTable.js",
   path + "assets/js/tables/adminTables.js",
-  path + "assets/js/tables/paymentTable.js"
+  path + "assets/js/tables/paymentTable.js",
+  path + "assets/js/tables/sectionTable.js",
 ]
 
 var footLibraries2 = [

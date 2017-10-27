@@ -35,6 +35,9 @@
       case "secciones":
         sectionHandlers();
         break;
+      case "secciones2":
+        sectionHandlers();
+        break;
     }
 
     initCajaHandlers();
@@ -562,7 +565,7 @@
 
   function sectionHandlers() {
     if (!ran) {
-      Sections.init()
+      sectionTable.init();
       Sections.getIps();
       ran = true;
     }

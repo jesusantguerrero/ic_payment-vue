@@ -900,6 +900,9 @@ var Sections = {
   },
 
   reorderTable: function(content){
+    // trying
+    sectionTable.refresh(content);
+    // fallback
     var table = $("#t-sections");
     table.bootstrapTable('destroy');
     $("#t-sections tbody").html(content);
@@ -920,7 +923,6 @@ var Sections = {
     var $table = $("#t-sections");
     var $btnPrint = $("#btn-print-sections");
     var $selectState = $("#filter-sections");
-    
 
     $selectState.on('change',function(){
       var filter = $(this).val()
@@ -935,7 +937,6 @@ var Sections = {
     $btnPrint.on('click', function(){
       print();
     })
-
   }
 }
 
