@@ -20,7 +20,7 @@
         <input type="text" class="form-control searcher"  placeholder="Busqueda de IP">
       </div>
       <div class="pull-right">
-        <button onclick="print()" class="btn btn-primary icon print-table"><i class="material-icons">print</i></button>
+        <a target="_blank" href="#" class="btn btn-primary icon print-table"><i class="material-icons">print</i></a>
       </div>
       <div class="pull-right">
         <select class="form-control btn btn-primary" id="select-sector">
@@ -29,9 +29,10 @@
       </div>
       <div class="pull-right">
         <select id="section-filter" class="form-group filter btn btn-primary">
-          <option value="ocupado disponible">Todos</option>
+          <option value="ocupado disponible sectorial">Todos</option>
           <option value="ocupado">ocupadas</option>
           <option value="disponible">disponibles</option>
+          <option value="sectorial">Sectoriales</option>
         </select>  
       </div>
     </div>
@@ -39,6 +40,7 @@
     <table data-toggle="table" 
      class="table table-hovered t-sections" id="t-sections" 
      data-sort-name="num" 
+     data-unique-id="codigo"
      data-toolbar="#section-toolbar"
      data-sort-order="asc"
      data-search="true" 

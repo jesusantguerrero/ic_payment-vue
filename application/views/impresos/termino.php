@@ -4,7 +4,6 @@ if(isset($_SESSION['requirement_info'])):
     $cliente        = $info['cliente'];
     $contrato       = $info['contrato'];
     $pago           = $info['pago'];
-    $cancelacion    = $info['cancelacion'];
     $user_data      = get_user_data();
     $settings       = $this->settings_model->get_settings();
     $company        = $this->company_model->get_empresa();
@@ -94,7 +93,8 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Motivo:</label>
-          <textarea class="form-control " cols="30" rows="3" id="direction" readonly="readonly"><?php echo $cancelacion['motivo'] ?>
+          <textarea class="form-control " cols="30" rows="3" id="direction" readonly="readonly">
+            Finalicion De contrato
           </textarea>
         </div>
         <div class="form-group print">
@@ -112,7 +112,7 @@ if(isset($_SESSION['requirement_info'])):
           <input type="text" class="form-control line-input" value="<?php echo " RD$ ".CurrencyFormat($pago['total']) ?>">
         </div>
         <div class="form-group print">
-          <label for="">Cancelación:</label>
+          <label for="">Termino:</label>
           <input type="text" class="form-control line-input" value="<?php echo $contrato['ultimo_pago'] ?>">
         </div>
       </div>
@@ -166,7 +166,7 @@ if(isset($_SESSION['requirement_info'])):
       </small>
     </p>
   </div>
-  <h1 class="titulo-lateral">Cancelacion de
+  <h1 class="titulo-lateral">Termino de
     <span>Contrato</span>
   </h1>
 </div>
@@ -178,6 +178,7 @@ if(isset($_SESSION['requirement_info'])):
 
   $(".fecha-reporte").text("Fecha: " + fecha);
   $(".fecha").text(fecha);
+
   print();
 </script>
 <?php 

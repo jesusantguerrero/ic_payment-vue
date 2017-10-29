@@ -209,6 +209,19 @@ class Report_model extends CI_MODEL{
     }
   }
 
+  public function get_sections_report($section_id){
+    $this->db->where('id_seccion',$section_id);
+    $result = $this->db->get('v_ips');
+     if($result){
+      $result = $result->result_array();
+      $header = ['Numero','Sector','Codigo', 'Direccion IP', 'Estado'];
+      $fields = ['seccion','codigo', 'ip_final', 'estado'];
+      echo make_general_report($result," Reporte De IP's",$this,$fields, $header);
+    }else{
+      //echo var_dump($this->db->last_query());
+    }
+  }
+
   # Moras
 
   public function get_history($is_print = false){

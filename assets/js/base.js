@@ -176,6 +176,10 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
   modal.find('.modal-footer .save').text(buttonText)
   modal.find('tbody').html('')
 })
+
+$('#update-contract-modal').on('show.bs.modal', function (event) {
+  $("#select-contract-sector").change();
+})
 /*********************************************************
  *              other functions                          * 
  *                                                       *

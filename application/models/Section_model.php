@@ -87,13 +87,13 @@ class Section_model extends CI_MODEL{
     }
   }
 
-  public function update_ip_state($codigo,$state){
+  public function update_ip_state($codigo, $state){
     $this->db->where('codigo',$codigo)->select('id_ip');
     $result = $this->db->get('v_ips',1);
     $id_ip = $result->row_array()['id_ip'];
     
     $this->db->where('id_ip',$id_ip);
-    $this->db->update('ic_ips',array('estado' => $state));
+    return $this->db->update('ic_ips',array('estado' => $state));
   }
 
 }

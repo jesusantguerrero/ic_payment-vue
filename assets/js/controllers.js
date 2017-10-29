@@ -893,6 +893,8 @@ var Sections = {
 
   getIps: function() {
     var id = $("#select-sector").val();
+    $('.print-table').attr('href', BASE_URL + 'process/getreport/secciones/' + id);
+    
     if (id != null) {
       var form = "tabla=ips&id=" + id;
       connectAndSend('process/getall', false, null, sectionTable.refresh, form,null);
@@ -907,6 +909,14 @@ var Sections = {
       $("#select-sector").html(content);
     }
   },
+
+  updateIpState: function (IP) {
+    form = 'data='+ JSON.stringify(IP) + '&extra_info=' + JSON.stringify({module: 'ip'});
+      axios.post(BASE_URL + 'process/axiosupdate', form)
+      .then(function(res) {
+        displayMessage(res.data.mensaje);
+      })
+  }
 }
 
 var Extras = {

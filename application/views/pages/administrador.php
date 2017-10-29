@@ -69,14 +69,26 @@
 
       <div class="company-details" id="user-section">
         <h3 class="section-title"> Usuarios </h3>
-        <div class="searcher-container clearfix">
-          <h4 class="search-criteria">Todos los Usuarios :<span class="presentado"></h4>
-          <button class="btn" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar <i class="material-icons">add</i></button>
+
+        <div class="searcher-container main-toolbar" id="user-toolbar">
+          <div class="input-group search">
+            <div class="input-group-addon"><i class="material-icons">search</i></div>
+            <input type="text" class="form-control searcher"  placeholder=" descripcion">
+          </div>
+          <div class="pull-right">
+            <button class="btn btn-primary icon"><i class="material-icons"> </i></button>
+          </div>
+          <div class="pull-right">
+           <button class="btn btn-primary icon" id="caller-user" data-toggle="modal" data-target="#new-user-modal">Agregar <i class="material-icons">add</i></button>
+          </div>
         </div>
+
         <table class="table t-users" id="t-users" 
           data-sort-name="order" 
           data-minimum-count-columns="2" 
           data-show-pagination-switch="false"
+          data-search="true"
+          data-toolbar="#user-toolbar"
           data-pagination="true" 
           data-unique-id="id" 
           data-page-size="5" 
@@ -144,7 +156,7 @@
           data-search= "true"
           data-unique-id="id" 
           data-page-size="5" 
-          data-page-list="[5]" 
+          data-page-list="[5,10,50, 100]" 
           data-show-footer="false"
           data-striped= "false">
           <thead>

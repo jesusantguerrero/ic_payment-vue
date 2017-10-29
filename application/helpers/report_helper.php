@@ -91,6 +91,23 @@ if ( ! function_exists('make_averias_report')){
   }
 }
 
+if ( ! function_exists('make_general_report')){
+    function make_general_report($data,$concept,$context,$fields, $header){
+      $cont = 1;
+      $context->table->set_heading($header); 
+      foreach ($data as $line) {
+        $table_fields = array($cont);
+        foreach ($fields as $field) {
+          array_push($table_fields,$line[$field]);
+        }
+        $context->table->add_row($table_fields);
+       $cont+=1;
+      }
+      $html_text = $context->table->generate()."<div class='real-end'></div>";
+      set_report($html_text,$concept);
+    }
+  }
+
 if ( ! function_exists('make_clients_report')){
   
   function make_clients_report($data,$concept,$context,$for_print){

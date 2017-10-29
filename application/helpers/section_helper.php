@@ -36,7 +36,7 @@ function create_ips($section_id,$data){
 function make_ips_table($data,$start_at){
   $state_class = [
       'disponible' => 'text-success',
-      'ocupada'    => 'text-danger',
+      'ocupado'    => 'text-danger',
       'sectorial'  => 'text-primary'
   ];
 
@@ -50,8 +50,8 @@ function make_ips_table($data,$start_at){
                         <td>{$line['seccion']}</td>
                         <td>{$line['codigo']}</td>
                         <td>{$line['ip_final']}</td>
-                        <td class='{$state_class[$estado]}'>{$estado}</td>
-                        <td> <button> cambiar </button> </td>
+                        <td class='{$state_class[$estado]} estado-ip'>{$estado}</td>
+                        <td> <button class='btn-change-ip' data-code='{$line['codigo']}'> cambiar </button> </td>
                        </tr>";
    $cont+=1;
   }

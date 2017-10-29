@@ -219,24 +219,25 @@ class Process extends CI_Controller {
 	}
 
 	public function axiosupdate(){
-		$data   = json_decode($_POST['data'],true);
-		$info = json_decode($_POST['extra_info'],true);
+		authenticate();
+		$data   = json_decode($_POST['data'], true);
+		$info   = json_decode($_POST['extra_info'], true);
 		$response['mensaje'] = '';
+
 		switch ($info['module']) {
 			case 'pagos':
 				if($data['tipo'] == '') $data['tipo'] = 'efectivo';
-				
-				if($this->payment_model->update($data,$info['id'])):
+
+				if($this->payment_model->update($data,$info['id'])){
 					$response['mensaje'] = MESSAGE_SUCCESS." procesando cambios";
-					echo json_encode($response['mensaje']);
-				else:
-					//echo $this->db->last_query();
-				endif;
+					echo json_encode($response);
+				}
 				break;
-			
-			default:
-				# code...
-				break;
+			case 'ip':
+				if ($this->section_model->update_ip_state($data['codigo'],$data['estado'])) {
+					$response['mensaje'] = MESSAGE_SUCCESS." Estado de ip cambiado";
+					echo json_encode($response);
+				}
 		}
 	}
 
@@ -469,15 +470,20 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/requerimiento'));
 	}
 
-	public function getcancelcontract($contract_id){
+	public function getcancelcontract($contract_id, $end = false){ // or end of contract
 		authenticate();
 		$contract = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['contrato'] = $contract;
 		$requirement_info['cliente'] 	= $this->client_model->get_client($contract['id_cliente']);
 		$requirement_info['pago']	= $this->payment_model->get_last_pay_of($contract_id);
-		$requirement_info['cancelacion']	= $this->contract_model->get_cancelation($contract_id);
+		if (!$end) {
+			$requirement_info['cancelacion']	= $this->contract_model->get_cancelation($contract_id);
+			$endpoint = 'app/imprimir/cancelacion';
+		} else {
+			$endpoint = 'app/imprimir/termino';	
+		}
 		$this->session->set_flashdata('requirement_info', $requirement_info);
-		redirect(base_url('app/imprimir/cancelacion'));
+		redirect(base_url($endpoint));
 	}
 
 	public function getreport($table,$type = 'nada'){
@@ -500,6 +506,10 @@ class Process extends CI_Controller {
 				$type = str_replace('%20',' ',$type);
 				$this->report_model->get_client_report($type);
 				break;
+			case 'secciones':
+				$type = str_replace('%20',' ',$type);
+				$this->report_model->get_sections_report($type);
+			break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
 	

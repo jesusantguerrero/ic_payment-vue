@@ -1,6 +1,6 @@
 var sectionTable = {
   init: function(){
-    //var self = this;
+    var self = this;
     this.el = $('#t-sections');
     this.$filter = $('.filter');
     this.el.bootstrapTable();
@@ -8,6 +8,10 @@ var sectionTable = {
     this.el.find('tbody').css({display:"table-row-group"});
     this.el.addClass('innertable');
     this.detectClicks();
+    this.el.on('all.bs.table', function (name, param) {
+      self.changeStates();
+      self.loadingEvents();
+   });
   },
 
   getSelectedRow: function(){
@@ -29,13 +33,25 @@ var sectionTable = {
     if(callback) callback();
   },
 
+  updateCell: function(uniqueId, cellName, value, className) {
+    var data = sectionTable.el.bootstrapTable('getData');
+    var sel = sectionTable.el.bootstrapTable('getRowByUniqueId','40/2');
+    var i = data.indexOf(sel);
+    this.el.bootstrapTable('updateCell',{index: i, field: cellName, value: value})
+  },
+
+  loadingEvents: function() {
+    this.el.on('pre-body.bs.table',function () {console.log('cargando')});
+    this.el.on('post-body.bs.table',function () {console.log('listo')});
+  },
+
   detectClicks: function(){ 
     var btnPayView     = $("#btn-pay-view");
     var btnSeeInDetail = $("#btn-see-in-detail");
     var btnSeeContract = $("#btn-see-contract");
 
     this.el.on('check.bs.table',function(){
-      var row= contractTable.getSelectedRow();
+      var row= sectionTable.getSelectedRow();
       // btnPayView.attr('href',BASE_URL + 'process/details/'+ row.id_cliente + "/pagos");
       // btnSeeInDetail.attr('href',BASE_URL + 'process/details/'+ row.id_cliente);
       // btnSeeContract.attr('href',BASE_URL + 'process/getrequirements/' + row.id + '/contrato');
@@ -67,10 +83,50 @@ var sectionTable = {
 
     this.$filter.on('change', function (e) {
       var _filtro = $(this).val(); 
-      if(_filtro == 'todo'){
-        _filtro = _filtro.split(' ');
-      }
+      _filtro = _filtro.split(' ');
       self.applyFilter(_filtro);
+      console.log(_filtro);
+    })
+  },
+
+  changeStates: function () {
+    var STATES = {
+      ocupado: 'text-danger',
+      disponible: 'text-success',
+      sectorial: 'text-primary'
+    }
+    var STATES_KEYS = Object.keys(STATES)
+    var ipSelectState = "<select>"
+    STATES_KEYS.forEach(function(estado) {
+      ipSelectState += "<option value='"+estado+"'>"+estado+"</value>"
+    });
+    ipSelectState +="<select>"
+
+    $(".btn-change-ip").on('click',function(e){
+      e.stopImmediatePropagation();
+      var select = $(ipSelectState);
+      var $this = $(this);
+      var colEstado = $this.parents('tr').find('.estado-ip')
+      var state;
+      var code = $this.attr('data-code').trim();
+      var text = colEstado.text();
+      colEstado.html(select);
+      select.focus();
+      select.val(text);
+
+      select.on('change blur',function(e){ 
+        state = select.val();
+        colEstado.html(state);
+        colEstado.removeClass("text-danger text-success text-primary");
+        colEstado.addClass(STATES[state]);
+        Sections.updateIpState({'codigo':code,'estado':state});
+        sectionTable.updateCell(code, 'estado', state)
+      });
+
+      select.on('click',function(e){ 
+        e.stopImmediatePropagation() 
+      })
+
     })
   },
 

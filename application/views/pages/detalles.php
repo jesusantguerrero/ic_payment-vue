@@ -190,7 +190,7 @@
                     <th data-field="monto-pagado">Monto Pagado</th>
                     <th data-field="monto-total">Monto Total</th>
                     <th data-field="estado">Estado</th>
-                    <th data-field="actions">Acciones</th>
+                    <th data-field="actions">Documentos</th>
                     <th data-field="id_cliente" class="hide">id cliente</th>
                     <th data-field="cedula" class="hide">cedula</th>
                   </tr>
