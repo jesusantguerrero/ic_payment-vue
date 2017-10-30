@@ -18,6 +18,7 @@ class Process extends CI_Controller {
 		$this->load->model("caja_chica_model");
 		$this->load->model("section_model");
 		$this->load->model("extra_model");
+		$this->load->model("cancelations_model");
 	}
 
 	public function add(){ 
@@ -509,6 +510,9 @@ class Process extends CI_Controller {
 			case 'secciones':
 				$type = str_replace('%20',' ',$type);
 				$this->report_model->get_sections_report($type);
+				break;
+			case 'retiros':
+				$this->cancelations_model->print_report();
 			break;
 		}
 			redirect(base_url('app/imprimir/reporte'));

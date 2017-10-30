@@ -8,6 +8,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#averias" aria-controls="home" role="tab" data-toggle="tab">Lista de Averías</a></li>
         <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
+        <li role="presentation"><a href="#retiros" aria-controls="profile" role="tab" data-toggle="tab">Retiros</a></li>
         <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Deudores</a></li>
         <?php if(auth_user_type(0)):?>
         <li role="presentation"><a href="#recibos" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a></li>
@@ -38,6 +39,7 @@
                 </select>
               </div>
             </div>
+
             <div class="averia-item-list" :class="{hide:hide}" id="averias-list">
               <?php $this->averia_model->get() ?>
             </div>
@@ -137,8 +139,56 @@
 
             <?php $this->report_model->get_installations_list();?>
           </div>
-
         </div>
+
+        <div role="tabpanel" class="tab-pane" id="retiros">
+        <div class="searcher-container main-toolbar" :class="{hide:hide}" id="retiros-toolbar">
+        <div class="input-group search">
+          <div class="input-group-addon"><i class="material-icons">search</i></div>
+          <input type="text" class="form-control searcher" v-model="dataSearch.text" @keyup="search" placeholder="cliente">
+        </div>
+        <div class="input-group search">
+          <div class="input-group-addon"><i class="material-icons">event</i></div>
+          <input type="date" class="form-control caja-for-date" v-model="between.first_date" placeholder="Fecha">
+          </div>
+        <div class="input-group search">
+          <div class="input-group-addon"><i class="material-icons">event</i></div>
+          <input type="date" class="form-control caja-for-date" v-model="between.second_date" placeholder="Fecha">
+        </div>
+        <div class="pull-right">
+          <a target="_blank" href="<?php echo base_url('process/getreport/retiros')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+        </div>
+      </div>
+          <table data-toggle="table" 
+            class="innertable table general-table" 
+            data-sort-name="contract" 
+            data-sort-order="asc" 
+            data-search="true"
+            data-minimum-count-columns="2"
+            data-toolbar="#retiros-toolbar"
+            data-pagination="true" 
+            data-id-field="contract" 
+            data-page-size="500" 
+            data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
+            data-show-footer="false">
+            <thead>
+              <tr>
+                <th data-field="contract" data-sortable="true">Cont</th>
+                <th data-field="client" data-sortable="true">Cliente</th>
+                <th data-field="direction" data-sortable="true">Direccion</th>
+                <th data-field="phone" data-sortable="true">Telefono</th>
+                <th data-field="retirement" data-sortable="true">Retiro</th>
+                <th data-field="reason" data-sortable="true">Motivo</th>
+                <th data-field="ip" data-sortable="true">IP</th>
+                <th data-field="documents" data-sortable="true">Doc</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $this->cancelations_model->get_cancelations() ?>
+            </tbody>
+          </table>
+        </div>
+
         <div role="tabpanel" class="tab-pane" id="balance">
           <div class="searcher-container clearfix" id="moras-toolbar">
             <h4 class="search-criteria">Clientes en fecha de corte </span> (
@@ -168,7 +218,6 @@
         </div>
 
         <?php if(auth_user_type(0)):?>
-
         <div role="tabpanel" class="tab-pane" id="recibos">
           <div class="searcher-container clearfix" id="pagos-toolbar">
             <h4 class="search-criteria">Historial de pagos</span>

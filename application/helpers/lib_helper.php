@@ -175,51 +175,7 @@ if ( ! function_exists('make_contract_table')){
   }
 }
 
-function make_extra_table($data,$start_at){
-   $html_text = " "; 
-   $state = '';
-   $row_class = '';
-   $posible_states = array(
-     'done'      => 'activo',
-     'error'     => 'no activo',
-     'process'   => '',
-     'saldado'   => 'saldado',
-     'cancelado' => 'cancelado',
-     'mora'      => 'mora',
-     'suspendido'=> 'suspendido',
-     'exonerado' => 'exonerado',
-     'en corte'  => 'en corte'
-   );
-
-   foreach ($data as $line) {
-      $state = verify_state($line['estado'],$posible_states);
-      $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
-       $html_text .= "<tr class='$row_class'>
-       <td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>
-       <td class='id_extra hide'>".$line['id_extra']."</td>
-       <td class='id_servicio hide'>".$line['id_servicio']."</td>
-       <td class='hide'></td>
-       <td>".date_spanish_format($line['fecha'])."</td>
-       <td>".$line['servicio']."</td>
-       <td>".date_spanish_format($line['ultimo_pago'])."</td>
-       <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
-       <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-       <td class='{$state['class']}'>".$line['estado']."</td>
-     </tr>";
-   }
-
-   return $html_text;
-}
-
-
 if ( ! function_exists('make_main_contract_table')){
-  /**
-  * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
-
   function make_main_contract_table($data,$start_at){
     $html_text = " "; 
     foreach ($data as $line) {
@@ -241,9 +197,66 @@ if ( ! function_exists('make_main_contract_table')){
           <td class='hide'>".$line['cedula']."</td>
         </tr>";
     }
-
     return $html_text;
   }
+}
+
+
+function make_extra_table($data,$start_at){
+  $html_text = " "; 
+  $state = '';
+  $row_class = '';
+  $posible_states = array(
+    'done'      => 'activo',
+    'error'     => 'no activo',
+    'process'   => '',
+    'saldado'   => 'saldado',
+    'cancelado' => 'cancelado',
+    'mora'      => 'mora',
+    'suspendido'=> 'suspendido',
+    'exonerado' => 'exonerado',
+    'en corte'  => 'en corte'
+  );
+
+  foreach ($data as $line) {
+     $state = verify_state($line['estado'],$posible_states);
+     $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
+      $html_text .= "<tr class='$row_class'>
+      <td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>
+      <td class='id_extra hide'>".$line['id_extra']."</td>
+      <td class='id_servicio hide'>".$line['id_servicio']."</td>
+      <td class='hide'></td>
+      <td>".date_spanish_format($line['fecha'])."</td>
+      <td>".$line['servicio']."</td>
+      <td>".date_spanish_format($line['ultimo_pago'])."</td>
+      <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
+      <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+      <td class='{$state['class']}'>".$line['estado']."</td>
+    </tr>";
+  }
+
+  return $html_text;
+}
+
+
+if ( ! function_exists('make_cancelations_table')){
+ function make_cancelations_table($data,$start_at){
+   $html_text = " "; 
+   foreach ($data as $line) {
+       $html_text .= 
+       "<tr>
+         <td class='id_contrato'>".$line['id_contrato']."</td>
+         <td class='th-client'>".$line['cliente']."</td>
+         <td class='codigo'>".$line['direccion']."</td>
+         <td >".phone_format($line['celular'])."</td>
+         <td>".date_spanish_format($line['ultimo_pago'])."</td>
+         <td class='codigo'>".$line['motivo']."</td>
+         <td class='codigo'>".$line['ip']."</td>
+         <td class='codigo'><a target='printframe' title='cancelacion de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a></td>
+       </tr>";
+   }
+   return $html_text;
+ }
 }
 
 if ( ! function_exists('make_caja_table')){

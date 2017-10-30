@@ -63,7 +63,7 @@
           <th data-field= "proximo_pago"  data-title-tooltip= "Fecha del Proximo Pago">Proximo Pago</th>
           <th data-field= "monto_pagado"  data-title-tooltip= "Monto pagado del contrato">Monto Pagado</th>
           <th data-field= "monto_total"  data-title-tooltip= "Monto Total">Monto Total</th>
-          <th data-field= "estado"  data-title-tooltip= "Estado">E</th>
+          <th data-field= "estado"  class="hide" data-title-tooltip= "Estado">E</th>
           <th data-field= "id_cliente"  class= "hide">ID Cliente</th>
           <th data-field= "cedula"  class= "hide">Cedula</th>
         </tr>        

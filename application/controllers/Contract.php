@@ -9,6 +9,7 @@ class Contract extends CI_Controller {
 		$this->load->model('service_model');
 		$this->load->model('settings_model');
 		$this->load->model('client_model');
+		$this->load->model('cancelations_model');
 	}
 
 	public function suspend(){
@@ -46,6 +47,15 @@ class Contract extends CI_Controller {
 			  $res['mensaje'] = MESSAGE_INFO." ya hay pagos para esta fecha";
 		}
 		 echo json_encode($res);
+	}
+
+	public function getCancelation() {
+		authenticate();
+		$data = json_decode($_POST['data'],true);
+		if($data) {
+			$res['tableHTML'] = $this->cancelations_model->get_cancelations($data['first_date'],$data['second_date']);
+			echo json_encode($res);
+		}
 	}
 
 }

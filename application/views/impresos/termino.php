@@ -17,7 +17,7 @@ if(isset($_SESSION['requirement_info'])):
 
 <div class="document-body">
   <div class="cabecera">
-    <img class="logo-recibo" src="<?php echo base_url('assets/img/ic_payment.png') ?>" alt="">
+   <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">
         <?php echo $company['nombre'] ?>
@@ -105,11 +105,11 @@ if(isset($_SESSION['requirement_info'])):
       <div class="col-md-6 col-xs-6">
         <div class="form-group print">
           <label for="">Penalidad:</label>
-          <input type="text" class="form-control line-input" value="<?php if($pago['total'] > 0){ echo 'Si';}else{ echo 'No';} ?>">
+          <input type="text" class="form-control line-input" value="no aplica">
         </div>
         <div class="form-group print">
           <label for="">Monto:</label>
-          <input type="text" class="form-control line-input" value="<?php echo " RD$ ".CurrencyFormat($pago['total']) ?>">
+          <input type="text" class="form-control line-input" value="no aplica">
         </div>
         <div class="form-group print">
           <label for="">Termino:</label>

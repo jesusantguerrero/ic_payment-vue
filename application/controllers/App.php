@@ -18,6 +18,7 @@ class App extends CI_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 		$this->load->model("extra_model");
+		$this->load->model("cancelations_model");
 
 		update_moras($this);
 		generar_facturas_mes($this);

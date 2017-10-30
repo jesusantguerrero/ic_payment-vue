@@ -17,8 +17,6 @@
                             <h4>Bienvenido
                                 <?php echo $user_data['name'] ?>
                             </h4>
-
-
                         </div>
                         <div class="col-md-5 col-xs-6 date-container">
                             <p class="day"></p>

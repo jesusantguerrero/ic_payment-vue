@@ -98,7 +98,11 @@ if ( ! function_exists('make_general_report')){
       foreach ($data as $line) {
         $table_fields = array($cont);
         foreach ($fields as $field) {
-          array_push($table_fields,$line[$field]);
+          if ($field == 'celular') {
+            array_push($table_fields,phone_format($line[$field]));
+          } else {
+            array_push($table_fields,$line[$field]);
+          }
         }
         $context->table->add_row($table_fields);
        $cont+=1;
