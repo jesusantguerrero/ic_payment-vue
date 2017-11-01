@@ -49,11 +49,11 @@ class Contract extends CI_Controller {
 		 echo json_encode($res);
 	}
 
-	public function getCancelation() {
+	public function getCancelations() {
 		authenticate();
 		$data = json_decode($_POST['data'],true);
 		if($data) {
-			$res['tableHTML'] = $this->cancelations_model->get_cancelations($data['first_date'],$data['second_date']);
+			$res['content'] = $this->cancelations_model->get_cancelations($data['first_date'],$data['second_date']);
 			echo json_encode($res);
 		}
 	}

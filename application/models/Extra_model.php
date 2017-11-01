@@ -25,6 +25,7 @@ class Extra_model extends CI_MODEL{
   }
 
   public function update_extra($data,$id_extra){
+    $this->db->where('id_extra',$id_extra);
     if($this->db->update('ic_servicios_extra',$data)){
       return true;
     }else{
@@ -114,7 +115,7 @@ class Extra_model extends CI_MODEL{
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
-      $response['mensaje'] = MESSAGE_ERROR. " No se ha podido registrar el pago";
+      $response['mensaje'] = MESSAGE_ERROR. "No se ha podido registrar el pago";
     }else{
       $response['mensaje'] = MESSAGE_SUCCESS. " Pago realizado con exito";
       $response['extras'] = $this->get_all_of_client($extra['id_cliente']);
@@ -131,7 +132,7 @@ class Extra_model extends CI_MODEL{
     $this->db->delete('ic_pagos',array('id_pago'=>$data['id_pago']));
     
     $monto_pagado = $this->get_monto_pagado_of($data['id_extra']);
-    $ultimo_pago = $this->get_last_payment_date_of($data['id_extra']);
+    $ultimo_pago  = $this->get_last_payment_date_of($data['id_extra']);
     
     if($monto_pagado >= $extra['monto_total']){
       $estado = "saldado";
@@ -159,7 +160,7 @@ class Extra_model extends CI_MODEL{
   }
 
   public function get_monto_pagado_of($id_extra){
-    $this->db->where('id_extra',$id_extra);
+    $this->db->where('id_extra', $id_extra);
     $this->db->select_sum('cuota');
     $monto_pagado = $this->db->get('ic_pagos',1)->row_array()['cuota'];
     return $monto_pagado;

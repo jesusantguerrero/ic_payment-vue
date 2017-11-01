@@ -142,25 +142,25 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="retiros">
-        <div class="searcher-container main-toolbar" :class="{hide:hide}" id="retiros-toolbar">
-        <div class="input-group search">
-          <div class="input-group-addon"><i class="material-icons">search</i></div>
-          <input type="text" class="form-control searcher" v-model="dataSearch.text" @keyup="search" placeholder="cliente">
-        </div>
-        <div class="input-group search">
-          <div class="input-group-addon"><i class="material-icons">event</i></div>
-          <input type="date" class="form-control caja-for-date" v-model="between.first_date" placeholder="Fecha">
+          <div class="searcher-container main-toolbar" id="retiros-toolbar">
+            <div class="input-group search">
+              <div class="input-group-addon"><i class="material-icons">search</i></div>
+              <input type="text" class="form-control searcher"  placeholder="cliente">
+            </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.first_date" @change="getReport" placeholder="Fecha">
+              </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
+            </div>
+            <div class="pull-right">
+              <a target="_blank" href="<?php echo base_url('process/getreport/retiros')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+            </div>
           </div>
-        <div class="input-group search">
-          <div class="input-group-addon"><i class="material-icons">event</i></div>
-          <input type="date" class="form-control caja-for-date" v-model="between.second_date" placeholder="Fecha">
-        </div>
-        <div class="pull-right">
-          <a target="_blank" href="<?php echo base_url('process/getreport/retiros')?>" class="btn icon print-table"><i class="material-icons">print</i></a>
-        </div>
-      </div>
-          <table data-toggle="table" 
-            class="innertable table general-table" 
+          <table data-toggle="table" id="cancelation-table"
+            class="innertable table general-table"
             data-sort-name="contract" 
             data-sort-order="asc" 
             data-search="true"
@@ -168,7 +168,7 @@
             data-toolbar="#retiros-toolbar"
             data-pagination="true" 
             data-id-field="contract" 
-            data-page-size="500" 
+            data-page-size="500"
             data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
             data-show-footer="false">
             <thead>
@@ -184,7 +184,7 @@
               </tr>
             </thead>
             <tbody>
-              <?php $this->cancelations_model->get_cancelations() ?>
+             
             </tbody>
           </table>
         </div>
@@ -219,13 +219,35 @@
 
         <?php if(auth_user_type(0)):?>
         <div role="tabpanel" class="tab-pane" id="recibos">
-          <div class="searcher-container clearfix" id="pagos-toolbar">
-            <h4 class="search-criteria">Historial de pagos</span>
-              <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+          <div class="searcher-container main-toolbar" id="recibos-toolbar">
+            <div class="input-group search">
+              <div class="input-group-addon"><i class="material-icons">search</i></div>
+              <input type="text" class="form-control searcher"  placeholder="cliente">
+            </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.first_date" @change="getReport" placeholder="Fecha">
+              </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
+            </div>
+            <div class="pull-right">
+              <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+            </div>
           </div>
-          <table data-toggle="table" class="innertable table general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
-            data-show-refresh="true" data-show-columns="true" data-show-export="true" data-minimum-count-columns="2" data-toolbar="#pagos-toolbar"
-            data-pagination="true" data-id-field="payment" data-page-size="500" data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
+          <table data-toggle="table" 
+           class="innertable table general-table" 
+           data-sort-name="num"
+           data-sort-order="asc" 
+           data-search="true"
+            data-show-export="true" 
+            data-minimum-count-columns="2" 
+            data-toolbar="#recibos-toolbar"
+            data-pagination="true" 
+            data-id-field="payment" 
+            data-page-size="500" 
+            data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
             data-show-footer="false">
             <thead>
               <tr>

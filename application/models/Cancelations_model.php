@@ -24,7 +24,7 @@ class Cancelations_model extends CI_MODEL{
     if($result = $this->db->get('ic_cancelaciones')){
        $result = $result->result_array();
        $_SESSION['cancelations_last_call'] = $result;
-       echo make_cancelations_table($result,0);
+       return make_cancelations_table($result,0);
       }
   }
 
