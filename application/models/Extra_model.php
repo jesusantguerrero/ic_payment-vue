@@ -46,6 +46,12 @@ class Extra_model extends CI_MODEL{
     return make_extra_table($result->result_array(),0);
   }
 
+  public function has_extra($id_cliente) {
+    return $this->db->where('id_cliente',$id_cliente)
+    ->where('estado','activo')
+    ->count_all_results('ic_servicios_extra');
+  }
+
   public function generate_extra_payment($data){
     $hoy = date('Y-m-d');
     $id_empleado = $_SESSION['user_data']['user_id'];

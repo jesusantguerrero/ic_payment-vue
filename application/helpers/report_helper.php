@@ -92,7 +92,7 @@ if ( ! function_exists('make_averias_report')){
 }
 
 if ( ! function_exists('make_general_report')){
-    function make_general_report($data,$concept,$context,$fields, $header){
+    function make_general_report($data,$concept,$context,$fields, $header, $extra = false){
       $cont = 1;
       $context->table->set_heading($header); 
       foreach ($data as $line) {
@@ -107,7 +107,11 @@ if ( ! function_exists('make_general_report')){
         $context->table->add_row($table_fields);
        $cont+=1;
       }
-      $html_text = $context->table->generate()."<div class='real-end'></div>";
+      $html_text = $context->table->generate();
+      if ($extra) {
+        $html_text .= $extra;
+      }
+      $html_text .= "<div class='real-end'></div>";
       set_report($html_text,$concept);
     }
   }

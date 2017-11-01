@@ -5,7 +5,7 @@
     $iniciales =  $client_data['nombres'][0].$client_data['apellidos'][0];
     $active_window = "cliente";
     $active = "";
-    $abono_box_class = "";
+    $extras = $this->extra_model->has_extra(($client_data['id_cliente']));
     $client_row = $this->client_model->get_column(array('observaciones'),$client_data['id_cliente']);
 
     if(isset($_SESSION['active_window'])) $active_window = $_SESSION['active_window'];
@@ -88,7 +88,11 @@
             <li role="presentation" <?php if ($active_window=="observaciones" ): ?>class="active"
               <?php endif; ?>><a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a></li>
               <li role="presentation" <?php if ($active_window=="extras" ): ?>class="active"
-              <?php endif; ?>><a href="#extras" aria-controls="settings" role="tab" data-toggle="tab">Extras</a></li>
+              <?php endif; ?>><a href="#extras" aria-controls="settings" role="tab" data-toggle="tab">Extras 
+              <?php if ($extras > 0): ?>
+						    <span class="badge"><?php echo $extras ;?></span>
+						  <?php endif; ?>
+              </a></li>
           </ul>
 
           <!-- Tab panes -->

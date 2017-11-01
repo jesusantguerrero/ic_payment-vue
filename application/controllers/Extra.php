@@ -52,4 +52,11 @@ class Extra extends CI_Controller {
 		$this->extra_model->generate_extra_payment($data);
 	}
 
+	public function has_extra() {
+		authenticate();		
+		$data = json_decode($_POST['data'],true);
+		$res  = $this->extra_model->has_extra($data['id_cliente']);
+		echo json_encode($res);
+	}
+
 }

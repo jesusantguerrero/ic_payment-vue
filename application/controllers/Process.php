@@ -494,6 +494,9 @@ class Process extends CI_Controller {
 			case 'payment':
 					$this->report_model->get_payments_report($type);
 				break;
+			case 'recibos':
+					$this->report_model->get_receipts_report();
+					break;
 			case 'installations':
 					$this->report_model->get_installations(true);
 				break;

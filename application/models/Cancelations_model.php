@@ -30,8 +30,8 @@ class Cancelations_model extends CI_MODEL{
 
   public function print_report(){
     if($_SESSION['cancelations_last_call']){
-      $header = ['No.','Contrato','Cliente','Direccion', 'celular', 'IP'];
-      $fields = ['id_contrato','cliente', 'direccion', 'celular',['data' => 'Direccion IP', 'width' => '200px']];
+      $header = ['No.','Contrato','Cliente','Direccion', ['data' => 'celular', 'width' => '150px'], ['data' => 'Direccion IP', 'width' => '150px']];
+      $fields = ['id_contrato','cliente', 'direccion', 'celular','ip'];
       $result = $_SESSION['cancelations_last_call'];
       echo make_general_report($result,"Reporte de Retiros",$this,$fields, $header);
     }

@@ -38,15 +38,36 @@ class Report_model extends CI_MODEL{
     endif;
   }
 
-   public function get_recibos(){
+  public function get_receipts($text,$first_date = '2001-01-01', $second_date = null){
+    $second_date = ($second_date) ? $second_date : date('Y-m-d');
+    $where = "fecha_pago between '$first_date' and '$second_date'";
+
     $this->db->select("id_pago,id_contrato,cliente,concat('Pago de ',monthname(fecha_limite)) as concepto,concepto as concepto_real, servicio ,total, complete_date,date(fecha_pago) as fecha,time(complete_date) as hora");
     $this->db->order_by("fecha_pago DESC, hora DESC");
+    $this->db->where($where,'',false);
+    $this->db->like('cliente',$text);
     $result = $this->db->get("v_recibos");
-    if($result):
+
+    if ($result){
       $result = $result->result_array();
+      $_SESSION['receipts_last_call'] = $result;
+      $acum = $this->db->where($where,'',false)->like('cliente',$text)->select_sum('total','total')->get('v_recibos',1);
+      $acum = $acum->row_array()['total'];
+      $_SESSION['receipt_last_total'] = $acum;
       $result = make_recibos_table($result,0);
-      echo $result;
-    endif;
+      return ['content' => $result, 'acum' => $acum];
+    }
+  }
+
+  public function get_receipts_report() {
+      if($_SESSION['receipts_last_call']){
+        $header = ['No.','Contrato','Cliente','Servicio', 'Concepto', 'Total','Fecha'];
+        $fields = ['id_contrato','cliente', 'servicio', 'concepto','total', 'fecha'];
+        $result = $_SESSION['receipts_last_call'];
+        $acum   = $_SESSION['receipt_last_total'];
+        $extra  = "<div class='ganancia-total'>TOTAL: RD$ ".CurrencyFormat($acum)."<div>";
+        echo make_general_report($result,"Reporte de Pagos",$this,$fields, $header, $extra);
+      }
   }
 
   public  function get_total_payments($date){

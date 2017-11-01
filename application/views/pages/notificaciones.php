@@ -176,7 +176,7 @@
                 <th data-field="contract" data-sortable="true">Cont</th>
                 <th data-field="client" data-sortable="true">Cliente</th>
                 <th data-field="direction" data-sortable="true">Direccion</th>
-                <th data-field="phone" data-sortable="true">Telefono</th>
+                <th data-field="phone" data-sortable="true" style="width: 170px">Celular</th>
                 <th data-field="retirement" data-sortable="true">Retiro</th>
                 <th data-field="reason" data-sortable="true">Motivo</th>
                 <th data-field="ip" data-sortable="true">IP</th>
@@ -222,7 +222,7 @@
           <div class="searcher-container main-toolbar" id="recibos-toolbar">
             <div class="input-group search">
               <div class="input-group-addon"><i class="material-icons">search</i></div>
-              <input type="text" class="form-control searcher"  placeholder="cliente">
+              <input type="text" class="form-control searcher"  v-model="between.text" @keypress.enter.stop="getReport" placeholder="cliente">
             </div>
             <div class="input-group search-item">
               <div class="input-group-addon"><i class="material-icons">event</i></div>
@@ -233,10 +233,10 @@
               <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
             </div>
             <div class="pull-right">
-              <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+              <a target="_blank" href="<?php echo base_url('process/getreport/recibos') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
             </div>
           </div>
-          <table data-toggle="table" 
+          <table data-toggle="table"  id="receipts-table"
            class="innertable table general-table" 
            data-sort-name="num"
            data-sort-order="asc" 
@@ -263,9 +263,9 @@
               </tr>
             </thead>
             <tbody>
-              <?php $this->report_model->get_recibos(); ?>
             </tbody>
           </table>
+          <div class="mini-card total"><h4> Total : {{total | currencyFormat}}</h4></div>
         </div>
 
         <div role="tabpanel" class="tab-pane" id="historial">

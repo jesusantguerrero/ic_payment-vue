@@ -196,7 +196,6 @@ class Payment_model extends CI_MODEL{
     
     for ($i=1; $i <= 12 ; $i++) { 
       $value = $this->month_income($i);
-      
       array_push($resultado_por_mes,$value);
     }
     return $resultado_por_mes;
