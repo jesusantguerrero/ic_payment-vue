@@ -26,37 +26,33 @@ class Client_model extends CI_MODEL{
   *@param string $mode "normal" for save it in an insert, "full" to storage all the data
   *@return void
   */
-
-  function organize_data($data,$mode){
-
-    if($mode == "full"){
-      $this->cols['id_cliente'] = $data['id_cliente'];
-    }else{
-      $this->cols['id_cliente'] = null;
+  
+  private function organize_data($data,$for_insert = false){
+    if ($for_insert) {
+      $this->cols['id_cliente']       = null;
+      $this->cols['estado']           = $data['estado'];
+      $this->cols['fecha_registro']   = $data['fecha_registro'];
     }
-    $this->cols['nombres']         = strtoupper(trim($data['nombres']));  
-    $this->cols['apellidos']       = strtoupper(trim($data['apellidos']));     
-    $this->cols['cedula']          = $data['cedula'];
-    $this->cols['provincia']       = $data['provincia'];
-    $this->cols['sector']          = $data['sector'];
-    $this->cols['calle']           = $data['calle'];
-    $this->cols['casa']            = $data['casa'];
-    $this->cols['telefono']        = $data['telefono'];
-    $this->cols['celular']         = $data['celular'];
-    $this->cols['lugar_trabajo']   = $data['lugar_trabajo'];
-    $this->cols['tel_trabajo']     = $data['tel_trabajo'];
-    $this->cols['ingresos']        = $data['ingresos'] ? $data['ingresos'] : 0 ;
-    $this->cols['fecha_registro']  = $data['fecha_registro'];
-    $this->cols['estado']          = $data['estado'];
-    $this->cols['observaciones']   = '';
-    $this->cols['abonos']          = 0;
-    $this->cols['contrato_abono']  = 0;
+    $this->cols['nombres']            = strtoupper(trim($data['nombres']));  
+    $this->cols['apellidos']          = strtoupper(trim($data['apellidos']));     
+    $this->cols['cedula']             = $data['cedula'];
+    $this->cols['provincia']          = $data['provincia'];
+    $this->cols['sector']             = $data['sector'];
+    $this->cols['calle']              = $data['calle'];
+    $this->cols['casa']               = $data['casa'];
+    $this->cols['telefono']           = $data['telefono'];
+    $this->cols['celular']            = $data['celular'];
+    $this->cols['lugar_trabajo']      = $data['lugar_trabajo'];
+    $this->cols['tel_trabajo']        = $data['tel_trabajo'];
+    $this->cols['ingresos']           = $data['ingresos'] ? $data['ingresos'] : 0 ;
+    $this->cols['observaciones']      = '';
+    $this->cols['detalles_direccion'] = $data['detalles_direccion'];
+
   }
 
   public function add($data){
-    $this->organize_data($data,"normal");
-    // $result = $this->db->query("SELECT * FROM ic_clientes WHERE cedula = '".$this->cols['cedula']."'");
-    // $result = $result->result_array();
+    $this->organize_data($data, true);
+
     $result = $this->has_dni($this->cols['cedula']);
     if($result > 0){
       echo MESSAGE_ERROR." Esta cedula ya está registrada";
@@ -70,27 +66,13 @@ class Client_model extends CI_MODEL{
   }
 
   public function update_client($data){
-    
-    $data_for_update = array(
-      'nombres'      => strtoupper(trim($data['nombres'])),
-      'apellidos'    => strtoupper(trim($data['apellidos'])),
-      'cedula'       => $data['cedula'],
-      'provincia'    => $data['provincia'],
-      'sector'       => $data['sector'],
-      'calle'        => $data['calle'],
-      'casa'         => $data['casa'],
-      'telefono'     => $data['telefono'],
-      'celular'      => $data['celular'],
-      'lugar_trabajo'=> $data['lugar_trabajo'],
-      'ingresos'     => $data['ingresos'],
-    );
 
+    $this->organize_data($data);
     $this->db->where('id_cliente',$data['id']);
-
-    if($result = $this->db->update('ic_clientes',$data_for_update)){
+    if($result = $this->db->update('ic_clientes',$this->cols)){
       echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
     }else{
-     echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;
+      echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;
     }   
   }
 
@@ -195,26 +177,17 @@ class Client_model extends CI_MODEL{
       return $result->result_array();
     }
   }
-  
-  public function get_client($id){
-    $sql = "SELECT * FROM ic_clientes WHERE id_cliente = $id || cedula ='$id'";
-    if($result = $this->db->query($sql)){
-      $result = $result->row_array();
-      return $result;
-    }
-  }
 
-  public function get_clientjson($id){
+  public function get_client($id, $json = false){
     $this->db->where('cedula',$id)->or_where('id_cliente',$id);
     if($result = $this->db->get('ic_clientes')){
-      $result = $result->row();
-      return $result; 
+      return ($json) ? $result->row() : $result->row_array();
     }
   }
 
   public function delete_client($id){
-    $sql = "DELETE FROM ic_clientes WHERE id_cliente= $id";
-    if($this->db->query($sql)){
+    $this->db->where('id_cliente',$id);
+    if($this->db->delete('ic_clientes')){
       echo MESSAGE_SUCCESS." Cliente Eliminado";
     }else{
       echo MESSAGE_ERROR." No se ha podido eliminar el cliente";
@@ -225,6 +198,4 @@ class Client_model extends CI_MODEL{
     $this->db->where('cedula',$dni);
     return  $this->db->count_all_results('ic_clientes');
   }
-
-  //functions
 }

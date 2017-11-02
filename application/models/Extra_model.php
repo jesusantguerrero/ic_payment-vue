@@ -16,6 +16,16 @@ class Extra_model extends CI_MODEL{
     parent::__construct();
   }
 
+  public function get_last_pay_of($id_extra){
+    $sql = "SELECT * FROM ic_pagos WHERE id_extra = $id_extra and concepto not like '%abono%' order by fecha_pago desc limit 1";
+    $result = $this->db->query($sql);
+    if($result){
+      return $result->row_array()['fecha_pago'];
+    }else{
+      return 0;
+    }
+  }
+
   public function add_extra($data){
     if($this->db->insert('ic_servicios_extra',$data)){
       echo MESSAGE_SUCCESS." extra agregado";
@@ -113,6 +123,7 @@ class Extra_model extends CI_MODEL{
 
     $data_extra = array(
       'monto_pagado'  => $monto_pagado,
+      'deuda'         => $extra['monto_total'] - $monto_pagado,
       'ultimo_pago'   => $data['fecha_pago'],
       'estado'        => $estado
     );
@@ -148,6 +159,7 @@ class Extra_model extends CI_MODEL{
     
     $data_extra = array(
       'monto_pagado'  => $monto_pagado,
+      'deuda'         => $extra['monto_total'] - $monto_pagado,
       'ultimo_pago'   => $ultimo_pago,
       'estado'        => $estado
     );

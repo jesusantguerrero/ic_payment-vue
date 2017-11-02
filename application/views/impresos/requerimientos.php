@@ -175,9 +175,17 @@
     <div class="form-group print">
       <label for="">Cedula:</label>
       <input type="text" class="form-control line-input cedula" id="">
-      <label for="">Tel.:</label>
+      <label for="">Cel.:</label>
       <input type="text" class="form-control line-input celular" id="">
     </div>
+
+    <div class="form-group print">
+      <label for="">Asignación:</label>
+      <input type="text" class="form-control line-input fecha" id="">
+      <label for="">Tel.:</label>
+      <input type="text" class="form-control line-input telefono" id="">
+    </div>
+
     <div class="form-group print">
       <label for="">Provincia:</label>
       <input type="text" class="form-control line-input provincia" id="">
@@ -192,8 +200,8 @@
       <input type="text" class="form-control line-input sm casa" id="">
     </div>
     <div class="form-group print">
-      <label for="">Asignación:</label>
-      <input type="text" class="form-control line-input fecha" id="">
+      <label for="">Detalles:</label>
+      <div name="detalle_direccion" class="detalle_direccion" width="100%"> </div>
     </div>
     <div class="form-group print">
       <label for="">Casa:</label>
@@ -268,6 +276,7 @@
   $('input.sector').val("<?php echo $cliente['sector']?>");
   $('input.calle').val("<?php echo $cliente['calle']?>");
   $('input.casa').val("<?php echo $cliente['casa']?>");
+  $('.detalle_direccion').text("<?php echo $cliente['detalles_direccion']?>");
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.servicio').val("<?php echo $contrato['servicio']?>");
   $('input.velocidad').val("<?php echo $servicio['descripcion']?>");
@@ -286,5 +295,5 @@
   print();
 </script>
 <?php 
-    endif;
-  ?>
+  endif;
+?>

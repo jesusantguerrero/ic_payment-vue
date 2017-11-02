@@ -317,7 +317,7 @@ class Process extends CI_Controller {
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
 			case "clientes":
-				$result = $this->client_model->get_clientjson($_POST['id'],true);
+				$result = $this->client_model->get_client($_POST['id'],true);
 				if($result){
 					 $dataJson = json_encode($result);
 					 echo $dataJson;
@@ -538,7 +538,7 @@ class Process extends CI_Controller {
 		$dni = $_POST['dni'];
 		$dni = str_replace('-','',$dni);
 		$data;
-		$client = $this->client_model->get_clientjson($dni);
+		$client = $this->client_model->get_client($dni, true);
 		if($client){
 			$data['cliente'] = $client;
 			$data["contratos"]  = $this->contract_model->get_all_of_clientjson($client->id_cliente);

@@ -85,6 +85,12 @@
                       <input type="text" class="form-control" id="client-house" tabindex="7">
                     </div>
                   </div>
+                  <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="u-client-house">Detalle de Direccion</label>
+                    <textarea name="" class="form-control" id="client-direction-details" tabindex="8" cols="30" rows="5"></textarea>
+                  </div>
+                </div>
                 </div>
               </form>
 
@@ -225,6 +231,12 @@
                       <label for="u-client-house">Casa #</label>
                       <input type="text" class="form-control" id="u-client-house" tabindex="7">
                     </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="u-client-house">Detalle de Direccion</label>
+                    <textarea name="" class="form-control" id="u-client-direction-details" tabindex="8" cols="30" rows="5"></textarea>
                   </div>
                 </div>
               </form>

@@ -87,33 +87,33 @@ var Users = {
 
 var Clients = {
   add: function () {
-     var form, nombres, apellidos, cedula, celular, provincia, sector, calle, casa, telefono,
-       lugarTrabajo, telTrabajo, ingresos, fechaRegistro, estado;
+    var form, nombres, apellidos, cedula, celular, provincia, sector, calle, casa,detallesDireccion,
+        telefono,lugarTrabajo, telTrabajo, ingresos, fechaRegistro, estado;
 
-    nombres       = $("#client-name").val();
-    apellidos     = $("#client-lastname").val();
-    cedula        = getVal($("#client-dni"));
-    celular       = getVal($("#client-phone"));
-    provincia     = $("#client-provincia").val();
-    sector        = $("#client-sector").val();
-    calle         = $("#client-street").val();
-    casa          = $('#client-house').val();
-    telefono      = getVal($('#client-telephone'));
-    lugarTrabajo  = $('#client-job').val();
-    telTrabajo    = getVal($('#client-job-telephone'));
-    ingresos      = $('#client-salary').val();
-    fechaRegistro = moment().format("YYYY-MM-DD");;
-    estado        = "no activo";
+    nombres            = $("#client-name").val();
+    apellidos          = $("#client-lastname").val();
+    cedula             = getVal($("#client-dni"));
+    celular            = getVal($("#client-phone"));
+    provincia          = $("#client-provincia").val();
+    sector             = $("#client-sector").val();
+    calle              = $("#client-street").val();
+    casa               = $('#client-house').val();
+    detallesDireccion  = $('#client-direction-details').val();
+    telefono           = getVal($('#client-telephone'));
+    lugarTrabajo       = $('#client-job').val();
+    telTrabajo         = getVal($('#client-job-telephone'));
+    ingresos           = $('#client-salary').val();
+    fechaRegistro      = moment().format("YYYY-MM-DD");
+    estado             = "no activo";
 
     var is_empty = isEmpty([nombres, apellidos, cedula, celular, provincia, sector, calle, casa, telefono]);
     if (!is_empty) {
       form = 'nombres=' + nombres + "&apellidos=" + apellidos + "&cedula=" + cedula + "&celular=" + celular;
       form += "&provincia=" + provincia + "&sector=" + sector + "&calle=" + calle + "&casa=" + casa + "&telefono=" + telefono;
       form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo=" + telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
-      form += "&estado=" + estado + "&tabla=clientes";
+      form += "&estado=" + estado + "&detalles_direccion=" + detallesDireccion  + "&tabla=clientes";
 
       connectAndSend("process/add", true, initClientHandlers, null, form, Clients.getAll);
-
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -130,33 +130,35 @@ var Clients = {
   },
 
   receiveForEdit: function (content) {
-    var client        = JSON.parse(content);
-    this.id            = client['id_cliente'];
-    var $nombres      = $("#u-client-name");
-    var $apellidos    = $("#u-client-lastname");
-    var $cedula       = $("#u-client-dni");
-    var $celular      = $("#u-client-phone");
-    var $provincia    = $("#u-client-provincia");
-    var $sector       = $("#u-client-sector");
-    var $calle        = $("#u-client-street");
-    var $casa         = $('#u-client-house');
-    var $telefono     = $('#u-client-telephone');
-    var $lugarTrabajo = $('#u-client-job');
-    var $telTrabajo   = $('#u-client-job-telephone');
-    var $ingresos     = $('#u-client-salary');
+    var client            = JSON.parse(content);
+    this.id                = client['id_cliente'];
+    var $nombres           = $("#u-client-name");
+    var $apellidos         = $("#u-client-lastname");
+    var $cedula            = $("#u-client-dni");
+    var $celular           = $("#u-client-phone");
+    var $provincia         = $("#u-client-provincia");
+    var $sector            = $("#u-client-sector");
+    var $calle             = $("#u-client-street");
+    var $casa              = $('#u-client-house');
+    var $detallesDireccion = $('#u-client-direction-details');
+    var $telefono          = $('#u-client-telephone');
+    var $lugarTrabajo      = $('#u-client-job');
+    var $telTrabajo        = $('#u-client-job-telephone');
+    var $ingresos          = $('#u-client-salary');
 
     $nombres.val(client['nombres']);
-    $apellidos.val(client['apellidos'])
-    $cedula.val(client['cedula'])
-    $celular.val(client['celular'])
-    $provincia.val(client['provincia'])
-    $sector.val(client['sector'])
-    $calle.val(client['calle'])
-    $casa.val(client['casa'])
-    $telefono.val(client['telefono'])
-    $lugarTrabajo.val(client['lugar_trabajo'])
-    $telTrabajo.val(client['tel_trabajo'])
-    $ingresos.val(client['salario'])
+    $apellidos.val(client['apellidos']);
+    $cedula.val(client['cedula']);
+    $celular.val(client['celular']);
+    $provincia.val(client['provincia']);
+    $sector.val(client['sector']);
+    $calle.val(client['calle']);
+    $casa.val(client['casa']);
+    $detallesDireccion.val(client['detalles_direccion']);
+    $telefono.val(client['telefono']);
+    $lugarTrabajo.val(client['lugar_trabajo']);
+    $telTrabajo.val(client['tel_trabajo']);
+    $ingresos.val(client['salario']);
 
     $("#update-client-modal").modal();
     $("#btn-update-client").on('click', function () {
@@ -171,7 +173,7 @@ var Clients = {
       if (!is_empty) {
         form = 'id=' + id + '&nombres=' + $nombres.val() + "&apellidos=" + $apellidos.val() + "&cedula=" + getVal($cedula);
         form += "&celular=" + getVal($celular) + "&provincia=" + $provincia.val() + "&sector=" + $sector.val() + "&calle=" + $calle.val();
-        form += "&casa=" + $casa.val() + "&telefono=" + getVal($telefono) + "&lugar_trabajo=" + $lugarTrabajo.val() + "&tel_trabajo =";
+        form += "&casa=" + $casa.val()+ "&detalles_direccion=" + $detallesDireccion.val()  + "&telefono=" + getVal($telefono) + "&lugar_trabajo=" + $lugarTrabajo.val() + "&tel_trabajo=";
         form += getVal($telTrabajo) + "&tabla=clientes";
         form += "&ingresos=" + $ingresos.val();
 
