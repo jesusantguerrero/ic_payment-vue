@@ -56,6 +56,13 @@ class Extra_model extends CI_MODEL{
     return make_extra_table($result->result_array(),0);
   }
 
+  public function get_all(){
+    $this->db->select('ic_servicios_extra.*, concat(ic_clientes.nombres," ", ic_clientes.apellidos) as cliente',false);
+    $this->db->join('ic_clientes','id_cliente','inner');
+    $result = $this->db->get('ic_servicios_extra');
+    return make_extra_table($result->result_array(),0, true);
+  }
+
   public function has_extra($id_cliente) {
     return $this->db->where('id_cliente',$id_cliente)
     ->where('estado','activo')
@@ -109,7 +116,6 @@ class Extra_model extends CI_MODEL{
     $extra = $this->get_extra($info['id_extra']);
     
     $this->db->trans_start();
-    
     $this->payment_model->update($data,$info['id_pago']);
     $monto_pagado = $this->get_monto_pagado_of($info['id_extra']);
     $deuda = $extra['monto_total'] - $monto_pagado;

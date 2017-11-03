@@ -49,6 +49,7 @@ var appPagoExtra = new Vue({
     },
 
     visible: false,
+    pagado: false,
     extra:{
       "controls": '',
       "id_extra": '',
@@ -77,8 +78,12 @@ var appPagoExtra = new Vue({
       if(this.recibo.estado == "pagado"){
         return false
       }
-       return this.hide_recibo = true;
-      
+       return this.hide_recibo = true; 
+    },
+
+    isPagado: function () {
+      this.pagado = (this.recibo.estado == 'pagado');
+      return this.pagado;
     }
   },
 
@@ -92,16 +97,20 @@ var appPagoExtra = new Vue({
     },
 
     generatePayment: function () {
-      var form = 'data=' + JSON.stringify(this.extra);
-      var send = axios.post( BASE_URL + 'extra/generate_extra_payment',form);
-      send.then(function(res){
-        var data = res.data;
-        displayMessage(data.mensaje);
-        selectExtraPayment.html(data.pagos).change();
-      });
-      send.catch(function(){
-        
-      })
+      if (this.pagado) {
+        var form = 'data=' + JSON.stringify(this.extra);
+        var send = axios.post( BASE_URL + 'extra/generate_extra_payment',form);
+        send.then(function(res){
+          var data = res.data;
+          displayMessage(data.mensaje);
+          selectExtraPayment.html(data.pagos).change();
+        });
+        send.catch(function(){
+          
+        })
+      } else {
+        displayMessage( MESSAGE_INFO + ' Debe realizar este pago antes de crear uno nuevo');
+      }
     },
 
     getPayment: function (id_pago) {
@@ -117,26 +126,22 @@ var appPagoExtra = new Vue({
     },
 
     applyPayment: function () {
-      var self = this
-      var recibo = this.recibo
-      var info = {
-        id_extra: recibo.id_extra,
-        id_pago: recibo.id_pago
-      }
+      this.sender('extra/apply_payment');
+    },
 
-      var data = {
-        concepto: 'extra -', 
-        detalles_extra: recibo.detalles_extra,
-        fecha_pago: recibo.fecha_pago,
-        cuota: recibo.cuota,
-        total: recibo.cuota,
-        estado: 'pagado',
-        tipo: recibo.tipo,
-        generado: true
-      }
+    editPayment: function () {
+      this.sender('extra/edit_payment');
+    },
+
+    sender: function(endpoint) {
+      var self = this;
+      var preparedData = this.prepareData()
+      var info = preparedData.info;
+      var data = preparedData.data;
 
       var form = 'data='+ JSON.stringify(data) + '&info='+ JSON.stringify(info)
-      var send = axios.post(BASE_URL + 'extra/apply_payment',form)
+      var send = axios.post(BASE_URL + endpoint,form)
+
       send.then(function (res) {
         var data = res.data
         listExtras = data.extras;
@@ -147,6 +152,28 @@ var appPagoExtra = new Vue({
         console.log(error);
       })
     },
+
+    prepareData: function (recibo) {
+      var recibo = this.recibo;
+      
+      var data = {
+        concepto: 'extra -', 
+        detalles_extra: recibo.detalles_extra,
+        fecha_pago: recibo.fecha_pago,
+        cuota: recibo.cuota,
+        total: recibo.cuota,
+        estado: 'pagado',
+        tipo: recibo.tipo,
+        generado: true
+      };
+      
+      var info = {
+        id_extra: recibo.id_extra,
+        id_pago: recibo.id_pago
+      };
+    
+      return {data: data, info: info};
+    },
     
     getPayments: function (id_extra) {
       var self = this;
@@ -154,9 +181,11 @@ var appPagoExtra = new Vue({
       var send = axios.post(BASE_URL + 'extra/get_extra_payment_of', form)
       send.then(function(res){
         var data = res.data;
+
         if(!data.pagos){
           self.recibo = reciboReset
         }
+
         selectExtraPayment.html(data.pagos).change()
 
       })
@@ -172,6 +201,7 @@ var appPagoExtra = new Vue({
 
       var form = 'data='+ JSON.stringify(data)
       var send = axios.post(BASE_URL + 'extra/delete_payment',form)
+
       send.then(function (res) {
         var data = res.data
         displayMessage(data.mensaje);

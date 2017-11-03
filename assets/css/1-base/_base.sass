@@ -83,6 +83,31 @@ nav
 
     &:hover
       text-decoration: none
+.submenu
+  position: absolute
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  min-height: max-content
+  width: 170px
+  visibility: hidden
+  padding: 0 0 0 0
+  z-index: 100
+  transition: all ease .5s
+  .navButton
+    width: 100%
+    list-style: none
+    height: 48px
+    &:last-child
+      border-radius: 0 0 4px 4px
+    &:hover
+      visibility: visible
+
+.navButton:hover 
+  .submenu
+    visibility: visible  
+    a 
+      color: $light-color
 
 .section-title
   margin-top: 0

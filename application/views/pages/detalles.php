@@ -315,6 +315,7 @@
                   <th data-field="concepto">Concepto</th>
                   <th data-field="ultimo_pago">Ultimo Pago</th>
                   <th data-field="monto_pagado">Monto Pagado</th>
+                  <th data-field="deuda">Monto Pendiente</th>
                   <th data-field="monto_total">Monto Total</th>
                   <th data-field="estado">Estado</th>
                 </tr>
@@ -380,8 +381,11 @@
                 <div class="col-md-3 mb-3">
                   <button class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePayment">Eliminar Pago</button>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-3 mb-3" v-if="!isPagado">
                   <button class="btn btn-primary lg" type="submit" @click.prevent.stop="applyPayment">Aplicar Pago</button>
+                </div>
+                <div class="col-md-3 mb-3" v-if="isPagado">
+                  <button class="btn btn-success lg" type="submit" @click.prevent.stop="editPayment">Cambiar</button>
                 </div>
               </div>
             </form>

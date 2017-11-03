@@ -202,7 +202,7 @@ if ( ! function_exists('make_main_contract_table')){
 }
 
 
-function make_extra_table($data,$start_at){
+function make_extra_table($data,$start_at, $full = false){
   $html_text = " "; 
   $state = '';
   $row_class = '';
@@ -220,24 +220,37 @@ function make_extra_table($data,$start_at){
 
   foreach ($data as $line) {
      $state = verify_state($line['estado'],$posible_states);
+     $url = base_url()."process/details/{$line['id_cliente']}/extras";
+
      $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
-      $html_text .= "<tr class='$row_class'>
-      <td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>
-      <td class='id_extra hide'>".$line['id_extra']."</td>
-      <td class='id_servicio hide'>".$line['id_servicio']."</td>
-      <td class='hide'></td>
-      <td>".date_spanish_format($line['fecha'])."</td>
-      <td>".$line['servicio']."</td>
-      <td>".date_spanish_format($line['ultimo_pago'])."</td>
-      <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
-      <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-      <td class='{$state['class']}'>".$line['estado']."</td>
-    </tr>";
+      $html_text .= "<tr class='$row_class'>";
+
+      if ($full) {
+        $html_text .= "<td><a href='{$url}'><i class='material-icons'>search</i></a></td>";
+      }else {
+        $html_text .= "<td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>";
+      }
+
+      $html_text .= "<td class='id_extra hide'>".$line['id_extra']."</td>
+        <td class='id_servicio hide'>".$line['id_servicio']."</td>";
+
+      if ($full == true) {
+        $html_text .= "<td><a href='{$url}'>".$line['cliente']."</a></td>";
+      }
+
+      $html_text .= "<td class='hide'></td>
+        <td>".date_spanish_format($line['fecha'])."</td>
+        <td>".$line['servicio']."</td>
+        <td>".date_spanish_format($line['ultimo_pago'])."</td>
+        <td class='text-success'> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
+        <td class='text-danger'> RD$ ".CurrencyFormat($line['deuda'])."</td>
+        <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+        <td class='{$state['class']}'>".$line['estado']."</td>
+      </tr>";
   }
 
   return $html_text;
 }
-
 
 if ( ! function_exists('make_cancelations_table')){
  function make_cancelations_table($data,$start_at){

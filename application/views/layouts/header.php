@@ -35,11 +35,20 @@
 				<li class="navButton hidden-xs"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
 				<li class="navButton hidden-xs"><a class="<?php if($title == 'clientes')  echo " active "?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
 				<li class="navButton hidden-xs"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
-				<li class="navButton hidden-xs"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a></li>
+				<li class="navButton hidden-xs"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a>
+					<ul class="submenu">
+						<li class="navButton hidden-xs"><a class="<?php if($title == 'extras') echo " active " ?>" href="<?php echo base_url('app/admin/extras') ?>">Extras</a></li>
+					</ul>
+				</li>
 
 				<?php if(auth_user_type(0)): ?>
 				<li class="navButton hidden-xs"><a class="<?php if($title == 'secciones') echo " active " ?>" href="<?php echo base_url('app/admin/secciones') ?>">Secciones</a></li>
-				<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a></li>
+				<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a>
+					<ul class="submenu">
+						<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes') echo " active " ?>" href="<?php echo base_url('app/admin/reportes') ?>">Graficos</a></li>
+						<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes_lista') echo " active " ?>" href="<?php echo base_url('app/admin/reportes_lista') ?>">Listas</a></li>
+					</ul>
+				</li>
 				<?php endif; ?>
 			</nav>
 			<div class="user-div ">

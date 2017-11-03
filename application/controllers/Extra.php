@@ -26,6 +26,12 @@ class Extra extends CI_Controller {
 		echo json_encode($response);
 	}
 
+	public function get_all() {
+		authenticate();	
+		$response["content"] = $this->extra_model->get_all();
+		echo json_encode($response);
+	}
+
 	public function get_payment(){
 		authenticate();		
 		$data = json_decode($_POST['data'],true);
@@ -37,7 +43,12 @@ class Extra extends CI_Controller {
 		authenticate();		
 		$data = json_decode($_POST['data'],true);
 		$info = json_decode($_POST['info'],true);
-		$this->extra_model->apply_payment($data,$info);
+		if (!$this->payment_model->check_for_update($info['id_pago'])){
+			$res['mensaje'] = MESSAGE_INFO.' Este pago ya ha sido realizado';
+			echo json_encode($res);
+		} else {
+			$this->extra_model->apply_payment($data,$info);
+		}
 	}
 	
 	public function delete_payment(){
