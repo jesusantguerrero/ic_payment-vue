@@ -22,21 +22,22 @@ class Extra extends CI_Controller {
 		}else{
 			$data = json_decode($_POST,true);
 		}
-		$response['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
-		echo json_encode($response);
+		$res['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
+		echo json_encode($res);
 	}
 
 	public function get_all() {
 		authenticate();	
-		$response["content"] = $this->extra_model->get_all();
-		echo json_encode($response);
+		$data = json_decode($_POST['data'],true);
+		$res = $this->extra_model->get_all($data['state'], $data['text']);
+		echo json_encode($res);
 	}
 
 	public function get_payment(){
 		authenticate();		
 		$data = json_decode($_POST['data'],true);
-		$response["recibo"] = $this->payment_model->get_payment($data["id_pago"]);
-		echo json_encode($response);
+		$res["recibo"] = $this->payment_model->get_payment($data["id_pago"]);
+		echo json_encode($res);
 	}
 	
 	public function apply_payment(){
@@ -47,6 +48,15 @@ class Extra extends CI_Controller {
 			$res['mensaje'] = MESSAGE_INFO.' Este pago ya ha sido realizado';
 			echo json_encode($res);
 		} else {
+			$this->extra_model->apply_payment($data,$info);
+		}
+	}
+
+	public function edit_payment() {
+		authenticate();		
+		$data = json_decode($_POST['data'],true);
+		$info = json_decode($_POST['info'],true);
+		if ($this->payment_model->check_for_update($info['id_pago']) && $data){
 			$this->extra_model->apply_payment($data,$info);
 		}
 	}

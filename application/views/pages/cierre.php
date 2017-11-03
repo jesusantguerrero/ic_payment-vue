@@ -165,7 +165,7 @@
 										<div class="input-group normal-height">
 											<input type="number" class="form-control" v-model="gasto.monto" tabindex="6">
 											<span class="input-group-btn">
-						  					<button class="btn btn-secondary" type="button" @click="addGasto"><i class="material-icons">add</i></button>
+						  					<button class="btn btn-secondary icon" type="button" @click="addGasto"><i class="material-icons">add</i></button>
 											</span>
 										</div>
 									</div>

@@ -16,16 +16,16 @@
     <div class="searcher-container main-toolbar" id="extras-toolbar">
     <div class="input-group search">
       <div class="input-group-addon"><i class="material-icons">search</i></div>
-      <input type="text" class="form-control searcher"  placeholder="Buscar cliente">
+      <input type="text" class="form-control searcher"  placeholder="Buscar cliente" v-model="search.text" @keypress.enter.stop="getData">
     </div>
     <div class="pull-right">
         <a href="#" title="vista en detalle" class="btn icon print-table"><i class="material-icons">remove_red_eye</i></a>
       </div>
     <div class="pull-right">
-      <select id="client-filter" class="form-group filter btn btn-primary">
+      <select  class="form-group filter btn btn-primary" v-model="search.state" @change="getData">
         <option value="activo">Activos</option>
         <option value="saldado">Saldados</option>
-        <option value="activo saldado">Todos</option>
+        <option value="">Todos</option>
       </select>  
     </div>
   </div>
@@ -64,9 +64,14 @@
         </tr>
       </thead>
        <tbody>
-       <?php echo $this->extra_model->get_all();?> 
       </tbody>
     </table>
+    <div class="mini-card total">
+    <h5> Vendido : {{totales.total_vendido | currencyFormat}}</h4>
+    <h5 class="text-success"> Pagado : {{totales.pagado | currencyFormat}}    </h4>
+    <h5> -------------------- </h4>
+    <h5 class="text-danger"> Pendiente : {{totales.pendiente | currencyFormat}}</h4>
+    </div>
   </div>
 
 

@@ -126,7 +126,11 @@ var appPagoExtra = new Vue({
     },
 
     applyPayment: function () {
-      this.sender('extra/apply_payment');
+      if (this.recibo.id_pago != 0) {
+        this.sender('extra/apply_payment');
+      } else {
+        displayMessage( MESSAGE_INFO + ' Debe generar un pago primero');
+      }
     },
 
     editPayment: function () {

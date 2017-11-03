@@ -2,7 +2,15 @@ var extraSection = new Vue({
   el: '#extra-section',
   data: {
     content: '',
-    filterValue: '',
+    search: {
+      text: '',
+      state: 'activo'
+    },
+    totales: {
+      pagado: 0,
+      pendiente: 0,
+      total_vendido: 0
+    },
     tableId: '#extra-table-full'
   },
   mounted: function () {
@@ -10,6 +18,13 @@ var extraSection = new Vue({
       this.getData();
     }
   },
+
+  filters: {
+    currencyFormat: function(number){
+      return "RD$ "+ CurrencyFormat(number);
+    },
+  },
+  
   methods: {
     filter: function(e) {
       filterBSTable(this.tableId,this.filterValue);
@@ -17,9 +32,11 @@ var extraSection = new Vue({
     
     getData: function () {
       var self = this;
-      axios.post(BASE_URL + 'extra/get_all')
+      var form = 'data=' + JSON.stringify(this.search)
+      axios.post(BASE_URL + 'extra/get_all',form)
       .then(function (res) {
         self.fillTable(res.data.content);
+        self.totales = res.data.totales;
       })
     },
 
@@ -28,20 +45,3 @@ var extraSection = new Vue({
     }
   }
 });
-
-function fillBSTable(tableId, content) {
-  var $table = $(tableId);
-  $table.bootstrapTable('destroy');
-  $table.find('tbody').html(content);
-  $table.bootstrapTable();
-  $('.pull-right.search').addClass('hide')
-  $table.find('tbody').css({display:"table-row-group"});
-  $table.addClass('innertable');
-
-}
-
-function filterBSTable(tableId,state) {
-  $(tableId).bootstrapTable('filterBy',{
-    estado: state
-  });
-}

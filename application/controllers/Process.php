@@ -513,7 +513,11 @@ class Process extends CI_Controller {
 				break;
 			case 'retiros':
 				$this->cancelations_model->print_report();
-			break;
+				break;
+			case 'gastos':
+			  $this->load->model('caja_mayor');
+				$this->caja_mayor->expenses_report();
+				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
 	

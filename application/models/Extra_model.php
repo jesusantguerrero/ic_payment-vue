@@ -56,11 +56,28 @@ class Extra_model extends CI_MODEL{
     return make_extra_table($result->result_array(),0);
   }
 
-  public function get_all(){
+  public function get_all($state, $text){
+    $where = "ic_servicios_extra.estado='$state'";
     $this->db->select('ic_servicios_extra.*, concat(ic_clientes.nombres," ", ic_clientes.apellidos) as cliente',false);
+    $this->db->where($where,'',false);
+    $this->db->like("concat(ic_clientes.nombres, ' ', ic_clientes.apellidos)",$text);
     $this->db->join('ic_clientes','id_cliente','inner');
-    $result = $this->db->get('ic_servicios_extra');
-    return make_extra_table($result->result_array(),0, true);
+
+    if ($result = $this->db->get('ic_servicios_extra')) {
+      $totals = $this->db->where($where,'',false)
+      ->select_sum('monto_pagado','pagado')
+      ->select_sum('deuda','pendiente')
+      ->select_sum('monto_total','total_vendido')
+      ->join('ic_clientes','id_cliente','inner')
+      ->like("concat(ic_clientes.nombres, ' ', ic_clientes.apellidos)",$text)
+      ->get('ic_servicios_extra',1);
+      $totals = ($totals) ? $totals->row_array() : var_dump($this->db->last_query());
+      $result = make_extra_table($result->result_array(),0, true);
+      return ['content' => $result, 'totales' => $totals];
+    } else {
+      var_dump($this->db->last_query());
+    }
+    
   }
 
   public function has_extra($id_cliente) {

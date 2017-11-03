@@ -14,10 +14,17 @@ class Caja extends CI_Controller {
 		$this->caja_mayor->add_gasto($data);
 	}
 	
-	public function get_gastos(){
+	public function get_gastos($full = false){
 		authenticate();
 		$data = json_decode($_POST['data'],true);
-		$this->caja_mayor->mostrar_gastos($data['fecha'],"full");
+		if (!$full){
+			$this->caja_mayor->mostrar_gastos($data['fecha'], 'full');
+		}else {
+			if($data) {
+				$res = $this->caja_mayor->get_expenses($data['text'], $data['first_date'], $data['second_date']);
+				echo json_encode($res);
+			}
+		}
 	}
 	
 	public function delete_gasto(){

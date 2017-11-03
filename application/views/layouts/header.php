@@ -5,10 +5,10 @@
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 	<title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=beta-3.7.5') ?>" />
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=beta-3.7.5') ?>"/>
- 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=beta-3.7.5') ?>"/>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/head.bundle.js?version=beta-3.7.5') ?>"></script>
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=beta-3.7.7') ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=beta-3.7.7') ?>"/>
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=beta-3.7.7') ?>"/>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/head.bundle.js?version=beta-3.7.7') ?>"></script>
 	<link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
 	<link rel="manifest" href="<?php  echo base_url('/manifest.json')?>">
 
@@ -46,7 +46,7 @@
 				<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes') echo " active "?>" href="<?php echo base_url('app/admin/reportes') ?>">Reportes</a>
 					<ul class="submenu">
 						<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes') echo " active " ?>" href="<?php echo base_url('app/admin/reportes') ?>">Graficos</a></li>
-						<li class="navButton hidden-xs"><a class="<?php if($title == 'reportes_lista') echo " active " ?>" href="<?php echo base_url('app/admin/reportes_lista') ?>">Listas</a></li>
+						<li class="navButton hidden-xs"><a class="<?php if($title == 'informes') echo " active " ?>" href="<?php echo base_url('app/admin/informes') ?>">Informes</a></li>
 					</ul>
 				</li>
 				<?php endif; ?>
