@@ -564,34 +564,42 @@ if ( ! function_exists('make_service_shortcuts')){
   }
 }
 
-function make_simple_table ($data, $start_at, $fields, $specials) {
+function make_simple_table ($data, $start_at, $fields) {
   $html_text = " ";
 
   foreach ($data as $line) {
     $html_text .= "<tr>";
 
     foreach ($fields as $field) {
-      $html_text .= cell($line[$field]);
+      $html_text .= table_cell($field,$line);
     }
     $html_text .= "</tr>";
   }
   return $html_text;
 }
 
+function table_cell($field, $row) {
+  $text = $row[$field['name']];
 
-function cell($param,$format = 'text', $class = null, $attr = null) {
-  $cell = ' ';
-  switch($format){
+  switch($field['type']){
     case 'phone':
-      $cell = "<td>".phone_format($param)."</td>";
+      $text = phone_format($text);
       break;
     case 'date':
-      $cell = "<td>".spanish_date_format($param)."</td>";
+      $text =  date_spanish_format($text);
       break;
-    default:
-      $cell = "<td>{$param}</td>";
-
+    case 'currency':
+      $text = "RD$ ".CurrencyFormat($text);
+      break;
   }
+    
+  return "<td class='{$field['classes']}'>{$text}</td>";
+}
 
-  return $cell;
+function table_field($name, $classes = null, $type = 'text') {
+  return [
+    'name'   => $name,
+    'classes' => $classes,
+    'type'    => $type
+  ];
 }

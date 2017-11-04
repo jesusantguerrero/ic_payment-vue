@@ -518,6 +518,10 @@ class Process extends CI_Controller {
 			  $this->load->model('caja_mayor');
 				$this->caja_mayor->expenses_report();
 				break;
+			case 'cierres':
+			  $this->load->model('caja_mayor');
+				$this->caja_mayor->cierres_report($type);
+				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
 	

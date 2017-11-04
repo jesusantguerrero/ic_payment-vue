@@ -41,6 +41,65 @@ class Caja_mayor extends CI_MODEL{
     
   }
 
+  public function get_cierres($text, $first_date = '2001-01-01', $second_date = null) {
+    $second_date = ($second_date) ? $second_date : date('Y-m-d');
+    $where = "fecha between '$first_date' and '$second_date'";
+
+    $this->db->order_by("fecha DESC");
+    $this->db->where($where,'',false);
+    $this->db->like('autor',$text);
+
+    if ($result = $this->db->get('ic_caja_mayor')) {
+      $result = $result->result_array();
+      $_SESSION['cierres_last_call'] = $result;
+
+      $acum = $this->db->where($where,'',false)
+              ->like('autor',$text)
+              ->select_sum('pagos_facturas')
+              ->select_sum('pagos_extras')
+              ->select_sum('pagos_efectivo')
+              ->select_sum('pagos_banco')
+              ->select_sum('total_ingresos')
+              ->select_sum('efectivo_caja')
+              ->select_sum('total_descuadre')
+              ->select_sum('total_gastos')
+              ->select_sum('banco')
+              ->get('ic_caja_mayor',1);
+
+      $acum = $acum->row_array();
+      $acum = array_values($acum);
+      $_SESSION['cierres_last_total'] = $acum;
+      
+      $fields = [
+        table_field('id_cierre'),
+        table_field('fecha','','date'),
+        table_field('pagos_facturas','','currency'),
+        table_field('pagos_extras','','currency'),
+        table_field('pagos_efectivo','','currency'),
+        table_field('pagos_banco','','currency'),
+        table_field('total_ingresos','','currency'),
+        table_field('efectivo_caja','','currency'),
+        table_field('total_descuadre','text-danger','currency'),
+        table_field('total_gastos','text-danger','currency'),
+        table_field('banco','text-primary','currency'),
+        table_field('autor')
+      ];
+
+      $result = make_simple_table($result,0,$fields);
+      return ['content' => $result, 'acum' => $acum];
+    }
+  }
+
+  public function cierres_report($type) {
+    if($_SESSION['expenses_last_call']){
+      $header = ['No.','Fecha','P. Factura', 'P. Extras','P. Efectivo', 'P. Banco', 'Total Ingresos', 'Efe Caja', 'Descuadre','Gastos','Banco','Autor'];
+      $fields = ['fecha', 'pagos_facturas', 'pagos_extras', 'pagos_efectivo','pagos_banco','total_ingresos','efectivo_caja','total_descuadre','total_gastos','banco','autor'];
+      $result = $_SESSION['cierres_last_call'];
+      $acum   = $_SESSION['cierres_last_total'];
+      echo make_general_report($result,"Reporte de Cierres de Caja",$this,$fields, $header, $extra);
+    }
+  }
+
   public function get_last_cierre(){
     $this->db->select("pagos_facturas as pago_de_facturas,
     pagos_extras as pagos_de_extras,
@@ -163,7 +222,16 @@ class Caja_mayor extends CI_MODEL{
                 ->get('ic_gastos',1);
         $acum = $acum->row_array()['total'];
         $_SESSION['expenses_last_total'] = $acum;
-        $result = make_simple_table($result,0,['id_gasto','fecha','descripcion','monto', 'autor'],['date' => ['fecha'], 'money' => ['monto']]);
+        
+        $fields = [
+          table_field('id_gasto'),
+          table_field('fecha','','date'),
+          table_field('descripcion'),
+          table_field('monto','','currency'),
+          table_field('autor'),
+        ];
+
+        $result = make_simple_table($result,0,$fields);
         return ['content' => $result, 'acum' => $acum];
       }
     } 

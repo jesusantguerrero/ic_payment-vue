@@ -40,7 +40,7 @@ function get_client_data(){
       return 'nada';
     }
 }
-
+// TODO: Version2 change to snake_format
 function CurrencyFormat($number){
    $decimalplaces = 2;
    $decimalcharacter = '.';

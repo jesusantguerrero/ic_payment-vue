@@ -67,10 +67,10 @@
       </tbody>
     </table>
     <div class="mini-card total">
-    <h5> Vendido : {{totales.total_vendido | currencyFormat}}</h4>
-    <h5 class="text-success"> Pagado : {{totales.pagado | currencyFormat}}    </h4>
+    <h5 v-cloak> Vendido : {{totales.total_vendido | currencyFormat}}</h4>
+    <h5 v-cloak class="text-success"> Pagado : {{totales.pagado | currencyFormat}}    </h4>
     <h5> -------------------- </h4>
-    <h5 class="text-danger"> Pendiente : {{totales.pendiente | currencyFormat}}</h4>
+    <h5 v-cloak class="text-danger"> Pendiente : {{totales.pendiente | currencyFormat}}</h4>
     </div>
   </div>
 

@@ -86,6 +86,15 @@ class Caja extends CI_Controller {
 		$this->caja_mayor->add_cierre($data);
 	}
 
+	public function get_cierres() {
+			authenticate();
+			$data = json_decode($_POST['data'],true);
+			if($data) {
+				$res = $this->caja_mayor->get_cierres($data['text'], $data['first_date'], $data['second_date']);
+				echo json_encode($res);	
+			}
+	}
+
 	public function get_last_cierre(){
 		authenticate();
 		$this->caja_mayor->get_last_cierre();

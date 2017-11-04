@@ -56,11 +56,11 @@
              
             </tbody>
           </table>
-          <div class="mini-card total"><h4> Total : {{total | currencyFormat}}</h4></div>
+          <div class="mini-card total" v-cloack><h4> Total : {{total | currencyFormat}}</h4></div>
         </div>
 
         <div role="tabpanel" class="tab-pane" id="cierres">
-          <div class="searcher-container main-toolbar" id="recibos-toolbar">
+          <div class="searcher-container main-toolbar" id="cierres-toolbar">
             <div class="input-group search">
               <div class="input-group-addon"><i class="material-icons">search</i></div>
               <input type="text" class="form-control searcher"  v-model="between.text" @keypress.enter.stop="getReport" placeholder="cliente">
@@ -74,17 +74,17 @@
               <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
             </div>
             <div class="pull-right">
-              <a target="_blank" href="<?php echo base_url('process/getreport/recibos') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+              <a target="_blank" href="<?php echo base_url('process/getreport/cierres') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
             </div>
           </div>
-          <table data-toggle="table"  id="receipts-table"
-           class="innertable table general-table" 
+          <table data-toggle="table"  id="cierres-table"
+           class="table general-table" 
            data-sort-name="num"
            data-sort-order="asc" 
            data-search="true"
             data-show-export="true" 
             data-minimum-count-columns="2" 
-            data-toolbar="#recibos-toolbar"
+            data-toolbar="#cierres-toolbar"
             data-pagination="true" 
             data-id-field="payment" 
             data-page-size="500" 
@@ -92,21 +92,45 @@
             data-show-footer="false">
             <thead>
               <tr>
-                <th data-field="num" data-sortable="true">Num</th>
-                <th data-field="payment" data-sortable="true" class="hide">Pago</th>
-                <th data-field="contract" data-sortable="true">Cont</th>
-                <th data-field="client" data-sortable="true">Cliente</th>
-                <th data-field="service" data-sortable="true">Servicio</th>
-                <th data-field="concept" data-sortable="true">Concepto</th>
-                <th data-field="total" data-sortable="true">Total</th>
+                <th data-field="id" data-sortable="true">ID</th>
                 <th data-field="fecha" data-sortable="true">Fecha</th>
-                <th data-field="hours" data-sortable="true">Hora</th>
+                <th data-field="p_banco" data-sortable="true">P. Facturas</th>
+                <th data-field="p_extras" data-sortable="true">P. Extras</th>
+                <th data-field="p_efectivo" data-sortable="true">P. Efectivo</th>
+                <th data-field="p_banco" data-sortable="true">P. Banco</th>
+                <th data-field="p_ingresos" data-sortable="true">T. Ingresos</th>
+                <th data-field="efectivo_caja" data-sortable="true">Efe En Caja</th>
+                <th data-field="descuadre" data-sortable="true">Descuadre</th>
+                <th data-field="gastos" data-sortable="true">T. Gastos</th>
+                <th data-field="banco" data-sortable="true">Banco</th>
+                <th data-field="autor" data-sortable="true">Autor</th>
               </tr>
             </thead>
             <tbody>
             </tbody>
           </table>
-          <div class="mini-card total"><h4> Total : {{total | currencyFormat}}</h4></div>
+          <br>
+          <h4 class="section-title">Totales</h4>
+          <table class="table total-table" v-if ="hasTotals">
+            <thead class="bg-white">
+              <tr class="bg-white">
+                <th data-field="p_banco" data-sortable="true">P. Facturas</th>
+                <th data-field="p_extras" data-sortable="true">P. Extras</th>
+                <th data-field="p_efectivo" data-sortable="true">P. Efectivo</th>
+                <th data-field="p_banco" data-sortable="true">P. Banco</th>
+                <th data-field="p_ingresos" data-sortable="true">T. Ingresos</th>
+                <th data-field="efectivo_caja" data-sortable="true">Efe En Caja</th>
+                <th data-field="descuadre" data-sortable="true">Descuadre</th>
+                <th data-field="gastos" data-sortable="true">T. Gastos</th>
+                <th data-field="banco" data-sortable="true">Banco</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td v-for="total in totals"> {{ total | currencyFormat }}  </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
