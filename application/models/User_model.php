@@ -63,16 +63,30 @@ class User_model extends CI_MODEL{
     }  
   }
 
-  public function update_user($data, $id){
+  public function update_user($data, $id, $echo = true){
     $this->db->where('nickname',$id);
     $this->db->or_where('user_id',$id);
     $result = $this->db->update('ic_users',$data);
     
-    if($result){
-      echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
-    }else{
-     echo MESSAGE_ERROR." No pudo guardarse el usuario ";
-    }   
+    if ($echo){
+      if($result && $echo){
+        echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
+      }else{
+        echo MESSAGE_ERROR." No pudo guardarse el usuario ";
+      }  
+    } 
+  }
+
+  public function update_field($field,$credentials, $data){
+    $this->db->where('user_id',$credentials['id']);
+    $result = $this->db->get('ic_users',1);
+    if($result != false){
+      $result = $result->row_array();
+      if(password_verify($credentials['password'],$result['password'])){
+        $this->db->where('user_id', $credentials['id']);
+        return $this->db->update('ic_users',[$field => $data]);
+      }
+    }
   }
 
   public function get_all_users(){
@@ -102,7 +116,7 @@ class User_model extends CI_MODEL{
     if($result = $this->db->delete('ic_users')){
       echo MESSAGE_SUCCESS." Usuario Eliminado";
     }else{
-      echo MESSAGE_ERROR." El Usuario No Pudo Ser Eliminado";
+      $this->update_user(['active' => false], $id);
     }
   }
 
@@ -111,10 +125,10 @@ class User_model extends CI_MODEL{
     $result = $this->db->get('ic_users',1);
     if($result != false){
       $result = $result->row_array();
-      if(password_verify($password,$result['password'])){
+      if(password_verify($password,$result['password']) && $result['active']){
         $_SESSION['user_data'] = $result;
         $_SESSION['user_data']['password'] = '';
-        $_SESSION['lastquery'] = "Select * from ic_clientes";
+        $this->update_user(['last_login' => date('Y-m-d H:i:s')],$result['user_id'],false);
         return true;
       }
       return false;
@@ -156,6 +170,5 @@ class User_model extends CI_MODEL{
      return false;
     }
   }
-
   //functions
 }

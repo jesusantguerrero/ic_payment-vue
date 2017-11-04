@@ -201,7 +201,7 @@
     </div>
     <div class="form-group print">
       <label for="">Detalles:</label>
-      <div name="detalle_direccion" class="detalle_direccion" width="100%"> </div>
+      <div name="detalle_direccion" class="detalle_direccion" width="100%"> <?php echo " ". $cliente['detalles_direccion']?></div>
     </div>
     <div class="form-group print">
       <label for="">Casa:</label>
@@ -276,7 +276,7 @@
   $('input.sector').val("<?php echo $cliente['sector']?>");
   $('input.calle').val("<?php echo $cliente['calle']?>");
   $('input.casa').val("<?php echo $cliente['casa']?>");
-  $('.detalle_direccion').text("<?php echo $cliente['detalles_direccion']?>");
+//$('.detalle_direccion').html(detalles_direccion);
   $('input.fecha').val("<?php echo $contrato['fecha']?>");
   $('input.servicio').val("<?php echo $contrato['servicio']?>");
   $('input.velocidad').val("<?php echo $servicio['descripcion']?>");

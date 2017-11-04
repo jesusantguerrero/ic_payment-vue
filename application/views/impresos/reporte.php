@@ -4,7 +4,7 @@
 ?>
 <div class="document-body">
   <div class="cabecera">
-    <img class="logo-recibo" src="<?php echo base_url('assets/img/ic_payment.png') ?>" alt="">
+    <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>

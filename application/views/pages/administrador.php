@@ -104,7 +104,7 @@
               <th data-field="apellidos">Apellidos</th>
               <th data-field="cedula">Cedula</th>
               <th data-field="tipo">Tipo</th>
-              <th data-field="button"></th>
+              <th data-field="button">Estado</th>
               <th data-field="tipo_codigo" class="hide">Tipo</th>
               <th data-field="acciones">Acciones</th>
             </tr>

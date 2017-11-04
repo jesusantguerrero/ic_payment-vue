@@ -97,7 +97,7 @@ var appPagoExtra = new Vue({
     },
 
     generatePayment: function () {
-      if (this.pagado) {
+      if (this.pagado || this.recibo.id_pago == 0) {
         var form = 'data=' + JSON.stringify(this.extra);
         var send = axios.post( BASE_URL + 'extra/generate_extra_payment',form);
         send.then(function(res){

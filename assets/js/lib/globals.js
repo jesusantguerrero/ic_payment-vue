@@ -7,7 +7,11 @@ var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO    = '<i class="material-icons">info_outline</i>';
 var SUMMER_SKY      = '#1FA1D0'
-var busAveria       = new Vue();
+try {
+  var busAveria       = new Vue();
+} catch(err) {
+  displayMessage(' no vue');
+}
 
 /**
  * Connect And Send

@@ -8,7 +8,7 @@
         lastname: '',
         dni: '',
         type: '',
-        'email': ''
+        email: ''
       },
       isChangePassword: false,
       currentPassword: '',
@@ -16,14 +16,16 @@
       passwordConfirm: '',
       states: {
         'has-error': false,
-        'has-succes': false,
-        button: true,
+        'has-success': false,
+         button: true,
       }
 
     },
 
     mounted: function () {
-      this.getUser();
+      if (currentPage == 'cuenta') {
+        this.getUser();
+      }
     },
 
     methods: {
@@ -51,16 +53,17 @@
       },
 
       changePassword: function () {
-        if (this.states['has-succes']) {
+        if (this.states['has-success']) {
           var form = 'data=' + JSON.stringify({
             user_id: this.user.user_id,
             current_password: this.currentPassword,
             new_password: this.newPassword
           });
 
-          axios.post(BASE_URL + 'user/change_password', form)
+          axios.post(BASE_URL + 'user/update_password', form)
             .then(function (res) {
               displayMessage(res.data.message);
+              window.location = BASE_URL + 'app/logut';
             })
         } else {
           displayMessage("Las contraseñas no conciden")
@@ -69,19 +72,24 @@
 
       changeEmail: function () {
         var self = this
+        var user = this.user
+
         swal({
             'title': 'Contraseña',
             'input': 'password',
-            preConfirm: function (password) {
-              return self.confirmPasswordServer(password)
-            }
           })
-          .then(function (is_correct) {
-            if (is_correct === true) {
-              self.updateEmail()
-            } else {
-              displayMessage(MESSAGE_ERROR + ' Error');
-            }
+          .then(function (password) {
+              var form = 'data=' + JSON.stringify({
+                'user_id': user.user_id,
+                'password': password,
+                'field': 'email',
+                'value': user.email
+              });
+
+              axios.post(BASE_URL + 'user/update_field', form)
+              .then(function(res){
+                displayMessage(res.data.message);
+              })
           })
       },
 
@@ -102,8 +110,8 @@
       confirmPassword: function () {
         var self = this;
         this.confirmPasswordServer(this.currentPassword)
-          .then(function (res) {
-            self.isChangePassword = res.data.is_correct
+          .then(function (is_correct) {
+            self.isChangePassword = is_correct
           })
       },
 

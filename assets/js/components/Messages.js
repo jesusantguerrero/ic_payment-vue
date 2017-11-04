@@ -13,8 +13,9 @@ var configMessagesForm = new Vue({
   data: {
     config: configMessage
   },
+
   mounted: function () {
-    if (currentPage == 'admnistrador') 
+    if (currentPage == 'administrador') 
       this.getConfig()
   },
 

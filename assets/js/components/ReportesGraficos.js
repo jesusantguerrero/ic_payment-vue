@@ -1,21 +1,26 @@
-console.log("hello");
 
-var send = axios.get(BASE_URL + 'caja/get_last_cierre')
-send.then(function (response) {
-  cajaWeekChart(response.data);
-  appVistaDetalle.cierre = response.data.cierre;
-})
-send.catch(function (error) {
+if (currentPage == 'reportes'){
+  fetchReportData();
+}
+function fetchReportData() {
+  var send = axios.get(BASE_URL + 'caja/get_last_cierre')
+  send.then(function (response) {
+    cajaWeekChart(response.data);
+    appVistaDetalle.cierre = response.data.cierre;
+  })
+  send.catch(function (error) {
+  
+  })
+  
+  var form = "data="+ JSON.stringify({year:moment().format("YYYY")})
+  var send2 = axios.post(BASE_URL + 'caja/get_year_info',form)
+  send2.then(function(res){
+    var gastos    = res.data.gastos;
+    var ganancias = res.data.ganancias;
+    yearChart(gastos,ganancias);
+  })
+}
 
-})
-
-var form = "data="+ JSON.stringify({year:moment().format("YYYY")})
-var send2 = axios.post(BASE_URL + 'caja/get_year_info',form)
-send2.then(function(res){
-  var gastos    = res.data.gastos;
-  var ganancias = res.data.ganancias;
-  yearChart(gastos,ganancias);
-})
 
 window.chartColors = {
   red: 'rgb(255, 99, 132)',

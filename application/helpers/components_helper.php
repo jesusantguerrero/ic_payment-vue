@@ -21,6 +21,14 @@ if ( ! function_exists('make_table')){
     $cont = $start_at + 1;
     $html_text = " ";
     foreach ($data as $line) {
+        if ($line['active']) {
+          $button_text  = 'Activo';
+          $btn_class = 'btn-primary';
+        } else {
+          $button_text  =  'Desactivado';
+          $btn_class = 'btn-danger';
+        }
+
         $html_text .= "
         <tr>
           <td>".$cont."</td>
@@ -30,7 +38,7 @@ if ( ! function_exists('make_table')){
           <td>".$line['lastname']."</td>
           <td>".dni_format($line['dni'])."</td>
           <td>".$types[$line['type']]."</td>
-          <td><button>Actualizar</button></td>
+          <td><button data-active='{$line['active']}' class='btn-change-state $btn_class'>{$button_text}</button></td>
           <td class='hide'>".$line['type']."</td>
           <td>
             <a href=''><i class='material-icons edit-user'' data-user-id='".$line['user_id']."'>edit</i></a>

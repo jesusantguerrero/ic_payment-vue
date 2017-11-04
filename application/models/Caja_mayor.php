@@ -96,7 +96,7 @@ class Caja_mayor extends CI_MODEL{
       $fields = ['fecha', 'pagos_facturas', 'pagos_extras', 'pagos_efectivo','pagos_banco','total_ingresos','efectivo_caja','total_descuadre','total_gastos','banco','autor'];
       $result = $_SESSION['cierres_last_call'];
       $acum   = $_SESSION['cierres_last_total'];
-      echo make_general_report($result,"Reporte de Cierres de Caja",$this,$fields, $header, $extra);
+      echo make_general_report($result,"Reporte de Cierres de Caja",$this,$fields, $header);
     }
   }
 
