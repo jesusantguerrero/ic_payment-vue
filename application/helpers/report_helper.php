@@ -107,6 +107,7 @@ if ( ! function_exists('make_general_report')){
         $context->table->add_row($table_fields);
        $cont+=1;
       }
+
       $html_text = $context->table->generate();
       if ($extra) {
         $html_text .= $extra;

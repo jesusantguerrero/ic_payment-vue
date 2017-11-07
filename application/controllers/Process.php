@@ -520,7 +520,7 @@ class Process extends CI_Controller {
 				break;
 			case 'cierres':
 			  $this->load->model('caja_mayor');
-				$this->caja_mayor->cierres_report($type);
+				$this->caja_mayor->cierres_report();
 				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));

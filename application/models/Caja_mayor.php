@@ -41,7 +41,8 @@ class Caja_mayor extends CI_MODEL{
     
   }
 
-  public function get_cierres($text, $first_date = '2001-01-01', $second_date = null) {
+  public function get_cierres($text, $first_date = null, $second_date = null) {
+    $first_date = ($first_date) ? $first_date :  $this->get_first_close_date();
     $second_date = ($second_date) ? $second_date : date('Y-m-d');
     $where = "fecha between '$first_date' and '$second_date'";
 
@@ -66,9 +67,10 @@ class Caja_mayor extends CI_MODEL{
               ->select_sum('banco')
               ->get('ic_caja_mayor',1);
 
-      $acum = $acum->row_array();
-      $acum = array_values($acum);
-      $_SESSION['cierres_last_total'] = $acum;
+      $totals = $acum->row_array();
+      $acum = array_values($totals);
+      $totals = array_merge($totals,array('first_date' => $first_date, 'second_date' => $second_date));
+      $_SESSION['cierres_last_total'] = $totals;
       
       $fields = [
         table_field('id_cierre'),
@@ -90,15 +92,21 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
-  public function cierres_report($type) {
+  public function cierres_report($type = null) {
     if($_SESSION['expenses_last_call']){
-      $header = ['No.','Fecha','P. Factura', 'P. Extras','P. Efectivo', 'P. Banco', 'Total Ingresos', 'Efe Caja', 'Descuadre','Gastos','Banco','Autor'];
-      $fields = ['fecha', 'pagos_facturas', 'pagos_extras', 'pagos_efectivo','pagos_banco','total_ingresos','efectivo_caja','total_descuadre','total_gastos','banco','autor'];
-      $result = $_SESSION['cierres_last_call'];
-      $acum   = $_SESSION['cierres_last_total'];
-      echo make_general_report($result,"Reporte de Cierres de Caja",$this,$fields, $header);
+      if (!$type) {
+        $header = ['No.','Fecha','P. Factura', 'P. Extras','P. Efectivo', 'P. Banco', 'Total Ingresos', 'Efe Caja', 'Descuadre','Gastos','Banco','Autor'];
+        $fields = ['fecha', 'pagos_facturas', 'pagos_extras', 'pagos_efectivo','pagos_banco','total_ingresos','efectivo_caja','total_descuadre','total_gastos','banco','autor'];
+        $result = $_SESSION['cierres_last_call'];
+        make_general_report($result,"Reporte de Cierres de Caja",$this,$fields, $header);
+      } else {
+        return $_SESSION['cierres_last_total'];
+
+      }
     }
   }
+
+
 
   public function get_last_cierre(){
     $this->db->select("pagos_facturas as pago_de_facturas,
@@ -130,6 +138,15 @@ class Caja_mayor extends CI_MODEL{
       $response['values'] = 'n/a';
     endif;
       echo json_encode($response);
+  }
+
+  public function get_first_close_date(){
+    $this->db->select('fecha');
+    $this->db->order_by('id_cierre');
+    if($result = $this->db->get('ic_caja_mayor',1)){
+      $date = $result->row_array()['fecha'];
+      return $date;
+    }
   }
 
   public function get_last_close_date(){

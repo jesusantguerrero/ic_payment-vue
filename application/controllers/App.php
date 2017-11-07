@@ -59,9 +59,15 @@ class App extends CI_Controller {
 	public function imprimir($page){
 		authenticate();
 		$data['title'] = $page;
+		$info = '';
+
+		if ($page == 'cierre') {
+			$this->load->model('caja_mayor');
+			$info['info'] = $this->caja_mayor->cierres_report('summary');
+		}
+
 		$this->load->view('layouts/header_impresos',$data);
-		$this->load->view('impresos/'.$page);
-		
+		$this->load->view("impresos/$page",$info);
 	}
 
 	public function login(){
@@ -82,26 +88,4 @@ class App extends CI_Controller {
     session_destroy();
     redirect(base_url());
   }
-
-	private function truncate_database(){
-		$this->db->query("SET FOREIGN_KEY_CHECKS = 1;");	
-
-		$this->db->trans_start();
-		$this->db->query("SET FOREIGN_KEY_CHECKS = 0;");
-		$this->db->query("TRUNCATE ic_contratos");
-		$this->db->query("truncate ic_pagos");
-		$this->db->query("truncate ic_clientes");
-		$this->db->query("truncate ic_averias");
-		$this->db->query("truncate ic_cancelaciones");
-		$this->db->query("truncate ic_caja_chica");
-		$this->db->query("update ic_ips set estado='disponible' where estado='ocupado'");
-		$this->db->trans_complete();
-	 if($this->db->trans_status() !== false){
-		 echo "exito";
-	 }else{
-		 echo "error";
-	 }
-	 $this->db->query("SET FOREIGN_KEY_CHECKS = 1;");	
-	}
-
 }

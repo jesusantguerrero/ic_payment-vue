@@ -131,6 +131,10 @@
               </tr>
             </tbody>
           </table>
+          <br>
+          <div class="text-center">
+            <a target="_blank" href="<?php echo base_url('app/imprimir/cierre') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+          </div>
         </div>
       </div>
     </div>

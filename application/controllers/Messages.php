@@ -51,5 +51,16 @@ class Messages extends CI_Controller {
     $res['items'] = $this->client_model->search_clients_for_message($query);
     echo json_encode($res);
   }
+
+  public function know_date(){
+    $this->load->model('settings_model');
+    $settings = $this->settings_model->get_settings();
+    echo "the date is " . date('d');
+    echo "<br>";
+    echo "el corte es en " . $settings['fecha_corte'];
+    echo "<br>";
+    $corte = $settings['fecha_corte'] + 2 ;
+    echo "hoy es dia de corte? " . ($corte == date('d')) ;
+  }
   
 }

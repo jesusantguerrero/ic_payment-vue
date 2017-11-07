@@ -431,7 +431,6 @@ function update_moras($context){
 }
 
 function prepare_moras($data,$context,$settings){
-
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = get_cuota($pago['id_contrato'],$context);
@@ -446,7 +445,6 @@ function prepare_moras($data,$context,$settings){
       'monto_extra' => $monto_extra,
       'detalles_extra' => 'Reconexion'
     );
-
     $result = $context->payment_model->update_moras($pago['id_pago'],$updated_data);
   }
 }
@@ -731,11 +729,12 @@ function generar_facturas_mes($context){
 
 function suspender_contrato($id_contrato,$id_cliente,$context){
   generar_facturas_contrato($id_contrato,$context);
+  $date = date('Y-m-d');
 
   $context->db->trans_start();
   $context->contract_model->update(['estado' => 'suspendido'],$id_contrato);
   $context->db->where('id_cliente',$id_cliente);
-  $context->db->update('ic_clientes',['estado' => 'suspendido']);
+  $context->db->update('ic_clientes',['estado' => 'suspendido','suspension_date' => $date]);
 
   //borrando los pagos y actualizando la deuda
   $context->db->where('estado ="no pagado" and generado = false')
@@ -797,7 +796,8 @@ function suspension_automatica(){
 function get_cuota($id_contrato,$context){
   $context->db->where('id_contrato',$id_contrato)
   ->select('cuota');
-  return $context->db->get('v_contratos',1)->row_array()['cuota'];
+  $cuota = $context->db->get('v_contratos',1)->row_array()['cuota'];
+  return $cuota;
 }
 
 function get_settings(){

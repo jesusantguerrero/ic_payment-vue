@@ -233,7 +233,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function update_moras($id_pago,$updated_data){
-    $this->db->where('id_pago',$id_pago);
+    $this->db->where('id_pago', $id_pago);
     
     if($this->db->update('ic_pagos',$updated_data)){
       return true;
