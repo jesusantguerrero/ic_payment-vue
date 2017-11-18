@@ -8,7 +8,7 @@ class User extends CI_Controller {
 		$this->load->model("user_model");
 	}
 
-	public function addnew(){
+	public function add(){
 		authenticate(); 
 		$data 	= $this->get_post_data(); 
    	$result = $this->user_model->add_new_user($data);
@@ -33,7 +33,19 @@ class User extends CI_Controller {
 		echo json_encode($response);
 	}
 
-	public function getusers(){
+	public function change_state(){
+		authenticate();
+		$id = $this->get_post_data('user_id');
+		if ($id) {
+			$user = $this->user_model->get_user($id);
+			$active = !$user['active'];
+			$this->user_model->update_user(['active' => $active],$id);
+		}
+
+
+	}
+
+	public function get_users(){
 		authenticate();
 		$this->user_model->get_all_users();
 	}
@@ -53,7 +65,7 @@ class User extends CI_Controller {
 		}
 	}
 
-	public function deleteuser(){
+	public function delete_user(){
 		authenticate();
 		$id = $this->get_post_data('user_id');
 		$this->user_model->delete_user($id);

@@ -13,7 +13,7 @@ var Users = {
     if (!is_empty) {
       form = 'nickname=' + nick + "&password=" + password + "&name=" + name + "&lastname=" + lastname;
       form += "&dni=" + dni + "&type=" + type;
-      connectAndSend("user/addnew", true, initAdminHandlers, null, form, Users.getAll);
+      connectAndSend("user/add", true, initAdminHandlers, null, form, Users.getAll);
     } else {
       displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
@@ -34,18 +34,28 @@ var Users = {
       form += "&dni=" + dni + "&type=" + type;
       connectAndSend("user/update", true, initAdminHandlers, null, form, Users.getAll);
     } else {
-       displayAlert("Revise", "LLene todos los campos por favor", "error");
+      displayAlert("Revise", "LLene todos los campos por favor", "error");
     }
   },
 
   getAll: function () {
     var form = "table=users";
-    connectAndSend('user/getusers', false, initAdminHandlers, userTable.refresh, form, null);
+    connectAndSend('user/get_users', false, initAdminHandlers, userTable.refresh, form, null);
   },
 
   delete: function (id) {
     var form = "user_id=" + id;
-    connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
+    connectAndSend('user/delete_user', true, initAdminHandlers, null, form, Users.getAll);
+  },
+
+  // refactored whith axios
+  changeState: function(id){
+    var form = "user_id=" + id
+    var self = this
+    axios.post(BASE_URL + 'user/change_state', form)
+    .then(function(res){
+      self.getAll()
+    })
   }
 }
 

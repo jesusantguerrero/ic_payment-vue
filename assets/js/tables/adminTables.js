@@ -60,6 +60,14 @@ var userTable = {
       });
     });
 
+    $(".btn-change-state").on('click', function (e) {
+      e.preventDefault();
+      var $row = $(this).parents("tr");
+      var id = $row.find('.user-id').text().trim();
+      var row = userTable.getRow(id);
+      Users.changeState(id);
+    });
+
     $(".edit-user").on('click', function (e) {
       e.preventDefault();
       var id = $(this).attr('data-user-id');
