@@ -47,6 +47,7 @@ var Users = {
     var form = "user_id=" + id;
     connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
   },
+  //TODO: Deprecated init
 
   confirmPassword: function(userId,currentPassword) {
     var form = 'user_id='+ userId +'&current_password=' + currentPassword;
@@ -83,6 +84,8 @@ var Users = {
     }
       
   }
+
+  //TODO: deprecated end
 }
 
 var Clients = {

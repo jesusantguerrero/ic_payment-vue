@@ -596,7 +596,7 @@ if (! function_exists('add_extra')){
       $context->extra_model->add_extra($data_extra);
       
     }else{
-      $next_payment = $context->payment_model->get_next_payment_of($contract_id);
+      $next_payment    = $context->payment_model->get_next_payment_of($contract_id);
       $detalles_extra  = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
       $monto_extra     = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
       $total           = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;

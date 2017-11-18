@@ -89,6 +89,7 @@
                         <option value="">-- Seleccione un modo de pago--</option>
                         <option value="1">Cargar al proximo pago</option>
                         <option value="2">Factura aparte</option>
+                        <option value="3">Mensualidad Fija - seguro</option>
                       </select>
                     </div>
                   </div>
@@ -172,8 +173,8 @@
         
         <div class="alert alert-danger">
           <p>Esta accion no tiene marcha atras si cancelas el contrato se tendra que crear otro en caso de que sea una equivocación
-        asi que asegurate de que realmente quieres cancelar el contrato de <b class="cancel-name">Contrato</b></p>
-        <p>Para asegurarnos, escribe el nombre del cliente</p>
+          asi que asegurate de que realmente quieres cancelar el contrato de <b class="cancel-name">Contrato</b></p>
+          <p>Para asegurarnos, escribe el nombre del cliente</p>
         </div>
         
       <div class="modal-body">
@@ -269,7 +270,6 @@
                         <option value="">-- seleccione codigo --</option>
                       </select>
                     </div>
-
             </div>
           </div>
         </form>

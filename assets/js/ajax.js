@@ -143,37 +143,6 @@
       Users.update();
     });
 
-    $(".delete-user").on('click', function (e) {
-      e.preventDefault();
-      var $row = $(this).parents("tr");
-      var id = $row.find('.user-id').text().trim();
-      var row = userTable.getRow(id);
-      swal({
-        title: 'Está Seguro?',
-        text: "Desea Eliminar al Usuario " + row.nombres + " " + row.apellidos + "?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Estoy Seguro!',
-        cancelButtonText: 'Cancelar'
-      }).then(function () {
-        Users.delete(id);
-      });
-    });
-
-    $(".edit-user").on('click', function (e) {
-      e.preventDefault();
-      var id = $(this).attr('data-user-id');
-      var row = userTable.getRow(id);
-
-
-      $("#e-nickname").val(row.nick);
-      $("#e-name").val(row.nombres);
-      $("#e-lastname").val(row.apellidos);
-      $("#e-dni").val(row.cedula);
-      $("#e-type").val(row.tipo_codigo);
-      $('#update-user-modal').modal();
-    });
-
     $("#update-company-data").on('click', function (e) {
       e.preventDefault();
       e.stopImmediatePropagation();
