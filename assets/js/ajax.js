@@ -34,7 +34,6 @@
         break;
       case "secciones2":
         sectionHandlers();
-        console.log('here')
         break;
     }
 

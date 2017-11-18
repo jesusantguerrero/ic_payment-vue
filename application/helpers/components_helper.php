@@ -153,6 +153,7 @@ if ( ! function_exists('make_contract_table')){
 
     foreach ($data as $line) {
        $state = verify_state($line['estado'],$posible_states);
+       $mensualidad_seguro = "RD$ ".CurrencyFormat($line['mensualidad_seguro']);
        $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
         $html_text .= "<tr class='$row_class'>
         <td class='id_contrato'>".$line['id_contrato']."</td>
@@ -171,6 +172,9 @@ if ( ! function_exists('make_contract_table')){
           $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
         elseif ($line['estado'] == 'saldado'):
           $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>"; 
+        endif;
+        if ($line['extras_fijos']):
+          $html_text .= "<i class='material-icons text-primary' title='{$line['nombre_seguro']} {$mensualidad_seguro}'>lock</i>";
         endif;
         $html_text.="</td>
         <td class='hide'>".$line['id_cliente']."</td>

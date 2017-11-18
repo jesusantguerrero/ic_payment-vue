@@ -1,0 +1,64 @@
+.copyrights
+  color: $primary-color
+  height: 10vh
+  text-align: center
+  p
+    margin: 0
+
+.splash-screen
+  top: 0
+  left: 0
+  color: #fff
+  +makeFlex(100%,column,center,center)
+  background: $contrast-color
+  position: absolute
+  height: 100vh
+  animation: fadeSplash 3s
+
+.splash-logo
+  width: 300px
+
+.heavy-loader
+  +makeFlex(100%,column,center,center)
+  height: 100vh
+  position: absolute
+  top: 0
+  left: 0
+  background: transparentize(#ccc,.8)
+  z-index: 3000
+  cursor: wait
+
+  .circle-load
+    width: 100px
+    height: 100px
+    border-radius: 150px
+    border: 10px solid transparent
+    border-top-color: lighten($contrast-color,20%)
+    border-bottom-color: $contrast-color
+    animation: loading-circle .3s infinite
+
+  .message
+    color: $contrast-color
+    font-size: 30px
+    margin-top: 30px
+
+
+@keyframes fadeSplash
+  0%
+    opacity: 1
+  60%
+    opacity: 1
+  100%
+    opacity: 0
+
+@keyframes loading-circle
+  0%
+    transform: rotate(0deg)
+  60%
+    transform: rotate(90deg)
+  100%
+    transform: rotate(360deg)
+
+@media (max-width: 768px)
+  .login-body .login-box div
+    margin-right: 0

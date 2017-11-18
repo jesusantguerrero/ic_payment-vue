@@ -263,6 +263,7 @@ function notificationFunctions() {
     }, 200);
   });
 }
+//TODO: DEPRECATED pasarlo a Contracts object
 
 $("#select-extra-service").on('change', function () {
   var $this = $(("#select-extra-service :selected"));
@@ -272,24 +273,31 @@ $("#select-extra-service").on('change', function () {
 });
 
 $("#extra-client-contract").on('change', function () {
-  var $this = $(("#extra-client-contract :selected"));
+  var data = $("#extra-client-contract :selected").data();
+  
+  console.log(data)
+  $("#extra-contract-service").val(data["data-service"]);
+  $("#extra-equipo").val(data["data-equipment"]);
+  $("#extra-router").val(data["data-router"]);
+  $("#extra-e-mac").val(data["data-e-mac"]);
+  $("#extra-r-mac").val(data["data-r-mac"]);
+  $("#extra-code").val(data["data-code"]);
+  $("#extra-ensurance").val(data["data-ensurance"]);
 
-  $("#extra-contract-service").val($this.attr("data-service"));
-  $("#extra-equipo").val($this.attr("data-equipment"));
-  $("#extra-router").val($this.attr("data-router"));
-  $("#extra-e-mac").val($this.attr("data-e-mac"));
-  $("#extra-r-mac").val($this.attr("data-r-mac"));
-  $("#extra-code").val($this.attr("data-code"));
 });
+
+// TODO: DEPRECATED END
 
 $(".columns-right").removeClass("pull-right");
 
+//TODO: warning se usa en dos modals buscar la la manera de pasar a Contracts object de controllers
 $("#select-contract-code").on('change', function () {
   var $this = $(("#select-contract-code :selected"));
   $("#contract-ip").val($this.attr("data-ip-final"));
   $("#u-contract-ip").val($this.attr("data-ip-final"));
 
 });
+//TODO: end warning
 
 function checkWindowSize() {
   var width = window.screen.availWidth;

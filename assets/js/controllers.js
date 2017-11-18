@@ -511,24 +511,75 @@ var Contracts = {
 
   getAllOfClient: function(dni) {
     var form = "dni=" + dni;
-    connectAndSend("process/data_for_extra", false, null, makeContractList, form, null);
+    var self = this;
+
+    axios.post(BASE_URL + 'process/data_for_extra', form)
+    .then(function(res){
+      self.makeContractList(res.data)
+    })
+    .catch(function(){})
   },
 
   // Note: lo siento, de aqui en adelante uso axios, es mucho mas comodo
 
   suspend: function (contractId, callback) {
     var form = "data=" + JSON.stringify({id_contrato: contractId})
-    var send = axios.post(BASE_URL + 'contract/suspend',form);
-    send.then(function(res){
+    
+    axios.post(BASE_URL + 'contract/suspend',form)
+    .then(function(res){
       var data = res.data
       displayMessage(data.mensaje);
       Contracts.getAll();
       if(callback)
         callback()
     })
-    send.catch(function(error){
+    .catch(function(error){
       console.log(error);
     })
+  },
+
+  // UTILS
+
+  makeContractList: function (response) {
+    if (response) {
+
+      var value,service,equipment,eMac,router,rMac,code;
+      var selectContract = $("#extra-client-contract");
+      var element = "<option value=''>--Selecciona--</option>";
+      var cliente = response.cliente;
+      var contratos = response.contratos;
+      var contractId;
+      
+      if (currentPage != 'detalles' && currentPage != 'home'){
+        contractId = contractTable.getId();
+      } else if ( currentPage != 'home'){
+        contractId = detailsContractTable.getSelectedRow().id_contrato;
+      }
+
+      for (var i = 0 ; i < contratos.length; i++) {
+        value         = contratos[i]["id_contrato"];
+        service       = contratos[i]["servicio"];
+        equipment     = contratos[i]["nombre_equipo"];
+        router        = contratos[i]["router"];
+        eMac          = contratos[i]["mac_equipo"];
+        rMac          = contratos[i]["mac_router"];
+        code          = contratos[i]["codigo"];
+        ensurance     = contratos[i]["nombre_seguro"];
+        ensuranceCost = contratos[i]["mensualidad_seguro"];
+        
+        element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
+        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
+        element += value +"</option>";  
+      }
+
+      selectContract.html(element);
+      selectContract.val(contractId).change();
+      
+      $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos']);
+  
+    }else{
+      displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
+    } 
   }
 }
 

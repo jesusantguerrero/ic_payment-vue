@@ -41,26 +41,21 @@ var sectionTable = {
   },
 
   loadingEvents: function() {
-    this.el.on('pre-body.bs.table',function () {console.log('cargando')});
-    this.el.on('post-body.bs.table',function () {console.log('listo')});
+    this.el.on('pre-body.bs.table',function () {
+       //TODO: LOAD EVENTS
+    });
+    this.el.on('post-body.bs.table',function () {
+      //TODO: LOAD EVENTS
+    });
   },
 
   detectClicks: function(){ 
-    var btnPayView     = $("#btn-pay-view");
-    var btnSeeInDetail = $("#btn-see-in-detail");
-    var btnSeeContract = $("#btn-see-contract");
-
     this.el.on('check.bs.table',function(){
       var row= sectionTable.getSelectedRow();
-      // btnPayView.attr('href',BASE_URL + 'process/details/'+ row.id_cliente + "/pagos");
-      // btnSeeInDetail.attr('href',BASE_URL + 'process/details/'+ row.id_cliente);
-      // btnSeeContract.attr('href',BASE_URL + 'process/getrequirements/' + row.id + '/contrato');
     });
 
     this.el.on('uncheck.bs.table',function(){
-      // btnPayView.attr('href','#');
-      // btnSeeInDetail.attr('href','#');
-      // btnSeeContract.attr('href','#');
+     // TODO: check events
     }); 
   },
 

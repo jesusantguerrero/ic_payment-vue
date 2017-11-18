@@ -10,7 +10,6 @@ var SUMMER_SKY      = '#1FA1D0'
 try {
   var busAveria       = new Vue();
 } catch(err) {
-  displayMessage(' no vue');
 }
 
 /**
@@ -164,7 +163,7 @@ function fillInstallationsList($content,callback){
   $container.html($content);
   callback();
 }
-
+//TODO: DEPRECATED
 function makeContractList(response,callback){
   if(response != "nada"){
     var contracts = JSON.parse(response);
@@ -199,6 +198,7 @@ function makeContractList(response,callback){
     displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
   } 
 }
+//TODO: DEPRECATED
 
 function clearTbody(objecId){
   $(objecId).html("");

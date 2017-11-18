@@ -1,0 +1,161 @@
+body
+  +makeFlex(100%,column,center,center)
+  background: #222
+
+.document-body
+  width: 800px
+  position: relative
+  margin: 20px 0
+  background: #fff
+  min-height: 1000px
+  height: max-content
+  padding: 50px
+  .line-input,
+    border: none
+    border-bottom: 1px dashed
+    box-shadow: none
+    font-family: 'Times New Roman', Times, serif
+    height: 28px
+    font-size: 18px
+    padding-left: 20px
+    &.sm
+      width: 100px
+    &.lg
+      width: 200px
+    &:read-only
+      background: transparent
+
+  textarea:read-only
+    background: white
+    border: none
+    box-shadow: none
+    resize: none
+  .form-group.print
+    +makeFlex(100%,row,flex-start,baseline)
+    min-height: 28px
+    flex-wrap: nowrap
+    
+    label
+      height: fit-content
+      max-height: 28px
+      display: flex
+      max-width: max-content
+      &.large
+        width: 300px
+
+    [type="checkbox"]
+      margin: 0 10px
+      background: white
+
+  .cuerpo
+    margin: 0 0 0 0
+    padding: 0 0 0 0
+
+  .cuerpo-documento, 
+  .section
+    padding: 30px 70px 10px 70px
+
+    p
+      margin: 12px 0
+      height: max-content
+  .section
+    padding-top: 10px 
+  .concepto
+    margin: 30px 0 20px 0 
+  .table
+    font-size: 12px
+    width: 100%
+    thead
+      background: whitesmoke
+  .ganancia-total
+    text-align: right
+    width: 100%
+    padding-right: 20%
+    font-weight: bolder
+
+  .line-straight
+    margin-top: 5px
+    +size(100%,2px)
+    background: $contrast-color !important
+    opacity: .5
+    
+  .titulo-lateral
+    position: absolute
+    left: -140px
+    top: 380px
+    transform: rotate(270deg)
+    opacity: .5
+    width: 336.22px
+    span
+      color: $contrast-color !important
+  .text-main
+    &.large
+      width: 300px
+    &.normal
+      width: fit-content
+  .t-center
+    text-align: center
+  h4
+    margin-bottom: 20px
+  
+.contrato
+  font-size: 14px
+  .form-group.print
+    label
+      width: 40%
+      max-width: 40%
+    .line-input
+      border: none
+      font-size: 14px
+      width: 60%
+
+.super-small
+  font-size: 11px
+  font-family: 'Times New Roman', Times, serif
+
+@media print
+  @page
+  body
+    position: relative
+    display: block
+  
+  .document-body
+    width: 100%
+    color: #666 !important
+    margin: 0 0 0 0
+    background: #fff
+    padding: 50px 20px
+    position: relative
+    page-break-after: always !important
+    page-break-inside: avoid !important
+
+    .concepto
+      -webkit-print-color-adjust: exact !important
+      background: $contrast-color !important
+      color: white !important
+
+  .table
+    font-size: 12px !important
+    thead
+      background: whitesmoke !important
+
+  footer 
+    break-after: always !important
+    webkit-column-break-after: always !important
+    position: relative
+    display: block
+    margin-bottom: 50px
+  
+  .real-end
+    break-after: avoid
+    webkit-column-break-after: avoid
+
+  table
+    table-layout: auto
+    th
+      vertical-align: top
+      word-wrap: normal
+      min-width: fit-content
+
+    th.expanded
+      min-height: 300px

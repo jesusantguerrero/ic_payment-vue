@@ -81,9 +81,6 @@ const distTest = Path.resolve(superPath,'assets','js','test')
 const dist = Path.resolve(superPath,'assets','js','dist')
 const distMin = Path.resolve(superPath,'assets','js','min')
 
-console.log(dist)
-console.log(distTest)
-
 // tasks
 
 

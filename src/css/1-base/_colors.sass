@@ -1,0 +1,32 @@
+//
+// Add whatever variables you would like made available to the whole app
+//
+$tomato: #FF6961
+$foreverblue: dodgerblue
+$solitude: #E9EEF6
+$alice-blue: #F8FBFE
+$slice-grey: #677E92
+$fiord: #4E5962
+$another-blue: darken(#6cd1da,20%)
+$summer-sky: #1FA1D0
+$complement: #D14F1F
+$color_error: #dF0a00
+
+$primary-color: $fiord
+$contrast-color: $summer-sky
+$bright-color: #1A8BCB
+$light-color: #eee
+$text-light-color: #ddd
+$soft-blue: #F7F9FB
+$body-bg-color: $alice-blue
+
+$color-navbuttons: darken($primary-color,1%)
+$special-color: -webkit-linear-gradient(top,$contrast-color 0%,$contrast-color 30%,$bright-color 100%)
+
+=bg-gradient($color1,$color2)
+  background: -webkit-linear-gradient(top,$color1 0%,$color1 60%,$color2 100%)
+  background: -moz-linear-gradient(top,$color1 0%,$color1 60%,$color2 100%)
+  background: linear-gradient(top,$color1 0%,$color1 60%,$color2 100%)
+
+.text-contrast
+  color: $contrast-color

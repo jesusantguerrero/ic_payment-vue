@@ -79,7 +79,6 @@ var paymentTable = {
     $(".payment-advanced").on('click',function(e) {
       e.preventDefault()
       e.stopImmediatePropagation();
-      console.log('yo si funciono')
       var id = $(this).attr('data-id-pago').trim();
       if (id) {
         Payments.getOne(id, Payments.receiveForEdit);
@@ -125,7 +124,6 @@ var detailsContractTable = {
       event.stopImmediatePropagation();
       var self = detailsContractTable;
       $(".payment-mode").removeClass("selected");
-      console.log(row.estado)
       if(!$el.hasClass('selected')){
         switch (row.estado) {
           case 'saldado':

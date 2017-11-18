@@ -125,7 +125,6 @@
         },
 
         deleteGasto: function(e){
-          console.log(e);
           var caller = e.target;
           if(caller.localname == "i"){
             caller = caller.parentElement;

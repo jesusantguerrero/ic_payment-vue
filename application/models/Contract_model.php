@@ -99,19 +99,27 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function get_all_of_client($id_cliente){
+  public function get_all_of_client($id_cliente, $json = false){
+    $this->db->select('v_contratos.*, ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
     $this->db->where('id_cliente',$id_cliente);
     $this->db->order_by('id_contrato');
-    $result = $this->db->get('v_contratos');
-    echo make_contract_table($result->result_array(),0);
+    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
+    if ($result = $this->db->get('v_contratos')){
+      if (!$json) {
+        echo make_contract_table($result->result_array(),0);
+      } else {
+        return $result->result();
+      }
+    }
   }
-
+  // TODO: DEPRECATED
   public function get_all_of_clientjson($id){
     $sql = "SELECT * FROM v_contratos WHERE id_cliente = $id and  (estado='activo' || estado = 'saldado')";
     $result = $this->db->query($sql);
     $result = $result->result();
     return $result;
   } 
+  // TODO: DEPRECATED END
 
   public function get_contracts_dropdown($id_cliente){
     $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente ORDER BY id_contrato desc";

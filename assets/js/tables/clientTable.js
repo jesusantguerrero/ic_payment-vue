@@ -135,7 +135,6 @@ var clientTable = {
     this.$filter.on('change', function (e) {
       var _filtro = $(this).val(); 
       var _status = _filtro;
-      console.log('cambio detectado')
       if(_filtro == 'todo'){
         _filtro = estados;
         _status = '';  

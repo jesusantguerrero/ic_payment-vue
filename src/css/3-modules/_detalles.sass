@@ -1,0 +1,73 @@
+.t-pagos,
+.wide-table
+  margin: 20px 0 0 0
+  width: 100%
+
+.detail-state
+  text-transform: uppercase
+  color: $contrast-color
+  font-weight: bolder
+
+.details-form
+  margin: 20px 0
+
+.payment-controls
+  display: none
+  
+  &.visible
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+  
+  .input-group
+    width: 220px
+
+  select
+    width: 99%
+
+.abono-box
+  margin: 5px 0
+  .input-group
+    cursor: pointer
+    span,
+    input[disabled]
+      background: $contrast-color
+      color: #fff
+      cursor: pointer
+      opacity: .4
+  &__receipt
+    background: $contrast-color
+    color: #fff
+    cursor: pointer
+    font-size: 14px
+    text-transform: capitalize
+    visibility: hidden
+    height: 38px
+    width: 220px
+    padding: 0 0 0 0
+  &.have-abono
+    .input-group
+    span,
+    input[disabled]
+      background: red
+      color: #fff
+      opacity: 1
+    .abono-box__receipt
+      visibility: visible
+
+.contract-controls 
+    justify-content: center
+    display: flex
+    flex-wrap: wrap
+
+
+#app-pago-extra
+  display: none
+
+  &.visible
+    display: block
+
+.btn
+  &.lg
+    width: 100%
