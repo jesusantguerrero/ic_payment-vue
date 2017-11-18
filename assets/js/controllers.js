@@ -46,46 +46,7 @@ var Users = {
   delete: function (id) {
     var form = "user_id=" + id;
     connectAndSend('user/deleteuser', true, initAdminHandlers, null, form, Users.getAll);
-  },
-  //TODO: Deprecated init
-
-  confirmPassword: function(userId,currentPassword) {
-    var form = 'user_id='+ userId +'&current_password=' + currentPassword;
-    connectAndSend('user/confirm_password', false, false, processConfirmData, form, null, null);
-    
-    function processConfirmData(response) {
-      var newPassword         = $("#acount-new-password");
-      var newPasswordConfirm  = $("#acount-confirm-new-password");
-      
-      if (response == 1) {      
-        newPassword.removeAttr('disabled');
-        newPasswordConfirm.removeAttr('disabled');
-        validateThis();
-      }else{
-        newPassword.attr('disabled',true);
-        newPasswordConfirm.attr('disabled',true);
-      }
-    }
-  },
-
-  updatePassword: function(userId,currentPassword,newPassword){
-    var form = 'user_id='+ userId  + "&current_password="+ currentPassword +'&new_password=' + newPassword;
-    connectAndSend('user/update_password', false, false, Users.passwordChanged, form, null,heavyLoad);
-  },
-
-  passwordChanged: function(response){
-    if(response==1){
-      displayMessage(MESSAGE_SUCCESS + 'Contraseña Cambiada con exito')
-      setTimeout(function(){
-        window.location.href = BASE_URL + 'app/logout'
-      },3000)      
-    }else{
-      displayMessage(MESSAGE_ERROR + ' Error al cambiar de contraseña, revise la contraseña actual')
-    }
-      
   }
-
-  //TODO: deprecated end
 }
 
 var Clients = {
