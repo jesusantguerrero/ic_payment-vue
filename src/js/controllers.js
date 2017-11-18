@@ -260,6 +260,8 @@ var Services = {
 }
 
 var Contracts = {
+  ran: false,
+
   add: function addNewContract() {
     var form, table, client_id, user_id, service_id, code, contract_date, payment, duration,
       equipment, eMac, router, rMac, total, nextPayment, model, ip;
@@ -542,8 +544,7 @@ var Contracts = {
 
   makeContractList: function (response) {
     if (response) {
-
-      var value,service,equipment,eMac,router,rMac,code;
+      var value,service,equipment,eMac,router,rMac,code,ensuranceName,ensuranceCost;
       var selectContract = $("#extra-client-contract");
       var element = "<option value=''>--Selecciona--</option>";
       var cliente = response.cliente;
@@ -568,10 +569,10 @@ var Contracts = {
         ensuranceCost = contratos[i]["mensualidad_seguro"];
         
         element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
+        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'-'+ensuranceCost +"'>";
         element += value +"</option>";  
       }
-
+      this.dropDownEvents();
       selectContract.html(element);
       selectContract.val(contractId).change();
       
@@ -580,6 +581,31 @@ var Contracts = {
     }else{
       displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
     } 
+  },
+
+  dropDownEvents: function () {
+    if (!this.ran) {
+      var selectExtraService = $("#select-extra-service");
+      var selectExtraClientContract = $("#extra-client-contract");
+  
+      selectExtraService.on('change', function () {
+        var data = $(("#select-extra-service :selected")).data();
+        $("#extra-service-cost").val(data['payment'])
+      });
+      
+      selectExtraClientContract.on('change', function () {
+        var data = $("#extra-client-contract :selected").data();
+        
+        $("#extra-contract-service").val(data["service"]);
+        $("#extra-equipo").val(data["equipment"]);
+        $("#extra-router").val(data["router"]);
+        $("#extra-e-mac").val(data["eMac"]);
+        $("#extra-r-mac").val(data["rMac"]);
+        $("#extra-code").val(data["code"]);
+        $("#contract-ensurance").val(data["ensuranceName"] + ' - '+ data['ensuranceCost']);
+      });
+
+    }
   }
 }
 

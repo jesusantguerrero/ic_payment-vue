@@ -15,16 +15,16 @@
     &.moved
       position: fixed
       top: 0
-      animation: move-to-top .3s
+      animation: move-to-top .3s 
       .left-navigation__header
         background: $contrast-color
-
+    
         &-text
           color: #fff
           border-bottom: 1px solid transparent
           width: 100%
           text-align: center
-
+    
   .company-logo
     width: 90px
 
@@ -49,8 +49,8 @@
     &.moved
       position: fixed
       top: 5px
-      animation: move-to-top-wide .3s
-
+      animation: move-to-top-wide .3s 
+    
 
 .wide-main-content
   min-height: 120vh
@@ -63,6 +63,10 @@
 
 .main-content.detalles
   margin-left: 0
+
+.row
+  margin-left: 0
+  margin-right: 0
 
 .aside-nav
   list-style: none
@@ -126,7 +130,7 @@
   box-sizing: border-box
   border-radius: 50%
   span
-    font:
+    font: 
       size: 20px
       weight: bolder
   a:focus
@@ -147,7 +151,7 @@
     box-shadow: 0 6px 12px rgba(0,0,0,.175)
     border-radius: 0
     border: 1px solid rgba(0,0,0,.15)
-    padding-top: 0
+    padding-top: 0  
   li
     margin: 5px 0
     height: 48px
@@ -203,7 +207,7 @@
 
   &::-webkit-scrollbar-thumb
     background-color: transparentize(#fff,.7)
-    border-radius: 3px
+    border-radius: 3px 
 ::-webkit-scrollbar-track
   background-color: transparent
   padding: 0 2px
@@ -226,7 +230,7 @@
   +makeFlex(95%,row,center,center)
   cursor: pointer
   transition: all ease .3s
-
+  
   &:hover
     transform: scale(1.03)
 
@@ -236,8 +240,8 @@
     background: $primary-color
     border-radius: 50%
     text-align: center
-    padding-left: 12px
-    i
+    padding-left: 12px 
+    i 
       color: white
 
   .left-part
@@ -251,7 +255,7 @@
       font:
         size: 20px
         weight: bolder
-      color: $contrast-color
+      color: $contrast-color 
   .nombre
     font-weight: bolder
 

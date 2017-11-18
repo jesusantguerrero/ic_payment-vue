@@ -9,7 +9,6 @@ header, .submenu
   .navButton
     a 
       color: $text-light-color
-
       &:hover,
       &.active
         color: white
@@ -34,9 +33,8 @@ table.table
   border: 1px solid #ddd
   border-radius: 4px
   position: relative
-  button
+  button,
     @extend .btn
-    background: $contrast-color
     text-transform: lowercase
     color: #fff
     font-size: 12px
@@ -269,6 +267,7 @@ ul.pagination
   &:hover
     outline: 0
     border: 0
+
 .money
   color: $contrast-color
   margin-left: 10px

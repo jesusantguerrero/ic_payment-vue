@@ -265,26 +265,22 @@ function notificationFunctions() {
 }
 //TODO: DEPRECATED pasarlo a Contracts object
 
-$("#select-extra-service").on('change', function () {
-  var $this = $(("#select-extra-service :selected"));
-  var cost = $this.attr("data-payment");
+// $("#select-extra-service").on('change', function () {
+//   var data = $(("#select-extra-service :selected")).data();
+//   $("#extra-service-cost").val(data['payment'])
+// });
 
-  $("#extra-service-cost").val(cost)
-});
-
-$("#extra-client-contract").on('change', function () {
-  var data = $("#extra-client-contract :selected").data();
+// $("#extra-client-contract").on('change', function () {
+//   var data = $("#extra-client-contract :selected").data();
   
-  console.log(data)
-  $("#extra-contract-service").val(data["data-service"]);
-  $("#extra-equipo").val(data["data-equipment"]);
-  $("#extra-router").val(data["data-router"]);
-  $("#extra-e-mac").val(data["data-e-mac"]);
-  $("#extra-r-mac").val(data["data-r-mac"]);
-  $("#extra-code").val(data["data-code"]);
-  $("#extra-ensurance").val(data["data-ensurance"]);
-
-});
+//   $("#extra-contract-service").val(data["service"]);
+//   $("#extra-equipo").val(data["equipment"]);
+//   $("#extra-router").val(data["router"]);
+//   $("#extra-e-mac").val(data["eMac"]);
+//   $("#extra-r-mac").val(data["rMac"]);
+//   $("#extra-code").val(data["code"]);
+//   $("#extra-ensurance").val(data["ensurance"]);
+// });
 
 // TODO: DEPRECATED END
 

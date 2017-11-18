@@ -1,25 +1,31 @@
 // components cards
 [class*='card'],
 .shortcut
+  border-radius: 4px
   padding: 20px
   overflow: hidden
-
 .t-center
   text-align: center
-
 .main-card
   +card()
   border: 1px solid #ddd
+  +makeFlex(65.5%,column,center,center)
   color: #666
+  padding: 0 0 0 0
   height: 319px
+  margin-right: 3%
+  .row
+    +makeFlex(100%,row,space-between,flex-start)
   .card-title
     color: #555
 
 .clock-card
+  margin-left: 3%
+  padding: 0 0 0 0
   +size(31.5%,150px)
   background: $primary-color
   color: white
-  padding: 0 0 0 0
+  margin-top: 15px 
 
 .toolsrow
   height: max-content
@@ -57,6 +63,10 @@
 .list-nextpayments
   +size(100%,180px)
 
+.shortcuts-container
+  +makeFlex(65.5%, row,null, flex-start)
+  padding: 15px 0
+
 .shortcut
   +makeFlex(24%,column,center,center)
   +card
@@ -64,24 +74,28 @@
   cursor: pointer
   color: $contrast-color
   transition: all ease .3s
+  margin: 0 1%
   font-size: 20px
   &:hover
     border: 2px solid  $contrast-color
     color: #fff
     background: $contrast-color
     transform: scale(1.03)
-
+    
   &:first-child
     margin-left: 0
   &:last-child
     margin-right: 0
-
+  
   i
     font-size: 50px
     margin-bottom: 10px
 
 .welcome-screen
-  margin-bottom: 20px
+  margin-bottom: 10px
+  +makeFlex(100%, row, flex-start, flex-start)
+  margin-left: 0
+  margin-right: 0
 
   .day
     font:
@@ -138,8 +152,8 @@
   width: 60%
 
   .col
-    padding: 0 0 0
-
+    padding: 0 0 0 
+    
 @media (max-width: 1100px)
   .welcome-screen
     .date-container
@@ -154,6 +168,11 @@
       &:after
         +size(0,0)
 
+@media (max-width: 995px)
+  .row.home-options-container
+    display: flex
+ 
+
 @media (max-width: 768px)
   .welcome-screen
     display: block
@@ -167,8 +186,15 @@
 
   .main-card
     padding: 0 0 0 0
-
+    .row
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      position: relative
+      
   .welcome-data
+    .row
+      flex-direction: row
 
   .company-data
     position: absolute
@@ -180,6 +206,7 @@
 
   .company-logo
     display: none
+    
 
-
-
+  
+     
