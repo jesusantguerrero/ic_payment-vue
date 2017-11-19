@@ -569,7 +569,7 @@ var Contracts = {
         ensuranceCost = contratos[i]["mensualidad_seguro"];
         
         element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'-'+ensuranceCost +"'>";
+        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'-'+ensuranceCost+"'>";
         element += value +"</option>";  
       }
       this.dropDownEvents();
