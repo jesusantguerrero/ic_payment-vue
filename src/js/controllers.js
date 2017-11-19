@@ -540,6 +540,33 @@ var Contracts = {
     })
   },
 
+  deleteExtra: function (contractId) {
+    var self = this
+    swal({
+      title: 'Está Seguro?',
+      text: "Seguro que desea eliminar el seguro a este contrato?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    })
+    .then(function(){
+      sendDelete(contractId);
+      self.inputContracEnsurance.val('');
+    })
+
+    function sendDelete(contractId) {
+      var form = "data=" + JSON.stringify({id_contrato: contractId})
+      axios.post(BASE_URL + 'contract/delete_extra',form)
+      .then(function(res){
+        displayMessage(res.data.mensaje);
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    }
+  },
+
   // UTILS
 
   makeContractList: function (response) {
@@ -565,11 +592,11 @@ var Contracts = {
         eMac          = contratos[i]["mac_equipo"];
         rMac          = contratos[i]["mac_router"];
         code          = contratos[i]["codigo"];
-        ensurance     = contratos[i]["nombre_seguro"];
+        ensuranceName     = contratos[i]["nombre_seguro"];
         ensuranceCost = contratos[i]["mensualidad_seguro"];
         
         element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'-'+ensuranceCost+"'>";
+        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'- RD$ '+ CurrencyFormat(ensuranceCost)+"'>";
         element += value +"</option>";  
       }
       this.dropDownEvents();
@@ -585,25 +612,36 @@ var Contracts = {
 
   dropDownEvents: function () {
     if (!this.ran) {
-      var selectExtraService = $("#select-extra-service");
-      var selectExtraClientContract = $("#extra-client-contract");
-  
-      selectExtraService.on('change', function () {
+      var self = this
+      this.ran = true
+      this.selectExtraService = $("#select-extra-service");
+      this.selectExtraClientContract = $("#extra-client-contract");
+      this.btnDeleteExtra = $("#delete-extra");
+      this.inputContracEnsurance = $("#contract-ensurance");
+      
+      this.selectExtraService.on('change', function () {
         var data = $(("#select-extra-service :selected")).data();
         $("#extra-service-cost").val(data['payment'])
       });
       
-      selectExtraClientContract.on('change', function () {
+      this.selectExtraClientContract.on('change', function () {
         var data = $("#extra-client-contract :selected").data();
-        
         $("#extra-contract-service").val(data["service"]);
         $("#extra-equipo").val(data["equipment"]);
         $("#extra-router").val(data["router"]);
         $("#extra-e-mac").val(data["eMac"]);
         $("#extra-r-mac").val(data["rMac"]);
         $("#extra-code").val(data["code"]);
-        $("#contract-ensurance").val(data["ensuranceName"] + ' - '+ data['ensuranceCost']);
+        self.inputContracEnsurance.val(data["ensurance"]);
       });
+
+      this.btnDeleteExtra.on('click', function(){
+        var id = self.selectExtraClientContract.val()
+        self.deleteExtra(id);
+      })
+
+
+
 
     }
   }

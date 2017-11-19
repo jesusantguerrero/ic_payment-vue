@@ -122,9 +122,9 @@
                     <div class="form-group">
                       <label for="client-street">Seguro</label>
                       <div class="input-group normal-height">
-                        <input type="number" class="form-control" tabindex="6" id="contract-ensurance" disabled>
+                        <input type="text" class="form-control" tabindex="6" id="contract-ensurance" disabled>
                         <span class="input-group-btn">
-                          <button class="btn btn-danger icon" type="button">
+                          <button class="btn btn-danger icon" type="button" id="delete-extra">
                             <i class="material-icons">delete</i>
                           </button>
                         </span>
