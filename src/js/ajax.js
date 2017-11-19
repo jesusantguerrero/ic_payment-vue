@@ -32,9 +32,6 @@
       case "secciones":
         sectionHandlers();
         break;
-      case "secciones2":
-        sectionHandlers();
-        break;
     }
 
     initCajaHandlers();
@@ -160,10 +157,10 @@
     if (currentPage == 'administrador') {
       cajaTable.init();
     }
-    var btnAddMoney = $("#btn-add-money");
+    var btnAddMoney    = $("#btn-add-money");
     var btnRetireMoney = $("#btn-retire-money");
-    var userSearch = $("#caja-user");
-    var dateSearch = $("#caja-date");
+    var userSearch     = $("#caja-user");
+    var dateSearch     = $("#caja-date");
 
     btnAddMoney.on('click', function (e) {
       e.stopImmediatePropagation();
@@ -286,13 +283,6 @@
       Services.update();
     });
 
-    $("#service-searcher").on('keyup', function (e) {
-      e.stopImmediatePropagation();
-      var text = $(this).val();
-      Generals.search(text, "servicios", serviceTable.refresh, initServicesHandlers);
-    });
-
-
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
@@ -310,12 +300,6 @@
       e.preventDefault();
       e.stopImmediatePropagation();
       Contracts.callExtra();
-    });
-
-    $("#contract-searcher").on('keyup', function (e) {
-      e.stopImmediatePropagation();
-      var text = $(this).val();
-      Generals.search(text, "v_contratos", contractTable.refresh, null);
     });
 
     $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {

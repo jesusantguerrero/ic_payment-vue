@@ -13463,6 +13463,7 @@ $(function () {
    * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
    * @return {void}
    */
+  //TODO: Move -- Solo utilizado en el home - pasarlo a vue como metodo del componente o computed property
   function getDate() {
     var $day = $('.day');
     var $monthYear = $('.month-year');
@@ -13491,7 +13492,7 @@ $(function () {
    * se encarga de el movimiento de los paneles en la pantalla 'administrador'
    * @return {void}
    */
-
+  // TODO: Move -- Pasar a componente de admistrador pero aplicar con vue
   function adminFunctions() {
     $('#company-section').animate({
       left: "0"
@@ -13523,6 +13524,7 @@ $(function () {
    * @return {void}
    */
 
+  // TODO: Mover o Borrar -- es utilizado en el modal de nuevo usuario pero podria hacerse con vue y eliminar esto
   function newUserForm() {
     validateModal("#new-user-modal");
     validateModal("#update-user-modal");
@@ -13533,7 +13535,7 @@ $(function () {
    * hace un toggle en la visibilidad de la info del usuario
    * @return {void}
    */
-
+// TODO: Move -- Mover a header component es utilizado solo alli
   function userInfoTip() {
     var infoTip = $(".user-info-tip");
     var profilePicture = $(".profile-picture");
@@ -13545,7 +13547,7 @@ $(function () {
   }
 
 });
-
+// TODO: Move -- Mover a modulo de nuevo_contrato
 function newContractFunctions() {
   var btnPrintContract = $("#btn-print-contract");
   var document = $(".note-item");
@@ -13593,6 +13595,7 @@ function newContractFunctions() {
  *                                                       *
  ********************************************************/
 
+ // TODO: Move -- mover a modulo de cliente, componente modal
 
 $('#search-client-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
@@ -13611,6 +13614,7 @@ $('#search-client-modal').on('show.bs.modal', function (event) {
   modal.find('tbody').html('')
 })
 
+// TODO: Move -- mover a modulo de contratos, componente update contract
 $('#update-contract-modal').on('show.bs.modal', function (event) {
   $("#select-contract-sector").change();
 })
@@ -13618,7 +13622,7 @@ $('#update-contract-modal').on('show.bs.modal', function (event) {
  *              other functions                          * 
  *                                                       *
  ********************************************************/
-
+// TODO: move -- usado en detalles y nuevo_contrato
 function detailsFunctions() {
   var smallButtonsSelect = $('.btn-small');
   var tabs = {
@@ -13658,13 +13662,14 @@ function detailsFunctions() {
 
     return returnValue;
   }
+
+  function getTabControls($this) {
+    var controls = $this.attr("aria-controls");
+    $(".dynamic-controls").text(controls);
+  }
 }
 
-function getTabControls($this) {
-  var controls = $this.attr("aria-controls");
-  $(".dynamic-controls").text(controls);
-}
-
+// TODO: Move -- solo usada en el home creo que la cambiare por un slider para la version 2
 function notificationFunctions() {
   var btnAverias = $("#btn-see-averias");
   var btnPagos = $("#btn-see-pagos");
@@ -13697,27 +13702,8 @@ function notificationFunctions() {
     }, 200);
   });
 }
-//TODO: DEPRECATED pasarlo a Contracts object
 
-// $("#select-extra-service").on('change', function () {
-//   var data = $(("#select-extra-service :selected")).data();
-//   $("#extra-service-cost").val(data['payment'])
-// });
-
-// $("#extra-client-contract").on('change', function () {
-//   var data = $("#extra-client-contract :selected").data();
-  
-//   $("#extra-contract-service").val(data["service"]);
-//   $("#extra-equipo").val(data["equipment"]);
-//   $("#extra-router").val(data["router"]);
-//   $("#extra-e-mac").val(data["eMac"]);
-//   $("#extra-r-mac").val(data["rMac"]);
-//   $("#extra-code").val(data["code"]);
-//   $("#extra-ensurance").val(data["ensurance"]);
-// });
-
-// TODO: DEPRECATED END
-
+// TODO: Move -- shared component usado en bootstrap-table
 $(".columns-right").removeClass("pull-right");
 
 //TODO: warning se usa en dos modals buscar la la manera de pasar a Contracts object de controllers
@@ -13729,6 +13715,7 @@ $("#select-contract-code").on('change', function () {
 });
 //TODO: end warning
 
+// TODO: Move -- Poner como mixing es utilizado en detalles y clientes, servicios, contratos, extras
 function checkWindowSize() {
   var width = window.screen.availWidth;
   var brandName = document.querySelector('.brand span');
@@ -14818,9 +14805,6 @@ var Extras = {
       case "secciones":
         sectionHandlers();
         break;
-      case "secciones2":
-        sectionHandlers();
-        break;
     }
 
     initCajaHandlers();
@@ -14946,10 +14930,10 @@ var Extras = {
     if (currentPage == 'administrador') {
       cajaTable.init();
     }
-    var btnAddMoney = $("#btn-add-money");
+    var btnAddMoney    = $("#btn-add-money");
     var btnRetireMoney = $("#btn-retire-money");
-    var userSearch = $("#caja-user");
-    var dateSearch = $("#caja-date");
+    var userSearch     = $("#caja-user");
+    var dateSearch     = $("#caja-date");
 
     btnAddMoney.on('click', function (e) {
       e.stopImmediatePropagation();
@@ -15072,13 +15056,6 @@ var Extras = {
       Services.update();
     });
 
-    $("#service-searcher").on('keyup', function (e) {
-      e.stopImmediatePropagation();
-      var text = $(this).val();
-      Generals.search(text, "servicios", serviceTable.refresh, initServicesHandlers);
-    });
-
-
   }
   //***************************************************  Init Contract Handlers    ***************************** */
   function initContractHandlers() {
@@ -15096,12 +15073,6 @@ var Extras = {
       e.preventDefault();
       e.stopImmediatePropagation();
       Contracts.callExtra();
-    });
-
-    $("#contract-searcher").on('keyup', function (e) {
-      e.stopImmediatePropagation();
-      var text = $(this).val();
-      Generals.search(text, "v_contratos", contractTable.refresh, null);
     });
 
     $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {

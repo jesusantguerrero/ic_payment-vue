@@ -20,6 +20,9 @@
   },
   "devDependencies": {
     "del": "3.0.0",
+    "eslint": "4.9.0",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-import": "2.7.0",
     "gulp-rename": "1.2.2",
     "gulp-uglify": "3.0.0",
     "merge-stream": "1.0.1"

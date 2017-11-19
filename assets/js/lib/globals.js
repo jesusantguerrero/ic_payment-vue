@@ -123,22 +123,7 @@ function fillCurrentTable($content,callback,tableID){
   if(callback) callback();
 }
 
-/**
- * Llena la tabla clientes utilizando la funcion fillCurrentTable pasandole la tabla clientes como valor
- * @return {void}
- */
-function fillClientTable($content,callback){
-  fillCurrentTable($content,callback,"t-clients");
-}
 
-/**
- * Llena la tabla caja utilizando la funcion fillCurrentTable pasandole la tabla clientes como valor
- * @return {void}
- */
-function fillCajaTable($content,callback){
-  fillCurrentTable($content,callback,"caja");
-  if(callback)callback();
-}
 /**
  * Llena la Lista de pagos/notificaciones con los datos que vienen del servidor
  * @param {string} $content El html con los datos a ser mostrados, vienen siempre desde el servidor
@@ -146,11 +131,12 @@ function fillCajaTable($content,callback){
  * @return {void}
  */
 
+//TODO: Mezclar estas tres
+
 function fillPaymentsList($content,callback){
   var $container = $(".list-nextpayments");
   $container.html($content);
 }
-
 function fillAveriasList($content,callback){
   var $container = $("#averias-list");
   $container.html($content);
@@ -164,41 +150,7 @@ function fillInstallationsList($content,callback){
   $container.html($content);
   callback();
 }
-
-function makeContractList(response,callback){
-  if(response != "nada"){
-    var contracts = JSON.parse(response);
-    var value,service,equipment,eMac,router,rMac,code;
-    var selectContract = $("#extra-client-contract");
-    var element = "<option value=''>--Selecciona--</option>";
-    var cliente = contracts.cliente;
-    var contractId = ''
-    if(currentPage != 'detalles' && currentPage != 'home'){
-      contractId = contractTable.getId();
-    }else if( currentPage != 'home'){
-      contractId = detailsContractTable.getSelectedRow().id_contrato
-    }
-
-    for (var i = 0; i < contracts.contratos.length; i++) {
-      value     = contracts.contratos[i]["id_contrato"];
-      service   = contracts.contratos[i]["servicio"];
-      equipment = contracts.contratos[i]["nombre_equipo"];
-      router    = contracts.contratos[i]["router"];
-      eMac      = contracts.contratos[i]["mac_equipo"];
-      rMac      = contracts.contratos[i]["mac_router"];
-      code     = contracts.contratos[i]["codigo"];
-      element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-      element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
-      element += value +"</option>";  
-    }
-    selectContract.html(element);
-    selectContract.val(contractId).change();
-    $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos']);
-
-  }else{
-    displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
-  } 
-}
+//TODO: end mezclar
 
 function clearTbody(objecId){
   $(objecId).html("");
@@ -219,6 +171,7 @@ function makePaymentList(response,callback){
  * @param {Array. < string} values
  * @return {boolean}
  */
+// TODO: esto se queda aqui pero cambiare el nombre del documento a utils y agragarle la funcion de currencyFormat
 function isEmpty(values,is_num){
   for(var i = 0 ; i < values.length ; i++){
     if (values[i] == null || values[i] == ""){
@@ -228,11 +181,12 @@ function isEmpty(values,is_num){
   return false;
 }
 
-
+// TODO: Move solo usado en componente de Caja
 function updateSaldo(money){
   money = "RD$ "+ CurrencyFormat(money)
   $(".current-saldo").text(money);
 }
+// TODO: Deprecated
 function updateCount($content){
   $(".total-rows").html($content);
 }
@@ -313,6 +267,8 @@ function replaceClass($object,oldClass,newClass){
    $object.removeClass(oldClass)
 }
 
+//TODO: Componente utilizado en contract_modals , global modals y nuevo_contrato
+
 function makeServiceCardClickable(){
     var serviceCard      = $(".service-card");
     var btnPrintContract = $('#btn-print-requirement');
@@ -330,8 +286,9 @@ function makeServiceCardClickable(){
       $('#contract-client-payment').val(payment)
     })
 }
+
 /********************************************************
-*                          Verify Rows                            
+*                          Verify Rows TODO: - move solo usado en bootstrap tables                            
 *                                                       *
 ********************************************************/
 
