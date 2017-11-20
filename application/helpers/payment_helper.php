@@ -434,18 +434,22 @@ function prepare_moras($data,$context,$settings){
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = get_cuota($pago['id_contrato'],$context);
-    $monto_extra = $settings['reconexion'];
     $total = $pago['total'];
     $mora  = ($settings['cargo_mora'] / 100) * $cuota;
-    $total = $pago['cuota'] + $monto_extra + $mora;
     
+    $context->payment_model->set_extra([0 => ["servicio" => "Reconexion", "costo"=> $settings['reconexion']]]);
+    $extras = $context->get_extras($pago['id_pago'], true);
+
+    $total = $pago['cuota'] + $extras['total'] + $mora;
+
     $updated_data = array(
       'mora'    => $mora,
       'total'   => $total,
-      'monto_extra' => $monto_extra,
-      'detalles_extra' => 'Reconexion'
+      'monto_extra' => $extras['total'],
+      'detalles_extra' => $extras['detalles']
     );
-    $result = $context->payment_model->update_moras($pago['id_pago'],$updated_data);
+
+    $result = $context->payment_model->update($updated_data, $pago['id_pago']);
   }
 }
 
@@ -735,7 +739,13 @@ function generar_facturas_mes($context){
         if($contrato['estado'] == 'activo' and $contrato['pagos_generados'] < 3){
           $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
           $context->db->where('id_contrato',$contrato['contrato']);
-          $context->db->update('ic_pagos',['generado' => true]);
+          if ($pago = $this->db->get('ic_pagos',1)){
+            $pago = $pago->row_array();
+            
+            $context->payment_modal->update(['generado' => true],$pago['id_contrato']);
+            $context->payment_modal->check_extras_fijos($id_pago, $contrato['contrato']);
+          }
+          
         }
       }
       $context->settings_model->update('ultima_generacion_factura',$hoy);

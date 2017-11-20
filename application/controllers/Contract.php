@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contract extends CI_Controller {
+class Contract extends MY_Controller {
 
-	public function __construct(){
+	public function __construct() {
 		parent::__construct();
 		$this->load->model('contract_model');
 		$this->load->model('service_model');
@@ -25,7 +25,7 @@ class Contract extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	public function reconnect(){
+	public function reconnect() {
 		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->db->where("id_contrato",$data['id_contrato'])
@@ -51,11 +51,24 @@ class Contract extends CI_Controller {
 
 	public function getCancelations() {
 		authenticate();
-		$data = json_decode($_POST['data'],true);
-		if($data) {
-			$res['content'] = $this->cancelations_model->get_cancelations($data['first_date'],$data['second_date']);
+		$data = json_decode($_POST['data'], true);
+		if ($data) {
+			$res['content'] = $this->cancelations_model->get_cancelations($data['first_date'], $data['second_date']);
 			echo json_encode($res);
 		}
+	}
+
+	public function delete_extra() {
+		authenticate();
+		$data = $this->get_post_data('data');
+		if ($data) {
+			if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])) {
+				$res['mensaje'] = MESSAGE_SUCCESS . " Extra eliminado con exito";
+			}
+			$res['mensaje'] = MESSAGE_ERROR . " Error al eliminar extra";
+			echo json_encode($res);
+		}
+
 	}
 
 }

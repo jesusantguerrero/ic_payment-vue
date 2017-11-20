@@ -146,6 +146,18 @@ class Contract_model extends CI_MODEL{
     }
   }
 
+  public function get_contract($id, $field = false){
+    if ($field) {
+      $this->db->select($field);
+    } else {
+      $this->db->select('ic_contratos.*', false);
+    }
+    $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
+    $this->db->where('id_contrato', $id);
+    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
+    return $this->db->get('ic_contratos');
+  }
+
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 
     $id_empleado = $_SESSION['user_data']['user_id'];
     $update_pago = array(

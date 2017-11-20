@@ -1,9 +1,10 @@
 <?php
 /**
 * IC Payment
-*@author Jesus Guerrero
-*@copyright Copyright (c) 2017 Insane Code
-*@version 1.0.0
+*
+* @author <jesusant.guerrero@gmail.com>
+* @copyright Copyright (c) 2017 Insane Code
+* @version 1.0.0.0
 *
 */
 

@@ -28,6 +28,7 @@ class Payment_model extends CI_MODEL{
     parent::__construct();
      
     $this->load->helper('lib_helper');
+    $this->load->model('contract_model');
   }
 
   /**
@@ -68,12 +69,30 @@ class Payment_model extends CI_MODEL{
       } 
   }
 
+  public function get_payment($id, $as_receipt = false) {
+    $table = ($as_receipt) ? "v_recibos" : "ic_pagos";
+    $this->db->where('id_pago', $id);
+    if ($result = $this->db->get($table)) {
+      var_dump($this->db->last_query());
+      return $result->row_array();
+    }
+  }
+
+  public function update($new_payment, $id_pago){
+    $where = array('id_pago' => $id_pago);
+    if($this->db->update('ic_pagos',$new_payment,$where)){
+      return true;
+    }
+    return false;
+  }
+
   public function check_for_update($id_pago){
     $sql = "SELECT estado from ic_pagos where id_pago =".$id_pago;
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){
         $this->update('complete_date','now()',false);
+        $this->check_extras_fijos($id_pago);
         return true;
       }else{
        return false;
@@ -91,14 +110,103 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function update($new_payment,$id_pago){
-    $where = array('id_pago' => $id_pago);
-    if($this->db->update('ic_pagos',$new_payment,$where)){
-      return TRUE;
+// DEPRECATED: eliminar esto 
+  public function get_recibo($id){
+    $this->db->where('id_pago', $id);
+    if ($result = $this->db->get('v_recibos')) {
+      return $result->row_array();
     }
-    return FALSE;
   }
   
+  //TODO: Cambiar el campo a detalles extras_fijos
+  public function get_extras($id_pago, $get_values = false) {
+    $this->db->select('servicios_adicionales');
+    if ($result = $this->db->get('ic_pagos')) {
+      if (!$get_values) {
+        return $result = json_decode($result,1);
+      } else {
+        $total_extras = 0;
+        $string_detalles = "";
+        $detalles_extras = [];
+
+        foreach ($result as $key => $value) {
+          $total_extras += $value['precio'];
+          $string_detalles .= "{$value["servicio"]} -- ";
+          array_push($detalles_extras, $value);
+        }
+
+        return ["total" => $total_extras, "detalles" => $string_detalles, "array" => $detalles_extras];
+      }
+    }
+  }
+
+  public function save_extras($extras, $id_pago){
+    $extras = json_encode($extras);
+    $this->update(["servicios_adicionales" => $extras], $id_pago);
+  }
+
+  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "costo => 2000]]
+    $extras = $this->get_extras($id_pago);
+    $key = join(array_keys('',$new_extra));
+
+    if ($extras && $extras[$key]) {
+      if ($extras[$key]) {
+        $extras[$key] = $new_extras[$key];
+      } else {
+        array_push($extras, $new_extra);
+      }
+
+      return $this->save_extras($extras, $id_pago);
+    }
+  }
+
+  public function delete_extra($key, $id_pago) {
+    $extras = $this->get_extras($id_pago);
+    if ($extras && $extras[$key]) {
+      unset($extras[$key]);
+      if (count($extras) > 0) {
+        return $this->save_extras($extras, $id_pago);
+      } else {
+        return $this->update(["servicios_adicionales" => null], $id_pago);
+      }
+    }
+  } 
+
+  public function check_extras_fijos($id_pago, $id_contrato = false) {
+    $contract = $this->contract_model->get_contract($id_contrato,'extras_fijos');
+    if (!$id_contrato) {
+      $id_contrato = $this->get_payment($id_pago)['id_contrato'];
+    }
+
+    if ($contract['extras_fijos']) {
+      $this->set_extra([
+        $contract['extras_fijos'] => [
+          "servicio" => $contract['nombre_seguro'],
+          "costo" => $contract['mensualidad_seguro']
+        ]
+      ], $id_pago);
+
+      $this->reorganize_values($id_pago);
+    }
+  }
+
+  public function reorganize_values($id_pago){
+    $pago = $this->get_payment($id_pago);    
+    $extras = $context->get_extras($pago['id_pago'], true);
+
+    $updated_data = array(
+      'total'          => $pago['cuota'] + $extras['total'] + $pago['mora'],
+      'monto_extra'    => $extras['total'],
+      'detalles_extra' => $extras['detalles']
+    );
+
+    $this->update($updated_data, $pago['id_pago']);
+  }
+
+
+//TODO: END todo
+
+// Contract related options
 
   public function count_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
@@ -169,6 +277,8 @@ class Payment_model extends CI_MODEL{
     }
   }
 
+// Grafic Related Options
+
   public function year_income(){
     $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)=year(now())";
     $result = $this->db->query($sql);
@@ -232,15 +342,6 @@ class Payment_model extends CI_MODEL{
     return $result->result_array(); 
   }
 
-  public function update_moras($id_pago,$updated_data){
-    $this->db->where('id_pago', $id_pago);
-    
-    if($this->db->update('ic_pagos',$updated_data)){
-      return true;
-    }
-    return false;
-  }
-
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
     $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
     if($result = $this->db->query($sql)):
@@ -252,23 +353,11 @@ class Payment_model extends CI_MODEL{
     endif;
   }
 
-   public function get_moras_home(){
+  public function get_moras_home(){
     $sql = "SELECT * FROM v_pagos_pendientes";
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);
     echo $result; 
-  }
-
-  public function get_recibo($id){
-    $sql = "SELECT * FROM v_recibos WHERE id_pago = $id";
-    $result = $this->db->query($sql)->row_array();
-    return $result;
-  }
-
-  public function get_payment($id){
-    $sql = "SELECT * FROM ic_pagos WHERE id_pago = $id";
-    $result = $this->db->query($sql)->row_array();
-    return $result;
   }
 
   public function get_sum_monto_total_of($id_contrato){
@@ -279,5 +368,4 @@ class Payment_model extends CI_MODEL{
 
   }
 
-  //functions
 }
