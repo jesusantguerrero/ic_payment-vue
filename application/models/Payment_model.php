@@ -141,7 +141,7 @@ class Payment_model extends CI_MODEL{
   
   public function save_extras($extras, $id_pago){
     $extras = json_encode($extras);
-    $this->update(["servicios_adicionales" => $extras], $id_pago);
+    return $this->update(["servicios_adicionales" => $extras], $id_pago);
   }
 
   public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "precio => 2000]]

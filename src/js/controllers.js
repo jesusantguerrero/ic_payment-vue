@@ -658,6 +658,8 @@ var Contracts = {
 }
 
 var Payments = {
+  ran: false,
+
   getAll: function () {
     var id = $("#select-contract").val();
     if (id != null) {
@@ -713,7 +715,6 @@ var Payments = {
   getOne: function(id_pago, receiver) {
     var self = this;
     var form = "tabla=pagos&id_pago=" + id_pago;
-    console.log(this);
     axios.post(BASE_URL + 'process/getone', form)
     .then(function(res){
       self.receiveForEdit(res.data);
@@ -750,10 +751,6 @@ var Payments = {
 
     $modal.modal();
 
-    $modal.on('hide.bs.modal',function(){
-      $modal.find('input').val('')
-    });
-
     if (pago['mora'] > 0) {
       $cMora.iCheck('check');      
     } else {
@@ -784,28 +781,35 @@ var Payments = {
       } 
     });
 
-    $cMora.on('ifChecked', function () {
-      var mora = pago['cuota'] * settings['cargo_mora'] / 100;
-      $mora.val(mora).trigger('keyup');
-    });
-    
-    $cReconexion.on('ifChecked', function () {
-      $extra.val(settings['reconexion']).trigger('keyup')
-      $serviciosExtra.val('Reconexion');
-    })
-    
-    $cMora.on('ifUnchecked', function () {
-      $mora.val(0).trigger('keyup');
-    })
-    
-    $cReconexion.on('ifUnchecked', function () {
-      $extra.val(0).trigger('keyup');
-      Payments.deleteExtra(0, self.idPago)
-      .then( function(){
-        self.getOne(self.idPago, self.receiveForEdit);
-      })
-    })
+    if (!this.ran) {
+      this.ran = true
+      $modal.on('hide.bs.modal',function(){
+        $modal.find('input').val('')
+      });
 
+      $cMora.on('ifChecked', function () {
+        var mora = pago['cuota'] * settings['cargo_mora'] / 100;
+        $mora.val(mora).trigger('keyup');
+      });
+      
+      $cReconexion.on('ifChecked', function () {
+        Payments.setExtra(0, self.idPago)
+        .then( function(){
+          self.getOne(self.idPago, self.receiveForEdit);
+        })
+      })
+      
+      $cMora.on('ifUnchecked', function () {
+        $mora.val(0).trigger('keyup');
+      })
+      
+      $cReconexion.on('ifUnchecked', function () {
+        Payments.deleteExtra(0, self.idPago)
+        .then( function(){
+          self.getOne(self.idPago, self.receiveForEdit);
+        })
+      })  
+    }
 
     function apply () {
       applyDiscount(self.idPago);
