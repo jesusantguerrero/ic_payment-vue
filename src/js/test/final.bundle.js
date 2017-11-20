@@ -14554,7 +14554,7 @@ var Payments = {
 
     function applyDiscount(id_pago) {
       var date = moment().format("YYYY-MM-DD");
-      form = 'id_pago=' + id_pago + '&id_contrato=' + id_contrato + "&cuota=" + $cuota.val();
+      form = 'id_pago=' + self.idPago + '&id_contrato=' + self.idContrato + "&cuota=" + $cuota.val();
       form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
       form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val();
       form += '&fecha_pago=' + date + '&detalles_extra=' + $serviciosExtra.val() + "&tabla=discount_pagos";

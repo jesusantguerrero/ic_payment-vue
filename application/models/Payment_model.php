@@ -172,7 +172,10 @@ class Payment_model extends CI_MODEL{
       $id_contrato = $this->get_payment($id_pago)['id_contrato'];
     }
     $pago = $this->get_payment($id_pago);
-    $contract = $this->contract_model->get_contract($id_contrato,'extras_fijos');
+    $contract = $this->contract_model->get_contract($id_contrato);
+//TODO: argregar fecha del servicio extra fijo
+    //    $fecha_seguro = 
+ //   $fecha_limite_pago = date()
 
     if ($contract['extras_fijos'] && $pago['abono_a'] == null) {
       $this->set_extra([
