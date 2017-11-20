@@ -62,17 +62,16 @@ class Contract_model extends CI_MODEL{
       } 
   }
 
-  public function update($data_for_update,$contract_id,$echo = false){
-    $this->db->where('id_contrato',$contract_id);
-    if($this->db->update('ic_contratos',$data_for_update)):
-      if($echo) echo MESSAGE_SUCCESS." Contrato Actualizado ";
+  public function update($data_for_update, $contract_id, $echo = false){
+    $this->db->where('id_contrato', $contract_id);
+    if ($this->db->update('ic_contratos', $data_for_update)) {
+      if ($echo) echo MESSAGE_SUCCESS." Contrato Actualizado ";
       $this->get_next_payment_for_contract($contract_id);
       return true;
-    else:
+    } else { 
       if($echo) echo MESSAGE_ERROR."El Contrato No Pudo Ser Actualizado";
       return false;
-    endif;
-    
+    }
   } 
 
   public function update_amount($contract_id){
@@ -155,7 +154,7 @@ class Contract_model extends CI_MODEL{
     $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
     $this->db->where('id_contrato', $id);
     $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
-    return $this->db->get('ic_contratos');
+    return $this->db->get('ic_contratos')->row_array();
   }
 
   public function refresh_contract($data_pago,$data_contrato,$current_contract){ 

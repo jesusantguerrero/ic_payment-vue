@@ -62,13 +62,12 @@ class Contract extends MY_Controller {
 		authenticate();
 		$data = $this->get_post_data('data');
 		if ($data) {
-			if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])) {
+			$res['mensaje'] = MESSAGE_ERROR . " Error al eliminar servicio adicional";
+			if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])){
 				$res['mensaje'] = MESSAGE_SUCCESS . " Extra eliminado con exito";
 			}
-			$res['mensaje'] = MESSAGE_ERROR . " Error al eliminar extra";
 			echo json_encode($res);
 		}
-
 	}
 
 }

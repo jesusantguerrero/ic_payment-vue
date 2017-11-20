@@ -73,7 +73,6 @@ class Payment_model extends CI_MODEL{
     $table = ($as_receipt) ? "v_recibos" : "ic_pagos";
     $this->db->where('id_pago', $id);
     if ($result = $this->db->get($table)) {
-      var_dump($this->db->last_query());
       return $result->row_array();
     }
   }
@@ -118,46 +117,43 @@ class Payment_model extends CI_MODEL{
     }
   }
   
-  //TODO: Cambiar el campo a detalles extras_fijos
   public function get_extras($id_pago, $get_values = false) {
-    $this->db->select('servicios_adicionales');
-    if ($result = $this->db->get('ic_pagos')) {
+    $pago = $this->get_payment($id_pago);
+    if ($pago['servicios_adicionales']) {
+      $extras = json_decode($pago["servicios_adicionales"],1);
       if (!$get_values) {
-        return $result = json_decode($result,1);
+        return $extras;
       } else {
         $total_extras = 0;
         $string_detalles = "";
         $detalles_extras = [];
 
-        foreach ($result as $key => $value) {
-          $total_extras += $value['precio'];
-          $string_detalles .= "{$value["servicio"]} -- ";
-          array_push($detalles_extras, $value);
+        foreach ($extras as $key => $extra) {
+          $total_extras += $extra['precio'];
+          $string_detalles .= "{$extra["servicio"]} -- ";
+          array_push($detalles_extras, $extra);
         }
 
         return ["total" => $total_extras, "detalles" => $string_detalles, "array" => $detalles_extras];
       }
     }
   }
-
+  
   public function save_extras($extras, $id_pago){
     $extras = json_encode($extras);
+    var_dump($extras);
     $this->update(["servicios_adicionales" => $extras], $id_pago);
   }
 
-  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "costo => 2000]]
+  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "precio => 2000]]
     $extras = $this->get_extras($id_pago);
-    $key = join(array_keys('',$new_extra));
-
-    if ($extras && $extras[$key]) {
-      if ($extras[$key]) {
-        $extras[$key] = $new_extras[$key];
-      } else {
-        array_push($extras, $new_extra);
-      }
-
-      return $this->save_extras($extras, $id_pago);
-    }
+    if (!$extras){
+      $extras = $new_extra;
+    } else {
+      $key = join('',array_keys($new_extra));
+      $extras[$key] = $new_extra[$key];
+    } 
+    return $this->save_extras($extras, $id_pago);
   }
 
   public function delete_extra($key, $id_pago) {
@@ -173,16 +169,17 @@ class Payment_model extends CI_MODEL{
   } 
 
   public function check_extras_fijos($id_pago, $id_contrato = false) {
-    $contract = $this->contract_model->get_contract($id_contrato,'extras_fijos');
     if (!$id_contrato) {
       $id_contrato = $this->get_payment($id_pago)['id_contrato'];
     }
+    $pago = $this->get_payment($id_pago);
+    $contract = $this->contract_model->get_contract($id_contrato,'extras_fijos');
 
-    if ($contract['extras_fijos']) {
+    if ($contract['extras_fijos'] && $pago['abono_a'] == null) {
       $this->set_extra([
         $contract['extras_fijos'] => [
           "servicio" => $contract['nombre_seguro'],
-          "costo" => $contract['mensualidad_seguro']
+          "precio" => $contract['mensualidad_seguro']
         ]
       ], $id_pago);
 
@@ -192,7 +189,7 @@ class Payment_model extends CI_MODEL{
 
   public function reorganize_values($id_pago){
     $pago = $this->get_payment($id_pago);    
-    $extras = $context->get_extras($pago['id_pago'], true);
+    $extras = $this->get_extras($pago['id_pago'], true);
 
     $updated_data = array(
       'total'          => $pago['cuota'] + $extras['total'] + $pago['mora'],
@@ -202,9 +199,6 @@ class Payment_model extends CI_MODEL{
 
     $this->update($updated_data, $pago['id_pago']);
   }
-
-
-//TODO: END todo
 
 // Contract related options
 
