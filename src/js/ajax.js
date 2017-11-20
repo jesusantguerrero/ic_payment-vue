@@ -400,7 +400,7 @@
         Payments.update(id);
         update_mode(id);
       } else {
-        // TODO: MESSAGE Select a payment
+        displayMessage(MESSAGE_INFO + ' Debes seleccionar un pago');
       }
     });
 
@@ -422,12 +422,6 @@
       }) + '&extra_info=' + JSON.stringify(extraInfo);
 
       var send = axios.post(BASE_URL + 'process/axiosupdate', form)
-      send.then(function (response) {
-        //TODO: something whith that / algo con esto
-      });
-      send.catch(function () {
-        console.error(error);
-      });
     }
   }
   //***************************************************      detail Handlers       ***************************** */

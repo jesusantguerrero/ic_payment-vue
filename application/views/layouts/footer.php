@@ -1,7 +1,7 @@
 	<div class="toast"><span></span> </div>
 	<iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>	
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=beta-3.7.9')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=beta-3.7.9')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=pre-1.0.0')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=pre-1.0.0')?>"></script>
 	<script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});

@@ -141,7 +141,6 @@ class Payment_model extends CI_MODEL{
   
   public function save_extras($extras, $id_pago){
     $extras = json_encode($extras);
-    var_dump($extras);
     $this->update(["servicios_adicionales" => $extras], $id_pago);
   }
 
@@ -158,7 +157,7 @@ class Payment_model extends CI_MODEL{
 
   public function delete_extra($key, $id_pago) {
     $extras = $this->get_extras($id_pago);
-    if ($extras && $extras[$key]) {
+    if ($extras && null !== $extras[$key]) {
       unset($extras[$key]);
       if (count($extras) > 0) {
         return $this->save_extras($extras, $id_pago);

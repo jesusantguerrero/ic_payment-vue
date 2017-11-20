@@ -16,14 +16,17 @@ class Extra extends CI_Controller {
 	}
 
 	public function get_extra_payment_of(){
-		authenticate();		
-		if(isset($_POST['data'])){
-			$data = json_decode($_POST['data'],true);
-		}else{
-			$data = json_decode($_POST,true);
-		}
-		$res['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
-		echo json_encode($res);
+		authenticate();
+		if ($_POST){
+			if(isset($_POST['data'])){
+				$data = json_decode($_POST['data'],true);
+			}else{
+				$data = json_decode($_POST,true);
+			}
+			
+				$res['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
+				echo json_encode($res);
+		}			
 	}
 
 	public function get_all() {
@@ -56,8 +59,10 @@ class Extra extends CI_Controller {
 		authenticate();		
 		$data = json_decode($_POST['data'],true);
 		$info = json_decode($_POST['info'],true);
-		if ($this->payment_model->check_for_update($info['id_pago']) && $data){
+		if (!$this->payment_model->check_for_update($info['id_pago']) && $data){
 			$this->extra_model->apply_payment($data,$info);
+			$res['mensaje'] = MESSAGE_SUCCESS.' Pago editado con exito';
+			echo json_encode($res);
 		}
 	}
 	

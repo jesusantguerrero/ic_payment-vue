@@ -32,7 +32,7 @@ if ( ! function_exists('create_payments')){
     $i = 0;
     
     for ($i; $i < $duration + 1; $i++) {
-      if($i > 0) $concepto = $i."º pago de mensualidad"; 
+      if($i > 0) $concepto = "mensualidad"; 
       if($i == 1) {
         if($day > 15 && $day <= $split_day){
           $pago = $data['mensualidad'] / 2;
@@ -531,7 +531,7 @@ function extend_contract($data,$context){
     $is_saved = $context->contract_model->update($new_data,$contract_id);
     if($is_saved){
       for ($i= $num_pago; $i <= $duration; $i++) {
-        if($i > 0) $concepto = $i."º pago de mensualidad"; 
+        if($i > 0) $concepto = "mensualidad"; 
         $new_data = array(
           'id_contrato' => $contract_id,
           'id_servicio' => $contract['id_servicio'],
@@ -626,15 +626,10 @@ if (! function_exists('add_extra')){
       case 3:
         $service = $context->service_model->get_service($data_extra['nombre_servicio']);
         $context->contract_model->update(['extras_fijos' => $service['id_servicio']], $contract_id);
+        echo MESSAGE_SUCCESS . " Seguro Agregado";
         break;
       
     }
-    if($data_extra['modo_pago'] == 2){
-     
-      
-    }else{
-      
-    } 
   }
 }
 

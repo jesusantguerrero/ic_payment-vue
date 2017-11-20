@@ -9,7 +9,7 @@ function fillBSTable(tableId, content) {
 
 }
 
-function filterBSTable(tableId,state) {
+function filterBSTable(tableId, state) {
   $(tableId).bootstrapTable('filterBy',{
     estado: state
   });

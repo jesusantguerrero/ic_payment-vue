@@ -252,15 +252,6 @@ var extraTable = {
   },
 
   clickEvents: function(){
-    $(".payment-advanced").on('click',function(e) {
-      e.preventDefault()
-      e.stopImmediatePropagation();
-      var id = $(this).attr('data-id-pago').trim();
-      if (id) {
-        Payments.getOne(id, Payments.receiveForEdit);
-      }
-    });
-
     $(".extra-delete").on('click',function(e) {
       e.preventDefault()
       e.stopImmediatePropagation();

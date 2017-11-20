@@ -12864,15 +12864,6 @@ var extraTable = {
   },
 
   clickEvents: function(){
-    $(".payment-advanced").on('click',function(e) {
-      e.preventDefault()
-      e.stopImmediatePropagation();
-      var id = $(this).attr('data-id-pago').trim();
-      if (id) {
-        Payments.getOne(id, Payments.receiveForEdit);
-      }
-    });
-
     $(".extra-delete").on('click',function(e) {
       e.preventDefault()
       e.stopImmediatePropagation();
@@ -14061,14 +14052,14 @@ var Contracts = {
 
   callExtra: function(context) {
     var row
+    this.dropDownEvents();
     if (context == "details"){
       row = detailsContractTable.getSelectedRow();
     }else{
       row = contractTable.getSelectedRow();
-    }
-    
+    }    
     if (row) {
-      $("#extra-client-dni").val(row.cedula);
+      this.inputExtraClientDni.val(row.cedula);
       Contracts.getAllOfClient(row.cedula);
       $('#add-extra-modal').modal();
     } else {
@@ -14151,6 +14142,8 @@ var Contracts = {
 
   btnExtraPressed: function ($this) {
     var buttonId = $this.text().trim().toLowerCase();
+    var contractId = this.selectExtraClientContract.val()
+    var clientDni = this.inputExtraClientDni.val().replace(/[-]/g,' ')
 
     switch (buttonId) {
       case "mejorar":
@@ -14163,6 +14156,12 @@ var Contracts = {
         Contracts.addExtra();
         break;
     }
+    this.getAllOfClient(clientDni)
+    .then(function(res){
+      console.log(res);
+      console.log(' aqui en la promesa');
+    }) 
+
   },
 
   upgrade: function () {
@@ -14257,7 +14256,7 @@ var Contracts = {
     var form = "dni=" + dni;
     var self = this;
 
-    axios.post(BASE_URL + 'process/data_for_extra', form)
+    return axios.post(BASE_URL + 'process/data_for_extra', form)
     .then(function(res){
       self.makeContractList(res.data)
     })
@@ -14314,7 +14313,6 @@ var Contracts = {
   makeContractList: function (response) {
     if (response) {
       var value,service,equipment,eMac,router,rMac,code,ensuranceName,ensuranceCost;
-      var selectContract = $("#extra-client-contract");
       var element = "<option value=''>--Selecciona--</option>";
       var cliente = response.cliente;
       var contratos = response.contratos;
@@ -14341,9 +14339,9 @@ var Contracts = {
         element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'- RD$ '+ CurrencyFormat(ensuranceCost)+"'>";
         element += value +"</option>";  
       }
-      this.dropDownEvents();
-      selectContract.html(element);
-      selectContract.val(contractId).change();
+  
+      this.selectExtraClientContract.html(element);
+      this.selectExtraClientContract.val(contractId).change();
       
       $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos']);
   
@@ -14360,6 +14358,7 @@ var Contracts = {
       this.selectExtraClientContract = $("#extra-client-contract");
       this.btnDeleteExtra = $("#delete-extra");
       this.inputContracEnsurance = $("#contract-ensurance");
+      this.inputExtraClientDni = $("#extra-client-dni");
       
       this.selectExtraService.on('change', function () {
         var data = $(("#select-extra-service :selected")).data();
@@ -14374,7 +14373,9 @@ var Contracts = {
         $("#extra-e-mac").val(data["eMac"]);
         $("#extra-r-mac").val(data["rMac"]);
         $("#extra-code").val(data["code"]);
-        self.inputContracEnsurance.val(data["ensurance"]);
+        if (!data["ensurance"].includes('null')){
+          self.inputContracEnsurance.val(data["ensurance"]);
+        }
       });
 
       this.btnDeleteExtra.on('click', function(){
@@ -14443,16 +14444,21 @@ var Payments = {
   },
 
   getOne: function(id_pago, receiver) {
-    form = "tabla=pagos&id_pago=" + id_pago;
-    connectAndSend("process/getone", false, null, receiver, form, null)
+    var self = this;
+    var form = "tabla=pagos&id_pago=" + id_pago;
+    console.log(this);
+    axios.post(BASE_URL + 'process/getone', form)
+    .then(function(res){
+      self.receiveForEdit(res.data);
+    })
   },
 
-  receiveForEdit: function(content){
-    var data          = JSON.parse(content);
+  receiveForEdit: function(data){
+    var self          = Payments;
     var pago          = data.pago
     var settings      = data.settings;
-    this.id_contrato  = pago['id_contrato'];
-    this.id_pago      = pago['id_pago']
+    self.idContrato   = pago['id_contrato'];
+    self.idPago       = pago['id_pago'];
     var $concepto     = $("#payment-concept");
     var $fechaLimite  = $("#payment-limit-date");
     var $serviciosExtra = $("#payment-extra-services");
@@ -14517,7 +14523,7 @@ var Payments = {
     });
     
     $cReconexion.on('ifChecked', function () {
-      $extra.val(settings['reconexion']).trigger('keyup');
+      $extra.val(settings['reconexion']).trigger('keyup')
       $serviciosExtra.val('Reconexion');
     })
     
@@ -14527,12 +14533,15 @@ var Payments = {
     
     $cReconexion.on('ifUnchecked', function () {
       $extra.val(0).trigger('keyup');
-      $serviciosExtra.val('');
+      Payments.deleteExtra(0, self.idPago)
+      .then( function(){
+        self.getOne(self.idPago, self.receiveForEdit);
+      })
     })
 
 
     function apply () {
-      applyDiscount(id_pago);
+      applyDiscount(self.idPago);
       $modal.hide();
       $modal.modal('hide');
       $('body').removeClass('modal-open');
@@ -14559,6 +14568,29 @@ var Payments = {
     }
   },
 
+  deleteExtra: function(key, idPago) {
+    var self = this
+    var form = "data=" + JSON.stringify({key: key,id_pago: idPago})
+    return axios.post(BASE_URL + 'payment/delete_extra',form)
+    .then(function(res){
+      displayMessage(res.data.mensaje);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  },
+
+  setExtra: function(key, idPago) {
+    var self = this
+    var form = "data=" + JSON.stringify({key: key, id_pago: idPago})
+    return axios.post(BASE_URL + 'payment/set_extra',form)
+    .then(function(res){
+      displayMessage(res.data.mensaje);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  }
 }
 
 var Damages = {
@@ -15173,7 +15205,7 @@ var Extras = {
         Payments.update(id);
         update_mode(id);
       } else {
-        // TODO: MESSAGE Select a payment
+        displayMessage(MESSAGE_INFO + ' Debes seleccionar un pago');
       }
     });
 
@@ -15195,12 +15227,6 @@ var Extras = {
       }) + '&extra_info=' + JSON.stringify(extraInfo);
 
       var send = axios.post(BASE_URL + 'process/axiosupdate', form)
-      send.then(function (response) {
-        //TODO: something whith that / algo con esto
-      });
-      send.catch(function () {
-        console.error(error);
-      });
     }
   }
   //***************************************************      detail Handlers       ***************************** */
@@ -15288,3 +15314,85 @@ var Extras = {
   $(function () {
     initComponents()
   });
+var ran = false;
+
+function loginHandlers() {
+
+  $("#send-credentials").on('click', function (e) {
+    e.stopImmediatePropagation();
+    Session.login();
+  });
+
+  $("#user-input").on('keydown', function (e) {
+    e.stopImmediatePropagation();
+    loginLibrary.sendToLogin(e)
+  })
+
+  $("#password-input").on('keydown', function (e) {
+    e.stopImmediatePropagation();
+    loginLibrary.sendToLogin(e)
+  })
+
+  $("a[href]").on('click', function () {
+    loginLibrary.loading();
+    var $this = $(this);
+    try {
+      var target = $this.attr('target');
+      setTimeout(function () {
+        $(".loader").css({
+          display: "none"
+        });
+      }, 3000)
+    }catch (error) {
+      throw error
+    }
+  })
+}
+
+var Session = {
+  login: function() {
+    var user     = $("#user-input").val();
+    var password = $("#password-input").val();
+    var is_empty = isEmpty([user, password])
+    if (!is_empty) {
+      var form = 'user=' + user + '&password=' + password;
+      connectAndSend('app/login', false, false, Session.processLoginData, form, null, loginLibrary.loading)
+    } else {
+      displayMessage(MESSAGE_ERROR + " LLene todos los campos indicados para ingresar")
+    }
+  },
+
+  processLoginData: function(response) {
+    if (response == true) {
+      window.location.href = BASE_URL + 'app/admin/';
+    } else {
+      $(".loader").css({
+        display: "none"
+      });
+      displayMessage(MESSAGE_INFO + " Usuario y Contraseña no validos")
+    }
+  }
+}
+
+var loginLibrary = {
+  loading: function(stop) {
+    if(!stop){
+       $(".loader").css({
+        display: "block"
+        });
+    }else{
+      $(".loader").css({display: "none"});
+    }
+  },
+  
+  sendToLogin: function(e) {
+    key = e.which
+    if (key == 13) {
+      Session.login();
+    }
+  }
+}
+
+$(function () {
+  loginHandlers();
+})

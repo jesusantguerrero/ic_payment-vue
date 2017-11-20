@@ -728,9 +728,13 @@ var appPagoExtra = new Vue({
 
       send.then(function (res) {
         var data = res.data;
-        listExtras = data.extras;
+        if (data.extras) {
+          listExtras = data.extras;
+        }
         self.getPayments(self.extra.id_extra);
-        displayMessage(data.mensaje);
+        if (data.mensaje) {
+          displayMessage(data.mensaje);
+        }
       });
       send.catch(function (error) {
         console.log(error);

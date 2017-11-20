@@ -10,7 +10,7 @@
         <script type="text/javascript" src="<?php echo base_url('assets/js/lib/jquery-3.2.1.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('assets/js/lib/moment.min.js') ?>"></script>
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" />
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/impresos.min.css?version=3.7.7') ?>" />
+        <link rel="stylesheet" href="<?php echo base_url('assets/css/impresos.min.css?version=pre-1.0.0') ?>" />
 
         <!--<link href="favicon.png" rel="icon" type="image/png"/>-->
     </head>
