@@ -177,7 +177,7 @@ class Payment_model extends CI_MODEL{
     //    $fecha_seguro = 
  //   $fecha_limite_pago = date()
 
-    if ($contract['extras_fijos'] && $pago['abono_a'] == null) {
+    if ($contract['extras_fijos'] && $pago['abono_a'] == null && $pago['estado'] == "no pagado") {
       $this->set_extra([
         $contract['extras_fijos'] => [
           "servicio" => $contract['nombre_seguro'],

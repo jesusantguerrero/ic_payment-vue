@@ -416,29 +416,28 @@ function update_moras($context){
   $next_check = $settings['next_check'];
   if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
-    update_state_moras($moras,$context);
+    update_state_moras($moras, $context);
     
     if($moras){
       $data = $context->payment_model->get_moras_view();
       if(date('d') == $settings['fecha_corte'] + 1){
-        prepare_moras($data,$context,$settings);
+        prepare_moras($data, $context,$settings);
         suspension_automatica();
       }
     }
     
-    $result = $context->settings_model->update('last_check_moras',$today);
+    $result = $context->settings_model->update('last_check_moras', $today);
   }	 
 }
 
 function prepare_moras($data,$context,$settings){
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
-    $cuota = get_cuota($pago['id_contrato'],$context);
+    $cuota = get_cuota($pago['id_contrato'], $context);
     $total = $pago['total'];
     $mora  = ($settings['cargo_mora'] / 100) * $cuota;
-    
-    $context->payment_model->set_extra([0 => ["servicio" => "Reconexion", "costo"=> $settings['reconexion']]]);
-    $extras = $context->get_extras($pago['id_pago'], true);
+    $context->payment_model->set_extra([0 => ["servicio" => "Reconexion", "precio"=> $settings['reconexion']]], $pago['id_pago']);
+    $extras = $context->payment_model->get_extras($pago['id_pago'], true);
 
     $total = $pago['cuota'] + $extras['total'] + $mora;
 
@@ -453,7 +452,7 @@ function prepare_moras($data,$context,$settings){
   }
 }
 
-function update_state_moras($data,$context){
+function update_state_moras($data, $context){
   foreach ($data as $pago) {
     if($pago['estado_cliente'] != 'activo'){
       $estado = $pago['estado_cliente'];
@@ -512,7 +511,7 @@ if (! function_exists('cancel_contract')){
   }
 }
 
-function extend_contract($data,$context){
+function extend_contract($data, $context){
     $contract_id = $data['id_contrato'];
 
     $last_payment = $context->payment_model->get_last_pay_of($contract_id);
@@ -549,7 +548,7 @@ function extend_contract($data,$context){
     }
 }
 
-function reconnect_contract($data,$context){
+function reconnect_contract($data, $context){
   // {id_contrato, fecha, id_servicio, duracon, ip}
   $contract = $context->contract_model->get_contract_view($data['id_contrato']);
   $service = $context->service_model->get_service($data['id_servicio']);
@@ -733,12 +732,13 @@ function generar_facturas_mes($context){
       foreach ($contratos as $contrato) {
         if($contrato['estado'] == 'activo' and $contrato['pagos_generados'] < 3){
           $context->db->where('date_format(fecha_limite,"%m-%Y")',date('m-Y'));
+          $context->db->where('estado', 'no pagado');
           $context->db->where('id_contrato',$contrato['contrato']);
-          if ($pago = $this->db->get('ic_pagos',1)){
+          if ($pago = $context->db->get('ic_pagos',1)){
             $pago = $pago->row_array();
             
-            $context->payment_modal->update(['generado' => true],$pago['id_contrato']);
-            $context->payment_modal->check_extras_fijos($id_pago, $contrato['contrato']);
+            $context->payment_model->update(['generado' => true],$pago['id_contrato']);
+            $context->payment_model->check_extras_fijos($pago['id_pago'], $contrato['contrato']);
           }
           
         }
