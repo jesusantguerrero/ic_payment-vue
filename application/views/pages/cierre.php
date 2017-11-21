@@ -287,12 +287,11 @@
 
 <div id="print-view" :class="{hide: isHide}">
 	<?php 	$company = $this->company_model->get_empresa(); ?>
-	<summary-print-view></summary-print-view>
 
 	<div class="factura-body">
 		<div class="cabecera">
 			<div class="company-name">
-				<h4 class="company-oficial-name t-center">ICS Service</h4>
+				<h4 class="company-oficial-name t-center"><?php echo $company['nombre'] ?> ICS Service</h4>
 				<p></p>
 			</div>
 			<p class="fecha-reporte">Fecha: {{cierre.fecha | spanishDateFormat}}</p>

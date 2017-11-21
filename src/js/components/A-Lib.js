@@ -1,3 +1,16 @@
+function isCurrentPage(pageName){
+  if(getCurrentPage() == pageName){
+    return true
+  }  
+  return false;
+}
+
+function getCurrentPage(){
+  var currentPage = $("title").text().split(" ");
+  currentPage = currentPage[4].toLowerCase().trim();
+  return currentPage;
+}
+
 function fillBSTable(tableId, content) {
   var $table = $(tableId);
   $table.bootstrapTable('destroy');

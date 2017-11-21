@@ -60,9 +60,7 @@ class Extra extends CI_Controller {
 		$data = json_decode($_POST['data'],true);
 		$info = json_decode($_POST['info'],true);
 		if (!$this->payment_model->check_for_update($info['id_pago']) && $data){
-			$this->extra_model->apply_payment($data,$info);
-			$res['mensaje'] = MESSAGE_SUCCESS.' Pago editado con exito';
-			echo json_encode($res);
+			 $this->extra_model->apply_payment($data,$info);
 		}
 	}
 	
