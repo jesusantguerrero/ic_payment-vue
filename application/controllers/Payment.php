@@ -1,5 +1,5 @@
 <?php
-class Payment extends MY_controller {
+class Payment extends MY_Controller {
   public function __construct(){
 		parent::__construct();
 		$this->load->model('report_model');

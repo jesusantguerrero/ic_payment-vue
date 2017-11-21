@@ -1348,11 +1348,12 @@ if (isCurrentPage("notificaciones")) {
 
       methods: {
         search: function search() {
+          var self = this;
           var form = 'data=' + JSON.stringify(this.dataSearch);
           var send = axios.post(BASE_URL + 'api/averias/search', form);
 
           send.then(function (res) {
-            this.fillAveriasList(res.data);
+            self.fillAveriasList(res.data);
           });
 
           send.catch(function () {
@@ -1361,7 +1362,7 @@ if (isCurrentPage("notificaciones")) {
         },
 
         fillAveriasList: function fillAveriasList($content) {
-          $('#averia-item-list').html($content);
+          $('#averias-list').html($content);
           ticketListView.itemClickListener();
         },
 
