@@ -738,6 +738,7 @@ if (isCurrentPage("detalles")) {
 
             self.getPayments(self.extra.id_extra);
           });
+
           send.catch(function (error) {
             console.log(error);
           });

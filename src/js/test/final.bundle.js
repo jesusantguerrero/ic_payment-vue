@@ -14382,16 +14382,13 @@ var Contracts = {
         var id = self.selectExtraClientContract.val()
         self.deleteExtra(id);
       })
-
-
-
-
     }
   }
 }
 
 var Payments = {
   ran: false,
+  hasChanged: false,
 
   getAll: function () {
     var id = $("#select-contract").val();
@@ -14485,15 +14482,19 @@ var Payments = {
     $modal.modal();
 
     if (pago['mora'] > 0) {
-      $cMora.iCheck('check');      
+      $cMora.iCheck('check');
+      Payments.hasChanged = true      
     } else {
       $cMora.iCheck('uncheck'); 
+      Payments.hasChanged = true;
     }
     
     if (pago['detalles_extra'].includes('Reconexion')) {
       $cReconexion.iCheck('check');
+      Payments.hasChanged = true 
     } else {
-      $cReconexion.iCheck('uncheck');     
+      $cReconexion.iCheck('uncheck'); 
+      Payments.hasChanged = true     
     }
 
     $("#btn-apply-discount").on('click', function (e) {
@@ -14522,7 +14523,10 @@ var Payments = {
 
       $cMora.on('ifChecked', function () {
         var mora = pago['cuota'] * settings['cargo_mora'] / 100;
-        $mora.val(mora).trigger('keyup');
+        Payments.setMora(mora, self.idPago)
+        .then( function(){
+          self.getOne(self.idPago, self.receiveForEdit);
+        })
       });
       
       $cReconexion.on('ifChecked', function () {
@@ -14533,7 +14537,10 @@ var Payments = {
       })
       
       $cMora.on('ifUnchecked', function () {
-        $mora.val(0).trigger('keyup');
+        Payments.setMora(0, self.idPago)
+        .then( function(){
+          self.getOne(self.idPago, self.receiveForEdit);
+        })
       })
       
       $cReconexion.on('ifUnchecked', function () {
@@ -14541,7 +14548,14 @@ var Payments = {
         .then( function(){
           self.getOne(self.idPago, self.receiveForEdit);
         })
-      })  
+      })
+      
+      $modal.on('hide.bs.modal', function (e) {
+        if (Payments.hasChanged) {
+          Payments.hasChanged = false
+          Payments.getAll()
+        }
+      })
     }
 
     function apply () {
@@ -14588,6 +14602,18 @@ var Payments = {
     var self = this
     var form = "data=" + JSON.stringify({key: key, id_pago: idPago})
     return axios.post(BASE_URL + 'payment/set_extra',form)
+    .then(function(res){
+      displayMessage(res.data.mensaje);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  },
+
+  setMora: function(mora, idPago) {
+    var self = this
+    var form = "data=" + JSON.stringify({mora: mora, id_pago: idPago})
+    return axios.post(BASE_URL + 'payment/set_mora',form)
     .then(function(res){
       displayMessage(res.data.mensaje);
     })

@@ -383,7 +383,7 @@ function payment_discount($data,$context){
     'cuota'           => $data['cuota'],
     'mora'            => $data['mora'],
     'monto_extra'     => $data['monto_extra'],
-    'total'           => $data['total'],
+    'total'           => $data['total'] - $data['descuento'],
     'descuento'       => $data['descuento'],
     'detalles_extra'  => $data['detalles_extra'],
     'razon_descuento' => $data['razon_descuento']     

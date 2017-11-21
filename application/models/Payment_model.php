@@ -91,7 +91,7 @@ class Payment_model extends CI_MODEL{
     $result = $result->row_array()['estado'];
     if($result == "no pagado"){
         $this->update('complete_date','now()',false);
-        $this->check_extras_fijos($id_pago);
+       // $this->check_extras_fijos($id_pago);
         return true;
       }else{
        return false;
