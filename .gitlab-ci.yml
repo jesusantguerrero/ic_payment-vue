@@ -24,8 +24,7 @@ build:
   stage: build
   script: 
    - echo "Building the app .."
-   - npm install -g gulp
-   - gulp
+   - npm run build
   only:
    - develop
    - feature/enviroments
