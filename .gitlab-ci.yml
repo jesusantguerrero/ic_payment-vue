@@ -34,14 +34,14 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push keroku master
+    - git push heroku master
     - echo "deployed to staging"
   environment:
     name: staging
     url: https://ic-payment-staging.herokuapp.com/
   only:
   - develop
-  - feature/*
+  - feature/enviroments
 deploy_production:
   stage: deploy
   script:
