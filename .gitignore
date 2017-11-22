@@ -22,6 +22,7 @@ assets/js/test/*
 .idea/*
 .vscode/*
 node_modules/
+.env
 
 ## Sublime Text cache files
 *.tmlanguage.cache
