@@ -41,7 +41,8 @@ deploy_staging:
     name: staging
     url: https://ic-payment-staging.herokuapp.com/
   only:
-  - master
+  - develop
+  - feature/*
 deploy_production:
   stage: deploy
   script:
