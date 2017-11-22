@@ -1,4 +1,4 @@
-image: nodejs:latest
+image: node:latest
 stages:
   - prepare
   - build
@@ -7,13 +7,15 @@ stages:
 prepare:
   stage: prepare
   script:
-    - npm instal
+    - npm install
   cache:
     paths:
       - node_modules/
   artifacts:
     paths:
       - node_modules/
+  environment:
+    name: staging
   only:
     - develop
     - feature/enviroments
@@ -22,8 +24,8 @@ build:
   stage: build
   script: 
    - echo "Building the app .."
+   - npm install -g gulp
    - gulp
-   - git push 
   only:
    - develop
    - feature/enviroments
@@ -41,8 +43,7 @@ deploy_staging:
   only:
   - master
 deploy_production:
-  stage: 
-   stage: deploy
+  stage: deploy
   script:
     - echo "Deploy to staging server"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment.git
@@ -53,4 +54,3 @@ deploy_production:
     url: https://ic-payment.herokuapp.com/
   only:
    - master
-
