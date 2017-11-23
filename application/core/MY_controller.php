@@ -14,4 +14,17 @@ class MY_Controller extends CI_Controller
 		}
 	}
 
+	protected function do_upload($dir) {
+		$config = [
+			"upload_path" => "./assets/uploads/$dir/",
+			"alowed_types" => "svg|png|jpeg",
+			"max_size" => 200
+		];
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('userfile')) {
+			return $this->upload->data();
+		}
+	}
 }

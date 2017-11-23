@@ -8,12 +8,21 @@ module.exports = {
   },
   env: {
     browser: true,
+    jquery: true
   },
   extends: 'airbnb-base',
   // required to lint *.vue files
   plugins: [
     'html'
   ],
+  // check if imports actually resolve
+  'settings': {
+    'import/resolver': {
+      'webpack': {
+        'config': 'resources/build/webpack.base.conf.js'
+      }
+    }
+  },
   // add your custom rules here
   'rules': {
     // don't require .vue extension when importing
@@ -23,9 +32,15 @@ module.exports = {
     }],
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
-      'optionalDependencies': ['test/unit/index.js']
+      'optionalDependencies': ['resources/test/unit/index.js']
     }],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'comma-dangle': 0
+  },
+
+  globals: {
+    jquery: true,
+    google: true
   }
 }

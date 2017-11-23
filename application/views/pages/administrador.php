@@ -12,18 +12,20 @@
   <div class="main-content col-md-10">
     <div class="section-player">
 
-      <!-- *******************************
-      *     Sección de la compa;ia     *
-      *                                *
+    <!-- *******************************
+    *     Sección de la compa;ia     *
+    *                                *
     **********************************-->
 
       <div class="company-details" id="company-section">
         <?php 
           $empresa = $this->company_model->get_empresa();
           $settings = $this->settings_model->get_settings();
+          $logo = base_url() . "assets/uploads/{$empresa['logo']}";
          ?>
         <h3 class="section-title"> Detalles de la Empresa</h3>
         <form action="">
+          <img src="<?php echo $logo ?>" alt="company_logo"/>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
