@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import LoginBox from './components/LoginBox';
-import Store from './store';
 import Service from './service'
 
 const login = new Vue({
@@ -10,21 +9,7 @@ const login = new Vue({
   },
 
   data:{
-    credentials: store.credentials,
-    inputs: {
-      login: [
-        {label: 'Nombre de Usuario',  type: 'name', name: 'username'},
-        {label: 'Contraseña', type: 'password', name: 'password'},
-        {label: 'Correo Electronico', type: 'email', name: 'email'},
-        {label: 'Token de validación', type: 'password', name: 'validation_token'}
-      ],
-    },
-
-    buttons: [
-      {name: 'Ingresar', action: null},
-      {name: 'Enviar', action: null},
-      {name: 'Agregar Contraseña', action: null},
-    ]
+    credentials: store.credentials
   },
 
   mounted() {

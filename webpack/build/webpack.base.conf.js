@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     login: utils.module("login"),
     administrador: utils.module("administrador"),
+    all: utils.module("services")
   },
   output: {
     path: config.build.assetsRoot,

@@ -19,7 +19,7 @@ module.exports = {
   'settings': {
     'import/resolver': {
       'webpack': {
-        'config': 'resources/build/webpack.base.conf.js'
+        'config': 'webpack/build/webpack.base.conf.js'
       }
     }
   },
@@ -40,7 +40,6 @@ module.exports = {
   },
 
   globals: {
-    jquery: true,
-    google: true
+    jquery: true
   }
 }
