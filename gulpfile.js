@@ -128,12 +128,6 @@ gulp.task('head', (cb) => {
   )
 })
 
-gulp.task('webpack', (cb) => {
-  pump([
-    
-  ]);
-})
-
 gulp.task('final-compress',['components','head'] , (cb) => {
   pump([
      gulp.src([...Libraries, ...Common]),

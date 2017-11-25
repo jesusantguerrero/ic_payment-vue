@@ -49,7 +49,7 @@ export default class clients {
   }
 
   getOne(id) {
-    const self;
+    const self = this;
     const form = "tabla=clientes&id=" + id;
     this.send('getone', form)
     then((res) => {

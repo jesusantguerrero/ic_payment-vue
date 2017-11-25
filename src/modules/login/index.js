@@ -1,24 +1,23 @@
 import Vue from 'vue';
-import LoginBox from './components/LoginBox';
-import Service from './service'
+import Service from './service/loginService'
 
 const login = new Vue({
-  name: 'login',
-  components: {
-    LoginBox
-  },
-
-  data:{
-    credentials: store.credentials
+  el: '.login-box',
+  data: {
+    credentials: {
+      user: '',
+      password: '',
+      email: '',
+      reset_toke: '',
+      csrf_token_name: ''
+    },
   },
 
   mounted() {
-    this.service = new Service('login')
-    this.defineActions();
+    this.service = new Service()
   },
 
   methods: {
-
     login() {
       if (!isEmpty([this.credentials.user, this.credentials.password])) {
         this.doLogin()

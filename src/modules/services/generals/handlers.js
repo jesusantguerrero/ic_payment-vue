@@ -1,10 +1,11 @@
+import Damages from './../notificaciones/damages';
+import Installations  from './../notificaciones/installations';
+
 export default (Generals) => {
   function initGlobalHandlers() {
     const averiaClientDni = $("#a-client-dni");
 
     if (currentPage == 'notificaciones') {
-      import Damages from './../notificaciones/damages';
-      import Installations  from './../notificaciones/installations';
 
       Generals.count_table("averias");
 
@@ -70,16 +71,14 @@ export default (Generals) => {
     });
 
     $("#extra-controls").on('click', function (e) {
-      import contracts from './../contracts/index'
-      const contracts = new contracts();
+      const Contracts = new contracts();
 
       e.stopImmediatePropagation();
       Contracts.btnExtraPressed($(this));
     });
 
     $("#extra-client-dni").on('keydown', function (e) {
-      import contracts from './../contracts/index'
-      const contracts = new contracts();
+      const Contracts = new contracts();
 
       var key = e.which;
       var dni = $(this).val()

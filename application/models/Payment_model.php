@@ -9,7 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Payment_model extends CI_MODEL{
-  
+
   public $id_pago = null;
   public $id_contrato;
   public $id_empleado = null;
@@ -26,17 +26,10 @@ class Payment_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->helper('lib_helper');
     $this->load->model('contract_model');
   }
-
-  /**
-  *
-  *@param array $data array with the data of the user
-  *@param string $mode "normal" for save it in an insert, "full" to storage all the data
-  *@return void
-  */
 
   function organize_data($data,$mode){
 
@@ -66,7 +59,7 @@ class Payment_model extends CI_MODEL{
         return true;
       }else{
         return false;
-      } 
+      }
   }
 
   public function get_payment($id, $as_receipt = false) {
@@ -96,11 +89,11 @@ class Payment_model extends CI_MODEL{
       }else{
        return false;
     }
-    
+
   }
 
   public function get_next_payment_of($id_contrato){
-    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato AND estado='no pagado' order by id_pago limit 1";
+    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = '$id_contrato' AND estado='no pagado' order by id_pago limit 1";
     $result = $this->db->query($sql);
     if($result){
       return $result->row_array();
@@ -109,14 +102,6 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-// DEPRECATED: eliminar esto 
-  public function get_recibo($id){
-    $this->db->where('id_pago', $id);
-    if ($result = $this->db->get('v_recibos')) {
-      return $result->row_array();
-    }
-  }
-  
   public function get_extras($id_pago, $get_values = false) {
     $pago = $this->get_payment($id_pago);
     if ($pago['servicios_adicionales']) {
@@ -138,7 +123,7 @@ class Payment_model extends CI_MODEL{
       }
     }
   }
-  
+
   public function save_extras($extras, $id_pago){
     $extras = json_encode($extras);
     return $this->update(["servicios_adicionales" => $extras], $id_pago);
@@ -151,7 +136,7 @@ class Payment_model extends CI_MODEL{
     } else {
       $key = join('',array_keys($new_extra));
       $extras[$key] = $new_extra[$key];
-    } 
+    }
     return $this->save_extras($extras, $id_pago);
   }
 
@@ -165,19 +150,17 @@ class Payment_model extends CI_MODEL{
         return $this->update(["servicios_adicionales" => null], $id_pago);
       }
     }
-  } 
+  }
 
   public function check_extras_fijos($id_pago, $id_contrato = false) {
     if (!$id_contrato) {
       $id_contrato = $this->get_payment($id_pago)['id_contrato'];
     }
+
     $pago = $this->get_payment($id_pago);
     $contract = $this->contract_model->get_contract($id_contrato);
-//TODO: argregar fecha del servicio extra fijo
-    //    $fecha_seguro = 
- //   $fecha_limite_pago = date()
 
-    if ($contract['extras_fijos'] && $pago['abono_a'] == null && $pago['estado'] == "no pagado") {
+    if ($contract['extras_fijos'] && $pago['abono_a'] == null && $pago['estado'] == "no pagado" && $pago['generado']) {
       $this->set_extra([
         $contract['extras_fijos'] => [
           "servicio" => $contract['nombre_seguro'],
@@ -190,7 +173,7 @@ class Payment_model extends CI_MODEL{
   }
 
   public function reorganize_values($id_pago){
-    $pago = $this->get_payment($id_pago);    
+    $pago = $this->get_payment($id_pago);
     $extras = $this->get_extras($pago['id_pago'], true);
 
     $updated_data = array(
@@ -244,7 +227,7 @@ class Payment_model extends CI_MODEL{
     if($result = $this->db->get('ic_pagos')){
       echo make_payment_table($result->result_array(),0);
     }
-  } 
+  }
 
   public function get_payments_of_contract($id){
     $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
@@ -253,7 +236,7 @@ class Payment_model extends CI_MODEL{
       $result = $result->result_array();
       return $result;
     }
-  }   
+  }
 
   public function list_all_of_contract($id_contrato){
     $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
@@ -299,8 +282,8 @@ class Payment_model extends CI_MODEL{
 
   public function get_incomes_per_month(){
     $resultado_por_mes = array();
-    
-    for ($i=1; $i <= 12 ; $i++) { 
+
+    for ($i=1; $i <= 12 ; $i++) {
       $value = $this->month_income($i);
       array_push($resultado_por_mes,$value);
     }
@@ -335,7 +318,7 @@ class Payment_model extends CI_MODEL{
       $result = $this->db->group_by('cliente');
     }
     $result = $this->db->get('v_morosos');
-    return $result->result_array(); 
+    return $result->result_array();
   }
 
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
@@ -343,7 +326,7 @@ class Payment_model extends CI_MODEL{
     if($result = $this->db->query($sql)):
       $result = $result->result_array();
       $result = make_next_payments_list($result);
-      echo $result; 
+      echo $result;
     else:
       echo " Error";
     endif;
@@ -353,7 +336,7 @@ class Payment_model extends CI_MODEL{
     $sql = "SELECT * FROM v_pagos_pendientes";
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);
-    echo $result; 
+    echo $result;
   }
 
   public function get_sum_monto_total_of($id_contrato){

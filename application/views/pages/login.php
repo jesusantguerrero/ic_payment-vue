@@ -8,7 +8,9 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>IC Payment | <?php echo $title; ?> </title>
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=1.0') ?>" />
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=pre-1.0.0') ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=pre-1.0.0') ?>"/>
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=pre-1.0.0') ?>"/>
   <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
 
 </head>
@@ -16,15 +18,13 @@
 <body class="login-body">
   <div class="container-fluid">
     <div class="row">
-      <div class="loader">
-        <span class="load"></span>
-      </div>
-    </div>
-    <div class="col-md-10 col-md-offset-1 card login-box">
-      <div class="hidden-xs">
-        <h1>IC PAYMENT</h1>
-      </div>
-      <div>
+      <div class="loader"> <span class="load"></span></div>
+     <div class="col-md-6">
+       <div class="hidden-xs">
+         <h1>IC PAYMENT</h1>
+       </div>
+       </div>
+      <div class="col-md-6 login-box">
         <form>
           <div class="cabecera">
             <img src="<?php echo base_url('favicon-96x96.png') ?>" alt="">
@@ -63,7 +63,8 @@
     <span></span>
   </div>
 
-  <script src="<?php echo base_url('assets/js/lib/jquery-3.2.1.min.js?version=3.7.8') ?>"></script>
+  <script src="<?php echo base_url('assets/js/vendor.js') ?>"></script>
+  <script src="<?php echo base_url('assets/js/login.js') ?>"></script>
 
   <script>
     setTimeout(function () {

@@ -7,19 +7,16 @@ export default class users {
 
   add() {
     const self = this
-    const form, nick, password, name, lastname, dni, type, is_empty;
-
-    nick      = $("#user-nickname").val();
-    password  = $("#user-password").val();
-    name      = $("#user-name").val();
-    lastname  = $("#user-lastname").val();
-    dni       = getVal($("#user-dni"));
-    type      = $("#user-type").val();
+    const nick      = $("#user-nickname").val();
+    const password  = $("#user-password").val();
+    const name      = $("#user-name").val();
+    const lastname  = $("#user-lastname").val();
+    const dni       = getVal($("#user-dni"));
+    const type      = $("#user-type").val();
 
     const is_empty = isEmpty([nick, password, name, lastname, dni, type]);
     if (!is_empty) {
-      form = 'nickname=' + nick + "&password=" + password + "&name=" + name + "&lastname=" + lastname;
-      form += "&dni=" + dni + "&type=" + type;
+      const form = 'nickname=' + nick + "&password=" + password + "&name=" + name + "&lastname=" + lastname + "&dni=" + dni + "&type=" + type;
       this.send('add', form)
       .then(()=>{
         self.getAll();
@@ -30,18 +27,15 @@ export default class users {
   }
 
   update() {
-    const form, nick, password, name, lastname, dni, type;
-
-    nick     = $("#e-nickname").val();
-    name     = $("#e-name").val();
-    lastname = $("#e-lastname").val();
-    dni      = $("#e-dni").val();
-    type     = $("#e-type").val();
-
+    const nick     = $("#e-nickname").val();
+    const name     = $("#e-name").val();
+    const lastname = $("#e-lastname").val();
+    const dni      = $("#e-dni").val();
+    const type     = $("#e-type").val();
     const is_empty = isEmpty([nick, name, lastname, dni, type]);
+
     if (!is_empty) {
-      form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname;
-      form += "&dni=" + dni + "&type=" + type;
+      const form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname + "&dni=" + dni + "&type=" + type;
       this.send('update', form)
       .then((res) => {
         self.getAll();

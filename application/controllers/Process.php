@@ -21,7 +21,7 @@ class Process extends CI_Controller {
 		$this->load->model("cancelations_model");
 	}
 
-	public function add(){ 
+	public function add(){
 		authenticate();
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
@@ -58,7 +58,7 @@ class Process extends CI_Controller {
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
 					$this->client_model->is_active(true,$data);
-					$contract_id = $this->contract_model->get_last_id_of($data['id_cliente']); 
+					$contract_id = $this->contract_model->get_last_id_of($data['id_cliente']);
 				 	create_payments($contract_id,$data,$this);
 					$this->section_model->update_ip_state($data['codigo'],'ocupado');
 					$this->contract_model->update_amount($contract_id);
@@ -78,7 +78,7 @@ class Process extends CI_Controller {
 		}
 
 	}
-	
+
 	public function getjson() {
     $data = json_decode($_POST['data']);
     $data = json_decode($_POST['data'],true);
@@ -113,7 +113,7 @@ class Process extends CI_Controller {
 					}
 				}
 				break;
-				
+
 			case "servicios":
 				$this->db->trans_start();
 				$this->service_model->update_service($data);
@@ -210,12 +210,12 @@ class Process extends CI_Controller {
 						$contract = $this->contract_model->get_contract_view($data['id_contrato']);
 						$this->section_model->update_ip_state($contract['codigo'],'disponible');
 						$data_for_update['ip'] = $data['ip'];
-						$data_for_update['codigo'] = $data['codigo'];	
-						$this->section_model->update_ip_state($data['codigo'],'ocupado');			
+						$data_for_update['codigo'] = $data['codigo'];
+						$this->section_model->update_ip_state($data['codigo'],'ocupado');
 				}
 				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
 				break;
-			
+
 		}
 	}
 
@@ -402,8 +402,8 @@ class Process extends CI_Controller {
 		switch ($tabla) {
 			case 'clientes':
 				$clients = $this->client_model->search_clients($word);
-				if ($clients) 
-				echo make_client_table($clients, 0);	
+				if ($clients)
+				echo make_client_table($clients, 0);
 				break;
 			case 'clientes_para_averias':
 				$res['items'] = $this->client_model->search_clients_for_message($query,'id_cliente');
@@ -418,7 +418,7 @@ class Process extends CI_Controller {
 			case 'caja':
 				 $this->caja_chica_model->search_in_rows($data['id_empleado'],$data['fecha']);
 				break;
-		} 
+		}
 	}
 
 	public function details($id,$active_window = "pagos"){
@@ -436,7 +436,7 @@ class Process extends CI_Controller {
 
 	public function getrecibo($id){
 		authenticate();
-		$recibo_info = $this->payment_model->get_recibo($id);
+		$recibo_info = $this->payment_model->get_payment($id, true);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
     if(str_contains('abono',$recibo_info['concepto'])){
       redirect(base_url('app/imprimir/recibo_abono'));
@@ -459,7 +459,7 @@ class Process extends CI_Controller {
 		$this->session->set_flashdata('requirement_info',$requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
-	
+
 	public function getrequirement($client_id,$service_id){
 		authenticate();
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
@@ -478,7 +478,7 @@ class Process extends CI_Controller {
 			$requirement_info['cancelacion']	= $this->contract_model->get_cancelation($contract_id);
 			$endpoint = 'app/imprimir/cancelacion';
 		} else {
-			$endpoint = 'app/imprimir/termino';	
+			$endpoint = 'app/imprimir/termino';
 		}
 		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url($endpoint));
@@ -524,9 +524,9 @@ class Process extends CI_Controller {
 				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
-	
+
 	}
-	
+
 	public function cancel(){
 		authenticate();
 		if(!$this->is_day_closed()){
@@ -555,7 +555,7 @@ class Process extends CI_Controller {
 		}else{
 			echo "nada";
 		}
-		
+
 	}
 
 	public function extend_contract(){
@@ -585,17 +585,17 @@ class Process extends CI_Controller {
 
 		$this->load->library('PHPExcel');
 		$this->load->library('PHPExcel/IOFactory');
-		
+
 		$myreport_sheet = create_excel_file($report);
 		$file = "reporte_tecnico.xlsx";
-		
+
 		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");
 		header("Content-Disposition: attachment; filename= $file");
 		header("Cache-Control: max-age=0");
 		header("Expires: 0");
 		$objWriter = IOFactory::createWriter($myreport_sheet, 'Excel2007');
 		$objWriter->save('php://output');
-		
+
 		print_r($myreport_sheet);
 	}
 

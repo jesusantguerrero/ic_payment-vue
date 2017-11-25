@@ -1,17 +1,14 @@
 import vars from './vars.js'
-import clients from './clients/index.js'
-import generals from './generals/index.js'
-import services from './services/index.js'
-import contracts from './contracts/index.js'
-import payments from './payments/index.js'
-import damages from './damages/index.js'
-import installations from './installations/index.js'
-import caja from './index.js'
-import company from './company/index.js'
-import settings from './settings/index.js'
-import sections from './sections/index.js';
-import extras from './extras/index.js';
-import users from './users/index.js';
+import clients from './clients'
+import generals from './generals'
+import services from './services'
+import contracts from './contracts'
+import payments from './payments'
+import caja from './caja'
+import company from './company'
+import settings from './settings'
+import sections from './sections';
+import users from './users';
 import detailsHandler from './details/handlers';
 
 

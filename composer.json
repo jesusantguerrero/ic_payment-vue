@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": "^5.6.0",
-		"vlucas/phpdotenv": "^2.4"
+		"vlucas/phpdotenv": "^2.4",
+		"dompdf/dompdf": "^0.8.1"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

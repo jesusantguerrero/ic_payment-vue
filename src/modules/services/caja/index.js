@@ -6,7 +6,7 @@ export default class caja {
   }
 
   add() {
-    const self;
+    const self = this;
     const amount = $("#caja-a-amount").val();
     const description = $("#caja-a-description").val();
     const form = "entrada=" + amount + "&descripcion=" + description + "&tabla=caja";
@@ -24,7 +24,7 @@ export default class caja {
   }
 
   retire() {
-    const self
+    const self = this;
     const amount = $("#caja-r-amount").val();
     const description = $("#caja-r-description").val();
     const form = "salida=" + amount + "&descripcion=" + description;

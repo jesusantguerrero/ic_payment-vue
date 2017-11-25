@@ -1,4 +1,3 @@
-import axios from './../../../assets/js/lib/axios';
 
 export default class Service {
   constructor(options) {
