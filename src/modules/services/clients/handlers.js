@@ -3,51 +3,51 @@ export default (Clients) => {
     clientTable.init();
   }
 
-  $("#btn-save-client").on('click', function (e) {
+  $('#btn-save-client').on('click', function (e) {
     e.stopImmediatePropagation();
     Clients.add();
   });
 
-  $("#update-client").on('click', function (e) {
+  $('#update-client').on('click', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    var id = clientTable.getId();
+    const id = clientTable.getId();
     if (id) {
       Clients.getOne(id, Clients.receiveForEdit);
     }
   });
 
-  $("#client-searcher").on('keyup', function (e) {
+  $('#client-searcher').on('keyup', function (e) {
     e.stopImmediatePropagation();
-    var text = $(this).val();
+    let text = $(this).val();
     Clients.search(text);
   });
 
-  $("#client-searcher-newcontract").on('keyup', function (e) {
+  $('#client-searcher-newcontract').on('keyup', function (e) {
     e.stopImmediatePropagation();
-    var text = $(this).val();
+    let text = $(this).val();
     if (!isEmpty([text])) {
       Clients.search(text);
     } else {
-      clearTbody(".lobby-results");
+      clearTbody('.lobby-results');
     }
   });
 
-  $("#delete-client").on('click', function (e) {
+  $('#delete-client').on('click', (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
-    var row = clientTable.getSelectedRow();
+    const row = clientTable.getSelectedRow();
     if (row) {
       swal({
         title: 'Está Seguro?',
-        text: "Desea Eliminar al(la) Cliente " + row.nombres + " " + row.apellidos + "?",
+        text: `Desea Eliminar al(la) Cliente ${row.nombres} ${row.apellidos}?`,
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Estoy Seguro!',
         cancelButtonText: 'Cancelar'
       }).then(function () {
-        Generals.deleteRow(row.id, "clientes")
+        cGenerals.deleteRow(row.id, 'clientes')
       });
     }
   });
-}
+};

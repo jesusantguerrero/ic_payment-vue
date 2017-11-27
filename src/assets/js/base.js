@@ -1,7 +1,5 @@
 $(function () {
-  var currentPage = $("title").text().split(" ");
-  currentPage = currentPage[4].toLowerCase().trim();
-  
+
   if (currentPage == "administrador") {
     newUserForm();
   }
@@ -10,7 +8,7 @@ $(function () {
   adminFunctions();
   userInfoTip();
   makeServiceCardClickable();
-  
+
   if (currentPage == "detalles" || currentPage != 'nuevo_contrato') {
     detailsFunctions();
   }
@@ -18,7 +16,7 @@ $(function () {
   notificationFunctions();
   newContractFunctions();
   checkWindowSize();
-  
+
   $(window).on('resize', function () {
     checkWindowSize();
   })
@@ -157,7 +155,7 @@ function newContractFunctions() {
   }
 }
 /********************************************************
- *                          Modals Functions                            
+ *                          Modals Functions
  *                                                       *
  ********************************************************/
 
@@ -185,7 +183,7 @@ $('#update-contract-modal').on('show.bs.modal', function (event) {
   $("#select-contract-sector").change();
 })
 /*********************************************************
- *              other functions                          * 
+ *              other functions                          *
  *                                                       *
  ********************************************************/
 // TODO: move -- usado en detalles y nuevo_contrato

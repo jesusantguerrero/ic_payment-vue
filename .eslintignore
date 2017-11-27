@@ -1,4 +1,5 @@
-resources/build/*.js
-resources/config/*.js
+webpack/build/*.js
+webpack/config/*.js
+assets/
 webpack.config.js
-
+/*.js

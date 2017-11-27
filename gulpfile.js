@@ -11,10 +11,17 @@ const babel       = require('gulp-babel')
 const pump        = require('pump')
 const del         = require('del')
 const merge       = require('merge-stream')
-const _           = require('lodash')
-const path        = './src/'
-const Path        = require('path');
+const path        = './src/assets/'
+const Path        = require('path')
 // my files
+
+config = {
+  css: {
+    origin: '',
+    test: '',
+    dest: './assets/css/'
+  }
+}
 
 var Head = [
   path + "js/lib/jquery-3.2.1.min.js",
@@ -45,10 +52,7 @@ const Common = [
   path + "js/tables/paymentTable.js",
   path + "js/tables/sectionTable.js",
   path + "js/lib/globals.js",
-  path + "js/base.js",
-  path + "js/controllers.js",
-  path + "js/ajax.js",
-  path + "js/ajax2.js",
+  path + "js/base.js"
 ]
 
 const Components  = `${path}js/components/**.js`
@@ -75,24 +79,23 @@ const superPath   = 'C:/xampp/htdocs/icpayment/'
 const distTest    = Path.resolve(superPath,'src','js','test')
 const dist        = Path.resolve(superPath,'assets','js','dist')
 const distMin     = Path.resolve(superPath,'assets','js','min')
-
 // sass taks
 
 gulp.task('sass', () => {
   const mainMinCSS = gulp.src([`${path}/css/**/*.sass`,`!${path}assets/css/_*.sass`, `${path }assets/css/*.sass}`])
     .pipe(sass({outputStyle:'compressed'}).on('error', sass.logError))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(path + '../assets/css'))
+    .pipe(gulp.dest(config.css.dest))
 
   const secundaryMinCSS = gulp.src(cssFiles)
     .pipe(concat("secundaryCss.min.css"))
     .pipe(cleanCss())
-    .pipe(gulp.dest(path + '../assets/css'))
+    .pipe(gulp.dest(config.css.dest))
 
     const frontendMinCSS = gulp.src(frontendCss)
     .pipe(concat("frontend.min.css"))
     .pipe(cleanCss())
-    .pipe(gulp.dest(path + '../assets/css/5-others/square'))
+    .pipe(gulp.dest(`${config.css.dest}5-others/square`))
 
   return merge(mainMinCSS,secundaryMinCSS,frontendMinCSS)
 });

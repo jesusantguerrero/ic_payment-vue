@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 export default class Service {
   constructor(options) {
@@ -7,11 +8,11 @@ export default class Service {
   }
 
   doLogin(credentials) {
-    return this.user.post('login',this.getForm(credentials));
+    return this.user.post('login', this.getForm(credentials));
   }
 
   resetPassword(credentials) {
-    return this.user.post('reset',this.getForm(credentials));
+    return this.user.post('reset', this.getForm(credentials));
   }
 
   validateReset(credentials) {
@@ -19,6 +20,6 @@ export default class Service {
   }
 
   getForm(data) {
-    const form = `data=${JSON.stringify(data)}`
+    return `data=${JSON.stringify(data)}`;
   }
 }

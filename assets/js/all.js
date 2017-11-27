@@ -1,4 +1,69 @@
-webpackJsonp([0],[
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "./";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ })
+/************************************************************************/
+/******/ ([
 /* 0 */,
 /* 1 */,
 /* 2 */,
@@ -11,1963 +76,168 @@ webpackJsonp([0],[
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vars_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vars_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__vars_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clients__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__generals__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contracts__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__payments__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__caja__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__company__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__settings__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__sections__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__users__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__details_handlers__ = __webpack_require__(32);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function initComponents() {
-  const Caja = new Caja();
-  const General = new Generals();
-
-  switch (currentPage) {
-    case "home":
-      new __WEBPACK_IMPORTED_MODULE_1__clients__["a" /* default */]();
-      break;
-    case "administrador":
-      new __WEBPACK_IMPORTED_MODULE_7__company__["a" /* default */]()
-      new __WEBPACK_IMPORTED_MODULE_10__users__["a" /* default */]();
-      new __WEBPACK_IMPORTED_MODULE_8__settings__["a" /* default */]();
-      new __WEBPACK_IMPORTED_MODULE_6__caja__["a" /* default */]();
-      break;
-    case "clientes":
-      new __WEBPACK_IMPORTED_MODULE_1__clients__["a" /* default */]();
-      break;
-    case "servicios":
-      ServicesHandler();
-      break;
-    case "nuevo_contrato":
-      new __WEBPACK_IMPORTED_MODULE_4__contracts__["a" /* default */]();
-      break;
-    case "detalles":
-      const Payments = new __WEBPACK_IMPORTED_MODULE_5__payments__["a" /* default */];
-      const Contracts = new __WEBPACK_IMPORTED_MODULE_4__contracts__["a" /* default */];
-      const Clients = new __WEBPACK_IMPORTED_MODULE_1__clients__["a" /* default */]();
-      Object(__WEBPACK_IMPORTED_MODULE_11__details_handlers__["a" /* default */])(Clients, Contracts, Payments);
-      break;
-    case "contratos":
-      new __WEBPACK_IMPORTED_MODULE_4__contracts__["a" /* default */]()
-      new __WEBPACK_IMPORTED_MODULE_1__clients__["a" /* default */]();
-      break;
-    case "secciones":
-      new __WEBPACK_IMPORTED_MODULE_9__sections__["a" /* default */]();
-      break;
-  }
-}
-
-$(function () {
-  initComponents()
-});
-
+eval("Object.defineProperty(__webpack_exports__, \"__esModule\", { value: true });\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__clients__ = __webpack_require__(9);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__generals__ = __webpack_require__(11);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services__ = __webpack_require__(15);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contracts__ = __webpack_require__(17);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__payments__ = __webpack_require__(19);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__caja__ = __webpack_require__(21);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__company__ = __webpack_require__(23);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__settings__ = __webpack_require__(25);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__sections__ = __webpack_require__(27);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__users__ = __webpack_require__(29);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__details_handlers__ = __webpack_require__(31);\n\n\n\n\n\n\n\n\n\n\n\n\nconst cClients = new __WEBPACK_IMPORTED_MODULE_0__clients__[\"a\" /* default */]();\nconst cGenerals = new __WEBPACK_IMPORTED_MODULE_1__generals__[\"a\" /* default */]();\nconst cServices = new __WEBPACK_IMPORTED_MODULE_2__services__[\"a\" /* default */]();\nconst cContracts = new __WEBPACK_IMPORTED_MODULE_3__contracts__[\"a\" /* default */]();\nconst cPayments = new __WEBPACK_IMPORTED_MODULE_4__payments__[\"a\" /* default */]();\nconst cCaja = new __WEBPACK_IMPORTED_MODULE_5__caja__[\"a\" /* default */]();\nconst cCompany = new __WEBPACK_IMPORTED_MODULE_6__company__[\"a\" /* default */]();\nconst cSettings = new __WEBPACK_IMPORTED_MODULE_7__settings__[\"a\" /* default */]();\nconst cSections = new __WEBPACK_IMPORTED_MODULE_8__sections__[\"a\" /* default */]();\nconst cUsers = new __WEBPACK_IMPORTED_MODULE_9__users__[\"a\" /* default */]();\n\nlet currentPage = $('title').text().split(' ');\ncurrentPage = currentPage[4].toLowerCase().trim();\n\n\nfunction initComponents() {\n  cCaja();\n  cGenerals();\n\n  switch (currentPage) {\n    case 'home':\n      cClients();\n      break;\n    case 'administrador':\n      cCompany();\n      cUsers();\n      cSettings();\n      break;\n    case 'clientes':\n      cClients();\n      break;\n    case 'servicios':\n      cServices();\n      break;\n    case 'secciones':\n      cSections();\n      break;\n    case 'nuevo_contrato':\n      cContracts();\n      break;\n    case 'detalles':\n      Object(__WEBPACK_IMPORTED_MODULE_10__details_handlers__[\"a\" /* default */])(cClients(), cContracts(), cPayments());\n      break;\n    case 'contratos':\n      cContracts();\n      cClients();\n      break;\n    default:\n      break;\n  }\n}\n\n$(() => {\n  initComponents();\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2luZGV4LmpzPzI2MjkiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IENsaWVudHMgZnJvbSAnLi9jbGllbnRzJztcbmltcG9ydCBHZW5lcmFscyBmcm9tICcuL2dlbmVyYWxzJztcbmltcG9ydCBTZXJ2aWNlcyBmcm9tICcuL3NlcnZpY2VzJztcbmltcG9ydCBDb250cmFjdHMgZnJvbSAnLi9jb250cmFjdHMnO1xuaW1wb3J0IFBheW1lbnRzIGZyb20gJy4vcGF5bWVudHMnO1xuaW1wb3J0IENhamEgZnJvbSAnLi9jYWphJztcbmltcG9ydCBDb21wYW55IGZyb20gJy4vY29tcGFueSc7XG5pbXBvcnQgU2V0dGluZ3MgZnJvbSAnLi9zZXR0aW5ncyc7XG5pbXBvcnQgU2VjdGlvbnMgZnJvbSAnLi9zZWN0aW9ucyc7XG5pbXBvcnQgVXNlcnMgZnJvbSAnLi91c2Vycyc7XG5pbXBvcnQgZGV0YWlsc0hhbmRsZXIgZnJvbSAnLi9kZXRhaWxzL2hhbmRsZXJzJztcblxuY29uc3QgY0NsaWVudHMgPSBuZXcgQ2xpZW50cygpO1xuY29uc3QgY0dlbmVyYWxzID0gbmV3IEdlbmVyYWxzKCk7XG5jb25zdCBjU2VydmljZXMgPSBuZXcgU2VydmljZXMoKTtcbmNvbnN0IGNDb250cmFjdHMgPSBuZXcgQ29udHJhY3RzKCk7XG5jb25zdCBjUGF5bWVudHMgPSBuZXcgUGF5bWVudHMoKTtcbmNvbnN0IGNDYWphID0gbmV3IENhamEoKTtcbmNvbnN0IGNDb21wYW55ID0gbmV3IENvbXBhbnkoKTtcbmNvbnN0IGNTZXR0aW5ncyA9IG5ldyBTZXR0aW5ncygpO1xuY29uc3QgY1NlY3Rpb25zID0gbmV3IFNlY3Rpb25zKCk7XG5jb25zdCBjVXNlcnMgPSBuZXcgVXNlcnMoKTtcblxubGV0IGN1cnJlbnRQYWdlID0gJCgndGl0bGUnKS50ZXh0KCkuc3BsaXQoJyAnKTtcbmN1cnJlbnRQYWdlID0gY3VycmVudFBhZ2VbNF0udG9Mb3dlckNhc2UoKS50cmltKCk7XG5cblxuZnVuY3Rpb24gaW5pdENvbXBvbmVudHMoKSB7XG4gIGNDYWphKCk7XG4gIGNHZW5lcmFscygpO1xuXG4gIHN3aXRjaCAoY3VycmVudFBhZ2UpIHtcbiAgICBjYXNlICdob21lJzpcbiAgICAgIGNDbGllbnRzKCk7XG4gICAgICBicmVhaztcbiAgICBjYXNlICdhZG1pbmlzdHJhZG9yJzpcbiAgICAgIGNDb21wYW55KCk7XG4gICAgICBjVXNlcnMoKTtcbiAgICAgIGNTZXR0aW5ncygpO1xuICAgICAgYnJlYWs7XG4gICAgY2FzZSAnY2xpZW50ZXMnOlxuICAgICAgY0NsaWVudHMoKTtcbiAgICAgIGJyZWFrO1xuICAgIGNhc2UgJ3NlcnZpY2lvcyc6XG4gICAgICBjU2VydmljZXMoKTtcbiAgICAgIGJyZWFrO1xuICAgIGNhc2UgJ3NlY2Npb25lcyc6XG4gICAgICBjU2VjdGlvbnMoKTtcbiAgICAgIGJyZWFrO1xuICAgIGNhc2UgJ251ZXZvX2NvbnRyYXRvJzpcbiAgICAgIGNDb250cmFjdHMoKTtcbiAgICAgIGJyZWFrO1xuICAgIGNhc2UgJ2RldGFsbGVzJzpcbiAgICAgIGRldGFpbHNIYW5kbGVyKGNDbGllbnRzKCksIGNDb250cmFjdHMoKSwgY1BheW1lbnRzKCkpO1xuICAgICAgYnJlYWs7XG4gICAgY2FzZSAnY29udHJhdG9zJzpcbiAgICAgIGNDb250cmFjdHMoKTtcbiAgICAgIGNDbGllbnRzKCk7XG4gICAgICBicmVhaztcbiAgICBkZWZhdWx0OlxuICAgICAgYnJlYWs7XG4gIH1cbn1cblxuJCgoKSA9PiB7XG4gIGluaXRDb21wb25lbnRzKCk7XG59KTtcblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDhcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///8\n");
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const currentPage = $("title").text().split(" ");
-let ran = false;
-currentPage = currentPage[4].toLowerCase().trim();
-
-
-defineAxios = axios.create({
-  baseURL: BASE_URL
-})
-
+"use strict";
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(10);\n\n\nclass clients {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  add() {\n    const self = this;\n    const nombres = $('#client-name').val();\n    const apellidos = $('#client-lastname').val();\n    const cedula = getVal($('#client-dni'));\n    const celular = getVal($('#client-phone'));\n    const provincia = $('#client-provincia').val();\n    const sector = $('#client-sector').val();\n    const calle = $('#client-street').val();\n    const casa = $('#client-house').val();\n    const detallesDireccion = $('#client-direction-details').val();\n    const telefono = getVal($('#client-telephone'));\n    const lugarTrabajo = $('#client-job').val();\n    const telTrabajo = getVal($('#client-job-telephone'));\n    const ingresos = $('#client-salary').val();\n    const fechaRegistro = moment().format('YYYY-MM-DD');\n    const estado = 'no activo';\n    let form;\n\n    const empty = isEmpty([nombres, apellidos, cedula, celular, provincia, sector, calle,\n      casa, telefono]);\n\n    if (!empty) {\n      form = `nombres=${nombres}&apellidos=${apellidos}&cedula=${cedula}&celular=${celular}`;\n      form += `&provincia=${provincia}&sector=${sector}&calle=${calle}&casa=${casa}&telefono=${telefono}`;\n      form += `&lugar_trabajo=${lugarTrabajo}&tel_trabajo=${telTrabajo}&ingresos=${ingresos}&fecha_registro=${fechaRegistro}`;\n      form += `&estado=${estado}&detalles_direccion=${detallesDireccion}&tabla=clientes`;\n\n      this.send('add', form);\n      then((res) => {\n        self.getAll();\n        displayMessage(res);\n      });\n    } else {\n      displayAlert('Revise', 'LLene todos los campos por favor', 'error');\n    }\n  }\n\n  getAll() {\n    const form = 'tabla=clientes';\n    this.send('getall', form)\n      .then((res) => {\n        clientTable.refresh(res);\n      });\n  }\n\n  getOne(id) {\n    const self = this;\n    const form = `tabla=clientes&id=${id}`;\n    this.send('getone', form);\n    then((res) => {\n      self.receiveForEdit(res);\n    });\n  }\n\n  search(word) {\n    const form = `tabla=clientes&word=${word}`;\n    this.send('search', form);\n    then((res) => {\n      fillCurrentTable(res);\n    });\n  }\n\n  receiveForEdit(content) {\n    const client = JSON.parse(content);\n    this.id = client.id_cliente;\n    const $nombres = $('#u-client-name');\n    const $apellidos = $('#u-client-lastname');\n    const $cedula = $('#u-client-dni');\n    const $celular = $('#u-client-phone');\n    const $provincia = $('#u-client-provincia');\n    const $sector = $('#u-client-sector');\n    const $calle = $('#u-client-street');\n    const $casa = $('#u-client-house');\n    const $detallesDireccion = $('#u-client-direction-details');\n    const $telefono = $('#u-client-telephone');\n    const $lugarTrabajo = $('#u-client-job');\n    const $telTrabajo = $('#u-client-job-telephone');\n    const $ingresos = $('#u-client-salary');\n\n    $nombres.val(client.nombres);\n    $apellidos.val(client.apellidos);\n    $cedula.val(client.cedula);\n    $celular.val(client.celular);\n    $provincia.val(client.provincia);\n    $sector.val(client.sector);\n    $calle.val(client.calle);\n    $casa.val(client.casa);\n    $detallesDireccion.val(client.detalles_direccion);\n    $telefono.val(client.telefono);\n    $lugarTrabajo.val(client.lugar_trabajo);\n    $telTrabajo.val(client.tel_trabajo);\n    $ingresos.val(client.salario);\n\n    function updateClient() {\n      const self = this;\n      const empty = isEmpty([$nombres.val(), $apellidos.val(), $cedula.val(), $celular.val(),\n        $provincia.val(), $sector.val(), $calle.val(), $casa.val(), $telefono.val()\n      ]);\n\n      if (!empty) {\n        form = `id=${id}&nombres=${$nombres.val()}&apellidos=${$apellidos.val()}&cedula=${getVal($cedula)}`;\n        form += `&celular=${getVal($celular)}&provincia=${$provincia.val()}&sector=${$sector.val()}&calle=${$calle.val()}`;\n        form += `&casa=${$casa.val()}&detalles_direccion=${$detallesDireccion.val()}&telefono=${getVal($telefono)}&lugar_trabajo=${$lugarTrabajo.val()}&tel_trabajo=`;\n        form += `${getVal($telTrabajo)}&tabla=clientes`;\n        form += `&ingresos=${$ingresos.val()}`;\n\n        this.send('update', form);\n        then((res) => {\n          self.getAll();\n          displayMessage(res);\n        });\n      } else {\n        displayAlert('Revise', 'LLene todos los campos por favor', 'error');\n      }\n    }\n\n    $('#update-client-modal').modal();\n    $('#btn-update-client').on('click', () => {\n      updateClient();\n    });\n  }\n\n  saveObservations() {\n    const observations = $('#text-observations').val();\n    const idCliente = $('#detail-client-id').val();\n    const form = `observaciones=${observations}&tabla=observaciones&id_cliente=${idCliente}`;\n\n    this.send('update', form);\n    then((res) => {\n      displayMessage(res);\n    });\n  }\n\n  updateState(client) {\n    const form = `data=${JSON.stringify(client)}&module=clientes&action=update`;\n    this.send('getjson', form);\n    then((res) => {\n      displayMessage(res);\n    });\n  }\n\n  send(endpoint, data) {\n    return axios.post(`${BASE_URL}process/${endpoint}`, data);\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = clients;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2NsaWVudHMvaW5kZXguanM/NWRiZSJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgaGFuZGxlciBmcm9tICcuL2hhbmRsZXJzJztcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgY2xpZW50cyB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIGhhbmRsZXIodGhpcyk7XG4gIH1cblxuICBhZGQoKSB7XG4gICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgY29uc3Qgbm9tYnJlcyA9ICQoJyNjbGllbnQtbmFtZScpLnZhbCgpO1xuICAgIGNvbnN0IGFwZWxsaWRvcyA9ICQoJyNjbGllbnQtbGFzdG5hbWUnKS52YWwoKTtcbiAgICBjb25zdCBjZWR1bGEgPSBnZXRWYWwoJCgnI2NsaWVudC1kbmknKSk7XG4gICAgY29uc3QgY2VsdWxhciA9IGdldFZhbCgkKCcjY2xpZW50LXBob25lJykpO1xuICAgIGNvbnN0IHByb3ZpbmNpYSA9ICQoJyNjbGllbnQtcHJvdmluY2lhJykudmFsKCk7XG4gICAgY29uc3Qgc2VjdG9yID0gJCgnI2NsaWVudC1zZWN0b3InKS52YWwoKTtcbiAgICBjb25zdCBjYWxsZSA9ICQoJyNjbGllbnQtc3RyZWV0JykudmFsKCk7XG4gICAgY29uc3QgY2FzYSA9ICQoJyNjbGllbnQtaG91c2UnKS52YWwoKTtcbiAgICBjb25zdCBkZXRhbGxlc0RpcmVjY2lvbiA9ICQoJyNjbGllbnQtZGlyZWN0aW9uLWRldGFpbHMnKS52YWwoKTtcbiAgICBjb25zdCB0ZWxlZm9ubyA9IGdldFZhbCgkKCcjY2xpZW50LXRlbGVwaG9uZScpKTtcbiAgICBjb25zdCBsdWdhclRyYWJham8gPSAkKCcjY2xpZW50LWpvYicpLnZhbCgpO1xuICAgIGNvbnN0IHRlbFRyYWJham8gPSBnZXRWYWwoJCgnI2NsaWVudC1qb2ItdGVsZXBob25lJykpO1xuICAgIGNvbnN0IGluZ3Jlc29zID0gJCgnI2NsaWVudC1zYWxhcnknKS52YWwoKTtcbiAgICBjb25zdCBmZWNoYVJlZ2lzdHJvID0gbW9tZW50KCkuZm9ybWF0KCdZWVlZLU1NLUREJyk7XG4gICAgY29uc3QgZXN0YWRvID0gJ25vIGFjdGl2byc7XG4gICAgbGV0IGZvcm07XG5cbiAgICBjb25zdCBlbXB0eSA9IGlzRW1wdHkoW25vbWJyZXMsIGFwZWxsaWRvcywgY2VkdWxhLCBjZWx1bGFyLCBwcm92aW5jaWEsIHNlY3RvciwgY2FsbGUsXG4gICAgICBjYXNhLCB0ZWxlZm9ub10pO1xuXG4gICAgaWYgKCFlbXB0eSkge1xuICAgICAgZm9ybSA9IGBub21icmVzPSR7bm9tYnJlc30mYXBlbGxpZG9zPSR7YXBlbGxpZG9zfSZjZWR1bGE9JHtjZWR1bGF9JmNlbHVsYXI9JHtjZWx1bGFyfWA7XG4gICAgICBmb3JtICs9IGAmcHJvdmluY2lhPSR7cHJvdmluY2lhfSZzZWN0b3I9JHtzZWN0b3J9JmNhbGxlPSR7Y2FsbGV9JmNhc2E9JHtjYXNhfSZ0ZWxlZm9ubz0ke3RlbGVmb25vfWA7XG4gICAgICBmb3JtICs9IGAmbHVnYXJfdHJhYmFqbz0ke2x1Z2FyVHJhYmFqb30mdGVsX3RyYWJham89JHt0ZWxUcmFiYWpvfSZpbmdyZXNvcz0ke2luZ3Jlc29zfSZmZWNoYV9yZWdpc3Rybz0ke2ZlY2hhUmVnaXN0cm99YDtcbiAgICAgIGZvcm0gKz0gYCZlc3RhZG89JHtlc3RhZG99JmRldGFsbGVzX2RpcmVjY2lvbj0ke2RldGFsbGVzRGlyZWNjaW9ufSZ0YWJsYT1jbGllbnRlc2A7XG5cbiAgICAgIHRoaXMuc2VuZCgnYWRkJywgZm9ybSk7XG4gICAgICB0aGVuKChyZXMpID0+IHtcbiAgICAgICAgc2VsZi5nZXRBbGwoKTtcbiAgICAgICAgZGlzcGxheU1lc3NhZ2UocmVzKTtcbiAgICAgIH0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoJ1JldmlzZScsICdMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvcicsICdlcnJvcicpO1xuICAgIH1cbiAgfVxuXG4gIGdldEFsbCgpIHtcbiAgICBjb25zdCBmb3JtID0gJ3RhYmxhPWNsaWVudGVzJztcbiAgICB0aGlzLnNlbmQoJ2dldGFsbCcsIGZvcm0pXG4gICAgICAudGhlbigocmVzKSA9PiB7XG4gICAgICAgIGNsaWVudFRhYmxlLnJlZnJlc2gocmVzKTtcbiAgICAgIH0pO1xuICB9XG5cbiAgZ2V0T25lKGlkKSB7XG4gICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgY29uc3QgZm9ybSA9IGB0YWJsYT1jbGllbnRlcyZpZD0ke2lkfWA7XG4gICAgdGhpcy5zZW5kKCdnZXRvbmUnLCBmb3JtKTtcbiAgICB0aGVuKChyZXMpID0+IHtcbiAgICAgIHNlbGYucmVjZWl2ZUZvckVkaXQocmVzKTtcbiAgICB9KTtcbiAgfVxuXG4gIHNlYXJjaCh3b3JkKSB7XG4gICAgY29uc3QgZm9ybSA9IGB0YWJsYT1jbGllbnRlcyZ3b3JkPSR7d29yZH1gO1xuICAgIHRoaXMuc2VuZCgnc2VhcmNoJywgZm9ybSk7XG4gICAgdGhlbigocmVzKSA9PiB7XG4gICAgICBmaWxsQ3VycmVudFRhYmxlKHJlcyk7XG4gICAgfSk7XG4gIH1cblxuICByZWNlaXZlRm9yRWRpdChjb250ZW50KSB7XG4gICAgY29uc3QgY2xpZW50ID0gSlNPTi5wYXJzZShjb250ZW50KTtcbiAgICB0aGlzLmlkID0gY2xpZW50LmlkX2NsaWVudGU7XG4gICAgY29uc3QgJG5vbWJyZXMgPSAkKCcjdS1jbGllbnQtbmFtZScpO1xuICAgIGNvbnN0ICRhcGVsbGlkb3MgPSAkKCcjdS1jbGllbnQtbGFzdG5hbWUnKTtcbiAgICBjb25zdCAkY2VkdWxhID0gJCgnI3UtY2xpZW50LWRuaScpO1xuICAgIGNvbnN0ICRjZWx1bGFyID0gJCgnI3UtY2xpZW50LXBob25lJyk7XG4gICAgY29uc3QgJHByb3ZpbmNpYSA9ICQoJyN1LWNsaWVudC1wcm92aW5jaWEnKTtcbiAgICBjb25zdCAkc2VjdG9yID0gJCgnI3UtY2xpZW50LXNlY3RvcicpO1xuICAgIGNvbnN0ICRjYWxsZSA9ICQoJyN1LWNsaWVudC1zdHJlZXQnKTtcbiAgICBjb25zdCAkY2FzYSA9ICQoJyN1LWNsaWVudC1ob3VzZScpO1xuICAgIGNvbnN0ICRkZXRhbGxlc0RpcmVjY2lvbiA9ICQoJyN1LWNsaWVudC1kaXJlY3Rpb24tZGV0YWlscycpO1xuICAgIGNvbnN0ICR0ZWxlZm9ubyA9ICQoJyN1LWNsaWVudC10ZWxlcGhvbmUnKTtcbiAgICBjb25zdCAkbHVnYXJUcmFiYWpvID0gJCgnI3UtY2xpZW50LWpvYicpO1xuICAgIGNvbnN0ICR0ZWxUcmFiYWpvID0gJCgnI3UtY2xpZW50LWpvYi10ZWxlcGhvbmUnKTtcbiAgICBjb25zdCAkaW5ncmVzb3MgPSAkKCcjdS1jbGllbnQtc2FsYXJ5Jyk7XG5cbiAgICAkbm9tYnJlcy52YWwoY2xpZW50Lm5vbWJyZXMpO1xuICAgICRhcGVsbGlkb3MudmFsKGNsaWVudC5hcGVsbGlkb3MpO1xuICAgICRjZWR1bGEudmFsKGNsaWVudC5jZWR1bGEpO1xuICAgICRjZWx1bGFyLnZhbChjbGllbnQuY2VsdWxhcik7XG4gICAgJHByb3ZpbmNpYS52YWwoY2xpZW50LnByb3ZpbmNpYSk7XG4gICAgJHNlY3Rvci52YWwoY2xpZW50LnNlY3Rvcik7XG4gICAgJGNhbGxlLnZhbChjbGllbnQuY2FsbGUpO1xuICAgICRjYXNhLnZhbChjbGllbnQuY2FzYSk7XG4gICAgJGRldGFsbGVzRGlyZWNjaW9uLnZhbChjbGllbnQuZGV0YWxsZXNfZGlyZWNjaW9uKTtcbiAgICAkdGVsZWZvbm8udmFsKGNsaWVudC50ZWxlZm9ubyk7XG4gICAgJGx1Z2FyVHJhYmFqby52YWwoY2xpZW50Lmx1Z2FyX3RyYWJham8pO1xuICAgICR0ZWxUcmFiYWpvLnZhbChjbGllbnQudGVsX3RyYWJham8pO1xuICAgICRpbmdyZXNvcy52YWwoY2xpZW50LnNhbGFyaW8pO1xuXG4gICAgZnVuY3Rpb24gdXBkYXRlQ2xpZW50KCkge1xuICAgICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgICBjb25zdCBlbXB0eSA9IGlzRW1wdHkoWyRub21icmVzLnZhbCgpLCAkYXBlbGxpZG9zLnZhbCgpLCAkY2VkdWxhLnZhbCgpLCAkY2VsdWxhci52YWwoKSxcbiAgICAgICAgJHByb3ZpbmNpYS52YWwoKSwgJHNlY3Rvci52YWwoKSwgJGNhbGxlLnZhbCgpLCAkY2FzYS52YWwoKSwgJHRlbGVmb25vLnZhbCgpXG4gICAgICBdKTtcblxuICAgICAgaWYgKCFlbXB0eSkge1xuICAgICAgICBmb3JtID0gYGlkPSR7aWR9Jm5vbWJyZXM9JHskbm9tYnJlcy52YWwoKX0mYXBlbGxpZG9zPSR7JGFwZWxsaWRvcy52YWwoKX0mY2VkdWxhPSR7Z2V0VmFsKCRjZWR1bGEpfWA7XG4gICAgICAgIGZvcm0gKz0gYCZjZWx1bGFyPSR7Z2V0VmFsKCRjZWx1bGFyKX0mcHJvdmluY2lhPSR7JHByb3ZpbmNpYS52YWwoKX0mc2VjdG9yPSR7JHNlY3Rvci52YWwoKX0mY2FsbGU9JHskY2FsbGUudmFsKCl9YDtcbiAgICAgICAgZm9ybSArPSBgJmNhc2E9JHskY2FzYS52YWwoKX0mZGV0YWxsZXNfZGlyZWNjaW9uPSR7JGRldGFsbGVzRGlyZWNjaW9uLnZhbCgpfSZ0ZWxlZm9ubz0ke2dldFZhbCgkdGVsZWZvbm8pfSZsdWdhcl90cmFiYWpvPSR7JGx1Z2FyVHJhYmFqby52YWwoKX0mdGVsX3RyYWJham89YDtcbiAgICAgICAgZm9ybSArPSBgJHtnZXRWYWwoJHRlbFRyYWJham8pfSZ0YWJsYT1jbGllbnRlc2A7XG4gICAgICAgIGZvcm0gKz0gYCZpbmdyZXNvcz0keyRpbmdyZXNvcy52YWwoKX1gO1xuXG4gICAgICAgIHRoaXMuc2VuZCgndXBkYXRlJywgZm9ybSk7XG4gICAgICAgIHRoZW4oKHJlcykgPT4ge1xuICAgICAgICAgIHNlbGYuZ2V0QWxsKCk7XG4gICAgICAgICAgZGlzcGxheU1lc3NhZ2UocmVzKTtcbiAgICAgICAgfSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBkaXNwbGF5QWxlcnQoJ1JldmlzZScsICdMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvcicsICdlcnJvcicpO1xuICAgICAgfVxuICAgIH1cblxuICAgICQoJyN1cGRhdGUtY2xpZW50LW1vZGFsJykubW9kYWwoKTtcbiAgICAkKCcjYnRuLXVwZGF0ZS1jbGllbnQnKS5vbignY2xpY2snLCAoKSA9PiB7XG4gICAgICB1cGRhdGVDbGllbnQoKTtcbiAgICB9KTtcbiAgfVxuXG4gIHNhdmVPYnNlcnZhdGlvbnMoKSB7XG4gICAgY29uc3Qgb2JzZXJ2YXRpb25zID0gJCgnI3RleHQtb2JzZXJ2YXRpb25zJykudmFsKCk7XG4gICAgY29uc3QgaWRDbGllbnRlID0gJCgnI2RldGFpbC1jbGllbnQtaWQnKS52YWwoKTtcbiAgICBjb25zdCBmb3JtID0gYG9ic2VydmFjaW9uZXM9JHtvYnNlcnZhdGlvbnN9JnRhYmxhPW9ic2VydmFjaW9uZXMmaWRfY2xpZW50ZT0ke2lkQ2xpZW50ZX1gO1xuXG4gICAgdGhpcy5zZW5kKCd1cGRhdGUnLCBmb3JtKTtcbiAgICB0aGVuKChyZXMpID0+IHtcbiAgICAgIGRpc3BsYXlNZXNzYWdlKHJlcyk7XG4gICAgfSk7XG4gIH1cblxuICB1cGRhdGVTdGF0ZShjbGllbnQpIHtcbiAgICBjb25zdCBmb3JtID0gYGRhdGE9JHtKU09OLnN0cmluZ2lmeShjbGllbnQpfSZtb2R1bGU9Y2xpZW50ZXMmYWN0aW9uPXVwZGF0ZWA7XG4gICAgdGhpcy5zZW5kKCdnZXRqc29uJywgZm9ybSk7XG4gICAgdGhlbigocmVzKSA9PiB7XG4gICAgICBkaXNwbGF5TWVzc2FnZShyZXMpO1xuICAgIH0pO1xuICB9XG5cbiAgc2VuZChlbmRwb2ludCwgZGF0YSkge1xuICAgIHJldHVybiBheGlvcy5wb3N0KGAke0JBU0VfVVJMfXByb2Nlc3MvJHtlbmRwb2ludH1gLCBkYXRhKTtcbiAgfVxufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jbGllbnRzL2luZGV4LmpzXG4vLyBtb2R1bGUgaWQgPSA5XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUFBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///9\n");
 
 /***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(11);
-
-class clients {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this)
-  }
-
-  add() {
-    const self = this
-    const nombres = $("#client-name").val();
-    const apellidos = $("#client-lastname").val();
-    const cedula = getVal($("#client-dni"));
-    const celular = getVal($("#client-phone"));
-    const provincia = $("#client-provincia").val();
-    const sector = $("#client-sector").val();
-    const calle = $("#client-street").val();
-    const casa = $('#client-house').val();
-    const detallesDireccion = $('#client-direction-details').val();
-    const telefono = getVal($('#client-telephone'));
-    const lugarTrabajo = $('#client-job').val();
-    const telTrabajo = getVal($('#client-job-telephone'));
-    const ingresos = $('#client-salary').val();
-    const fechaRegistro = moment().format("YYYY-MM-DD");
-    const estado = "no activo";
-    let form
-
-    const is_empty = isEmpty([nombres, apellidos, cedula, celular, provincia, sector, calle, casa, telefono]);
-    if (!is_empty) {
-      form = 'nombres=' + nombres + "&apellidos=" + apellidos + "&cedula=" + cedula + "&celular=" + celular;
-      form += "&provincia=" + provincia + "&sector=" + sector + "&calle=" + calle + "&casa=" + casa + "&telefono=" + telefono;
-      form += "&lugar_trabajo=" + lugarTrabajo + "&tel_trabajo=" + telTrabajo + "&ingresos=" + ingresos + "&fecha_registro=" + fechaRegistro;
-      form += "&estado=" + estado + "&detalles_direccion=" + detallesDireccion + "&tabla=clientes";
-
-      this.send('add', form)
-      then((res) => {
-        self.getAll()
-        displayMessage(res)
-      })
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  getAll() {
-    const form = "tabla=clientes";
-    this.send('getall', form)
-    .then((res)=> {
-      clientTable.refresh(res)
-    })
-  }
-
-  getOne(id) {
-    const self = this;
-    const form = "tabla=clientes&id=" + id;
-    this.send('getone', form)
-    then((res) => {
-      self.receiveForEdit(res);
-    })
-  }
-
-  search(word) {
-    const form = "tabla=" + "clientes" + "&word=" + word;
-    this.send('search', form)
-    then((res) => {
-      fillCurrentTable(res);
-    })
-  }
-
-  receiveForEdit(content) {
-    var client = JSON.parse(content);
-    this.id = client['id_cliente'];
-    var $nombres = $("#u-client-name");
-    var $apellidos = $("#u-client-lastname");
-    var $cedula = $("#u-client-dni");
-    var $celular = $("#u-client-phone");
-    var $provincia = $("#u-client-provincia");
-    var $sector = $("#u-client-sector");
-    var $calle = $("#u-client-street");
-    var $casa = $('#u-client-house');
-    var $detallesDireccion = $('#u-client-direction-details');
-    var $telefono = $('#u-client-telephone');
-    var $lugarTrabajo = $('#u-client-job');
-    var $telTrabajo = $('#u-client-job-telephone');
-    var $ingresos = $('#u-client-salary');
-
-    $nombres.val(client['nombres']);
-    $apellidos.val(client['apellidos']);
-    $cedula.val(client['cedula']);
-    $celular.val(client['celular']);
-    $provincia.val(client['provincia']);
-    $sector.val(client['sector']);
-    $calle.val(client['calle']);
-    $casa.val(client['casa']);
-    $detallesDireccion.val(client['detalles_direccion']);
-    $telefono.val(client['telefono']);
-    $lugarTrabajo.val(client['lugar_trabajo']);
-    $telTrabajo.val(client['tel_trabajo']);
-    $ingresos.val(client['salario']);
-
-    $("#update-client-modal").modal();
-    $("#btn-update-client").on('click', function () {
-      updateClient();
-    });
-
-    function updateClient() {
-      var is_empty = isEmpty([$nombres.val(), $apellidos.val(), $cedula.val(), $celular.val(), $provincia.val(), $sector.val(), $calle.val(),
-        $casa.val(), $telefono.val()
-      ]);
-
-      if (!is_empty) {
-        form = 'id=' + id + '&nombres=' + $nombres.val() + "&apellidos=" + $apellidos.val() + "&cedula=" + getVal($cedula);
-        form += "&celular=" + getVal($celular) + "&provincia=" + $provincia.val() + "&sector=" + $sector.val() + "&calle=" + $calle.val();
-        form += "&casa=" + $casa.val() + "&detalles_direccion=" + $detallesDireccion.val() + "&telefono=" + getVal($telefono) + "&lugar_trabajo=" + $lugarTrabajo.val() + "&tel_trabajo=";
-        form += getVal($telTrabajo) + "&tabla=clientes";
-        form += "&ingresos=" + $ingresos.val();
-
-        this.send('update', form)
-        then((res) => {
-          self.getAll()
-          displayMessage(res)
-        })
-      } else {
-        displayAlert("Revise", "LLene todos los campos por favor", "error");
-      }
-    }
-  }
-
-  saveObservations() {
-    const observations = $("#text-observations").val();
-    const idCliente = $("#detail-client-id").val();
-    const form = 'observaciones=' + observations + "&tabla=observaciones&id_cliente=" + idCliente;
-
-    this.send('update', form)
-    then((res) => {
-      displayMessage(res);
-    })
-  }
-
-  updateState(client) {
-    const form = 'data=' + JSON.stringify(client) + '&module=clientes&action=update';
-    this.send('getjson', form)
-    then((res) => {
-      displayMessage(res)
-    })
-  }
-
-  send(endpoint, data) {
-    return axios.post(`${BASE_URL}process/${endpoint}`, data)
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = clients;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Clients) => {\n  if (currentPage == 'clientes') {\n    clientTable.init();\n  }\n\n  $('#btn-save-client').on('click', function (e) {\n    e.stopImmediatePropagation();\n    Clients.add();\n  });\n\n  $('#update-client').on('click', function (e) {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    const id = clientTable.getId();\n    if (id) {\n      Clients.getOne(id, Clients.receiveForEdit);\n    }\n  });\n\n  $('#client-searcher').on('keyup', function (e) {\n    e.stopImmediatePropagation();\n    let text = $(this).val();\n    Clients.search(text);\n  });\n\n  $('#client-searcher-newcontract').on('keyup', function (e) {\n    e.stopImmediatePropagation();\n    let text = $(this).val();\n    if (!isEmpty([text])) {\n      Clients.search(text);\n    } else {\n      clearTbody('.lobby-results');\n    }\n  });\n\n  $('#delete-client').on('click', (e) => {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    const row = clientTable.getSelectedRow();\n    if (row) {\n      swal({\n        title: 'Está Seguro?',\n        text: `Desea Eliminar al(la) Cliente ${row.nombres} ${row.apellidos}?`,\n        type: 'warning',\n        showCancelButton: true,\n        confirmButtonText: 'Estoy Seguro!',\n        cancelButtonText: 'Cancelar'\n      }).then(function () {\n        cGenerals.deleteRow(row.id, 'clientes')\n      });\n    }\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jbGllbnRzL2hhbmRsZXJzLmpzPzEyNjciXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKENsaWVudHMpID0+IHtcbiAgaWYgKGN1cnJlbnRQYWdlID09ICdjbGllbnRlcycpIHtcbiAgICBjbGllbnRUYWJsZS5pbml0KCk7XG4gIH1cblxuICAkKCcjYnRuLXNhdmUtY2xpZW50Jykub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIENsaWVudHMuYWRkKCk7XG4gIH0pO1xuXG4gICQoJyN1cGRhdGUtY2xpZW50Jykub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBjb25zdCBpZCA9IGNsaWVudFRhYmxlLmdldElkKCk7XG4gICAgaWYgKGlkKSB7XG4gICAgICBDbGllbnRzLmdldE9uZShpZCwgQ2xpZW50cy5yZWNlaXZlRm9yRWRpdCk7XG4gICAgfVxuICB9KTtcblxuICAkKCcjY2xpZW50LXNlYXJjaGVyJykub24oJ2tleXVwJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIGxldCB0ZXh0ID0gJCh0aGlzKS52YWwoKTtcbiAgICBDbGllbnRzLnNlYXJjaCh0ZXh0KTtcbiAgfSk7XG5cbiAgJCgnI2NsaWVudC1zZWFyY2hlci1uZXdjb250cmFjdCcpLm9uKCdrZXl1cCcsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBsZXQgdGV4dCA9ICQodGhpcykudmFsKCk7XG4gICAgaWYgKCFpc0VtcHR5KFt0ZXh0XSkpIHtcbiAgICAgIENsaWVudHMuc2VhcmNoKHRleHQpO1xuICAgIH0gZWxzZSB7XG4gICAgICBjbGVhclRib2R5KCcubG9iYnktcmVzdWx0cycpO1xuICAgIH1cbiAgfSk7XG5cbiAgJCgnI2RlbGV0ZS1jbGllbnQnKS5vbignY2xpY2snLCAoZSkgPT4ge1xuICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIGNvbnN0IHJvdyA9IGNsaWVudFRhYmxlLmdldFNlbGVjdGVkUm93KCk7XG4gICAgaWYgKHJvdykge1xuICAgICAgc3dhbCh7XG4gICAgICAgIHRpdGxlOiAnRXN0w6EgU2VndXJvPycsXG4gICAgICAgIHRleHQ6IGBEZXNlYSBFbGltaW5hciBhbChsYSkgQ2xpZW50ZSAke3Jvdy5ub21icmVzfSAke3Jvdy5hcGVsbGlkb3N9P2AsXG4gICAgICAgIHR5cGU6ICd3YXJuaW5nJyxcbiAgICAgICAgc2hvd0NhbmNlbEJ1dHRvbjogdHJ1ZSxcbiAgICAgICAgY29uZmlybUJ1dHRvblRleHQ6ICdFc3RveSBTZWd1cm8hJyxcbiAgICAgICAgY2FuY2VsQnV0dG9uVGV4dDogJ0NhbmNlbGFyJ1xuICAgICAgfSkudGhlbihmdW5jdGlvbiAoKSB7XG4gICAgICAgIGNHZW5lcmFscy5kZWxldGVSb3cocm93LmlkLCAnY2xpZW50ZXMnKVxuICAgICAgfSk7XG4gICAgfVxuICB9KTtcbn07XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2NsaWVudHMvaGFuZGxlcnMuanNcbi8vIG1vZHVsZSBpZCA9IDEwXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///10\n");
 
 /***/ }),
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Clients) => {
-  if (currentPage == 'clientes') {
-    clientTable.init();
-  }
-
-  $("#btn-save-client").on('click', function (e) {
-    e.stopImmediatePropagation();
-    Clients.add();
-  });
-
-  $("#update-client").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    var id = clientTable.getId();
-    if (id) {
-      Clients.getOne(id, Clients.receiveForEdit);
-    }
-  });
-
-  $("#client-searcher").on('keyup', function (e) {
-    e.stopImmediatePropagation();
-    var text = $(this).val();
-    Clients.search(text);
-  });
-
-  $("#client-searcher-newcontract").on('keyup', function (e) {
-    e.stopImmediatePropagation();
-    var text = $(this).val();
-    if (!isEmpty([text])) {
-      Clients.search(text);
-    } else {
-      clearTbody(".lobby-results");
-    }
-  });
-
-  $("#delete-client").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    var row = clientTable.getSelectedRow();
-    if (row) {
-      swal({
-        title: 'Está Seguro?',
-        text: "Desea Eliminar al(la) Cliente " + row.nombres + " " + row.apellidos + "?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Estoy Seguro!',
-        cancelButtonText: 'Cancelar'
-      }).then(function () {
-        Generals.deleteRow(row.id, "clientes")
-      });
-    }
-  });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(12);\n\n\nclass generals {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  static deleteRow (id, tabla) {\n    var form = \"tabla=\" + tabla + \"&id=\" + id;\n    var handlers, callback;\n    switch (tabla) {\n      case 'clientes':\n        callback = Clients.getAll;\n        break;\n      case 'servicios':\n        callback = Services.getAll;\n        break;\n    }\n    connectAndSend('process/delete', true,null, null, form, callback);\n  }\n  /**\n   * Search manda un mensaje al servidor de los valores a buscar\n   * @param {string} text el valor a ser buscado\n   * @param {string} dbTable nombre de la tabla donde se desea consultar en la base de datos\n   * @param {function} fillTableFunction funcion de llenado de tabla donde se mostraran los resultados\n   * @param {function} handlerFunction funcion reinicio de los elementos en los handlers\n   */\n\n  static search (text, dbTable, fillTableFunction, handlerFunction) {\n    if (handlerFunction == undefined) handlerFunction = initClientHandlers;\n    if (fillTableFunction == undefined) fillTableFunction = fillCurrentTable;\n    var word = text;\n    if (word != null || word != \"\") {\n      var form = \"tabla=\" + dbTable + \"&word=\" + word;\n      connectAndSend('process/search', false, handlerFunction, fillTableFunction, form, null);\n    }\n  }\n\n  static count_table (table) {\n    var form = \"tabla=\" + table;\n    var updateFunction = updateCount;\n    if (table == 'caja') updateFunction = updateCajaCount\n    connectAndSend('process/count', false, null, updateFunction, form, null);\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = generals;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9nZW5lcmFscy9pbmRleC5qcz9hY2Q2Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVyIGZyb20gJy4vaGFuZGxlcnMnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBnZW5lcmFscyB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIGhhbmRsZXIodGhpcyk7XG4gIH1cblxuICBzdGF0aWMgZGVsZXRlUm93IChpZCwgdGFibGEpIHtcbiAgICB2YXIgZm9ybSA9IFwidGFibGE9XCIgKyB0YWJsYSArIFwiJmlkPVwiICsgaWQ7XG4gICAgdmFyIGhhbmRsZXJzLCBjYWxsYmFjaztcbiAgICBzd2l0Y2ggKHRhYmxhKSB7XG4gICAgICBjYXNlICdjbGllbnRlcyc6XG4gICAgICAgIGNhbGxiYWNrID0gQ2xpZW50cy5nZXRBbGw7XG4gICAgICAgIGJyZWFrO1xuICAgICAgY2FzZSAnc2VydmljaW9zJzpcbiAgICAgICAgY2FsbGJhY2sgPSBTZXJ2aWNlcy5nZXRBbGw7XG4gICAgICAgIGJyZWFrO1xuICAgIH1cbiAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy9kZWxldGUnLCB0cnVlLG51bGwsIG51bGwsIGZvcm0sIGNhbGxiYWNrKTtcbiAgfVxuICAvKipcbiAgICogU2VhcmNoIG1hbmRhIHVuIG1lbnNhamUgYWwgc2Vydmlkb3IgZGUgbG9zIHZhbG9yZXMgYSBidXNjYXJcbiAgICogQHBhcmFtIHtzdHJpbmd9IHRleHQgZWwgdmFsb3IgYSBzZXIgYnVzY2Fkb1xuICAgKiBAcGFyYW0ge3N0cmluZ30gZGJUYWJsZSBub21icmUgZGUgbGEgdGFibGEgZG9uZGUgc2UgZGVzZWEgY29uc3VsdGFyIGVuIGxhIGJhc2UgZGUgZGF0b3NcbiAgICogQHBhcmFtIHtmdW5jdGlvbn0gZmlsbFRhYmxlRnVuY3Rpb24gZnVuY2lvbiBkZSBsbGVuYWRvIGRlIHRhYmxhIGRvbmRlIHNlIG1vc3RyYXJhbiBsb3MgcmVzdWx0YWRvc1xuICAgKiBAcGFyYW0ge2Z1bmN0aW9ufSBoYW5kbGVyRnVuY3Rpb24gZnVuY2lvbiByZWluaWNpbyBkZSBsb3MgZWxlbWVudG9zIGVuIGxvcyBoYW5kbGVyc1xuICAgKi9cblxuICBzdGF0aWMgc2VhcmNoICh0ZXh0LCBkYlRhYmxlLCBmaWxsVGFibGVGdW5jdGlvbiwgaGFuZGxlckZ1bmN0aW9uKSB7XG4gICAgaWYgKGhhbmRsZXJGdW5jdGlvbiA9PSB1bmRlZmluZWQpIGhhbmRsZXJGdW5jdGlvbiA9IGluaXRDbGllbnRIYW5kbGVycztcbiAgICBpZiAoZmlsbFRhYmxlRnVuY3Rpb24gPT0gdW5kZWZpbmVkKSBmaWxsVGFibGVGdW5jdGlvbiA9IGZpbGxDdXJyZW50VGFibGU7XG4gICAgdmFyIHdvcmQgPSB0ZXh0O1xuICAgIGlmICh3b3JkICE9IG51bGwgfHwgd29yZCAhPSBcIlwiKSB7XG4gICAgICB2YXIgZm9ybSA9IFwidGFibGE9XCIgKyBkYlRhYmxlICsgXCImd29yZD1cIiArIHdvcmQ7XG4gICAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy9zZWFyY2gnLCBmYWxzZSwgaGFuZGxlckZ1bmN0aW9uLCBmaWxsVGFibGVGdW5jdGlvbiwgZm9ybSwgbnVsbCk7XG4gICAgfVxuICB9XG5cbiAgc3RhdGljIGNvdW50X3RhYmxlICh0YWJsZSkge1xuICAgIHZhciBmb3JtID0gXCJ0YWJsYT1cIiArIHRhYmxlO1xuICAgIHZhciB1cGRhdGVGdW5jdGlvbiA9IHVwZGF0ZUNvdW50O1xuICAgIGlmICh0YWJsZSA9PSAnY2FqYScpIHVwZGF0ZUZ1bmN0aW9uID0gdXBkYXRlQ2FqYUNvdW50XG4gICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvY291bnQnLCBmYWxzZSwgbnVsbCwgdXBkYXRlRnVuY3Rpb24sIGZvcm0sIG51bGwpO1xuICB9XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2dlbmVyYWxzL2luZGV4LmpzXG4vLyBtb2R1bGUgaWQgPSAxMVxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFBQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///11\n");
 
 /***/ }),
 /* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(13);
-
-
-class generals {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this);
-  }
-
-  static deleteRow (id, tabla) {
-    var form = "tabla=" + tabla + "&id=" + id;
-    var handlers, callback;
-    switch (tabla) {
-      case 'clientes':
-        callback = Clients.getAll;
-        break;
-      case 'servicios':
-        callback = Services.getAll;
-        break;
-    }
-    connectAndSend('process/delete', true,null, null, form, callback);
-  }
-  /**
-   * Search manda un mensaje al servidor de los valores a buscar
-   * @param {string} text el valor a ser buscado
-   * @param {string} dbTable nombre de la tabla donde se desea consultar en la base de datos
-   * @param {function} fillTableFunction funcion de llenado de tabla donde se mostraran los resultados
-   * @param {function} handlerFunction funcion reinicio de los elementos en los handlers
-   */
-
-  static search (text, dbTable, fillTableFunction, handlerFunction) {
-    if (handlerFunction == undefined) handlerFunction = initClientHandlers;
-    if (fillTableFunction == undefined) fillTableFunction = fillCurrentTable;
-    var word = text;
-    if (word != null || word != "") {
-      var form = "tabla=" + dbTable + "&word=" + word;
-      connectAndSend('process/search', false, handlerFunction, fillTableFunction, form, null);
-    }
-  }
-
-  static count_table (table) {
-    var form = "tabla=" + table;
-    var updateFunction = updateCount;
-    if (table == 'caja') updateFunction = updateCajaCount
-    connectAndSend('process/count', false, null, updateFunction, form, null);
-  }
-}
-/* unused harmony export default */
-
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__ = __webpack_require__(13);\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__ = __webpack_require__(14);\n\n\n\n/* harmony default export */ __webpack_exports__[\"a\"] = ((Generals) => {\n  function initGlobalHandlers() {\n    const averiaClientDni = $(\"#a-client-dni\");\n\n    if (currentPage == 'notificaciones') {\n\n      Generals.count_table(\"averias\");\n\n      $(\"#averias-view-mode\").on('change', function (e) {\n        e.stopImmediatePropagation();\n        __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__[\"a\" /* default */].getAll();\n      });\n\n      $(\"#installations-view-mode\").on('change', function (e) {\n        e.stopImmediatePropagation();\n        __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__[\"a\" /* default */].getAll();\n      });\n\n      $('tbody').css({\n        display: \"table-row-group\"\n      });\n    }\n\n    var averiaClient = $(\"#a-client\").select2({\n      dropdownParent: $('#new-averia-modal'),\n      width: '100%',\n      ajax: {\n        url: BASE_URL + 'process/search',\n        dataType: 'json',\n        delay: 250,\n        data: function (params) {\n          return {\n            q: params.term,\n            tabla: 'clientes_para_averias'\n          }\n        },\n\n        processResults: function (data, params) {\n          params.page = params.page || 1\n          return {\n            results: data.items,\n            pagination: {\n              more: (params.page * 30) < data.total_count\n            }\n          }\n        },\n        cache: true\n      }\n    })\n\n    $(\"#btn-save-averia\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__[\"a\" /* default */].add(averiaClient.val());\n    });\n\n    $(\".btn-update-averia\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      var id_averia = $(this).parents('.averia-item').find('.code')\n      id_averia = id_averia.text().trim();\n      __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__[\"a\" /* default */].update(id_averia);\n    });\n\n    $(\".btn-update-installation\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      var id_pago = $(this).parents('.averia-item').find('.code');\n      id_pago = id_pago.text().trim();\n      __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__[\"a\" /* default */].update(id_pago);\n    });\n\n    $(\"#extra-controls\").on('click', function (e) {\n      const Contracts = new contracts();\n\n      e.stopImmediatePropagation();\n      Contracts.btnExtraPressed($(this));\n    });\n\n    $(\"#extra-client-dni\").on('keydown', function (e) {\n      const Contracts = new contracts();\n\n      var key = e.which;\n      var dni = $(this).val()\n      if (key == 13) {\n        Contracts.getAllOfClient(dni);\n      }\n    });\n\n  }\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9nZW5lcmFscy9oYW5kbGVycy5qcz80N2RjIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBEYW1hZ2VzIGZyb20gJy4vLi4vbm90aWZpY2FjaW9uZXMvZGFtYWdlcyc7XG5pbXBvcnQgSW5zdGFsbGF0aW9ucyAgZnJvbSAnLi8uLi9ub3RpZmljYWNpb25lcy9pbnN0YWxsYXRpb25zJztcblxuZXhwb3J0IGRlZmF1bHQgKEdlbmVyYWxzKSA9PiB7XG4gIGZ1bmN0aW9uIGluaXRHbG9iYWxIYW5kbGVycygpIHtcbiAgICBjb25zdCBhdmVyaWFDbGllbnREbmkgPSAkKFwiI2EtY2xpZW50LWRuaVwiKTtcblxuICAgIGlmIChjdXJyZW50UGFnZSA9PSAnbm90aWZpY2FjaW9uZXMnKSB7XG5cbiAgICAgIEdlbmVyYWxzLmNvdW50X3RhYmxlKFwiYXZlcmlhc1wiKTtcblxuICAgICAgJChcIiNhdmVyaWFzLXZpZXctbW9kZVwiKS5vbignY2hhbmdlJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICAgICAgRGFtYWdlcy5nZXRBbGwoKTtcbiAgICAgIH0pO1xuXG4gICAgICAkKFwiI2luc3RhbGxhdGlvbnMtdmlldy1tb2RlXCIpLm9uKCdjaGFuZ2UnLCBmdW5jdGlvbiAoZSkge1xuICAgICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgICBJbnN0YWxsYXRpb25zLmdldEFsbCgpO1xuICAgICAgfSk7XG5cbiAgICAgICQoJ3Rib2R5JykuY3NzKHtcbiAgICAgICAgZGlzcGxheTogXCJ0YWJsZS1yb3ctZ3JvdXBcIlxuICAgICAgfSk7XG4gICAgfVxuXG4gICAgdmFyIGF2ZXJpYUNsaWVudCA9ICQoXCIjYS1jbGllbnRcIikuc2VsZWN0Mih7XG4gICAgICBkcm9wZG93blBhcmVudDogJCgnI25ldy1hdmVyaWEtbW9kYWwnKSxcbiAgICAgIHdpZHRoOiAnMTAwJScsXG4gICAgICBhamF4OiB7XG4gICAgICAgIHVybDogQkFTRV9VUkwgKyAncHJvY2Vzcy9zZWFyY2gnLFxuICAgICAgICBkYXRhVHlwZTogJ2pzb24nLFxuICAgICAgICBkZWxheTogMjUwLFxuICAgICAgICBkYXRhOiBmdW5jdGlvbiAocGFyYW1zKSB7XG4gICAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIHE6IHBhcmFtcy50ZXJtLFxuICAgICAgICAgICAgdGFibGE6ICdjbGllbnRlc19wYXJhX2F2ZXJpYXMnXG4gICAgICAgICAgfVxuICAgICAgICB9LFxuXG4gICAgICAgIHByb2Nlc3NSZXN1bHRzOiBmdW5jdGlvbiAoZGF0YSwgcGFyYW1zKSB7XG4gICAgICAgICAgcGFyYW1zLnBhZ2UgPSBwYXJhbXMucGFnZSB8fCAxXG4gICAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIHJlc3VsdHM6IGRhdGEuaXRlbXMsXG4gICAgICAgICAgICBwYWdpbmF0aW9uOiB7XG4gICAgICAgICAgICAgIG1vcmU6IChwYXJhbXMucGFnZSAqIDMwKSA8IGRhdGEudG90YWxfY291bnRcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH0sXG4gICAgICAgIGNhY2hlOiB0cnVlXG4gICAgICB9XG4gICAgfSlcblxuICAgICQoXCIjYnRuLXNhdmUtYXZlcmlhXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgRGFtYWdlcy5hZGQoYXZlcmlhQ2xpZW50LnZhbCgpKTtcbiAgICB9KTtcblxuICAgICQoXCIuYnRuLXVwZGF0ZS1hdmVyaWFcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICB2YXIgaWRfYXZlcmlhID0gJCh0aGlzKS5wYXJlbnRzKCcuYXZlcmlhLWl0ZW0nKS5maW5kKCcuY29kZScpXG4gICAgICBpZF9hdmVyaWEgPSBpZF9hdmVyaWEudGV4dCgpLnRyaW0oKTtcbiAgICAgIERhbWFnZXMudXBkYXRlKGlkX2F2ZXJpYSk7XG4gICAgfSk7XG5cbiAgICAkKFwiLmJ0bi11cGRhdGUtaW5zdGFsbGF0aW9uXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgdmFyIGlkX3BhZ28gPSAkKHRoaXMpLnBhcmVudHMoJy5hdmVyaWEtaXRlbScpLmZpbmQoJy5jb2RlJyk7XG4gICAgICBpZF9wYWdvID0gaWRfcGFnby50ZXh0KCkudHJpbSgpO1xuICAgICAgSW5zdGFsbGF0aW9ucy51cGRhdGUoaWRfcGFnbyk7XG4gICAgfSk7XG5cbiAgICAkKFwiI2V4dHJhLWNvbnRyb2xzXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBjb25zdCBDb250cmFjdHMgPSBuZXcgY29udHJhY3RzKCk7XG5cbiAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICBDb250cmFjdHMuYnRuRXh0cmFQcmVzc2VkKCQodGhpcykpO1xuICAgIH0pO1xuXG4gICAgJChcIiNleHRyYS1jbGllbnQtZG5pXCIpLm9uKCdrZXlkb3duJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgIGNvbnN0IENvbnRyYWN0cyA9IG5ldyBjb250cmFjdHMoKTtcblxuICAgICAgdmFyIGtleSA9IGUud2hpY2g7XG4gICAgICB2YXIgZG5pID0gJCh0aGlzKS52YWwoKVxuICAgICAgaWYgKGtleSA9PSAxMykge1xuICAgICAgICBDb250cmFjdHMuZ2V0QWxsT2ZDbGllbnQoZG5pKTtcbiAgICAgIH1cbiAgICB9KTtcblxuICB9XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2dlbmVyYWxzL2hhbmRsZXJzLmpzXG4vLyBtb2R1bGUgaWQgPSAxMlxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///12\n");
 
 /***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__ = __webpack_require__(15);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ((Generals) => {
-  function initGlobalHandlers() {
-    const averiaClientDni = $("#a-client-dni");
-
-    if (currentPage == 'notificaciones') {
-
-      Generals.count_table("averias");
-
-      $("#averias-view-mode").on('change', function (e) {
-        e.stopImmediatePropagation();
-        __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__["a" /* default */].getAll();
-      });
-
-      $("#installations-view-mode").on('change', function (e) {
-        e.stopImmediatePropagation();
-        __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__["a" /* default */].getAll();
-      });
-
-      $('tbody').css({
-        display: "table-row-group"
-      });
-    }
-
-    var averiaClient = $("#a-client").select2({
-      dropdownParent: $('#new-averia-modal'),
-      width: '100%',
-      ajax: {
-        url: BASE_URL + 'process/search',
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-          return {
-            q: params.term,
-            tabla: 'clientes_para_averias'
-          }
-        },
-
-        processResults: function (data, params) {
-          params.page = params.page || 1
-          return {
-            results: data.items,
-            pagination: {
-              more: (params.page * 30) < data.total_count
-            }
-          }
-        },
-        cache: true
-      }
-    })
-
-    $("#btn-save-averia").on('click', function (e) {
-      e.stopImmediatePropagation();
-      __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__["a" /* default */].add(averiaClient.val());
-    });
-
-    $(".btn-update-averia").on('click', function (e) {
-      e.stopImmediatePropagation();
-      var id_averia = $(this).parents('.averia-item').find('.code')
-      id_averia = id_averia.text().trim();
-      __WEBPACK_IMPORTED_MODULE_0__notificaciones_damages__["a" /* default */].update(id_averia);
-    });
-
-    $(".btn-update-installation").on('click', function (e) {
-      e.stopImmediatePropagation();
-      var id_pago = $(this).parents('.averia-item').find('.code');
-      id_pago = id_pago.text().trim();
-      __WEBPACK_IMPORTED_MODULE_1__notificaciones_installations__["a" /* default */].update(id_pago);
-    });
-
-    $("#extra-controls").on('click', function (e) {
-      const Contracts = new contracts();
-
-      e.stopImmediatePropagation();
-      Contracts.btnExtraPressed($(this));
-    });
-
-    $("#extra-client-dni").on('keydown', function (e) {
-      const Contracts = new contracts();
-
-      var key = e.which;
-      var dni = $(this).val()
-      if (key == 13) {
-        Contracts.getAllOfClient(dni);
-      }
-    });
-
-  }
-});
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = (damages = {\n    add: function (idCliente) {\n      var form, description;\n      description = $(\"#a-description\").val();\n\n      var is_empty = isEmpty([idCliente, description]);\n      if (!is_empty) {\n        form = 'id_cliente=' + idCliente + \"&descripcion=\" + description + \"&tabla=averias\";\n        connectAndSend(\"process/add\", true, initGlobalHandlers, null, form, Damages.getAll);\n      } else {\n         displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n      }\n      $('#new-averia-modal').find('input,textarea').val(\"\");\n    },\n\n    getAll: function () {\n      var status = $(\"#averias-view-mode\").val();\n      $(\".presentado\").text(status);\n      var form = \"tabla=averias&estado=\" + status;\n      connectAndSend('process/getall', false, initGlobalHandlers, fillAveriasList, form, null);\n    },\n\n    update: function ($id_averia) {\n      var form = \"tabla=averias&id_averia=\" + $id_averia;\n      connectAndSend('process/update', true, initGlobalHandlers, null, form, Damages.getAll);\n    }\n  });\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9ub3RpZmljYWNpb25lcy9kYW1hZ2VzL2luZGV4LmpzP2Q3YmQiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgZGFtYWdlcyA9IHtcbiAgICBhZGQ6IGZ1bmN0aW9uIChpZENsaWVudGUpIHtcbiAgICAgIHZhciBmb3JtLCBkZXNjcmlwdGlvbjtcbiAgICAgIGRlc2NyaXB0aW9uID0gJChcIiNhLWRlc2NyaXB0aW9uXCIpLnZhbCgpO1xuXG4gICAgICB2YXIgaXNfZW1wdHkgPSBpc0VtcHR5KFtpZENsaWVudGUsIGRlc2NyaXB0aW9uXSk7XG4gICAgICBpZiAoIWlzX2VtcHR5KSB7XG4gICAgICAgIGZvcm0gPSAnaWRfY2xpZW50ZT0nICsgaWRDbGllbnRlICsgXCImZGVzY3JpcGNpb249XCIgKyBkZXNjcmlwdGlvbiArIFwiJnRhYmxhPWF2ZXJpYXNcIjtcbiAgICAgICAgY29ubmVjdEFuZFNlbmQoXCJwcm9jZXNzL2FkZFwiLCB0cnVlLCBpbml0R2xvYmFsSGFuZGxlcnMsIG51bGwsIGZvcm0sIERhbWFnZXMuZ2V0QWxsKTtcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgICBkaXNwbGF5QWxlcnQoXCJSZXZpc2VcIiwgXCJMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvclwiLCBcImVycm9yXCIpO1xuICAgICAgfVxuICAgICAgJCgnI25ldy1hdmVyaWEtbW9kYWwnKS5maW5kKCdpbnB1dCx0ZXh0YXJlYScpLnZhbChcIlwiKTtcbiAgICB9LFxuXG4gICAgZ2V0QWxsOiBmdW5jdGlvbiAoKSB7XG4gICAgICB2YXIgc3RhdHVzID0gJChcIiNhdmVyaWFzLXZpZXctbW9kZVwiKS52YWwoKTtcbiAgICAgICQoXCIucHJlc2VudGFkb1wiKS50ZXh0KHN0YXR1cyk7XG4gICAgICB2YXIgZm9ybSA9IFwidGFibGE9YXZlcmlhcyZlc3RhZG89XCIgKyBzdGF0dXM7XG4gICAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy9nZXRhbGwnLCBmYWxzZSwgaW5pdEdsb2JhbEhhbmRsZXJzLCBmaWxsQXZlcmlhc0xpc3QsIGZvcm0sIG51bGwpO1xuICAgIH0sXG5cbiAgICB1cGRhdGU6IGZ1bmN0aW9uICgkaWRfYXZlcmlhKSB7XG4gICAgICB2YXIgZm9ybSA9IFwidGFibGE9YXZlcmlhcyZpZF9hdmVyaWE9XCIgKyAkaWRfYXZlcmlhO1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvdXBkYXRlJywgdHJ1ZSwgaW5pdEdsb2JhbEhhbmRsZXJzLCBudWxsLCBmb3JtLCBEYW1hZ2VzLmdldEFsbCk7XG4gICAgfVxuICB9XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL25vdGlmaWNhY2lvbmVzL2RhbWFnZXMvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDEzXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///13\n");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (damages = {
-    add: function (idCliente) {
-      var form, description;
-      description = $("#a-description").val();
-
-      var is_empty = isEmpty([idCliente, description]);
-      if (!is_empty) {
-        form = 'id_cliente=' + idCliente + "&descripcion=" + description + "&tabla=averias";
-        connectAndSend("process/add", true, initGlobalHandlers, null, form, Damages.getAll);
-      } else {
-         displayAlert("Revise", "LLene todos los campos por favor", "error");
-      }
-      $('#new-averia-modal').find('input,textarea').val("");
-    },
-
-    getAll: function () {
-      var status = $("#averias-view-mode").val();
-      $(".presentado").text(status);
-      var form = "tabla=averias&estado=" + status;
-      connectAndSend('process/getall', false, initGlobalHandlers, fillAveriasList, form, null);
-    },
-
-    update: function ($id_averia) {
-      var form = "tabla=averias&id_averia=" + $id_averia;
-      connectAndSend('process/update', true, initGlobalHandlers, null, form, Damages.getAll);
-    }
-  });
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = (installations = {\n  getAll: function () {\n    var status = $(\"#installations-view-mode\").val();\n    var form = \"tabla=instalaciones&estado=\" + status;\n    connectAndSend('process/getall', false, initGlobalHandlers, fillInstallationsList, form, null);\n  },\n\n  update: function ($id_pago) {\n    var form = \"tabla=instalaciones&id_pago=\" + $id_pago;\n    connectAndSend('process/update', true, initGlobalHandlers, null, form, Installations.getAll);\n  }\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9ub3RpZmljYWNpb25lcy9pbnN0YWxsYXRpb25zL2luZGV4LmpzPzZmMDciXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgaW5zdGFsbGF0aW9ucyA9IHtcbiAgZ2V0QWxsOiBmdW5jdGlvbiAoKSB7XG4gICAgdmFyIHN0YXR1cyA9ICQoXCIjaW5zdGFsbGF0aW9ucy12aWV3LW1vZGVcIikudmFsKCk7XG4gICAgdmFyIGZvcm0gPSBcInRhYmxhPWluc3RhbGFjaW9uZXMmZXN0YWRvPVwiICsgc3RhdHVzO1xuICAgIGNvbm5lY3RBbmRTZW5kKCdwcm9jZXNzL2dldGFsbCcsIGZhbHNlLCBpbml0R2xvYmFsSGFuZGxlcnMsIGZpbGxJbnN0YWxsYXRpb25zTGlzdCwgZm9ybSwgbnVsbCk7XG4gIH0sXG5cbiAgdXBkYXRlOiBmdW5jdGlvbiAoJGlkX3BhZ28pIHtcbiAgICB2YXIgZm9ybSA9IFwidGFibGE9aW5zdGFsYWNpb25lcyZpZF9wYWdvPVwiICsgJGlkX3BhZ287XG4gICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvdXBkYXRlJywgdHJ1ZSwgaW5pdEdsb2JhbEhhbmRsZXJzLCBudWxsLCBmb3JtLCBJbnN0YWxsYXRpb25zLmdldEFsbCk7XG4gIH1cbn1cblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvbm90aWZpY2FjaW9uZXMvaW5zdGFsbGF0aW9ucy9pbmRleC5qc1xuLy8gbW9kdWxlIGlkID0gMTRcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///14\n");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (installations = {
-  getAll: function () {
-    var status = $("#installations-view-mode").val();
-    var form = "tabla=instalaciones&estado=" + status;
-    connectAndSend('process/getall', false, initGlobalHandlers, fillInstallationsList, form, null);
-  },
-
-  update: function ($id_pago) {
-    var form = "tabla=instalaciones&id_pago=" + $id_pago;
-    connectAndSend('process/update', true, initGlobalHandlers, null, form, Installations.getAll);
-  }
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(16);\n\n\nclass services {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  add() {\n    var form, name, description, payment, type;\n\n    name        = $(\"#service-name\").val();\n    description = $(\"#service-description\").val();\n    payment     = $(\"#service-monthly-payment\").val();\n    type        = $(\"#service-type\").val();\n\n    var is_empty = isEmpty([name, description, payment, type]);\n    if (!is_empty) {\n      form = 'nombre=' + name + \"&descripcion=\" + description + \"&mensualidad=\" + payment + \"&tipo=\" + type;\n      form += \"&tabla=servicios\";\n      connectAndSend(\"process/add\", true, null, null, form, Services.getAll);\n    } else {\n      displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n    }\n  }\n\n  getAll () {\n    var form = \"tabla=servicios\";\n    connectAndSend('process/getall', false, null, serviceTable.refresh, form, null);\n  }\n\n  update () {\n    var form, id, name, description, payment, type;\n\n    id          = $('#u-service-id').val();\n    name        = $('#u-service-name').val();\n    description = $('#u-service-description').val();\n    payment     = $('#u-service-monthly-payment').val();\n    type        = $('#u-service-type').val();\n\n    var is_empty = isEmpty([id, name, description, payment, type]);\n    if (!is_empty) {\n      form = 'id_servicio=' + id + \"&nombre=\" + name + \"&descripcion=\" + description + \"&mensualidad=\" + payment;\n      form += \"&tipo=\" + type + \"&tabla=servicios\";\n      connectAndSend(\"process/update\", true, null, null, form, Services.getAll,heavyLoad);\n    } else {\n      displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n    }\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = services;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXJ2aWNlcy9pbmRleC5qcz9iNTA3Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVycyBmcm9tICcuL2hhbmRsZXJzJ1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBzZXJ2aWNlcyB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIGhhbmRsZXJzKHRoaXMpO1xuICB9XG5cbiAgYWRkKCkge1xuICAgIHZhciBmb3JtLCBuYW1lLCBkZXNjcmlwdGlvbiwgcGF5bWVudCwgdHlwZTtcblxuICAgIG5hbWUgICAgICAgID0gJChcIiNzZXJ2aWNlLW5hbWVcIikudmFsKCk7XG4gICAgZGVzY3JpcHRpb24gPSAkKFwiI3NlcnZpY2UtZGVzY3JpcHRpb25cIikudmFsKCk7XG4gICAgcGF5bWVudCAgICAgPSAkKFwiI3NlcnZpY2UtbW9udGhseS1wYXltZW50XCIpLnZhbCgpO1xuICAgIHR5cGUgICAgICAgID0gJChcIiNzZXJ2aWNlLXR5cGVcIikudmFsKCk7XG5cbiAgICB2YXIgaXNfZW1wdHkgPSBpc0VtcHR5KFtuYW1lLCBkZXNjcmlwdGlvbiwgcGF5bWVudCwgdHlwZV0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGZvcm0gPSAnbm9tYnJlPScgKyBuYW1lICsgXCImZGVzY3JpcGNpb249XCIgKyBkZXNjcmlwdGlvbiArIFwiJm1lbnN1YWxpZGFkPVwiICsgcGF5bWVudCArIFwiJnRpcG89XCIgKyB0eXBlO1xuICAgICAgZm9ybSArPSBcIiZ0YWJsYT1zZXJ2aWNpb3NcIjtcbiAgICAgIGNvbm5lY3RBbmRTZW5kKFwicHJvY2Vzcy9hZGRcIiwgdHJ1ZSwgbnVsbCwgbnVsbCwgZm9ybSwgU2VydmljZXMuZ2V0QWxsKTtcbiAgICB9IGVsc2Uge1xuICAgICAgZGlzcGxheUFsZXJ0KFwiUmV2aXNlXCIsIFwiTExlbmUgdG9kb3MgbG9zIGNhbXBvcyBwb3IgZmF2b3JcIiwgXCJlcnJvclwiKTtcbiAgICB9XG4gIH1cblxuICBnZXRBbGwgKCkge1xuICAgIHZhciBmb3JtID0gXCJ0YWJsYT1zZXJ2aWNpb3NcIjtcbiAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy9nZXRhbGwnLCBmYWxzZSwgbnVsbCwgc2VydmljZVRhYmxlLnJlZnJlc2gsIGZvcm0sIG51bGwpO1xuICB9XG5cbiAgdXBkYXRlICgpIHtcbiAgICB2YXIgZm9ybSwgaWQsIG5hbWUsIGRlc2NyaXB0aW9uLCBwYXltZW50LCB0eXBlO1xuXG4gICAgaWQgICAgICAgICAgPSAkKCcjdS1zZXJ2aWNlLWlkJykudmFsKCk7XG4gICAgbmFtZSAgICAgICAgPSAkKCcjdS1zZXJ2aWNlLW5hbWUnKS52YWwoKTtcbiAgICBkZXNjcmlwdGlvbiA9ICQoJyN1LXNlcnZpY2UtZGVzY3JpcHRpb24nKS52YWwoKTtcbiAgICBwYXltZW50ICAgICA9ICQoJyN1LXNlcnZpY2UtbW9udGhseS1wYXltZW50JykudmFsKCk7XG4gICAgdHlwZSAgICAgICAgPSAkKCcjdS1zZXJ2aWNlLXR5cGUnKS52YWwoKTtcblxuICAgIHZhciBpc19lbXB0eSA9IGlzRW1wdHkoW2lkLCBuYW1lLCBkZXNjcmlwdGlvbiwgcGF5bWVudCwgdHlwZV0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGZvcm0gPSAnaWRfc2VydmljaW89JyArIGlkICsgXCImbm9tYnJlPVwiICsgbmFtZSArIFwiJmRlc2NyaXBjaW9uPVwiICsgZGVzY3JpcHRpb24gKyBcIiZtZW5zdWFsaWRhZD1cIiArIHBheW1lbnQ7XG4gICAgICBmb3JtICs9IFwiJnRpcG89XCIgKyB0eXBlICsgXCImdGFibGE9c2VydmljaW9zXCI7XG4gICAgICBjb25uZWN0QW5kU2VuZChcInByb2Nlc3MvdXBkYXRlXCIsIHRydWUsIG51bGwsIG51bGwsIGZvcm0sIFNlcnZpY2VzLmdldEFsbCxoZWF2eUxvYWQpO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoXCJSZXZpc2VcIiwgXCJMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvclwiLCBcImVycm9yXCIpO1xuICAgIH1cbiAgfVxufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXJ2aWNlcy9pbmRleC5qc1xuLy8gbW9kdWxlIGlkID0gMTVcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFBQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///15\n");
 
 /***/ }),
 /* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(17);
-
-
-class services {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this);
-  }
-
-  add() {
-    var form, name, description, payment, type;
-
-    name        = $("#service-name").val();
-    description = $("#service-description").val();
-    payment     = $("#service-monthly-payment").val();
-    type        = $("#service-type").val();
-
-    var is_empty = isEmpty([name, description, payment, type]);
-    if (!is_empty) {
-      form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
-      form += "&tabla=servicios";
-      connectAndSend("process/add", true, null, null, form, Services.getAll);
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  getAll () {
-    var form = "tabla=servicios";
-    connectAndSend('process/getall', false, null, serviceTable.refresh, form, null);
-  }
-
-  update () {
-    var form, id, name, description, payment, type;
-
-    id          = $('#u-service-id').val();
-    name        = $('#u-service-name').val();
-    description = $('#u-service-description').val();
-    payment     = $('#u-service-monthly-payment').val();
-    type        = $('#u-service-type').val();
-
-    var is_empty = isEmpty([id, name, description, payment, type]);
-    if (!is_empty) {
-      form = 'id_servicio=' + id + "&nombre=" + name + "&descripcion=" + description + "&mensualidad=" + payment;
-      form += "&tipo=" + type + "&tabla=servicios";
-      connectAndSend("process/update", true, null, null, form, Services.getAll,heavyLoad);
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-}
-/* unused harmony export default */
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Services) => {\n    serviceTable.init();\n\n    $(\"#btn-save-service\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      Services.add();\n    });\n\n    $(\"#delete-service\").on('click', function (e) {\n      e.preventDefault();\n      e.stopImmediatePropagation();\n      var id = serviceTable.getId();\n      if (id) {\n        swal({\n          title: 'Está Seguro?',\n          text: \"Desea Eliminar  el Servicio?\",\n          type: 'warning',\n          showCancelButton: true,\n          confirmButtonText: 'Estoy Seguro!',\n          cancelButtonText: 'Cancelar'\n        }).then(function () {\n          Generals.deleteRow(id, \"servicios\");\n        });\n      }\n    });\n\n    $(\"#edit-service\").on('click', function (e) {\n      e.preventDefault();\n      var row = serviceTable.getSelectedRow();\n\n      $('#u-service-id').val(row.id);\n      $('#u-service-name').val(row.nombre);\n      $('#u-service-description').val(row.descripcion);\n      $('#u-service-monthly-payment').val(Number(row.mensualidad.replace(\"RD$ \", '')));\n      $('#u-service-type').val(row.tipo);\n      $('#update-service-modal').modal();\n\n    });\n\n    $(\"#btn-update-service\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      Services.update();\n    });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXJ2aWNlcy9oYW5kbGVycy5qcz9mN2FkIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChTZXJ2aWNlcykgPT4ge1xuICAgIHNlcnZpY2VUYWJsZS5pbml0KCk7XG5cbiAgICAkKFwiI2J0bi1zYXZlLXNlcnZpY2VcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICBTZXJ2aWNlcy5hZGQoKTtcbiAgICB9KTtcblxuICAgICQoXCIjZGVsZXRlLXNlcnZpY2VcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICB2YXIgaWQgPSBzZXJ2aWNlVGFibGUuZ2V0SWQoKTtcbiAgICAgIGlmIChpZCkge1xuICAgICAgICBzd2FsKHtcbiAgICAgICAgICB0aXRsZTogJ0VzdMOhIFNlZ3Vybz8nLFxuICAgICAgICAgIHRleHQ6IFwiRGVzZWEgRWxpbWluYXIgIGVsIFNlcnZpY2lvP1wiLFxuICAgICAgICAgIHR5cGU6ICd3YXJuaW5nJyxcbiAgICAgICAgICBzaG93Q2FuY2VsQnV0dG9uOiB0cnVlLFxuICAgICAgICAgIGNvbmZpcm1CdXR0b25UZXh0OiAnRXN0b3kgU2VndXJvIScsXG4gICAgICAgICAgY2FuY2VsQnV0dG9uVGV4dDogJ0NhbmNlbGFyJ1xuICAgICAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICBHZW5lcmFscy5kZWxldGVSb3coaWQsIFwic2VydmljaW9zXCIpO1xuICAgICAgICB9KTtcbiAgICAgIH1cbiAgICB9KTtcblxuICAgICQoXCIjZWRpdC1zZXJ2aWNlXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICB2YXIgcm93ID0gc2VydmljZVRhYmxlLmdldFNlbGVjdGVkUm93KCk7XG5cbiAgICAgICQoJyN1LXNlcnZpY2UtaWQnKS52YWwocm93LmlkKTtcbiAgICAgICQoJyN1LXNlcnZpY2UtbmFtZScpLnZhbChyb3cubm9tYnJlKTtcbiAgICAgICQoJyN1LXNlcnZpY2UtZGVzY3JpcHRpb24nKS52YWwocm93LmRlc2NyaXBjaW9uKTtcbiAgICAgICQoJyN1LXNlcnZpY2UtbW9udGhseS1wYXltZW50JykudmFsKE51bWJlcihyb3cubWVuc3VhbGlkYWQucmVwbGFjZShcIlJEJCBcIiwgJycpKSk7XG4gICAgICAkKCcjdS1zZXJ2aWNlLXR5cGUnKS52YWwocm93LnRpcG8pO1xuICAgICAgJCgnI3VwZGF0ZS1zZXJ2aWNlLW1vZGFsJykubW9kYWwoKTtcblxuICAgIH0pO1xuXG4gICAgJChcIiNidG4tdXBkYXRlLXNlcnZpY2VcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICBTZXJ2aWNlcy51cGRhdGUoKTtcbiAgICB9KTtcbn1cblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvc2VydmljZXMvaGFuZGxlcnMuanNcbi8vIG1vZHVsZSBpZCA9IDE2XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///16\n");
 
 /***/ }),
 /* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Services) => {
-    serviceTable.init();
-
-    $("#btn-save-service").on('click', function (e) {
-      e.stopImmediatePropagation();
-      Services.add();
-    });
-
-    $("#delete-service").on('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      var id = serviceTable.getId();
-      if (id) {
-        swal({
-          title: 'Está Seguro?',
-          text: "Desea Eliminar  el Servicio?",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
-          cancelButtonText: 'Cancelar'
-        }).then(function () {
-          Generals.deleteRow(id, "servicios");
-        });
-      }
-    });
-
-    $("#edit-service").on('click', function (e) {
-      e.preventDefault();
-      var row = serviceTable.getSelectedRow();
-
-      $('#u-service-id').val(row.id);
-      $('#u-service-name').val(row.nombre);
-      $('#u-service-description').val(row.descripcion);
-      $('#u-service-monthly-payment').val(Number(row.mensualidad.replace("RD$ ", '')));
-      $('#u-service-type').val(row.tipo);
-      $('#update-service-modal').modal();
-
-    });
-
-    $("#btn-update-service").on('click', function (e) {
-      e.stopImmediatePropagation();
-      Services.update();
-    });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(18);\n\n//TODO: change to axios:\n\n\nclass contracts {\n  constructor() {\n    this.ran = false\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n    if (currentPage == \"nuevo_contrato\") {\n      Contracts.getIpList();\n    }\n  }\n\n  add() {\n    var form, table, client_id, user_id, service_id, code, contract_date, payment, duration,\n      equipment, eMac, router, rMac, total, nextPayment, model, ip;\n\n    client_id     = $(\"#contract-client-id\").val();\n    user_id       = $(\"#contract-user-id\").val();\n    service_id    = $(\".service-card.selected\").attr('data-id');\n    contract_date = $('#contract-client-date').val();\n    duration      = $('#contract-client-months').val();\n    equipment     = $('#contract-equipment').val();\n    eMac          = $('#contract-e-mac').val();\n    router        = $('#contract-router').val();\n    rMac          = $('#contract-r-mac').val();\n    model         = $('#contract-equipment-model').val();\n    ip            = $('#contract-ip').val();\n    code          = $(\"#select-contract-code\").val();\n\n    payment = $(\"#contract-client-payment\").val();\n    nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');\n\n    var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);\n    if (!is_empty) {\n      total = (Number(duration) + 1) * Number(payment);\n      form = 'id_empleado=' + user_id + \"&id_cliente=\" + client_id + \"&id_servicio=\" + service_id + \"&codigo=\" + code + \"&fecha=\" + contract_date;\n      form += \"&duracion=\" + duration + \"&monto_total=\" + total + \"&monto_pagado=0&ultimo_pago=null\";\n      form += \"&mensualidad=\" + payment + \"&proximo_pago=\" + nextPayment + \"&estado=activo&tabla=contratos\";\n      form += \"&nombre_equipo=\" + equipment + \"&mac_equipo=\" + eMac + \"&router=\" + router + \"&mac_router=\" + rMac;\n      form += \"&modelo=\" + model + \"&ip=\" + ip;\n      connectAndSend(\"process/add\", null, null, Contracts.getLast, form, null);\n    } else {\n      displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n    }\n  }\n\n  getAll() {\n    var form = \"tabla=contratos\";\n    var callback = null\n    var refresh = contractTable.refresh;\n    if (contractTable.el == 'detalles') {\n      callback = Payments.getAll()\n      refresh = null\n    }\n    connectAndSend('process/getall', false, null, refresh, form, callback);\n  }\n\n  getLast(data) {\n    data = JSON.parse(data);\n    displayMessage(data.mensaje)\n    $(\"#btn-save-contract\").attr(\"disabled\", \"\");\n    $(\"#btn-print-contract\").removeAttr(\"disabled\");\n    if(data.tabla_pagos){\n      makePaymentList(data.tabla_pagos);\n    }\n  }\n\n  callExtra(context) {\n    var row\n    this.dropDownEvents();\n    if (context == \"details\"){\n      row = detailsContractTable.getSelectedRow();\n    }else{\n      row = contractTable.getSelectedRow();\n    }\n    if (row) {\n      this.inputExtraClientDni.val(row.cedula);\n      Contracts.getAllOfClient(row.cedula);\n      $('#add-extra-modal').modal();\n    } else {\n       displayAlert(\"Revise\", \"Seleccione el conrato primero\", \"error\");\n    }\n  }\n\n  cancel(row,callback) {\n    var is_penalty = false;\n    var reason     = $(\"#cancelation-reason\").val();\n    var checked    = $(\"#check-penalty:checked\").length;\n    var form, fecha;\n    console.log(row)\n    if(row.id){\n      if (checked > 0) {\n        is_penalty = true;\n      }\n      fecha = moment().format(\"YYYY-MM-DD\");\n      form = 'id_contrato=' + row.id + '&fecha=' + fecha + '&id_cliente=' + row.id_cliente;\n      form += \"&motivo=\" + reason + \"&penalidad=\" + is_penalty;\n      connectAndSend('process/cancel', true, null, null, form, callback);\n    }else{\n      displayMessage(MESSAGE_ERROR +\" No hay contrato seleccionado\");\n    }\n  }\n\n  getOne(id_contrato, receiver) {\n    form = \"tabla=contratos&id_contrato=\" + id_contrato;\n    connectAndSend(\"process/getone\", false, null, receiver, form, null)\n  }\n\n  recieve(content) {\n    var contract    = JSON.parse(content);\n    this.id_contrato = contract['id_contrato'];\n    var $equipo     = $(\"#u-contract-equipment\");\n    var $macEquipo  = $(\"#u-contract-e-mac\");\n    var $router     = $(\"#u-contract-router\");\n    var $macRouter  = $(\"#u-contract-r-mac\");\n    var $modelo     = $(\"#u-contract-modelo\");\n    var $codigo     = $(\"#select-contract-code\");\n    var $isChangeIp = $(\"#check-change-ip\");\n    var $ip         = $(\"#u-contract-ip\");\n\n    $equipo.val(contract['nombre_equipo']);\n    $macEquipo.val(contract['mac_equipo']);\n    $router.val(contract['router']);\n    $macRouter.val(contract['mac_router']);\n    $modelo.val(contract['modelo']);\n    $ip.val(contract['ip']);\n\n    // $(\"#update-contract-modal select\").val('')\n    $(\"#update-contract-modal\").modal();\n    $(\"#update-contract\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      updateContract(id_contrato);\n    });\n\n    function updateContract(id_contrato) {\n      var checked = $(\"#check-change-ip:checked\").length;\n      form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + \"&mac_equipo=\" + $macEquipo.val();\n      form += \"&router=\" + $router.val() + \"&mac_router=\" + $macRouter.val();\n      form += \"&modelo=\" + $modelo.val();\n      form += \"&tabla=contratos\";\n      if (checked > 0) {\n        form += \"&ip=\" + $ip.val() + \"&codigo=\" + $codigo.val();\n      }\n      connectAndSend(\"process/update\", true, null, null, form, Contracts.getAll);\n    }\n  }\n\n  getIpList () {\n    var section_id = $(\"#select-contract-sector\").val();\n    var form = \"id_seccion=\" + section_id + \"&tabla=ip_list\";\n    connectAndSend(\"process/getall\", false, null, makeIpList, form, null);\n\n    function makeIpList(content) {\n      $(\"#select-contract-code\").html(content);\n    }\n  }\n\n  btnExtraPressed ($this) {\n    var buttonId = $this.text().trim().toLowerCase();\n    var contractId = this.selectExtraClientContract.val()\n    var clientDni = this.inputExtraClientDni.val().replace(/[-]/g,' ')\n\n    switch (buttonId) {\n      case \"mejorar\":\n        Contracts.upgrade();\n        break;\n      case \"extender\":\n        Contracts.extend();\n        break;\n      case \"guardar\":\n        Contracts.addExtra();\n        break;\n    }\n    this.getAllOfClient(clientDni)\n    .then(function(res){\n      console.log(res);\n      console.log(' aqui en la promesa');\n    })\n\n  }\n\n  upgrade () {\n    var form, contractId, selectedService, serviceId, amount;\n\n    contractId = $(\"#extra-client-contract\").val();\n    selectedService = $(\".service-card.selected\");\n    serviceId = selectedService.attr(\"data-id\");\n    amount = selectedService.attr(\"data-payment\");\n\n    var is_empty = isEmpty([contractId, serviceId, amount]);\n    if (!is_empty) {\n      form = 'id_contrato=' + contractId + \"&id_servicio=\" + serviceId + \"&cuota=\" + amount;\n      connectAndSend('process/upgrade', true, initGlobalHandlers, null, form, Contracts.getAll)\n    } else {\n      displayAlert(\"Revise\", \"asegurate de llenar todos los datos y seleccionar el servicio\", \"info\");\n    }\n  }\n\n  reconnect (contractId,callback) {\n    var form, selectedService, serviceId, duration, date,send, is_empty,info;\n\n    selectedService = $(\".service-card.selected\");\n    serviceId = selectedService.attr(\"data-id\");\n    duration  = $(\"#reconnection-months\").val();\n    date = $(\"#reconnection-date\").val()\n    is_empty = isEmpty([contractId,serviceId,date,duration]);\n    if(!is_empty){\n      info = {\n        'id_contrato': contractId,\n        'fecha': date,\n        'id_servicio': serviceId,\n        'duracion': duration\n      }\n\n      form = \"data=\" + JSON.stringify(info);\n      send = axios.post(BASE_URL + \"contract/reconnect\",form);\n      send.then(function(res){\n        displayMessage(res.data.mensaje);\n        Payments.getAll();\n        $(\"#btn-reconnect\").removeAttr(\"disabled\");\n        $(\".reconnect-caller\").removeClass('visible');\n        if(callback)\n          callback()\n      })\n      send.catch(function(err){\n        console.log(err);\n      })\n    }else{\n      swal(\"Llene todos los campos\")\n    }\n  }\n\n  addExtra () {\n    var form, contractId, extraService, serviceCost, equipment, eMac, router, rMac,paymentMode;\n\n    contractId = $(\"#extra-client-contract\").val();\n    serviceCost = $(\"#extra-service-cost\").val();\n    extraService = $(\"#select-extra-service\").val();\n    equipment = $(\"#extra-equipo\").val();\n    eMac = $(\"#extra-e-mac\").val();\n    router = $(\"#extra-router\").val();\n    rMac = $(\"#extra-r-mac\").val();\n    paymentMode = $(\"#select-payment-mode\").val();\n\n    var is_empty = isEmpty([contractId, extraService, serviceCost,paymentMode]);\n    if (!is_empty) {\n      form = 'id_contrato=' + contractId + \"&costo_servicio=\" + serviceCost + \"&nombre_servicio=\" + extraService;\n      form += '&nombre_equipo=' + equipment + \"&mac_equipo=\" + eMac + \"&router=\" + router + \"&mac_router=\" + rMac;\n      form += '&modo_pago=' + paymentMode;\n      connectAndSend('process/addextra', true, initGlobalHandlers, null, form, Contracts.getAll);\n    } else {\n      displayAlert(\"revise\", \"asegurate de llenar todos los datos y seleccionar el servicio\", \"info\");\n    }\n  }\n\n  extend () {\n    var form, contractId, duration;\n    contractId = $(\"#extra-client-contract\").val();\n    duration = $(\"#extra-extension-months\").val();\n\n    var is_empty = isEmpty([duration, contractId]);\n    if (!is_empty) {\n      form = 'id_contrato=' + contractId + \"&duracion=\" + duration;\n      connectAndSend('process/extend_contract', true, initGlobalHandlers, null, form, Contracts.getAll)\n    } else {\n      displayAlert(\"revise\", \"asegurate de llenar todos los datos y seleccionar el servicio\", \"info\");\n    }\n  }\n\n  getAllOfClient(dni) {\n    var form = \"dni=\" + dni;\n    var self = this;\n\n    return axios.post(BASE_URL + 'process/data_for_extra', form)\n    .then(function(res){\n      self.makeContractList(res.data)\n    })\n    .catch(function(){})\n  }\n\n  suspend (contractId, callback) {\n    var form = \"data=\" + JSON.stringify({id_contrato: contractId})\n\n    axios.post(BASE_URL + 'contract/suspend',form)\n    .then(function(res){\n      var data = res.data\n      displayMessage(data.mensaje);\n      Contracts.getAll();\n      if(callback)\n        callback()\n    })\n    .catch(function(error){\n      console.log(error);\n    })\n  }\n\n  deleteExtra (contractId) {\n    var self = this\n    swal({\n      title: 'Está Seguro?',\n      text: \"Seguro que desea eliminar el seguro a este contrato?\",\n      type: 'warning',\n      showCancelButton: true,\n      confirmButtonText: 'Eliminar',\n      cancelButtonText: 'Cancelar'\n    })\n    .then(function(){\n      sendDelete(contractId);\n      self.inputContracEnsurance.val('');\n    })\n\n    function sendDelete(contractId) {\n      var form = \"data=\" + JSON.stringify({id_contrato: contractId})\n      axios.post(BASE_URL + 'contract/delete_extra',form)\n      .then(function(res){\n        displayMessage(res.data.mensaje);\n      })\n      .catch(function(error){\n        console.log(error);\n      })\n    }\n  }\n\n  // UTILS\n\n  makeContractList (response) {\n    if (response) {\n      var value,service,equipment,eMac,router,rMac,code,ensuranceName,ensuranceCost;\n      var element = \"<option value=''>--Selecciona--</option>\";\n      var cliente = response.cliente;\n      var contratos = response.contratos;\n      var contractId;\n\n      if (currentPage != 'detalles' && currentPage != 'home'){\n        contractId = contractTable.getId();\n      } else if ( currentPage != 'home'){\n        contractId = detailsContractTable.getSelectedRow().id_contrato;\n      }\n\n      for (var i = 0 ; i < contratos.length; i++) {\n        value         = contratos[i][\"id_contrato\"];\n        service       = contratos[i][\"servicio\"];\n        equipment     = contratos[i][\"nombre_equipo\"];\n        router        = contratos[i][\"router\"];\n        eMac          = contratos[i][\"mac_equipo\"];\n        rMac          = contratos[i][\"mac_router\"];\n        code          = contratos[i][\"codigo\"];\n        ensuranceName     = contratos[i][\"nombre_seguro\"];\n        ensuranceCost = contratos[i][\"mensualidad_seguro\"];\n\n        element += \"<option value='\" + value + \"' data-service='\"+service+\"'  data-equipment='\"+equipment+\"'  data-e-mac='\"+eMac+\"'\";\n        element += \" data-router='\"+router+\"'  data-r-mac='\"+rMac+\"' data-code='\"+code+\"' data-ensurance='\"+ensuranceName+'- RD$ '+ CurrencyFormat(ensuranceCost)+\"'>\";\n        element += value +\"</option>\";\n      }\n\n      this.selectExtraClientContract.html(element);\n      this.selectExtraClientContract.val(contractId).change();\n\n      $(\"#extra-client-name\").val(cliente['nombres'] + \" \" + cliente['apellidos']);\n\n    }else{\n      displayMessage(MESSAGE_ERROR + \" Este cliente no existe revise su cedula por favor\");\n    }\n  }\n\n  dropDownEvents () {\n    if (!this.ran) {\n      var self = this\n      this.ran = true\n      this.selectExtraService = $(\"#select-extra-service\");\n      this.selectExtraClientContract = $(\"#extra-client-contract\");\n      this.btnDeleteExtra = $(\"#delete-extra\");\n      this.inputContracEnsurance = $(\"#contract-ensurance\");\n      this.inputExtraClientDni = $(\"#extra-client-dni\");\n\n      this.selectExtraService.on('change', function () {\n        var data = $((\"#select-extra-service :selected\")).data();\n        $(\"#extra-service-cost\").val(data['payment'])\n      });\n\n      this.selectExtraClientContract.on('change', function () {\n        var data = $(\"#extra-client-contract :selected\").data();\n        $(\"#extra-contract-service\").val(data[\"service\"]);\n        $(\"#extra-equipo\").val(data[\"equipment\"]);\n        $(\"#extra-router\").val(data[\"router\"]);\n        $(\"#extra-e-mac\").val(data[\"eMac\"]);\n        $(\"#extra-r-mac\").val(data[\"rMac\"]);\n        $(\"#extra-code\").val(data[\"code\"]);\n        if (!data[\"ensurance\"].includes('null')){\n          self.inputContracEnsurance.val(data[\"ensurance\"]);\n        }\n      });\n\n      this.btnDeleteExtra.on('click', function(){\n        var id = self.selectExtraClientContract.val()\n        self.deleteExtra(id);\n      })\n    }\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = contracts;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jb250cmFjdHMvaW5kZXguanM/MDZjNCJdLCJzb3VyY2VzQ29udGVudCI6WyJcbi8vVE9ETzogY2hhbmdlIHRvIGF4aW9zOlxuXG5pbXBvcnQgaGFuZGxlciBmcm9tICcuL2hhbmRsZXJzJztcbmV4cG9ydCBkZWZhdWx0IGNsYXNzIGNvbnRyYWN0cyB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIHRoaXMucmFuID0gZmFsc2VcbiAgICBoYW5kbGVyKHRoaXMpO1xuICAgIGlmIChjdXJyZW50UGFnZSA9PSBcIm51ZXZvX2NvbnRyYXRvXCIpIHtcbiAgICAgIENvbnRyYWN0cy5nZXRJcExpc3QoKTtcbiAgICB9XG4gIH1cblxuICBhZGQoKSB7XG4gICAgdmFyIGZvcm0sIHRhYmxlLCBjbGllbnRfaWQsIHVzZXJfaWQsIHNlcnZpY2VfaWQsIGNvZGUsIGNvbnRyYWN0X2RhdGUsIHBheW1lbnQsIGR1cmF0aW9uLFxuICAgICAgZXF1aXBtZW50LCBlTWFjLCByb3V0ZXIsIHJNYWMsIHRvdGFsLCBuZXh0UGF5bWVudCwgbW9kZWwsIGlwO1xuXG4gICAgY2xpZW50X2lkICAgICA9ICQoXCIjY29udHJhY3QtY2xpZW50LWlkXCIpLnZhbCgpO1xuICAgIHVzZXJfaWQgICAgICAgPSAkKFwiI2NvbnRyYWN0LXVzZXItaWRcIikudmFsKCk7XG4gICAgc2VydmljZV9pZCAgICA9ICQoXCIuc2VydmljZS1jYXJkLnNlbGVjdGVkXCIpLmF0dHIoJ2RhdGEtaWQnKTtcbiAgICBjb250cmFjdF9kYXRlID0gJCgnI2NvbnRyYWN0LWNsaWVudC1kYXRlJykudmFsKCk7XG4gICAgZHVyYXRpb24gICAgICA9ICQoJyNjb250cmFjdC1jbGllbnQtbW9udGhzJykudmFsKCk7XG4gICAgZXF1aXBtZW50ICAgICA9ICQoJyNjb250cmFjdC1lcXVpcG1lbnQnKS52YWwoKTtcbiAgICBlTWFjICAgICAgICAgID0gJCgnI2NvbnRyYWN0LWUtbWFjJykudmFsKCk7XG4gICAgcm91dGVyICAgICAgICA9ICQoJyNjb250cmFjdC1yb3V0ZXInKS52YWwoKTtcbiAgICByTWFjICAgICAgICAgID0gJCgnI2NvbnRyYWN0LXItbWFjJykudmFsKCk7XG4gICAgbW9kZWwgICAgICAgICA9ICQoJyNjb250cmFjdC1lcXVpcG1lbnQtbW9kZWwnKS52YWwoKTtcbiAgICBpcCAgICAgICAgICAgID0gJCgnI2NvbnRyYWN0LWlwJykudmFsKCk7XG4gICAgY29kZSAgICAgICAgICA9ICQoXCIjc2VsZWN0LWNvbnRyYWN0LWNvZGVcIikudmFsKCk7XG5cbiAgICBwYXltZW50ID0gJChcIiNjb250cmFjdC1jbGllbnQtcGF5bWVudFwiKS52YWwoKTtcbiAgICBuZXh0UGF5bWVudCA9IG1vbWVudChjb250cmFjdF9kYXRlKS5hZGQoMSwgJ21vbnRocycpLmZvcm1hdCgnWVlZWS1NTS1ERCcpO1xuXG4gICAgdmFyIGlzX2VtcHR5ID0gaXNFbXB0eShbY2xpZW50X2lkLCB1c2VyX2lkLCBzZXJ2aWNlX2lkLCBjb250cmFjdF9kYXRlLCBkdXJhdGlvbl0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIHRvdGFsID0gKE51bWJlcihkdXJhdGlvbikgKyAxKSAqIE51bWJlcihwYXltZW50KTtcbiAgICAgIGZvcm0gPSAnaWRfZW1wbGVhZG89JyArIHVzZXJfaWQgKyBcIiZpZF9jbGllbnRlPVwiICsgY2xpZW50X2lkICsgXCImaWRfc2VydmljaW89XCIgKyBzZXJ2aWNlX2lkICsgXCImY29kaWdvPVwiICsgY29kZSArIFwiJmZlY2hhPVwiICsgY29udHJhY3RfZGF0ZTtcbiAgICAgIGZvcm0gKz0gXCImZHVyYWNpb249XCIgKyBkdXJhdGlvbiArIFwiJm1vbnRvX3RvdGFsPVwiICsgdG90YWwgKyBcIiZtb250b19wYWdhZG89MCZ1bHRpbW9fcGFnbz1udWxsXCI7XG4gICAgICBmb3JtICs9IFwiJm1lbnN1YWxpZGFkPVwiICsgcGF5bWVudCArIFwiJnByb3hpbW9fcGFnbz1cIiArIG5leHRQYXltZW50ICsgXCImZXN0YWRvPWFjdGl2byZ0YWJsYT1jb250cmF0b3NcIjtcbiAgICAgIGZvcm0gKz0gXCImbm9tYnJlX2VxdWlwbz1cIiArIGVxdWlwbWVudCArIFwiJm1hY19lcXVpcG89XCIgKyBlTWFjICsgXCImcm91dGVyPVwiICsgcm91dGVyICsgXCImbWFjX3JvdXRlcj1cIiArIHJNYWM7XG4gICAgICBmb3JtICs9IFwiJm1vZGVsbz1cIiArIG1vZGVsICsgXCImaXA9XCIgKyBpcDtcbiAgICAgIGNvbm5lY3RBbmRTZW5kKFwicHJvY2Vzcy9hZGRcIiwgbnVsbCwgbnVsbCwgQ29udHJhY3RzLmdldExhc3QsIGZvcm0sIG51bGwpO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoXCJSZXZpc2VcIiwgXCJMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvclwiLCBcImVycm9yXCIpO1xuICAgIH1cbiAgfVxuXG4gIGdldEFsbCgpIHtcbiAgICB2YXIgZm9ybSA9IFwidGFibGE9Y29udHJhdG9zXCI7XG4gICAgdmFyIGNhbGxiYWNrID0gbnVsbFxuICAgIHZhciByZWZyZXNoID0gY29udHJhY3RUYWJsZS5yZWZyZXNoO1xuICAgIGlmIChjb250cmFjdFRhYmxlLmVsID09ICdkZXRhbGxlcycpIHtcbiAgICAgIGNhbGxiYWNrID0gUGF5bWVudHMuZ2V0QWxsKClcbiAgICAgIHJlZnJlc2ggPSBudWxsXG4gICAgfVxuICAgIGNvbm5lY3RBbmRTZW5kKCdwcm9jZXNzL2dldGFsbCcsIGZhbHNlLCBudWxsLCByZWZyZXNoLCBmb3JtLCBjYWxsYmFjayk7XG4gIH1cblxuICBnZXRMYXN0KGRhdGEpIHtcbiAgICBkYXRhID0gSlNPTi5wYXJzZShkYXRhKTtcbiAgICBkaXNwbGF5TWVzc2FnZShkYXRhLm1lbnNhamUpXG4gICAgJChcIiNidG4tc2F2ZS1jb250cmFjdFwiKS5hdHRyKFwiZGlzYWJsZWRcIiwgXCJcIik7XG4gICAgJChcIiNidG4tcHJpbnQtY29udHJhY3RcIikucmVtb3ZlQXR0cihcImRpc2FibGVkXCIpO1xuICAgIGlmKGRhdGEudGFibGFfcGFnb3Mpe1xuICAgICAgbWFrZVBheW1lbnRMaXN0KGRhdGEudGFibGFfcGFnb3MpO1xuICAgIH1cbiAgfVxuXG4gIGNhbGxFeHRyYShjb250ZXh0KSB7XG4gICAgdmFyIHJvd1xuICAgIHRoaXMuZHJvcERvd25FdmVudHMoKTtcbiAgICBpZiAoY29udGV4dCA9PSBcImRldGFpbHNcIil7XG4gICAgICByb3cgPSBkZXRhaWxzQ29udHJhY3RUYWJsZS5nZXRTZWxlY3RlZFJvdygpO1xuICAgIH1lbHNle1xuICAgICAgcm93ID0gY29udHJhY3RUYWJsZS5nZXRTZWxlY3RlZFJvdygpO1xuICAgIH1cbiAgICBpZiAocm93KSB7XG4gICAgICB0aGlzLmlucHV0RXh0cmFDbGllbnREbmkudmFsKHJvdy5jZWR1bGEpO1xuICAgICAgQ29udHJhY3RzLmdldEFsbE9mQ2xpZW50KHJvdy5jZWR1bGEpO1xuICAgICAgJCgnI2FkZC1leHRyYS1tb2RhbCcpLm1vZGFsKCk7XG4gICAgfSBlbHNlIHtcbiAgICAgICBkaXNwbGF5QWxlcnQoXCJSZXZpc2VcIiwgXCJTZWxlY2Npb25lIGVsIGNvbnJhdG8gcHJpbWVyb1wiLCBcImVycm9yXCIpO1xuICAgIH1cbiAgfVxuXG4gIGNhbmNlbChyb3csY2FsbGJhY2spIHtcbiAgICB2YXIgaXNfcGVuYWx0eSA9IGZhbHNlO1xuICAgIHZhciByZWFzb24gICAgID0gJChcIiNjYW5jZWxhdGlvbi1yZWFzb25cIikudmFsKCk7XG4gICAgdmFyIGNoZWNrZWQgICAgPSAkKFwiI2NoZWNrLXBlbmFsdHk6Y2hlY2tlZFwiKS5sZW5ndGg7XG4gICAgdmFyIGZvcm0sIGZlY2hhO1xuICAgIGNvbnNvbGUubG9nKHJvdylcbiAgICBpZihyb3cuaWQpe1xuICAgICAgaWYgKGNoZWNrZWQgPiAwKSB7XG4gICAgICAgIGlzX3BlbmFsdHkgPSB0cnVlO1xuICAgICAgfVxuICAgICAgZmVjaGEgPSBtb21lbnQoKS5mb3JtYXQoXCJZWVlZLU1NLUREXCIpO1xuICAgICAgZm9ybSA9ICdpZF9jb250cmF0bz0nICsgcm93LmlkICsgJyZmZWNoYT0nICsgZmVjaGEgKyAnJmlkX2NsaWVudGU9JyArIHJvdy5pZF9jbGllbnRlO1xuICAgICAgZm9ybSArPSBcIiZtb3Rpdm89XCIgKyByZWFzb24gKyBcIiZwZW5hbGlkYWQ9XCIgKyBpc19wZW5hbHR5O1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvY2FuY2VsJywgdHJ1ZSwgbnVsbCwgbnVsbCwgZm9ybSwgY2FsbGJhY2spO1xuICAgIH1lbHNle1xuICAgICAgZGlzcGxheU1lc3NhZ2UoTUVTU0FHRV9FUlJPUiArXCIgTm8gaGF5IGNvbnRyYXRvIHNlbGVjY2lvbmFkb1wiKTtcbiAgICB9XG4gIH1cblxuICBnZXRPbmUoaWRfY29udHJhdG8sIHJlY2VpdmVyKSB7XG4gICAgZm9ybSA9IFwidGFibGE9Y29udHJhdG9zJmlkX2NvbnRyYXRvPVwiICsgaWRfY29udHJhdG87XG4gICAgY29ubmVjdEFuZFNlbmQoXCJwcm9jZXNzL2dldG9uZVwiLCBmYWxzZSwgbnVsbCwgcmVjZWl2ZXIsIGZvcm0sIG51bGwpXG4gIH1cblxuICByZWNpZXZlKGNvbnRlbnQpIHtcbiAgICB2YXIgY29udHJhY3QgICAgPSBKU09OLnBhcnNlKGNvbnRlbnQpO1xuICAgIHRoaXMuaWRfY29udHJhdG8gPSBjb250cmFjdFsnaWRfY29udHJhdG8nXTtcbiAgICB2YXIgJGVxdWlwbyAgICAgPSAkKFwiI3UtY29udHJhY3QtZXF1aXBtZW50XCIpO1xuICAgIHZhciAkbWFjRXF1aXBvICA9ICQoXCIjdS1jb250cmFjdC1lLW1hY1wiKTtcbiAgICB2YXIgJHJvdXRlciAgICAgPSAkKFwiI3UtY29udHJhY3Qtcm91dGVyXCIpO1xuICAgIHZhciAkbWFjUm91dGVyICA9ICQoXCIjdS1jb250cmFjdC1yLW1hY1wiKTtcbiAgICB2YXIgJG1vZGVsbyAgICAgPSAkKFwiI3UtY29udHJhY3QtbW9kZWxvXCIpO1xuICAgIHZhciAkY29kaWdvICAgICA9ICQoXCIjc2VsZWN0LWNvbnRyYWN0LWNvZGVcIik7XG4gICAgdmFyICRpc0NoYW5nZUlwID0gJChcIiNjaGVjay1jaGFuZ2UtaXBcIik7XG4gICAgdmFyICRpcCAgICAgICAgID0gJChcIiN1LWNvbnRyYWN0LWlwXCIpO1xuXG4gICAgJGVxdWlwby52YWwoY29udHJhY3RbJ25vbWJyZV9lcXVpcG8nXSk7XG4gICAgJG1hY0VxdWlwby52YWwoY29udHJhY3RbJ21hY19lcXVpcG8nXSk7XG4gICAgJHJvdXRlci52YWwoY29udHJhY3RbJ3JvdXRlciddKTtcbiAgICAkbWFjUm91dGVyLnZhbChjb250cmFjdFsnbWFjX3JvdXRlciddKTtcbiAgICAkbW9kZWxvLnZhbChjb250cmFjdFsnbW9kZWxvJ10pO1xuICAgICRpcC52YWwoY29udHJhY3RbJ2lwJ10pO1xuXG4gICAgLy8gJChcIiN1cGRhdGUtY29udHJhY3QtbW9kYWwgc2VsZWN0XCIpLnZhbCgnJylcbiAgICAkKFwiI3VwZGF0ZS1jb250cmFjdC1tb2RhbFwiKS5tb2RhbCgpO1xuICAgICQoXCIjdXBkYXRlLWNvbnRyYWN0XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgdXBkYXRlQ29udHJhY3QoaWRfY29udHJhdG8pO1xuICAgIH0pO1xuXG4gICAgZnVuY3Rpb24gdXBkYXRlQ29udHJhY3QoaWRfY29udHJhdG8pIHtcbiAgICAgIHZhciBjaGVja2VkID0gJChcIiNjaGVjay1jaGFuZ2UtaXA6Y2hlY2tlZFwiKS5sZW5ndGg7XG4gICAgICBmb3JtID0gJ2lkX2NvbnRyYXRvPScgKyBpZF9jb250cmF0byArICcmbm9tYnJlX2VxdWlwbz0nICsgJGVxdWlwby52YWwoKSArIFwiJm1hY19lcXVpcG89XCIgKyAkbWFjRXF1aXBvLnZhbCgpO1xuICAgICAgZm9ybSArPSBcIiZyb3V0ZXI9XCIgKyAkcm91dGVyLnZhbCgpICsgXCImbWFjX3JvdXRlcj1cIiArICRtYWNSb3V0ZXIudmFsKCk7XG4gICAgICBmb3JtICs9IFwiJm1vZGVsbz1cIiArICRtb2RlbG8udmFsKCk7XG4gICAgICBmb3JtICs9IFwiJnRhYmxhPWNvbnRyYXRvc1wiO1xuICAgICAgaWYgKGNoZWNrZWQgPiAwKSB7XG4gICAgICAgIGZvcm0gKz0gXCImaXA9XCIgKyAkaXAudmFsKCkgKyBcIiZjb2RpZ289XCIgKyAkY29kaWdvLnZhbCgpO1xuICAgICAgfVxuICAgICAgY29ubmVjdEFuZFNlbmQoXCJwcm9jZXNzL3VwZGF0ZVwiLCB0cnVlLCBudWxsLCBudWxsLCBmb3JtLCBDb250cmFjdHMuZ2V0QWxsKTtcbiAgICB9XG4gIH1cblxuICBnZXRJcExpc3QgKCkge1xuICAgIHZhciBzZWN0aW9uX2lkID0gJChcIiNzZWxlY3QtY29udHJhY3Qtc2VjdG9yXCIpLnZhbCgpO1xuICAgIHZhciBmb3JtID0gXCJpZF9zZWNjaW9uPVwiICsgc2VjdGlvbl9pZCArIFwiJnRhYmxhPWlwX2xpc3RcIjtcbiAgICBjb25uZWN0QW5kU2VuZChcInByb2Nlc3MvZ2V0YWxsXCIsIGZhbHNlLCBudWxsLCBtYWtlSXBMaXN0LCBmb3JtLCBudWxsKTtcblxuICAgIGZ1bmN0aW9uIG1ha2VJcExpc3QoY29udGVudCkge1xuICAgICAgJChcIiNzZWxlY3QtY29udHJhY3QtY29kZVwiKS5odG1sKGNvbnRlbnQpO1xuICAgIH1cbiAgfVxuXG4gIGJ0bkV4dHJhUHJlc3NlZCAoJHRoaXMpIHtcbiAgICB2YXIgYnV0dG9uSWQgPSAkdGhpcy50ZXh0KCkudHJpbSgpLnRvTG93ZXJDYXNlKCk7XG4gICAgdmFyIGNvbnRyYWN0SWQgPSB0aGlzLnNlbGVjdEV4dHJhQ2xpZW50Q29udHJhY3QudmFsKClcbiAgICB2YXIgY2xpZW50RG5pID0gdGhpcy5pbnB1dEV4dHJhQ2xpZW50RG5pLnZhbCgpLnJlcGxhY2UoL1stXS9nLCcgJylcblxuICAgIHN3aXRjaCAoYnV0dG9uSWQpIHtcbiAgICAgIGNhc2UgXCJtZWpvcmFyXCI6XG4gICAgICAgIENvbnRyYWN0cy51cGdyYWRlKCk7XG4gICAgICAgIGJyZWFrO1xuICAgICAgY2FzZSBcImV4dGVuZGVyXCI6XG4gICAgICAgIENvbnRyYWN0cy5leHRlbmQoKTtcbiAgICAgICAgYnJlYWs7XG4gICAgICBjYXNlIFwiZ3VhcmRhclwiOlxuICAgICAgICBDb250cmFjdHMuYWRkRXh0cmEoKTtcbiAgICAgICAgYnJlYWs7XG4gICAgfVxuICAgIHRoaXMuZ2V0QWxsT2ZDbGllbnQoY2xpZW50RG5pKVxuICAgIC50aGVuKGZ1bmN0aW9uKHJlcyl7XG4gICAgICBjb25zb2xlLmxvZyhyZXMpO1xuICAgICAgY29uc29sZS5sb2coJyBhcXVpIGVuIGxhIHByb21lc2EnKTtcbiAgICB9KVxuXG4gIH1cblxuICB1cGdyYWRlICgpIHtcbiAgICB2YXIgZm9ybSwgY29udHJhY3RJZCwgc2VsZWN0ZWRTZXJ2aWNlLCBzZXJ2aWNlSWQsIGFtb3VudDtcblxuICAgIGNvbnRyYWN0SWQgPSAkKFwiI2V4dHJhLWNsaWVudC1jb250cmFjdFwiKS52YWwoKTtcbiAgICBzZWxlY3RlZFNlcnZpY2UgPSAkKFwiLnNlcnZpY2UtY2FyZC5zZWxlY3RlZFwiKTtcbiAgICBzZXJ2aWNlSWQgPSBzZWxlY3RlZFNlcnZpY2UuYXR0cihcImRhdGEtaWRcIik7XG4gICAgYW1vdW50ID0gc2VsZWN0ZWRTZXJ2aWNlLmF0dHIoXCJkYXRhLXBheW1lbnRcIik7XG5cbiAgICB2YXIgaXNfZW1wdHkgPSBpc0VtcHR5KFtjb250cmFjdElkLCBzZXJ2aWNlSWQsIGFtb3VudF0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGZvcm0gPSAnaWRfY29udHJhdG89JyArIGNvbnRyYWN0SWQgKyBcIiZpZF9zZXJ2aWNpbz1cIiArIHNlcnZpY2VJZCArIFwiJmN1b3RhPVwiICsgYW1vdW50O1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvdXBncmFkZScsIHRydWUsIGluaXRHbG9iYWxIYW5kbGVycywgbnVsbCwgZm9ybSwgQ29udHJhY3RzLmdldEFsbClcbiAgICB9IGVsc2Uge1xuICAgICAgZGlzcGxheUFsZXJ0KFwiUmV2aXNlXCIsIFwiYXNlZ3VyYXRlIGRlIGxsZW5hciB0b2RvcyBsb3MgZGF0b3MgeSBzZWxlY2Npb25hciBlbCBzZXJ2aWNpb1wiLCBcImluZm9cIik7XG4gICAgfVxuICB9XG5cbiAgcmVjb25uZWN0IChjb250cmFjdElkLGNhbGxiYWNrKSB7XG4gICAgdmFyIGZvcm0sIHNlbGVjdGVkU2VydmljZSwgc2VydmljZUlkLCBkdXJhdGlvbiwgZGF0ZSxzZW5kLCBpc19lbXB0eSxpbmZvO1xuXG4gICAgc2VsZWN0ZWRTZXJ2aWNlID0gJChcIi5zZXJ2aWNlLWNhcmQuc2VsZWN0ZWRcIik7XG4gICAgc2VydmljZUlkID0gc2VsZWN0ZWRTZXJ2aWNlLmF0dHIoXCJkYXRhLWlkXCIpO1xuICAgIGR1cmF0aW9uICA9ICQoXCIjcmVjb25uZWN0aW9uLW1vbnRoc1wiKS52YWwoKTtcbiAgICBkYXRlID0gJChcIiNyZWNvbm5lY3Rpb24tZGF0ZVwiKS52YWwoKVxuICAgIGlzX2VtcHR5ID0gaXNFbXB0eShbY29udHJhY3RJZCxzZXJ2aWNlSWQsZGF0ZSxkdXJhdGlvbl0pO1xuICAgIGlmKCFpc19lbXB0eSl7XG4gICAgICBpbmZvID0ge1xuICAgICAgICAnaWRfY29udHJhdG8nOiBjb250cmFjdElkLFxuICAgICAgICAnZmVjaGEnOiBkYXRlLFxuICAgICAgICAnaWRfc2VydmljaW8nOiBzZXJ2aWNlSWQsXG4gICAgICAgICdkdXJhY2lvbic6IGR1cmF0aW9uXG4gICAgICB9XG5cbiAgICAgIGZvcm0gPSBcImRhdGE9XCIgKyBKU09OLnN0cmluZ2lmeShpbmZvKTtcbiAgICAgIHNlbmQgPSBheGlvcy5wb3N0KEJBU0VfVVJMICsgXCJjb250cmFjdC9yZWNvbm5lY3RcIixmb3JtKTtcbiAgICAgIHNlbmQudGhlbihmdW5jdGlvbihyZXMpe1xuICAgICAgICBkaXNwbGF5TWVzc2FnZShyZXMuZGF0YS5tZW5zYWplKTtcbiAgICAgICAgUGF5bWVudHMuZ2V0QWxsKCk7XG4gICAgICAgICQoXCIjYnRuLXJlY29ubmVjdFwiKS5yZW1vdmVBdHRyKFwiZGlzYWJsZWRcIik7XG4gICAgICAgICQoXCIucmVjb25uZWN0LWNhbGxlclwiKS5yZW1vdmVDbGFzcygndmlzaWJsZScpO1xuICAgICAgICBpZihjYWxsYmFjaylcbiAgICAgICAgICBjYWxsYmFjaygpXG4gICAgICB9KVxuICAgICAgc2VuZC5jYXRjaChmdW5jdGlvbihlcnIpe1xuICAgICAgICBjb25zb2xlLmxvZyhlcnIpO1xuICAgICAgfSlcbiAgICB9ZWxzZXtcbiAgICAgIHN3YWwoXCJMbGVuZSB0b2RvcyBsb3MgY2FtcG9zXCIpXG4gICAgfVxuICB9XG5cbiAgYWRkRXh0cmEgKCkge1xuICAgIHZhciBmb3JtLCBjb250cmFjdElkLCBleHRyYVNlcnZpY2UsIHNlcnZpY2VDb3N0LCBlcXVpcG1lbnQsIGVNYWMsIHJvdXRlciwgck1hYyxwYXltZW50TW9kZTtcblxuICAgIGNvbnRyYWN0SWQgPSAkKFwiI2V4dHJhLWNsaWVudC1jb250cmFjdFwiKS52YWwoKTtcbiAgICBzZXJ2aWNlQ29zdCA9ICQoXCIjZXh0cmEtc2VydmljZS1jb3N0XCIpLnZhbCgpO1xuICAgIGV4dHJhU2VydmljZSA9ICQoXCIjc2VsZWN0LWV4dHJhLXNlcnZpY2VcIikudmFsKCk7XG4gICAgZXF1aXBtZW50ID0gJChcIiNleHRyYS1lcXVpcG9cIikudmFsKCk7XG4gICAgZU1hYyA9ICQoXCIjZXh0cmEtZS1tYWNcIikudmFsKCk7XG4gICAgcm91dGVyID0gJChcIiNleHRyYS1yb3V0ZXJcIikudmFsKCk7XG4gICAgck1hYyA9ICQoXCIjZXh0cmEtci1tYWNcIikudmFsKCk7XG4gICAgcGF5bWVudE1vZGUgPSAkKFwiI3NlbGVjdC1wYXltZW50LW1vZGVcIikudmFsKCk7XG5cbiAgICB2YXIgaXNfZW1wdHkgPSBpc0VtcHR5KFtjb250cmFjdElkLCBleHRyYVNlcnZpY2UsIHNlcnZpY2VDb3N0LHBheW1lbnRNb2RlXSk7XG4gICAgaWYgKCFpc19lbXB0eSkge1xuICAgICAgZm9ybSA9ICdpZF9jb250cmF0bz0nICsgY29udHJhY3RJZCArIFwiJmNvc3RvX3NlcnZpY2lvPVwiICsgc2VydmljZUNvc3QgKyBcIiZub21icmVfc2VydmljaW89XCIgKyBleHRyYVNlcnZpY2U7XG4gICAgICBmb3JtICs9ICcmbm9tYnJlX2VxdWlwbz0nICsgZXF1aXBtZW50ICsgXCImbWFjX2VxdWlwbz1cIiArIGVNYWMgKyBcIiZyb3V0ZXI9XCIgKyByb3V0ZXIgKyBcIiZtYWNfcm91dGVyPVwiICsgck1hYztcbiAgICAgIGZvcm0gKz0gJyZtb2RvX3BhZ289JyArIHBheW1lbnRNb2RlO1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvYWRkZXh0cmEnLCB0cnVlLCBpbml0R2xvYmFsSGFuZGxlcnMsIG51bGwsIGZvcm0sIENvbnRyYWN0cy5nZXRBbGwpO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoXCJyZXZpc2VcIiwgXCJhc2VndXJhdGUgZGUgbGxlbmFyIHRvZG9zIGxvcyBkYXRvcyB5IHNlbGVjY2lvbmFyIGVsIHNlcnZpY2lvXCIsIFwiaW5mb1wiKTtcbiAgICB9XG4gIH1cblxuICBleHRlbmQgKCkge1xuICAgIHZhciBmb3JtLCBjb250cmFjdElkLCBkdXJhdGlvbjtcbiAgICBjb250cmFjdElkID0gJChcIiNleHRyYS1jbGllbnQtY29udHJhY3RcIikudmFsKCk7XG4gICAgZHVyYXRpb24gPSAkKFwiI2V4dHJhLWV4dGVuc2lvbi1tb250aHNcIikudmFsKCk7XG5cbiAgICB2YXIgaXNfZW1wdHkgPSBpc0VtcHR5KFtkdXJhdGlvbiwgY29udHJhY3RJZF0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGZvcm0gPSAnaWRfY29udHJhdG89JyArIGNvbnRyYWN0SWQgKyBcIiZkdXJhY2lvbj1cIiArIGR1cmF0aW9uO1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvZXh0ZW5kX2NvbnRyYWN0JywgdHJ1ZSwgaW5pdEdsb2JhbEhhbmRsZXJzLCBudWxsLCBmb3JtLCBDb250cmFjdHMuZ2V0QWxsKVxuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoXCJyZXZpc2VcIiwgXCJhc2VndXJhdGUgZGUgbGxlbmFyIHRvZG9zIGxvcyBkYXRvcyB5IHNlbGVjY2lvbmFyIGVsIHNlcnZpY2lvXCIsIFwiaW5mb1wiKTtcbiAgICB9XG4gIH1cblxuICBnZXRBbGxPZkNsaWVudChkbmkpIHtcbiAgICB2YXIgZm9ybSA9IFwiZG5pPVwiICsgZG5pO1xuICAgIHZhciBzZWxmID0gdGhpcztcblxuICAgIHJldHVybiBheGlvcy5wb3N0KEJBU0VfVVJMICsgJ3Byb2Nlc3MvZGF0YV9mb3JfZXh0cmEnLCBmb3JtKVxuICAgIC50aGVuKGZ1bmN0aW9uKHJlcyl7XG4gICAgICBzZWxmLm1ha2VDb250cmFjdExpc3QocmVzLmRhdGEpXG4gICAgfSlcbiAgICAuY2F0Y2goZnVuY3Rpb24oKXt9KVxuICB9XG5cbiAgc3VzcGVuZCAoY29udHJhY3RJZCwgY2FsbGJhY2spIHtcbiAgICB2YXIgZm9ybSA9IFwiZGF0YT1cIiArIEpTT04uc3RyaW5naWZ5KHtpZF9jb250cmF0bzogY29udHJhY3RJZH0pXG5cbiAgICBheGlvcy5wb3N0KEJBU0VfVVJMICsgJ2NvbnRyYWN0L3N1c3BlbmQnLGZvcm0pXG4gICAgLnRoZW4oZnVuY3Rpb24ocmVzKXtcbiAgICAgIHZhciBkYXRhID0gcmVzLmRhdGFcbiAgICAgIGRpc3BsYXlNZXNzYWdlKGRhdGEubWVuc2FqZSk7XG4gICAgICBDb250cmFjdHMuZ2V0QWxsKCk7XG4gICAgICBpZihjYWxsYmFjaylcbiAgICAgICAgY2FsbGJhY2soKVxuICAgIH0pXG4gICAgLmNhdGNoKGZ1bmN0aW9uKGVycm9yKXtcbiAgICAgIGNvbnNvbGUubG9nKGVycm9yKTtcbiAgICB9KVxuICB9XG5cbiAgZGVsZXRlRXh0cmEgKGNvbnRyYWN0SWQpIHtcbiAgICB2YXIgc2VsZiA9IHRoaXNcbiAgICBzd2FsKHtcbiAgICAgIHRpdGxlOiAnRXN0w6EgU2VndXJvPycsXG4gICAgICB0ZXh0OiBcIlNlZ3VybyBxdWUgZGVzZWEgZWxpbWluYXIgZWwgc2VndXJvIGEgZXN0ZSBjb250cmF0bz9cIixcbiAgICAgIHR5cGU6ICd3YXJuaW5nJyxcbiAgICAgIHNob3dDYW5jZWxCdXR0b246IHRydWUsXG4gICAgICBjb25maXJtQnV0dG9uVGV4dDogJ0VsaW1pbmFyJyxcbiAgICAgIGNhbmNlbEJ1dHRvblRleHQ6ICdDYW5jZWxhcidcbiAgICB9KVxuICAgIC50aGVuKGZ1bmN0aW9uKCl7XG4gICAgICBzZW5kRGVsZXRlKGNvbnRyYWN0SWQpO1xuICAgICAgc2VsZi5pbnB1dENvbnRyYWNFbnN1cmFuY2UudmFsKCcnKTtcbiAgICB9KVxuXG4gICAgZnVuY3Rpb24gc2VuZERlbGV0ZShjb250cmFjdElkKSB7XG4gICAgICB2YXIgZm9ybSA9IFwiZGF0YT1cIiArIEpTT04uc3RyaW5naWZ5KHtpZF9jb250cmF0bzogY29udHJhY3RJZH0pXG4gICAgICBheGlvcy5wb3N0KEJBU0VfVVJMICsgJ2NvbnRyYWN0L2RlbGV0ZV9leHRyYScsZm9ybSlcbiAgICAgIC50aGVuKGZ1bmN0aW9uKHJlcyl7XG4gICAgICAgIGRpc3BsYXlNZXNzYWdlKHJlcy5kYXRhLm1lbnNhamUpO1xuICAgICAgfSlcbiAgICAgIC5jYXRjaChmdW5jdGlvbihlcnJvcil7XG4gICAgICAgIGNvbnNvbGUubG9nKGVycm9yKTtcbiAgICAgIH0pXG4gICAgfVxuICB9XG5cbiAgLy8gVVRJTFNcblxuICBtYWtlQ29udHJhY3RMaXN0IChyZXNwb25zZSkge1xuICAgIGlmIChyZXNwb25zZSkge1xuICAgICAgdmFyIHZhbHVlLHNlcnZpY2UsZXF1aXBtZW50LGVNYWMscm91dGVyLHJNYWMsY29kZSxlbnN1cmFuY2VOYW1lLGVuc3VyYW5jZUNvc3Q7XG4gICAgICB2YXIgZWxlbWVudCA9IFwiPG9wdGlvbiB2YWx1ZT0nJz4tLVNlbGVjY2lvbmEtLTwvb3B0aW9uPlwiO1xuICAgICAgdmFyIGNsaWVudGUgPSByZXNwb25zZS5jbGllbnRlO1xuICAgICAgdmFyIGNvbnRyYXRvcyA9IHJlc3BvbnNlLmNvbnRyYXRvcztcbiAgICAgIHZhciBjb250cmFjdElkO1xuXG4gICAgICBpZiAoY3VycmVudFBhZ2UgIT0gJ2RldGFsbGVzJyAmJiBjdXJyZW50UGFnZSAhPSAnaG9tZScpe1xuICAgICAgICBjb250cmFjdElkID0gY29udHJhY3RUYWJsZS5nZXRJZCgpO1xuICAgICAgfSBlbHNlIGlmICggY3VycmVudFBhZ2UgIT0gJ2hvbWUnKXtcbiAgICAgICAgY29udHJhY3RJZCA9IGRldGFpbHNDb250cmFjdFRhYmxlLmdldFNlbGVjdGVkUm93KCkuaWRfY29udHJhdG87XG4gICAgICB9XG5cbiAgICAgIGZvciAodmFyIGkgPSAwIDsgaSA8IGNvbnRyYXRvcy5sZW5ndGg7IGkrKykge1xuICAgICAgICB2YWx1ZSAgICAgICAgID0gY29udHJhdG9zW2ldW1wiaWRfY29udHJhdG9cIl07XG4gICAgICAgIHNlcnZpY2UgICAgICAgPSBjb250cmF0b3NbaV1bXCJzZXJ2aWNpb1wiXTtcbiAgICAgICAgZXF1aXBtZW50ICAgICA9IGNvbnRyYXRvc1tpXVtcIm5vbWJyZV9lcXVpcG9cIl07XG4gICAgICAgIHJvdXRlciAgICAgICAgPSBjb250cmF0b3NbaV1bXCJyb3V0ZXJcIl07XG4gICAgICAgIGVNYWMgICAgICAgICAgPSBjb250cmF0b3NbaV1bXCJtYWNfZXF1aXBvXCJdO1xuICAgICAgICByTWFjICAgICAgICAgID0gY29udHJhdG9zW2ldW1wibWFjX3JvdXRlclwiXTtcbiAgICAgICAgY29kZSAgICAgICAgICA9IGNvbnRyYXRvc1tpXVtcImNvZGlnb1wiXTtcbiAgICAgICAgZW5zdXJhbmNlTmFtZSAgICAgPSBjb250cmF0b3NbaV1bXCJub21icmVfc2VndXJvXCJdO1xuICAgICAgICBlbnN1cmFuY2VDb3N0ID0gY29udHJhdG9zW2ldW1wibWVuc3VhbGlkYWRfc2VndXJvXCJdO1xuXG4gICAgICAgIGVsZW1lbnQgKz0gXCI8b3B0aW9uIHZhbHVlPSdcIiArIHZhbHVlICsgXCInIGRhdGEtc2VydmljZT0nXCIrc2VydmljZStcIicgIGRhdGEtZXF1aXBtZW50PSdcIitlcXVpcG1lbnQrXCInICBkYXRhLWUtbWFjPSdcIitlTWFjK1wiJ1wiO1xuICAgICAgICBlbGVtZW50ICs9IFwiIGRhdGEtcm91dGVyPSdcIityb3V0ZXIrXCInICBkYXRhLXItbWFjPSdcIityTWFjK1wiJyBkYXRhLWNvZGU9J1wiK2NvZGUrXCInIGRhdGEtZW5zdXJhbmNlPSdcIitlbnN1cmFuY2VOYW1lKyctIFJEJCAnKyBDdXJyZW5jeUZvcm1hdChlbnN1cmFuY2VDb3N0KStcIic+XCI7XG4gICAgICAgIGVsZW1lbnQgKz0gdmFsdWUgK1wiPC9vcHRpb24+XCI7XG4gICAgICB9XG5cbiAgICAgIHRoaXMuc2VsZWN0RXh0cmFDbGllbnRDb250cmFjdC5odG1sKGVsZW1lbnQpO1xuICAgICAgdGhpcy5zZWxlY3RFeHRyYUNsaWVudENvbnRyYWN0LnZhbChjb250cmFjdElkKS5jaGFuZ2UoKTtcblxuICAgICAgJChcIiNleHRyYS1jbGllbnQtbmFtZVwiKS52YWwoY2xpZW50ZVsnbm9tYnJlcyddICsgXCIgXCIgKyBjbGllbnRlWydhcGVsbGlkb3MnXSk7XG5cbiAgICB9ZWxzZXtcbiAgICAgIGRpc3BsYXlNZXNzYWdlKE1FU1NBR0VfRVJST1IgKyBcIiBFc3RlIGNsaWVudGUgbm8gZXhpc3RlIHJldmlzZSBzdSBjZWR1bGEgcG9yIGZhdm9yXCIpO1xuICAgIH1cbiAgfVxuXG4gIGRyb3BEb3duRXZlbnRzICgpIHtcbiAgICBpZiAoIXRoaXMucmFuKSB7XG4gICAgICB2YXIgc2VsZiA9IHRoaXNcbiAgICAgIHRoaXMucmFuID0gdHJ1ZVxuICAgICAgdGhpcy5zZWxlY3RFeHRyYVNlcnZpY2UgPSAkKFwiI3NlbGVjdC1leHRyYS1zZXJ2aWNlXCIpO1xuICAgICAgdGhpcy5zZWxlY3RFeHRyYUNsaWVudENvbnRyYWN0ID0gJChcIiNleHRyYS1jbGllbnQtY29udHJhY3RcIik7XG4gICAgICB0aGlzLmJ0bkRlbGV0ZUV4dHJhID0gJChcIiNkZWxldGUtZXh0cmFcIik7XG4gICAgICB0aGlzLmlucHV0Q29udHJhY0Vuc3VyYW5jZSA9ICQoXCIjY29udHJhY3QtZW5zdXJhbmNlXCIpO1xuICAgICAgdGhpcy5pbnB1dEV4dHJhQ2xpZW50RG5pID0gJChcIiNleHRyYS1jbGllbnQtZG5pXCIpO1xuXG4gICAgICB0aGlzLnNlbGVjdEV4dHJhU2VydmljZS5vbignY2hhbmdlJywgZnVuY3Rpb24gKCkge1xuICAgICAgICB2YXIgZGF0YSA9ICQoKFwiI3NlbGVjdC1leHRyYS1zZXJ2aWNlIDpzZWxlY3RlZFwiKSkuZGF0YSgpO1xuICAgICAgICAkKFwiI2V4dHJhLXNlcnZpY2UtY29zdFwiKS52YWwoZGF0YVsncGF5bWVudCddKVxuICAgICAgfSk7XG5cbiAgICAgIHRoaXMuc2VsZWN0RXh0cmFDbGllbnRDb250cmFjdC5vbignY2hhbmdlJywgZnVuY3Rpb24gKCkge1xuICAgICAgICB2YXIgZGF0YSA9ICQoXCIjZXh0cmEtY2xpZW50LWNvbnRyYWN0IDpzZWxlY3RlZFwiKS5kYXRhKCk7XG4gICAgICAgICQoXCIjZXh0cmEtY29udHJhY3Qtc2VydmljZVwiKS52YWwoZGF0YVtcInNlcnZpY2VcIl0pO1xuICAgICAgICAkKFwiI2V4dHJhLWVxdWlwb1wiKS52YWwoZGF0YVtcImVxdWlwbWVudFwiXSk7XG4gICAgICAgICQoXCIjZXh0cmEtcm91dGVyXCIpLnZhbChkYXRhW1wicm91dGVyXCJdKTtcbiAgICAgICAgJChcIiNleHRyYS1lLW1hY1wiKS52YWwoZGF0YVtcImVNYWNcIl0pO1xuICAgICAgICAkKFwiI2V4dHJhLXItbWFjXCIpLnZhbChkYXRhW1wick1hY1wiXSk7XG4gICAgICAgICQoXCIjZXh0cmEtY29kZVwiKS52YWwoZGF0YVtcImNvZGVcIl0pO1xuICAgICAgICBpZiAoIWRhdGFbXCJlbnN1cmFuY2VcIl0uaW5jbHVkZXMoJ251bGwnKSl7XG4gICAgICAgICAgc2VsZi5pbnB1dENvbnRyYWNFbnN1cmFuY2UudmFsKGRhdGFbXCJlbnN1cmFuY2VcIl0pO1xuICAgICAgICB9XG4gICAgICB9KTtcblxuICAgICAgdGhpcy5idG5EZWxldGVFeHRyYS5vbignY2xpY2snLCBmdW5jdGlvbigpe1xuICAgICAgICB2YXIgaWQgPSBzZWxmLnNlbGVjdEV4dHJhQ2xpZW50Q29udHJhY3QudmFsKClcbiAgICAgICAgc2VsZi5kZWxldGVFeHRyYShpZCk7XG4gICAgICB9KVxuICAgIH1cbiAgfVxufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jb250cmFjdHMvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDE3XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFBQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///17\n");
 
 /***/ }),
 /* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(19);
-
-//TODO: change to axios:
-
-
-class contracts {
-  constructor() {
-    this.ran = false
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this);
-    if (currentPage == "nuevo_contrato") {
-      Contracts.getIpList();
-    }
-  }
-
-  add() {
-    var form, table, client_id, user_id, service_id, code, contract_date, payment, duration,
-      equipment, eMac, router, rMac, total, nextPayment, model, ip;
-
-    client_id     = $("#contract-client-id").val();
-    user_id       = $("#contract-user-id").val();
-    service_id    = $(".service-card.selected").attr('data-id');
-    contract_date = $('#contract-client-date').val();
-    duration      = $('#contract-client-months').val();
-    equipment     = $('#contract-equipment').val();
-    eMac          = $('#contract-e-mac').val();
-    router        = $('#contract-router').val();
-    rMac          = $('#contract-r-mac').val();
-    model         = $('#contract-equipment-model').val();
-    ip            = $('#contract-ip').val();
-    code          = $("#select-contract-code").val();
-
-    payment = $("#contract-client-payment").val();
-    nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');
-
-    var is_empty = isEmpty([client_id, user_id, service_id, contract_date, duration]);
-    if (!is_empty) {
-      total = (Number(duration) + 1) * Number(payment);
-      form = 'id_empleado=' + user_id + "&id_cliente=" + client_id + "&id_servicio=" + service_id + "&codigo=" + code + "&fecha=" + contract_date;
-      form += "&duracion=" + duration + "&monto_total=" + total + "&monto_pagado=0&ultimo_pago=null";
-      form += "&mensualidad=" + payment + "&proximo_pago=" + nextPayment + "&estado=activo&tabla=contratos";
-      form += "&nombre_equipo=" + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
-      form += "&modelo=" + model + "&ip=" + ip;
-      connectAndSend("process/add", null, null, Contracts.getLast, form, null);
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  getAll() {
-    var form = "tabla=contratos";
-    var callback = null
-    var refresh = contractTable.refresh;
-    if (contractTable.el == 'detalles') {
-      callback = Payments.getAll()
-      refresh = null
-    }
-    connectAndSend('process/getall', false, null, refresh, form, callback);
-  }
-
-  getLast(data) {
-    data = JSON.parse(data);
-    displayMessage(data.mensaje)
-    $("#btn-save-contract").attr("disabled", "");
-    $("#btn-print-contract").removeAttr("disabled");
-    if(data.tabla_pagos){
-      makePaymentList(data.tabla_pagos);
-    }
-  }
-
-  callExtra(context) {
-    var row
-    this.dropDownEvents();
-    if (context == "details"){
-      row = detailsContractTable.getSelectedRow();
-    }else{
-      row = contractTable.getSelectedRow();
-    }
-    if (row) {
-      this.inputExtraClientDni.val(row.cedula);
-      Contracts.getAllOfClient(row.cedula);
-      $('#add-extra-modal').modal();
-    } else {
-       displayAlert("Revise", "Seleccione el conrato primero", "error");
-    }
-  }
-
-  cancel(row,callback) {
-    var is_penalty = false;
-    var reason     = $("#cancelation-reason").val();
-    var checked    = $("#check-penalty:checked").length;
-    var form, fecha;
-    console.log(row)
-    if(row.id){
-      if (checked > 0) {
-        is_penalty = true;
-      }
-      fecha = moment().format("YYYY-MM-DD");
-      form = 'id_contrato=' + row.id + '&fecha=' + fecha + '&id_cliente=' + row.id_cliente;
-      form += "&motivo=" + reason + "&penalidad=" + is_penalty;
-      connectAndSend('process/cancel', true, null, null, form, callback);
-    }else{
-      displayMessage(MESSAGE_ERROR +" No hay contrato seleccionado");
-    }
-  }
-
-  getOne(id_contrato, receiver) {
-    form = "tabla=contratos&id_contrato=" + id_contrato;
-    connectAndSend("process/getone", false, null, receiver, form, null)
-  }
-
-  recieve(content) {
-    var contract    = JSON.parse(content);
-    this.id_contrato = contract['id_contrato'];
-    var $equipo     = $("#u-contract-equipment");
-    var $macEquipo  = $("#u-contract-e-mac");
-    var $router     = $("#u-contract-router");
-    var $macRouter  = $("#u-contract-r-mac");
-    var $modelo     = $("#u-contract-modelo");
-    var $codigo     = $("#select-contract-code");
-    var $isChangeIp = $("#check-change-ip");
-    var $ip         = $("#u-contract-ip");
-
-    $equipo.val(contract['nombre_equipo']);
-    $macEquipo.val(contract['mac_equipo']);
-    $router.val(contract['router']);
-    $macRouter.val(contract['mac_router']);
-    $modelo.val(contract['modelo']);
-    $ip.val(contract['ip']);
-
-    // $("#update-contract-modal select").val('')
-    $("#update-contract-modal").modal();
-    $("#update-contract").on('click', function (e) {
-      e.stopImmediatePropagation();
-      updateContract(id_contrato);
-    });
-
-    function updateContract(id_contrato) {
-      var checked = $("#check-change-ip:checked").length;
-      form = 'id_contrato=' + id_contrato + '&nombre_equipo=' + $equipo.val() + "&mac_equipo=" + $macEquipo.val();
-      form += "&router=" + $router.val() + "&mac_router=" + $macRouter.val();
-      form += "&modelo=" + $modelo.val();
-      form += "&tabla=contratos";
-      if (checked > 0) {
-        form += "&ip=" + $ip.val() + "&codigo=" + $codigo.val();
-      }
-      connectAndSend("process/update", true, null, null, form, Contracts.getAll);
-    }
-  }
-
-  getIpList () {
-    var section_id = $("#select-contract-sector").val();
-    var form = "id_seccion=" + section_id + "&tabla=ip_list";
-    connectAndSend("process/getall", false, null, makeIpList, form, null);
-
-    function makeIpList(content) {
-      $("#select-contract-code").html(content);
-    }
-  }
-
-  btnExtraPressed ($this) {
-    var buttonId = $this.text().trim().toLowerCase();
-    var contractId = this.selectExtraClientContract.val()
-    var clientDni = this.inputExtraClientDni.val().replace(/[-]/g,' ')
-
-    switch (buttonId) {
-      case "mejorar":
-        Contracts.upgrade();
-        break;
-      case "extender":
-        Contracts.extend();
-        break;
-      case "guardar":
-        Contracts.addExtra();
-        break;
-    }
-    this.getAllOfClient(clientDni)
-    .then(function(res){
-      console.log(res);
-      console.log(' aqui en la promesa');
-    })
-
-  }
-
-  upgrade () {
-    var form, contractId, selectedService, serviceId, amount;
-
-    contractId = $("#extra-client-contract").val();
-    selectedService = $(".service-card.selected");
-    serviceId = selectedService.attr("data-id");
-    amount = selectedService.attr("data-payment");
-
-    var is_empty = isEmpty([contractId, serviceId, amount]);
-    if (!is_empty) {
-      form = 'id_contrato=' + contractId + "&id_servicio=" + serviceId + "&cuota=" + amount;
-      connectAndSend('process/upgrade', true, initGlobalHandlers, null, form, Contracts.getAll)
-    } else {
-      displayAlert("Revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
-    }
-  }
-
-  reconnect (contractId,callback) {
-    var form, selectedService, serviceId, duration, date,send, is_empty,info;
-
-    selectedService = $(".service-card.selected");
-    serviceId = selectedService.attr("data-id");
-    duration  = $("#reconnection-months").val();
-    date = $("#reconnection-date").val()
-    is_empty = isEmpty([contractId,serviceId,date,duration]);
-    if(!is_empty){
-      info = {
-        'id_contrato': contractId,
-        'fecha': date,
-        'id_servicio': serviceId,
-        'duracion': duration
-      }
-
-      form = "data=" + JSON.stringify(info);
-      send = axios.post(BASE_URL + "contract/reconnect",form);
-      send.then(function(res){
-        displayMessage(res.data.mensaje);
-        Payments.getAll();
-        $("#btn-reconnect").removeAttr("disabled");
-        $(".reconnect-caller").removeClass('visible');
-        if(callback)
-          callback()
-      })
-      send.catch(function(err){
-        console.log(err);
-      })
-    }else{
-      swal("Llene todos los campos")
-    }
-  }
-
-  addExtra () {
-    var form, contractId, extraService, serviceCost, equipment, eMac, router, rMac,paymentMode;
-
-    contractId = $("#extra-client-contract").val();
-    serviceCost = $("#extra-service-cost").val();
-    extraService = $("#select-extra-service").val();
-    equipment = $("#extra-equipo").val();
-    eMac = $("#extra-e-mac").val();
-    router = $("#extra-router").val();
-    rMac = $("#extra-r-mac").val();
-    paymentMode = $("#select-payment-mode").val();
-
-    var is_empty = isEmpty([contractId, extraService, serviceCost,paymentMode]);
-    if (!is_empty) {
-      form = 'id_contrato=' + contractId + "&costo_servicio=" + serviceCost + "&nombre_servicio=" + extraService;
-      form += '&nombre_equipo=' + equipment + "&mac_equipo=" + eMac + "&router=" + router + "&mac_router=" + rMac;
-      form += '&modo_pago=' + paymentMode;
-      connectAndSend('process/addextra', true, initGlobalHandlers, null, form, Contracts.getAll);
-    } else {
-      displayAlert("revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
-    }
-  }
-
-  extend () {
-    var form, contractId, duration;
-    contractId = $("#extra-client-contract").val();
-    duration = $("#extra-extension-months").val();
-
-    var is_empty = isEmpty([duration, contractId]);
-    if (!is_empty) {
-      form = 'id_contrato=' + contractId + "&duracion=" + duration;
-      connectAndSend('process/extend_contract', true, initGlobalHandlers, null, form, Contracts.getAll)
-    } else {
-      displayAlert("revise", "asegurate de llenar todos los datos y seleccionar el servicio", "info");
-    }
-  }
-
-  getAllOfClient(dni) {
-    var form = "dni=" + dni;
-    var self = this;
-
-    return axios.post(BASE_URL + 'process/data_for_extra', form)
-    .then(function(res){
-      self.makeContractList(res.data)
-    })
-    .catch(function(){})
-  }
-
-  suspend (contractId, callback) {
-    var form = "data=" + JSON.stringify({id_contrato: contractId})
-
-    axios.post(BASE_URL + 'contract/suspend',form)
-    .then(function(res){
-      var data = res.data
-      displayMessage(data.mensaje);
-      Contracts.getAll();
-      if(callback)
-        callback()
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-  }
-
-  deleteExtra (contractId) {
-    var self = this
-    swal({
-      title: 'Está Seguro?',
-      text: "Seguro que desea eliminar el seguro a este contrato?",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar'
-    })
-    .then(function(){
-      sendDelete(contractId);
-      self.inputContracEnsurance.val('');
-    })
-
-    function sendDelete(contractId) {
-      var form = "data=" + JSON.stringify({id_contrato: contractId})
-      axios.post(BASE_URL + 'contract/delete_extra',form)
-      .then(function(res){
-        displayMessage(res.data.mensaje);
-      })
-      .catch(function(error){
-        console.log(error);
-      })
-    }
-  }
-
-  // UTILS
-
-  makeContractList (response) {
-    if (response) {
-      var value,service,equipment,eMac,router,rMac,code,ensuranceName,ensuranceCost;
-      var element = "<option value=''>--Selecciona--</option>";
-      var cliente = response.cliente;
-      var contratos = response.contratos;
-      var contractId;
-
-      if (currentPage != 'detalles' && currentPage != 'home'){
-        contractId = contractTable.getId();
-      } else if ( currentPage != 'home'){
-        contractId = detailsContractTable.getSelectedRow().id_contrato;
-      }
-
-      for (var i = 0 ; i < contratos.length; i++) {
-        value         = contratos[i]["id_contrato"];
-        service       = contratos[i]["servicio"];
-        equipment     = contratos[i]["nombre_equipo"];
-        router        = contratos[i]["router"];
-        eMac          = contratos[i]["mac_equipo"];
-        rMac          = contratos[i]["mac_router"];
-        code          = contratos[i]["codigo"];
-        ensuranceName     = contratos[i]["nombre_seguro"];
-        ensuranceCost = contratos[i]["mensualidad_seguro"];
-
-        element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
-        element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"' data-ensurance='"+ensuranceName+'- RD$ '+ CurrencyFormat(ensuranceCost)+"'>";
-        element += value +"</option>";
-      }
-
-      this.selectExtraClientContract.html(element);
-      this.selectExtraClientContract.val(contractId).change();
-
-      $("#extra-client-name").val(cliente['nombres'] + " " + cliente['apellidos']);
-
-    }else{
-      displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
-    }
-  }
-
-  dropDownEvents () {
-    if (!this.ran) {
-      var self = this
-      this.ran = true
-      this.selectExtraService = $("#select-extra-service");
-      this.selectExtraClientContract = $("#extra-client-contract");
-      this.btnDeleteExtra = $("#delete-extra");
-      this.inputContracEnsurance = $("#contract-ensurance");
-      this.inputExtraClientDni = $("#extra-client-dni");
-
-      this.selectExtraService.on('change', function () {
-        var data = $(("#select-extra-service :selected")).data();
-        $("#extra-service-cost").val(data['payment'])
-      });
-
-      this.selectExtraClientContract.on('change', function () {
-        var data = $("#extra-client-contract :selected").data();
-        $("#extra-contract-service").val(data["service"]);
-        $("#extra-equipo").val(data["equipment"]);
-        $("#extra-router").val(data["router"]);
-        $("#extra-e-mac").val(data["eMac"]);
-        $("#extra-r-mac").val(data["rMac"]);
-        $("#extra-code").val(data["code"]);
-        if (!data["ensurance"].includes('null')){
-          self.inputContracEnsurance.val(data["ensurance"]);
-        }
-      });
-
-      this.btnDeleteExtra.on('click', function(){
-        var id = self.selectExtraClientContract.val()
-        self.deleteExtra(id);
-      })
-    }
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = contracts;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Contracts) => {\n  if (currentPage == 'contratos') {\n    contractTable.init();\n    Contracts.getAll();\n  }\n\n  $(\"#btn-save-contract\").on('click', function (e) {\n    e.stopImmediatePropagation();\n    Contracts.add();\n  });\n\n  $(\"#btn-add-extra\").on('click', function (e) {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    Contracts.callExtra();\n  });\n\n  $(\"#btn-cancel-contract, #btn-detail-cancel-contract\").on('click', function (e) {\n    e.preventDefault();\n    var row, callback\n    if (currentPage == 'contratos') {\n      row = contractTable.getSelectedRow();\n      callback = Contracts.getAll;\n    } else {\n      row = detailsContractTable.getSelectedRow();\n      row.id = row.id_contrato;\n      row.id_cliente = $('#datail-client-id').val();\n      row.cliente = $('#detail-client-name').val();\n      callback = Payments.contractRefresh;\n    }\n\n    if (row) {\n      $(\".cancel-name\").text(row.cliente);\n      var $inputElement = $(\".confirmed-data\");\n      var $buttonToActive = $(\"#cancel-permanently\");\n\n      deleteValidation($inputElement, row.cliente, $buttonToActive);\n      $(\"#cancel-print\").attr(\"href\", BASE_URL + 'process/getcancelcontract/' + row.id);\n\n      $(\"#cancel-contract-modal\").modal();\n\n      $buttonToActive.on('click', function (e) {\n        e.stopImmediatePropagation();\n        Contracts.cancel(row, callback)\n        $buttonToActive.attr('disable');\n      })\n\n      $inputElement.val('');\n      $('#cancel-contract-modal .alert').removeClass('hide');\n      $buttonToActive.attr('disabled', '');\n    } else {\n      swal(\"Debes seleccionar un contrato\")\n    }\n  });\n\n  $(\"#btn-suspend-contract\").on('click', function (e) {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    var row = contractTable.getSelectedRow();\n    if (row) {\n      swal({\n        title: 'Está Seguro?',\n        text: \"Desea Suspender el contrato de \" + row.cliente + \" ?\",\n        type: 'warning',\n        showCancelButton: true,\n        confirmButtonText: 'Estoy Seguro',\n        cancelButtonText: 'Cancelar'\n      }).then(function () {\n        Contracts.suspend(row.id);\n      });\n    } else {\n      swal(\"Debe seleccionar un contrato\")\n    }\n  });\n\n  $(\"#btn-update-contract\").on('click', function (e) {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    var id = contractTable.getId();\n    if (id) {\n      Contracts.getOne(id, Contracts.recieve);\n    }\n  });\n\n  $(\"#select-contract-sector\").on('change', function (e) {\n    e.stopImmediatePropagation();\n    Contracts.getIpList();\n  })\n\n  $('#select-pay-until').on('change', function (e) {\n    e.stopImmediatePropagation();\n    var $this = $('#select-pay-until :selected');\n    var contractId = $this.attr('data-contract');\n    var lastPaymentId = $(this).val();\n    Payments.updateUntil(contractId, lastPaymentId);\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jb250cmFjdHMvaGFuZGxlcnMuanM/NWE4NCJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCAoQ29udHJhY3RzKSA9PiB7XG4gIGlmIChjdXJyZW50UGFnZSA9PSAnY29udHJhdG9zJykge1xuICAgIGNvbnRyYWN0VGFibGUuaW5pdCgpO1xuICAgIENvbnRyYWN0cy5nZXRBbGwoKTtcbiAgfVxuXG4gICQoXCIjYnRuLXNhdmUtY29udHJhY3RcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIENvbnRyYWN0cy5hZGQoKTtcbiAgfSk7XG5cbiAgJChcIiNidG4tYWRkLWV4dHJhXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgQ29udHJhY3RzLmNhbGxFeHRyYSgpO1xuICB9KTtcblxuICAkKFwiI2J0bi1jYW5jZWwtY29udHJhY3QsICNidG4tZGV0YWlsLWNhbmNlbC1jb250cmFjdFwiKS5vbignY2xpY2snLCBmdW5jdGlvbiAoZSkge1xuICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICB2YXIgcm93LCBjYWxsYmFja1xuICAgIGlmIChjdXJyZW50UGFnZSA9PSAnY29udHJhdG9zJykge1xuICAgICAgcm93ID0gY29udHJhY3RUYWJsZS5nZXRTZWxlY3RlZFJvdygpO1xuICAgICAgY2FsbGJhY2sgPSBDb250cmFjdHMuZ2V0QWxsO1xuICAgIH0gZWxzZSB7XG4gICAgICByb3cgPSBkZXRhaWxzQ29udHJhY3RUYWJsZS5nZXRTZWxlY3RlZFJvdygpO1xuICAgICAgcm93LmlkID0gcm93LmlkX2NvbnRyYXRvO1xuICAgICAgcm93LmlkX2NsaWVudGUgPSAkKCcjZGF0YWlsLWNsaWVudC1pZCcpLnZhbCgpO1xuICAgICAgcm93LmNsaWVudGUgPSAkKCcjZGV0YWlsLWNsaWVudC1uYW1lJykudmFsKCk7XG4gICAgICBjYWxsYmFjayA9IFBheW1lbnRzLmNvbnRyYWN0UmVmcmVzaDtcbiAgICB9XG5cbiAgICBpZiAocm93KSB7XG4gICAgICAkKFwiLmNhbmNlbC1uYW1lXCIpLnRleHQocm93LmNsaWVudGUpO1xuICAgICAgdmFyICRpbnB1dEVsZW1lbnQgPSAkKFwiLmNvbmZpcm1lZC1kYXRhXCIpO1xuICAgICAgdmFyICRidXR0b25Ub0FjdGl2ZSA9ICQoXCIjY2FuY2VsLXBlcm1hbmVudGx5XCIpO1xuXG4gICAgICBkZWxldGVWYWxpZGF0aW9uKCRpbnB1dEVsZW1lbnQsIHJvdy5jbGllbnRlLCAkYnV0dG9uVG9BY3RpdmUpO1xuICAgICAgJChcIiNjYW5jZWwtcHJpbnRcIikuYXR0cihcImhyZWZcIiwgQkFTRV9VUkwgKyAncHJvY2Vzcy9nZXRjYW5jZWxjb250cmFjdC8nICsgcm93LmlkKTtcblxuICAgICAgJChcIiNjYW5jZWwtY29udHJhY3QtbW9kYWxcIikubW9kYWwoKTtcblxuICAgICAgJGJ1dHRvblRvQWN0aXZlLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgICAgIENvbnRyYWN0cy5jYW5jZWwocm93LCBjYWxsYmFjaylcbiAgICAgICAgJGJ1dHRvblRvQWN0aXZlLmF0dHIoJ2Rpc2FibGUnKTtcbiAgICAgIH0pXG5cbiAgICAgICRpbnB1dEVsZW1lbnQudmFsKCcnKTtcbiAgICAgICQoJyNjYW5jZWwtY29udHJhY3QtbW9kYWwgLmFsZXJ0JykucmVtb3ZlQ2xhc3MoJ2hpZGUnKTtcbiAgICAgICRidXR0b25Ub0FjdGl2ZS5hdHRyKCdkaXNhYmxlZCcsICcnKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3dhbChcIkRlYmVzIHNlbGVjY2lvbmFyIHVuIGNvbnRyYXRvXCIpXG4gICAgfVxuICB9KTtcblxuICAkKFwiI2J0bi1zdXNwZW5kLWNvbnRyYWN0XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgdmFyIHJvdyA9IGNvbnRyYWN0VGFibGUuZ2V0U2VsZWN0ZWRSb3coKTtcbiAgICBpZiAocm93KSB7XG4gICAgICBzd2FsKHtcbiAgICAgICAgdGl0bGU6ICdFc3TDoSBTZWd1cm8/JyxcbiAgICAgICAgdGV4dDogXCJEZXNlYSBTdXNwZW5kZXIgZWwgY29udHJhdG8gZGUgXCIgKyByb3cuY2xpZW50ZSArIFwiID9cIixcbiAgICAgICAgdHlwZTogJ3dhcm5pbmcnLFxuICAgICAgICBzaG93Q2FuY2VsQnV0dG9uOiB0cnVlLFxuICAgICAgICBjb25maXJtQnV0dG9uVGV4dDogJ0VzdG95IFNlZ3VybycsXG4gICAgICAgIGNhbmNlbEJ1dHRvblRleHQ6ICdDYW5jZWxhcidcbiAgICAgIH0pLnRoZW4oZnVuY3Rpb24gKCkge1xuICAgICAgICBDb250cmFjdHMuc3VzcGVuZChyb3cuaWQpO1xuICAgICAgfSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHN3YWwoXCJEZWJlIHNlbGVjY2lvbmFyIHVuIGNvbnRyYXRvXCIpXG4gICAgfVxuICB9KTtcblxuICAkKFwiI2J0bi11cGRhdGUtY29udHJhY3RcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICB2YXIgaWQgPSBjb250cmFjdFRhYmxlLmdldElkKCk7XG4gICAgaWYgKGlkKSB7XG4gICAgICBDb250cmFjdHMuZ2V0T25lKGlkLCBDb250cmFjdHMucmVjaWV2ZSk7XG4gICAgfVxuICB9KTtcblxuICAkKFwiI3NlbGVjdC1jb250cmFjdC1zZWN0b3JcIikub24oJ2NoYW5nZScsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBDb250cmFjdHMuZ2V0SXBMaXN0KCk7XG4gIH0pXG5cbiAgJCgnI3NlbGVjdC1wYXktdW50aWwnKS5vbignY2hhbmdlJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIHZhciAkdGhpcyA9ICQoJyNzZWxlY3QtcGF5LXVudGlsIDpzZWxlY3RlZCcpO1xuICAgIHZhciBjb250cmFjdElkID0gJHRoaXMuYXR0cignZGF0YS1jb250cmFjdCcpO1xuICAgIHZhciBsYXN0UGF5bWVudElkID0gJCh0aGlzKS52YWwoKTtcbiAgICBQYXltZW50cy51cGRhdGVVbnRpbChjb250cmFjdElkLCBsYXN0UGF5bWVudElkKTtcbiAgfSk7XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2NvbnRyYWN0cy9oYW5kbGVycy5qc1xuLy8gbW9kdWxlIGlkID0gMThcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///18\n");
 
 /***/ }),
 /* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Contracts) => {
-  if (currentPage == 'contratos') {
-    contractTable.init();
-    Contracts.getAll();
-  }
-
-  $("#btn-save-contract").on('click', function (e) {
-    e.stopImmediatePropagation();
-    Contracts.add();
-  });
-
-  $("#btn-add-extra").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    Contracts.callExtra();
-  });
-
-  $("#btn-cancel-contract, #btn-detail-cancel-contract").on('click', function (e) {
-    e.preventDefault();
-    var row, callback
-    if (currentPage == 'contratos') {
-      row = contractTable.getSelectedRow();
-      callback = Contracts.getAll;
-    } else {
-      row = detailsContractTable.getSelectedRow();
-      row.id = row.id_contrato;
-      row.id_cliente = $('#datail-client-id').val();
-      row.cliente = $('#detail-client-name').val();
-      callback = Payments.contractRefresh;
-    }
-
-    if (row) {
-      $(".cancel-name").text(row.cliente);
-      var $inputElement = $(".confirmed-data");
-      var $buttonToActive = $("#cancel-permanently");
-
-      deleteValidation($inputElement, row.cliente, $buttonToActive);
-      $("#cancel-print").attr("href", BASE_URL + 'process/getcancelcontract/' + row.id);
-
-      $("#cancel-contract-modal").modal();
-
-      $buttonToActive.on('click', function (e) {
-        e.stopImmediatePropagation();
-        Contracts.cancel(row, callback)
-        $buttonToActive.attr('disable');
-      })
-
-      $inputElement.val('');
-      $('#cancel-contract-modal .alert').removeClass('hide');
-      $buttonToActive.attr('disabled', '');
-    } else {
-      swal("Debes seleccionar un contrato")
-    }
-  });
-
-  $("#btn-suspend-contract").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    var row = contractTable.getSelectedRow();
-    if (row) {
-      swal({
-        title: 'Está Seguro?',
-        text: "Desea Suspender el contrato de " + row.cliente + " ?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Estoy Seguro',
-        cancelButtonText: 'Cancelar'
-      }).then(function () {
-        Contracts.suspend(row.id);
-      });
-    } else {
-      swal("Debe seleccionar un contrato")
-    }
-  });
-
-  $("#btn-update-contract").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    var id = contractTable.getId();
-    if (id) {
-      Contracts.getOne(id, Contracts.recieve);
-    }
-  });
-
-  $("#select-contract-sector").on('change', function (e) {
-    e.stopImmediatePropagation();
-    Contracts.getIpList();
-  })
-
-  $('#select-pay-until').on('change', function (e) {
-    e.stopImmediatePropagation();
-    var $this = $('#select-pay-until :selected');
-    var contractId = $this.attr('data-contract');
-    var lastPaymentId = $(this).val();
-    Payments.updateUntil(contractId, lastPaymentId);
-  });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(20);\n\n\nclass payments {\n  constructor() {\n    this.ran = false;\n    this.hasChanged = false;\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this)\n  }\n\n  getAll() {\n    var id = $(\"#select-contract\").val();\n    if (id != null) {\n      var form = \"tabla=pagos&id=\" + id;\n      connectAndSend('process/getall', false, null, paymentTable.refresh, form, Payments.contractRefresh);\n    }\n  }\n\n  update(id) {\n      var date = moment().format(\"YYYY-MM-DD\");\n      var id_contrato = $(\"#select-contract\").val();\n      var form = \"tabla=pagos&id=\" + id + \"&estado=pagado&fecha_pago=\" + date + \"&id_contrato=\" + id_contrato;\n      connectAndSend('process/update', true, null, null, form, Payments.getAll);\n  }\n\n  saveAbonos () {\n    var form, observations, abono$inputAbono,$textAbono,contractId;\n\n    $textAbono   = $('#text-abono-detail');\n    observations = $textAbono.val();\n    contractId   = $(\"#select-contract\").val();\n    $inputAbono  = $(\"#input-abono\");\n    abono        = $inputAbono.val();\n\n    form = 'observaciones=' + observations + \"&abonos=\" + abono;\n    form += \"&contrato_abono=\"+contractId+\"&tabla=abonos\";\n    connectAndSend(\"process/update\", true, null, null, form, Payments.getAll)\n    $inputAbono.val('')\n  }\n\n  saveExtra () {\n    var send = axios.post(BASE_URL + 'process/')\n  }\n\n  updateUntil (contractId,lastPaymentId){\n    var id_contrato = $(\"#select-contract\").val();\n    var form = \"tabla=pagos_al_dia&id_ultimo_pago=\" + lastPaymentId + \"&estado=pagado&id_contrato=\" + contractId;\n    var handlers, callback;\n    connectAndSend('process/update', true, null, null, form, null, heavyLoad);\n  }\n\n  removePayment (id) {\n    var form = \"tabla=deshacer_pago&id_pago=\" + id;\n    connectAndSend('process/update', true, null, null, form, Payments.getAll);\n  }\n\n  contractRefresh(){\n    var id_cliente = $('#detail-client-id').val()\n    var form = \"tabla=contratos_cliente&id=\" + id_cliente;\n    connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);\n  }\n\n  getOne(id_pago, receiver) {\n    var self = this;\n    var form = \"tabla=pagos&id_pago=\" + id_pago;\n    axios.post(BASE_URL + 'process/getone', form)\n    .then(function(res){\n      self.receiveForEdit(res.data);\n    })\n  }\n\n  receiveForEdit(data){\n    var self          = Payments;\n    var pago          = data.pago\n    var settings      = data.settings;\n    self.idContrato   = pago['id_contrato'];\n    self.idPago       = pago['id_pago'];\n    var $concepto     = $(\"#payment-concept\");\n    var $fechaLimite  = $(\"#payment-limit-date\");\n    var $serviciosExtra = $(\"#payment-extra-services\");\n    var $cuota        = $(\"#payment-cuota\");\n    var $mora         = $(\"#payment-mora\");\n    var $extra        = $(\"#payment-extra\");\n    var $total        = $(\"#payment-total\");\n    var $descuento    = $(\"#payment-discount-amount\");\n    var $razon        = $(\"#payment-discount-reason\");\n    var $modal        = $(\"#advanced-payment\");\n    var $cMora        = $(\"#c_mora\");\n    var $cReconexion  = $(\"#c_reconexion\");\n\n    $concepto.val(pago['concepto']);\n    $fechaLimite.val(pago['fecha_limite']);\n    $cuota.val(pago['cuota']);\n    $mora.val(pago['mora']);\n    $extra.val(pago['monto_extra']);\n    $total.val(pago['total']);\n    $serviciosExtra.val(pago['detalles_extra']);\n    interactiveSum();\n\n    $modal.modal();\n\n    if (pago['mora'] > 0) {\n      $cMora.iCheck('check');\n      Payments.hasChanged = true\n    } else {\n      $cMora.iCheck('uncheck');\n      Payments.hasChanged = true;\n    }\n\n    if (pago['detalles_extra'].includes('Reconexion')) {\n      $cReconexion.iCheck('check');\n      Payments.hasChanged = true\n    } else {\n      $cReconexion.iCheck('uncheck');\n      Payments.hasChanged = true\n    }\n\n    $(\"#btn-apply-discount\").on('click', function (e) {\n      e.stopImmediatePropagation();\n      if ($descuento.val() > 0) {\n        swal({\n          title: 'Está Seguro?',\n          text: \"Seguro de que quiere aplicar este descuento de \" + $descuento.val() + \"?\",\n          type: 'warning',\n          showCancelButton: true,\n          confirmButtonText: 'Estoy Seguro!',\n          cancelButtonText: 'Cancelar'\n        }).then(function(){\n          apply();\n        });\n      } else {\n        apply();\n      }\n    });\n\n    if (!this.ran) {\n      this.ran = true\n      $modal.on('hide.bs.modal',function(){\n        $modal.find('input').val('')\n      });\n\n      $cMora.on('ifChecked', function () {\n        var mora = pago['cuota'] * settings['cargo_mora'] / 100;\n        Payments.setMora(mora, self.idPago)\n        .then( function(){\n          self.getOne(self.idPago, self.receiveForEdit);\n        })\n      });\n\n      $cReconexion.on('ifChecked', function () {\n        Payments.setExtra(0, self.idPago)\n        .then( function(){\n          self.getOne(self.idPago, self.receiveForEdit);\n        })\n      })\n\n      $cMora.on('ifUnchecked', function () {\n        Payments.setMora(0, self.idPago)\n        .then( function(){\n          self.getOne(self.idPago, self.receiveForEdit);\n        })\n      })\n\n      $cReconexion.on('ifUnchecked', function () {\n        Payments.deleteExtra(0, self.idPago)\n        .then( function(){\n          self.getOne(self.idPago, self.receiveForEdit);\n        })\n      })\n\n      $modal.on('hide.bs.modal', function (e) {\n        if (Payments.hasChanged) {\n          Payments.hasChanged = false\n          Payments.getAll()\n        }\n      })\n    }\n\n    function apply () {\n      applyDiscount(self.idPago);\n      $modal.hide();\n      $modal.modal('hide');\n      $('body').removeClass('modal-open');\n      $('.modal-backdrop').remove();\n    }\n\n    function applyDiscount(id_pago) {\n      var date = moment().format(\"YYYY-MM-DD\");\n      form = 'id_pago=' + self.idPago + '&id_contrato=' + self.idContrato + \"&cuota=\" + $cuota.val();\n      form += \"&mora=\" + $mora.val() + \"&monto_extra=\" + $extra.val();\n      form += \"&total=\" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val();\n      form += '&fecha_pago=' + date + '&detalles_extra=' + $serviciosExtra.val() + \"&tabla=discount_pagos\";\n\n      connectAndSend(\"process/update\", true, null, null, form, Payments.getAll);\n      $modal.hide();\n    }\n\n    function interactiveSum(){\n      $('.payment-sumandos').on('keyup',function(){\n        $cuota.val(pago['cuota'] - $descuento.val());\n        var suma = Number($cuota.val()) + Number($mora.val()) + Number($extra.val());\n        $total.val(Number(suma))\n      })\n    }\n  }\n\n  deleteExtra(key, idPago) {\n    var self = this\n    var form = \"data=\" + JSON.stringify({key: key,id_pago: idPago})\n    return axios.post(BASE_URL + 'payment/delete_extra',form)\n    .then(function(res){\n      displayMessage(res.data.mensaje);\n    })\n    .catch(function(error){\n      console.log(error);\n    })\n  }\n\n  setExtra(key, idPago) {\n    var self = this\n    var form = \"data=\" + JSON.stringify({key: key, id_pago: idPago})\n    return axios.post(BASE_URL + 'payment/set_extra',form)\n    .then(function(res){\n      displayMessage(res.data.mensaje);\n    })\n    .catch(function(error){\n      console.log(error);\n    })\n  }\n\n  setMora(mora, idPago) {\n    var self = this\n    var form = \"data=\" + JSON.stringify({mora: mora, id_pago: idPago})\n    return axios.post(BASE_URL + 'payment/set_mora',form)\n    .then(function(res){\n      displayMessage(res.data.mensaje);\n    })\n    .catch(function(error){\n      console.log(error);\n    })\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = payments;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9wYXltZW50cy9pbmRleC5qcz8yYTIzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVycyBmcm9tICcuL2hhbmRsZXJzJztcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgcGF5bWVudHMge1xuICBjb25zdHJ1Y3RvcigpIHtcbiAgICB0aGlzLnJhbiA9IGZhbHNlO1xuICAgIHRoaXMuaGFzQ2hhbmdlZCA9IGZhbHNlO1xuICAgIGhhbmRsZXJzKHRoaXMpXG4gIH1cblxuICBnZXRBbGwoKSB7XG4gICAgdmFyIGlkID0gJChcIiNzZWxlY3QtY29udHJhY3RcIikudmFsKCk7XG4gICAgaWYgKGlkICE9IG51bGwpIHtcbiAgICAgIHZhciBmb3JtID0gXCJ0YWJsYT1wYWdvcyZpZD1cIiArIGlkO1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvZ2V0YWxsJywgZmFsc2UsIG51bGwsIHBheW1lbnRUYWJsZS5yZWZyZXNoLCBmb3JtLCBQYXltZW50cy5jb250cmFjdFJlZnJlc2gpO1xuICAgIH1cbiAgfVxuXG4gIHVwZGF0ZShpZCkge1xuICAgICAgdmFyIGRhdGUgPSBtb21lbnQoKS5mb3JtYXQoXCJZWVlZLU1NLUREXCIpO1xuICAgICAgdmFyIGlkX2NvbnRyYXRvID0gJChcIiNzZWxlY3QtY29udHJhY3RcIikudmFsKCk7XG4gICAgICB2YXIgZm9ybSA9IFwidGFibGE9cGFnb3MmaWQ9XCIgKyBpZCArIFwiJmVzdGFkbz1wYWdhZG8mZmVjaGFfcGFnbz1cIiArIGRhdGUgKyBcIiZpZF9jb250cmF0bz1cIiArIGlkX2NvbnRyYXRvO1xuICAgICAgY29ubmVjdEFuZFNlbmQoJ3Byb2Nlc3MvdXBkYXRlJywgdHJ1ZSwgbnVsbCwgbnVsbCwgZm9ybSwgUGF5bWVudHMuZ2V0QWxsKTtcbiAgfVxuXG4gIHNhdmVBYm9ub3MgKCkge1xuICAgIHZhciBmb3JtLCBvYnNlcnZhdGlvbnMsIGFib25vJGlucHV0QWJvbm8sJHRleHRBYm9ubyxjb250cmFjdElkO1xuXG4gICAgJHRleHRBYm9ubyAgID0gJCgnI3RleHQtYWJvbm8tZGV0YWlsJyk7XG4gICAgb2JzZXJ2YXRpb25zID0gJHRleHRBYm9uby52YWwoKTtcbiAgICBjb250cmFjdElkICAgPSAkKFwiI3NlbGVjdC1jb250cmFjdFwiKS52YWwoKTtcbiAgICAkaW5wdXRBYm9ubyAgPSAkKFwiI2lucHV0LWFib25vXCIpO1xuICAgIGFib25vICAgICAgICA9ICRpbnB1dEFib25vLnZhbCgpO1xuXG4gICAgZm9ybSA9ICdvYnNlcnZhY2lvbmVzPScgKyBvYnNlcnZhdGlvbnMgKyBcIiZhYm9ub3M9XCIgKyBhYm9ubztcbiAgICBmb3JtICs9IFwiJmNvbnRyYXRvX2Fib25vPVwiK2NvbnRyYWN0SWQrXCImdGFibGE9YWJvbm9zXCI7XG4gICAgY29ubmVjdEFuZFNlbmQoXCJwcm9jZXNzL3VwZGF0ZVwiLCB0cnVlLCBudWxsLCBudWxsLCBmb3JtLCBQYXltZW50cy5nZXRBbGwpXG4gICAgJGlucHV0QWJvbm8udmFsKCcnKVxuICB9XG5cbiAgc2F2ZUV4dHJhICgpIHtcbiAgICB2YXIgc2VuZCA9IGF4aW9zLnBvc3QoQkFTRV9VUkwgKyAncHJvY2Vzcy8nKVxuICB9XG5cbiAgdXBkYXRlVW50aWwgKGNvbnRyYWN0SWQsbGFzdFBheW1lbnRJZCl7XG4gICAgdmFyIGlkX2NvbnRyYXRvID0gJChcIiNzZWxlY3QtY29udHJhY3RcIikudmFsKCk7XG4gICAgdmFyIGZvcm0gPSBcInRhYmxhPXBhZ29zX2FsX2RpYSZpZF91bHRpbW9fcGFnbz1cIiArIGxhc3RQYXltZW50SWQgKyBcIiZlc3RhZG89cGFnYWRvJmlkX2NvbnRyYXRvPVwiICsgY29udHJhY3RJZDtcbiAgICB2YXIgaGFuZGxlcnMsIGNhbGxiYWNrO1xuICAgIGNvbm5lY3RBbmRTZW5kKCdwcm9jZXNzL3VwZGF0ZScsIHRydWUsIG51bGwsIG51bGwsIGZvcm0sIG51bGwsIGhlYXZ5TG9hZCk7XG4gIH1cblxuICByZW1vdmVQYXltZW50IChpZCkge1xuICAgIHZhciBmb3JtID0gXCJ0YWJsYT1kZXNoYWNlcl9wYWdvJmlkX3BhZ289XCIgKyBpZDtcbiAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy91cGRhdGUnLCB0cnVlLCBudWxsLCBudWxsLCBmb3JtLCBQYXltZW50cy5nZXRBbGwpO1xuICB9XG5cbiAgY29udHJhY3RSZWZyZXNoKCl7XG4gICAgdmFyIGlkX2NsaWVudGUgPSAkKCcjZGV0YWlsLWNsaWVudC1pZCcpLnZhbCgpXG4gICAgdmFyIGZvcm0gPSBcInRhYmxhPWNvbnRyYXRvc19jbGllbnRlJmlkPVwiICsgaWRfY2xpZW50ZTtcbiAgICBjb25uZWN0QW5kU2VuZCgncHJvY2Vzcy9nZXRhbGwnLCBmYWxzZSwgbnVsbCwgZGV0YWlsc0NvbnRyYWN0VGFibGUucmVmcmVzaCwgZm9ybSwgbnVsbCk7XG4gIH1cblxuICBnZXRPbmUoaWRfcGFnbywgcmVjZWl2ZXIpIHtcbiAgICB2YXIgc2VsZiA9IHRoaXM7XG4gICAgdmFyIGZvcm0gPSBcInRhYmxhPXBhZ29zJmlkX3BhZ289XCIgKyBpZF9wYWdvO1xuICAgIGF4aW9zLnBvc3QoQkFTRV9VUkwgKyAncHJvY2Vzcy9nZXRvbmUnLCBmb3JtKVxuICAgIC50aGVuKGZ1bmN0aW9uKHJlcyl7XG4gICAgICBzZWxmLnJlY2VpdmVGb3JFZGl0KHJlcy5kYXRhKTtcbiAgICB9KVxuICB9XG5cbiAgcmVjZWl2ZUZvckVkaXQoZGF0YSl7XG4gICAgdmFyIHNlbGYgICAgICAgICAgPSBQYXltZW50cztcbiAgICB2YXIgcGFnbyAgICAgICAgICA9IGRhdGEucGFnb1xuICAgIHZhciBzZXR0aW5ncyAgICAgID0gZGF0YS5zZXR0aW5ncztcbiAgICBzZWxmLmlkQ29udHJhdG8gICA9IHBhZ29bJ2lkX2NvbnRyYXRvJ107XG4gICAgc2VsZi5pZFBhZ28gICAgICAgPSBwYWdvWydpZF9wYWdvJ107XG4gICAgdmFyICRjb25jZXB0byAgICAgPSAkKFwiI3BheW1lbnQtY29uY2VwdFwiKTtcbiAgICB2YXIgJGZlY2hhTGltaXRlICA9ICQoXCIjcGF5bWVudC1saW1pdC1kYXRlXCIpO1xuICAgIHZhciAkc2VydmljaW9zRXh0cmEgPSAkKFwiI3BheW1lbnQtZXh0cmEtc2VydmljZXNcIik7XG4gICAgdmFyICRjdW90YSAgICAgICAgPSAkKFwiI3BheW1lbnQtY3VvdGFcIik7XG4gICAgdmFyICRtb3JhICAgICAgICAgPSAkKFwiI3BheW1lbnQtbW9yYVwiKTtcbiAgICB2YXIgJGV4dHJhICAgICAgICA9ICQoXCIjcGF5bWVudC1leHRyYVwiKTtcbiAgICB2YXIgJHRvdGFsICAgICAgICA9ICQoXCIjcGF5bWVudC10b3RhbFwiKTtcbiAgICB2YXIgJGRlc2N1ZW50byAgICA9ICQoXCIjcGF5bWVudC1kaXNjb3VudC1hbW91bnRcIik7XG4gICAgdmFyICRyYXpvbiAgICAgICAgPSAkKFwiI3BheW1lbnQtZGlzY291bnQtcmVhc29uXCIpO1xuICAgIHZhciAkbW9kYWwgICAgICAgID0gJChcIiNhZHZhbmNlZC1wYXltZW50XCIpO1xuICAgIHZhciAkY01vcmEgICAgICAgID0gJChcIiNjX21vcmFcIik7XG4gICAgdmFyICRjUmVjb25leGlvbiAgPSAkKFwiI2NfcmVjb25leGlvblwiKTtcblxuICAgICRjb25jZXB0by52YWwocGFnb1snY29uY2VwdG8nXSk7XG4gICAgJGZlY2hhTGltaXRlLnZhbChwYWdvWydmZWNoYV9saW1pdGUnXSk7XG4gICAgJGN1b3RhLnZhbChwYWdvWydjdW90YSddKTtcbiAgICAkbW9yYS52YWwocGFnb1snbW9yYSddKTtcbiAgICAkZXh0cmEudmFsKHBhZ29bJ21vbnRvX2V4dHJhJ10pO1xuICAgICR0b3RhbC52YWwocGFnb1sndG90YWwnXSk7XG4gICAgJHNlcnZpY2lvc0V4dHJhLnZhbChwYWdvWydkZXRhbGxlc19leHRyYSddKTtcbiAgICBpbnRlcmFjdGl2ZVN1bSgpO1xuXG4gICAgJG1vZGFsLm1vZGFsKCk7XG5cbiAgICBpZiAocGFnb1snbW9yYSddID4gMCkge1xuICAgICAgJGNNb3JhLmlDaGVjaygnY2hlY2snKTtcbiAgICAgIFBheW1lbnRzLmhhc0NoYW5nZWQgPSB0cnVlXG4gICAgfSBlbHNlIHtcbiAgICAgICRjTW9yYS5pQ2hlY2soJ3VuY2hlY2snKTtcbiAgICAgIFBheW1lbnRzLmhhc0NoYW5nZWQgPSB0cnVlO1xuICAgIH1cblxuICAgIGlmIChwYWdvWydkZXRhbGxlc19leHRyYSddLmluY2x1ZGVzKCdSZWNvbmV4aW9uJykpIHtcbiAgICAgICRjUmVjb25leGlvbi5pQ2hlY2soJ2NoZWNrJyk7XG4gICAgICBQYXltZW50cy5oYXNDaGFuZ2VkID0gdHJ1ZVxuICAgIH0gZWxzZSB7XG4gICAgICAkY1JlY29uZXhpb24uaUNoZWNrKCd1bmNoZWNrJyk7XG4gICAgICBQYXltZW50cy5oYXNDaGFuZ2VkID0gdHJ1ZVxuICAgIH1cblxuICAgICQoXCIjYnRuLWFwcGx5LWRpc2NvdW50XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgaWYgKCRkZXNjdWVudG8udmFsKCkgPiAwKSB7XG4gICAgICAgIHN3YWwoe1xuICAgICAgICAgIHRpdGxlOiAnRXN0w6EgU2VndXJvPycsXG4gICAgICAgICAgdGV4dDogXCJTZWd1cm8gZGUgcXVlIHF1aWVyZSBhcGxpY2FyIGVzdGUgZGVzY3VlbnRvIGRlIFwiICsgJGRlc2N1ZW50by52YWwoKSArIFwiP1wiLFxuICAgICAgICAgIHR5cGU6ICd3YXJuaW5nJyxcbiAgICAgICAgICBzaG93Q2FuY2VsQnV0dG9uOiB0cnVlLFxuICAgICAgICAgIGNvbmZpcm1CdXR0b25UZXh0OiAnRXN0b3kgU2VndXJvIScsXG4gICAgICAgICAgY2FuY2VsQnV0dG9uVGV4dDogJ0NhbmNlbGFyJ1xuICAgICAgICB9KS50aGVuKGZ1bmN0aW9uKCl7XG4gICAgICAgICAgYXBwbHkoKTtcbiAgICAgICAgfSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBhcHBseSgpO1xuICAgICAgfVxuICAgIH0pO1xuXG4gICAgaWYgKCF0aGlzLnJhbikge1xuICAgICAgdGhpcy5yYW4gPSB0cnVlXG4gICAgICAkbW9kYWwub24oJ2hpZGUuYnMubW9kYWwnLGZ1bmN0aW9uKCl7XG4gICAgICAgICRtb2RhbC5maW5kKCdpbnB1dCcpLnZhbCgnJylcbiAgICAgIH0pO1xuXG4gICAgICAkY01vcmEub24oJ2lmQ2hlY2tlZCcsIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgdmFyIG1vcmEgPSBwYWdvWydjdW90YSddICogc2V0dGluZ3NbJ2NhcmdvX21vcmEnXSAvIDEwMDtcbiAgICAgICAgUGF5bWVudHMuc2V0TW9yYShtb3JhLCBzZWxmLmlkUGFnbylcbiAgICAgICAgLnRoZW4oIGZ1bmN0aW9uKCl7XG4gICAgICAgICAgc2VsZi5nZXRPbmUoc2VsZi5pZFBhZ28sIHNlbGYucmVjZWl2ZUZvckVkaXQpO1xuICAgICAgICB9KVxuICAgICAgfSk7XG5cbiAgICAgICRjUmVjb25leGlvbi5vbignaWZDaGVja2VkJywgZnVuY3Rpb24gKCkge1xuICAgICAgICBQYXltZW50cy5zZXRFeHRyYSgwLCBzZWxmLmlkUGFnbylcbiAgICAgICAgLnRoZW4oIGZ1bmN0aW9uKCl7XG4gICAgICAgICAgc2VsZi5nZXRPbmUoc2VsZi5pZFBhZ28sIHNlbGYucmVjZWl2ZUZvckVkaXQpO1xuICAgICAgICB9KVxuICAgICAgfSlcblxuICAgICAgJGNNb3JhLm9uKCdpZlVuY2hlY2tlZCcsIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgUGF5bWVudHMuc2V0TW9yYSgwLCBzZWxmLmlkUGFnbylcbiAgICAgICAgLnRoZW4oIGZ1bmN0aW9uKCl7XG4gICAgICAgICAgc2VsZi5nZXRPbmUoc2VsZi5pZFBhZ28sIHNlbGYucmVjZWl2ZUZvckVkaXQpO1xuICAgICAgICB9KVxuICAgICAgfSlcblxuICAgICAgJGNSZWNvbmV4aW9uLm9uKCdpZlVuY2hlY2tlZCcsIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgUGF5bWVudHMuZGVsZXRlRXh0cmEoMCwgc2VsZi5pZFBhZ28pXG4gICAgICAgIC50aGVuKCBmdW5jdGlvbigpe1xuICAgICAgICAgIHNlbGYuZ2V0T25lKHNlbGYuaWRQYWdvLCBzZWxmLnJlY2VpdmVGb3JFZGl0KTtcbiAgICAgICAgfSlcbiAgICAgIH0pXG5cbiAgICAgICRtb2RhbC5vbignaGlkZS5icy5tb2RhbCcsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIGlmIChQYXltZW50cy5oYXNDaGFuZ2VkKSB7XG4gICAgICAgICAgUGF5bWVudHMuaGFzQ2hhbmdlZCA9IGZhbHNlXG4gICAgICAgICAgUGF5bWVudHMuZ2V0QWxsKClcbiAgICAgICAgfVxuICAgICAgfSlcbiAgICB9XG5cbiAgICBmdW5jdGlvbiBhcHBseSAoKSB7XG4gICAgICBhcHBseURpc2NvdW50KHNlbGYuaWRQYWdvKTtcbiAgICAgICRtb2RhbC5oaWRlKCk7XG4gICAgICAkbW9kYWwubW9kYWwoJ2hpZGUnKTtcbiAgICAgICQoJ2JvZHknKS5yZW1vdmVDbGFzcygnbW9kYWwtb3BlbicpO1xuICAgICAgJCgnLm1vZGFsLWJhY2tkcm9wJykucmVtb3ZlKCk7XG4gICAgfVxuXG4gICAgZnVuY3Rpb24gYXBwbHlEaXNjb3VudChpZF9wYWdvKSB7XG4gICAgICB2YXIgZGF0ZSA9IG1vbWVudCgpLmZvcm1hdChcIllZWVktTU0tRERcIik7XG4gICAgICBmb3JtID0gJ2lkX3BhZ289JyArIHNlbGYuaWRQYWdvICsgJyZpZF9jb250cmF0bz0nICsgc2VsZi5pZENvbnRyYXRvICsgXCImY3VvdGE9XCIgKyAkY3VvdGEudmFsKCk7XG4gICAgICBmb3JtICs9IFwiJm1vcmE9XCIgKyAkbW9yYS52YWwoKSArIFwiJm1vbnRvX2V4dHJhPVwiICsgJGV4dHJhLnZhbCgpO1xuICAgICAgZm9ybSArPSBcIiZ0b3RhbD1cIiArICR0b3RhbC52YWwoKSArICcmZGVzY3VlbnRvPScgKyAkZGVzY3VlbnRvLnZhbCgpICsgJyZyYXpvbl9kZXNjdWVudG89JyArJHJhem9uLnZhbCgpO1xuICAgICAgZm9ybSArPSAnJmZlY2hhX3BhZ289JyArIGRhdGUgKyAnJmRldGFsbGVzX2V4dHJhPScgKyAkc2VydmljaW9zRXh0cmEudmFsKCkgKyBcIiZ0YWJsYT1kaXNjb3VudF9wYWdvc1wiO1xuXG4gICAgICBjb25uZWN0QW5kU2VuZChcInByb2Nlc3MvdXBkYXRlXCIsIHRydWUsIG51bGwsIG51bGwsIGZvcm0sIFBheW1lbnRzLmdldEFsbCk7XG4gICAgICAkbW9kYWwuaGlkZSgpO1xuICAgIH1cblxuICAgIGZ1bmN0aW9uIGludGVyYWN0aXZlU3VtKCl7XG4gICAgICAkKCcucGF5bWVudC1zdW1hbmRvcycpLm9uKCdrZXl1cCcsZnVuY3Rpb24oKXtcbiAgICAgICAgJGN1b3RhLnZhbChwYWdvWydjdW90YSddIC0gJGRlc2N1ZW50by52YWwoKSk7XG4gICAgICAgIHZhciBzdW1hID0gTnVtYmVyKCRjdW90YS52YWwoKSkgKyBOdW1iZXIoJG1vcmEudmFsKCkpICsgTnVtYmVyKCRleHRyYS52YWwoKSk7XG4gICAgICAgICR0b3RhbC52YWwoTnVtYmVyKHN1bWEpKVxuICAgICAgfSlcbiAgICB9XG4gIH1cblxuICBkZWxldGVFeHRyYShrZXksIGlkUGFnbykge1xuICAgIHZhciBzZWxmID0gdGhpc1xuICAgIHZhciBmb3JtID0gXCJkYXRhPVwiICsgSlNPTi5zdHJpbmdpZnkoe2tleToga2V5LGlkX3BhZ286IGlkUGFnb30pXG4gICAgcmV0dXJuIGF4aW9zLnBvc3QoQkFTRV9VUkwgKyAncGF5bWVudC9kZWxldGVfZXh0cmEnLGZvcm0pXG4gICAgLnRoZW4oZnVuY3Rpb24ocmVzKXtcbiAgICAgIGRpc3BsYXlNZXNzYWdlKHJlcy5kYXRhLm1lbnNhamUpO1xuICAgIH0pXG4gICAgLmNhdGNoKGZ1bmN0aW9uKGVycm9yKXtcbiAgICAgIGNvbnNvbGUubG9nKGVycm9yKTtcbiAgICB9KVxuICB9XG5cbiAgc2V0RXh0cmEoa2V5LCBpZFBhZ28pIHtcbiAgICB2YXIgc2VsZiA9IHRoaXNcbiAgICB2YXIgZm9ybSA9IFwiZGF0YT1cIiArIEpTT04uc3RyaW5naWZ5KHtrZXk6IGtleSwgaWRfcGFnbzogaWRQYWdvfSlcbiAgICByZXR1cm4gYXhpb3MucG9zdChCQVNFX1VSTCArICdwYXltZW50L3NldF9leHRyYScsZm9ybSlcbiAgICAudGhlbihmdW5jdGlvbihyZXMpe1xuICAgICAgZGlzcGxheU1lc3NhZ2UocmVzLmRhdGEubWVuc2FqZSk7XG4gICAgfSlcbiAgICAuY2F0Y2goZnVuY3Rpb24oZXJyb3Ipe1xuICAgICAgY29uc29sZS5sb2coZXJyb3IpO1xuICAgIH0pXG4gIH1cblxuICBzZXRNb3JhKG1vcmEsIGlkUGFnbykge1xuICAgIHZhciBzZWxmID0gdGhpc1xuICAgIHZhciBmb3JtID0gXCJkYXRhPVwiICsgSlNPTi5zdHJpbmdpZnkoe21vcmE6IG1vcmEsIGlkX3BhZ286IGlkUGFnb30pXG4gICAgcmV0dXJuIGF4aW9zLnBvc3QoQkFTRV9VUkwgKyAncGF5bWVudC9zZXRfbW9yYScsZm9ybSlcbiAgICAudGhlbihmdW5jdGlvbihyZXMpe1xuICAgICAgZGlzcGxheU1lc3NhZ2UocmVzLmRhdGEubWVuc2FqZSk7XG4gICAgfSlcbiAgICAuY2F0Y2goZnVuY3Rpb24oZXJyb3Ipe1xuICAgICAgY29uc29sZS5sb2coZXJyb3IpO1xuICAgIH0pXG4gIH1cbn1cblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvcGF5bWVudHMvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDE5XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUFBO0FBQUE7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///19\n");
 
 /***/ }),
 /* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(21);
-
-
-class payments {
-  constructor() {
-    this.ran = false;
-    this.hasChanged = false;
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this)
-  }
-
-  getAll() {
-    var id = $("#select-contract").val();
-    if (id != null) {
-      var form = "tabla=pagos&id=" + id;
-      connectAndSend('process/getall', false, null, paymentTable.refresh, form, Payments.contractRefresh);
-    }
-  }
-
-  update(id) {
-      var date = moment().format("YYYY-MM-DD");
-      var id_contrato = $("#select-contract").val();
-      var form = "tabla=pagos&id=" + id + "&estado=pagado&fecha_pago=" + date + "&id_contrato=" + id_contrato;
-      connectAndSend('process/update', true, null, null, form, Payments.getAll);
-  }
-
-  saveAbonos () {
-    var form, observations, abono$inputAbono,$textAbono,contractId;
-
-    $textAbono   = $('#text-abono-detail');
-    observations = $textAbono.val();
-    contractId   = $("#select-contract").val();
-    $inputAbono  = $("#input-abono");
-    abono        = $inputAbono.val();
-
-    form = 'observaciones=' + observations + "&abonos=" + abono;
-    form += "&contrato_abono="+contractId+"&tabla=abonos";
-    connectAndSend("process/update", true, null, null, form, Payments.getAll)
-    $inputAbono.val('')
-  }
-
-  saveExtra () {
-    var send = axios.post(BASE_URL + 'process/')
-  }
-
-  updateUntil (contractId,lastPaymentId){
-    var id_contrato = $("#select-contract").val();
-    var form = "tabla=pagos_al_dia&id_ultimo_pago=" + lastPaymentId + "&estado=pagado&id_contrato=" + contractId;
-    var handlers, callback;
-    connectAndSend('process/update', true, null, null, form, null, heavyLoad);
-  }
-
-  removePayment (id) {
-    var form = "tabla=deshacer_pago&id_pago=" + id;
-    connectAndSend('process/update', true, null, null, form, Payments.getAll);
-  }
-
-  contractRefresh(){
-    var id_cliente = $('#detail-client-id').val()
-    var form = "tabla=contratos_cliente&id=" + id_cliente;
-    connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);
-  }
-
-  getOne(id_pago, receiver) {
-    var self = this;
-    var form = "tabla=pagos&id_pago=" + id_pago;
-    axios.post(BASE_URL + 'process/getone', form)
-    .then(function(res){
-      self.receiveForEdit(res.data);
-    })
-  }
-
-  receiveForEdit(data){
-    var self          = Payments;
-    var pago          = data.pago
-    var settings      = data.settings;
-    self.idContrato   = pago['id_contrato'];
-    self.idPago       = pago['id_pago'];
-    var $concepto     = $("#payment-concept");
-    var $fechaLimite  = $("#payment-limit-date");
-    var $serviciosExtra = $("#payment-extra-services");
-    var $cuota        = $("#payment-cuota");
-    var $mora         = $("#payment-mora");
-    var $extra        = $("#payment-extra");
-    var $total        = $("#payment-total");
-    var $descuento    = $("#payment-discount-amount");
-    var $razon        = $("#payment-discount-reason");
-    var $modal        = $("#advanced-payment");
-    var $cMora        = $("#c_mora");
-    var $cReconexion  = $("#c_reconexion");
-
-    $concepto.val(pago['concepto']);
-    $fechaLimite.val(pago['fecha_limite']);
-    $cuota.val(pago['cuota']);
-    $mora.val(pago['mora']);
-    $extra.val(pago['monto_extra']);
-    $total.val(pago['total']);
-    $serviciosExtra.val(pago['detalles_extra']);
-    interactiveSum();
-
-    $modal.modal();
-
-    if (pago['mora'] > 0) {
-      $cMora.iCheck('check');
-      Payments.hasChanged = true
-    } else {
-      $cMora.iCheck('uncheck');
-      Payments.hasChanged = true;
-    }
-
-    if (pago['detalles_extra'].includes('Reconexion')) {
-      $cReconexion.iCheck('check');
-      Payments.hasChanged = true
-    } else {
-      $cReconexion.iCheck('uncheck');
-      Payments.hasChanged = true
-    }
-
-    $("#btn-apply-discount").on('click', function (e) {
-      e.stopImmediatePropagation();
-      if ($descuento.val() > 0) {
-        swal({
-          title: 'Está Seguro?',
-          text: "Seguro de que quiere aplicar este descuento de " + $descuento.val() + "?",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
-          cancelButtonText: 'Cancelar'
-        }).then(function(){
-          apply();
-        });
-      } else {
-        apply();
-      }
-    });
-
-    if (!this.ran) {
-      this.ran = true
-      $modal.on('hide.bs.modal',function(){
-        $modal.find('input').val('')
-      });
-
-      $cMora.on('ifChecked', function () {
-        var mora = pago['cuota'] * settings['cargo_mora'] / 100;
-        Payments.setMora(mora, self.idPago)
-        .then( function(){
-          self.getOne(self.idPago, self.receiveForEdit);
-        })
-      });
-
-      $cReconexion.on('ifChecked', function () {
-        Payments.setExtra(0, self.idPago)
-        .then( function(){
-          self.getOne(self.idPago, self.receiveForEdit);
-        })
-      })
-
-      $cMora.on('ifUnchecked', function () {
-        Payments.setMora(0, self.idPago)
-        .then( function(){
-          self.getOne(self.idPago, self.receiveForEdit);
-        })
-      })
-
-      $cReconexion.on('ifUnchecked', function () {
-        Payments.deleteExtra(0, self.idPago)
-        .then( function(){
-          self.getOne(self.idPago, self.receiveForEdit);
-        })
-      })
-
-      $modal.on('hide.bs.modal', function (e) {
-        if (Payments.hasChanged) {
-          Payments.hasChanged = false
-          Payments.getAll()
-        }
-      })
-    }
-
-    function apply () {
-      applyDiscount(self.idPago);
-      $modal.hide();
-      $modal.modal('hide');
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-    }
-
-    function applyDiscount(id_pago) {
-      var date = moment().format("YYYY-MM-DD");
-      form = 'id_pago=' + self.idPago + '&id_contrato=' + self.idContrato + "&cuota=" + $cuota.val();
-      form += "&mora=" + $mora.val() + "&monto_extra=" + $extra.val();
-      form += "&total=" + $total.val() + '&descuento=' + $descuento.val() + '&razon_descuento=' +$razon.val();
-      form += '&fecha_pago=' + date + '&detalles_extra=' + $serviciosExtra.val() + "&tabla=discount_pagos";
-
-      connectAndSend("process/update", true, null, null, form, Payments.getAll);
-      $modal.hide();
-    }
-
-    function interactiveSum(){
-      $('.payment-sumandos').on('keyup',function(){
-        $cuota.val(pago['cuota'] - $descuento.val());
-        var suma = Number($cuota.val()) + Number($mora.val()) + Number($extra.val());
-        $total.val(Number(suma))
-      })
-    }
-  }
-
-  deleteExtra(key, idPago) {
-    var self = this
-    var form = "data=" + JSON.stringify({key: key,id_pago: idPago})
-    return axios.post(BASE_URL + 'payment/delete_extra',form)
-    .then(function(res){
-      displayMessage(res.data.mensaje);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-  }
-
-  setExtra(key, idPago) {
-    var self = this
-    var form = "data=" + JSON.stringify({key: key, id_pago: idPago})
-    return axios.post(BASE_URL + 'payment/set_extra',form)
-    .then(function(res){
-      displayMessage(res.data.mensaje);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-  }
-
-  setMora(mora, idPago) {
-    var self = this
-    var form = "data=" + JSON.stringify({mora: mora, id_pago: idPago})
-    return axios.post(BASE_URL + 'payment/set_mora',form)
-    .then(function(res){
-      displayMessage(res.data.mensaje);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = payments;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Payments) => {\n  paymentTable.init();\n  extraTable.init();\n  if (!ran) {\n    Payments.getAll();\n    ran = true;\n  }\n\n  $(\"#btn-pay\").on('click', function (e) {\n    e.stopImmediatePropagation();\n    var id = paymentTable.getId();\n    if (id) {\n      Payments.update(id);\n      update_mode(id);\n    } else {\n      displayMessage(MESSAGE_INFO + ' Debes seleccionar un pago');\n    }\n  });\n\n  $(\"#select-contract\").on('change', function (e) {\n    e.stopImmediatePropagation();\n    Payments.getAll();\n  });\n\n  $(\"#payment-detail-box\").collapse()\n\n  function update_mode(id) {\n    var mode = $('.payment-mode.selected').text();\n    var extraInfo = {\n      id: id.toString(),\n      module: 'pagos'\n    }\n    var form = 'data=' + JSON.stringify({\n      tipo: mode\n    }) + '&extra_info=' + JSON.stringify(extraInfo);\n\n    var send = axios.post(BASE_URL + 'process/axiosupdate', form)\n  }\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9wYXltZW50cy9oYW5kbGVycy5qcz9lN2NmIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChQYXltZW50cykgPT4ge1xuICBwYXltZW50VGFibGUuaW5pdCgpO1xuICBleHRyYVRhYmxlLmluaXQoKTtcbiAgaWYgKCFyYW4pIHtcbiAgICBQYXltZW50cy5nZXRBbGwoKTtcbiAgICByYW4gPSB0cnVlO1xuICB9XG5cbiAgJChcIiNidG4tcGF5XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICB2YXIgaWQgPSBwYXltZW50VGFibGUuZ2V0SWQoKTtcbiAgICBpZiAoaWQpIHtcbiAgICAgIFBheW1lbnRzLnVwZGF0ZShpZCk7XG4gICAgICB1cGRhdGVfbW9kZShpZCk7XG4gICAgfSBlbHNlIHtcbiAgICAgIGRpc3BsYXlNZXNzYWdlKE1FU1NBR0VfSU5GTyArICcgRGViZXMgc2VsZWNjaW9uYXIgdW4gcGFnbycpO1xuICAgIH1cbiAgfSk7XG5cbiAgJChcIiNzZWxlY3QtY29udHJhY3RcIikub24oJ2NoYW5nZScsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBQYXltZW50cy5nZXRBbGwoKTtcbiAgfSk7XG5cbiAgJChcIiNwYXltZW50LWRldGFpbC1ib3hcIikuY29sbGFwc2UoKVxuXG4gIGZ1bmN0aW9uIHVwZGF0ZV9tb2RlKGlkKSB7XG4gICAgdmFyIG1vZGUgPSAkKCcucGF5bWVudC1tb2RlLnNlbGVjdGVkJykudGV4dCgpO1xuICAgIHZhciBleHRyYUluZm8gPSB7XG4gICAgICBpZDogaWQudG9TdHJpbmcoKSxcbiAgICAgIG1vZHVsZTogJ3BhZ29zJ1xuICAgIH1cbiAgICB2YXIgZm9ybSA9ICdkYXRhPScgKyBKU09OLnN0cmluZ2lmeSh7XG4gICAgICB0aXBvOiBtb2RlXG4gICAgfSkgKyAnJmV4dHJhX2luZm89JyArIEpTT04uc3RyaW5naWZ5KGV4dHJhSW5mbyk7XG5cbiAgICB2YXIgc2VuZCA9IGF4aW9zLnBvc3QoQkFTRV9VUkwgKyAncHJvY2Vzcy9heGlvc3VwZGF0ZScsIGZvcm0pXG4gIH1cbn1cblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvcGF5bWVudHMvaGFuZGxlcnMuanNcbi8vIG1vZHVsZSBpZCA9IDIwXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///20\n");
 
 /***/ }),
 /* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Payments) => {
-  paymentTable.init();
-  extraTable.init();
-  if (!ran) {
-    Payments.getAll();
-    ran = true;
-  }
-
-  $("#btn-pay").on('click', function (e) {
-    e.stopImmediatePropagation();
-    var id = paymentTable.getId();
-    if (id) {
-      Payments.update(id);
-      update_mode(id);
-    } else {
-      displayMessage(MESSAGE_INFO + ' Debes seleccionar un pago');
-    }
-  });
-
-  $("#select-contract").on('change', function (e) {
-    e.stopImmediatePropagation();
-    Payments.getAll();
-  });
-
-  $("#payment-detail-box").collapse()
-
-  function update_mode(id) {
-    var mode = $('.payment-mode.selected').text();
-    var extraInfo = {
-      id: id.toString(),
-      module: 'pagos'
-    }
-    var form = 'data=' + JSON.stringify({
-      tipo: mode
-    }) + '&extra_info=' + JSON.stringify(extraInfo);
-
-    var send = axios.post(BASE_URL + 'process/axiosupdate', form)
-  }
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(22);\n\n\nclass caja {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  add() {\n    const self = this;\n    const amount = $('#caja-a-amount').val();\n    const description = $('#caja-a-description').val();\n    const form = `entrada=${amount}&descripcion=${description}&tabla=caja`;\n    const empty = isEmpty([amount, description]);\n\n    if (!empty) {\n      this.send('add', form);\n      then((res) => {\n        displayMessage(res);\n        self.getAll();\n      });\n    } else {\n      displayAlert('Revise', 'LLene todos los campos por favor', 'error');\n    }\n  }\n\n  retire() {\n    const self = this;\n    const amount = $('#caja-r-amount').val();\n    const description = $('#caja-r-description').val();\n    const form = `salida=${amount}&descripcion=${description}`;\n    const empty = isEmpty([amount, description]);\n\n    if (!empty) {\n      this.send('retire', form);\n      then((res) => {\n        displayMessage(res);\n        self.gatAll();\n      });\n    } else {\n      displayAlert('Revise', 'LLene todos los campos por favor', 'error');\n    }\n  }\n\n  getAll() {\n    const self = this;\n    const form = 'tabla=caja';\n    this.send('getAll', form);\n    then((res) => {\n      cajaTable.refresh(res);\n      self.getSaldo();\n    });\n  }\n\n  getSaldo() {\n    const form = 'tabla=caja';\n    this.send('getone', form);\n    then((res) => {\n      updateSaldo(res);\n    });\n  }\n\n  search() {\n    const $dateSearch = $('#caja-date');\n    const $userSearch = $('#caja-user');\n    const date = ($dateSearch.val()) ? $dateSearch.val() : '%';\n    const userId = ($userSearch.val()) ? $userSearch.val() : '%';\n\n    const form = `tabla=caja&id_empleado=${userId}&fecha=${date}`;\n    this.send('search', form);\n    then((res) => {\n      cajaTable.refresh(res);\n    });\n  }\n\n  send(endpoint, data) {\n    return axios.post(`${BASE_URL}process/${endpoint}`, data);\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = caja;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jYWphL2luZGV4LmpzPzMzZWYiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGhhbmRsZXIgZnJvbSAnLi9oYW5kbGVycyc7XG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIGNhamEge1xuICBjb25zdHJ1Y3RvcigpIHtcbiAgICBoYW5kbGVyKHRoaXMpO1xuICB9XG5cbiAgYWRkKCkge1xuICAgIGNvbnN0IHNlbGYgPSB0aGlzO1xuICAgIGNvbnN0IGFtb3VudCA9ICQoJyNjYWphLWEtYW1vdW50JykudmFsKCk7XG4gICAgY29uc3QgZGVzY3JpcHRpb24gPSAkKCcjY2FqYS1hLWRlc2NyaXB0aW9uJykudmFsKCk7XG4gICAgY29uc3QgZm9ybSA9IGBlbnRyYWRhPSR7YW1vdW50fSZkZXNjcmlwY2lvbj0ke2Rlc2NyaXB0aW9ufSZ0YWJsYT1jYWphYDtcbiAgICBjb25zdCBlbXB0eSA9IGlzRW1wdHkoW2Ftb3VudCwgZGVzY3JpcHRpb25dKTtcblxuICAgIGlmICghZW1wdHkpIHtcbiAgICAgIHRoaXMuc2VuZCgnYWRkJywgZm9ybSk7XG4gICAgICB0aGVuKChyZXMpID0+IHtcbiAgICAgICAgZGlzcGxheU1lc3NhZ2UocmVzKTtcbiAgICAgICAgc2VsZi5nZXRBbGwoKTtcbiAgICAgIH0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBkaXNwbGF5QWxlcnQoJ1JldmlzZScsICdMTGVuZSB0b2RvcyBsb3MgY2FtcG9zIHBvciBmYXZvcicsICdlcnJvcicpO1xuICAgIH1cbiAgfVxuXG4gIHJldGlyZSgpIHtcbiAgICBjb25zdCBzZWxmID0gdGhpcztcbiAgICBjb25zdCBhbW91bnQgPSAkKCcjY2FqYS1yLWFtb3VudCcpLnZhbCgpO1xuICAgIGNvbnN0IGRlc2NyaXB0aW9uID0gJCgnI2NhamEtci1kZXNjcmlwdGlvbicpLnZhbCgpO1xuICAgIGNvbnN0IGZvcm0gPSBgc2FsaWRhPSR7YW1vdW50fSZkZXNjcmlwY2lvbj0ke2Rlc2NyaXB0aW9ufWA7XG4gICAgY29uc3QgZW1wdHkgPSBpc0VtcHR5KFthbW91bnQsIGRlc2NyaXB0aW9uXSk7XG5cbiAgICBpZiAoIWVtcHR5KSB7XG4gICAgICB0aGlzLnNlbmQoJ3JldGlyZScsIGZvcm0pO1xuICAgICAgdGhlbigocmVzKSA9PiB7XG4gICAgICAgIGRpc3BsYXlNZXNzYWdlKHJlcyk7XG4gICAgICAgIHNlbGYuZ2F0QWxsKCk7XG4gICAgICB9KTtcbiAgICB9IGVsc2Uge1xuICAgICAgZGlzcGxheUFsZXJ0KCdSZXZpc2UnLCAnTExlbmUgdG9kb3MgbG9zIGNhbXBvcyBwb3IgZmF2b3InLCAnZXJyb3InKTtcbiAgICB9XG4gIH1cblxuICBnZXRBbGwoKSB7XG4gICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgY29uc3QgZm9ybSA9ICd0YWJsYT1jYWphJztcbiAgICB0aGlzLnNlbmQoJ2dldEFsbCcsIGZvcm0pO1xuICAgIHRoZW4oKHJlcykgPT4ge1xuICAgICAgY2FqYVRhYmxlLnJlZnJlc2gocmVzKTtcbiAgICAgIHNlbGYuZ2V0U2FsZG8oKTtcbiAgICB9KTtcbiAgfVxuXG4gIGdldFNhbGRvKCkge1xuICAgIGNvbnN0IGZvcm0gPSAndGFibGE9Y2FqYSc7XG4gICAgdGhpcy5zZW5kKCdnZXRvbmUnLCBmb3JtKTtcbiAgICB0aGVuKChyZXMpID0+IHtcbiAgICAgIHVwZGF0ZVNhbGRvKHJlcyk7XG4gICAgfSk7XG4gIH1cblxuICBzZWFyY2goKSB7XG4gICAgY29uc3QgJGRhdGVTZWFyY2ggPSAkKCcjY2FqYS1kYXRlJyk7XG4gICAgY29uc3QgJHVzZXJTZWFyY2ggPSAkKCcjY2FqYS11c2VyJyk7XG4gICAgY29uc3QgZGF0ZSA9ICgkZGF0ZVNlYXJjaC52YWwoKSkgPyAkZGF0ZVNlYXJjaC52YWwoKSA6ICclJztcbiAgICBjb25zdCB1c2VySWQgPSAoJHVzZXJTZWFyY2gudmFsKCkpID8gJHVzZXJTZWFyY2gudmFsKCkgOiAnJSc7XG5cbiAgICBjb25zdCBmb3JtID0gYHRhYmxhPWNhamEmaWRfZW1wbGVhZG89JHt1c2VySWR9JmZlY2hhPSR7ZGF0ZX1gO1xuICAgIHRoaXMuc2VuZCgnc2VhcmNoJywgZm9ybSk7XG4gICAgdGhlbigocmVzKSA9PiB7XG4gICAgICBjYWphVGFibGUucmVmcmVzaChyZXMpO1xuICAgIH0pO1xuICB9XG5cbiAgc2VuZChlbmRwb2ludCwgZGF0YSkge1xuICAgIHJldHVybiBheGlvcy5wb3N0KGAke0JBU0VfVVJMfXByb2Nlc3MvJHtlbmRwb2ludH1gLCBkYXRhKTtcbiAgfVxufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jYWphL2luZGV4LmpzXG4vLyBtb2R1bGUgaWQgPSAyMVxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFBQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///21\n");
 
 /***/ }),
 /* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(23);
-
-
-class caja {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this);
-  }
-
-  add() {
-    const self = this;
-    const amount = $("#caja-a-amount").val();
-    const description = $("#caja-a-description").val();
-    const form = "entrada=" + amount + "&descripcion=" + description + "&tabla=caja";
-    const is_empty = isEmpty([amount, description]);
-
-    if (!is_empty) {
-      this.send('add', form)
-      then((res) => {
-        displayMessage(res);
-        self.getAll();
-      })
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  retire() {
-    const self = this;
-    const amount = $("#caja-r-amount").val();
-    const description = $("#caja-r-description").val();
-    const form = "salida=" + amount + "&descripcion=" + description;
-    const is_empty = isEmpty([amount, description]);
-
-    if (!is_empty) {
-       this.send('retire', form)
-       then((res) => {
-         displayMessage(res)
-         self.gatAll();
-       })
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  getAll() {
-    const self = this;
-    const form = "tabla=caja";
-    this.send('getAll', form)
-    then((res) => {
-      cajaTable.refresh(res)
-      self.getSaldo()
-    })
-  }
-
-  getSaldo() {
-    const form = "tabla=caja";
-    this.send('getone', form)
-    then((res) => {
-      updateSaldo(res);
-    })
-  }
-
-  search() {
-    const $dateSearch = $("#caja-date");
-    const $userSearch = $("#caja-user");
-    const date = ($dateSearch.val()) ? $dateSearch.val() : '%';
-    const userId = ($userSearch.val()) ? $userSearch.val() : '%';
-
-    const form = "tabla=caja&id_empleado=" + userId + "&fecha=" + date;
-    this.send('search', form)
-    then((res)=>{
-      cajaTable.refresh(res)
-    })
-  }
-
-  send(endpoint, data) {
-    return axios.post(`${BASE_URL}process/${endpoint}`, data)
-   }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = caja;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Caja) => {\n  if (currentPage === 'administrador') {\n    cajaTable.init();\n  }\n\n  const btnAddMoney = $('#btn-add-money');\n  const btnRetireMoney = $('#btn-retire-money');\n  const userSearch = $('#caja-user');\n  const dateSearch = $('#caja-date');\n\n  btnAddMoney.on('click', function (e) {\n    e.stopImmediatePropagation();\n    Caja.add();\n  });\n\n  btnRetireMoney.on('click', function (e) {\n    e.stopImmediatePropagation();\n    Caja.retire();\n  });\n\n  dateSearch.on('change', function (e) {\n    e.stopImmediatePropagation();\n    Caja.search();\n  });\n\n  userSearch.on('change', function (e) {\n    e.stopImmediatePropagation();\n    Caja.search();\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jYWphL2hhbmRsZXJzLmpzPzg2YTciXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKENhamEpID0+IHtcbiAgaWYgKGN1cnJlbnRQYWdlID09PSAnYWRtaW5pc3RyYWRvcicpIHtcbiAgICBjYWphVGFibGUuaW5pdCgpO1xuICB9XG5cbiAgY29uc3QgYnRuQWRkTW9uZXkgPSAkKCcjYnRuLWFkZC1tb25leScpO1xuICBjb25zdCBidG5SZXRpcmVNb25leSA9ICQoJyNidG4tcmV0aXJlLW1vbmV5Jyk7XG4gIGNvbnN0IHVzZXJTZWFyY2ggPSAkKCcjY2FqYS11c2VyJyk7XG4gIGNvbnN0IGRhdGVTZWFyY2ggPSAkKCcjY2FqYS1kYXRlJyk7XG5cbiAgYnRuQWRkTW9uZXkub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIENhamEuYWRkKCk7XG4gIH0pO1xuXG4gIGJ0blJldGlyZU1vbmV5Lm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBDYWphLnJldGlyZSgpO1xuICB9KTtcblxuICBkYXRlU2VhcmNoLm9uKCdjaGFuZ2UnLCBmdW5jdGlvbiAoZSkge1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgQ2FqYS5zZWFyY2goKTtcbiAgfSk7XG5cbiAgdXNlclNlYXJjaC5vbignY2hhbmdlJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIENhamEuc2VhcmNoKCk7XG4gIH0pO1xufTtcblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvY2FqYS9oYW5kbGVycy5qc1xuLy8gbW9kdWxlIGlkID0gMjJcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///22\n");
 
 /***/ }),
 /* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Caja) => {
-    if (currentPage == 'administrador') {
-      cajaTable.init();
-    }
-
-    var btnAddMoney    = $("#btn-add-money");
-    var btnRetireMoney = $("#btn-retire-money");
-    var userSearch     = $("#caja-user");
-    var dateSearch     = $("#caja-date");
-
-    btnAddMoney.on('click', function (e) {
-      e.stopImmediatePropagation();
-      Caja.add();
-    });
-
-    btnRetireMoney.on('click', function (e) {
-      e.stopImmediatePropagation();
-      Caja.retire();
-    });
-
-    dateSearch.on('change', function (e) {
-      e.stopImmediatePropagation();
-      Caja.search();
-    });
-
-    userSearch.on('change', function (e) {
-      e.stopImmediatePropagation();
-      Caja.search();
-    });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(24);\n\n\nclass company {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  update() {\n    const companyName = $('#company-name').val();\n    const companyStatement = $('#company-statement').val();\n    const companyPhone1 = getVal($('#company-phone1'));\n    const companyDirection = $('#company-direction').val();\n    const companyDescription = $('#company-description').val();\n    const companyPhone2 = getVal($('#company-phone2'));\n\n    const form = `nombre=${companyName}&lema=${companyStatement}&descripcion=${companyDescription}&direccion=\n    ${companyDirection}&telefono1=${companyPhone1}&telefonos=${companyPhone2}&tabla=empresa`;\n\n    axios.post(`${BASE_URL}process/update`, form);\n    then((res) => {\n      displayMessage(res);\n    });\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = company;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jb21wYW55L2luZGV4LmpzP2Q5MTciXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGhhbmRsZXIgZnJvbSAnLi9oYW5kbGVycyc7XG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIGNvbXBhbnkge1xuICBjb25zdHJ1Y3RvcigpIHtcbiAgICBoYW5kbGVyKHRoaXMpO1xuICB9XG5cbiAgdXBkYXRlKCkge1xuICAgIGNvbnN0IGNvbXBhbnlOYW1lID0gJCgnI2NvbXBhbnktbmFtZScpLnZhbCgpO1xuICAgIGNvbnN0IGNvbXBhbnlTdGF0ZW1lbnQgPSAkKCcjY29tcGFueS1zdGF0ZW1lbnQnKS52YWwoKTtcbiAgICBjb25zdCBjb21wYW55UGhvbmUxID0gZ2V0VmFsKCQoJyNjb21wYW55LXBob25lMScpKTtcbiAgICBjb25zdCBjb21wYW55RGlyZWN0aW9uID0gJCgnI2NvbXBhbnktZGlyZWN0aW9uJykudmFsKCk7XG4gICAgY29uc3QgY29tcGFueURlc2NyaXB0aW9uID0gJCgnI2NvbXBhbnktZGVzY3JpcHRpb24nKS52YWwoKTtcbiAgICBjb25zdCBjb21wYW55UGhvbmUyID0gZ2V0VmFsKCQoJyNjb21wYW55LXBob25lMicpKTtcblxuICAgIGNvbnN0IGZvcm0gPSBgbm9tYnJlPSR7Y29tcGFueU5hbWV9JmxlbWE9JHtjb21wYW55U3RhdGVtZW50fSZkZXNjcmlwY2lvbj0ke2NvbXBhbnlEZXNjcmlwdGlvbn0mZGlyZWNjaW9uPVxuICAgICR7Y29tcGFueURpcmVjdGlvbn0mdGVsZWZvbm8xPSR7Y29tcGFueVBob25lMX0mdGVsZWZvbm9zPSR7Y29tcGFueVBob25lMn0mdGFibGE9ZW1wcmVzYWA7XG5cbiAgICBheGlvcy5wb3N0KGAke0JBU0VfVVJMfXByb2Nlc3MvdXBkYXRlYCwgZm9ybSk7XG4gICAgdGhlbigocmVzKSA9PiB7XG4gICAgICBkaXNwbGF5TWVzc2FnZShyZXMpO1xuICAgIH0pO1xuICB9XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2NvbXBhbnkvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDIzXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUFBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///23\n");
 
 /***/ }),
 /* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(25);
-
-class company {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this)
-  }
-
-  update() {
-    var form,
-    companyName = $("#company-name").val(),
-    companyStatement = $("#company-statement").val(),
-    companyPhone1 = getVal($("#company-phone1")),
-    companyDirection = $("#company-direction").val(),
-    companyDescription = $("#company-description").val(),
-    companyPhone2 = getVal($("#company-phone2"))
-
-    form = 'nombre=' + companyName + '&lema=' + companyStatement + '&descripcion=' + companyDescription + "&direccion="
-    form += companyDirection + "&telefono1=" + companyPhone1 + "&telefonos=" + companyPhone2 + "&tabla=empresa";
-    axios.post(`${BASE_URL}process/update`,form)
-    then((res) => {
-      displayMessage(res);
-    })
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = company;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Company) => {\n  $(\"#update-company-data\").on('click', function (e) {\n    e.preventDefault();\n    e.stopImmediatePropagation();\n    Company.update();\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9jb21wYW55L2hhbmRsZXJzLmpzPzZmOTYiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKENvbXBhbnkpID0+IHtcbiAgJChcIiN1cGRhdGUtY29tcGFueS1kYXRhXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgQ29tcGFueS51cGRhdGUoKTtcbiAgfSk7XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL2NvbXBhbnkvaGFuZGxlcnMuanNcbi8vIG1vZHVsZSBpZCA9IDI0XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///24\n");
 
 /***/ }),
 /* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Company) => {
-  $("#update-company-data").on('click', function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    Company.update();
-  });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(26);\n\nclass settings  {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this);\n  }\n\n  update() {\n    var form,\n    settingsCargoMora = $(\"#settings-mora\").val(),\n    settingsFechaCorte = $(\"#settings-fecha-corte\").val(),\n    settingsReconexion = $(\"#settings-reconexion\").val(),\n    settingsPenalizacionCancelacion = $(\"#settings-penalizacion-cancelacion\").val(),\n    settingsMesesPorDefecto = $(\"#settings-meses-por-defecto\").val(),\n    settingsSplitDay = $(\"#settings-split-day\").val();\n\n    form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&reconexion=' + settingsReconexion;\n    form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;\n    form += '&split_day=' + settingsSplitDay + '&tabla=settings';\n\n    axios.post(`${BASE_URL}proces/update` , form)\n    .then((res) => {\n      displayMessage(res)\n    })\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = settings;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXR0aW5ncy9pbmRleC5qcz84OTQ1Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVyIGZyb20gJy4vaGFuZGxlcnMnXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBzZXR0aW5ncyAge1xuICBjb25zdHJ1Y3RvcigpIHtcbiAgICBoYW5kbGVyKHRoaXMpO1xuICB9XG5cbiAgdXBkYXRlKCkge1xuICAgIHZhciBmb3JtLFxuICAgIHNldHRpbmdzQ2FyZ29Nb3JhID0gJChcIiNzZXR0aW5ncy1tb3JhXCIpLnZhbCgpLFxuICAgIHNldHRpbmdzRmVjaGFDb3J0ZSA9ICQoXCIjc2V0dGluZ3MtZmVjaGEtY29ydGVcIikudmFsKCksXG4gICAgc2V0dGluZ3NSZWNvbmV4aW9uID0gJChcIiNzZXR0aW5ncy1yZWNvbmV4aW9uXCIpLnZhbCgpLFxuICAgIHNldHRpbmdzUGVuYWxpemFjaW9uQ2FuY2VsYWNpb24gPSAkKFwiI3NldHRpbmdzLXBlbmFsaXphY2lvbi1jYW5jZWxhY2lvblwiKS52YWwoKSxcbiAgICBzZXR0aW5nc01lc2VzUG9yRGVmZWN0byA9ICQoXCIjc2V0dGluZ3MtbWVzZXMtcG9yLWRlZmVjdG9cIikudmFsKCksXG4gICAgc2V0dGluZ3NTcGxpdERheSA9ICQoXCIjc2V0dGluZ3Mtc3BsaXQtZGF5XCIpLnZhbCgpO1xuXG4gICAgZm9ybSA9ICdjYXJnb19tb3JhPScgKyBzZXR0aW5nc0NhcmdvTW9yYSArICcmZmVjaGFfY29ydGU9JyArIHNldHRpbmdzRmVjaGFDb3J0ZSArICcmcmVjb25leGlvbj0nICsgc2V0dGluZ3NSZWNvbmV4aW9uO1xuICAgIGZvcm0gKz0gJyZwZW5hbGl6YWNpb25fY2FuY2VsYWNpb249JyArIHNldHRpbmdzUGVuYWxpemFjaW9uQ2FuY2VsYWNpb24gKyAnJm1lc2VzX3Bvcl9kZWZlY3RvPScgKyBzZXR0aW5nc01lc2VzUG9yRGVmZWN0bztcbiAgICBmb3JtICs9ICcmc3BsaXRfZGF5PScgKyBzZXR0aW5nc1NwbGl0RGF5ICsgJyZ0YWJsYT1zZXR0aW5ncyc7XG5cbiAgICBheGlvcy5wb3N0KGAke0JBU0VfVVJMfXByb2Nlcy91cGRhdGVgICwgZm9ybSlcbiAgICAudGhlbigocmVzKSA9PiB7XG4gICAgICBkaXNwbGF5TWVzc2FnZShyZXMpXG4gICAgfSlcbiAgfVxufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXR0aW5ncy9pbmRleC5qc1xuLy8gbW9kdWxlIGlkID0gMjVcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFBQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///25\n");
 
 /***/ }),
 /* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(27);
-
-class settings  {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this);
-  }
-
-  update() {
-    var form,
-    settingsCargoMora = $("#settings-mora").val(),
-    settingsFechaCorte = $("#settings-fecha-corte").val(),
-    settingsReconexion = $("#settings-reconexion").val(),
-    settingsPenalizacionCancelacion = $("#settings-penalizacion-cancelacion").val(),
-    settingsMesesPorDefecto = $("#settings-meses-por-defecto").val(),
-    settingsSplitDay = $("#settings-split-day").val();
-
-    form = 'cargo_mora=' + settingsCargoMora + '&fecha_corte=' + settingsFechaCorte + '&reconexion=' + settingsReconexion;
-    form += '&penalizacion_cancelacion=' + settingsPenalizacionCancelacion + '&meses_por_defecto=' + settingsMesesPorDefecto;
-    form += '&split_day=' + settingsSplitDay + '&tabla=settings';
-
-    axios.post(`${BASE_URL}proces/update` , form)
-    .then((res) => {
-      displayMessage(res)
-    })
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = settings;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((settings) => {\n  $(\"#btn-update-settings\").on('click', function (e) {\n    e.preventDefault();\n    settings.update();\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXR0aW5ncy9oYW5kbGVycy5qcz81NTM5Il0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChzZXR0aW5ncykgPT4ge1xuICAkKFwiI2J0bi11cGRhdGUtc2V0dGluZ3NcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgc2V0dGluZ3MudXBkYXRlKCk7XG4gIH0pO1xufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZXR0aW5ncy9oYW5kbGVycy5qc1xuLy8gbW9kdWxlIGlkID0gMjZcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///26\n");
 
 /***/ }),
 /* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((settings) => {
-  $("#btn-update-settings").on('click', function (e) {
-    e.preventDefault();
-    settings.update();
-  });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(28);\n\nclass sections {\n  constructor() {\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__[\"a\" /* default */])(this)\n  }\n  add() {\n    swal.setDefaults({\n      input: 'text',\n      confirmButtonText: 'Next &rarr;',\n      showCancelButton: true,\n      animation: false,\n      progressSteps: ['1', '2', '3']\n    })\n\n    const steps = [{\n        title: 'Nombre del sector'\n      },\n      'Codigo del Sector',\n    ]\n\n    swal.queue(steps).then(function (result) {\n      swal.resetDefaults()\n      self.save(result)\n    });\n  }\n\n  save() {\n    function save(result) {\n      const self = this;\n      const nombre = result[0];\n      const codigoArea = result[1];\n\n      const form = \"nombre=\" + nombre + \"&codigo_area=\" + codigoArea + \"&tabla=secciones\"\n\n      heavyLoad(true);\n      return new Promise(function (resolve) {\n        return this.send('add', form)\n        then((res) => {\n          self.getAll()\n          heavyLoad(false);\n          displayMessage(res)\n          return resolve()\n        })\n      })\n    }\n  }\n\n  getIps() {\n    const id = $(\"#select-sector\").val();\n    $('.print-table').attr('href', BASE_URL + 'process/getreport/secciones/' + id);\n\n    if (id != null) {\n      const form = \"tabla=ips&id=\" + id;\n      this.send('getall', data)\n        .then((res) => {\n          sectionTable.refresh(Res)\n        })\n    }\n  }\n\n  getAll() {\n    const self = this;\n    const form = \"tabla=secciones\";\n\n    heavyLoad(true);\n    this.send('getall', form)\n      .then((res) => {\n        heavyLoad(false);\n        self.fillSelect(res)\n      })\n  }\n\n  updateIpState(IP) {\n    const form = 'data=' + JSON.stringify(IP) + '&extra_info=' + JSON.stringify({\n      module: 'ip'\n    });\n    this.send('axiosupdate', form)\n      .then(function (res) {\n        displayMessage(res.data.mensaje);\n      })\n  }\n\n  send(endpoint, data) {\n    return axios.post(`${BASE_URL}process/${endpoint}`, data)\n  }\n\n  fillSelect(content) {\n    $(\"#select-sector\").html(content);\n  }\n\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = sections;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZWN0aW9ucy9pbmRleC5qcz9jODEyIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVyIGZyb20gJy4vaGFuZGxlcnMnXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBzZWN0aW9ucyB7XG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIGhhbmRsZXIodGhpcylcbiAgfVxuICBhZGQoKSB7XG4gICAgc3dhbC5zZXREZWZhdWx0cyh7XG4gICAgICBpbnB1dDogJ3RleHQnLFxuICAgICAgY29uZmlybUJ1dHRvblRleHQ6ICdOZXh0ICZyYXJyOycsXG4gICAgICBzaG93Q2FuY2VsQnV0dG9uOiB0cnVlLFxuICAgICAgYW5pbWF0aW9uOiBmYWxzZSxcbiAgICAgIHByb2dyZXNzU3RlcHM6IFsnMScsICcyJywgJzMnXVxuICAgIH0pXG5cbiAgICBjb25zdCBzdGVwcyA9IFt7XG4gICAgICAgIHRpdGxlOiAnTm9tYnJlIGRlbCBzZWN0b3InXG4gICAgICB9LFxuICAgICAgJ0NvZGlnbyBkZWwgU2VjdG9yJyxcbiAgICBdXG5cbiAgICBzd2FsLnF1ZXVlKHN0ZXBzKS50aGVuKGZ1bmN0aW9uIChyZXN1bHQpIHtcbiAgICAgIHN3YWwucmVzZXREZWZhdWx0cygpXG4gICAgICBzZWxmLnNhdmUocmVzdWx0KVxuICAgIH0pO1xuICB9XG5cbiAgc2F2ZSgpIHtcbiAgICBmdW5jdGlvbiBzYXZlKHJlc3VsdCkge1xuICAgICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgICBjb25zdCBub21icmUgPSByZXN1bHRbMF07XG4gICAgICBjb25zdCBjb2RpZ29BcmVhID0gcmVzdWx0WzFdO1xuXG4gICAgICBjb25zdCBmb3JtID0gXCJub21icmU9XCIgKyBub21icmUgKyBcIiZjb2RpZ29fYXJlYT1cIiArIGNvZGlnb0FyZWEgKyBcIiZ0YWJsYT1zZWNjaW9uZXNcIlxuXG4gICAgICBoZWF2eUxvYWQodHJ1ZSk7XG4gICAgICByZXR1cm4gbmV3IFByb21pc2UoZnVuY3Rpb24gKHJlc29sdmUpIHtcbiAgICAgICAgcmV0dXJuIHRoaXMuc2VuZCgnYWRkJywgZm9ybSlcbiAgICAgICAgdGhlbigocmVzKSA9PiB7XG4gICAgICAgICAgc2VsZi5nZXRBbGwoKVxuICAgICAgICAgIGhlYXZ5TG9hZChmYWxzZSk7XG4gICAgICAgICAgZGlzcGxheU1lc3NhZ2UocmVzKVxuICAgICAgICAgIHJldHVybiByZXNvbHZlKClcbiAgICAgICAgfSlcbiAgICAgIH0pXG4gICAgfVxuICB9XG5cbiAgZ2V0SXBzKCkge1xuICAgIGNvbnN0IGlkID0gJChcIiNzZWxlY3Qtc2VjdG9yXCIpLnZhbCgpO1xuICAgICQoJy5wcmludC10YWJsZScpLmF0dHIoJ2hyZWYnLCBCQVNFX1VSTCArICdwcm9jZXNzL2dldHJlcG9ydC9zZWNjaW9uZXMvJyArIGlkKTtcblxuICAgIGlmIChpZCAhPSBudWxsKSB7XG4gICAgICBjb25zdCBmb3JtID0gXCJ0YWJsYT1pcHMmaWQ9XCIgKyBpZDtcbiAgICAgIHRoaXMuc2VuZCgnZ2V0YWxsJywgZGF0YSlcbiAgICAgICAgLnRoZW4oKHJlcykgPT4ge1xuICAgICAgICAgIHNlY3Rpb25UYWJsZS5yZWZyZXNoKFJlcylcbiAgICAgICAgfSlcbiAgICB9XG4gIH1cblxuICBnZXRBbGwoKSB7XG4gICAgY29uc3Qgc2VsZiA9IHRoaXM7XG4gICAgY29uc3QgZm9ybSA9IFwidGFibGE9c2VjY2lvbmVzXCI7XG5cbiAgICBoZWF2eUxvYWQodHJ1ZSk7XG4gICAgdGhpcy5zZW5kKCdnZXRhbGwnLCBmb3JtKVxuICAgICAgLnRoZW4oKHJlcykgPT4ge1xuICAgICAgICBoZWF2eUxvYWQoZmFsc2UpO1xuICAgICAgICBzZWxmLmZpbGxTZWxlY3QocmVzKVxuICAgICAgfSlcbiAgfVxuXG4gIHVwZGF0ZUlwU3RhdGUoSVApIHtcbiAgICBjb25zdCBmb3JtID0gJ2RhdGE9JyArIEpTT04uc3RyaW5naWZ5KElQKSArICcmZXh0cmFfaW5mbz0nICsgSlNPTi5zdHJpbmdpZnkoe1xuICAgICAgbW9kdWxlOiAnaXAnXG4gICAgfSk7XG4gICAgdGhpcy5zZW5kKCdheGlvc3VwZGF0ZScsIGZvcm0pXG4gICAgICAudGhlbihmdW5jdGlvbiAocmVzKSB7XG4gICAgICAgIGRpc3BsYXlNZXNzYWdlKHJlcy5kYXRhLm1lbnNhamUpO1xuICAgICAgfSlcbiAgfVxuXG4gIHNlbmQoZW5kcG9pbnQsIGRhdGEpIHtcbiAgICByZXR1cm4gYXhpb3MucG9zdChgJHtCQVNFX1VSTH1wcm9jZXNzLyR7ZW5kcG9pbnR9YCwgZGF0YSlcbiAgfVxuXG4gIGZpbGxTZWxlY3QoY29udGVudCkge1xuICAgICQoXCIjc2VsZWN0LXNlY3RvclwiKS5odG1sKGNvbnRlbnQpO1xuICB9XG5cbn1cblxuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIC4vc3JjL21vZHVsZXMvc2VydmljZXMvc2VjdGlvbnMvaW5kZXguanNcbi8vIG1vZHVsZSBpZCA9IDI3XG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUFBO0FBQUE7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///27\n");
 
 /***/ }),
 /* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers__ = __webpack_require__(29);
-
-class sections {
-  constructor() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers__["a" /* default */])(this)
-  }
-  add() {
-    swal.setDefaults({
-      input: 'text',
-      confirmButtonText: 'Next &rarr;',
-      showCancelButton: true,
-      animation: false,
-      progressSteps: ['1', '2', '3']
-    })
-
-    const steps = [{
-        title: 'Nombre del sector'
-      },
-      'Codigo del Sector',
-    ]
-
-    swal.queue(steps).then(function (result) {
-      swal.resetDefaults()
-      self.save(result)
-    });
-  }
-
-  save() {
-    function save(result) {
-      const self = this;
-      const nombre = result[0];
-      const codigoArea = result[1];
-
-      const form = "nombre=" + nombre + "&codigo_area=" + codigoArea + "&tabla=secciones"
-
-      heavyLoad(true);
-      return new Promise(function (resolve) {
-        return this.send('add', form)
-        then((res) => {
-          self.getAll()
-          heavyLoad(false);
-          displayMessage(res)
-          return resolve()
-        })
-      })
-    }
-  }
-
-  getIps() {
-    const id = $("#select-sector").val();
-    $('.print-table').attr('href', BASE_URL + 'process/getreport/secciones/' + id);
-
-    if (id != null) {
-      const form = "tabla=ips&id=" + id;
-      this.send('getall', data)
-        .then((res) => {
-          sectionTable.refresh(Res)
-        })
-    }
-  }
-
-  getAll() {
-    const self = this;
-    const form = "tabla=secciones";
-
-    heavyLoad(true);
-    this.send('getall', form)
-      .then((res) => {
-        heavyLoad(false);
-        self.fillSelect(res)
-      })
-  }
-
-  updateIpState(IP) {
-    const form = 'data=' + JSON.stringify(IP) + '&extra_info=' + JSON.stringify({
-      module: 'ip'
-    });
-    this.send('axiosupdate', form)
-      .then(function (res) {
-        displayMessage(res.data.mensaje);
-      })
-  }
-
-  send(endpoint, data) {
-    return axios.post(`${BASE_URL}process/${endpoint}`, data)
-  }
-
-  fillSelect(content) {
-    $("#select-sector").html(content);
-  }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = sections;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Sections) => {\n  if (!ran) {\n    sectionTable.init();\n    Sections.getIps();\n    ran = true;\n  }\n\n  $(\"#btn-add-section\").on('click', function (e) {\n    e.preventDefault()\n    e.stopImmediatePropagation();\n    Sections.add();\n  });\n\n  $(\"#select-sector\").on('change', function (e) {\n    e.stopImmediatePropagation();\n    Sections.getIps();\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZWN0aW9ucy9oYW5kbGVycy5qcz8wYzE0Il0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChTZWN0aW9ucykgPT4ge1xuICBpZiAoIXJhbikge1xuICAgIHNlY3Rpb25UYWJsZS5pbml0KCk7XG4gICAgU2VjdGlvbnMuZ2V0SXBzKCk7XG4gICAgcmFuID0gdHJ1ZTtcbiAgfVxuXG4gICQoXCIjYnRuLWFkZC1zZWN0aW9uXCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpXG4gICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICBTZWN0aW9ucy5hZGQoKTtcbiAgfSk7XG5cbiAgJChcIiNzZWxlY3Qtc2VjdG9yXCIpLm9uKCdjaGFuZ2UnLCBmdW5jdGlvbiAoZSkge1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgU2VjdGlvbnMuZ2V0SXBzKCk7XG4gIH0pO1xufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9zZWN0aW9ucy9oYW5kbGVycy5qc1xuLy8gbW9kdWxlIGlkID0gMjhcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///28\n");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Sections) => {
-  if (!ran) {
-    sectionTable.init();
-    Sections.getIps();
-    ran = true;
-  }
-
-  $("#btn-add-section").on('click', function (e) {
-    e.preventDefault()
-    e.stopImmediatePropagation();
-    Sections.add();
-  });
-
-  $("#select-sector").on('change', function (e) {
-    e.stopImmediatePropagation();
-    Sections.getIps();
-  });
-});
-
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers_js__ = __webpack_require__(30);\n\n\nclass users {\n  constructor(){\n    Object(__WEBPACK_IMPORTED_MODULE_0__handlers_js__[\"a\" /* default */])(this);\n  }\n\n  add() {\n    const self = this\n    const nick      = $(\"#user-nickname\").val();\n    const password  = $(\"#user-password\").val();\n    const name      = $(\"#user-name\").val();\n    const lastname  = $(\"#user-lastname\").val();\n    const dni       = getVal($(\"#user-dni\"));\n    const type      = $(\"#user-type\").val();\n\n    const is_empty = isEmpty([nick, password, name, lastname, dni, type]);\n    if (!is_empty) {\n      const form = 'nickname=' + nick + \"&password=\" + password + \"&name=\" + name + \"&lastname=\" + lastname + \"&dni=\" + dni + \"&type=\" + type;\n      this.send('add', form)\n      .then(()=>{\n        self.getAll();\n      })\n    } else {\n      displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n    }\n  }\n\n  update() {\n    const nick     = $(\"#e-nickname\").val();\n    const name     = $(\"#e-name\").val();\n    const lastname = $(\"#e-lastname\").val();\n    const dni      = $(\"#e-dni\").val();\n    const type     = $(\"#e-type\").val();\n    const is_empty = isEmpty([nick, name, lastname, dni, type]);\n\n    if (!is_empty) {\n      const form = 'nickname=' + nick + \"&name=\" + name + \"&lastname=\" + lastname + \"&dni=\" + dni + \"&type=\" + type;\n      this.send('update', form)\n      .then((res) => {\n        self.getAll();\n      })\n    } else {\n      displayAlert(\"Revise\", \"LLene todos los campos por favor\", \"error\");\n    }\n  }\n\n  getAll() {\n    const self = this;\n    const form = \"table=users\";\n    this.send('get_users', form)\n    .then((res) => {\n      userTable.refresh(res)\n    })\n  }\n\n  delete (id) {\n    const self = this;\n    const form = \"user_id=\" + id;\n    this.send('delete_user', form)\n    .then((res) => {\n      displayMessage(res);\n      self.getAll();\n    })\n  }\n\n  changeState(id){\n    const self = this\n    const form = \"user_id=\" + id\n    this.send('change_state', form)\n    .then(function(res){\n      self.getAll()\n    })\n  }\n\n  send(endpoint, data) {\n   return axios.post(`${BASE_URL}user/${endpoint}`, data)\n  }\n}\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = users;\n\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy91c2Vycy9pbmRleC5qcz9kMjc4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoYW5kbGVyIGZyb20gXCIuL2hhbmRsZXJzLmpzXCI7XG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIHVzZXJzIHtcbiAgY29uc3RydWN0b3IoKXtcbiAgICBoYW5kbGVyKHRoaXMpO1xuICB9XG5cbiAgYWRkKCkge1xuICAgIGNvbnN0IHNlbGYgPSB0aGlzXG4gICAgY29uc3QgbmljayAgICAgID0gJChcIiN1c2VyLW5pY2tuYW1lXCIpLnZhbCgpO1xuICAgIGNvbnN0IHBhc3N3b3JkICA9ICQoXCIjdXNlci1wYXNzd29yZFwiKS52YWwoKTtcbiAgICBjb25zdCBuYW1lICAgICAgPSAkKFwiI3VzZXItbmFtZVwiKS52YWwoKTtcbiAgICBjb25zdCBsYXN0bmFtZSAgPSAkKFwiI3VzZXItbGFzdG5hbWVcIikudmFsKCk7XG4gICAgY29uc3QgZG5pICAgICAgID0gZ2V0VmFsKCQoXCIjdXNlci1kbmlcIikpO1xuICAgIGNvbnN0IHR5cGUgICAgICA9ICQoXCIjdXNlci10eXBlXCIpLnZhbCgpO1xuXG4gICAgY29uc3QgaXNfZW1wdHkgPSBpc0VtcHR5KFtuaWNrLCBwYXNzd29yZCwgbmFtZSwgbGFzdG5hbWUsIGRuaSwgdHlwZV0pO1xuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGNvbnN0IGZvcm0gPSAnbmlja25hbWU9JyArIG5pY2sgKyBcIiZwYXNzd29yZD1cIiArIHBhc3N3b3JkICsgXCImbmFtZT1cIiArIG5hbWUgKyBcIiZsYXN0bmFtZT1cIiArIGxhc3RuYW1lICsgXCImZG5pPVwiICsgZG5pICsgXCImdHlwZT1cIiArIHR5cGU7XG4gICAgICB0aGlzLnNlbmQoJ2FkZCcsIGZvcm0pXG4gICAgICAudGhlbigoKT0+e1xuICAgICAgICBzZWxmLmdldEFsbCgpO1xuICAgICAgfSlcbiAgICB9IGVsc2Uge1xuICAgICAgZGlzcGxheUFsZXJ0KFwiUmV2aXNlXCIsIFwiTExlbmUgdG9kb3MgbG9zIGNhbXBvcyBwb3IgZmF2b3JcIiwgXCJlcnJvclwiKTtcbiAgICB9XG4gIH1cblxuICB1cGRhdGUoKSB7XG4gICAgY29uc3QgbmljayAgICAgPSAkKFwiI2Utbmlja25hbWVcIikudmFsKCk7XG4gICAgY29uc3QgbmFtZSAgICAgPSAkKFwiI2UtbmFtZVwiKS52YWwoKTtcbiAgICBjb25zdCBsYXN0bmFtZSA9ICQoXCIjZS1sYXN0bmFtZVwiKS52YWwoKTtcbiAgICBjb25zdCBkbmkgICAgICA9ICQoXCIjZS1kbmlcIikudmFsKCk7XG4gICAgY29uc3QgdHlwZSAgICAgPSAkKFwiI2UtdHlwZVwiKS52YWwoKTtcbiAgICBjb25zdCBpc19lbXB0eSA9IGlzRW1wdHkoW25pY2ssIG5hbWUsIGxhc3RuYW1lLCBkbmksIHR5cGVdKTtcblxuICAgIGlmICghaXNfZW1wdHkpIHtcbiAgICAgIGNvbnN0IGZvcm0gPSAnbmlja25hbWU9JyArIG5pY2sgKyBcIiZuYW1lPVwiICsgbmFtZSArIFwiJmxhc3RuYW1lPVwiICsgbGFzdG5hbWUgKyBcIiZkbmk9XCIgKyBkbmkgKyBcIiZ0eXBlPVwiICsgdHlwZTtcbiAgICAgIHRoaXMuc2VuZCgndXBkYXRlJywgZm9ybSlcbiAgICAgIC50aGVuKChyZXMpID0+IHtcbiAgICAgICAgc2VsZi5nZXRBbGwoKTtcbiAgICAgIH0pXG4gICAgfSBlbHNlIHtcbiAgICAgIGRpc3BsYXlBbGVydChcIlJldmlzZVwiLCBcIkxMZW5lIHRvZG9zIGxvcyBjYW1wb3MgcG9yIGZhdm9yXCIsIFwiZXJyb3JcIik7XG4gICAgfVxuICB9XG5cbiAgZ2V0QWxsKCkge1xuICAgIGNvbnN0IHNlbGYgPSB0aGlzO1xuICAgIGNvbnN0IGZvcm0gPSBcInRhYmxlPXVzZXJzXCI7XG4gICAgdGhpcy5zZW5kKCdnZXRfdXNlcnMnLCBmb3JtKVxuICAgIC50aGVuKChyZXMpID0+IHtcbiAgICAgIHVzZXJUYWJsZS5yZWZyZXNoKHJlcylcbiAgICB9KVxuICB9XG5cbiAgZGVsZXRlIChpZCkge1xuICAgIGNvbnN0IHNlbGYgPSB0aGlzO1xuICAgIGNvbnN0IGZvcm0gPSBcInVzZXJfaWQ9XCIgKyBpZDtcbiAgICB0aGlzLnNlbmQoJ2RlbGV0ZV91c2VyJywgZm9ybSlcbiAgICAudGhlbigocmVzKSA9PiB7XG4gICAgICBkaXNwbGF5TWVzc2FnZShyZXMpO1xuICAgICAgc2VsZi5nZXRBbGwoKTtcbiAgICB9KVxuICB9XG5cbiAgY2hhbmdlU3RhdGUoaWQpe1xuICAgIGNvbnN0IHNlbGYgPSB0aGlzXG4gICAgY29uc3QgZm9ybSA9IFwidXNlcl9pZD1cIiArIGlkXG4gICAgdGhpcy5zZW5kKCdjaGFuZ2Vfc3RhdGUnLCBmb3JtKVxuICAgIC50aGVuKGZ1bmN0aW9uKHJlcyl7XG4gICAgICBzZWxmLmdldEFsbCgpXG4gICAgfSlcbiAgfVxuXG4gIHNlbmQoZW5kcG9pbnQsIGRhdGEpIHtcbiAgIHJldHVybiBheGlvcy5wb3N0KGAke0JBU0VfVVJMfXVzZXIvJHtlbmRwb2ludH1gLCBkYXRhKVxuICB9XG59XG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NyYy9tb2R1bGVzL3NlcnZpY2VzL3VzZXJzL2luZGV4LmpzXG4vLyBtb2R1bGUgaWQgPSAyOVxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUFBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///29\n");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__handlers_js__ = __webpack_require__(31);
-
-
-class users {
-  constructor(){
-    Object(__WEBPACK_IMPORTED_MODULE_0__handlers_js__["a" /* default */])(this);
-  }
-
-  add() {
-    const self = this
-    const nick      = $("#user-nickname").val();
-    const password  = $("#user-password").val();
-    const name      = $("#user-name").val();
-    const lastname  = $("#user-lastname").val();
-    const dni       = getVal($("#user-dni"));
-    const type      = $("#user-type").val();
-
-    const is_empty = isEmpty([nick, password, name, lastname, dni, type]);
-    if (!is_empty) {
-      const form = 'nickname=' + nick + "&password=" + password + "&name=" + name + "&lastname=" + lastname + "&dni=" + dni + "&type=" + type;
-      this.send('add', form)
-      .then(()=>{
-        self.getAll();
-      })
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  update() {
-    const nick     = $("#e-nickname").val();
-    const name     = $("#e-name").val();
-    const lastname = $("#e-lastname").val();
-    const dni      = $("#e-dni").val();
-    const type     = $("#e-type").val();
-    const is_empty = isEmpty([nick, name, lastname, dni, type]);
-
-    if (!is_empty) {
-      const form = 'nickname=' + nick + "&name=" + name + "&lastname=" + lastname + "&dni=" + dni + "&type=" + type;
-      this.send('update', form)
-      .then((res) => {
-        self.getAll();
-      })
-    } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
-    }
-  }
-
-  getAll() {
-    const self = this;
-    const form = "table=users";
-    this.send('get_users', form)
-    .then((res) => {
-      userTable.refresh(res)
-    })
-  }
-
-  delete (id) {
-    const self = this;
-    const form = "user_id=" + id;
-    this.send('delete_user', form)
-    .then((res) => {
-      displayMessage(res);
-      self.getAll();
-    })
-  }
-
-  changeState(id){
-    const self = this
-    const form = "user_id=" + id
-    this.send('change_state', form)
-    .then(function(res){
-      self.getAll()
-    })
-  }
-
-  send(endpoint, data) {
-   return axios.post(`${BASE_URL}user/${endpoint}`, data)
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = users;
-
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Users) => {\n  userTable.init();\n  $(\"#btn-save-user\").on('click', function (e) {\n    e.stopImmediatePropagation();\n    Users.add();\n  });\n\n  $(\"#btn-update-user\").on('click', function (e) {\n    e.stopImmediatePropagation();\n    Users.update();\n  });\n});\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy91c2Vycy9oYW5kbGVycy5qcz84NWNkIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChVc2VycykgPT4ge1xuICB1c2VyVGFibGUuaW5pdCgpO1xuICAkKFwiI2J0bi1zYXZlLXVzZXJcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgIFVzZXJzLmFkZCgpO1xuICB9KTtcblxuICAkKFwiI2J0bi11cGRhdGUtdXNlclwiKS5vbignY2xpY2snLCBmdW5jdGlvbiAoZSkge1xuICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKCk7XG4gICAgVXNlcnMudXBkYXRlKCk7XG4gIH0pO1xufVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy91c2Vycy9oYW5kbGVycy5qc1xuLy8gbW9kdWxlIGlkID0gMzBcbi8vIG1vZHVsZSBjaHVua3MgPSAwIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///30\n");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Users) => {
-  userTable.init();
-  $("#btn-save-user").on('click', function (e) {
-    e.stopImmediatePropagation();
-    Users.add();
-  });
-
-  $("#btn-update-user").on('click', function (e) {
-    e.stopImmediatePropagation();
-    Users.update();
-  });
-});
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((Clients,Contracts, Payments) => {
-      var $clientName = $('#detail-client-name');
-
-      $("#btn-save-observations").on('click', function (e) {
-        e.stopImmediatePropagation();
-        Payments.saveAbonos();
-      });
-
-      $('#btn-save-real-observations').on('click', function (e) {
-        e.stopImmediatePropagation();
-        Clients.saveObservations();
-      })
-
-      detailsContractTable.init();
-
-      $("#btn-detail-suspend-contract").on('click', function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var row = detailsContractTable.getSelectedRow();
-        if (row) {
-          swal({
-            title: 'Está Seguro?',
-            text: "Desea Suspender el contrato de " + $clientName.val() + " ?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Estoy Seguro',
-            cancelButtonText: 'Cancelar'
-          }).then(function () {
-            Contracts.suspend(row.id_contrato, Payments.contractRefresh);
-          });
-        } else {
-          swal("Debe seleccionar un contrato")
-        }
-      });
-
-      $("#btn-call-reconnect").on('click', function (e) {
-        e.stopImmediatePropagation()
-        var row = detailsContractTable.getSelectedRow();
-        if (row) {
-          $("#reconnect-modal").modal();
-        } else {
-          swal("Debe seleccionar un contrato primero");
-        }
-      })
-
-      $("#btn-reconnect").on('click', function (e) {
-        e.stopImmediatePropagation()
-        var row = detailsContractTable.getSelectedRow();
-        if (row) {
-          Contracts.reconnect(row.id_contrato, Payments.contractRefresh);
-        }
-      })
-
-      $('#btn-call-extra').on('click', function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var context = 'details';
-        Contracts.callExtra(context);
-      })
-    });
-
+eval("/* harmony default export */ __webpack_exports__[\"a\"] = ((Clients,Contracts, Payments) => {\n      var $clientName = $('#detail-client-name');\n\n      $(\"#btn-save-observations\").on('click', function (e) {\n        e.stopImmediatePropagation();\n        Payments.saveAbonos();\n      });\n\n      $('#btn-save-real-observations').on('click', function (e) {\n        e.stopImmediatePropagation();\n        Clients.saveObservations();\n      })\n\n      detailsContractTable.init();\n\n      $(\"#btn-detail-suspend-contract\").on('click', function (e) {\n        e.preventDefault();\n        e.stopImmediatePropagation();\n        var row = detailsContractTable.getSelectedRow();\n        if (row) {\n          swal({\n            title: 'Está Seguro?',\n            text: \"Desea Suspender el contrato de \" + $clientName.val() + \" ?\",\n            type: 'warning',\n            showCancelButton: true,\n            confirmButtonText: 'Estoy Seguro',\n            cancelButtonText: 'Cancelar'\n          }).then(function () {\n            Contracts.suspend(row.id_contrato, Payments.contractRefresh);\n          });\n        } else {\n          swal(\"Debe seleccionar un contrato\")\n        }\n      });\n\n      $(\"#btn-call-reconnect\").on('click', function (e) {\n        e.stopImmediatePropagation()\n        var row = detailsContractTable.getSelectedRow();\n        if (row) {\n          $(\"#reconnect-modal\").modal();\n        } else {\n          swal(\"Debe seleccionar un contrato primero\");\n        }\n      })\n\n      $(\"#btn-reconnect\").on('click', function (e) {\n        e.stopImmediatePropagation()\n        var row = detailsContractTable.getSelectedRow();\n        if (row) {\n          Contracts.reconnect(row.id_contrato, Payments.contractRefresh);\n        }\n      })\n\n      $('#btn-call-extra').on('click', function (e) {\n        e.preventDefault();\n        e.stopImmediatePropagation();\n        var context = 'details';\n        Contracts.callExtra(context);\n      })\n    });\n\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9kZXRhaWxzL2hhbmRsZXJzLmpzPzVmYmYiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKENsaWVudHMsQ29udHJhY3RzLCBQYXltZW50cykgPT4ge1xuICAgICAgdmFyICRjbGllbnROYW1lID0gJCgnI2RldGFpbC1jbGllbnQtbmFtZScpO1xuXG4gICAgICAkKFwiI2J0bi1zYXZlLW9ic2VydmF0aW9uc1wiKS5vbignY2xpY2snLCBmdW5jdGlvbiAoZSkge1xuICAgICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgICBQYXltZW50cy5zYXZlQWJvbm9zKCk7XG4gICAgICB9KTtcblxuICAgICAgJCgnI2J0bi1zYXZlLXJlYWwtb2JzZXJ2YXRpb25zJykub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICAgICAgQ2xpZW50cy5zYXZlT2JzZXJ2YXRpb25zKCk7XG4gICAgICB9KVxuXG4gICAgICBkZXRhaWxzQ29udHJhY3RUYWJsZS5pbml0KCk7XG5cbiAgICAgICQoXCIjYnRuLWRldGFpbC1zdXNwZW5kLWNvbnRyYWN0XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTtcbiAgICAgICAgdmFyIHJvdyA9IGRldGFpbHNDb250cmFjdFRhYmxlLmdldFNlbGVjdGVkUm93KCk7XG4gICAgICAgIGlmIChyb3cpIHtcbiAgICAgICAgICBzd2FsKHtcbiAgICAgICAgICAgIHRpdGxlOiAnRXN0w6EgU2VndXJvPycsXG4gICAgICAgICAgICB0ZXh0OiBcIkRlc2VhIFN1c3BlbmRlciBlbCBjb250cmF0byBkZSBcIiArICRjbGllbnROYW1lLnZhbCgpICsgXCIgP1wiLFxuICAgICAgICAgICAgdHlwZTogJ3dhcm5pbmcnLFxuICAgICAgICAgICAgc2hvd0NhbmNlbEJ1dHRvbjogdHJ1ZSxcbiAgICAgICAgICAgIGNvbmZpcm1CdXR0b25UZXh0OiAnRXN0b3kgU2VndXJvJyxcbiAgICAgICAgICAgIGNhbmNlbEJ1dHRvblRleHQ6ICdDYW5jZWxhcidcbiAgICAgICAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgIENvbnRyYWN0cy5zdXNwZW5kKHJvdy5pZF9jb250cmF0bywgUGF5bWVudHMuY29udHJhY3RSZWZyZXNoKTtcbiAgICAgICAgICB9KTtcbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICBzd2FsKFwiRGViZSBzZWxlY2Npb25hciB1biBjb250cmF0b1wiKVxuICAgICAgICB9XG4gICAgICB9KTtcblxuICAgICAgJChcIiNidG4tY2FsbC1yZWNvbm5lY3RcIikub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKVxuICAgICAgICB2YXIgcm93ID0gZGV0YWlsc0NvbnRyYWN0VGFibGUuZ2V0U2VsZWN0ZWRSb3coKTtcbiAgICAgICAgaWYgKHJvdykge1xuICAgICAgICAgICQoXCIjcmVjb25uZWN0LW1vZGFsXCIpLm1vZGFsKCk7XG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgc3dhbChcIkRlYmUgc2VsZWNjaW9uYXIgdW4gY29udHJhdG8gcHJpbWVyb1wiKTtcbiAgICAgICAgfVxuICAgICAgfSlcblxuICAgICAgJChcIiNidG4tcmVjb25uZWN0XCIpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIGUuc3RvcEltbWVkaWF0ZVByb3BhZ2F0aW9uKClcbiAgICAgICAgdmFyIHJvdyA9IGRldGFpbHNDb250cmFjdFRhYmxlLmdldFNlbGVjdGVkUm93KCk7XG4gICAgICAgIGlmIChyb3cpIHtcbiAgICAgICAgICBDb250cmFjdHMucmVjb25uZWN0KHJvdy5pZF9jb250cmF0bywgUGF5bWVudHMuY29udHJhY3RSZWZyZXNoKTtcbiAgICAgICAgfVxuICAgICAgfSlcblxuICAgICAgJCgnI2J0bi1jYWxsLWV4dHJhJykub24oJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICBlLnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO1xuICAgICAgICB2YXIgY29udGV4dCA9ICdkZXRhaWxzJztcbiAgICAgICAgQ29udHJhY3RzLmNhbGxFeHRyYShjb250ZXh0KTtcbiAgICAgIH0pXG4gICAgfVxuXG5cblxuLy8vLy8vLy8vLy8vLy8vLy8vXG4vLyBXRUJQQUNLIEZPT1RFUlxuLy8gLi9zcmMvbW9kdWxlcy9zZXJ2aWNlcy9kZXRhaWxzL2hhbmRsZXJzLmpzXG4vLyBtb2R1bGUgaWQgPSAzMVxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///31\n");
 
 /***/ })
-],[8]);
-//# sourceMappingURL=all.js.map
+/******/ ]);

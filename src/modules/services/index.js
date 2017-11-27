@@ -1,56 +1,67 @@
-import vars from './vars.js'
-import clients from './clients'
-import generals from './generals'
-import services from './services'
-import contracts from './contracts'
-import payments from './payments'
-import caja from './caja'
-import company from './company'
-import settings from './settings'
-import sections from './sections';
-import users from './users';
+import Clients from './clients';
+import Generals from './generals';
+import Services from './services';
+import Contracts from './contracts';
+import Payments from './payments';
+import Caja from './caja';
+import Company from './company';
+import Settings from './settings';
+import Sections from './sections';
+import Users from './users';
 import detailsHandler from './details/handlers';
+
+const cClients = new Clients();
+const cGenerals = new Generals();
+const cServices = new Services();
+const cContracts = new Contracts();
+const cPayments = new Payments();
+const cCaja = new Caja();
+const cCompany = new Company();
+const cSettings = new Settings();
+const cSections = new Sections();
+const cUsers = new Users();
+
+let currentPage = $('title').text().split(' ');
+currentPage = currentPage[4].toLowerCase().trim();
 
 
 function initComponents() {
-  const Caja = new Caja();
-  const General = new Generals();
+  cCaja();
+  cGenerals();
 
   switch (currentPage) {
-    case "home":
-      new clients();
+    case 'home':
+      cClients();
       break;
-    case "administrador":
-      new company()
-      new users();
-      new settings();
-      new caja();
+    case 'administrador':
+      cCompany();
+      cUsers();
+      cSettings();
       break;
-    case "clientes":
-      new clients();
+    case 'clientes':
+      cClients();
       break;
-    case "servicios":
-      ServicesHandler();
+    case 'servicios':
+      cServices();
       break;
-    case "nuevo_contrato":
-      new contracts();
+    case 'secciones':
+      cSections();
       break;
-    case "detalles":
-      const Payments = new payments;
-      const Contracts = new contracts;
-      const Clients = new clients();
-      detailsHandler(Clients, Contracts, Payments);
+    case 'nuevo_contrato':
+      cContracts();
       break;
-    case "contratos":
-      new contracts()
-      new clients();
+    case 'detalles':
+      detailsHandler(cClients(), cContracts(), cPayments());
       break;
-    case "secciones":
-      new sections();
+    case 'contratos':
+      cContracts();
+      cClients();
+      break;
+    default:
       break;
   }
 }
 
-$(function () {
-  initComponents()
+$(() => {
+  initComponents();
 });

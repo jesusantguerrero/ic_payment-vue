@@ -315,4 +315,5 @@ switch (ENVIRONMENT)
 require 'vendor/autoload.php';
 $dotenv = new Dotenv\Dotenv(__dir__);
 $dotenv->load();
+
 require_once BASEPATH.'core/CodeIgniter.php';

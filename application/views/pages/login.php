@@ -7,6 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
   <title>IC Payment | <?php echo $title; ?> </title>
   <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=pre-1.0.0') ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=pre-1.0.0') ?>"/>
@@ -24,7 +25,7 @@
          <h1>IC PAYMENT</h1>
        </div>
        </div>
-      <div class="col-md-6 login-box">
+      <div class="col-md-6 login-box" data-endpoint="<?php echo base_url() ?>">
         <form>
           <div class="cabecera">
             <img src="<?php echo base_url('favicon-96x96.png') ?>" alt="">
@@ -32,15 +33,15 @@
           </div>
           <div class="form-group">
             <label for="user-input">Usuario</label>
-            <input id="user-input" type="text" class="form-control" placeholder="usuario:demo contraseña:demo">
+            <input v-model ="credentials.user" type="text" class="form-control" placeholder="usuario:demo contraseña:demo" @keypress.enter="login">
           </div>
           <div class="form-group">
             <label for="password-input">Contraseña</label>
-            <input id="password-input" type="password" class="form-control">
+            <input id="password-input" type="password" class="form-control" v-model="credentials.password" @keypress.enter="login">
           </div>
           <p class="validation"></p>
           <div class="form-group">
-            <input type="button" id="send-credentials" value="Ingresar">
+            <input type="button" id="send-credentials" value="Ingresar" @click="login">
           </div>
 
         </form>
@@ -62,9 +63,10 @@
   <div class="toast">
     <span></span>
   </div>
-
-  <script src="<?php echo base_url('assets/js/vendor.js') ?>"></script>
-  <script src="<?php echo base_url('assets/js/login.js') ?>"></script>
+  <script src="<?php echo base_url('assets/js/manifest.js?pre-1.0.0') ?>"></script>
+  <script src="<?php echo base_url('assets/js/vendor.js?pre-1.0.0') ?>"></script>
+  <script src="<?php echo base_url('assets/js/lib/globals.js?pre-1.0.0') ?>"></script>
+  <script src="<?php echo base_url('assets/js/login.js?pre-1.0.1') ?>"></script>
 
   <script>
     setTimeout(function () {

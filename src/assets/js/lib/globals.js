@@ -6,18 +6,19 @@ if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io')){
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO    = '<i class="material-icons">info_outline</i>';
-var SUMMER_SKY      = '#1FA1D0'
+var SUMMER_SKY      = '#1FA1D0';
+
 try {
   var busAveria       = new Vue();
 } catch(err) {
-  
+
 }
 
 /**
  * Connect And Send
  * Conecta al servidor via ajax y muestra el mensaje de respuesta
  * @param {string} url Url a donde se va a mandar la el formulario, sin la base_url
- * @param {boolean} is_message Si se espera un mensaje o no como respuesta 
+ * @param {boolean} is_message Si se espera un mensaje o no como respuesta
  * @param {callback} recognizeElements Funcion para reconocer los elementos autogenerados
  * @param {?callback} action callback que recibe los datos desde el servidor para hacer algo con ellos
  * @param {string} form formulario a ser enviado al servidor
@@ -28,24 +29,24 @@ try {
 
 function connectAndSend(url,is_message,recognizeElements,action,form,callback,loading){
   if(!loading) loading = lineLoad
-  var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); 
+  var connect = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     connect.onreadystatechange = function() {
-        
+
         if (connect.readyState == 4 && connect.status == 200) {
           if(loading)loading(true);
           if (action != null)  {
-              action(connect.responseText,recognizeElements);          
+              action(connect.responseText,recognizeElements);
           }
           else{
             if(is_message){
-              displayMessage(connect.responseText);                            
-            }              
+              displayMessage(connect.responseText);
+            }
           }
           if(callback != null)callback();
-        } 
+        }
 
         else if (connect.readyState != 4) {
-          if(loading)loading(false);      
+          if(loading)loading(false);
         }
     }
 
@@ -54,13 +55,13 @@ function connectAndSend(url,is_message,recognizeElements,action,form,callback,lo
     connect.send(form);
 }
 /********************************************************
-*         Funciones de mensajes y notificaciones                            
+*         Funciones de mensajes y notificaciones
 *                                                       *
 ********************************************************/
 /**
  * Display Message
  * Muestra una notificacion del resultado de la consulta
- * @param {string} message string to be displayed 
+ * @param {string} message string to be displayed
  * @return {void}
  */
 
@@ -78,7 +79,7 @@ function displayMessage(message){
     span = toast.find("span").html(message);
     span.css({background:color});
     toast.css({display:"flex"});
-    
+
     toast.animate({opacity:"1"},500,function(){
       setTimeout(function() {
         toast.animate({opacity:"0"});
@@ -101,7 +102,7 @@ function displayAlert(title,message,type){
 }
 
 /********************************************************
-*        fucniones para Llenar tablas                                        
+*        fucniones para Llenar tablas
 *                                                       *
 ********************************************************/
 
@@ -189,7 +190,7 @@ function makeContractList(response,callback){
       code     = contracts.contratos[i]["codigo"];
       element += "<option value='" + value + "' data-service='"+service+"'  data-equipment='"+equipment+"'  data-e-mac='"+eMac+"'";
       element += " data-router='"+router+"'  data-r-mac='"+rMac+"' data-code='"+code+"'>";
-      element += value +"</option>";  
+      element += value +"</option>";
     }
     selectContract.html(element);
     selectContract.val(contractId).change();
@@ -197,7 +198,7 @@ function makeContractList(response,callback){
 
   }else{
     displayMessage(MESSAGE_ERROR + " Este cliente no existe revise su cedula por favor");
-  } 
+  }
 }
 
 function clearTbody(objecId){
@@ -215,15 +216,15 @@ function makePaymentList(response,callback){
 
 /**
  * isEmpty
- * Verifica si los valores dados estan vacios o son nulos 
+ * Verifica si los valores dados estan vacios o son nulos
  * @param {Array. < string} values
  * @return {boolean}
  */
-function isEmpty(values,is_num){
+function isEmpty(values,is_num) {
   for(var i = 0 ; i < values.length ; i++){
     if (values[i] == null || values[i] == ""){
       return true;
-    } 
+    }
   }
   return false;
 }
@@ -233,6 +234,7 @@ function updateSaldo(money){
   money = "RD$ "+ CurrencyFormat(money)
   $(".current-saldo").text(money);
 }
+
 function updateCount($content){
   $(".total-rows").html($content);
 }
@@ -246,7 +248,7 @@ function validateModal($modalId){
   var $userPassword = $($modalId+' .password');
   var $userPasswordConfirm = $($modalId+' .password-confirm');
   var $saveButton = $($modalId+' .save');
-  
+
   $userPasswordConfirm.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
@@ -270,7 +272,7 @@ function validateThis(){
   var $userPassword = $('.password');
   var $userPasswordConfirm = $('.password-confirm');
   var $saveButton = $('.save');
-  
+
   $userPassword.on('blur keyup',function(){
     validateTwo($userPassword,$userPasswordConfirm,$saveButton);
   });
@@ -282,6 +284,7 @@ function validateThis(){
 function clearForm(modalId){
   $(modalId + " input").val("");
 }
+
 function deleteValidation($inputElement, text, $buttonToActive){
   var innerText;
   this.text = text;
@@ -290,7 +293,7 @@ function deleteValidation($inputElement, text, $buttonToActive){
 
   $inputElement.on("keyup",function(e){
     e.stopImmediatePropagation();
-    innerText = $(this).val() 
+    innerText = $(this).val()
     if(innerText.toLowerCase() == self.text.toLowerCase()){
       $buttonToActive.removeAttr("disabled");
       warning.addClass('hide');
@@ -320,10 +323,10 @@ function makeServiceCardClickable(){
     serviceCard.on('click',function(e){
       e.stopImmediatePropagation();
       var $this       = $(this);
-      var service_id  = $this.attr('data-id'); 
+      var service_id  = $this.attr('data-id');
       var payment     = $this.attr('data-payment');
       var realLink    = btnPrintContract.attr('data-href')
-      
+
       serviceCard.removeClass('selected');
       $this.addClass('selected');
       btnPrintContract.attr("href",realLink + "/" + service_id);
@@ -331,7 +334,7 @@ function makeServiceCardClickable(){
     })
 }
 /********************************************************
-*                          Verify Rows                            
+*                          Verify Rows
 *                                                       *
 ********************************************************/
 
@@ -361,7 +364,7 @@ function verifyClientStatus(){
 }
 
 /********************************************************
-*                       Loaders                            
+*                       Loaders
 *                                                       *
 ********************************************************/
 
