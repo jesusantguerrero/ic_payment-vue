@@ -1,8 +1,4 @@
 export default (Caja) => {
-  if (currentPage === 'administrador') {
-    cajaTable.init();
-  }
-
   const btnAddMoney = $('#btn-add-money');
   const btnRetireMoney = $('#btn-retire-money');
   const userSearch = $('#caja-user');

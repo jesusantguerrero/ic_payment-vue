@@ -16,8 +16,8 @@ export default class users {
     const lastname = $('#user-lastname').val();
     const dni = getVal($('#user-dni'));
     const type = $('#user-type').val();
-
     const empty = isEmpty([nick, password, name, lastname, dni, type]);
+
     if (!empty) {
       const form = `nickname=${nick}&password=${password}&name=${name}&lastname=${lastname}&dni=${dni}&type=${type}`;
       this.send('add', form)

@@ -13,7 +13,6 @@ var webpackConfig = require('./webpack.prod.conf')
 var spinner = ora('building for production...')
 spinner.start()
 
-  if (err) throw err
   webpack(webpackConfig, function (err, stats) {
     spinner.stop()
     if (err) throw err

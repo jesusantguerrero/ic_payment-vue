@@ -7,21 +7,19 @@
 	<title>.:: IC Payment | <?php echo ucfirst($title); ?> ::.</title>
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=pre-1.0.0') ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=pre-1.0.0') ?>"/>
- 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=pre-1.0.0') ?>"/>
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=pre-1.0.1') ?>"/>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/min/head.bundle.js?version=pre-1.0.0') ?>"></script>
 	<link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
 
 </head>
-<?php $user_data = get_user_data(); 
-	$notifications = $this->report_model->count_moras_view();
-?>
+<?php $user_data = get_user_data(); $notifications = $this->report_model->count_moras_view(); ?>
 <body>
 	<div class="loader">
 		<span class="load"></span>
 	</div>
 	<header>
 		<div class="header-low">
-			 
+
 			<div class="brand">
 				<a href="">
 						<i class="material-icons brand__menu">menu</i>
@@ -32,11 +30,11 @@
 			</div>
 			<nav class="top-nav">
 				<li class="navButton hidden-xs"><a href="<?php echo base_url('app/admin/home') ?>">Lobby</a></li>
-				<li class="navButton hidden-xs"><a class="<?php if($title == 'clientes')  echo " active "?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
-				<li class="navButton hidden-xs"><a class="<?php if($title == 'servicios') echo " active " ?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
-				<li class="navButton hidden-xs"><a class="<?php if($title == 'contratos') echo " active " ?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a>
+				<li class="navButton hidden-xs"><a class="<?php if($title == 'clientes')  echo "active"?>" href="<?php echo base_url('app/admin/clientes') ?>">Clientes</a></li>
+				<li class="navButton hidden-xs"><a class="<?php if($title == 'servicios') echo "active"?>" href="<?php echo base_url('app/admin/servicios') ?>">Servicios</a></li>
+				<li class="navButton hidden-xs"><a class="<?php if($title == 'contratos') echo "active"?>" href="<?php echo base_url('app/admin/contratos') ?>">Contratos</a>
 					<ul class="submenu">
-						<li class="navButton hidden-xs"><a class="<?php if($title == 'extras') echo " active " ?>" href="<?php echo base_url('app/admin/extras') ?>">Extras</a></li>
+						<li class="navButton hidden-xs"><a class="<?php if($title == 'extras') echo "active" ?>" href="<?php echo base_url('app/admin/extras') ?>">Extras</a></li>
 					</ul>
 				</li>
 
@@ -85,7 +83,6 @@
 
 					<?php echo $tooltip; ?>
 				</div>
-
 			</div>
 		</div>
 	</header>

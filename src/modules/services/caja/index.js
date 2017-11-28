@@ -1,7 +1,13 @@
 import handler from './handlers';
+import cajaTable from './cajaTable';
 
 export default class {
   constructor() {
+    this.cajaTable = cajaTable;
+    if (currentPage === 'administrador') {
+      this.cajaTable.init();
+      this.getAll();
+    }
     handler(this);
   }
 
@@ -46,8 +52,8 @@ export default class {
     const self = this;
     const form = 'tabla=caja';
     this.send('getAll', form)
-      .then((res) => {;
-        cajaTable.refresh(res.data)
+      .then((res) => {
+        self.cajaTable.refresh(res.data);
         self.getSaldo();
       });
   }
@@ -61,6 +67,7 @@ export default class {
   }
 
   search() {
+    const self = this;
     const $dateSearch = $('#caja-date');
     const $userSearch = $('#caja-user');
     const date = ($dateSearch.val()) ? $dateSearch.val() : '%';
@@ -69,7 +76,7 @@ export default class {
     const form = `tabla=caja&id_empleado=${userId}&fecha=${date}`;
     this.send('search', form)
       .then((res) => {
-        cajaTable.refresh(res.data);
+        self.cajaTable.refresh(res.data);
       });
   }
 
