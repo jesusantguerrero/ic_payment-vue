@@ -19,7 +19,7 @@ export default new Vue({
 
   mounted() {
     const options = {
-      endpoint: `${this.$el.dataset.endpoint}app/`
+      endpoint: this.$el.dataset.endpoint
     };
     this.service = new Service(options);
   },
@@ -36,7 +36,7 @@ export default new Vue({
     doLogin() {
       this.service.doLogin(this.credentials)
         .then((res) => {
-          if (res.data === true) {
+          if (res.data) {
             window.location.href = `${BASE_URL}'app/admin/`;
           } else {
             displayMessage(`${MESSAGE_INFO}Usuario y Contraseña no validos`);

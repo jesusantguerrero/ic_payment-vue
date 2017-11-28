@@ -3,6 +3,7 @@ import handler from './handlers';
 export default class clients {
   constructor() {
     handler(this);
+    console.log('aqui en clientes');
   }
 
   add() {

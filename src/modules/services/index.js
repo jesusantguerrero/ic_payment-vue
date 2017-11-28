@@ -8,6 +8,7 @@ import Company from './company';
 import Settings from './settings';
 import Sections from './sections';
 import Users from './users';
+import Notifications from './notificaciones';
 import detailsHandler from './details/handlers';
 
 const cClients = new Clients();
@@ -20,9 +21,7 @@ const cCompany = new Company();
 const cSettings = new Settings();
 const cSections = new Sections();
 const cUsers = new Users();
-
-let currentPage = $('title').text().split(' ');
-currentPage = currentPage[4].toLowerCase().trim();
+const cNotifications = new Notifications();
 
 
 function initComponents() {
@@ -43,6 +42,9 @@ function initComponents() {
       break;
     case 'servicios':
       cServices();
+      break;
+    case 'notificaciones':
+      cNotifications();
       break;
     case 'secciones':
       cSections();

@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class Service {
   constructor(options) {
     this.user = axios.create({
-      baseURL: options.enpoint
+      baseURL: `${options.endpoint}app/`
     });
   }
 

@@ -3,6 +3,10 @@ if(BASE_URL.includes("localhost") || BASE_URL.includes('ngrok.io')){
   BASE_URL += 'icpayment/';
 }
 
+
+var currentPage = $('title').text().split(' ');
+currentPage = currentPage[4].toLowerCase().trim();
+
 var MESSAGE_SUCCESS = '<i class="material-icons">done_all</i>';
 var MESSAGE_ERROR   = '<i class="material-icons">error_outline</i>';
 var MESSAGE_INFO    = '<i class="material-icons">info_outline</i>';

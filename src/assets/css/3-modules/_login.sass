@@ -1,4 +1,4 @@
-.login-body 
+.login-body
   background: #fdfdff
   background-size: cover
   .login-box
@@ -7,19 +7,19 @@
     display: flex
     justify-content: center
     align-items: center
-    
+
     div
       margin-right: 5%
       color: $primary-color
       height: 100%
 
       &:nth-child(1),
-        +makeFlex(50%,column,center,center) 
+        +makeFlex(100%,column,center,center)
       .cabecera,
       form
         +makeFlex(100%,column,center,center)
         margin-bottom: 10px
-    
+
     .vertical-line
       background: $contrast-color
       width: 5px
@@ -32,7 +32,7 @@
       margin: 10px 0
 
       &:hover
-       background: darken($contrast-color, 5%) 
+       background: darken($contrast-color, 5%)
 
     input
       border-radius: 0 0 0 0
@@ -50,7 +50,7 @@
   text-align: center
   p
     margin: 0
-  
+
 .splash-screen
   top: 0
   left: 0
@@ -59,7 +59,7 @@
   background: $contrast-color
   position: absolute
   height: 100vh
-  animation: fadeSplash 3s 
+  animation: fadeSplash 3s
 
 .splash-logo
   width: 300px
@@ -107,4 +107,4 @@
 
 @media (max-width: 768px)
   .login-body .login-box div
-    margin-right: 0  
+    margin-right: 0

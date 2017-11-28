@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class App extends CI_Controller {
+class App extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -26,22 +26,22 @@ class App extends CI_Controller {
  }
 
 	public function index(){
-		if(!isset($_SESSION['user_data'])):	
-			$data['title'] = "login";	
-			$this->load->view('pages/login',$data);	
+		if(!isset($_SESSION['user_data'])):
+			$data['title'] = "login";
+			$this->load->view('pages/login',$data);
 		else:
 			redirect(base_url('app/admin/home'));
 		endif;
-	
+
 	}
-	
+
 	public function admin($page = 'home'){
 		authenticate();
 		auth_user_type_for_pages($page,1,base_url('app/admin/home'));
 		$data['title'] = $page;
 		$tooltip = $this->load->view('layouts/headertooltip',$data,true);
 		$left_navigation_header = $this->load->view('layouts/left_navigation_header',$page,true);
-		
+
 		$data['tooltip'] = $tooltip;
 		$data['left_navigation_header'] = $left_navigation_header;
 		$this->load->view('layouts/header',$data);
@@ -53,7 +53,7 @@ class App extends CI_Controller {
 				$this->load->view($modal);
 			}
 		}
-		$this->load->view('layouts/footer');	
+		$this->load->view('layouts/footer');
 	}
 
 	public function imprimir($page){
@@ -71,10 +71,12 @@ class App extends CI_Controller {
 	}
 
 	public function login(){
-  	$nickname = $_POST['user'];
-  	$password = $_POST['password'];
+    $data = $this->get_post_data('data');
 
-   	$is_correct = $this->user_model->login($nickname,$password);
+  	$user = $data['user'];
+  	$password = $data['password'];
+
+   	$is_correct = $this->user_model->login($user, $password);
 		 if($is_correct){
 			echo $is_correct;
 		 }else{
