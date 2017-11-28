@@ -3,7 +3,8 @@ import Installations from './installations';
 
 export default class notifications {
   constructor() {
-    cDamages = new Damages();
-    cInstallations = new Installations();
+    console.log('here');
+    console.log(Damages);
+    console.log(Installations);
   }
 }

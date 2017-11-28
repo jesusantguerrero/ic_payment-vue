@@ -1,6 +1,6 @@
 import handler from './handlers';
 
-export default class caja {
+export default class {
   constructor() {
     handler(this);
   }
@@ -13,11 +13,11 @@ export default class caja {
     const empty = isEmpty([amount, description]);
 
     if (!empty) {
-      this.send('add', form);
-      then((res) => {
-        displayMessage(res);
-        self.getAll();
-      });
+      this.send('add', form)
+        .then((res) => {
+          displayMessage(res.data);
+          self.getAll();
+        });
     } else {
       displayAlert('Revise', 'LLene todos los campos por favor', 'error');
     }
@@ -31,11 +31,12 @@ export default class caja {
     const empty = isEmpty([amount, description]);
 
     if (!empty) {
-      this.send('retire', form);
-      then((res) => {
-        displayMessage(res);
-        self.gatAll();
-      });
+      this.send('retire', form)
+        .then((res) => {
+          displayMessage(res.data);
+          console.log(self);
+          self.gatAll();
+        });
     } else {
       displayAlert('Revise', 'LLene todos los campos por favor', 'error');
     }
@@ -44,19 +45,19 @@ export default class caja {
   getAll() {
     const self = this;
     const form = 'tabla=caja';
-    this.send('getAll', form);
-    then((res) => {
-      cajaTable.refresh(res);
-      self.getSaldo();
-    });
+    this.send('getAll', form)
+      .then((res) => {;
+        cajaTable.refresh(res.data)
+        self.getSaldo();
+      });
   }
 
   getSaldo() {
     const form = 'tabla=caja';
-    this.send('getone', form);
-    then((res) => {
-      updateSaldo(res);
-    });
+    this.send('getone', form)
+      .then((res) => {
+        updateSaldo(res.data);
+      });
   }
 
   search() {
@@ -66,10 +67,10 @@ export default class caja {
     const userId = ($userSearch.val()) ? $userSearch.val() : '%';
 
     const form = `tabla=caja&id_empleado=${userId}&fecha=${date}`;
-    this.send('search', form);
-    then((res) => {
-      cajaTable.refresh(res);
-    });
+    this.send('search', form)
+      .then((res) => {
+        cajaTable.refresh(res.data);
+      });
   }
 
   send(endpoint, data) {

@@ -16,9 +16,9 @@ export default class company {
     const form = `nombre=${companyName}&lema=${companyStatement}&descripcion=${companyDescription}&direccion=
     ${companyDirection}&telefono1=${companyPhone1}&telefonos=${companyPhone2}&tabla=empresa`;
 
-    axios.post(`${BASE_URL}process/update`, form);
-    then((res) => {
-      displayMessage(res);
-    });
+    axios.post(`${BASE_URL}process/update`, form)
+      .then((res) => {
+        displayMessage(res.data);
+      });
   }
 }

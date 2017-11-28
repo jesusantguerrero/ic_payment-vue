@@ -37,7 +37,7 @@ export default new Vue({
       this.service.doLogin(this.credentials)
         .then((res) => {
           if (res.data) {
-            window.location.href = `${BASE_URL}'app/admin/`;
+            window.location.href = `${BASE_URL}app/admin/`;
           } else {
             displayMessage(`${MESSAGE_INFO}Usuario y Contraseña no validos`);
           }

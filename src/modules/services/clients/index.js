@@ -37,7 +37,7 @@ export default class clients {
       this.send('add', form);
       then((res) => {
         self.getAll();
-        displayMessage(res);
+        displayMessage(res.data);
       });
     } else {
       displayAlert('Revise', 'LLene todos los campos por favor', 'error');
@@ -48,24 +48,34 @@ export default class clients {
     const form = 'tabla=clientes';
     this.send('getall', form)
       .then((res) => {
-        clientTable.refresh(res);
+        clientTable.refresh(res.data);
       });
   }
 
   getOne(id) {
     const self = this;
     const form = `tabla=clientes&id=${id}`;
-    this.send('getone', form);
-    then((res) => {
-      self.receiveForEdit(res);
-    });
+    this.send('getone', form)
+      .then((res) => {
+        self.receiveForEdit(res.data);
+      });
+  }
+
+  delete(id) {
+    const form = `tabla=clientes&id=${id}`;
+    const self = this;
+    this.send('process/delete', form)
+      .then((res) => {
+        displayMessage(res.data);
+        self.getAll();
+      });
   }
 
   search(word) {
     const form = `tabla=clientes&word=${word}`;
     this.send('search', form);
     then((res) => {
-      fillCurrentTable(res);
+      fillCurrentTable(res.data);
     });
   }
 
@@ -116,7 +126,7 @@ export default class clients {
         this.send('update', form);
         then((res) => {
           self.getAll();
-          displayMessage(res);
+          displayMessage(res.data);
         });
       } else {
         displayAlert('Revise', 'LLene todos los campos por favor', 'error');
@@ -136,7 +146,7 @@ export default class clients {
 
     this.send('update', form);
     then((res) => {
-      displayMessage(res);
+      displayMessage(res.data);
     });
   }
 
@@ -144,7 +154,7 @@ export default class clients {
     const form = `data=${JSON.stringify(client)}&module=clientes&action=update`;
     this.send('getjson', form);
     then((res) => {
-      displayMessage(res);
+      displayMessage(res.data);
     });
   }
 

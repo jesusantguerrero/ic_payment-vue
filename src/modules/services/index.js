@@ -11,54 +11,55 @@ import Users from './users';
 import Notifications from './notificaciones';
 import detailsHandler from './details/handlers';
 
-const cClients = new Clients();
+
 const cGenerals = new Generals();
-const cServices = new Services();
-const cContracts = new Contracts();
-const cPayments = new Payments();
 const cCaja = new Caja();
-const cCompany = new Company();
-const cSettings = new Settings();
-const cSections = new Sections();
-const cUsers = new Users();
-const cNotifications = new Notifications();
 
 
 function initComponents() {
-  cCaja();
-  cGenerals();
-
   switch (currentPage) {
-    case 'home':
-      cClients();
+    case 'home': {
+      const cClients = new Clients();
+    }
       break;
-    case 'administrador':
-      cCompany();
-      cUsers();
-      cSettings();
+    case 'administrador': {
+      const cCompany = new Company();
+      const cSettings = new Settings();
+      const cUsers = new Users();
+    }
       break;
-    case 'clientes':
-      cClients();
+    case 'clientes': {
+      const cClients = new Clients();
+    }
       break;
-    case 'servicios':
-      cServices();
+    case 'servicios': {
+      const cServices = new Services();
+    }
       break;
-    case 'notificaciones':
-      cNotifications();
+    case 'notificaciones': {
+      const cNotifications = new Notifications();
+    }
       break;
-    case 'secciones':
-      cSections();
+    case 'secciones': {
+      const cSections = new Sections();
+    }
       break;
-    case 'nuevo_contrato':
-      cContracts();
+    case 'nuevo_contrato': {
+      const nContracts = new Contracts();
+    }
       break;
-    case 'detalles':
-      detailsHandler(cClients(), cContracts(), cPayments());
+    case 'detalles': {
+      const dClients = new Clients();
+      const dPayments = new Payments();
+      const dContracts = new Contracts();
+      detailsHandler(dClients, dContracts, dPayments);
+    }
       break;
-    case 'contratos':
-      cContracts();
-      cClients();
+    case 'contratos': {
+      const cContracts = new Contracts();
+      const cClients = new Clients();
       break;
+    }
     default:
       break;
   }

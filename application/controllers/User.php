@@ -9,8 +9,8 @@ class User extends CI_Controller {
 	}
 
 	public function add(){
-		authenticate(); 
-		$data 	= $this->get_post_data(); 
+		authenticate();
+		$data 	= $this->get_post_data();
    	$result = $this->user_model->add_new_user($data);
 	}
 
@@ -60,7 +60,7 @@ class User extends CI_Controller {
 				unset($user['password']);
 				$user['role'] = get_role($user['type']);
 			}
-			$response['user'] = $user; 
+			$response['user'] = $user;
 			echo json_encode($response);
 		}
 	}
@@ -77,7 +77,7 @@ class User extends CI_Controller {
   	$user_id  = $data['user_id'];
   	$password = $data['current_password'];
    	$response['is_correct'] = $this->user_model->confirm_password($user_id,$password);
-		echo json_encode($response); 
+		echo json_encode($response);
   }
 
 	public function update_password(){
@@ -87,17 +87,17 @@ class User extends CI_Controller {
   	$current_password = $data['current_password'];
 		$new_password 		= $data['new_password'];
    	$response['is_correct'] = $this->user_model->update_password($user_id,$current_password,$new_password);
-		
-		$response['message']  = ($response['is_correct']) ? MESSAGE_SUCCESS ." Contraseña guardada con exito" 
+
+		$response['message']  = ($response['is_correct']) ? MESSAGE_SUCCESS ." Contraseña guardada con exito"
 																											: MESSAGE_ERROR. " No pudo Guardarse la contraseña";
-		 echo json_encode($response); 
+		 echo json_encode($response);
 	}
-	
+
 	private function get_post_data($field = null){
 		if ($field) {
 			return json_decode($this->input->post($field), true);
 		}else {
-			return json_decode($this->input->post(), true);
+			return $this->input->post();
 		}
 	}
 

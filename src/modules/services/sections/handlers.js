@@ -5,14 +5,14 @@ export default (Sections) => {
     ran = true;
   }
 
-  $("#btn-add-section").on('click', function (e) {
-    e.preventDefault()
+  $('#btn-add-section').on('click', function (e) {
+    e.preventDefault();
     e.stopImmediatePropagation();
     Sections.add();
   });
 
-  $("#select-sector").on('change', function (e) {
+  $('#select-sector').on('change', function (e) {
     e.stopImmediatePropagation();
     Sections.getIps();
   });
-}
+};

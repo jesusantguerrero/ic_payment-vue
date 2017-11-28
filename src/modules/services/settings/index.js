@@ -19,7 +19,7 @@ export default class settings  {
 
     axios.post(`${BASE_URL}proces/update` , form)
     .then((res) => {
-      displayMessage(res)
+      displayMessage(res.data)
     })
   }
 }

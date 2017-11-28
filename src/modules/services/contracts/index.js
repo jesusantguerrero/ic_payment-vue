@@ -174,7 +174,7 @@ export default class contracts {
     }
     this.getAllOfClient(clientDni)
     .then(function(res){
-      console.log(res);
+      console.log(res.data);
       console.log(' aqui en la promesa');
     })
 

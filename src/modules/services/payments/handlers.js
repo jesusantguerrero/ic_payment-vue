@@ -1,39 +1,40 @@
+
+function updateMode(id) {
+  const mode = $('.payment-mode.selected').text();
+  const extraInfo = {
+    id: id.toString(),
+    module: 'pagos'
+  };
+  const form = `data=${JSON.stringify({
+    tipo: mode
+  })}&extra_info=${JSON.stringify(extraInfo)}`;
+
+  axios.post(`${BASE_URL}process/axiosupdate`, form);
+}
+
 export default (Payments) => {
   paymentTable.init();
   extraTable.init();
-  if (!ran) {
+  if (!Payments.ran) {
     Payments.getAll();
-    ran = true;
+    Payments.ran = true;
   }
 
-  $("#btn-pay").on('click', function (e) {
+  $('#btn-pay').on('click', (e) => {
     e.stopImmediatePropagation();
-    var id = paymentTable.getId();
+    const id = paymentTable.getId();
     if (id) {
       Payments.update(id);
-      update_mode(id);
+      updateMode(id);
     } else {
-      displayMessage(MESSAGE_INFO + ' Debes seleccionar un pago');
+      displayMessage(`${MESSAGE_INFO} Debes seleccionar un pago`);
     }
   });
 
-  $("#select-contract").on('change', function (e) {
+  $('#select-contract').on('change', (e) => {
     e.stopImmediatePropagation();
     Payments.getAll();
   });
 
-  $("#payment-detail-box").collapse()
-
-  function update_mode(id) {
-    var mode = $('.payment-mode.selected').text();
-    var extraInfo = {
-      id: id.toString(),
-      module: 'pagos'
-    }
-    var form = 'data=' + JSON.stringify({
-      tipo: mode
-    }) + '&extra_info=' + JSON.stringify(extraInfo);
-
-    var send = axios.post(BASE_URL + 'process/axiosupdate', form)
-  }
-}
+  $('#payment-detail-box').collapse();
+};

@@ -3,12 +3,12 @@ export default (Clients) => {
     clientTable.init();
   }
 
-  $('#btn-save-client').on('click', function (e) {
+  $('#btn-save-client').on('click', (e) => {
     e.stopImmediatePropagation();
     Clients.add();
   });
 
-  $('#update-client').on('click', function (e) {
+  $('#update-client').on('click', (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     const id = clientTable.getId();
@@ -19,13 +19,13 @@ export default (Clients) => {
 
   $('#client-searcher').on('keyup', function (e) {
     e.stopImmediatePropagation();
-    let text = $(this).val();
+    const text = $(this).val();
     Clients.search(text);
   });
 
   $('#client-searcher-newcontract').on('keyup', function (e) {
     e.stopImmediatePropagation();
-    let text = $(this).val();
+    const text = $(this).val();
     if (!isEmpty([text])) {
       Clients.search(text);
     } else {
@@ -45,9 +45,7 @@ export default (Clients) => {
         showCancelButton: true,
         confirmButtonText: 'Estoy Seguro!',
         cancelButtonText: 'Cancelar'
-      }).then(function () {
-        cGenerals.deleteRow(row.id, 'clientes')
-      });
+      }).then(() => Clients.deleteRow(row.id));
     }
   });
 };
