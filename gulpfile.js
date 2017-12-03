@@ -38,7 +38,6 @@ const Libraries = [
 	path + "bt/bootstrap-table.min.js",
   path + "bt/locale/bootstrap-table-es-SP.min.js",
   path + "js/lib/sweetalert2.min.js",
-  path + "js/lib/jquery.inputmask.js",
 	path + "js/lib/icheck.min.js",
   path + "js/lib/peace.min.js",
   path + "js/lib/select2.full.min.js"

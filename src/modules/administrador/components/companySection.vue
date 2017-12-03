@@ -14,7 +14,7 @@
             input.form-control(type="text", v-model="company.lema")
           .form-group
             label Telefono Principal
-            input.form-control(type="tel", v-model="company.telefono1")
+            PhoneInput(placeholder="Phone", types="tel", data="telofono1", :value="company.telefono1" v-on:change="phoneChange", class="form-control")
         .col-md-6
           .form-group
             label Direccion
@@ -24,7 +24,7 @@
             input.form-control(type="text", v-model="company.descripcion")
           .form-group
             label Telefono2
-            MaskedInput(mask="(111) 111-111", placeholder="Phone", v-model="company.telefonos" @input="phoneChange('telefonos', arguments[1])", class="form-control")
+            PhoneInput(placeholder="Phone", types="tel", data="telofonos", :value="company.telefonos" v-on:change="phoneChange", class="form-control")
         .right.col-md-12
           input(type="submit", value="Guardar Datos", @click.prevent="updateCompany")
 </template>
@@ -32,7 +32,7 @@
 
 <script>
 import axios from 'axios';
-import MaskedInput from 'vue-masked-input'
+import PhoneInput from './../../sharedComponents/PhoneInput'
 
   export default {
     props: {
@@ -48,7 +48,7 @@ import MaskedInput from 'vue-masked-input'
     },
 
     components:{
-      MaskedInput
+      PhoneInput
     },
 
     mounted() {
@@ -76,9 +76,9 @@ import MaskedInput from 'vue-masked-input'
         })
       },
 
-      phoneChange(key, value) {
+      phoneChange(param) {
         const current = this.store.company;
-        current[key] = value;
+        current[param.key] = param.value;
         this.store.setCompany(current);
       }
     },

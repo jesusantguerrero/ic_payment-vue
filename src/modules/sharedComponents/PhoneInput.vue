@@ -1,56 +1,45 @@
 <template lang="pug">
-  input(type="tel", ref="input", :class="classes", :value="value",v-on:input="updateValue" @blur="formatValue", @focus="selectAll")
+  input(:type="types", ref="input",v-model="value", :class="classes", :id="ids" @blur="updateValue")
 </template>
 
 <script>
+  import InputMask from 'inputmask';
+
   export default {
     props:[
       'classes',
-      'value'
+      'value',
+      'ids',
+      'types',
+      'data'
     ],
 
     mounted(){
-      this.formatValue()
+
+      this.initMask()
     },
 
     methods: {
-      formatValue(){
-        const result = this.phoneFormat(this.value)
-        this.$emit('input', result.value)
+      updateValue(e){
+        const unmask = this.getVal(e.target);
+        this.$emit('change', {key: this.data, value: unmask});
       },
 
-      updateValue(e) {
-        const value = e.target.value
-        const formatted = this.phoneFormat(value);
-        if (formatted != value){
-          this.$refs.input.value  = formatted
-        }
-        this.$emit('input',this.numberFormat(formatted));
+      initMask() {
+        const TelSelector = document.querySelectorAll('[type="tel"]');
+        const dniSelector = document.querySelectorAll('[role="cedula"], [id*="dni"]');
+
+        InputMask({ mask: '(999) 999-9999', greede: false }).mask(TelSelector);
+        InputMask({ mask: ['999-9999999-9', '**-*******', '*{1,20}'], greede: false }).mask(dniSelector);
+     },
+
+      getVal(element) {
+       return element.inputmask.unmaskedvalue();
       },
 
-      selectAll(e) {
-        e.target.select()
-      },
-
-      phoneFormat (val) {
-          let result
-          const len = val.length
-          if(len >= 10){
-            result = `(${val.slice(0, 3)})-${val.slice(3,6)}-${val.slice(6,)}`
-          } else if (len >= 6) {
-            result = `(${val.slice(0, 3)})-${val.slice(3,6)}`
-          } else if (len >= 3) {
-            result = `(${val.slice(0, 3)})`;
-          } else {
-            result = val
-          }
-          return result;
-      },
-
-    numberFormat(value) {
-      const result = value.replace(/[-]|[(]|[)]/gi, '')
-      return result
-    }
+      isComplete(element) {
+        return element.inputmask.isComplete();
+      }
   }
 }
 </script>
