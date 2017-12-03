@@ -1,9 +1,14 @@
 	<div class="toast"><span></span> </div>
-	<iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/final.bundle.js?version=pre-1.0.5')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/all.js?version=pre-1.0.5')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/min/components.js?version=pre-1.0.5')?>"></script>
-	<script>
+  <iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
+
+  <script>
+    const baseURL = '{url}'
+  </script>
+  {js}
+    <script src="{link}"></script>
+  {/js}
+
+  <script>
 		$(function(){
 			$('[type="tel"]').inputmask({"mask": "(999) 999-9999",greede: false});
 			$('[role="cedula"]').inputmask({"mask": ["999-9999999-9","**-*******-*","************"],greede: false});
@@ -22,9 +27,9 @@
 			  radioClass: 'iradio_square-blue',
 			  increaseArea: '20%' // optional
 			 });
-
 		})
-	</script>
+  </script>
+
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -33,5 +38,6 @@
     ga('create', 'UA-97873154-2', 'auto');
     ga('send', 'pageview');
   </script>
+
  </body>
 </html>

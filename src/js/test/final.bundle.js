@@ -12497,9 +12497,6 @@ var contractTable = {
     })
   }
 }
-
-
-
 var paymentTable = {
   init: function(page,row){
     this.el = $('#t-pagos');
@@ -13376,36 +13373,7 @@ $(function () {
     }
   }
 
-  /**
-   * Admin Functions:
-   * se encarga de el movimiento de los paneles en la pantalla 'administrador'
-   * @return {void}
-   */
-  // TODO: Move -- Pasar a componente de admistrador pero aplicar con vue
-  function adminFunctions() {
-    $('#company-section').animate({
-      left: "0"
-    }, 200)
-    $('.administrador .aside-buttons a').on('click', function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      var cardName = $this.attr('href').slice(1);
-      if (cardName != null) {
-        $('.company-details').animate({
-          left: "-110%"
-        }, 200)
-        $('#' + cardName + '.company-details').animate({
-          left: "0"
-        }, 200)
-      }
-    })
 
-    if ($("#acount-section").length > 0) {
-      $('#acount-section').animate({
-        left: "0"
-      }, 200)
-    }
-  }
 
   /**
    * new User Form:

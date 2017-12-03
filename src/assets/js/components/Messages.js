@@ -1,65 +1,12 @@
 if (isCurrentPage("administrador")) {
   (function () {
-    var configMessage = {
-      email: '',
-      password: '',
-      device_id: '',
-      country_code: '',
-      send_at: '1 second',
-      expires_at: '1 hour'
-    }
-    
-    var configMessagesForm = new Vue({
-      el: '#message-settings-section',
-      data: {
-        config: configMessage
-      },
-    
-      mounted: function () {
-        if (currentPage == 'administrador') 
-          this.getConfig()
-      },
-    
-      methods: {
-        confirmPhone: function () {},
-    
-        getConfig: function () {
-          var send
-          var self = this;
-          send = axios.get(BASE_URL + 'messages/get_config')
-          send.then(function (res) {
-            if(res.data.config){
-              self.config = res.data.config
-            }
-          })
-          send.catch(function (error) {
-            console.log(error)
-          })
-        },
-    
-        saveSettings: function (e) {
-          var config, form, send
-          config = this.config
-    
-          form = 'data=' + JSON.stringify(config)
-          send = axios.post(BASE_URL + 'messages/save_config', form)
-          send.then(function (res) {
-            displayMessage(res.data.mensaje)
-          })
-          send.catch(function (err) {
-            console.log(err)
-          })
-        }
-      }
-    })
-    
     var sendMessageApp = new Vue({
       el: '#send-message-modal',
-    
+
       data: {
         hide_clients: true,
         hide_numbers: true,
-    
+
         message_data: {
           tipo: '',
           clientes: '',
@@ -67,21 +14,21 @@ if (isCurrentPage("administrador")) {
           mensaje: ''
         }
       },
-    
+
       mounted: function () {
         this.initSelect2()
       },
-    
+
       computed: {
         letters_count: function () {
           return this.message_data.mensaje.length
         }
       },
-    
+
       methods: {
         sendMessage: function () {
           var form, send
-    
+
           if (!isEmpty([this.message_data.tipo, this.message_data.mensaje])) {
             form = 'data=' + JSON.stringify(this.message_data)
             send = axios.post(BASE_URL + 'messages/send_message', form)
@@ -91,18 +38,18 @@ if (isCurrentPage("administrador")) {
             send.catch(function (err) {
               console.log(err)
             })
-    
+
           } else {
             swal('Campos Requeridos', 'Por favor selecciones el tipo de mensaje y escriba su mensaje')
           }
         },
-    
+
         initSelect2: function () {
           var self = this
           var options = {
             dropdownParent: $('#send-message-modal')
           }
-    
+
           var selectMessageType = $('#message-type')
           selectMessageType.select2(options)
           var selectClientsForMessage = $('#clients-for-message').select2({
@@ -117,7 +64,7 @@ if (isCurrentPage("administrador")) {
                   page: params.page
                 }
               },
-    
+
               processResults: function (data, params) {
                 params.page = params.page || 1
                 return {
@@ -130,14 +77,14 @@ if (isCurrentPage("administrador")) {
               cache: true
             }
           })
-    
+
           var selects = {
             clients: selectClientsForMessage,
             messageType: selectMessageType
           }
           this.selec2Liteners(selects)
         },
-    
+
         selec2Liteners: function (selects) {
           var self = this
           selects.messageType.on('select2:select', function (e) {
@@ -145,7 +92,7 @@ if (isCurrentPage("administrador")) {
             var attributes = select.attributes
             var tipo = e.params.data.id
             self.message_data.tipo = tipo
-    
+
             if (tipo == 'otros') {
               self.hide_clients = true
               self.hide_numbers = false
@@ -157,9 +104,9 @@ if (isCurrentPage("administrador")) {
               self.hide_numbers = true
             }
           })
-    
+
           selects.messageType.select2('val','mora');
-    
+
           selects.clients.on('select2:select', function (e) {
             var clientes = selects.clients.select2('data')
             var items = [];

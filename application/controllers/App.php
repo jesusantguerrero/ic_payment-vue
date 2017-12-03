@@ -18,7 +18,9 @@ class App extends MY_Controller {
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 		$this->load->model("extra_model");
-		$this->load->model("cancelations_model");
+    $this->load->model("cancelations_model");
+    $this->load->library('parser');
+    $this->load->library('twig');
 
 		update_moras($this);
 		generar_facturas_mes($this);
@@ -37,23 +39,15 @@ class App extends MY_Controller {
 
 	public function admin($page = 'home'){
 		authenticate();
-		auth_user_type_for_pages($page,1,base_url('app/admin/home'));
-		$data['title'] = $page;
-		$tooltip = $this->load->view('layouts/headertooltip',$data,true);
-		$left_navigation_header = $this->load->view('layouts/left_navigation_header',$page,true);
+    auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
-		$data['tooltip'] = $tooltip;
-		$data['left_navigation_header'] = $left_navigation_header;
-		$this->load->view('layouts/header',$data);
-		$this->load->view('pages/' . $page,$data);
+    $data  = $this->define_data($page);
+    $data['left_navigation_header'] = $this->load->view('layouts/left_navigation_header', $page, true);
 
-		$modals = get_modals($page);
-		if($modals != FALSE){
-			foreach ($modals as $modal) {
-				$this->load->view($modal);
-			}
-		}
-		$this->load->view('layouts/footer');
+    $this->twig->display('layouts/header', $data);
+    $this->load->view("pages/$page", $data);
+    $this->load_modals($page);
+		$this->parser->parse('layouts/footer', $data);
 	}
 
 	public function imprimir($page){
@@ -89,5 +83,43 @@ class App extends MY_Controller {
     session_unset($_SESSION['user_data']);
     session_destroy();
     redirect(base_url());
+  }
+
+  private function load_modals($page){
+    $modals = get_modals($page);
+		if($modals != FALSE){
+			foreach ($modals as $modal) {
+				$this->load->view($modal);
+			}
+    }
+  }
+
+  private function define_data($title, $js = [] , $css = [])
+  {
+    $jsFiles = [];
+    $cssFiles = [];
+    $js = array_merge($js,['manifest','vendor', $title]);
+    $css = array_merge($css,['secundaryCss.min', '5-others/square/frontend.min', 'main.min']);
+    $assets   = 'assets/';
+
+    foreach ($js as $filename) {
+      array_push($jsFiles, ['link' => base_url()."{$assets}js/{$filename}.js"]);
+    }
+
+    foreach ($css as $filename) {
+      array_push($cssFiles,['link' => base_url()."{$assets}css/{$filename}.css"]);
+    }
+
+    $user = get_user_data();
+    $notifications = $this->report_model->count_moras_view();
+
+    return  [
+      'title'=> $title,
+      'css'  => $cssFiles,
+      'js'   => $jsFiles,
+      'user' => $user,
+      'url' => base_url(),
+      'notifications' => $notifications
+    ];
   }
 }

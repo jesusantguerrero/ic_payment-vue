@@ -185,9 +185,6 @@ class Process extends CI_Controller {
 					}
 				}
 				break;
-			case "empresa":
-				$this->company_model->update($data);
-				break;
 			case "settings":
 				$this->settings_model->update_settings($data);
 				break;

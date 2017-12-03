@@ -3,7 +3,6 @@ import Generals from './generals';
 import Services from './services';
 import Contracts from './contracts';
 import Payments from './payments';
-import Caja from './caja';
 import Company from './company';
 import Settings from './settings';
 import Sections from './sections';
@@ -11,10 +10,7 @@ import Users from './users';
 import Notifications from './notificaciones';
 import detailsHandler from './details/handlers';
 
-
 const cGenerals = new Generals();
-const cCaja = new Caja();
-
 
 function initComponents() {
   switch (currentPage) {

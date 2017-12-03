@@ -10,7 +10,7 @@ var SUMMER_SKY      = '#1FA1D0'
 try {
   var busAveria       = new Vue();
 } catch(err) {
-  displayMessage(' no vue');
+ 
 }
 
 /**

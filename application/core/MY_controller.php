@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller
 {
+  protected $res;
 
   public function __construct(){
     parent::__construct();
@@ -10,7 +11,7 @@ class MY_Controller extends CI_Controller
 		if ($field) {
 			return json_decode($this->input->post($field), true);
 		}else {
-			return json_decode($this->input->post(), true);
+			return $this->input->post();
 		}
 	}
 
@@ -26,5 +27,13 @@ class MY_Controller extends CI_Controller
 		if ($this->upload->do_upload('userfile')) {
 			return $this->upload->data();
 		}
-	}
+  }
+
+  protected function response_json($data = null) {
+    if (!$data) {
+      echo json_encode($this->res);
+      return;
+    }
+    echo json_encode($data);
+  }
 }

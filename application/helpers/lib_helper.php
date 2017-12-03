@@ -121,7 +121,7 @@ function verify_state($state,$posible_states){
     'exonerado'=> ['icon'=>EXONERADO,'class'=>'exonerado'],
     'en corte'=> ['icon'=>EN_CORTE,'class'=>'en-corte']
     );
- 
+
   foreach($posible_states as $key => $value) {
     if(trim($state) == $value){
       return array(
