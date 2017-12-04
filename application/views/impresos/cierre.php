@@ -1,4 +1,4 @@
-<?php 
+<?php
   if($info):
     $user_data = get_user_data();
     $settings  = $this->settings_model->get_settings();
@@ -22,7 +22,7 @@
 
 <div class="document-body">
   <div class="cabecera">
-    <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
+    <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$empresa['logo'] ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>
@@ -35,7 +35,7 @@
         <p class="fecha-reporte">Final:  <?php echo date_spanish_format($info['second_date']) ?> </p>
     </div>
   </div>
-  
+
 
   <div class="cuerpo cuerpo-documento" style="padding-top: 10px">
     <h3>Detalles de ingresos:</h3>
@@ -96,6 +96,6 @@
   $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])."".phone_format($company["telefonos"])?>");
   print()
 </script>
-<?php 
+<?php
     endif;
   ?>

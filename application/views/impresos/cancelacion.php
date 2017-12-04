@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_SESSION['requirement_info'])):
     $info           = $_SESSION['requirement_info'];
     $cliente        = $info['cliente'];
@@ -18,7 +18,7 @@ if(isset($_SESSION['requirement_info'])):
 
 <div class="document-body">
   <div class="cabecera">
-   <img class="logo-recibo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="">
+   <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$empresa['logo'] ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">
         <?php echo $company['nombre'] ?>
@@ -180,6 +180,6 @@ if(isset($_SESSION['requirement_info'])):
   $(".fecha").text(fecha);
   print();
 </script>
-<?php 
+<?php
   endif;
  ?>

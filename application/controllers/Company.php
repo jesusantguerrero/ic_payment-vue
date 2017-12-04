@@ -29,7 +29,16 @@ class Company extends MY_Controller
 
   public function upload() {
     authenticate();
-    $this->do_upload('company');
+    $result = $this->do_upload('company', 'picture');
+    if (isset($result['error'])) {
+      $res['message'] = $result['error'];
+    } else {
+      $data['logo'] = "company/{$result['success']['file_name']}";
+      $this->company_model->update($data);
+      $res['message'] = 'Perfil Actualizado';
+      $res['company'] = $this->company_model->get_empresa();
+    }
+    $this->response_json($res);
   }
 
 }

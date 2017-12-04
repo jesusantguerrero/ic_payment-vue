@@ -118,8 +118,7 @@
   "dependencies": {
     "axios": "0.17.1",
     "inputmask": "3.3.11",
-    "inputmask-core": "2.2.0",
     "vue": "2.5.8",
-    "vue-masked-input": "0.5.2"
+    "vue-toasted": "1.1.24"
   }
 }

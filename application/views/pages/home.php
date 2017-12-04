@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <?php 
+    <?php
         $user_data = get_user_data();
         $empresa = $this->company_model->get_empresa();
     ?>
@@ -8,7 +8,7 @@
             <h3> </h3>
             <div class="row">
                 <div class="company-data">
-                    <img class="company-logo" src="<?php echo base_url('assets/img/icsservice_logo.svg') ?>" alt="company-logo" style="width: 170px">
+                    <img class="company-logo" src="<?php echo base_url('assets/uploads/').$empresa['logo'] ?>" alt="company-logo" style="width: 170px">
                 </div>
                 <div class="welcome-data">
                     <div class="row">
@@ -71,8 +71,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="row home-options-container">
         <div class="col-md-8 hidden-xs shortcuts-container">
             <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">

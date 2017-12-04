@@ -2,8 +2,12 @@
   .company-details#company-section
     h3.section-title Detalles de la Empresa
     form
-      .company-profile
-        img(:src="logo", alt="company_logo").company-profile__logo
+      .row
+        .col-md-6
+          .company-profile
+            img(:src="logo", alt="company_logo").company-profile__logo
+        .col-md-6
+          input.form-control(type="file", id="company-picture", @change="updatePicture")
       .row
         .col-md-6
           .form-group
@@ -14,7 +18,7 @@
             input.form-control(type="text", v-model="company.lema")
           .form-group
             label Telefono Principal
-            PhoneInput(placeholder="Phone", types="tel", data="telofono1", :value="company.telefono1" v-on:change="phoneChange", class="form-control")
+            PhoneInput(placeholder="Phone", types="tel", data="telefono1", :value="company.telefono1" v-on:change="phoneChange", class="form-control")
         .col-md-6
           .form-group
             label Direccion
@@ -24,7 +28,7 @@
             input.form-control(type="text", v-model="company.descripcion")
           .form-group
             label Telefono2
-            PhoneInput(placeholder="Phone", types="tel", data="telofonos", :value="company.telefonos" v-on:change="phoneChange", class="form-control")
+            PhoneInput(placeholder="Phone", types="tel", data="telefonos", :value="company.telefonos" v-on:change="phoneChange", class="form-control")
         .right.col-md-12
           input(type="submit", value="Guardar Datos", @click.prevent="updateCompany")
 </template>
@@ -57,13 +61,14 @@ import PhoneInput from './../../sharedComponents/PhoneInput'
 
     methods: {
       updateCompany(){
+      const self = this;
         axios.post(`${baseURL}company/update`, `data=${JSON.stringify(this.company)}`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         })
         .then((res) => {
-          displayMessage(res.data.message);
+          self.showMessage(res.data.message);
           self.store.setCompany(res.data.company);
         });
       },
@@ -80,7 +85,24 @@ import PhoneInput from './../../sharedComponents/PhoneInput'
         const current = this.store.company;
         current[param.key] = param.value;
         this.store.setCompany(current);
-      }
+      },
+
+      updatePicture() {
+        const self = this;
+        const file = new FormData();
+        file.append('picture', document.querySelector('#company-picture').files[0])
+        axios.post(`${baseURL}company/upload`, file, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((res) => {
+          self.showMessage(res.data.message);
+          if (res.data.company) {
+            self.store.setCompany(res.data.company);
+          }
+        });
+      },
     },
 
     computed: {

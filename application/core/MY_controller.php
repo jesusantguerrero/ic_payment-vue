@@ -15,18 +15,20 @@ class MY_Controller extends CI_Controller
 		}
 	}
 
-	protected function do_upload($dir) {
+	protected function do_upload($dir, $filename) {
 		$config = [
 			"upload_path" => "./assets/uploads/$dir/",
-			"alowed_types" => "svg|png|jpeg",
+			"allowed_types" => "svg|png|jpg",
 			"max_size" => 200
 		];
 
 		$this->load->library('upload', $config);
 
-		if ($this->upload->do_upload('userfile')) {
-			return $this->upload->data();
-		}
+		if (!$this->upload->do_upload($filename)) {
+      return ['error' => $this->upload->display_errors()];
+    } else {
+			return ['success' => $this->upload->data()];
+    }
   }
 
   protected function response_json($data = null) {
