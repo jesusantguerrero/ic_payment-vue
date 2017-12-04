@@ -9,17 +9,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Settings_model extends CI_MODEL{
-  
-  // public $id = null;
+
   public $last_check_moras;
 
   public function __construct(){
     parent::__construct();
-     
+
   }
 
-
-  public function update($col_name,$data){
+  public function update($col_name, $data){
     $sql = "UPDATE ic_settings SET $col_name ='".$data."'";
     if($col_name == "last_check_moras")
       $sql .= ", next_check= DATE_ADD('".$data."', INTERVAL 1 DAY) WHERE id=1";
@@ -28,32 +26,16 @@ class Settings_model extends CI_MODEL{
       return true;
     }else{
       return "error " .$sql;
-    }  
+    }
   }
 
   public function get_settings(){
-    $sql = "SELECT * FROM ic_settings limit 1";
-    $result = $this->db->query($sql);
-    return $result->row_array();
+    return $this->db->get('ic_settings', 1)->row_array();
   }
 
-  public function update_settings($settings){
-    $rows = array(
-      'cargo_mora'                 => $settings['cargo_mora'],
-      'fecha_corte'                => $settings['fecha_corte'],
-      'reconexion'                 => $settings['reconexion'], 
-      'penalizacion_cancelacion'   => $settings['penalizacion_cancelacion'],
-      'meses_por_defecto'          => $settings['meses_por_defecto'],
-      'split_day'                  => $settings['split_day']
-    );
-
+  public function update_settings($data){
     $this->db->where('id',1);
-    $result = $this->db->update('ic_settings',$rows);
-    if($result){
-      echo MESSAGE_SUCCESS."Actualizado con exito";
-    }else{
-      return MESSAGE_ERROR." error". " Error";
-    }  
+    return $this->db->update('ic_settings',$data);
   }
 
 }

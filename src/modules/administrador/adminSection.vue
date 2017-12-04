@@ -15,24 +15,27 @@
 
     .main-content.col-md-10
       .section-player
-        companySection(:company="store.company", :store="store", v-if="mode == 'company'")
+        CompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
+        SettingsSection(:company="store.company", v-if="mode == 'settings'")
 
 
 </template>
 
 <script>
-  import companySection from "./components/companySection";
+  import CompanySection from "./components/CompanySection";
   import usersSection from "./components/usersSection";
-  import cajaSection from "../services/caja/CajaSection";
+  import CajaSection from "../services/caja/CajaSection";
   import messageForm from "./components/messageForm";
+  import SettingsSection from "./components/SettingsSection";
   import Store from "./store/adminStore"
 
   export default {
     components: {
-      companySection,
+      CompanySection,
       usersSection,
-      cajaSection,
+      CajaSection,
       messageForm,
+      SettingsSection
     },
     mounted(){
       console.log(this.store);

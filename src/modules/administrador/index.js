@@ -2,7 +2,13 @@ import Vue from 'vue';
 import adminSection from './adminSection.vue';
 import Toasted from 'vue-toasted';
 
-Vue.use(Toasted);
+const options = {
+  theme: "primary",
+  position: "top-right",
+  duration : 5000
+}
+
+Vue.use(Toasted, options);
 
 Vue.mixin({
   methods: {
