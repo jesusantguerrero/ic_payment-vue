@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class User extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -10,8 +10,10 @@ class User extends CI_Controller {
 
 	public function add(){
 		authenticate();
-		$data 	= $this->get_post_data();
-   	$result = $this->user_model->add_new_user($data);
+    $data 	= $this->get_post_data();
+    if ($data) {
+      $result = $this->user_model->add_new_user($data);
+    }
 	}
 
 	public function update(){
@@ -26,11 +28,18 @@ class User extends CI_Controller {
 
 	public function update_field(){
 		authenticate();
-		$data = $this->get_post_data('data');
-		$credentials = ['id' => $data['user_id'], 'password' => $data['password']];
-		$response['is_correct'] = $this->user_model->update_field($data['field'],$credentials,$data['value']);
-		$response['message']    = ($response['is_correct']) ? MESSAGE_SUCCESS ." Cuenta Actualizada" : MESSAGE_ERROR. " Error al actualizar";
-		echo json_encode($response);
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $credentials = ['id' => $data['user_id'], 'password' => $data['password']];
+
+      $res['is_correct'] = $this->user_model->update_field($data['field'], $credentials, $data['value']);
+      if ($res['is_correct']) {
+        $res['message'] = ['type' => 'success', 'text' => 'Error al actualizar'];
+      } else {
+        $res['message'] = ['type' => 'error', 'text' => 'Error al actualizar'];
+      }
+      $this->response_json($res);
+    }
 	}
 
 	public function change_state(){
@@ -39,10 +48,8 @@ class User extends CI_Controller {
 		if ($id) {
 			$user = $this->user_model->get_user($id);
 			$active = !$user['active'];
-			$this->user_model->update_user(['active' => $active],$id);
+			$this->user_model->update_user(['active' => $active], $id);
 		}
-
-
 	}
 
 	public function get_users(){
@@ -52,17 +59,10 @@ class User extends CI_Controller {
 
 	public function get_user(){
 		authenticate();
-		$data = $this->get_post_data('data');
-
-		if($data) {
-			$user = $this->user_model->get_user($data['user_id']);
-			if ($user) {
-				unset($user['password']);
-				$user['role'] = get_role($user['type']);
-			}
-			$response['user'] = $user;
-			echo json_encode($response);
-		}
+		$user = get_user_data();
+    $user['role'] = get_role($user['type']);
+    $res['user'] = $user;
+		$this->response_json($res);
 	}
 
 	public function delete_user(){
@@ -76,29 +76,26 @@ class User extends CI_Controller {
 		$data     = $this->get_post_data('data');
   	$user_id  = $data['user_id'];
   	$password = $data['current_password'];
-   	$response['is_correct'] = $this->user_model->confirm_password($user_id,$password);
-		echo json_encode($response);
+   	$res['is_correct'] = $this->user_model->confirm_password($user_id, $password);
+		$this->response_json($res);
   }
 
 	public function update_password(){
 		authenticate();
-  	$data   					= $this->get_post_data('data');
-  	$user_id 					= $data['user_id'];
-  	$current_password = $data['current_password'];
-		$new_password 		= $data['new_password'];
-   	$response['is_correct'] = $this->user_model->update_password($user_id,$current_password,$new_password);
+    $data = $this->get_post_data('data');
 
-		$response['message']  = ($response['is_correct']) ? MESSAGE_SUCCESS ." Contraseña guardada con exito"
-																											: MESSAGE_ERROR. " No pudo Guardarse la contraseña";
-		 echo json_encode($response);
+    if ($data) {
+      $user_id 					= $data['user_id'];
+      $current_password = $data['current_password'];
+      $new_password 		= $data['new_password'];
+      $res['is_correct'] = $this->user_model->update_password($user_id,$current_password,$new_password);
+
+      if ($res['is_correct']) {
+        $res['message']  = ['success' => 'error', 'text' => 'Contraseña guardada con exito'];
+      } else {
+        $res['message']  = ['type' => 'error', 'text' => 'Contraseña guardada con exito'];
+      }
+      $this->response_json($res);
+    }
 	}
-
-	private function get_post_data($field = null){
-		if ($field) {
-			return json_decode($this->input->post($field), true);
-		}else {
-			return $this->input->post();
-		}
-	}
-
 }

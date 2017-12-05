@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Toasted from 'vue-toasted';
-import adminSection from './adminSection.vue';
+import AcountSection from './components/AcountSection.vue';
 
 const options = {
   theme: 'primary',
@@ -31,8 +31,8 @@ Vue.prototype.$http = $http;
 
 
 export default new Vue({
-  el: '#administrador',
+  el: '#acount-section',
   components: {
-    adminSection
+    'acount-section': AcountSection
   }
 });
