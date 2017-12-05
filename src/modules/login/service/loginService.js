@@ -1,22 +1,22 @@
 import axios from 'axios';
 
 export default class Service {
-  constructor(options) {
+  constructor() {
     this.user = axios.create({
-      baseURL: `${options.endpoint}app/`
+      baseURL
     });
   }
 
   doLogin(credentials) {
-    return this.user.post('login', this.getForm(credentials));
+    return this.user.post('auth/do_login', this.getForm(credentials));
   }
 
   resetPassword(credentials) {
-    return this.user.post('reset', this.getForm(credentials));
+    return this.user.post('auth/reset', this.getForm(credentials));
   }
 
   validateReset(credentials) {
-    return this.user.post('validate_reset', this.getForm(credentials));
+    return this.user.post('auth/validate_reset', this.getForm(credentials));
   }
 
   getForm(data) {

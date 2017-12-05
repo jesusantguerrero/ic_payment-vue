@@ -1,9 +1,11 @@
 import Vue from 'vue';
-import jQuery from 'jquery';
+import axios from 'axios';
+import Toasted from 'vue-toasted';
+import globals from './../sharedComponents/globals';
 import Service from './service/loginService';
+import { isEmpty } from './../sharedComponents/utils';
 
-window.$ = jQuery;
-window.jQuery = jQuery;
+globals(Vue, Toasted, axios);
 
 export default new Vue({
   el: '.login-box',
@@ -18,10 +20,8 @@ export default new Vue({
   },
 
   mounted() {
-    const options = {
-      endpoint: this.$el.dataset.endpoint
-    };
-    this.service = new Service(options);
+    this.service = new Service();
+    this.quitSplash();
   },
 
   methods: {
@@ -29,44 +29,54 @@ export default new Vue({
       if (!isEmpty([this.credentials.user, this.credentials.password])) {
         this.doLogin();
       } else {
-        displayMessage(`${MESSAGE_ERROR} LLene todos los campos indicados para ingresar`);
+        this.$toasted.error('LLene todos los campos indicados para ingresar');
       }
     },
 
     doLogin() {
+      const self = this;
       this.service.doLogin(this.credentials)
         .then((res) => {
-          if (res.data) {
-            window.location.href = `${BASE_URL}app/admin/`;
+          if (res.data.is_correct) {
+            window.location.href = `${baseURL}app/admin/`;
           } else {
-            displayMessage(`${MESSAGE_INFO}Usuario y Contraseña no validos`);
+            self.$toasted.info('Usuario y Contraseña no validos');
           }
         })
         .catch((err) => {
-          console.error(err);
+          self.$toasted.error(err);
         });
     },
 
     sendResetEmail() {
+      const self = this;
       this.service.emailResetPassword()
         .then((res) => {
-          displayMessage(res.data.message);
+          self.showMessage(res.data.message);
         })
         .catch((err) => {
-          console.error(err);
+          self.$toasted.error(err);
         });
     },
 
     resetPassword() {
+      const self = this;
       this.service.resetPassword()
         .then((res) => {
-          displayMessage(res.data.message);
+          self.showMessage(res.data.message);
         })
         .catch((err) => {
-          console.error(err);
+          self.$toasted.error(err);
         });
+    },
+
+    quitSplash() {
+      setTimeout(() => {
+        document.querySelector('.splash-screen').classList.add('hidden');
+      }, 1500);
+      setTimeout(() => {
+        document.querySelector('.splash-screen').classList.add('hide');
+      }, 1501);
     }
   }
-
-
 });

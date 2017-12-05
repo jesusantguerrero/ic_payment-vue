@@ -34,7 +34,7 @@ class User extends MY_Controller {
 
       $res['is_correct'] = $this->user_model->update_field($data['field'], $credentials, $data['value']);
       if ($res['is_correct']) {
-        $res['message'] = ['type' => 'success', 'text' => 'Error al actualizar'];
+        $res['message'] = ['type' => 'success', 'text' => 'Datos actualizados con exito'];
       } else {
         $res['message'] = ['type' => 'error', 'text' => 'Error al actualizar'];
       }
@@ -73,11 +73,18 @@ class User extends MY_Controller {
 
 	public function confirm_password(){
 		authenticate();
-		$data     = $this->get_post_data('data');
-  	$user_id  = $data['user_id'];
-  	$password = $data['current_password'];
-   	$res['is_correct'] = $this->user_model->confirm_password($user_id, $password);
-		$this->response_json($res);
+    $data     = $this->get_post_data('data');
+    if ($data) {
+      $user_id  = $data['user_id'];
+      $password = $data['current_password'];
+      $res['is_correct'] = $this->user_model->confirm_password($user_id, $password);
+       if ($res['is_correct']) {
+        $res['message'] = ['type' => 'success', 'text' => 'Contraseña confirmada'];
+      } else {
+        $res['message'] = ['type' => 'error', 'text' => 'Contraseña incorrecta'];
+      }
+      $this->response_json($res);
+    }
   }
 
 	public function update_password(){
@@ -91,9 +98,9 @@ class User extends MY_Controller {
       $res['is_correct'] = $this->user_model->update_password($user_id,$current_password,$new_password);
 
       if ($res['is_correct']) {
-        $res['message']  = ['success' => 'error', 'text' => 'Contraseña guardada con exito'];
+        $res['message']  = ['type' => 'success', 'text' => 'Contraseña guardada con exito'];
       } else {
-        $res['message']  = ['type' => 'error', 'text' => 'Contraseña guardada con exito'];
+        $res['message']  = ['type' => 'error', 'text' => 'Error al guardar la contraseña'];
       }
       $this->response_json($res);
     }

@@ -10,7 +10,7 @@
 
             .form-group
               label Contraseña actual
-              input.form-control(type="password", v-model="currentPassword", @keyup="confirmPassword")
+              input.form-control(type="password", v-model="currentPassword", @keypress.prevent.enter="confirmPassword")
 
             .form-group(:class="states", v-if="isChangePassword")
               label Nueva Contraseña
@@ -20,7 +20,7 @@
               label Confirmar Nueva Contraseña
               input.form-control(type="password",v-model="passwordConfirm", @keyup="checkPassword")
 
-            h4(v-if="!isChangePassword", class="text-primary") Para cambiar la contraseña escriba su contraseña actual
+            h4(v-if="!isChangePassword", class="text-primary") Para cambiar la contraseña escriba su contraseña actual y presione enter
 
           .col-md-6
             .form-group.hide
@@ -49,6 +49,8 @@
 
 
 <script>
+  import swal from 'sweetalert2';
+
   export default {
     name: 'AcountSection',
     data() {
@@ -98,6 +100,7 @@
       },
 
       changePassword() {
+        const self = this;
         if (this.states['has-success']) {
           const form = 'data=' + JSON.stringify({
             user_id: this.user.user_id,
@@ -108,7 +111,7 @@
           this.$http.post('user/update_password', form)
           .then((res) => {
             self.showMessage(res.data.message);
-            window.location = `${baseURL}app/logut`;
+            window.location = `${baseURL}app/logout`;
           })
         } else {
           this.$toasted.error("Las contraseñas no conciden");
@@ -148,6 +151,7 @@
         return new Promise((resolve, reject) => {
           self.$http.post('user/confirm_password', form)
           .then((res) => {
+            self.showMessage(res.data.message);
             resolve(res.data.is_correct);
           })
         })

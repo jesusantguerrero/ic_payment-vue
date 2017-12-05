@@ -60,7 +60,9 @@
   background: $contrast-color
   position: absolute
   height: 100vh
-  animation: fadeSplash 3s
+
+  &.hidden
+    animation: fadeSplash 3s
 
 .splash-logo
   width: 300px
@@ -109,3 +111,8 @@
 @media (max-width: 768px)
   .login-body .login-box div
     margin-right: 0
+  .splash-logo
+    width: 50%
+  .splash-screen
+    h1
+      font-size: 28px

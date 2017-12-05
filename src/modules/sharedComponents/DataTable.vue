@@ -1,5 +1,9 @@
-<template>
-
+<template lang="pug">
+  table(:id="ids", class="display", cellspacing="0", width="100%")
+    thead
+      tr
+        td(v-for="col of cols") {{ col.name }}
+    tbody
 </template>
 
 <script>
@@ -18,6 +22,34 @@ import dtSelect from  'datatables.net-select-dt';
 window.$ = window.jQuery = jquery;
 
   export default {
+    props: {
+      cols: {
+        type: Array
+      },
+      data: {
+        type: String
+      },
+      options: {
+        type: Object
+      },
+      ids: {
+        type: String
+      },
+      endpoint: {
+        type: String
+      }
+    },
 
+    methods: {
+      init() {
+        $(this.ids).DataTable( {
+          "processing": true,
+          "serverSide": true,
+          "ajax": this.endpoint
+        });
+      },
+
+
+    }
   }
 </script>

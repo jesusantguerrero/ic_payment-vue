@@ -8,11 +8,11 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-  <title>IC Payment | <?php echo $title; ?> </title>
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/secundaryCss.min.css?version=pre-1.0.0') ?>" />
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/5-others/square/frontend.min.css?version=pre-1.0.0') ?>"/>
- 	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.min.css?version=pre-1.0.0') ?>"/>
-  <link rel="icon" type="image/png" sizes="96x96" href="<?php  echo base_url('/favicon-96x96.png')?>">
+  <title>IC Payment | {title} </title>
+  {css}
+    <link rel="stylesheet" href="{link}">
+  {/css}
+  <link rel="icon" type="image/png" sizes="96x96" href="{url}favicon-96x96.png">
 
 </head>
 
@@ -25,10 +25,10 @@
          <h1>IC PAYMENT</h1>
        </div>
        </div>
-      <div class="col-md-6 login-box" data-endpoint="<?php echo base_url() ?>">
+      <div class="col-md-6 login-box">
         <form>
           <div class="cabecera">
-            <img src="<?php echo base_url('favicon-96x96.png') ?>" alt="">
+            <img src="{url}favicon-96x96.png" alt="">
             <h4>Ingresa tus datos</h4>
           </div>
           <div class="form-group">
@@ -56,24 +56,17 @@
   </div>
 
   <div class="splash-screen">
-    <img class="splash-logo" src="<?php echo base_url('assets/img/icpayment_logo_alter.svg') ?>" alt="">
+    <img class="splash-logo" src="{url}assets/img/icpayment_logo_alter.svg" alt="">
     <h1>IC Payment</h1>
   </div>
 
-  <div class="toast">
-    <span></span>
-  </div>
-  <script src="<?php echo base_url('assets/js/manifest.js?pre-1.0.0') ?>"></script>
-  <script src="<?php echo base_url('assets/js/vendor.js?pre-1.0.0') ?>"></script>
-  <script src="<?php echo base_url('assets/js/lib/globals.js?pre-1.0.0') ?>"></script>
-  <script src="<?php echo base_url('assets/js/login.js?pre-1.0.1') ?>"></script>
-
   <script>
-    setTimeout(function () {
-      $(".splash-screen").hide()
-    }, 2500);
-
+    const baseURL = '{url}'
   </script>
+
+  {js}
+    <script src="{link}"></script>
+  {/js}
 
   <script>
     (function (i, s, o, g, r, a, m) {

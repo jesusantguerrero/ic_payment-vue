@@ -53,7 +53,7 @@
 			<div class="user-div ">
 				<nav class="user-controls hidden-xs">
 					<li class="navButton">
-						<a href="/app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
+						<a href="{{url}}app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
 						<i class="material-icons">notifications</i>
 					</a>
 						{% if (notifications > 0) %}
@@ -78,7 +78,7 @@
 					<a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<span class="user-name">{{user.name}}</span>
 						<div class="profile-picture">
-							<span>{{ user.name[0] }} {{ user.lastname[0] }}</span>
+							<span>{{ user.name[:1] }}{{ user.lastname[:1] }}</span>
 						</div>
 						<span class="caret"></span>
 					</a>

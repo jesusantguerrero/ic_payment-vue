@@ -28,27 +28,36 @@ class App extends MY_Controller {
  }
 
 	public function index(){
-		if(!isset($_SESSION['user_data'])):
-			$data['title'] = "login";
-			$this->load->view('pages/login',$data);
-		else:
+		if(!isset($_SESSION['user_data'])){
+			redirect(base_url('app/login'));
+    } else {
 			redirect(base_url('app/admin/home'));
-		endif;
+    }
+  }
 
-	}
+  public function login($page = 'login') {
+    if (!isset($_SESSION['user_data'])) {
+      $data  = $this->define_data($page);
+      $this->parser->parse('pages/login',$data);
+    } else {
+      redirect(base_url('app/admin/home'));
+    }
+  }
 
 	public function admin($page = 'home'){
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
     $data  = $this->define_data($page);
+    $data['user'] = get_user_data();
+    $data['notifications'] = $this->report_model->count_moras_view();
     $data['left_navigation_header'] = $this->load->view('layouts/left_navigation_header', $page, true);
 
     $this->twig->display('layouts/header', $data);
     $this->load->view("pages/$page", $data);
     $this->load_modals($page);
 		$this->parser->parse('layouts/footer', $data);
-	}
+  }
 
 	public function imprimir($page){
 		authenticate();
@@ -63,27 +72,6 @@ class App extends MY_Controller {
 		$this->load->view('layouts/header_impresos',$data);
 		$this->load->view("impresos/$page",$info);
 	}
-
-	public function login(){
-    $data = $this->get_post_data('data');
-
-  	$user = $data['user'];
-  	$password = $data['password'];
-
-   	$is_correct = $this->user_model->login($user, $password);
-		 if($is_correct){
-			echo $is_correct;
-		 }else{
-			echo "Sus credenciales han sido incorrectas";
-		 }
-  }
-
-	public function logout(){
-		authenticate();
-    session_unset($_SESSION['user_data']);
-    session_destroy();
-    redirect(base_url());
-  }
 
   private function load_modals($page){
     $modals = get_modals($page);
@@ -110,16 +98,11 @@ class App extends MY_Controller {
       array_push($cssFiles,['link' => base_url()."{$assets}css/{$filename}.css"]);
     }
 
-    $user = get_user_data();
-    $notifications = $this->report_model->count_moras_view();
-
-    return  [
+    return [
       'title'=> $title,
       'css'  => $cssFiles,
       'js'   => $jsFiles,
-      'user' => $user,
-      'url' => base_url(),
-      'notifications' => $notifications
+      'url' => base_url()
     ];
   }
 }
