@@ -7,7 +7,9 @@
           .company-profile
             img(:src="logo", alt="company_logo").company-profile__logo
         .col-md-6
-          input.form-control(type="file", id="company-picture", @change="updatePicture")
+          .form-group
+            label.file-container(for="company-picture") Actualizar Logo
+              input.form-control(type="file", id="company-picture", @change="updatePicture")
       .row
         .col-md-6
           .form-group

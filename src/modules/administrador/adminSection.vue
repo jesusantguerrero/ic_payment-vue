@@ -11,12 +11,13 @@
         .aside-buttons
           a(href="#", @click.prevent="slide('settings')") <i class="material-icons">settings</i> Ajustes
         .aside-buttons
-          a(href="#message-settings-section") <i class="material-icons">phonelink_setup</i> Ajustes de Mensajes
+          a(href="#", @click.prevent="slide('message_settings')") <i class="material-icons">phonelink_setup</i> Ajustes de Mensajes
 
     .main-content.col-md-10
       .section-player
         CompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
         SettingsSection(:company="store.company", v-if="mode == 'settings'")
+        MessageSettings(:company="store.company", v-if="mode == 'message_settings'")
 
 
 </template>
@@ -25,7 +26,7 @@
   import CompanySection from "./components/CompanySection";
   import usersSection from "./components/usersSection";
   import CajaSection from "../services/caja/CajaSection";
-  import messageForm from "./components/messageForm";
+  import MessageSettings from "./components/MessageSettings";
   import SettingsSection from "./components/SettingsSection";
   import Store from "./store/adminStore"
 
@@ -34,8 +35,8 @@
       CompanySection,
       usersSection,
       CajaSection,
-      messageForm,
-      SettingsSection
+      SettingsSection,
+      MessageSettings
     },
     mounted(){
       console.log(this.store);

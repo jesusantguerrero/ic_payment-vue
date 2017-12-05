@@ -169,7 +169,7 @@ class Process extends CI_Controller {
 				}
         break;
 
-			case "discount_pagos"
+			case "discount_pagos":
 			  if (!$this->is_day_closed()) {
 					$was_correct = $this->payment_model->check_for_update($data['id_pago']);
 					if($was_correct){

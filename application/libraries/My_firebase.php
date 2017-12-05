@@ -8,8 +8,11 @@ class MY_firebase {
     $this->root = dirname(__File__) . '/third/';
   }
 
-  function save($filename,$data){
+  function save($filename, $data){
     $file = fopen($this->root . $filename.'.json','w');
+    if (is_array($data)) {
+      $data = json_encode($data);
+    }
     fwrite($file,$data);
     fclose($file);
     return true;

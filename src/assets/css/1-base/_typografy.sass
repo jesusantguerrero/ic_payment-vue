@@ -3,7 +3,7 @@
 .gigantic, .huge, .large, .bigger, .big,
 h1, h2, h3, h4, h5, h6
   font-weight: bold
-  
+
 
 .gigantic
   font-size: 110px
@@ -73,7 +73,7 @@ input
   height: 38px
   margin: 0 2px
 
-span.select2-selection.select2-selection--single 
+span.select2-selection.select2-selection--single
   height: 38px;
   border-radius: 0
   @extend .form-control
@@ -81,9 +81,28 @@ span.select2-selection.select2-selection--single
 label.inline
   margin-right: 15px
 
+.file-container
+  display: flex
+  overflow: hidden
+  @extend .form-control
+  cursor: pointer
+  border: 1px solid #ccc
+  &:hover
+    background: $primary-color
+    color: white
+
+  [type=file]
+    cursor: inherit
+    display: block
+    width: .1px
+    height: .1px
+    opacity: 0
+    text-align: center
+    background: blue
+
 @media screen and (-webkit-min-device-pixel-ratio: 0)
-  input[type=date].form-control, 
-  input[type=time].form-control, 
-  input[type=datetime-local].form-control, 
-  input[type=month].form-control 
+  input[type=date].form-control,
+  input[type=time].form-control,
+  input[type=datetime-local].form-control,
+  input[type=month].form-control
     line-height: 1.42857143

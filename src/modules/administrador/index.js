@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import adminSection from './adminSection.vue';
 import Toasted from 'vue-toasted';
+import axios from 'axios';
 
 const options = {
   theme: "primary",
@@ -13,7 +14,7 @@ Vue.use(Toasted, options);
 Vue.mixin({
   methods: {
     showMessage(message) {
-      this.$toasted.show(message);
+      this.$toasted[message.type](message.text);
     },
 
     getDataForm(object) {
@@ -21,6 +22,12 @@ Vue.mixin({
     }
   }
 })
+
+const $http = axios.create({
+  baseURL: baseURL
+});
+
+Vue.prototype.$http = $http;
 
 
 export default new Vue({

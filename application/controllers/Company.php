@@ -11,11 +11,13 @@ class Company extends MY_Controller
     $data = $this->get_post_data('data');
     if ($data) {
       unset($data['id_empresa']);
-      $res['message'] = 'Error al Actualizar';
+      $res['message'] = ['type' => 'error', 'text' => 'Error al Actualizar'];
+
       if ($this->company_model->update($data)) {
-        $res['message'] = 'Datos actualizados con exito';
+        $res['message'] = ['type' => 'success', 'text' => 'Datos actualizados con exito'];
         $res['company'] = $this->company_model->get_empresa();
       }
+
       $this->response_json($res);
     }
 
@@ -31,11 +33,11 @@ class Company extends MY_Controller
     authenticate();
     $result = $this->do_upload('company', 'picture');
     if (isset($result['error'])) {
-      $res['message'] = $result['error'];
+      $res['message'] = ['type' => 'error', 'text' => $result['error']];
     } else {
       $data['logo'] = "company/{$result['success']['file_name']}";
       $this->company_model->update($data);
-      $res['message'] = 'Perfil Actualizado';
+      $res['message'] = ['type' => 'success', 'text' => 'Perfil Actualizado'];
       $res['company'] = $this->company_model->get_empresa();
     }
     $this->response_json($res);

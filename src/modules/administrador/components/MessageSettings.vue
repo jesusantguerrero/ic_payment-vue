@@ -91,19 +91,20 @@
   }
 
   export default {
-    data: {
-      config: configMessage
+    data() {
+      return{
+        config: configMessage
+      }
     },
 
     mounted() {
-      if (currentPage == 'administrador')
-        this.getConfig()
+      this.getConfig()
     },
 
     methods: {
       getConfig() {
         const self = this;
-        axios.get(BASE_URL + 'messages/get_config')
+        this.$http.get(`messages/get_config`)
           .then((res) => {
             if (res.data.config) {
               self.config = res.data.config
@@ -115,15 +116,13 @@
       },
 
       saveSettings(e) {
-        const config = this.config
-
-        const form = 'data=' + JSON.stringify(config)
-        axios.post(BASE_URL + 'messages/save_config', form)
+        const self = this
+        this.$http.post(`messages/save_config`, this.getDataForm(this.config))
           .then((res) => {
-            displayMessage(res.data.mensaje)
+            self.showMessage(res.data.menssage);
           })
           .catch((err) => {
-            console.log(err)
+            self.$toast.error(err);
           })
       }
     }
