@@ -6,6 +6,7 @@
 </template>
 
 <script>
+  import swal from 'sweetalert2';
   import DataTable from './../../sharedComponents/DataTable';
 
   export default {
@@ -79,10 +80,11 @@
       delete(id) {
         const self = this;
         const form = `user_id=${id}`;
-        this.send('delete_user', form)
+        swal
+        this.send('user/delete_user', form)
           .then((res) => {
-            displayMessage(res.data);
-            self.getAll();
+            self.getUsers();
+            self.showMessage(res.data.message);
           });
       },
 
