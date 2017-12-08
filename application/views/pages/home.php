@@ -76,7 +76,7 @@
     <div class="row home-options-container">
         <div class="col-md-8 hidden-xs shortcuts-container">
             <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="modal" data-target="#new-client-modal">
-                <i class="material-icons">supervisor_account</i>
+                <i class="material-icons">person_add</i>
                 <p class="section-title">Nuevo Cliente</h4>
             </div>
             <div class="col-md-4 shortcut" data-toggle="modal" data-target="#search-client-modal">

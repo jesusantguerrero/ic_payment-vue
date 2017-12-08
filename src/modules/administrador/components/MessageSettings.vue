@@ -97,7 +97,7 @@
       }
     },
 
-    mounted() {
+    created() {
       this.getConfig()
     },
 

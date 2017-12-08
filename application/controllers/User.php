@@ -18,12 +18,14 @@ class User extends MY_Controller {
 
 	public function update(){
 		authenticate();
-		$data = $this->get_post_data();
-		$id 	= (isset($data['nickname'])) ? $data['nickname'] : $data['user_id'];
-		unset($data['user_id']);
-		unset($data['nickname']);
-		$result =	$this->user_model->update_user($data,$id);
-		echo $result;
+    $data = $this->get_post_data();
+    if ($data) {
+      $id 	= (isset($data['nickname'])) ? $data['nickname'] : $data['user_id'];
+      unset($data['user_id']);
+      unset($data['nickname']);
+      $result =	$this->user_model->update_user($data,$id);
+      echo $result;
+    }
 	}
 
 	public function update_field(){
@@ -67,8 +69,10 @@ class User extends MY_Controller {
 
 	public function delete_user(){
 		authenticate();
-		$id = $this->get_post_data('user_id');
-		$this->user_model->delete_user($id);
+    $id = $this->get_post_data('user_id');
+    if ($id) {
+      $this->user_model->delete_user($id);
+    }
 	}
 
 	public function confirm_password(){

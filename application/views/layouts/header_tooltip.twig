@@ -1,6 +1,6 @@
 <ul class="dropdown-menu" aria-labelledby="dLabel">
   <li><p><a href="{{url}}app/admin/cuenta"><b>{{ user.fullname }}</b></a></p></li>
-  <li><a href="{{url}}app/admin/cuenta">{{ user.typestr }}</a></li>
+  <li><a href="{{url}}app/admin/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</a></li>
   <li><a href="{{url}}app/admin/cierre"><i class="material-icons">lock_open</i>Cerrar Caja</a></li>
   {% if (user.type == 0) %}
   <li class="hidden-xs"><a href="{{url}}app/admin/administrador">

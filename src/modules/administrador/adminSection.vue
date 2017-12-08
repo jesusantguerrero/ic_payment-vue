@@ -5,7 +5,7 @@
         li.aside-buttons
           a(href="#", @click.prevent="slide('company')") <i class="material-icons">description</i> Empresa
         .aside-buttons
-          a(href="#user-section") <i class="material-icons">person_pin</i> Usuarios
+          a(href="#", @click.prevent="slide('users')") <i class="material-icons">person_pin</i> Usuarios
         .aside-buttons
           a(href="#caja-section") <i class="material-icons">move_to_inbox</i> Caja Chica
         .aside-buttons
@@ -16,15 +16,14 @@
     .main-content.col-md-10
       .section-player
         CompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
+        UsersSection(:company="store.company", v-if="mode == 'users'")
         SettingsSection(:company="store.company", v-if="mode == 'settings'")
         MessageSettings(:company="store.company", v-if="mode == 'message_settings'")
-
-
 </template>
 
 <script>
   import CompanySection from "./components/CompanySection";
-  import usersSection from "./components/usersSection";
+  import UsersSection from "./components/UsersSection";
   import CajaSection from "../services/caja/CajaSection";
   import MessageSettings from "./components/MessageSettings";
   import SettingsSection from "./components/SettingsSection";
@@ -33,7 +32,7 @@
   export default {
     components: {
       CompanySection,
-      usersSection,
+      UsersSection,
       CajaSection,
       SettingsSection,
       MessageSettings
