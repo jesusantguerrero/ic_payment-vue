@@ -9,7 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_MODEL{
-  
+
   public $user_id = null;
   public $nickname;
   public $password;
@@ -20,7 +20,7 @@ class User_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->helper('lib_helper');
   }
 
@@ -58,23 +58,15 @@ class User_model extends CI_MODEL{
         echo MESSAGE_SUCCESS." Usuario agregado con exito";
       }else{
        echo "No pudo guardarse el usuario";
-      } 
+      }
 
-    }  
+    }
   }
 
   public function update_user($data, $id, $echo = true){
     $this->db->where('nickname',$id);
     $this->db->or_where('user_id',$id);
-    $result = $this->db->update('ic_users',$data);
-    
-    if ($echo){
-      if($result && $echo){
-        echo MESSAGE_SUCCESS." Usuario Actualizado Con Exito!";
-      }else{
-        echo MESSAGE_ERROR." No pudo guardarse el usuario ";
-      }  
-    } 
+    return $this->db->update('ic_users',$data);
   }
 
   public function update_field($field,$credentials, $data){
@@ -95,13 +87,13 @@ class User_model extends CI_MODEL{
     $result = make_table($result->result_array(),0);
     echo $result;
   }
-  
+
   public function get_user($id){
     $this->db->where('user_id',$id);
     $result =$this->db->get('ic_users',1);
     if($result){
      return $result->row_array();
-    }  
+    }
   }
 
   public function get_users_list(){
@@ -145,7 +137,7 @@ class User_model extends CI_MODEL{
       if(password_verify($password,$result['password'])){
         return true;
       }
-      return false; 
+      return false;
     }else{
      return false;
     }
@@ -165,7 +157,7 @@ class User_model extends CI_MODEL{
         $this->db->update('ic_users',$set,$where);
         return true;
       }
-      return false; 
+      return false;
     }else{
      return false;
     }

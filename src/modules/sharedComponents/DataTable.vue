@@ -39,6 +39,11 @@ bt();
       this.init();
       this.refresh(this.data);
     },
+    watch: {
+      data(){
+          this.refresh(this.data)
+      }
+    },
 
     methods: {
 
@@ -48,33 +53,31 @@ bt();
         this.customSearch();
         this.activate();
         this.listen();
-        console.log(this.ids)
-        console.log(this.table)
       },
 
       activate(page) {
         const self = this;
         this.table.bootstrapTable({
           columns: self.cols,
-          sortOrder:"asc" ,
+          sortOrder: "asc" ,
           search: "true",
-          toolbar:"#clients-toolbar",
-          showRefresh: "false",
-          showColumns: "false",
-          showExport:"false",
+          toolbar: "#user-toolbar",
+          showRefresh: false,
+          showColumns: false,
+          showExport: false,
           minimumCountColumns: "2",
           showPaginationSwitch: "false",
-          pagination:"true",
-          idField:"id",
-          pageSize:"50",
-          pageList:"[10,20,50,100,200]",
-          showFooter:"false",
-          clickToSelect:"true",
-          singleSelect:"true",
-          striped:"false",
-          fixed: "true"
+          pagination: "true",
+          idField: "id",
+          pageSize: "50",
+          pageList: "[10,20,50,100,2000]",
+          showFooter: false,
+          clickToSelect: true,
+          singleSelect: true,
+          striped: false,
+          fixed: true,
+          footer: false
         });
-
         this.table.find('tbody').css({display:"table-row-group"});
         this.table.addClass('innertable');
         this.$filter.change();
@@ -126,15 +129,13 @@ bt();
             this.table.on('check.bs.table')
             self.$emit(name);
           }
+          console.log('listening %s', name)
         });
 
         $(window).resize(function () {
-            self.table.bootstrapTable('resetView', {
-                height: getHeight()
-            });
+            self.table.bootstrapTable('resetView');
         });
 
-        console.log('listening', name)
 
       },
 
@@ -176,4 +177,5 @@ bt();
       }
     }
   }
+
 </script>

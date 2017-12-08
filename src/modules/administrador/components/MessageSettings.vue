@@ -111,7 +111,7 @@
             }
           })
           .catch((error) => {
-            console.log(error)
+             self.$toast.error(error)
           })
       },
 

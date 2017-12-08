@@ -48,9 +48,21 @@ class User extends MY_Controller {
 		authenticate();
 		$id = $this->get_post_data('user_id');
 		if ($id) {
-			$user = $this->user_model->get_user($id);
-			$active = !$user['active'];
-			$this->user_model->update_user(['active' => $active], $id);
+      $user = $this->user_model->get_user($id);
+      $logged_user = get_user_data();
+
+      if ($user['type'] == 0 && $logged_user['nickname'] == $user['nickname']) {
+        $res['message'] = ['type' => 'error', 'text' => 'Usted el administrador logeado, no se puede desactivar a si mismo'];
+      } else {
+        $active = !$user['active'];
+        $result = $this->user_model->update_user(['active' => $active], $id);
+        if ($result && $active) {
+          $res['message'] = ['type' => 'success', 'text' => 'Usuario activado'];
+        } else {
+          $res['message'] = ['type' => 'success', 'text' => 'Usuario desactivado'];
+        }
+      }
+      $this->response_json($res);
 		}
 	}
 

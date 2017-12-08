@@ -38,7 +38,6 @@
       MessageSettings
     },
     mounted(){
-      console.log(this.store);
     },
 
     data(){
