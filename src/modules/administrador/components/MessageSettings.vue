@@ -88,44 +88,43 @@
     country_code: '',
     send_at: '1 second',
     expires_at: '1 hour'
-  }
+  };
 
   export default {
     data() {
-      return{
+      return {
         config: configMessage
-      }
+      };
     },
 
     created() {
-      this.getConfig()
+      this.getConfig();
     },
 
     methods: {
       getConfig() {
         const self = this;
-        this.$http.get(`messages/get_config`)
+        this.$http.get('messages/get_config')
           .then((res) => {
             if (res.data.config) {
-              self.config = res.data.config
+              self.config = res.data.config;
             }
           })
           .catch((error) => {
-             self.$toast.error(error)
-          })
+            self.$toast.error(error);
+          });
       },
 
-      saveSettings(e) {
-        const self = this
-        this.$http.post(`messages/save_config`, this.getDataForm(this.config))
+      saveSettings() {
+        const self = this;
+        this.$http.post('messages/save_config', this.getDataForm(this.config))
           .then((res) => {
             self.showMessage(res.data.menssage);
           })
           .catch((err) => {
             self.$toast.error(err);
-          })
+          });
       }
     }
-  }
-
+  };
 </script>

@@ -11,20 +11,19 @@
         .pull-right
           button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal") Agregar <i class="material-icons">add</i>
       DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar")
-      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
+      //- UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
 </template>
 
 <script>
   import swal from 'sweetalert2';
   import $ from 'jquery';
-  import DataTable from './../../sharedComponents/DataTable';
-  import UserModal from './UserModal';
+  import DataTable from './../../sharedComponents/DataTable.vue';
 
   export default {
     components: {
       DataTable,
-      UserModal
     },
+
     props: {
       store: {
         type: Object
@@ -41,12 +40,12 @@
           password_confirm: '',
         },
         userTypes: [
-          {val: 0, text: 'Administrador'},
-          {val: 1, text: 'Secretario(a)'},
-          {val: 2, text: 'Tecnico'}
+          { val: 0, text: 'Administrador' },
+          { val: 1, text: 'Secretario(a)' },
+          { val: 2, text: 'Tecnico' }
         ],
         modalMode: 'new'
-      }
+      };
     },
 
     mounted() {
@@ -55,61 +54,71 @@
 
     methods: {
       add() {
-      //   const self = this;
-      //   const nick = $('#user-nickname').val();
-      //   const password = $('#user-password').val();
-      //   const name = $('#user-name').val();
-      //   const lastname = $('#user-lastname').val();
-      //   const dni = getVal($('#user-dni'));
-      //   const type = $('#user-type').val();
-      //   const empty = isEmpty([nick, password, name, lastname, dni, type]);
+        const self = this;
+        const nick = $('#user-nickname').val();
+        const password = $('#user-password').val();
+        const name = $('#user-name').val();
+        const lastname = $('#user-lastname').val();
+        const dni = getVal($('#user-dni'));
+        const type = $('#user-type').val();
+        const empty = isEmpty([nick, password, name, lastname, dni, type]);
 
-      // if (!empty) {
-      //   const form = `nickname=${nick}&password=${password}&name=${name}&lastname=${lastname}&dni=${dni}&type=${type}`;
-      //   this.send('add', form)
-      //   .then((res) => {
-      //     displayMessage(res.data);
-      //     self.getAll();
-      //   });
-      // } else {
-      //   displayAlert('Revise', 'LLene todos los campos por favor', 'error');
-      // }
+        if (!empty) {
+          const form = `nickname=${nick}&password=${password}&name=${name}
+          &lastname=${lastname}&dni=${dni}&type=${type}`;
+          this.$http.post('add', form)
+            .then((res) => {
+              self.showMessage(res.data);
+              self.getUsers();
+            });
+        } else {
+          this.$toasted.error('LLene todos los campos por favor');
+        }
       },
 
       update() {
-        // const nick = $('#e-nickname').val();
-        // const name = $('#e-name').val();
-        // const lastname = $('#e-lastname').val();
-        // const dni = $('#e-dni').val();
-        // const type = $('#e-type').val();
-        // const empty = isEmpty([nick, name, lastname, dni, type]);
-        // const self = this;
+        const nick = $('#e-nickname').val();
+        const name = $('#e-name').val();
+        const lastname = $('#e-lastname').val();
+        const dni = $('#e-dni').val();
+        const type = $('#e-type').val();
+        const empty = isEmpty([nick, name, lastname, dni, type]);
+        const self = this;
 
-        // if (!empty) {
-        //   const form = `nickname=${nick}&name=${name}&lastname=${lastname}&dni=${dni}&type=${type}`;
-        //   this.send('update', form)
-        //   .then(() => {
-        //     self.getAll();
-        //   });
-        // } else {
-        //   displayAlert('Revise', 'LLene todos los campos por favor', 'error');
-        // }
+        if (!empty) {
+          const form = `nickname=${nick}&name=${name}&lastname=${lastname}&dni=${dni}&type=${type}`;
+          this.send('update', form)
+            .then(() => {
+              self.getUsers();
+            });
+        } else {
+          this.$toasted.error('LLene todos los campos por favor');
+        }
       },
 
       getUsers() {
         const self = this;
         this.$http.get('user/get_users')
-        .then((res) => {
+          .then((res) => {
             self.content = res.data;
-        });
+          });
       },
 
       delete(id) {
         const self = this;
         const form = `user_id=${id}`;
+
+        function sendDelete() {
+          self.$http.post('user/delete_user', form)
+            .then((res) => {
+              self.getUsers();
+              self.showMessage(res.data.message);
+            });
+        }
+
         swal({
           title: 'Eliminar Usuario',
-          text: "¿Estas seguro de querer eliminar este usuario?",
+          text: '¿Estas seguro de querer eliminar este usuario?',
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -121,56 +130,111 @@
             sendDelete();
           }
         });
-
-        function sendDelete() {
-          self.$http.post('user/delete_user', form)
-          .then((res) => {
-            self.getUsers();
-            self.showMessage(res.data.message);
-          });
-        }
       },
 
       changeState(id) {
         const self = this;
         const form = `user_id=${id}`;
         this.$http.post('user/change_state', form)
-        .then((res) => {
-          self.getUsers();
-          self.showMessage(res.data.message);
-        });
+          .then((res) => {
+            self.getUsers();
+            self.showMessage(res.data.message);
+          });
       },
 
       callModal(mode) {
-        this.modalMode = mode
-        $('#user-modal').modal()
+        this.modalMode = mode;
+        $('#user-modal').modal();
       }
     },
 
     computed: {
       cols() {
-        const self = this;
         const userEvents = {
-          'click .btn-change-state': (e, value, row, index) => {
-          this.changeState(row.id);
+          'click .btn-change-state': (e, value, row) => {
+            this.changeState(row.id);
           },
 
-          'click .delete-user': (e, value, row, index) => {
-          this.delete(row.id);
+          'click .delete-user': (e, value, row) => {
+            this.delete(row.id);
           }
-        }
+        };
 
         return [
-           {title: 'No.', field: 'order', align: 'center', valign: 'middle', sortable: true},
-           {title: 'COD', field: 'id', align: 'center', valign: 'middle', sortable: true, class:"hide"},
-           {title: 'Usuario', field: 'nickname', align: 'center', valign: 'middle', sortable: true},
-           {title: 'Nombres', field: 'nombres', align: 'center', valign: 'middle', sortable: true},
-           {title: 'Apellidos', field: 'apellidos', align: 'center', valign: 'middle', sortable: true},
-           {title: 'Cedula', field: 'cedula', align: 'center', valign: 'middle', sortable: true},
-           {title: 'Rol', field: 'tipo', align: 'center', valign: 'middle', sortable: false},
-           {title: 'Estado', field: 'estado', align: 'center', valign: 'middle', sortable: false, events: userEvents },
-           {title: 'Code Type', field: 'role_level', align: 'center', valign: 'middle', sortable: false, class:"hide"},
-           {title: 'Acciones', field: 'acciones', align: 'center', valign: 'middle', sortable: false, events: userEvents}
+          {
+            title: 'No.',
+            field: 'order',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          },
+          {
+            title: 'COD',
+            field: 'id',
+            align: 'center',
+            valign:	'middle',
+            sortable:	true,
+            class:	'hide'
+          },
+          {
+            title: 'Usuario',
+            field: 'nickname',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          },
+          {
+            title: 'Nombres',
+            field: 'nombres',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          },
+          {
+            title: 'Apellidos',
+            field: 'apellidos',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          },
+          {
+            title: 'Cedula',
+            field: 'cedula',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          },
+          {
+            title: 'Rol',
+            field: 'tipo',
+            align: 'center',
+            valign: 'middle',
+            sortable: false
+          },
+          {
+            title: 'Estado',
+            field: 'estado',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,
+            events: userEvents
+          },
+          {
+            title: 'Code Type',
+            field: 'role_level',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,
+            class: 'hide'
+          },
+          {
+            title: 'Acciones',
+            field: 'acciones',
+            align: 'center',
+            valign: 'middle',
+            sortable: false,
+            events: userEvents
+          }
         ];
       }
     }

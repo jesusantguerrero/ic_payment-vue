@@ -39,7 +39,9 @@ module.exports = {
     'comma-dangle': 0,
     'no-undef': 0,
     'class-methods-use-this': 0,
-    'no-restricted-globals': 0
+    'no-restricted-globals': 0,
+    'no-param-reassign': 0,
+    'no-tabs': 0
   },
 
   globals: {

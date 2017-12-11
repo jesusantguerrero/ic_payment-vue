@@ -73,7 +73,7 @@
           'has-success': false,
           button: true,
         }
-      }
+      };
     },
 
     mounted() {
@@ -106,67 +106,68 @@
             user_id: this.user.user_id,
             current_password: this.currentPassword,
             new_password: this.newPassword
-          }
+          };
           const form = `data=${JSON.stringify(data)}`;
           this.$http.post('user/update_password', form)
-          .then((res) => {
-            self.showMessage(res.data.message);
-            window.location = `${baseURL}app/logout`;
-          })
+            .then((res) => {
+              self.showMessage(res.data.message);
+              window.location = `${baseURL}app/logout`;
+            });
         } else {
-          this.$toasted.error("Las contraseñas no conciden");
+          this.$toasted.error('Las contraseñas no conciden');
         }
       },
 
       changeEmail() {
-        const self = this
-        const user = this.user
+        const self = this;
+        const { user } = this;
+        const data = {
+          user_id: user.user_id,
+          password,
+          field: 'email',
+          value: user.email
+        };
 
         swal({
           title: 'Contraseña',
           input: 'password',
         })
-        .then((password) => {
-          const form = 'data=' + JSON.stringify({
-            'user_id': user.user_id,
-            'password': password,
-            'field': 'email',
-            'value': user.email
+          .then(() => {
+            const form = `data=${JSON.stringify(data)}`;
+            self.$http.post('user/update_field', form)
+              .then((res) => {
+                self.showMessage(res.data.message);
+              });
           });
-
-          self.$http.post('user/update_field', form)
-          .then((res) => {
-            self.showMessage(res.data.message);
-          })
-        })
       },
 
       confirmPasswordServer(password) {
         const self = this;
-        const form = 'data=' + JSON.stringify({
+        const data = {
           user_id: this.user.user_id,
           current_password: password
-        });
+        };
+        const form = `data=${JSON.stringify(data)}`;
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           self.$http.post('user/confirm_password', form)
-          .then((res) => {
-            self.showMessage(res.data.message);
-            resolve(res.data.is_correct);
-          })
-        })
+            .then((res) => {
+              self.showMessage(res.data.message);
+              resolve(res.data.is_correct);
+            });
+        });
       },
 
       confirmPassword() {
         const self = this;
         this.confirmPasswordServer(this.currentPassword)
-        .then((isCorrect) =>{
-          self.isChangePassword = isCorrect;
-        })
+          .then((isCorrect) => {
+            self.isChangePassword = isCorrect;
+          });
       },
 
       checkPassword() {
-        if ((this.newPassword == this.passwordConfirm) && this.changePassword) {
+        if ((this.newPassword === this.passwordConfirm) && this.changePassword) {
           this.setStates(true, false);
           this.states.button = true;
         } else if (this.changePassword) {
@@ -182,5 +183,5 @@
         this.states['has-error'] = error;
       },
     }
-  }
+  };
 </script>

@@ -38,11 +38,11 @@
 
 <script>
   import axios from 'axios';
-  import PhoneInput from './../../sharedComponents/PhoneInput'
+  import PhoneInput from './../../sharedComponents/PhoneInput.vue';
 
   export default {
     props: {
-      company:{
+      company: {
         type: Object,
         required: true
       },
@@ -53,7 +53,7 @@
       }
     },
 
-    components:{
+    components: {
       PhoneInput
     },
 
@@ -62,25 +62,25 @@
     },
 
     methods: {
-      updateCompany(){
-      const self = this;
+      updateCompany() {
+        const self = this;
         axios.post(`${baseURL}company/update`, `data=${JSON.stringify(this.company)}`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         })
-        .then((res) => {
-          self.showMessage(res.data.message);
-          self.store.setCompany(res.data.company);
-        });
+          .then((res) => {
+            self.showMessage(res.data.message);
+            self.store.setCompany(res.data.company);
+          });
       },
 
       getCompany() {
         const self = this;
         axios.get(`${baseURL}company/get`)
-        .then((res) => {
-          self.store.setCompany(res.data);
-        })
+          .then((res) => {
+            self.store.setCompany(res.data);
+          });
       },
 
       phoneChange(param) {
@@ -92,18 +92,18 @@
       updatePicture() {
         const self = this;
         const file = new FormData();
-        file.append('picture', document.querySelector('#company-picture').files[0])
+        file.append('picture', document.querySelector('#company-picture').files[0]);
         axios.post(`${baseURL}company/upload`, file, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
-        .then((res) => {
-          self.showMessage(res.data.message);
-          if (res.data.company) {
-            self.store.setCompany(res.data.company);
-          }
-        });
+          .then((res) => {
+            self.showMessage(res.data.message);
+            if (res.data.company) {
+              self.store.setCompany(res.data.company);
+            }
+          });
       },
     },
 
@@ -112,6 +112,5 @@
         return `${baseURL}assets/uploads/${this.company.logo}`;
       }
     },
-
-  }
+  };
 </script>

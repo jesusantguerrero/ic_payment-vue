@@ -53,8 +53,6 @@
 
 
 <script>
-  import axios from 'axios';
-
   export default {
     data() {
       return {
@@ -66,17 +64,17 @@
           penalizacion_cancelacion: '',
           meses_por_defecto: '',
         }
-      }
+      };
     },
 
-    mounted(){
+    mounted() {
       this.getSettings();
     },
 
     methods: {
       update() {
         const self = this;
-        axios.post(`${baseURL}settings/update`, this.getDataForm(this.settings))
+        this.$http.post('settings/update', this.getDataForm(this.settings))
           .then((res) => {
             self.showMessage(res.data.message);
           });
@@ -84,12 +82,12 @@
 
       getSettings() {
         const self = this;
-        axios.get(`${baseURL}settings/get`)
-        .then((res)=> {
-          self.settings = res.data;
-        })
+        this.$http.get('settings/get')
+          .then((res) => {
+            self.settings = res.data;
+          });
       }
     }
-  }
+  };
 </script>
 
