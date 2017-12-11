@@ -37,8 +37,8 @@
 
 
 <script>
-import axios from 'axios';
-import PhoneInput from './../../sharedComponents/PhoneInput'
+  import axios from 'axios';
+  import PhoneInput from './../../sharedComponents/PhoneInput'
 
   export default {
     props: {

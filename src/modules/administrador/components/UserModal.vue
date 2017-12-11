@@ -3,7 +3,7 @@
     .modal-dialog(role="document")
       .modal-content
         .modal-header
-          button.close(data-dismiss="modal", aria-label="Close", type="button"): span(aria-hidden="true") &times;
+          button.close(data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
           h4.modal-titleNuevo Usuario
         .modal-body
           form

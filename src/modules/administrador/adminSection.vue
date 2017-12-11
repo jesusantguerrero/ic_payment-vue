@@ -22,12 +22,12 @@
 </template>
 
 <script>
-  import CompanySection from "./components/CompanySection";
-  import UsersSection from "./components/UsersSection";
-  import CajaSection from "../services/caja/CajaSection";
-  import MessageSettings from "./components/MessageSettings";
-  import SettingsSection from "./components/SettingsSection";
-  import Store from "./store/adminStore"
+  import CompanySection from './components/CompanySection.vue';
+  import UsersSection from './components/UsersSection.vue';
+  import CajaSection from '../services/caja/CajaSection.vue';
+  import MessageSettings from './components/MessageSettings.vue';
+  import SettingsSection from './components/SettingsSection.vue';
+  import Store from './store/adminStore';
 
   export default {
     components: {
@@ -37,16 +37,16 @@
       SettingsSection,
       MessageSettings
     },
-    mounted(){
+    mounted() {
     },
 
-    data(){
+    data() {
       const store = new Store('admin');
 
       return {
         store,
         mode: 'company'
-      }
+      };
     },
 
     methods: {
@@ -54,6 +54,6 @@
         this.mode = mode;
       }
     }
-  }
+  };
 </script>
 

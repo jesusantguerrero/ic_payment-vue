@@ -12,80 +12,76 @@
 
 	<script type="text/javascript" src="{{url}}assets/js/min/head.bundle.js?version=pre-1.0.0"></script>
 	<link rel="icon" type="image/png" sizes="96x96" href="{{url}}favicon-96x96.png">
-
 </head>
 <body>
-	<div class="loader">
-		<span class="load"></span>
-	</div>
-	<header>
-		<div class="header-low">
+  <main id="app">
+	  <div class="loader"><span class="load"></span></div>
+    <header>
+      <div class="header-low">
+        <div class="brand">
+          <a href="">
+              <i class="material-icons brand__menu">menu</i>
+            </a>
+          <a href="{{url}}app/admin">
+            <h3>IC<span>Payment</span></h3>
+          </a>
+        </div>
 
-			<div class="brand">
-				<a href="">
-						<i class="material-icons brand__menu">menu</i>
-					</a>
-				<a href="{{url}}app/admin">
-					<h3>IC<span>Payment</span></h3>
-				</a>
-			</div>
+        <nav class="top-nav">
+          <li class="navButton hidden-xs"><a href="{{url}}app/admin">Lobby</a></li>
+          <li class="navButton hidden-xs"><a class="{% if (title == 'clientes')  %} active {% endif %}" href="{{url}}app/admin/clientes">Clientes</a></li>
+          <li class="navButton hidden-xs"><a class="{% if (title == 'servicios') %} active {% endif %}" href="{{url}}app/admin/servicios">Servicios</a></li>
+          <li class="navButton hidden-xs"><a class="{% if (title == 'contratos') %} active {% endif %}" href="{{url}}app/admin/contratos">Contratos</a>
+            <ul class="submenu">
+              <li class="navButton hidden-xs"><a class="{% if (title == 'extras') %} active {% endif %}" href="{{url}}app/admin/extras">Extras</a></li>
+            </ul>
+          </li>
 
-			<nav class="top-nav">
-				<li class="navButton hidden-xs"><a href="{{url}}app/admin">Lobby</a></li>
-				<li class="navButton hidden-xs"><a class="{% if (title == 'clientes')  %} active {% endif %}" href="{{url}}app/admin/clientes">Clientes</a></li>
-				<li class="navButton hidden-xs"><a class="{% if (title == 'servicios') %} active {% endif %}" href="{{url}}app/admin/servicios">Servicios</a></li>
-				<li class="navButton hidden-xs"><a class="{% if (title == 'contratos') %} active {% endif %}" href="{{url}}app/admin/contratos">Contratos</a>
-					<ul class="submenu">
-						<li class="navButton hidden-xs"><a class="{% if (title == 'extras') %} active {% endif %}" href="{{url}}app/admin/extras">Extras</a></li>
-					</ul>
-				</li>
+          {% if user.type == 0 %}
+          <li class="navButton hidden-xs"><a class="{% if (title == 'secciones') %} active {% endif %}" href="{{url}}app/admin/secciones">Secciones</a></li>
+          <li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %}  active {% endif %}" href="{{url}}app/admin/reportes">Reportes</a>
+            <ul class="submenu">
+              <li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %} active {% endif %}" href="{{url}}app/admin/reportes">Graficos</a></li>
+              <li class="navButton hidden-xs"><a class="{% if (title == 'informes') %} active {% endif %}" href="{{url}}app/admin/informes">Informes</a></li>
+            </ul>
+          </li>
+          {% endif %}
+        </nav>
 
-				{% if user.type == 0 %}
-				<li class="navButton hidden-xs"><a class="{% if (title == 'secciones') %} active {% endif %}" href="{{url}}app/admin/secciones">Secciones</a></li>
-				<li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %}  active {% endif %}" href="{{url}}app/admin/reportes">Reportes</a>
-					<ul class="submenu">
-						<li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %} active {% endif %}" href="{{url}}app/admin/reportes">Graficos</a></li>
-						<li class="navButton hidden-xs"><a class="{% if (title == 'informes') %} active {% endif %}" href="{{url}}app/admin/informes">Informes</a></li>
-					</ul>
-				</li>
-				{% endif %}
-			</nav>
+        <div class="user-div ">
+          <nav class="user-controls hidden-xs">
+            <li class="navButton">
+              <a href="{{url}}app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
+              <i class="material-icons">notifications</i>
+            </a>
+              {% if (notifications > 0) %}
+              <span class="badge">{{notifications}}</span>
+            {% endif %}
+            </li>
+            <li class="navButton">
+              <a href="" data-toggle="modal" data-target="#retire-money-modal" data-placement="bottom" title="Caja Chica">
+              <i class="material-icons">inbox</i>
+            </a></li>
+            <li class="navButton">
+              <a href="" data-target="#new-averia-modal" data-toggle="modal" data-placement="bottom" title="Averias">
+              <i class="material-icons">assignment</i>
+            </a></li>
+            <li class="navButton">
+              <a href="" data-toggle="modal" data-target="#send-message-modal" data-placement="bottom" title="Mensajes">
+              <i class="material-icons">perm_phone_msg</i>
+            </a></li>
 
-			<div class="user-div ">
-				<nav class="user-controls hidden-xs">
-					<li class="navButton">
-						<a href="{{url}}app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
-						<i class="material-icons">notifications</i>
-					</a>
-						{% if (notifications > 0) %}
-						<span class="badge">{{notifications}}</span>
-					 {% endif %}
-					</li>
-					<li class="navButton">
-						<a href="" data-toggle="modal" data-target="#retire-money-modal" data-placement="bottom" title="Caja Chica">
-						<i class="material-icons">inbox</i>
-					</a></li>
-					<li class="navButton">
-						<a href="" data-target="#new-averia-modal" data-toggle="modal" data-placement="bottom" title="Averias">
-						<i class="material-icons">assignment</i>
-					</a></li>
-					<li class="navButton">
-            <a href="" data-toggle="modal" data-target="#send-message-modal" data-placement="bottom" title="Mensajes">
-            <i class="material-icons">perm_phone_msg</i>
-          </a></li>
-
-				</nav>
-				<div class="dropdown mymenu">
-					<a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="user-name">{{user.name}}</span>
-						<div class="profile-picture">
-							<span>{{ user.name[:1] }}{{ user.lastname[:1] }}</span>
-						</div>
-						<span class="caret"></span>
-					</a>
-        {{ include('layouts/header_tooltip.twig') }}
-				</div>
-			</div>
-		</div>
-
-	</header>
+          </nav>
+          <div class="dropdown mymenu">
+            <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="user-name">{{user.name}}</span>
+              <div class="profile-picture">
+                <span>{{ user.name[:1] }}{{ user.lastname[:1] }}</span>
+              </div>
+              <span class="caret"></span>
+            </a>
+          {{ include('layouts/header_tooltip.twig') }}
+          </div>
+        </div>
+      </div>
+    </header>

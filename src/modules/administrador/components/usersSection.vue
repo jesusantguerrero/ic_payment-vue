@@ -161,18 +161,18 @@
         }
 
         return [
-           {title: 'No.', field: 'order', 'align': 'center', valign: 'middle', sortable: true},
-           {title: 'COD', field: 'id', 'align': 'center', valign: 'middle', sortable: true, class:"hide"},
-           {title: 'Usuario', field: 'nickname', 'align': 'center', valign: 'middle', sortable: true},
-           {title: 'Nombres', field: 'nombres', 'align': 'center', valign: 'middle', sortable: true},
-           {title: 'Apellidos', field: 'apellidos', 'align': 'center', valign: 'middle', sortable: true},
-           {title: 'Cedula', field: 'cedula', 'align': 'center', valign: 'middle', sortable: true},
-           {title: 'Rol', field: 'tipo', 'align': 'center', valign: 'middle', sortable: false},
-           {title: 'Estado', field: 'estado', 'align': 'center', valign: 'middle', sortable: false, events: userEvents },
-           {title: 'Code Type', field: 'role_level', 'align': 'center', valign: 'middle', sortable: false, class:"hide"},
-           {title: 'Acciones', field: 'acciones', 'align': 'center', valign: 'middle', sortable: false, events: userEvents}
-        ]
+           {title: 'No.', field: 'order', align: 'center', valign: 'middle', sortable: true},
+           {title: 'COD', field: 'id', align: 'center', valign: 'middle', sortable: true, class:"hide"},
+           {title: 'Usuario', field: 'nickname', align: 'center', valign: 'middle', sortable: true},
+           {title: 'Nombres', field: 'nombres', align: 'center', valign: 'middle', sortable: true},
+           {title: 'Apellidos', field: 'apellidos', align: 'center', valign: 'middle', sortable: true},
+           {title: 'Cedula', field: 'cedula', align: 'center', valign: 'middle', sortable: true},
+           {title: 'Rol', field: 'tipo', align: 'center', valign: 'middle', sortable: false},
+           {title: 'Estado', field: 'estado', align: 'center', valign: 'middle', sortable: false, events: userEvents },
+           {title: 'Code Type', field: 'role_level', align: 'center', valign: 'middle', sortable: false, class:"hide"},
+           {title: 'Acciones', field: 'acciones', align: 'center', valign: 'middle', sortable: false, events: userEvents}
+        ];
       }
     }
-  }
+  };
 </script>
