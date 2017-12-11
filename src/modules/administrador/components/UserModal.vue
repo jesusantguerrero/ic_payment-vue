@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal.fade(tabindex="-1", role="dialog", id="new-user-modal")
+  .modal.fade(tabindex="-1", role="dialog", id="user-modal")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
@@ -11,28 +11,30 @@
               .col-md-6
                 .form-group
                   label(for="user-nickname") Usuario
-                  input(type="text", class="form-control", id="user-nickname", placeholder="jguerrero")
+                  input.form-control#user-nickname(type="text", v-model="user.nickname")
                 .form-group
                   label(for="user-password") Contraseña
-                  input(type="password", class="form-control password", id="user-password", placeholder="contraseña")
+                  input.form-control#user-password(type="password", v-model="user.password")
                 .form-group
                   label(for="user-password-confirm") confirmar contraseña
-                  input(type="password", class="form-control password-confirm", id="user-password-confirm", placeholder="contraseña")
+                  input.form-control#user-password-confirm(type="password", v-model="validation.password_confirm")
                 .form-group
                   label(for="user-type") Tipo de usuario
-                  select(class="form-control", id="user-type")
-                    option(value="0") Administrador
-                    option(value="1") Secretaria(o)
+                  select.form-control#user-type(v-model="user.type")
+                    option(v-for="type of userTypes",value="type.val") {{ type.text }}
               .col-md-6
                 .form-group
                   label(for="user-name") Nombres
-                  input(type="text", class="form-control", id="user-name", placeholder="Jesus Ant.")
+                  input.form-control#user-name(type="text", v-model="user-name")
                 .form-group
                   label(for="user-lastname") Apellidos
-                  input(type="text", class="form-control", id="user-lastname", placeholder="Guerrero Alvarez")
+                  input.form-control#user-lastname(type="text", v-model="user.lastname")
                 .form-group
                   label(for="user-dni") Cedula(sin guiones)
-                  input(type="text", class="form-control", id="user-dni")
+                  input.form-control#user-model(type="text", v-model="user.dni")
+              .col-md-12
+                  label(for="user-email")
+                  input.form-control#user-email(type="email", v-model="user.email")
       .modal-footer
         button(type="button", data-dismiss="modal").btn Cancelar
         button(type="button").btn.save#btn-save-user Guardar
@@ -40,7 +42,25 @@
 
 <script>
   export default {
+    props: {
+      user: {
+        type: Object
+      },
+      validation: {
+        type: Object
+      },
+      userTypes: {
+        type: Array
+      }
+    },
 
+    methods: {
+
+    },
+
+    computed: {
+
+    }
   }
 </script>
 

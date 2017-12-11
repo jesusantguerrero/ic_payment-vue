@@ -160,8 +160,8 @@ bt();
         });
 
         this.$filter.on('change', function (e) {
-          const _filtro = $(this).val();
-          const _status = _filtro;
+          let _filtro = $(this).val();
+          let _status = _filtro;
           if(_filtro == 'all'){
             _filtro = self['table-states'];
             _status = '';

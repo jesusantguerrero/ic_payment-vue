@@ -68,14 +68,14 @@
   export default {
     data() {
       return {
-        cajaTable: cajaTable,
+        cajaTable,
         searchOptions: {
           firstDate: '',
           secondDate: '',
           user: '',
         },
         userList: ''
-      }
+      };
     },
 
     mounted() {
@@ -156,6 +156,6 @@
         }
       },
     }
-  }
+  };
 
 </script>

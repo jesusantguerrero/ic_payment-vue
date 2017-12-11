@@ -72,8 +72,8 @@
           'has-error': false,
           'has-success': false,
           button: true,
-         }
-       }
+        }
+      }
     },
 
     mounted() {
@@ -85,29 +85,29 @@
         const self = this;
         this.$http.get('user/get_user')
           .then((res) => {
-            const user = res.data.user;
-            user['fullname'] = user.name + ' ' + user.lastname;
+            const { user } = res.data;
+            user.fullname = `${user.name} ${user.lastname}`;
             self.user = user;
-          })
+          });
       },
 
       updateInfo() {
         if (this.isChangePassword) {
-          this.changePassword()
+          this.changePassword();
         } else {
-          this.changeEmail()
+          this.changeEmail();
         }
       },
 
       changePassword() {
         const self = this;
         if (this.states['has-success']) {
-          const form = 'data=' + JSON.stringify({
+          const data = {
             user_id: this.user.user_id,
             current_password: this.currentPassword,
             new_password: this.newPassword
-          });
-
+          }
+          const form = `data=${JSON.stringify(data)}`;
           this.$http.post('user/update_password', form)
           .then((res) => {
             self.showMessage(res.data.message);
@@ -126,7 +126,7 @@
           title: 'Contraseña',
           input: 'password',
         })
-        .then(function (password) {
+        .then((password) => {
           const form = 'data=' + JSON.stringify({
             'user_id': user.user_id,
             'password': password,
@@ -135,7 +135,7 @@
           });
 
           self.$http.post('user/update_field', form)
-          .then(function (res) {
+          .then((res) => {
             self.showMessage(res.data.message);
           })
         })

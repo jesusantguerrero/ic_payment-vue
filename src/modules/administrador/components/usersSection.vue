@@ -7,27 +7,45 @@
           .input-group-addon: i.material-icons search
           input(type="text" placeholder=" descripcion").form-control.searcher
         .pull-right
-          button.btn.btn-primary.icon: i.material-icons
+          button.btn.btn-primary.icon(@click="callModal('new')"): i.material-icons
         .pull-right
           button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal") Agregar <i class="material-icons">add</i>
       DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar")
+      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
 </template>
 
 <script>
   import swal from 'sweetalert2';
+  import $ from 'jquery';
   import DataTable from './../../sharedComponents/DataTable';
+  import UserModal from './UserModal';
 
   export default {
     components: {
-      DataTable
+      DataTable,
+      UserModal
     },
+    props: {
+      store: {
+        type: Object
+      }
+    },
+
     data() {
       return {
-
         content: '',
         parentId: '#user-table-container',
         toolbar: '#user-toolbar',
-        idField: 'id'
+        idField: 'id',
+        validation: {
+          password_confirm: '',
+        },
+        userTypes: [
+          {val: 0, text: 'Administrador'},
+          {val: 1, text: 'Secretario(a)'},
+          {val: 2, text: 'Tecnico'}
+        ],
+        modalMode: 'new'
       }
     },
 
@@ -122,6 +140,11 @@
           self.showMessage(res.data.message);
         });
       },
+
+      callModal(mode) {
+        this.modalMode = mode
+        $('#user-modal').modal()
+      }
     },
 
     computed: {

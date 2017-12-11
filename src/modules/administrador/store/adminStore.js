@@ -12,6 +12,18 @@ export default class Store {
 
     };
     this.usuarios = [];
+
+    this.usuario = {
+      user_id: '',
+      nickname: '',
+      password: '',
+      name: '',
+      lastname: '',
+      dni: '',
+      type: '',
+      email: '',
+    };
+
     this.cajaChica = [];
     this.ajustes = {};
     this.ajustesMensajes = {};
@@ -24,6 +36,23 @@ export default class Store {
 
   setUsers(users) {
     this.usuarios = users;
+  }
+
+  setUser(user) {
+    this.usuario = user;
+  }
+
+  cleanUser() {
+    this.usuario = {
+      user_id: '',
+      nickname: '',
+      password: '',
+      name: '',
+      lastname: '',
+      dni: '',
+      type: '',
+      email: ''
+    };
   }
 
   setSettings(settings) {

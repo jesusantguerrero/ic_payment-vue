@@ -3,10 +3,7 @@ import Generals from './generals';
 import Services from './services';
 import Contracts from './contracts';
 import Payments from './payments';
-import Company from './company';
-import Settings from './settings';
 import Sections from './sections';
-import Users from './users';
 import Notifications from './notificaciones';
 import detailsHandler from './details/handlers';
 
@@ -16,12 +13,6 @@ function initComponents() {
   switch (currentPage) {
     case 'home': {
       const cClients = new Clients();
-    }
-      break;
-    case 'administrador': {
-      const cCompany = new Company();
-      const cSettings = new Settings();
-      const cUsers = new Users();
     }
       break;
     case 'clientes': {

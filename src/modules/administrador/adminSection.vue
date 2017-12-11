@@ -16,7 +16,7 @@
     .main-content.col-md-10
       .section-player
         CompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
-        UsersSection(:company="store.company", v-if="mode == 'users'")
+        UsersSection(:store="store", v-if="mode == 'users'")
         SettingsSection(:company="store.company", v-if="mode == 'settings'")
         MessageSettings(:company="store.company", v-if="mode == 'message_settings'")
 </template>

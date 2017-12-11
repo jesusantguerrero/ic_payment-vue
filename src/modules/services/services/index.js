@@ -1,4 +1,4 @@
-import handlers from './handlers'
+import handlers from './handlers';
 
 export default class services {
   constructor() {
@@ -6,44 +6,40 @@ export default class services {
   }
 
   add() {
-    var form, name, description, payment, type;
+    const name = $('#service-name').val();
+    const description = $('#service-description').val();
+    const payment = $('#service-monthly-payment').val();
+    const type = $('#service-type').val();
 
-    name        = $("#service-name").val();
-    description = $("#service-description").val();
-    payment     = $("#service-monthly-payment").val();
-    type        = $("#service-type").val();
-
-    var is_empty = isEmpty([name, description, payment, type]);
-    if (!is_empty) {
-      form = 'nombre=' + name + "&descripcion=" + description + "&mensualidad=" + payment + "&tipo=" + type;
-      form += "&tabla=servicios";
-      connectAndSend("process/add", true, null, null, form, Services.getAll);
+    const empty = isEmpty([name, description, payment, type]);
+    if (!empty) {
+      form = `nombre=${name}&descripcion=${description}&mensualidad=${payment}&tipo=${type}`;
+      form += '&tabla=servicios';
+      connectAndSend('process/add', true, null, null, form, Services.getAll);
     } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
+      displayAlert('Revise', 'LLene todos los campos por favor', 'error');
     }
   }
 
-  getAll () {
-    var form = "tabla=servicios";
+  getAll() {
+    const form = 'tabla=servicios';
     connectAndSend('process/getall', false, null, serviceTable.refresh, form, null);
   }
 
-  update () {
-    var form, id, name, description, payment, type;
+  update() {
+    const id = $('#u-service-id').val();
+    const name = $('#u-service-name').val();
+    const description = $('#u-service-description').val();
+    const payment = $('#u-service-monthly-payment').val();
+    const type = $('#u-service-type').val();
 
-    id          = $('#u-service-id').val();
-    name        = $('#u-service-name').val();
-    description = $('#u-service-description').val();
-    payment     = $('#u-service-monthly-payment').val();
-    type        = $('#u-service-type').val();
-
-    var is_empty = isEmpty([id, name, description, payment, type]);
-    if (!is_empty) {
-      form = 'id_servicio=' + id + "&nombre=" + name + "&descripcion=" + description + "&mensualidad=" + payment;
-      form += "&tipo=" + type + "&tabla=servicios";
-      connectAndSend("process/update", true, null, null, form, Services.getAll,heavyLoad);
+    const empty = isEmpty([id, name, description, payment, type]);
+    if (!empty) {
+      form = `id_servicio=${id}&nombre=${name }&descripcion=${description}&mensualidad=${payment}`;
+      form += `&tipo=${type}&tabla=servicios`;
+      connectAndSend('process/update', true, null, null, form, Services.getAll, heavyLoad);
     } else {
-      displayAlert("Revise", "LLene todos los campos por favor", "error");
+      displayAlert('Revise', 'LLene todos los campos por favor', 'error');
     }
   }
 }
