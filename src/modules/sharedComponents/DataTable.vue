@@ -33,6 +33,9 @@ bt();
       },
       parentId: {
         type: String
+      },
+      toolbar: {
+        type: String
       }
     },
     mounted() {
@@ -61,12 +64,12 @@ bt();
           columns: self.cols,
           sortOrder: "asc" ,
           search: "true",
-          toolbar: "#user-toolbar",
+          toolbar: self.toolbar,
           showRefresh: false,
           showColumns: false,
           showExport: false,
           minimumCountColumns: "2",
-          showPaginationSwitch: "false",
+          showPaginationSwitch: false,
           pagination: "true",
           idField: "id",
           pageSize: "50",
@@ -129,7 +132,6 @@ bt();
             this.table.on('check.bs.table')
             self.$emit(name);
           }
-          console.log('listening %s', name)
         });
 
         $(window).resize(function () {

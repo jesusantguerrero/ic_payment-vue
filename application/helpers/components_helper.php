@@ -11,10 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if ( ! function_exists('make_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_table($data,$start_at){
     $types = array("Administrador","Secretaria(o)","Otro");
@@ -28,7 +28,6 @@ if ( ! function_exists('make_table')){
           $button_text  =  'Desactivado';
           $btn_class = 'btn-danger';
         }
-
         $html_text .= "
         <tr>
           <td>".$cont."</td>
@@ -41,9 +40,9 @@ if ( ! function_exists('make_table')){
           <td><button data-active='{$line['active']}' class='btn-change-state $btn_class'>{$button_text}</button></td>
           <td class='hide'>".$line['type']."</td>
           <td>
-            <a href=''><i class='material-icons edit-user'' data-user-id='".$line['user_id']."'>edit</i></a>
-            <a href=''><i class='material-icons delete-user'>delete</i></a>
-            <a href=''><i class='material-icons display-user'>find_in_page</i></a>
+            <i class='material-icons btn-action edit-user'>edit</i>
+            <i class='material-icons btn-action delete-user'>delete</i>
+            <i class='material-icons btn-action display-user'>find_in_page</i>
           </td>
         </tr>";
         $cont+=1;
@@ -55,14 +54,14 @@ if ( ! function_exists('make_table')){
 if ( ! function_exists('make_client_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_client_table($data,$start_at){
     $cont = $start_at + 1;
-    $html_text = " "; 
+    $html_text = " ";
     $state = '';
     $posible_states = array(
       'done'      => 'activo',
@@ -101,10 +100,10 @@ if ( ! function_exists('make_client_table')){
 if ( ! function_exists('make_service_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_service_table($data,$start_at){
     $cont = $start_at + 1;
@@ -129,14 +128,14 @@ if ( ! function_exists('make_service_table')){
 if ( ! function_exists('make_contract_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_contract_table($data,$start_at){
-   
-    $html_text = " "; 
+
+    $html_text = " ";
     $state = '';
     $row_class = '';
     $posible_states = array(
@@ -171,7 +170,7 @@ if ( ! function_exists('make_contract_table')){
         if($line['estado'] == 'cancelado'):
           $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
         elseif ($line['estado'] == 'saldado'):
-          $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>"; 
+          $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>";
         endif;
         if ($line['extras_fijos']):
           $html_text .= "<i class='material-icons text-primary' title='{$line['nombre_seguro']} {$mensualidad_seguro}'>lock</i>";
@@ -188,9 +187,9 @@ if ( ! function_exists('make_contract_table')){
 
 if ( ! function_exists('make_main_contract_table')){
   function make_main_contract_table($data,$start_at){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
-        $html_text .= 
+        $html_text .=
         "<tr>
           <td class='id_contrato'>".$line['id_contrato']."</td>
           <td class='hide'></td>
@@ -213,7 +212,7 @@ if ( ! function_exists('make_main_contract_table')){
 }
 
 function make_extra_table($data,$start_at, $full = false){
-  $html_text = " "; 
+  $html_text = " ";
   $state = '';
   $row_class = '';
   $posible_states = array(
@@ -264,9 +263,9 @@ function make_extra_table($data,$start_at, $full = false){
 
 if ( ! function_exists('make_cancelations_table')){
  function make_cancelations_table($data,$start_at){
-   $html_text = " "; 
+   $html_text = " ";
    foreach ($data as $line) {
-       $html_text .= 
+       $html_text .=
        "<tr>
          <td class='id_contrato'>".$line['id_contrato']."</td>
          <td class='th-client'>".$line['cliente']."</td>
@@ -285,7 +284,7 @@ if ( ! function_exists('make_cancelations_table')){
 if ( ! function_exists('make_caja_table')){
 
   function make_caja_table($data){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $html_text .= "<tr>
         <td>".$line['id']."</td>
@@ -305,7 +304,7 @@ if ( ! function_exists('make_caja_table')){
 if ( ! function_exists('make_averias_list')){
 
   function make_averias_list($data){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
       $icono = 'check_box_outline_blank';
       $color = '#dF0a00';
@@ -322,7 +321,7 @@ if ( ! function_exists('make_averias_list')){
               <div class='code'>".$line['id_averia']."</div>
               <div class='info'><span class='client-name'>".$line['cliente']. "</span><span class='client-direction'>::".$line['direccion']."</span> </span><span class='client-direction'>".
                 "  <b>Celular: </b>".phone_format($line['celular'])."</span></div>
-              <button class='btn-update-averia'>Actualizar</button> 
+              <button class='btn-update-averia'>Actualizar</button>
             </div>
             <div class='description'>
             <div class='text'>". ucfirst($line['descripcion'])."</div>
@@ -341,7 +340,7 @@ if ( ! function_exists('make_averias_list')){
 if ( ! function_exists('make_installations_list')){
 
   function make_installations_list($data){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
       $icono = 'check_box_outline_blank';
       $color = 'red';
@@ -375,7 +374,7 @@ if ( ! function_exists('make_installations_list')){
 }
 
 function make_contract_dropdown($data){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $html_text .= "<option value='".$line['id_contrato']."'>";
         $html_text .= $line['id_contrato']."</option>";
@@ -384,7 +383,7 @@ function make_contract_dropdown($data){
 }
 
 function make_other_services_dropdown($data){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $html_text .= "<option value='".$line['nombre']."' data-payment='".$line['mensualidad']."'>";
         $html_text .= $line['nombre']."</option>";
@@ -393,7 +392,7 @@ function make_other_services_dropdown($data){
 }
 
 function make_users_list($data){
-    $html_text = "<option value='%'> Todos </option>"; 
+    $html_text = "<option value='%'> Todos </option>";
     foreach ($data as $line) {
       $html_text .= "<option value='".$line['user_id']."'>".$line['name']." ".$line['lastname']."</option>";
     }
@@ -441,7 +440,7 @@ function make_next_payments_list($data){
                         <div class='payment-day'>{$row['dia']}</div>
                         <div class='payment-month'>".$row['mes']."</div>
                     </div>
-                    
+
                 </div></a>";
   }
   return $html_text;
@@ -450,13 +449,13 @@ function make_next_payments_list($data){
 if ( ! function_exists('make_payment_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_payment_table($data,$start_at){
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $state = is_marked($line['estado'],'pagado');
         $is_abono = is_abono($line['concepto']);
@@ -490,14 +489,14 @@ if ( ! function_exists('make_payment_table')){
 if ( ! function_exists('make_recibos_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_recibos_table($data,$start_at){
     $cont = $start_at + 1;
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $hora = new DATETIME($line['complete_date']);
         if(str_contains('abono',$line['concepto_real'])){
@@ -506,8 +505,8 @@ if ( ! function_exists('make_recibos_table')){
         if(str_contains('Cancelación',$line['concepto_real'])){
           $line['concepto'] = str_replace("Pago de",'Cancelación - ',$line['concepto']);
         }
-      
-        $html_text .= 
+
+        $html_text .=
         "<tr>
         <td>".$cont."</td>
         <td>". $line['id_pago']."</td>
@@ -528,17 +527,17 @@ if ( ! function_exists('make_recibos_table')){
 if ( ! function_exists('make_moras_history_table')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_moras_history_table($data,$start_at){
     $cont = $start_at + 1;
-    $html_text = " "; 
+    $html_text = " ";
     foreach ($data as $line) {
         $hora = new DATETIME($line['complete_date']);
-        $html_text .= 
+        $html_text .=
         "<tr>
         <td>".$cont."</td>
         <td>". $line['codigo']."</td>
@@ -559,10 +558,10 @@ if ( ! function_exists('make_moras_history_table')){
 if ( ! function_exists('make_service_shortcuts')){
   /**
   * create a shortcut for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_service_shortcuts($data){
     $html_text="";
@@ -604,7 +603,7 @@ function table_cell($field, $row) {
       $text = "RD$ ".CurrencyFormat($text);
       break;
   }
-    
+
   return "<td class='{$field['classes']}'>{$text}</td>";
 }
 

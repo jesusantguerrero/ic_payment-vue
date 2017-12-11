@@ -33,7 +33,7 @@
           </div>
           <div class="form-group">
             <label for="user-input">Usuario</label>
-            <input v-model ="credentials.user" type="text" class="form-control" placeholder="usuario:demo contraseña:demo" @keypress.enter="login">
+            <input v-model ="credentials.user" id="user-input" type="text" class="form-control"  @keypress.enter="login">
           </div>
           <div class="form-group">
             <label for="password-input">Contraseña</label>
@@ -41,7 +41,7 @@
           </div>
           <p class="validation"></p>
           <div class="form-group">
-            <input type="button" id="send-credentials" value="Ingresar" @click="login">
+            <input type="button" id="btn-send-credentials" value="Ingresar" @click="login">
           </div>
 
         </form>

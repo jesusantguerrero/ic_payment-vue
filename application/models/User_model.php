@@ -106,10 +106,12 @@ class User_model extends CI_MODEL{
   public function delete_user($id){
     $this->db->where('user_id',$id);
     if($result = $this->db->delete('ic_users')){
-      echo MESSAGE_SUCCESS." Usuario Eliminado";
+      $code = 1;
     }else{
       $this->update_user(['active' => false], $id);
+      $code = 2;
     }
+    return $code;
   }
 
   public function login($nickname,$password){

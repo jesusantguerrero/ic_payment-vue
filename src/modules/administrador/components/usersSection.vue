@@ -2,7 +2,15 @@
   .company-details#user-section
     h3.section-title Usuarios
     #user-table-container
-      DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols")
+      .searcher-container.main-toolbar#user-toolbar
+        .input-group.search
+          .input-group-addon: i.material-icons search
+          input(type="text" placeholder=" descripcion").form-control.searcher
+        .pull-right
+          button.btn.btn-primary.icon: i.material-icons
+        .pull-right
+          button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal") Agregar <i class="material-icons">add</i>
+      DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar")
 </template>
 
 <script>
@@ -18,6 +26,7 @@
 
         content: '',
         parentId: '#user-table-container',
+        toolbar: '#user-toolbar',
         idField: 'id'
       }
     },
@@ -80,12 +89,28 @@
       delete(id) {
         const self = this;
         const form = `user_id=${id}`;
-        swal
-        this.send('user/delete_user', form)
+        swal({
+          title: 'Eliminar Usuario',
+          text: "¿Estas seguro de querer eliminar este usuario?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.value) {
+            sendDelete();
+          }
+        });
+
+        function sendDelete() {
+          self.$http.post('user/delete_user', form)
           .then((res) => {
             self.getUsers();
             self.showMessage(res.data.message);
           });
+        }
       },
 
       changeState(id) {
@@ -105,6 +130,10 @@
         const userEvents = {
           'click .btn-change-state': (e, value, row, index) => {
           this.changeState(row.id);
+          },
+
+          'click .delete-user': (e, value, row, index) => {
+          this.delete(row.id);
           }
         }
 
@@ -118,10 +147,9 @@
            {title: 'Rol', field: 'tipo', 'align': 'center', valign: 'middle', sortable: false},
            {title: 'Estado', field: 'estado', 'align': 'center', valign: 'middle', sortable: false, events: userEvents },
            {title: 'Code Type', field: 'role_level', 'align': 'center', valign: 'middle', sortable: false, class:"hide"},
-           {title: 'Acciones', field: 'acciones', 'align': 'center', valign: 'middle', sortable: false}
+           {title: 'Acciones', field: 'acciones', 'align': 'center', valign: 'middle', sortable: false, events: userEvents}
         ]
       }
     }
   }
 </script>
-

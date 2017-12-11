@@ -67,8 +67,11 @@ class User extends MY_Controller {
 	}
 
 	public function get_users(){
-		authenticate();
-		$this->user_model->get_all_users();
+    authenticate();
+    $user = get_user_data();
+    if ($user['type'] == 0) {
+      $this->user_model->get_all_users();
+    }
 	}
 
 	public function get_user(){
@@ -83,7 +86,19 @@ class User extends MY_Controller {
 		authenticate();
     $id = $this->get_post_data('user_id');
     if ($id) {
-      $this->user_model->delete_user($id);
+      $result = $this->user_model->delete_user($id);
+      switch ($result) {
+        case 1:
+          $res['message'] = ['type' => 'success', 'text' => 'Usuario Eliminado con exito'];
+          break;
+        case 2:
+          $res['message'] = ['type' => 'info', 'text' => 'Este usuario tiene transacciones relacionadas, solo se desactivará'];
+          break;
+        default:
+          $res['message'] = ['type' => 'error', 'text' => 'Error al eliminar el usuario'];
+          break;
+      }
+      $this->response_json($res);
     }
 	}
 
