@@ -2,7 +2,7 @@
   <div class="left-navigation">
     <div class="aside-nav-container">
       <div class="left-navigation__header">
-         <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>  
+         <h3 class="left-navigation__header-text"><?php echo ucfirst($title) ?></h3>
       </div>
       <ul class="aside-nav">
         <li class="aside-buttons">
@@ -14,8 +14,9 @@
       </ul>
     </div>
   </div>
+
   <div class="main-content col-md-10">
-  <h2 class="subsection-title">Servicios</h2> 
+  <h2 class="subsection-title">Servicios</h2>
       <div class="searcher-container main-toolbar" id="toolbar">
         <div class="input-group search">
           <div class="input-group-addon"><i class="material-icons">search</i></div>
@@ -29,24 +30,24 @@
             <option value="todo">Todos</option>
             <option value="internet">Internet</option>
             <option value="reparacion">Reparacion</option>
-          </select>  
+          </select>
         </div>
       </div>
 
-      <table class="table t-services" id="t-services" 
+      <table class="table t-services" id="t-services"
         data-sort-name="orden"
-        data-sort-order="asc" 
+        data-sort-order="asc"
         data-search="true"
-        data-toolbar="#toolbar" 
+        data-toolbar="#toolbar"
         data-show-refresh="false"
         data-show-columns="false"
         data-show-export="false"
-        data-minimum-count-columns="2" 
+        data-minimum-count-columns="2"
         data-show-pagination-switch="false"
-        data-pagination="true" 
-        data-id-field="id" 
+        data-pagination="true"
+        data-id-field="id"
         data-page-size="20"
-        data-page-list="[10, 20, 50, All]" 
+        data-page-list="[10, 20, 50, All]"
         data-show-footer="false"
         data-striped="true"
         data-click-to-select="true"

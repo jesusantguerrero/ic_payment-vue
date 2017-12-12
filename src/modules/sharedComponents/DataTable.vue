@@ -6,12 +6,8 @@
 </template>
 
 <script>
-  import jquery from 'jquery';
-  import bt from 'bootstrap-table';
-
-  window.$ = jquery;
-  window.jQuery = jquery;
-  bt();
+  import 'bootstrap-table';
+  import '../../../node_modules/bootstrap-table/dist/locale/bootstrap-table-es-SP';
 
   export default {
     props: {

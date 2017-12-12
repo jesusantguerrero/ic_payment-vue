@@ -282,7 +282,6 @@
 		</div>
 
 	</div>
-
 </div>
 
 <div id="print-view" :class="{hide: isHide}">

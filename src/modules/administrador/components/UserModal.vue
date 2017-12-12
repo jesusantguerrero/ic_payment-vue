@@ -1,10 +1,10 @@
 <template lang="pug">
-  .modal.fade(tabindex="-1", role="dialog", id="user-modal")
+  .modal.fade#user-modal(tabindex="-1", role="dialog")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
-          //- button.close(data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
-          h4.modal-titleNuevo Usuario
+          button.close(data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
+          h4.modal-title Nuevo Usuario
         .modal-body
           form
             .row
@@ -25,7 +25,7 @@
               .col-md-6
                 .form-group
                   label(for="user-name") Nombres
-                  input.form-control#user-name(type="text", v-model="user-name")
+                  input.form-control#user-name(type="text", v-model="user.name")
                 .form-group
                   label(for="user-lastname") Apellidos
                   input.form-control#user-lastname(type="text", v-model="user.lastname")
@@ -35,9 +35,9 @@
               .col-md-12
                   label(for="user-email")
                   input.form-control#user-email(type="email", v-model="user.email")
-      .modal-footer
-        button(type="button", data-dismiss="modal").btn Cancelar
-        button(type="button").btn.save#btn-save-user Guardar
+        .modal-footer
+          button(type="button", data-dismiss="modal").btn Cancelar
+          button(type="button").btn.save#btn-save-user Guardar
 </template>
 
 <script>

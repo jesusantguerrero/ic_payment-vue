@@ -38,6 +38,7 @@
     "eslint-plugin-html": "4.0.1",
     "eslint-plugin-import": "2.7.0",
     "eventsource-polyfill": "^0.9.6",
+    "expose-loader": "0.7.4",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "^0.11.1",
@@ -118,6 +119,7 @@
   "homepage": "https://gitlab.com/freesgen1/icpayment#README",
   "dependencies": {
     "axios": "0.17.1",
+    "bootstrap": "3.3.7",
     "bootstrap-table": "1.11.2",
     "datatables.net-buttons-dt": "1.4.2",
     "datatables.net-dt": "1.10.16",

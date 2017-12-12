@@ -7,21 +7,23 @@
           .input-group-addon: i.material-icons search
           input(type="text" placeholder=" descripcion").form-control.searcher
         .pull-right
-          button.btn.btn-primary.icon(@click="callModal('new')"): i.material-icons
+          button.btn.btn-primary.icon: i.material-icons
         .pull-right
-          button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal") Agregar <i class="material-icons">add</i>
+          button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal", @click="callModal('new')") Agregar <i class="material-icons">add</i>
       DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar")
-      //- UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
+      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
 </template>
 
 <script>
   import swal from 'sweetalert2';
-  import $ from 'jquery';
+  import 'bootstrap';
   import DataTable from './../../sharedComponents/DataTable.vue';
+  import UserModal from './UserModal.vue';
 
   export default {
     components: {
       DataTable,
+      UserModal
     },
 
     props: {

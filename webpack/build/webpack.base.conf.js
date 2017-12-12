@@ -28,13 +28,23 @@ module.exports = {
   module: {
     rules: [
       {
+        test: require.resolve('jquery'),
+        use: [{
+            loader: 'expose-loader',
+            options: 'jQuery'
+        },{
+            loader: 'expose-loader',
+            options: '$'
+        }]
+      },
+      {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
         options: {
           formatter: require('eslint-friendly-formatter')
-        }
+        },
       },
       {
         test: /\.vue$/,
