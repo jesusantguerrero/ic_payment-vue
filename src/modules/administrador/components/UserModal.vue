@@ -4,7 +4,7 @@
       .modal-content
         .modal-header
           button.close(data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
-          h4.modal-title Nuevo Usuario
+          h4.modal-title {{ modalTitle}}
         .modal-body
           form
             .row
@@ -12,16 +12,16 @@
                 .form-group
                   label(for="user-nickname") Usuario
                   input.form-control#user-nickname(type="text", v-model="user.nickname")
-                .form-group
+                .form-group(v-if="modalMode == 'new'")
                   label(for="user-password") Contraseña
                   input.form-control#user-password(type="password", v-model="user.password")
-                .form-group
+                .form-group(v-if="modalMode == 'new'")
                   label(for="user-password-confirm") confirmar contraseña
                   input.form-control#user-password-confirm(type="password", v-model="validation.password_confirm")
                 .form-group
                   label(for="user-type") Tipo de usuario
                   select.form-control#user-type(v-model="user.type")
-                    option(v-for="type of userTypes",value="type.val") {{ type.text }}
+                    option(v-for="type of userTypes",:value="type.val") {{ type.text }}
               .col-md-6
                 .form-group
                   label(for="user-name") Nombres
@@ -57,6 +57,12 @@
       }
     },
 
+    mounted() {
+      $('#user-modal').on('hide.bs.modal', () => {
+        this.$emit('dimiss');
+      });
+    },
+
     methods: {
       save() {
         if (this.modalMode === 'new') {
@@ -68,7 +74,9 @@
     },
 
     computed: {
-
+      modalTitle() {
+        return (this.modalMode === 'new') ? 'Nuevo Usuario' : `Editando a ${this.user.nickname}`;
+      }
     }
   };
 </script>

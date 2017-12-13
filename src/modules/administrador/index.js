@@ -1,7 +1,13 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Toasted from 'vue-toasted';
+import jQuery from 'jquery';
 import adminSection from './adminSection.vue';
+
+window.$ = jQuery;
+window.jQuery = jQuery;
+window.baseURL = 'https://localhost/icpayment/';
+
 
 const options = {
   theme: 'primary',

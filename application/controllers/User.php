@@ -28,15 +28,18 @@ class User extends MY_Controller {
     $this->response_json($res);
   }
 
-	public function update(){
-		authenticate();
-    $data = $this->get_post_data();
-    if ($data) {
-      $id 	= (isset($data['nickname'])) ? $data['nickname'] : $data['user_id'];
-      unset($data['user_id']);
-      unset($data['nickname']);
-      $result =	$this->user_model->update_user($data,$id);
-      echo $result;
+	public function update($id){
+    authenticate();
+    $data = $this->get_post_data('data');
+    $current_user = get_user_data();
+    if ($data && $id && $current_user['type'] == 0) {
+      $result =	$this->user_model->update_user($data, $id);
+      if ($result) {
+        $res['message'] = ['type' => 'success', 'text' => 'Usuario actualizado con exito'];
+      } else {
+        $res['message'] = ['type' => 'error', 'text' => 'Error al actualizar el usuario'];
+      }
+      $this->response_json($res);
     }
 	}
 

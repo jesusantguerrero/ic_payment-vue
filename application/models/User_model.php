@@ -56,9 +56,9 @@ class User_model extends CI_MODEL{
     return $this->db->insert('ic_users', $this);
   }
 
-  public function update_user($data, $id, $echo = true){
-    $this->db->where('nickname',$id);
-    $this->db->or_where('user_id',$id);
+  public function update_user($data, $id){
+    $this->db->where('nickname', $id);
+    $this->db->or_where('user_id', $id);
     return $this->db->update('ic_users',$data);
   }
 
@@ -157,6 +157,10 @@ class User_model extends CI_MODEL{
     }else{
      return false;
     }
+  }
+
+  private function hash($password) {
+    return password_hash($password, PASSWORD_DEFAULT);
   }
   //functions
 }

@@ -95,19 +95,25 @@
       },
 
       update() {
-        const nick = $('#e-nickname').val();
-        const name = $('#e-name').val();
-        const lastname = $('#e-lastname').val();
-        const dni = $('#e-dni').val();
-        const type = $('#e-type').val();
-        const empty = isEmpty([nick, name, lastname, dni, type]);
         const self = this;
+        const user = this.store.usuario;
+        const userId = user.user_id;
+        const userUpdated = {
+          nickname: user.nickname,
+          name: user.name,
+          lastname: user.lastname,
+          dni: user.dni,
+          type: user.type,
+          email: user.email
+        };
+        const empty = utils.isEmpty(userUpdated);
 
         if (!empty) {
-          const form = `nickname=${nick}&name=${name}&lastname=${lastname}&dni=${dni}&type=${type}`;
-          this.send('update', form)
-            .then(() => {
+          this.$http.post(`user/update/${userId}`, this.getDataForm(userUpdated))
+            .then((res) => {
+              self.showMessage(res.data.message);
               self.getUsers();
+              self.dimiss();
             });
         } else {
           this.$toasted.error('LLene todos los campos por favor');
@@ -160,6 +166,17 @@
           });
       },
 
+      getUser(id) {
+        this.$http.get(`user/get_user/${id}`)
+          .then((res) => {
+            this.store.setUser(res.data.user);
+            this.callModal('edit');
+          })
+          .catch(() => {
+            this.$toasted.error('Error al obtener usuario');
+          });
+      },
+
       callModal(mode) {
         this.modalMode = mode;
         $('#user-modal').modal();
@@ -175,6 +192,10 @@
 
           'click .delete-user': (e, value, row) => {
             this.delete(row.id);
+          },
+
+          'click .edit-user': (e, value, row) => {
+            this.getUser(row.id);
           }
         };
 
