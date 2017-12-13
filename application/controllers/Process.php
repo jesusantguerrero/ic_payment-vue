@@ -32,9 +32,6 @@ class Process extends CI_Controller {
 			case "servicios":
 				$this->service_model->add($data);
 				break;
-			case "averias":
-				$this->averia_model->add($data);
-				break;
 			case "caja":
 				$this->caja_chica_model->add_money($data);
 				break;

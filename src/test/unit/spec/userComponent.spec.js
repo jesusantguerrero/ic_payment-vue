@@ -1,4 +1,5 @@
 import avoriaz from 'avoriaz';
+import Vue from 'vue';
 import UsersSection from './../../../modules/administrador/';
 
 describe('UserSection Component', () => {

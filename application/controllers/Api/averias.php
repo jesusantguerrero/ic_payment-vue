@@ -1,24 +1,38 @@
-<?php 
+<?php
 
-class Averias extends CI_Controller {
+class Averias extends MY_Controller {
   public function __construct() {
     parent::__construct();
     $this->load->model('averia_model');
     $this->load->model('comment_model');
   }
-  
+
   public function search() {
     authenticate();
     $data = json_decode($this->input->post('data'),true);
     $averias = $this->averia_model->search($data['text'],$data['state']);
-    
+
     echo json_encode($averias);
   }
-  
+  public function add_ticket() {
+    authenticate();
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $result = $this->averia_model->add($data);
+      if ($result) {
+
+      } else {
+
+      }
+      $this->response_json($res);
+
+    }
+  }
+
   public function get_averia(){
     authenticate();
     $data = json_decode($this->input->post('data'),true);
-    $response['ticket']   = $this->averia_model->get_averia($data['id_averia']); 
+    $response['ticket']   = $this->averia_model->get_averia($data['id_averia']);
     $response['comments'] = $this->comment_model->get_comments($data['id_averia']);
     echo json_encode($response);
   }
@@ -29,7 +43,7 @@ class Averias extends CI_Controller {
     $id_averia = $data['id_averia'];
     unset($data['id_averia']);
     $response['mensaje'] = MESSAGE_ERROR. " No se pudieron guardar los cambios";
-    
+
     if($this->averia_model->update_all($id_averia,$data)){
       $response['mensaje'] = MESSAGE_SUCCESS . "Cambios Guardados";
     }
@@ -38,7 +52,7 @@ class Averias extends CI_Controller {
   }
 
   public function delete_averia(){
-    
+
   }
 
   // comments

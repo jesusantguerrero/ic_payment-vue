@@ -17,9 +17,9 @@ class Messages extends MY_Controller {
     if ($data) {
       $status = $this->messagegate->send_message($data);
       if(!isset($status['error']) && $status['response']){
-        $res['mensaje'] = ['type' => 'success', 'text' => 'Mensajes enviados correctamente'];
+        $res['menssage'] = ['type' => 'success', 'text' => 'Mensajes enviados correctamente'];
       }else{
-        $res['mensaje'] = ['type' => 'error', 'text' => 'Mensajes no enviados, revise la configuracion de mensajes'];
+        $res['menssage'] = ['type' => 'error', 'text' => 'Mensajes no enviados, revise la configuracion de mensajes'];
       }
       $res['status'] = $status;
       $this->response_json($res);

@@ -9,16 +9,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Averia_model extends CI_MODEL{
-  
+
   #$id_averia = null;
-  #id_cliente 
-  #descripcion 
+  #id_cliente
+  #descripcion
   #fecha
   #estado
-  
+
   public function __construct(){
     parent::__construct();
-     
+
   }
 
   public function add($data){
@@ -29,11 +29,7 @@ class Averia_model extends CI_MODEL{
       'fecha'       => null,
       'estado'      => 'por reparar',
     );
-    if($this->db->insert('ic_averias',$rows)){
-      echo MESSAGE_SUCCESS."Averia Guardada";
-    }else{
-      echo MESSAGE_ERROR."error". " Error";
-    }  
+    return $this->db->insert('ic_averias',$rows);
   }
 
   public function update($id_averia){
@@ -45,7 +41,7 @@ class Averia_model extends CI_MODEL{
         $status = 'reparado';
         $fecha_reparacion = date('Y-m-d');
         break;
-      default: 
+      default:
         $status =  'por reparar';
         $fecha_reparacion = '';
     }
@@ -66,7 +62,7 @@ class Averia_model extends CI_MODEL{
     }
     $this->db->order_by('fecha','DESC');
     $result = $this->db->get('v_averias');
-    
+
     if($result and count($result) > 0){
       $result = $result->result_array();
       $_SESSION['averias'] = $result;
@@ -74,7 +70,7 @@ class Averia_model extends CI_MODEL{
     }else{
       echo "<h3>No hay Datos Para Esta Busqueda</h3>";
     }
-    
+
   }
 
   public function count(){
@@ -85,7 +81,7 @@ class Averia_model extends CI_MODEL{
     }else{
       echo 0;
     }
-    
+
   }
 
   public function search($word,$status){
@@ -104,7 +100,7 @@ class Averia_model extends CI_MODEL{
     $this->db->select('v_averias.* , v_contratos.codigo',false);
     $this->db->where('id_averia',$id_averia);
     $this->db->join('v_contratos','id_cliente','LEFT');
-    
+
     if ($averia = $this->db->get('v_averias',1)) {
       return $averia->row_array();
     }

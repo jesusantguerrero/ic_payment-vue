@@ -9,4 +9,27 @@ test('save company info', async (t) => {
     .click('input[type="submit"]')
     .expect(Selector('.toasted.primary.success').innerText)
     .eql('Datos actualizados con exito');
+  });
+
+  test('should search admin', async (t) => {
+    await t
+    .navigateTo('http://localhost/icpayment/app/admin/administrador')
+    .click('[href="users"]')
+    .typeText('.searcher', 'jguerrero')
+    .expect(Selector('tbody tr:first-child td:nth-child(3)').innerText)
+    .eql('jguerrero');
 });
+
+// text('should save new user', async (t) => {
+//   await t
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .typeText('')
+//     .click('')
+// })

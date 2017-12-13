@@ -20,37 +20,6 @@ export default (Generals) => {
     });
   }
 
-  const averiaClient = $('#a-client').select2({
-    dropdownParent: $('#new-averia-modal'),
-    width: '100%',
-    ajax: {
-      url: `${BASE_URL}process/search`,
-      dataType: 'json',
-      delay: 250,
-      data(params) {
-        return {
-          q: params.term,
-          tabla: 'clientes_para_averias'
-        };
-      },
-
-      processResults(data, params) {
-        params.page = params.page || 1;
-        return {
-          results: data.items,
-          pagination: {
-            more: (params.page * 30) < data.total_count
-          }
-        };
-      },
-      cache: true
-    }
-  });
-
-  $('#btn-save-averia').on('click', (e) => {
-    e.stopImmediatePropagation();
-    Damages.add(averiaClient.val());
-  });
 
   $('.btn-update-averia').on('click', function (e) {
     e.stopImmediatePropagation();

@@ -48,7 +48,7 @@ class App extends MY_Controller {
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
-    $data  = $this->define_data($page);
+    $data  = $this->define_data($page, ['app']);
     $data['user'] = get_user_data();
     $data['notifications'] = $this->report_model->count_moras_view();
     $data['left_navigation_header'] = $this->load->view('layouts/left_navigation_header', $page, true);
@@ -86,8 +86,8 @@ class App extends MY_Controller {
   {
     $jsFiles = [];
     $cssFiles = [];
-    $js = array_merge($js,['manifest','vendor', $title]);
-    $css = array_merge($css,['secundaryCss.min', '5-others/square/frontend.min', 'main.min']);
+    $js  = array_merge(['manifest','vendor'], $js, [$title]);
+    $css = array_merge(['secundaryCss.min', '5-others/square/frontend.min', 'main.min'], $css);
     $assets   = 'assets/';
 
     foreach ($js as $filename) {

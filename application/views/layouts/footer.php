@@ -1,3 +1,6 @@
+      <!-- <petty-cash-modal :store="store" :money-movement="store.moneyMovement" :modal-mode="pettyCashMode" @add="addMoney", @retire="retireMoney"/> -->
+      <message-modal/>
+      <ticket-modal/>
       <iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
     </main>
     <script>
