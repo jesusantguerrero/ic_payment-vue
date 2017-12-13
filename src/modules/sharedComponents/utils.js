@@ -1,4 +1,19 @@
-const isEmpty = values => values.some(val => (val == null || val === ''));
-const prueba = () => console.log('prueba');
+export default {
+  isEmpty(values) {
+    let props = [];
+    if (Array.isArray(values)) {
+      props = values;
+    } else {
+      const keys = Object.keys(values);
+      props = [];
+      keys.forEach((key) => {
+        props.push(values[key]);
+      });
+    }
+    return props.some(val => (val == null || val === ''));
+  },
 
-export { isEmpty, prueba };
+  prueba() {
+    console.log('prueba');
+  }
+};

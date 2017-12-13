@@ -10,8 +10,8 @@
           button.btn.btn-primary.icon: i.material-icons
         .pull-right
           button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal", @click="callModal('new')") Agregar <i class="material-icons">add</i>
-      DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar")
-      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode")
+      DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions")
+      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode", @add="add", @update="update", @dimiss="dimiss")
 </template>
 
 <script>
@@ -19,6 +19,7 @@
   import 'bootstrap';
   import DataTable from './../../sharedComponents/DataTable.vue';
   import UserModal from './UserModal.vue';
+  import utils from './../../sharedComponents/utils';
 
   export default {
     components: {
@@ -46,7 +47,10 @@
           { val: 1, text: 'Secretario(a)' },
           { val: 2, text: 'Tecnico' }
         ],
-        modalMode: 'new'
+        modalMode: 'new',
+        tableOptions: {
+          pageSize: 5
+        }
       };
     },
 
@@ -57,25 +61,37 @@
     methods: {
       add() {
         const self = this;
-        const nick = $('#user-nickname').val();
-        const password = $('#user-password').val();
-        const name = $('#user-name').val();
-        const lastname = $('#user-lastname').val();
-        const dni = getVal($('#user-dni'));
-        const type = $('#user-type').val();
-        const empty = isEmpty([nick, password, name, lastname, dni, type]);
+        const user = this.store.usuario;
+        const newUser = {
+          nickname: user.nickname,
+          password: user.password,
+          name: user.name,
+          lastname: user.lastname,
+          dni: user.dni,
+          type: user.type,
+          email: user.email,
+        };
+        const empty = utils.isEmpty(newUser);
 
         if (!empty) {
-          const form = `nickname=${nick}&password=${password}&name=${name}
-          &lastname=${lastname}&dni=${dni}&type=${type}`;
-          this.$http.post('add', form)
-            .then((res) => {
-              self.showMessage(res.data);
-              self.getUsers();
-            });
+          if (newUser.password === this.validation.password_confirm) {
+            this.$http.post('user/add', this.getDataForm(newUser))
+              .then((res) => {
+                self.showMessage(res.data.message);
+                self.getUsers();
+                self.dimiss();
+              });
+          } else {
+            this.$toasted.error('Las contraseñas no coinciden');
+          }
         } else {
           this.$toasted.error('LLene todos los campos por favor');
         }
+      },
+
+      dimiss() {
+        this.store.emptyUser();
+        this.validation.password_confirm = '';
       },
 
       update() {

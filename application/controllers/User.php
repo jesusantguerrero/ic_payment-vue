@@ -10,11 +10,23 @@ class User extends MY_Controller {
 
 	public function add(){
 		authenticate();
-    $data 	= $this->get_post_data();
+    $data 	= $this->get_post_data('data');
     if ($data) {
       $result = $this->user_model->add_new_user($data);
+      switch ($result) {
+        case 0:
+          $res['message'] = ['type' => 'error', 'text' => 'No pudo guardarse el usuario'];
+          break;
+        case 1:
+          $res['message'] = ['type' => 'success', 'text' => 'Usuario guardado con exito'];
+          break;
+        case 3:
+          $res['message'] = ['type' => 'info', 'text' => 'Este usuario ya existe'];
+          break;
+      }
     }
-	}
+    $this->response_json($res);
+  }
 
 	public function update(){
 		authenticate();
@@ -70,13 +82,18 @@ class User extends MY_Controller {
     authenticate();
     $user = get_user_data();
     if ($user['type'] == 0) {
-      $this->user_model->get_all_users();
+      echo $this->user_model->get_all_users();
     }
 	}
 
-	public function get_user(){
-		authenticate();
-		$user = get_user_data();
+	public function get_user($id = false){
+    authenticate();
+    if (!$id) {
+      $user = get_user_data();
+    } else {
+      $user = $this->user_model->get_user($id);
+      unset($user['password']);
+    }
     $user['role'] = get_role($user['type']);
     $res['user'] = $user;
 		$this->response_json($res);

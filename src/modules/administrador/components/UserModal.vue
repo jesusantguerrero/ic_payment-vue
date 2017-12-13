@@ -32,12 +32,12 @@
                 .form-group
                   label(for="user-dni") Cedula(sin guiones)
                   input.form-control#user-model(type="text", v-model="user.dni")
-              .col-md-12
-                  label(for="user-email")
+                .form-group
+                  label(for="user-email") Correo Electronico
                   input.form-control#user-email(type="email", v-model="user.email")
         .modal-footer
           button(type="button", data-dismiss="modal").btn Cancelar
-          button(type="button").btn.save#btn-save-user Guardar
+          button(type="button", @click="save").btn.save#btn-save-user Guardar
 </template>
 
 <script>
@@ -51,11 +51,20 @@
       },
       userTypes: {
         type: Array
+      },
+      modalMode: {
+        type: String
       }
     },
 
     methods: {
-
+      save() {
+        if (this.modalMode === 'new') {
+          this.$emit('add');
+        } else {
+          this.$emit('update');
+        }
+      }
     },
 
     computed: {

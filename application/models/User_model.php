@@ -47,20 +47,13 @@ class User_model extends CI_MODEL{
   }
 
   public function add_new_user($data){
-    $this->organize_data($data,"normal");
-    $result = $this->db->query("SELECT * FROM ic_users WHERE nickname = '". $this->nickname . "'");
-    $result = $result->result_array();
-    $result = count($result);
-    if($result){
-      echo MESSAGE_ERROR." Este nombre de usuario ya está registrado";
-    }else{
-      if($this->db->insert('ic_users',$this)){
-        echo MESSAGE_SUCCESS." Usuario agregado con exito";
-      }else{
-       echo "No pudo guardarse el usuario";
-      }
-
+    $this->db->where('nickname', $data['nickname']);
+    $result = $this->db->count_all_results('ic_users');
+    if($result > 0){
+      return 3;
     }
+    $this->organize_data($data, "normal");
+    return $this->db->insert('ic_users', $this);
   }
 
   public function update_user($data, $id, $echo = true){
@@ -81,11 +74,12 @@ class User_model extends CI_MODEL{
     }
   }
 
-  public function get_all_users(){
-    $sql = "SELECT * FROM ic_users LIMIT 5";
-    $result = $this->db->query($sql);
-    $result = make_table($result->result_array(),0);
-    echo $result;
+  public function get_all_users($table = true){
+    $result = $this->db->get('ic_users');
+    if ($result && $table) {
+      return make_table($result->result_array(),0);
+    }
+    return $result->result_array();
   }
 
   public function get_user($id){

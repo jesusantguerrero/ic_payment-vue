@@ -42,7 +42,7 @@ export default class Store {
     this.usuario = user;
   }
 
-  cleanUser() {
+  emptyUser() {
     this.usuario = {
       user_id: '',
       nickname: '',
