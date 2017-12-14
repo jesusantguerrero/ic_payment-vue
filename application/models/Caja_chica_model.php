@@ -10,21 +10,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Caja_chica_model extends CI_MODEL{
 
-  
+
   #$id_averia = null;
-  #id_cliente 
-  #descripcion 
+  #id_cliente
+  #descripcion
   #fecha
   #estado
   private $id_empleado;
-  
+
   public function __construct(){
     parent::__construct();
-     
+
     if(isset($_SESSION['user_data'])){
       $this->id_empleado = $_SESSION['user_data']['user_id'];
     }
-    
+
   }
 
   public function add_money($data){
@@ -37,11 +37,7 @@ class Caja_chica_model extends CI_MODEL{
       'salida'      => 0,
       'saldo_actual'=> $saldo_actual + $data['entrada']
     );
-    if($this->db->insert('ic_caja_chica',$rows)){
-      echo MESSAGE_SUCCESS."Trasacción Realizada con exito";
-    }else{
-      echo MESSAGE_ERROR." hubo un error en la transaccion:". " Error";
-    }  
+    return $this->db->insert('ic_caja_chica',$rows);
   }
 
   public function retire_money($data){
@@ -54,11 +50,7 @@ class Caja_chica_model extends CI_MODEL{
       'salida'      => $data['salida'],
       'saldo_actual'=> $saldo_actual - $data['salida']
     );
-    if($this->db->insert('ic_caja_chica',$rows)){
-      echo MESSAGE_SUCCESS."Trasacción Realizada con exito";
-    }else{
-      echo MESSAGE_ERROR." hubo un error en la transaccion:". " Error";
-    }
+    return $this->db->insert('ic_caja_chica',$rows);
 
   }
 
@@ -77,7 +69,7 @@ class Caja_chica_model extends CI_MODEL{
     }else{
       echo " Error";
     }
-    
+
   }
 
   public function get_last_saldo(){
@@ -92,12 +84,12 @@ class Caja_chica_model extends CI_MODEL{
 
   public function get_transactions_per_month($field){
     $resultado_por_mes = array();
-    
-    for ($i=1; $i <= 12 ; $i++) { 
+
+    for ($i=1; $i <= 12 ; $i++) {
       $sql = "SELECT sum($field) from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i";
       $result = $this->db->query($sql)->row_array()["sum($field)"];
       if($result){
-        $value = $result; 
+        $value = $result;
       }else{
         $value = "0";
       }
@@ -108,12 +100,12 @@ class Caja_chica_model extends CI_MODEL{
 
   public function get_balance_per_month(){
     $resultado_por_mes = array();
-    
-    for ($i=1; $i <= 12 ; $i++) { 
+
+    for ($i=1; $i <= 12 ; $i++) {
       $sql = "SELECT saldo_actual from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i order by fecha desc";
       $result = $this->db->query($sql)->row_array()["saldo_actual"];
       if($result){
-        $value = $result; 
+        $value = $result;
       }else{
         $value = "0";
       }

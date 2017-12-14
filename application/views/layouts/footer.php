@@ -1,11 +1,13 @@
-      <!-- <petty-cash-modal :store="store" :money-movement="store.moneyMovement" :modal-mode="pettyCashMode" @add="addMoney", @retire="retireMoney"/> -->
-      <message-modal/>
-      <ticket-modal/>
+      <message-modal></message-modal>
+      <petty-cash-modal :store="store" :money-movement="store.moneyMovement" :modal-mode="pettyCashMode" @add="addMoney" @retire="retireMoney"></petty-cash-modal>
+      <ticket-modal></ticket-modal>
       <iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
     </main>
+
     <script>
       const baseURL = '{url}'
     </script>
+
     {js}
       <script src="{link}"></script>
     {/js}

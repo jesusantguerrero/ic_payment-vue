@@ -13,7 +13,7 @@ export default {
     return props.some(val => (val == null || val === ''));
   },
 
-  prueba() {
-    console.log('prueba');
+  prueba(num) {
+    return num2 => num + num2;
   }
 };

@@ -139,7 +139,6 @@
 
         selects.messageType.on('select2:select', (e) => {
           const tipo = e.params.data.id;
-          console.log('here we are');
           self.message_data.tipo = tipo;
 
           if (tipo === 'otros') {

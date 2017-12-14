@@ -11,14 +11,14 @@
               .col-md-12
                 .form-group
                   label(for="user-nickname") Cliente
-                  select(class="form-control", id="a-client")
+                  select(class="form-control", id="a-client", v-model="ticket.id_cliente")
                     option(value="0") Escriba el nombre del cliente
                 .form-group
                   label(for="service-description") Descripción
-                  textarea(class="form-control", cols="30", rows="5", id="a-description")
+                  textarea(class="form-control", cols="30", rows="5", id="a-description", v-model="ticket.descripcion")
         .modal-footer
           button(type="button", class="btn", data-dismiss="modal") Cancelar
-          button(type="button", class="btn save", id="btn-save-averia") Guardar
+          button(type="button", class="btn save", id="btn-save-averia", @click="addTicket") Guardar
 </template>
 
 <script>
@@ -35,17 +35,18 @@
         ticket: {
           descripcion: '',
           id_cliente: '',
-        }
+        },
+        sel: ''
       };
     },
 
     methods: {
       initSelect2() {
-        const ticketClient = $('#a-client').select2({
-          dropdownParent: $('#new-averia-modal'),
+        this.sel = $('#a-client').select2({
+          dropdownParent: $('#ticket-modal'),
           width: '100%',
           ajax: {
-            url: `${BASE_URL}process/search`,
+            url: `${baseURL}process/search`,
             dataType: 'json',
             delay: 250,
             data(params) {
@@ -68,8 +69,8 @@
           }
         });
 
-        ticketClient.on('select2:select', (e) => {
-          this.id_cliente = e.params.data.id;
+        this.sel.on('select2:select', (e) => {
+          this.ticket.id_cliente = e.params.data.id;
         });
       },
 
@@ -92,6 +93,7 @@
           descripcion: '',
           id_cliente: '',
         };
+        this.sel.val(null).trigger('change');
       }
     }
   };

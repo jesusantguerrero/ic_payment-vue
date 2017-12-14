@@ -20,11 +20,11 @@ class Averias extends MY_Controller {
     if ($data) {
       $result = $this->averia_model->add($data);
       if ($result) {
-
+        $this->set_message('Nueva averia agregada');
       } else {
-
+        $this->set_message('Error al agregar averia');
       }
-      $this->response_json($res);
+      $this->response_json();
 
     }
   }

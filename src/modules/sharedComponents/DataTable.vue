@@ -113,7 +113,7 @@
 
       listen() {
         const self = this;
-        this.table.on('all.bs.table', function (e, name, args) {
+        this.table.on('all.bs.table', (e, name, args) => {
           if (name !== 'check.bs.table' && name !== 'uncheck.bs.table') {
             self.$emit(name, args);
           } else {
@@ -135,17 +135,17 @@
         // const $other       = $(`${parentId} .first-date`);
         // const $other        = $(`${parentId} .last-date`);
         const self = this;
-
+        // eslint-disable-next-line
         $inputSearch.on('click', function () {
           const $this = $(this).parent();
           $this.addClass('focus');
         });
-
+        // eslint-disable-next-line
         $inputSearch.on('blur', function () {
           const $this = $(this).parent();
           $this.removeClass('focus');
         });
-
+        // eslint-disable-next-line
         this.$filter.on('change', function () {
           let filterWord = $(this).val();
           if (filterWord === 'all') {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal.fade#petty-cash(tabindex="-1", role="dialog")
+  .modal.fade#petty-cash-modal(tabindex="-1", role="dialog")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
@@ -14,11 +14,11 @@
                   input.form-control#petty-cash-amount(type="number", v-model="moneyMovement.amount")
               .col-md-12
                 .form-group
-                  label(for="income-description") Descripción
+                  label(for="petty-cash-description") Descripción
                   textarea.form-control#petty-cash-description(cols="30", rows="5", v-model="moneyMovement.description")
         .modal-footer
           button(type="button", class="btn", data-dismiss="modal") Cancelar
-          button(type="button", class="btn save", id="btn-dayly-box__save", @save="save") Guardar
+          button(type="button", class="btn save", id="btn-petty-cash__save", @click="save") Guardar
 </template>
 
 <script>

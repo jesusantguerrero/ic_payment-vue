@@ -15,7 +15,6 @@ class Process extends CI_Controller {
 		$this->load->model("report_model");
 		$this->load->model("settings_model");
 		$this->load->model("averia_model");
-		$this->load->model("caja_chica_model");
 		$this->load->model("section_model");
 		$this->load->model("extra_model");
 		$this->load->model("cancelations_model");
@@ -31,9 +30,6 @@ class Process extends CI_Controller {
 				break;
 			case "servicios":
 				$this->service_model->add($data);
-				break;
-			case "caja":
-				$this->caja_chica_model->add_money($data);
 				break;
 			case "secciones":
 				$is_saved = $this->section_model->add($data);
@@ -234,12 +230,6 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function retire(){
-		authenticate();
-		$data = $_POST;
-		$this->caja_chica_model->retire_money($data);
-	}
-
 	public function upgrade(){
 		authenticate();
 		$data_cambio = $_POST;
@@ -289,9 +279,6 @@ class Process extends CI_Controller {
 			case "secciones":
 				$this->section_model->get_sections_dropdown();
 				break;
-			case "caja":
-				$this->caja_chica_model->get_rows();
-				break;
 		}
 	}
 
@@ -334,10 +321,6 @@ class Process extends CI_Controller {
 				}else{
 					echo "nada";
 				}
-				break;
-			case "caja":
-				$result = $this->caja_chica_model->get_last_saldo();
-				echo $result;
 				break;
 		}
 	}
@@ -406,9 +389,6 @@ class Process extends CI_Controller {
 				break;
 			case 'v_contratos':
 				 $this->contract_view_model->search_contracts($word);
-				break;
-			case 'caja':
-				 $this->caja_chica_model->search_in_rows($data['id_empleado'],$data['fecha']);
 				break;
 		}
 	}

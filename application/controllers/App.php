@@ -51,7 +51,6 @@ class App extends MY_Controller {
     $data  = $this->define_data($page, ['app']);
     $data['user'] = get_user_data();
     $data['notifications'] = $this->report_model->count_moras_view();
-    $data['left_navigation_header'] = $this->load->view('layouts/left_navigation_header', $page, true);
 
     $this->twig->display('layouts/header', $data);
     $this->load->view("pages/$page", $data);

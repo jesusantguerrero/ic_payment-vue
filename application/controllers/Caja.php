@@ -7,13 +7,13 @@ class Caja extends CI_Controller {
 		parent::__construct();
 		$this->load->model("caja_mayor");
 	}
-	
+
 	public function add_gasto(){
 		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_gasto($data);
 	}
-	
+
 	public function get_gastos($full = false){
 		authenticate();
 		$data = json_decode($_POST['data'],true);
@@ -26,13 +26,13 @@ class Caja extends CI_Controller {
 			}
 		}
 	}
-	
+
 	public function delete_gasto(){
 		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->delete_gasto($data);
 	}
-	
+
 	public function get_ingresos(){
 		authenticate();
 		if(isset($_POST['data'])){
@@ -46,7 +46,7 @@ class Caja extends CI_Controller {
 		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extras');
 		echo json_encode($response);
 	}
-	
+
 	public function getjson() {
 		authenticate();
 		$data = json_decode($_POST['data'],true);
@@ -91,7 +91,7 @@ class Caja extends CI_Controller {
 			$data = json_decode($_POST['data'],true);
 			if($data) {
 				$res = $this->caja_mayor->get_cierres($data['text'], $data['first_date'], $data['second_date']);
-				echo json_encode($res);	
+				echo json_encode($res);
 			}
 	}
 
@@ -117,6 +117,5 @@ class Caja extends CI_Controller {
 		$response['ganancias'] = $ganancias;
 		echo json_encode($response);
 	}
-
 
 }

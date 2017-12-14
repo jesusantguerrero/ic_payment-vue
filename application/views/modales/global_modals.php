@@ -194,17 +194,3 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<script type="text/x-template" id="demo-template">
-  <div>
-    <select2 :options="options" v-model="selected">
-      <option disabled value="0">Select one</option>
-    </select2>
-  </div>
-</script>
-
-<script type="text/x-template" id="select2-template">
-  <select>
-    <slot></slot>
-  </select>
-</script>
