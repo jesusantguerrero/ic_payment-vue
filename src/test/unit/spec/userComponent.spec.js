@@ -2,13 +2,15 @@ import avoriaz from 'avoriaz';
 import Vue from 'vue';
 import UsersSection from './../../../modules/administrador/';
 
+const admin = `
+<div id="administrador"> </div>
+`;
+
+document.body.innerHTML = document.body.innerHTML + admin;
+
 describe('UserSection Component', () => {
   beforeEach(() => {
-    const admin = `
-      <div id="administrador"> </div>
-    `;
 
-    document.body.innerHTML = document.body.innerHTML + admin;
   });
 
   it('should be mounted', () => {

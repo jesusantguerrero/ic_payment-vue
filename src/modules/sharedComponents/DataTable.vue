@@ -68,7 +68,7 @@
           pagination: true,
           idField: 'id',
           pageSize: self.options.pageSize || 50,
-          pageList: '[10,20,50,100,2000]',
+          pageList: self.options.pageList || [10, 20, 50, 100, 2000],
           showFooter: false,
           clickToSelect: true,
           singleSelect: true,

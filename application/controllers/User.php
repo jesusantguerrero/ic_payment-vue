@@ -81,11 +81,14 @@ class User extends MY_Controller {
 		}
 	}
 
-	public function get_users(){
+	public function get_users($mode = false){
     authenticate();
     $user = get_user_data();
-    if ($user['type'] == 0) {
+    if ($user['type'] == 0 && !$mode) {
       echo $this->user_model->get_all_users();
+    } else if ($mode == 'dropdown') {
+      $list = $this->user_model->get_users_list();
+      $this->response_json($list);
     }
 	}
 

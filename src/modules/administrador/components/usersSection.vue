@@ -5,7 +5,7 @@
       .searcher-container.main-toolbar#user-toolbar
         .input-group.search
           .input-group-addon: i.material-icons search
-          input(type="text" placeholder=" descripcion").form-control.searcher
+          input(type="text", placeholder=" descripcion").form-control.searcher
         .pull-right
           button.btn.btn-primary.icon: i.material-icons
         .pull-right

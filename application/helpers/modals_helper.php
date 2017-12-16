@@ -33,14 +33,8 @@ if ( ! function_exists('get_modals'))
       case 'detalles':
         array_push($modals, 'modales/contract_modals');
         break;
-      // case 'notificaciones':
-      //   # code...
-      //   break;
-      case 'administrador':
-        array_push($modals,'modales/user_modals');
-        break;
     }
-   
+
     return $modals;
   }
 }

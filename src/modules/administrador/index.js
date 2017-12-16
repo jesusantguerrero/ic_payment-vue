@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Toasted from 'vue-toasted';
+import utils from './../sharedComponents/utils';
 import adminSection from './adminSection.vue';
 
 const options = {
@@ -20,6 +21,12 @@ Vue.mixin({
     getDataForm(object) {
       return `data=${JSON.stringify(object)}`;
     }
+  },
+
+  filters: {
+    currencyFormat(number) {
+      return utils.CurrencyFormat(number);
+    }
   }
 });
 
@@ -33,6 +40,6 @@ Vue.prototype.$http = $http;
 export default new Vue({
   el: '#administrador',
   components: {
-    adminSection
+    'admin-section': adminSection
   }
 });

@@ -91,10 +91,10 @@ class User_model extends CI_MODEL{
   }
 
   public function get_users_list(){
-    $sql    = "SELECT user_id, name,lastname FROM ic_users";
-    $result = $this->db->query($sql);
-    $result = make_users_list($result->result_array());
-    echo $result;
+    $this->db->select('user_id, name, lastname');
+    if ($users = $this->db->get('ic_users')) {
+      return make_users_list($users->result_array());
+    }
   }
 
   public function delete_user($id){
@@ -162,5 +162,5 @@ class User_model extends CI_MODEL{
   private function hash($password) {
     return password_hash($password, PASSWORD_DEFAULT);
   }
-  //functions
+
 }

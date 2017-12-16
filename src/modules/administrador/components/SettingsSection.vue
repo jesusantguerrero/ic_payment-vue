@@ -6,46 +6,28 @@
         .col-md-6
           .form-group
             label(for="company-name") Monto de la mora
-            .input-group
-              .input-group-addon
-                i.material-icons &percnt;
-              input(type="number", v-model="settings.cargo_mora").form-control
+            input(type="number", v-model="settings.cargo_mora").form-control
 
           .form-group
-                label(for="company-phrase") Fecha de Corte
-                .input-group
-                  .input-group-addon
-                    i.material-icons event
-                  input(type="number", v-model="settings.fecha_corte").form-control
+            label(for="company-phrase") Fecha de Corte
+            input(type="number", v-model="settings.fecha_corte").form-control
 
           .form-group
             label(for="company-phone1") Monto de Reconexion
-            .input-group
-              .input-group-addon
-                i.material-icons attach_money
-              input(type="number", v-model="settings.reconexion").form-control
+            input(type="number", v-model="settings.reconexion").form-control
 
         .col-md-6
           .form-group
             label(for="company-name") Penalizacion Por Cancelacion:
-            .input-group
-              .input-group-addon
-                i.material-icons &percnt;
-              input(type="number", v-model="settings.penalizacion_cancelacion").form-control
+            input(type="number", v-model="settings.penalizacion_cancelacion").form-control
 
           .form-group
             label(for="company-name") Meses Por defecto de un contrato:
-            .input-group
-              .input-group-addon
-                i.material-icons event_note
-              input(type="number", v-model="settings.meses_por_defecto").form-control
+            input(type="number", v-model="settings.meses_por_defecto").form-control
 
           .form-group
             label(for="company-name") Split Day
-            .input-group
-              .input-group-addon
-                i.material-icons event_note
-              input(type="number", v-model="settings.split_day").form-control
+            input(type="number", v-model="settings.split_day").form-control
 
           .right
             input#btn-update-settings(type="submit", @click.prevent="update", value="Guardar Datos")

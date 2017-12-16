@@ -16,6 +16,7 @@ export default class appStore {
   }
 
   setPettyCashBalance(balance) {
-    this.pettyCashBalance = (balance > 0 && typeof balance === 'number') ? balance : 0.00;
+    const nBalance = Number(balance);
+    this.pettyCashBalance = (nBalance > 0 && typeof nBalance === 'number') ? nBalance : 0.00;
   }
 }

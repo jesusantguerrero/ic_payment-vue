@@ -3,7 +3,7 @@ import axios from 'axios';
 import Toasted from 'vue-toasted';
 import globals from './../sharedComponents/globals';
 import Service from './service/loginService';
-import { isEmpty } from './../sharedComponents/utils';
+import utils from './../sharedComponents/utils';
 
 globals(Vue, Toasted, axios);
 
@@ -26,7 +26,7 @@ export default new Vue({
 
   methods: {
     login() {
-      if (!isEmpty([this.credentials.user, this.credentials.password])) {
+      if (!utils.isEmpty([this.credentials.user, this.credentials.password])) {
         this.doLogin();
       } else {
         this.$toasted.error('LLene todos los campos indicados para ingresar');

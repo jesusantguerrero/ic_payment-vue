@@ -294,6 +294,11 @@ if ( ! function_exists('make_caja_table')){
         <td>RD$ ".CurrencyFormat($line['salida'])."</td>
         <td>RD$ ".CurrencyFormat($line['saldo_actual'])."</td>
         <td>".$line['autor']."</td>
+        <td>
+          <i class='material-icons btn-action edit-user'>edit</i>
+          <i class='material-icons btn-action delete-user'>delete</i>
+          <i class='material-icons btn-action display-user'>find_in_page</i>
+        </td>
       </tr>";
     }
 

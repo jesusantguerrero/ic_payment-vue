@@ -26,20 +26,27 @@
       $data = $this->get_post_data('data');
       if ($data) {
         $data = $this->transaction_format('salida', $data);
-        $result	= $this->caja_chica_model->retire_money($data);
-        if ($result) {
-          $this->set_message('Monto registrado');
+        $balance = $this->caja_chica_model->get_balance();
+
+        if ( $data['salida'] > $balance) {
+          $this->set_message('El registro de salida que intenta ingresar es mayor a balance actual', 'error');
         } else {
-          $this->set_message('Error al registrar la transaccion', 'error');
+          $result	= $this->caja_chica_model->retire_money($data);
+          if ($result) {
+            $this->set_message('Monto registrado');
+          } else {
+            $this->set_message('Error al registrar la transaccion', 'error');
+          }
         }
         $this->response_json();
       }
     }
 
-    public function get_trasactions() {
+    public function get_transactions() {
       authenticate();
-      $rows = $this->caja_chica_model->get_rows();
-      $this->response_json($rows);
+      $res['transactions'] = $this->caja_chica_model->get_rows();
+      $res['balance'] = $this->caja_chica_model->get_balance();;
+      $this->response_json($res);
     }
 
     public function search_trasactions(){
@@ -47,9 +54,9 @@
       $this->caja_chica_model->search_in_rows($data['id_empleado'],$data['fecha']);
     }
 
-    public function get_current_balance() {
+    public function get_balance() {
       authenticate();
-      $balance = $this->caja_chica_model->get_last_saldo();
+      $balance = $this->caja_chica_model->get_balance();
       $this->response_json($balance);
     }
 

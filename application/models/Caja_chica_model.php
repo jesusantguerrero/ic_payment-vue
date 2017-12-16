@@ -28,7 +28,7 @@ class Caja_chica_model extends CI_MODEL{
   }
 
   public function add_money($data){
-    $saldo_actual = $this->get_last_saldo();
+    $saldo_actual = $this->get_balance();
     $rows = array(
       'id'   => null,
       'id_empleado' => $this->id_empleado,
@@ -41,7 +41,7 @@ class Caja_chica_model extends CI_MODEL{
   }
 
   public function retire_money($data){
-    $saldo_actual = $this->get_last_saldo();
+    $saldo_actual = $this->get_balance();
     $rows = array(
       'id'   => null,
       'id_empleado' => $this->id_empleado,
@@ -57,7 +57,7 @@ class Caja_chica_model extends CI_MODEL{
 
   public function get_rows(){
     $result = $this->db->get('v_caja');
-    echo make_caja_table($result->result_array());
+    return make_caja_table($result->result_array());
   }
 
   public function search_in_rows($id_empleado = '%',$fecha = '%'){
@@ -72,11 +72,11 @@ class Caja_chica_model extends CI_MODEL{
 
   }
 
-  public function get_last_saldo(){
-    $this->db->select('saldo_actual');
-    $this->db->order_by('fecha','DESC');
-    if($saldo = $this->db->get('ic_caja_chica',1)):
-      return $saldo->row_array()['saldo_actual'];
+  public function get_balance(){
+    $this->db->select('sum(entrada) as ingresos, sum(salida) as salidas', false);
+    if($balance = $this->db->get('ic_caja_chica', 1)):
+     $balance = $balance->row_array();
+     return $balance['ingresos'] - $balance['salidas'];
     else:
       return 0.00;
     endif;
