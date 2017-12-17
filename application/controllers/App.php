@@ -14,7 +14,7 @@ class App extends MY_Controller {
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
 		$this->load->model("report_model");
-		$this->load->model("caja_chica_model");
+		$this->load->model("petty_cash_model");
 		$this->load->model("averia_model");
 		$this->load->model("section_model");
 		$this->load->model("extra_model");

@@ -19,12 +19,11 @@
       DataTable(ids="petty-cash-table",:parentId="parentId", :data="transactions", :cols="cols", :toolbar="toolbar", :options="tableOptions")
 </template>
 
-
 <script>
-  import Store from './../../app/store/index';
+  import swal from 'sweetalert2';
   import DataTable from './../../sharedComponents/DataTable.vue';
 
-  const store = new Store();
+  const store = window.appStore;
 
   export default {
     components: {
@@ -49,11 +48,14 @@
       };
     },
 
-    mounted() {
+    created() {
+      const self = this;
+      window.appBus.$on('transaction', () => {
+        self.getTransactions();
+      });
       this.getTransactions();
       this.getUserList();
     },
-
     methods: {
       getTransactions() {
         const self = this;
@@ -64,32 +66,67 @@
           });
       },
 
-      search() {
-        const self = this;
-        const form = `tabla=caja&id_empleado=${searchOptions.user}&fecha=${searchOptions.firstDate}`;
-        this.send('search', form)
+      getTransaction(id) {
+        this.$http.get(`petty_cash/get_trasaction/${id}`)
           .then((res) => {
-            self.cajaTable.refresh(res.data);
+            this.store.setPettyCashTransaction(res.data.transaction);
+            this.store.setPettyCashMode('edit');
+          })
+          .catch(() => {
+            this.$toasted.error('Error al obtener usuario');
           });
       },
 
-      send(endpoint, data) {
-        return axios.post(`${BASE_URL}process/${endpoint}`, data);
+      search() {
+        const self = this;
+        this.$http.post('petty_cash/search', this.getDataform(this.searchOptions))
+          .then((res) => {
+            self.transactions = res.data.transactions;
+          });
+      },
+
+      delete(id, date) {
+        const self = this;
+
+        function sendDelete() {
+          const form = { id, date };
+          self.$http.post('petty_cash/delete', self.getDataForm(form))
+            .then((res) => {
+              self.showMessage(res.data.message);
+              self.getTransactions();
+            });
+        }
+
+        swal({
+          title: 'Eliminar Transacción',
+          text: '¿Estas seguro de querer eliminar esta transacción?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.value) {
+            sendDelete();
+          }
+        });
       },
 
       getUserList() {
         this.$http.get('user/get_users/dropdown')
           .then((res) => {
             this.userList = res.data;
+            this.searchOptions.user = 'todos';
           });
       }
     },
 
     computed: {
       cols() {
-        const userEvents = {
-          'click .delete-trasaction': (e, value, row) => {
-            this.delete(row.id);
+        const pettyCashEvents = {
+          'click .delete-transaction': (e, value, row) => {
+            this.delete(row.id, row.fecha);
           },
         };
 
@@ -150,7 +187,7 @@
             align: 'center',
             valign: 'middle',
             sortable: false,
-            events: userEvents
+            events: pettyCashEvents
           }
         ];
       }

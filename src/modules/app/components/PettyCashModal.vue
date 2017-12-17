@@ -9,13 +9,16 @@
           form
             .row
               .col-md-12
-                .form-group
-                  label(for="#petty-cash-amount") Cantidad
-                  input.form-control#petty-cash-amount(type="number", v-model="moneyMovement.amount")
+                .form-group(v-if="modalMode == 'add' || modalMode == 'edit'")
+                  label(for="#petty-cash-amount") Cantidad Entrada
+                  input.form-control#petty-cash-add(type="number", v-model="transaction.entrada")
+                .form-group(v-if="modalMode == 'retire' || modalMode == 'edit'")
+                  label(for="#petty-cash-amount") Cantidad Retiro
+                  input.form-control#petty-cash-retire(type="number", v-model="transaction.salida")
               .col-md-12
                 .form-group
                   label(for="petty-cash-description") Descripción
-                  textarea.form-control#petty-cash-description(cols="30", rows="5", v-model="moneyMovement.description")
+                  textarea.form-control#petty-cash-description(cols="30", rows="5", v-model="transaction.descripcion")
         .modal-footer
           button(type="button", class="btn", data-dismiss="modal") Cancelar
           button(type="button", class="btn save", id="btn-petty-cash__save", @click="save") Guardar
@@ -24,7 +27,7 @@
 <script>
   export default {
     props: {
-      moneyMovement: {
+      transaction: {
         type: Object
       },
       modalMode: {
@@ -40,11 +43,7 @@
 
     methods: {
       save() {
-        if (this.modalMode === 'add') {
-          this.$emit('add');
-        } else {
-          this.$emit('retire');
-        }
+        this.$emit('save');
       }
     },
 

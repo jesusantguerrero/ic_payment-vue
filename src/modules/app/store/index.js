@@ -1,18 +1,28 @@
 export default class appStore {
   constructor() {
-    this.moneyMovement = {
-      amount: 0,
-      description: ''
+    this.pettyCashTransaction = {
+      entrada: 0,
+      salida: 0,
+      descripcion: ''
     };
-
+    this.pettyCashMode = 'retire';
     this.pettyCashBalance = 0.00;
   }
 
-  moneyMovementEmpty() {
-    this.moneyMovement = {
-      amount: 0.00,
-      description: ''
+  pettyCashTransactionEmpty() {
+    this.pettyCashTransaction = {
+      entrada: 0.00,
+      salida: 0.00,
+      descricion: ''
     };
+  }
+
+  setPettyCashMode(mode) {
+    this.pettyCashMode = mode;
+  }
+
+  setPettyCashTransaction(pettyCashTransaction) {
+    this.pettyCashTransaction = pettyCashTransaction;
   }
 
   setPettyCashBalance(balance) {

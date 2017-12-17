@@ -8,73 +8,61 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Caja_chica_model extends CI_MODEL{
+class Petty_cash_model extends CI_MODEL{
 
-
-  #$id_averia = null;
-  #id_cliente
-  #descripcion
-  #fecha
-  #estado
-  private $id_empleado;
+  private $user_id;
+  private $table;
+  private $view;
 
   public function __construct(){
     parent::__construct();
+    $this->table = 'ic_caja_chica';
+    $this->view = 'v_caja';
 
     if(isset($_SESSION['user_data'])){
-      $this->id_empleado = $_SESSION['user_data']['user_id'];
+      $this->user_id = $_SESSION['user_data']['user_id'];
     }
 
   }
 
-  public function add_money($data){
-    $saldo_actual = $this->get_balance();
-    $rows = array(
+  private function order_data($data) {
+    return [
       'id'   => null,
-      'id_empleado' => $this->id_empleado,
+      'id_empleado' => $this->user_id,
       'descripcion' => $data['descripcion'],
       'entrada'     => $data['entrada'],
       'salida'      => 0,
-      'saldo_actual'=> $saldo_actual + $data['entrada']
-    );
-    return $this->db->insert('ic_caja_chica',$rows);
+    ];
   }
 
-  public function retire_money($data){
+  public function add_transaction($data){
     $saldo_actual = $this->get_balance();
-    $rows = array(
-      'id'   => null,
-      'id_empleado' => $this->id_empleado,
-      'descripcion' => $data['descripcion'],
-      'entrada'     => 0,
-      'salida'      => $data['salida'],
-      'saldo_actual'=> $saldo_actual - $data['salida']
-    );
-    return $this->db->insert('ic_caja_chica',$rows);
-
+    $rows = $this->order_data($data);
+    return $this->db->insert($this->table, $rows);
   }
 
-
-  public function get_rows(){
-    $result = $this->db->get('v_caja');
-    return make_caja_table($result->result_array());
+  public function edit_transaction($data, $id) {
+    $this->db->where('id', $id);
+    return $this->db->update($this->table);
   }
 
-  public function search_in_rows($id_empleado = '%',$fecha = '%'){
-    $mydatabase = $this->db;
-    $sql = "SELECT * FROM v_caja WHERE id_empleado like".$mydatabase->escape($id_empleado)." AND date(fecha) like ".$mydatabase->escape($fecha);
-    if($result = $this->db->query($sql)){
-      $result = make_caja_table($result->result_array());
-      echo $result;
-    }else{
-      echo " Error";
+  public function delete_transaction($id) {
+    $this->db->where('id', $id);
+    return $this->db->delete($this->table);
+  }
+
+  public function get_rows($user_id = '', $start = ''){
+    $this->db->like('id_empleado',$user_id);
+    if ($start !== '') {
+      $this->db->where("date(fecha) == '$start'", false);
     }
-
+    $result = $this->db->get($this->view);
+    return make_petty_cash_table($result->result_array());
   }
 
   public function get_balance(){
     $this->db->select('sum(entrada) as ingresos, sum(salida) as salidas', false);
-    if($balance = $this->db->get('ic_caja_chica', 1)):
+    if($balance = $this->db->get($this->table, 1)):
      $balance = $balance->row_array();
      return $balance['ingresos'] - $balance['salidas'];
     else:

@@ -8,7 +8,11 @@ import MessageModal from './components/MessageModal.vue';
 import TicketModal from './components/TicketModal.vue';
 import Store from './store/index';
 
-const store = new Store();
+// Vue.component('admin-section', () => import('./../administrador/adminSection.vue'));
+
+window.appStore = new Store();
+window.appBus = new Vue();
+
 globals(Vue, Toasted, axios);
 
 export default new Vue({
@@ -20,37 +24,23 @@ export default new Vue({
   },
 
   data: {
-    store,
-    pettyCashMode: 'retire'
+    store: window.appStore
   },
 
   methods: {
     openPettyCash(mode) {
-      this.pettyCashMode = mode;
+      this.store.setPettyCashMode(mode);
     },
 
-    addMoney() {
-      const empty = utils.isEmpty(this.store.moneyMovement);
+    saveTransaction() {
+      const empty = utils.isEmpty(this.store.pettyCashTransaction);
       if (!empty) {
-        this.send('petty_cash/add_money', form)
+        this.$http.post(`petty_cash/${this.store.pettyCashMode}`, this.getDataForm(this.store.pettyCashTransaction))
           .then((res) => {
             this.showMessage(res.data.message);
-            this.store.moneyMovementEmpty();
+            this.store.pettyCashTransactionEmpty();
             this.getSaldo();
-          });
-      } else {
-        this.$toasted.error('Revise y LLene todos los campos por favor');
-      }
-    },
-
-    retireMoney() {
-      const empty = utils.isEmpty(this.store.moneyMovement);
-      if (!empty) {
-        this.$http.post('petty_cash/retire_money', this.getDataForm(this.store.moneyMovement))
-          .then((res) => {
-            this.showMessage(res.data.message);
-            this.store.moneyMovementEmpty();
-            this.getSaldo();
+            window.appBus.$emit('transaction');
           });
       } else {
         this.$toasted.error('Revise y LLene todos los campos por favor');

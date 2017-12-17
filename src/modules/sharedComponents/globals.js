@@ -1,3 +1,4 @@
+import utils from './utils';
 
 export default (Vue, Toasted, axios) => {
   const options = {
@@ -16,6 +17,12 @@ export default (Vue, Toasted, axios) => {
 
       getDataForm(object) {
         return `data=${JSON.stringify(object)}`;
+      }
+    },
+
+    filters: {
+      currencyFormat(number) {
+        return utils.CurrencyFormat(number);
       }
     }
   });

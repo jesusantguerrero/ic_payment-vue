@@ -8,7 +8,7 @@
 */
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-if ( ! function_exists('make_table')){
+if ( ! function_exists('make_user_table')){
   /**
   * create a table for the data from users to display in the interface
   * @param array $data the result of an select in a query
@@ -16,7 +16,7 @@ if ( ! function_exists('make_table')){
   *@return string the tbody with rows of a table
   */
 
-  function make_table($data,$start_at){
+  function make_user_table($data,$start_at){
     $types = array("Administrador","Secretaria(o)","Otro");
     $cont = $start_at + 1;
     $html_text = " ";
@@ -281,9 +281,9 @@ if ( ! function_exists('make_cancelations_table')){
  }
 }
 
-if ( ! function_exists('make_caja_table')){
+if ( ! function_exists('make_petty_cash_table')){
 
-  function make_caja_table($data){
+  function make_petty_cash_table($data){
     $html_text = " ";
     foreach ($data as $line) {
         $html_text .= "<tr>
@@ -295,9 +295,9 @@ if ( ! function_exists('make_caja_table')){
         <td>RD$ ".CurrencyFormat($line['saldo_actual'])."</td>
         <td>".$line['autor']."</td>
         <td>
-          <i class='material-icons btn-action edit-user'>edit</i>
-          <i class='material-icons btn-action delete-user'>delete</i>
-          <i class='material-icons btn-action display-user'>find_in_page</i>
+          <i class='material-icons btn-action edit-transaction'>edit</i>
+          <i class='material-icons btn-action delete-transaction'>delete</i>
+          <i class='material-icons btn-action display-transaction'>find_in_page</i>
         </td>
       </tr>";
     }

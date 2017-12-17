@@ -77,7 +77,7 @@ class User_model extends CI_MODEL{
   public function get_all_users($table = true){
     $result = $this->db->get('ic_users');
     if ($result && $table) {
-      return make_table($result->result_array(),0);
+      return make_user_table($result->result_array(),0);
     }
     return $result->result_array();
   }

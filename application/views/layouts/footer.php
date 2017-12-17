@@ -1,5 +1,5 @@
       <message-modal></message-modal>
-      <petty-cash-modal :store="store" :money-movement="store.moneyMovement" :modal-mode="pettyCashMode" @add="addMoney" @retire="retireMoney"></petty-cash-modal>
+      <petty-cash-modal :store="store" :transaction="store.pettyCashTransaction" :modal-mode="store.pettyCashMode" @save="saveTransaction"></petty-cash-modal>
       <ticket-modal></ticket-modal>
       <iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
     </main>
