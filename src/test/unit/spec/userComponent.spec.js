@@ -1,12 +1,15 @@
 import avoriaz from 'avoriaz';
-import Vue from 'vue';
+import $ from 'jquery';
 import UsersSection from './../../../modules/administrador/';
 
 const admin = `
 <div id="administrador"> </div>
 `;
 
-document.body.innerHTML = document.body.innerHTML + admin;
+document.body.innerHTML += admin;
+window.$ = $;
+window.jQuery = $;
+window.baseURL = '//localhost:3000/icpayment/';
 
 describe('UserSection Component', () => {
   beforeEach(() => {

@@ -10,72 +10,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_MODEL{
 
-  public $user_id = null;
-  public $nickname;
-  public $password;
-  public $name;
-  public $lastname;
-  public $dni;
-  public $type;
+  private $table;
+  private $view;
 
   public function __construct(){
     parent::__construct();
-
-    $this->load->helper('lib_helper');
+    $this->table = 'ic_users';
   }
 
-  /**
-  *
-  *@param array $data array with the data of the user
-  *@param string $mode "normal" for save it in an insert, "full" to storage all the data
-  *@return void
-  */
-
   function organize_data($data,$mode){
+    $organized_data = [];
 
     if($mode == "full"){
-      $this->user_id = $data['user_id'];
-      $this->password = $data['password'];
+      $organized_data['user_id'] = $data['user_id'];
+      $organized_data['password'] = $data['password'];
     }else{
-      $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
+      $organized_data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
     }
-    $this->nickname = $data['nickname'];
-    $this->name     = $data['name'];
-    $this->lastname = $data['lastname'];
-    $this->dni      = $data['dni'];
-    $this->type     = $data['type'];
+    $organized_data['nickname'] = $data['nickname'];
+    $organized_data['name']     = $data['name'];
+    $organized_data['lastname'] = $data['lastname'];
+    $organized_data['dni']      = $data['dni'];
+    $organized_data['type']     = $data['type'];
+
+    return $organized_data;
   }
 
   public function add_new_user($data){
     $this->db->where('nickname', $data['nickname']);
-    $result = $this->db->count_all_results('ic_users');
+    $result = $this->db->count_all_results($this->table);
     if($result > 0){
       return 3;
     }
-    $this->organize_data($data, "normal");
-    return $this->db->insert('ic_users', $this);
+    $organized_data = $this->organize_data($data, "normal");
+    return $this->db->insert($this->table, $organized_data);
   }
 
   public function update_user($data, $id){
     $this->db->where('nickname', $id);
     $this->db->or_where('user_id', $id);
-    return $this->db->update('ic_users',$data);
+    return $this->db->update($this->table,$data);
   }
 
   public function update_field($field,$credentials, $data){
     $this->db->where('user_id',$credentials['id']);
-    $result = $this->db->get('ic_users',1);
+    $result = $this->db->get($this->table,1);
     if($result != false){
       $result = $result->row_array();
       if(password_verify($credentials['password'],$result['password'])){
         $this->db->where('user_id', $credentials['id']);
-        return $this->db->update('ic_users',[$field => $data]);
+        return $this->db->update($this->table,[$field => $data]);
       }
     }
   }
 
   public function get_all_users($table = true){
-    $result = $this->db->get('ic_users');
+    $result = $this->db->get($this->table);
     if ($result && $table) {
       return make_user_table($result->result_array(),0);
     }
@@ -83,8 +73,8 @@ class User_model extends CI_MODEL{
   }
 
   public function get_user($id){
-    $this->db->where('user_id',$id);
-    $result =$this->db->get('ic_users',1);
+    $this->db->where('user_id', $id);
+    $result =$this->db->get($this->table, 1);
     if($result){
      return $result->row_array();
     }
@@ -92,14 +82,14 @@ class User_model extends CI_MODEL{
 
   public function get_users_list(){
     $this->db->select('user_id, name, lastname');
-    if ($users = $this->db->get('ic_users')) {
+    if ($users = $this->db->get($this->table)) {
       return make_users_list($users->result_array());
     }
   }
 
   public function delete_user($id){
     $this->db->where('user_id',$id);
-    if($result = $this->db->delete('ic_users')){
+    if($result = $this->db->delete($this->table)){
       $code = 1;
     }else{
       $this->update_user(['active' => false], $id);
@@ -110,7 +100,7 @@ class User_model extends CI_MODEL{
 
   public function login($nickname,$password){
     $this->db->where('nickname',$nickname);
-    $result = $this->db->get('ic_users',1);
+    $result = $this->db->get($this->table,1);
     if ($result != false){
       $result = $result->row_array();
       if(password_verify($password,$result['password']) && $result['active']){
@@ -127,7 +117,7 @@ class User_model extends CI_MODEL{
 
   public function confirm_password($user_id,$password){
     $this->db->where('user_id',$user_id);
-    $result = $this->db->get('ic_users',1);
+    $result = $this->db->get($this->table,1);
     if($result != false){
       $result = $result->row_array();
       if(password_verify($password,$result['password'])){
@@ -141,7 +131,7 @@ class User_model extends CI_MODEL{
 
   public function update_password($user_id,$current_password,$new_password){
     $this->db->where('user_id',$user_id);
-    $result = $this->db->get('ic_users',1);
+    $result = $this->db->get($this->table,1);
 
     if($result != false){
       $result = $result->row_array();
@@ -150,7 +140,7 @@ class User_model extends CI_MODEL{
         $new_password =  password_hash($new_password, PASSWORD_DEFAULT);
         $where = array('user_id' => $user_id);
         $set   = array('password' => $new_password);
-        $this->db->update('ic_users',$set,$where);
+        $this->db->update($this->table,$set,$where);
         return true;
       }
       return false;

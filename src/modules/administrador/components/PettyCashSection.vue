@@ -8,10 +8,10 @@
           input(type="text", placeholder=" descripcion").form-control.searcher
         .input-group.search
           .input-group-addon: i.material-icons person_pin
-          select(name="" , class="form-control", v-model="searchOptions.user" v-html="userList")
+          select(name="" , class="form-control", v-model="searchOptions.user_id", @change="getTransactions", v-html="userList")
         .input-group.search
           .input-group-addon: i.material-icons event
-          input(type="date", class="form-control caja-for-date", v-model="searchOptions.firstDate", placeholder="Fecha")
+          input(type="date", class="form-control caja-for-date", v-model="searchOptions.date", @change="getTransactions" placeholder="Fecha")
         .pull-right
           button.btn.btn-primary.icon(data-toggle="modal", data-target="#petty-cash-modal", @click.prevent="openPettyCash('retire')"): i.material-icons remove
         .pull-right
@@ -33,9 +33,8 @@
     data() {
       return {
         searchOptions: {
-          firstDate: '',
-          secondDate: '',
-          user: '',
+          date: '',
+          user_id: '',
         },
         parentId: '#petty-cash-container',
         toolbar: '#petty-cash-toolbar',
@@ -64,7 +63,7 @@
 
       getTransactions() {
         const self = this;
-        this.$http.get('petty_cash/get_transactions')
+        this.$http.post('petty_cash/get_transactions', this.getDataForm(this.searchOptions))
           .then((res) => {
             self.transactions = res.data.transactions;
             self.store.setPettyCashBalance(res.data.balance);
@@ -116,7 +115,7 @@
         this.$http.get('user/get_users/dropdown')
           .then((res) => {
             this.userList = res.data;
-            this.searchOptions.user = 'todos';
+            this.searchOptions.user_id = 0;
           });
       }
     },

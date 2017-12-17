@@ -51,7 +51,8 @@ class Petty_cash_model extends CI_MODEL{
     return $this->db->delete($this->table);
   }
 
-  public function get_rows($user_id = '', $start = ''){
+  public function get_transactions($user_id = '', $start = ''){
+    if ($user_id == 0) $user_id = '';
     $this->db->like('id_empleado',$user_id);
     if ($start !== '') {
       $this->db->where("date(fecha) == '$start'", false);

@@ -397,7 +397,7 @@ function make_other_services_dropdown($data){
 }
 
 function make_users_list($data){
-    $html_text = "<option value='%'> Todos </option>";
+    $html_text = "<option value='0'> Todos </option>";
     foreach ($data as $line) {
       $html_text .= "<option value='".$line['user_id']."'>".$line['name']." ".$line['lastname']."</option>";
     }

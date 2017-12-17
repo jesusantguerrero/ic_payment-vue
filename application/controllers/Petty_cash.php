@@ -85,9 +85,10 @@
       }
     }
 
-    public function get_transactions($user_id = '', $start_date = '') {
+    public function get_transactions() {
       authenticate();
-      $res['transactions'] = $this->petty_cash_model->get_rows($user_id, $start_date);
+      $data = $this->get_post_data('data');
+      $res['transactions'] = $this->petty_cash_model->get_transactions($data['user_id'], $data['date']);
       $res['balance'] = $this->petty_cash_model->get_balance();;
       $this->response_json($res);
     }
