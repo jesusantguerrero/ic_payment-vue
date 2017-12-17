@@ -31,7 +31,7 @@ class Petty_cash_model extends CI_MODEL{
       'id_empleado' => $this->user_id,
       'descripcion' => $data['descripcion'],
       'entrada'     => $data['entrada'],
-      'salida'      => 0,
+      'salida'     => $data['salida'],
     ];
   }
 
@@ -43,7 +43,7 @@ class Petty_cash_model extends CI_MODEL{
 
   public function edit_transaction($data, $id) {
     $this->db->where('id', $id);
-    return $this->db->update($this->table);
+    return $this->db->update($this->table, $data);
   }
 
   public function delete_transaction($id) {

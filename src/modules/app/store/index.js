@@ -13,7 +13,7 @@ export default class appStore {
     this.pettyCashTransaction = {
       entrada: 0.00,
       salida: 0.00,
-      descricion: ''
+      descripcion: ''
     };
   }
 

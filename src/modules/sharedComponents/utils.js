@@ -17,6 +17,11 @@ export default {
     return num2 => num + num2;
   },
 
+  fromCurrency(num) {
+    const realNum = num.replace('RD$ ', '');
+    return Number(realNum);
+  },
+
   // al credits to the author
   CurrencyFormat(number) {
     const decimalplaces = 2;

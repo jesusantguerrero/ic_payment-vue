@@ -41,6 +41,9 @@ export default new Vue({
             this.store.pettyCashTransactionEmpty();
             this.getSaldo();
             window.appBus.$emit('transaction');
+            if (this.store.pettyCashMode === 'edit') {
+              $('#petty-cash-modal').modal('hide');
+            }
           });
       } else {
         this.$toasted.error('Revise y LLene todos los campos por favor');

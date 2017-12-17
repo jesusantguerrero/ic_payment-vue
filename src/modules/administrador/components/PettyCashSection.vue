@@ -13,15 +13,16 @@
           .input-group-addon: i.material-icons event
           input(type="date", class="form-control caja-for-date", v-model="searchOptions.firstDate", placeholder="Fecha")
         .pull-right
-          button(class="btn btn-primary icon", data-toggle="modal", data-target="#retire-money-modal"): i.material-icons remove
+          button.btn.btn-primary.icon(data-toggle="modal", data-target="#petty-cash-modal", @click.prevent="openPettyCash('retire')"): i.material-icons remove
         .pull-right
-          button.btn.btn-primary.icon(data-toggle="modal", data-target="#add-money-modal"): i.material-icons.mi__single add
+          button.btn.btn-primary.icon(data-toggle="modal", data-target="#petty-cash-modal", @click.prevent="openPettyCash('add')"): i.material-icons.mi__single add
       DataTable(ids="petty-cash-table",:parentId="parentId", :data="transactions", :cols="cols", :toolbar="toolbar", :options="tableOptions")
 </template>
 
 <script>
   import swal from 'sweetalert2';
   import DataTable from './../../sharedComponents/DataTable.vue';
+  import utils from './../../sharedComponents/utils';
 
   const store = window.appStore;
 
@@ -57,6 +58,10 @@
       this.getUserList();
     },
     methods: {
+      openPettyCash(mode) {
+        this.store.setPettyCashMode(mode);
+      },
+
       getTransactions() {
         const self = this;
         this.$http.get('petty_cash/get_transactions')
@@ -66,23 +71,17 @@
           });
       },
 
-      getTransaction(id) {
-        this.$http.get(`petty_cash/get_trasaction/${id}`)
-          .then((res) => {
-            this.store.setPettyCashTransaction(res.data.transaction);
-            this.store.setPettyCashMode('edit');
-          })
-          .catch(() => {
-            this.$toasted.error('Error al obtener usuario');
-          });
-      },
-
-      search() {
-        const self = this;
-        this.$http.post('petty_cash/search', this.getDataform(this.searchOptions))
-          .then((res) => {
-            self.transactions = res.data.transactions;
-          });
+      getTransaction(row) {
+        const transaction = {
+          id: row.id,
+          fecha: row.fecha,
+          salida: utils.fromCurrency(row.salida),
+          entrada: utils.fromCurrency(row.entrada),
+          descripcion: row.descripcion
+        };
+        this.store.setPettyCashTransaction(transaction);
+        this.store.setPettyCashMode('edit');
+        $('#petty-cash-modal').modal();
       },
 
       delete(id, date) {
@@ -128,6 +127,9 @@
           'click .delete-transaction': (e, value, row) => {
             this.delete(row.id, row.fecha);
           },
+          'click .edit-transaction': (e, value, row) => {
+            this.getTransaction(row);
+          }
         };
 
         return [
@@ -155,7 +157,7 @@
           },
           {
             title: 'Ingreso',
-            field: 'ingreso',
+            field: 'entrada',
             align: 'center',
             valign: 'middle',
             sortable: true

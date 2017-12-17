@@ -8,9 +8,10 @@
 
     public function add() {
       authenticate();
+      $data = $this->get_post_data('data');
       if ($data) {
         if ($data['entrada'] <= 0) {
-          $this->set_message("El monto está en cero o es menor");
+          $this->set_message('El monto está en cero o es menor', 'error');
         } else {
           $result	= $this->petty_cash_model->add_transaction($data);
           if ($result) {
@@ -28,7 +29,7 @@
       $data = $this->get_post_data('data');
       if ($data) {
         $balance = $this->petty_cash_model->get_balance();
-        if ( $data['salida'] > $balance && $data['salida'] <= 0) {
+        if ( $data['salida'] > $balance || $data['salida'] <= 0) {
           $this->set_message('El registro de salida que intenta ingresar es mayor a balance actual o menor a cero', 'error');
         } else {
           $result	= $this->petty_cash_model->add_transaction($data);
@@ -52,15 +53,15 @@
         } else if ($data['salida'] <= 0 && $data['entrada'] <= 0) {
           $this->set_message('no puede hacer una transaccion en blanco', 'error');
         } else if (!$this->is_today($data['fecha'])) {
-          $this->set_message('no puede editar una transaccion anterior al dia de hoy');
+          $this->set_message('no puede editar una transaccion anterior al dia de hoy', 'info');
         } else {
           $id = $data['id'];
           unset($data['id']);
-          $result	= $this->petty_cash_model->edit($data, $id);
+          $result	= $this->petty_cash_model->edit_transaction($data, $id);
           if ($result) {
             $this->set_message('Monto editado');
           } else {
-            $this->set_message('Error al registrar la transaccion', 'error');
+            $this->set_message('Error al registrar la transaccion '.$this->db->last_query(), 'error');
           }
         }
         $this->response_json();

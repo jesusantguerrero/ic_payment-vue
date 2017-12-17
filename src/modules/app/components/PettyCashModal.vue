@@ -49,7 +49,20 @@
 
     computed: {
       modalTitle() {
-        return (this.modalMode === 'add') ? 'Registrar Entrada' : 'Registrar Salida';
+        let title;
+
+        switch (this.modalMode) {
+          case 'add':
+            title = 'Registrar Entrada';
+            break;
+          case 'edit':
+            title = 'Editar Trasacción';
+            break;
+          default:
+            title = 'Registrar Salida';
+            break;
+        }
+        return title;
       }
     }
   };
