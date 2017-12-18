@@ -37,7 +37,7 @@ class App extends MY_Controller {
 
   public function login($page = 'login') {
     if (!isset($_SESSION['user_data'])) {
-      $data  = $this->define_data($page);
+      $data  = $this->define_data($page, ['login']);
       $this->parser->parse('pages/login',$data);
     } else {
       redirect(base_url('app/admin/home'));
@@ -86,7 +86,7 @@ class App extends MY_Controller {
   {
     $jsFiles = [];
     $cssFiles = [];
-    $js  = array_merge(['manifest','vendor'], $js, [$title]);
+    $js  = array_merge(['manifest','vendor'], $js);
     $css = array_merge(['secundaryCss.min', '5-others/square/frontend.min', 'main.min'], $css);
     $assets   = 'assets/';
 

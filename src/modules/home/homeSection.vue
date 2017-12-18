@@ -76,9 +76,9 @@ export default {
       function updateHour() {
         const date = new Date();
         self.date.day = date.getDate();
-        self.monthYear = `De ${months[date.getMonth()]} de ${date.getFullYear()}`;
-        self.dayWeek = days[date.getDay()];
-        self.hours = date.toLocaleTimeString();
+        self.date.monthYear = `De ${months[date.getMonth()]} de ${date.getFullYear()}`;
+        self.date.dayWeek = days[date.getDay()];
+        self.date.hour = date.toLocaleTimeString();
       }
 
       setInterval(updateHour, 1000);
@@ -88,7 +88,8 @@ export default {
 
   computed: {
     logo() {
-      return `${baseURL}assets/uploads/${this.store.company.logo}`;
+      const logo = this.store.company.logo || 'company/default.png';
+      return `${baseURL}assets/uploads/${logo}`;
     }
   },
 };

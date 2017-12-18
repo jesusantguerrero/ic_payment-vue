@@ -13,11 +13,12 @@ test('save company info', async (t) => {
 
   test('should search admin', async (t) => {
     await t
-    .navigateTo('http://localhost/icpayment/app/admin/administrador')
-    .click('[href*="users"]')
-    .typeText('.searcher', 'jguerrero')
-    .expect(Selector('tbody tr:first-child td:nth-child(3)').innerText)
-    .eql('jguerrero');
+      .useRole(admin)
+      .navigateTo('http://localhost/icpayment/app/admin/administrador')
+      .click('[href*="users"]')
+      .typeText('.searcher', 'demo')
+      .expect(Selector('tbody tr:first-child td:nth-child(3)').innerText)
+      .eql('demo');
 });
 
 // text('should save new user', async (t) => {

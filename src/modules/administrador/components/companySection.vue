@@ -109,7 +109,8 @@
 
     computed: {
       logo() {
-        return `${baseURL}assets/uploads/${this.company.logo}`;
+        const logo = this.company.logo || 'company/default.png';
+        return `${baseURL}assets/uploads/${logo}`;
       }
     },
   };

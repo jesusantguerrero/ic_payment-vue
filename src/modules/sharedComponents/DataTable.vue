@@ -6,7 +6,6 @@
 </template>
 
 <script>
-  import 'bootstrap';
   import 'bootstrap-table';
   import '../../../node_modules/bootstrap-table/dist/locale/bootstrap-table-es-SP';
 

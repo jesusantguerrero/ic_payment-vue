@@ -18,6 +18,16 @@ Vue.component(
   (resolve) => { require(['./../home/HomeSection'], resolve); }
 );
 
+Vue.component(
+  /* webpackChunkName: "administrador" */ 'AdminSection',
+  (resolve) => { require(['./../administrador/adminSection'], resolve); }
+);
+
+Vue.component(
+  /* webpackChunkName: "cuenta" */ 'AcountSection',
+  (resolve) => { require(['./../cuenta/AcountSection'], resolve); }
+);
+
 export default new Vue({
   el: '#app',
   components: {
@@ -47,7 +57,10 @@ export default new Vue({
         this.$http.post(`petty_cash/${this.store.pettyCashMode}`, this.getDataForm(this.store.pettyCashTransaction))
           .then((res) => {
             this.showMessage(res.data.message);
-            this.store.pettyCashTransactionEmpty();
+            if (res.data.message.type === 'success') {
+              this.store.pettyCashTransactionEmpty();
+              $('#petty-cash-modal').modal('hide');
+            }
             this.getSaldo();
             window.appBus.$emit('transaction');
             if (this.store.pettyCashMode === 'edit') {

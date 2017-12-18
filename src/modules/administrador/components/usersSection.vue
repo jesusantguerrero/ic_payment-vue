@@ -16,7 +16,6 @@
 
 <script>
   import swal from 'sweetalert2';
-  import 'bootstrap';
   import DataTable from './../../sharedComponents/DataTable.vue';
   import UserModal from './UserModal.vue';
   import utils from './../../sharedComponents/utils';

@@ -31,6 +31,7 @@
   import Store from './store/adminStore';
 
   export default {
+    name: 'admin-section',
     components: {
       CompanySection,
       UsersSection,
@@ -43,7 +44,6 @@
 
     data() {
       const store = new Store('admin');
-
       return {
         store,
         mode: 'company'

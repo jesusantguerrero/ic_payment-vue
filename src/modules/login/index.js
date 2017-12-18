@@ -73,10 +73,10 @@ export default new Vue({
     quitSplash() {
       setTimeout(() => {
         document.querySelector('.splash-screen').classList.add('hidden');
-      }, 1200);
+      }, 1000);
       setTimeout(() => {
         document.querySelector('.splash-screen').classList.add('hide');
-      }, 1201);
+      }, 1001);
     }
   }
 });

@@ -10,8 +10,6 @@ module.exports = {
   entry: {
     login: utils.module("login"),
     app: utils.module("app"),
-    administrador: utils.module("administrador"),
-    cuenta: utils.module("cuenta"),
     all: utils.module("services")
   },
   output: {

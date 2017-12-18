@@ -1,6 +1,6 @@
 import avoriaz from 'avoriaz';
 import $ from 'jquery';
-import UsersSection from './../../../modules/administrador/';
+import UsersSection from './../../../modules/administrador/components/UsersSection.vue';
 
 const admin = `
 <div id="administrador"> </div>
