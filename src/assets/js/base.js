@@ -22,66 +22,10 @@ $(function () {
   })
 
   onWindowLoadFunctions();
-  /**
-   * Get Date:
-   * Obtiene la fecha actual al segundo y la muestra en la pantalla de inicio
-   * @return {void}
-   */
-  //TODO: Move -- Solo utilizado en el home - pasarlo a vue como metodo del componente o computed property
-  function getDate() {
-    var $day = $('.day');
-    var $monthYear = $('.month-year');
-    var $dayWeek = $('.dayweek');
-    var $Hora = $('.hour span');
-    var date, day, month, year, sHour;
-    var days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
-    var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-
-    setInterval(updateHour, 1000);
-
-    function updateHour() {
-      date = new Date();
-      sDate = date.toString()
-      $day.text(date.getDate());
-      $monthYear.text("De " + months[date.getMonth()] + " de " + date.getFullYear());
-      $dayWeek.text(days[date.getDay()]);
-
-      sHour = moment().format('LTS');
-      $Hora.html(sHour);
-    }
-  }
-
-
-
-  /**
-   * new User Form:
-   * vaida las contraseñas en los formularios de los usuarios
-   * @return {void}
-   */
-
-  // TODO: Mover o Borrar -- es utilizado en el modal de nuevo usuario pero podria hacerse con vue y eliminar esto
-  function newUserForm() {
-    validateModal("#new-user-modal");
-    validateModal("#update-user-modal");
-  }
-
-  /**
-   * User Info Tip
-   * hace un toggle en la visibilidad de la info del usuario
-   * @return {void}
-   */
-// TODO: Move -- Mover a header component es utilizado solo alli
-  function userInfoTip() {
-    var infoTip = $(".user-info-tip");
-    var profilePicture = $(".profile-picture");
-    var btnMore = $(".btn-more");
-
-    btnMore.on('click', function (e) {
-      infoTip.toggleClass("visible");
-    });
-  }
 
 });
+
+
 // TODO: Move -- Mover a modulo de nuevo_contrato
 function newContractFunctions() {
   var btnPrintContract = $("#btn-print-contract");
@@ -203,43 +147,6 @@ function detailsFunctions() {
     $(".dynamic-controls").text(controls);
   }
 }
-
-// TODO: Move -- solo usada en el home creo que la cambiare por un slider para la version 2
-function notificationFunctions() {
-  var btnAverias = $("#btn-see-averias");
-  var btnPagos = $("#btn-see-pagos");
-  var btnCajaChica = $('#btn-see-caja');
-  var btnDeudores = $("#btn-see-deudores")
-  var btnDayIncomes = $("#btn-see-day-incomes")
-  var layoutContainer = $(".layout-container");
-
-  btnAverias.on('click', function () {
-    layoutContainer.animate({
-      left: "-100%"
-    }, 200);
-  });
-
-  btnPagos.on('click', function () {
-    layoutContainer.animate({
-      left: "0"
-    }, 200);
-  });
-
-  btnDeudores.on('click', function () {
-    layoutContainer.animate({
-      left: "-200%"
-    }, 200);
-  });
-
-  btnDayIncomes.on('click', function () {
-    layoutContainer.animate({
-      left: "-300%"
-    }, 200);
-  });
-}
-
-// TODO: Move -- shared component usado en bootstrap-table
-$(".columns-right").removeClass("pull-right");
 
 //TODO: warning se usa en dos modals buscar la la manera de pasar a Contracts object de controllers
 $("#select-contract-code").on('change', function () {

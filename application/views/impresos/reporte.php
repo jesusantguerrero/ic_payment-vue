@@ -1,6 +1,6 @@
 <?php 
   $reporte = get_report();
-  $company = $this->company_model->get_empresa();
+  $company = $this->company_model->get_company();
 ?>
 <div class="document-body">
   <div class="cabecera">

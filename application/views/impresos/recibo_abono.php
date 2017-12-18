@@ -2,7 +2,7 @@
   $recibo = null;
   if(isset($_SESSION['recibo_info'])):
     $recibo    = $_SESSION['recibo_info'];
-    $company   = $this->company_model->get_empresa();
+    $company   = $this->company_model->get_company();
     $antes     = $recibo['deuda'] + $recibo['total'];
     $deuda     = $recibo['deuda'];  
 ?>

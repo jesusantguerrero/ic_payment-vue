@@ -41,7 +41,9 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-restricted-globals': 0,
     'no-param-reassign': 0,
-    'no-tabs': 0
+    'no-tabs': 0,
+    'import/no-dynamic-require': 0,
+    'global-require': 0,
   },
 
   globals: {

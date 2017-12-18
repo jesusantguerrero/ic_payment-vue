@@ -1,6 +1,7 @@
 export default class Store {
   constructor(options) {
     this.options = options;
+    // TODO: move to the appstore
     this.company = {
       logo: '',
       nombre: '',
@@ -9,8 +10,8 @@ export default class Store {
       lema: '',
       telefono1: '',
       telefonos: ''
-
     };
+
     this.usuarios = [];
 
     this.usuario = {

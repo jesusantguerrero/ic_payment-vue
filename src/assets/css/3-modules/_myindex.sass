@@ -1,11 +1,12 @@
 // components cards
 [class*='card'],
 .shortcut
-  border-radius: 4px
   padding: 20px
   overflow: hidden
+
 .t-center
   text-align: center
+
 .main-card
   +card()
   border: 1px solid #ddd
@@ -25,7 +26,7 @@
   +size(31.5%,150px)
   background: $primary-color
   color: white
-  margin-top: 15px 
+  margin-top: 15px
 
 .toolsrow
   height: max-content
@@ -37,26 +38,32 @@
 
   .layout-container
     position: absolute
-    +makeFlex(400%,row,center,center)
-    height: 100%
+    +makeFlex(400%, row, center, center)
+    height: 80%
+
   [class*='-layer']
     +size(45%,100%)
     color: white
     text-align: center
     position: relative
+
   .pagos-layer
     background: $contrast-color
+
   .averias-layer
     background: $tomato
   .deudores-layer
     background: $primary-color
+
   .day-income-layer
     color: $primary-color
     border: 2px solid #ddd
+
   .card-title
     cursor: pointer
     &:hover
       background: transparentize(#fff,.9)
+
   .btn-remark:hover
     background: transparentize(#fff,.9)
 
@@ -81,12 +88,12 @@
     color: #fff
     background: $contrast-color
     transform: scale(1.03)
-    
+
   &:first-child
     margin-left: 0
   &:last-child
     margin-right: 0
-  
+
   i
     font-size: 50px
     margin-bottom: 10px
@@ -152,8 +159,8 @@
   width: 60%
 
   .col
-    padding: 0 0 0 
-    
+    padding: 0 0 0
+
 @media (max-width: 1100px)
   .welcome-screen
     .date-container
@@ -171,7 +178,7 @@
 @media (max-width: 995px)
   .row.home-options-container
     display: flex
- 
+
 
 @media (max-width: 768px)
   .welcome-screen
@@ -191,7 +198,7 @@
       justify-content: center
       align-items: center
       position: relative
-      
+
   .welcome-data
     .row
       flex-direction: row
@@ -206,7 +213,6 @@
 
   .company-logo
     display: none
-    
 
-  
-     
+
+

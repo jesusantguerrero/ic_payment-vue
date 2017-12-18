@@ -7,6 +7,27 @@ export default class appStore {
     };
     this.pettyCashMode = 'retire';
     this.pettyCashBalance = 0.00;
+
+    this.currentUser = {
+      user_id: '',
+      nickname: '',
+      password: '',
+      name: '',
+      lastname: '',
+      dni: '',
+      type: '',
+      email: '',
+    };
+
+    this.company = {
+      logo: '',
+      nombre: '',
+      descripcion: '',
+      direccion: '',
+      lema: '',
+      telefono1: '',
+      telefonos: ''
+    };
   }
 
   pettyCashTransactionEmpty() {
@@ -28,5 +49,13 @@ export default class appStore {
   setPettyCashBalance(balance) {
     const nBalance = Number(balance);
     this.pettyCashBalance = (nBalance > 0 && typeof nBalance === 'number') ? nBalance : 0.00;
+  }
+
+  setCompany(company) {
+    this.company = company;
+  }
+
+  setUser(user) {
+    this.currentUser = user;
   }
 }

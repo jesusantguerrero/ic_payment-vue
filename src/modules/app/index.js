@@ -6,25 +6,34 @@ import utils from './../sharedComponents/utils';
 import PettyCashModal from './components/PettyCashModal.vue';
 import MessageModal from './components/MessageModal.vue';
 import TicketModal from './components/TicketModal.vue';
-import Store from './store/index';
-
-// Vue.component('admin-section', () => import('./../administrador/adminSection.vue'));
+import Store from './store/appStore';
 
 window.appStore = new Store();
 window.appBus = new Vue();
 
 globals(Vue, Toasted, axios);
 
+Vue.component(
+  /* webpackChunkName: "home" */ 'HomeSection',
+  (resolve) => { require(['./../home/HomeSection'], resolve); }
+);
+
 export default new Vue({
   el: '#app',
   components: {
     'message-modal': MessageModal,
     'petty-cash-modal': PettyCashModal,
-    'ticket-modal': TicketModal
+    'ticket-modal': TicketModal,
   },
 
   data: {
     store: window.appStore
+  },
+
+  mounted() {
+    this.getCompany();
+    this.getUser();
+    this.getSaldo();
   },
 
   methods: {
@@ -56,5 +65,21 @@ export default new Vue({
           this.store.setPettyCashBalance(res.data);
         });
     },
+
+    getCompany() {
+      const self = this;
+      this.$http.get('company/get')
+        .then((res) => {
+          self.store.setCompany(res.data);
+        });
+    },
+
+    getUser() {
+      this.$http.get('user/get_user')
+        .then((res) => {
+          this.store.setUser(res.data.user);
+        });
+    }
+
   }
 });

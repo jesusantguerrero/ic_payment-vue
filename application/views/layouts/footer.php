@@ -6,6 +6,8 @@
 
     <script>
       const baseURL = '{url}'
+      const Company = '{company}'
+      const CurrentUser= '{currentUser}'
     </script>
 
     {js}

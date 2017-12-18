@@ -285,7 +285,7 @@
 </div>
 
 <div id="print-view" :class="{hide: isHide}">
-	<?php 	$company = $this->company_model->get_empresa(); ?>
+	<?php 	$company = $this->company_model->get_company(); ?>
 
 	<div class="factura-body">
 		<div class="cabecera">

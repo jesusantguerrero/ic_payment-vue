@@ -9,7 +9,7 @@ Class Messagegate{
   public function __construct(){
     $this->context =& get_instance();
 
-    $company = $this->context->company_model->get_empresa();
+    $company = $this->context->company_model->get_company();
     $this->reemplazo = array('cliente',$company['nombre'],$company['lema']);
     $this->default_message = "ICS Services: Estimado(a) cliente(a) [cliente] se ha generado su factura del mes. Evite recargo de moras y reconexion. [empresa] \"[lema]\"";
     $this->options = [

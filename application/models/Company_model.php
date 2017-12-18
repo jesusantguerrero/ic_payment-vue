@@ -23,7 +23,7 @@ class Company_model extends CI_MODEL{
     return $this->db->update($this->table, $data);
   }
 
-  public function get_empresa(){
+  public function get_company(){
     $result = $this->db->get($this->table, 1);
     return $result->row_array();
   }

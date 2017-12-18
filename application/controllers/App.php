@@ -50,10 +50,11 @@ class App extends MY_Controller {
 
     $data  = $this->define_data($page, ['app']);
     $data['user'] = get_user_data();
+    $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
 
-    $this->twig->display('layouts/header', $data);
-    $this->load->view("pages/$page", $data);
+    echo $this->twig->render('layouts/header', $data);
+    $this->twig->display("pages/".$page, $data);
     $this->load_modals($page);
 		$this->parser->parse('layouts/footer', $data);
   }

@@ -15,7 +15,7 @@ class Company extends MY_Controller
 
       if ($this->company_model->update($data)) {
         $res['message'] = ['type' => 'success', 'text' => 'Datos actualizados con exito'];
-        $res['company'] = $this->company_model->get_empresa();
+        $res['company'] = $this->company_model->get_company();
       }
 
       $this->response_json($res);
@@ -25,7 +25,7 @@ class Company extends MY_Controller
 
   public function get(){
     authenticate();
-    $res = $this->company_model->get_empresa();
+    $res = $this->company_model->get_company();
     $this->response_json($res);
   }
 
@@ -38,7 +38,7 @@ class Company extends MY_Controller
       $data['logo'] = "company/{$result['success']['file_name']}";
       $this->company_model->update($data);
       $res['message'] = ['type' => 'success', 'text' => 'Perfil Actualizado'];
-      $res['company'] = $this->company_model->get_empresa();
+      $res['company'] = $this->company_model->get_company();
     }
     $this->response_json($res);
   }

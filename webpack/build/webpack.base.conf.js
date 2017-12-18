@@ -9,21 +9,23 @@ function resolve (dir) {
 module.exports = {
   entry: {
     login: utils.module("login"),
+    app: utils.module("app"),
     administrador: utils.module("administrador"),
     cuenta: utils.module("cuenta"),
-    app: utils.module("app"),
     all: utils.module("services")
   },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath:  config.build.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': './../../src/',
+      '@': path.resolve(__dirname,'..','..','src'),
+      'shared$': path.resolve(__dirname,'..','..','src','modules','sharedComponents')
     }
   },
   module: {

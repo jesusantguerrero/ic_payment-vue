@@ -2,7 +2,7 @@
   if($info):
     $user_data = get_user_data();
     $settings  = $this->settings_model->get_settings();
-    $company   = $this->company_model->get_empresa();
+    $company   = $this->company_model->get_company();
 
     function report_row($title, $value, $col_width = 6, $class= '') {
       echo "<div class='row $class'>

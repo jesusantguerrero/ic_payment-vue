@@ -5,7 +5,7 @@
     $mensualidad = 'Mensualidad';
     $extras = "Extras";
     $mora = 'Mora';
-    $company = $this->company_model->get_empresa();
+    $company = $this->company_model->get_company();
     if($recibo['concepto'] != 'instalacion' and $recibo['concepto'] != 'abono' and !str_contains("extra", $recibo['concepto'])){
       $fecha = new DATETIME($recibo['fecha_limite']);
       $fecha = $fecha->format('F');
