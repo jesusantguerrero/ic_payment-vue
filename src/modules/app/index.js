@@ -28,6 +28,12 @@ Vue.component(
   (resolve) => { require(['./../cuenta/AcountSection'], resolve); }
 );
 
+Vue.component(
+  /* webpackChunkName: "cierre */ 'CashDeskSection',
+  (resolve) => { require(['./../cierre/CashDeskSection'], resolve); }
+);
+
+
 export default new Vue({
   el: '#app',
   components: {

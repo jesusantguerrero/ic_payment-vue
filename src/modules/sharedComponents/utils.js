@@ -49,5 +49,45 @@ export default {
     temparray.unshift(integer);
     integer = temparray.join(thousandseparater);
     return sign + integer + decimalcharacter + fraction;
+  },
+
+  // values: array
+  sum(values) {
+    let numbers = [];
+
+    if (Array.isArray(values)) {
+      numbers = values;
+    } else {
+      const keys = Object.keys(values);
+      numbers = [];
+      keys.forEach((key) => {
+        numbers.push(values[key]);
+      });
+    }
+
+    for (let i = 0; i < values.length; i += 1) {
+      sumResult += parseFloat(values[i]);
+    }
+    return numbers.reduce((sum, number) => sum += number, 0);
+  },
+
+  now() {
+    return new Date().toLocaleDateString();
+  },
+
+  dateSpanishFormat() {
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const date = new Date();
+
+    const day = date.getDate();
+    const monthYear = `De ${months[date.getMonth()]} de ${date.getFullYear()}`;
+    const dayWeek = days[date.getDay()];
+
+    return {
+      day,
+      monthYear,
+      dayWeek
+    };
   }
 };

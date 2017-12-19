@@ -44,6 +44,8 @@ module.exports = {
     'no-tabs': 0,
     'import/no-dynamic-require': 0,
     'global-require': 0,
+    'no-return-assign': 0,
+    'max-len': 0
   },
 
   globals: {
