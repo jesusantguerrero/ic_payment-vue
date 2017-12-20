@@ -9,6 +9,7 @@ prepare:
   stage: prepare
   script:
     - npm install
+    - npm update --save-dev
   cache:
     paths:
       - node_modules/
