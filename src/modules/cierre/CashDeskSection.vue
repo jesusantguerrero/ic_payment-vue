@@ -21,22 +21,22 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="client-job">Ingresos Totales</label>
-                      <input type="number" class="form-control" v-model="data_cierre.total_ingresos" disabled>
+                      <input type="number" class="form-control" v-model="closingData.total_ingresos" disabled>
                     </div>
                     <div class="form-group">
                       <label for="client-salary">Gastos Totales</label>
-                      <input type="number" class="form-control password" v-model="data_cierre.total_gastos" disabled>
+                      <input type="number" class="form-control password" v-model="closingData.total_gastos" disabled>
                     </div>
                     <div class="form-group">
                       <label for="client-job-number">Ganacia(Banco)</label>
-                      <input type="number" class="form-control" v-model="data_cierre.banco" disabled>
+                      <input type="number" class="form-control" v-model="closingData.banco" disabled>
                     </div>
                   </div>
 
                   <div class="col-md-6 t-center">
-                    <h5>Fecha: <span id="fecha-cierre will-load"> {{ fecha }} </span></h5>
+                    <h5>Fecha: <span id="fecha-cierre v-cloack"> {{ fecha }} </span></h5>
                     <h5>Autor <span id="autor-cierre"> {{ appStore.currentUser.fullname }} </span></h5>
-                    <button class="btn" @click.prevent="cerrarCaja">Cerrar Caja</button>
+                    <button class="btn" @click.prevent="closeCashDeskCaja">closeCashDesk Caja</button>
                   </div>
                 </div>
               </form>
@@ -56,11 +56,11 @@
 
 
               <a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
-                <h2 class="current-saldo will-load"> RD$ {{ data_cierre.pagos_efectivo | currencyFormat}}</h2>
+                <h2 class="current-saldo v-cloack"> RD$ {{ closingData.pagos_efectivo | currencyFormat}}</h2>
               </a>
               <br>
               <h4 data-toggle="modal" data-target="#caja-mayor-modal" class="special-caller"><i class="material-icons">lock_open</i>Dinero Real en Caja</h4>
-              <h2 class="current-saldo my-caja will-load"> RD$ {{ total | currencyFormat }} </h2>
+              <h2 class="current-saldo my-caja v-cloack"> RD$ {{ total | currencyFormat }} </h2>
             </div>
           </div>
           <div class="pagos-layer">
@@ -82,34 +82,34 @@
 
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
           <p class="section-title">Pagos de factura</p>
-          <p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
+          <p class="v-cloack">RD$ {{closingData.pagos_facturas | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Extras" data-content="Los pagos a los servicios extras que hacen los clientes">
           <p class="section-title">Pagos Extras</p>
-          <p class="will-load">RD$ {{data_cierre.pagos_extras | currencyFormat}}</p>
+          <p class="v-cloack">RD$ {{closingData.pagos_extras | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Via Banco" data-content="Los pagos del <b>total de ingresos</b> que se hacen via banco">
           <p class="section-title">Pagos Via Banco</p>
-          <p class="will-load">RD$ {{ data_cierre.pagos_banco | currencyFormat}}</p>
+          <p class="v-cloack">RD$ {{ closingData.pagos_banco | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"
           title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
           <p class="section-title">Total Ingresos</p>
-          <p class="will-load">RD$ {{ data_cierre.total_ingresos | currencyFormat}}</p>
+          <p class="v-cloack">RD$ {{ closingData.total_ingresos | currencyFormat}}</p>
         </div>
 
       </div>
 
       <div class="col-md-4 clock-card">
         <h4 class="card-title t-center">Diferencia</h4>
-        <h4 class="t-center will-load"> RD$ {{ data_cierre.total_descuadre | currencyFormat}}</h4>
+        <h4 class="t-center v-cloack"> RD$ {{ closingData.total_descuadre }} </h4>
       </div>
 
     </div>
-    <closing-summary :app-store="appStore", :cierre="data_cierre></closing-summary>
+    <closing-summary :app-store="appStore" :cierre="closingData"></closing-summary>
   </div>
 </template>
 
@@ -142,7 +142,7 @@
       return {
         isHide: false,
         fecha: utils.now(),
-        data_cierre: {
+        closingData: {
           autor: `${appStore.currentUser.name} ${appStore.currentUser.lastname}`,
           pagos_facturas: 0,
           pagos_extras: 0,
@@ -164,14 +164,14 @@
     },
 
     created() {
-      $('.will-load').css({
+      $('.v-cloack').css({
         visibility: 'visible'
       });
     },
 
     methods: {
       setIngresos() {
-        const self = this.data_cierre;
+        const { closingData } = this;
         const form = {
           fecha: utils.now()
         };
@@ -179,23 +179,21 @@
         this.$http.post(`${baseURL}caja/get_ingresos`, this.getDataForm(form))
           .then((res) => {
             const { data } = res;
-            self.pagos_facturas = data.pagos_facturas;
-            self.pagos_extras = data.pagos_extras;
-            self.pagos_efectivo = data.pagos_efectivo;
-            self.pagos_banco = data.pagos_banco;
-            self.total_ingresos = parseFloat(data.pagos_facturas) + parseFloat(self.pagos_extras);
-            self.total_descuadre = -self.pagos_efectivo + self.efectivo_caja;
+            closingData.pagos_facturas = data.pagos_facturas;
+            closingData.pagos_extras = data.pagos_extras;
+            closingData.pagos_efectivo = data.pagos_efectivo;
+            closingData.pagos_banco = data.pagos_banco;
+            closingData.total_ingresos = parseFloat(data.pagos_facturas) + parseFloat(self.pagos_extras);
+            closingData.total_descuadre = -self.pagos_efectivo + self.efectivo_caja;
           })
           .catch((err) => {
             this.$toasted.error(err);
           });
       },
 
-      cerrarCaja() {
-        const self = this;
-        const cierre = this.data_cierre;
-        window.cierre = cierre;
-        if (cierre.total_descuadre !== 0) {
+      closeCashDeskCaja() {
+        const { closingData } = this;
+        if (closingData.total_descuadre !== 0) {
           swal({
             title: 'Está Seguro?',
             text: 'Hay un descuadre en la caja, quiere hacer el cierre de todos modos?',
@@ -204,15 +202,15 @@
             confirmButtonText: 'Si',
             cancelButtonText: 'No'
           }).then(() => {
-            self.cerrar(cierre);
+            close(cierre);
           });
         } else {
-          self.cerrar(cierre);
+          close(cierre);
         }
       },
 
-      cerrar(cierre) {
-        cierre.fecha = utils.now();
+      close(closingData) {
+        closingData.fecha = utils.now();
         this.$http.post('caja/add_cierre', this.getDataForm(cierre))
           .then((res) => {
             this.showdMessage(res.data.message);
@@ -233,7 +231,7 @@
 
     computed: {
       getTotal() {
-        const closing = this.data_cierre;
+        const closing = this.closingData;
         this.total = utils.sum(store.currency);
         closing.efectivo_caja = this.total.toFixed(2);
         closing.total_descuadre = parseFloat(-closing.pagos_efectivo) + parseFloat(closing.efectivo_caja);
@@ -244,7 +242,7 @@
       decimals() {
         const fields = ['pagos_facturas', 'pagos_extra', 'pagos_efectivo', 'pagos_banco', 'total_ingresos', 'efectivo_caja', 'total_descuadre', 'total_gasto', 'banco'];
         fields.forEach((field) => {
-          this.data_cierre[field] = this.data_cierre[field].toFixed(2);
+          this.closingData[field] = this.closingData[field].toFixed(2);
         }, this);
       }
     }

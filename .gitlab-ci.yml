@@ -26,6 +26,7 @@ build:
   stage: build
   script:
    - echo "Building the app .."
+   - npm intall chalk --save-dev
    - npm run build
   only:
    - develop

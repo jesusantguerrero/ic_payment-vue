@@ -61,7 +61,7 @@
         const unit = e.srcElement.attributes['data-unit'].value;
         const cantidad = e.srcElement.value;
         const value = cantidad * unit * 1.00;
-        store.setUnitValue(unit, value);
+        this.store.setUnitValue(unit, value);
       },
     }
   };

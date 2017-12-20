@@ -1,5 +1,5 @@
 <template lang="pug">
-  #print-view(:class="{hide: isHide}")
+  #print-view
     .factura-body
       .cabecera
         .company-name
