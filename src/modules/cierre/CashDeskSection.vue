@@ -12,7 +12,7 @@
 
           <!-- Tab panes -->
           <div class="tab-content">
-            <count-panel :conteo="conteo"></count-panel>
+            <count-panel :store="store" :total="getTotal"></count-panel>
             <expenses-panel></expenses-panel>
 
             <div role="tabpanel" class="tab-pane fade in" id="cuadre-final">
@@ -34,8 +34,8 @@
                   </div>
 
                   <div class="col-md-6 t-center">
-                    <h5>Fecha: <span id="fecha-cierre will-load">{{fecha}}</span></h5>
-                    <h5>Autor <span id="autor-cierre"><?php echo $user_data['fullname']?></span></h5>
+                    <h5>Fecha: <span id="fecha-cierre will-load"> {{ fecha }} </span></h5>
+                    <h5>Autor <span id="autor-cierre"> {{ appStore.currentUser.fullname }} </span></h5>
                     <button class="btn" @click.prevent="cerrarCaja">Cerrar Caja</button>
                   </div>
                 </div>
@@ -60,7 +60,7 @@
               </a>
               <br>
               <h4 data-toggle="modal" data-target="#caja-mayor-modal" class="special-caller"><i class="material-icons">lock_open</i>Dinero Real en Caja</h4>
-              <h2 class="current-saldo my-caja will-load"> RD$ {{ suma | currencyFormat }} </h2>
+              <h2 class="current-saldo my-caja will-load"> RD$ {{ total | currencyFormat }} </h2>
             </div>
           </div>
           <div class="pagos-layer">
@@ -80,7 +80,7 @@
     <div class="row home-options-container">
       <div class="col-md-8 hidden-xs shortcuts-container">
 
-        <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
+        <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
           <p class="section-title">Pagos de factura</p>
           <p class="will-load">RD$ {{data_cierre.pagos_facturas | currencyFormat}}</p>
         </div>
@@ -109,7 +109,7 @@
       </div>
 
     </div>
-    <closing-summary :app-store="appStore"></closing-summary>
+    <closing-summary :app-store="appStore", :cierre="data_cierre></closing-summary>
   </div>
 </template>
 
@@ -119,20 +119,9 @@
   import ClosingSummary from './components/ClosingSummary.vue';
   import ExpensesPanel from './components/ExpensesPanel.vue';
   import CountPanel from './components/CountPanel.vue';
+  import CashDeskStore from './store/CashDeskStore';
 
-  const totales = {
-    total1: 0,
-    total5: 0,
-    total10: 0,
-    total20: 0,
-    total25: 0,
-    total50: 0,
-    total100: 0,
-    total200: 0,
-    total500: 0,
-    total1000: 0,
-    total2000: 0
-  };
+  const store = new CashDeskStore();
 
   export default {
     name: 'cash-desk-section',
@@ -165,13 +154,12 @@
           total_gastos: 0,
           banco: 0
         },
-        conteo: totales,
-        suma: 0
+        store,
+        sum: 0
       };
     },
 
     mounted() {
-      this.getGastos();
       this.setIngresos();
     },
 
@@ -182,20 +170,13 @@
     },
 
     methods: {
-      changeTotal(e) {
-        const unit = e.srcElement.attributes['data-unit'].value;
-        const cantidad = e.srcElement.value;
-        // const total = cantidad * unit;
-        totales[`total${unit}`] = cantidad * unit * 1.00;
-      },
-
       setIngresos() {
         const self = this.data_cierre;
         const form = {
           fecha: utils.now()
         };
 
-        this.$http.post(`${BASE_URL}caja/get_ingresos`, this.getDataForm(form))
+        this.$http.post(`${baseURL}caja/get_ingresos`, this.getDataForm(form))
           .then((res) => {
             const { data } = res;
             self.pagos_facturas = data.pagos_facturas;
@@ -204,10 +185,10 @@
             self.pagos_banco = data.pagos_banco;
             self.total_ingresos = parseFloat(data.pagos_facturas) + parseFloat(self.pagos_extras);
             self.total_descuadre = -self.pagos_efectivo + self.efectivo_caja;
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
           });
-        send.catch((err) => {
-          this.$toasted.error(err);
-        });
       },
 
       cerrarCaja() {
@@ -253,11 +234,11 @@
     computed: {
       getTotal() {
         const closing = this.data_cierre;
-        this.suma = utils.sum(totales);
-        closing.efectivo_caja = suma.toFixed(2);
+        this.total = utils.sum(store.currency);
+        closing.efectivo_caja = this.total.toFixed(2);
         closing.total_descuadre = parseFloat(-closing.pagos_efectivo) + parseFloat(closing.efectivo_caja);
         closing.banco = (parseFloat(closing.pagos_banco) + parseFloat(closing.pagos_efectivo)) - (parseFloat(closing.total_gastos) + parseFloat(closing.total_descuadre));
-        return this.suma;
+        return this.total;
       },
 
       decimals() {

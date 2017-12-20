@@ -7,10 +7,7 @@
           p
         p.fecha-reporte Fecha: {{ cierre.fecha | spanishDateFormat}}
         p: b.hora-reporte Autor {{cierre.autor}}
-
-
       .concepto: h4 Cierre de Caja
-
       .cuerpo
         p
           b Total de ingresos:
@@ -52,11 +49,6 @@
       cierre: {
         type: Object,
         require: true
-      },
-
-      isHide: {
-        type: Boolean,
-        required: true
       }
     },
 
@@ -71,7 +63,7 @@
           link: `${baseURL}auth/do_logout`,
           text: 'cerrar session'
         }
-      }
+      };
     },
 
     filters: {
@@ -83,7 +75,6 @@
 
     methods: {
       goBack() {
-        this.isHide = true;
         this.$emit('closing');
       },
 

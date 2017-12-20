@@ -1,44 +1,26 @@
-<template>
-  <div role="tabpanel" class="tab-pane fade in" id="registro-gastos">
-    <form action="">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="cient-sector">Descripcion</label>
-            <input class="form-control" v-model="gasto.descripcion" tabindex="6">
-          </div>
-        </div>
+<template lang="pug">
+  .tab-pane.fade.in#registro-gastos(role="tabpanel")
+    form
+      .row
+        .col-md-6
+          .form-group
+            label(for="cient-sector") Descripcion
+            input.form-control(v-model="gasto.descripcion", tabindex="6")
 
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="client-street">Monto</label>
-            <div class="input-group normal-height">
-              <input type="number" class="form-control" v-model="gasto.monto" tabindex="6">
-              <span class="input-group-btn">
-                <button class="btn btn-secondary icon" type="button" @click="addGasto"><i class="material-icons">add</i></button>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <h4 class="col-md-12 col-lg-12">Gastos</h4>
-        <br>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="list-group lista-gastos">
-            <li class="list-group-item" :key="gasto.id_gasto" v-for="gasto in gastos">{{ gasto.descripcion }}<span class="money">RD$ {{gasto.monto}}</span>
-              <button class="btn list-action borrar-gasto" :data-id="gasto.id_gasto" @click.prevent="deleteGasto">
-                <i class="material-icons" :data-id="gasto.id_gasto">delete</i>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </form>
-  </div>
+        .col-md-6
+          .form-group
+            label(for="client-street")
+            .input-group.normal-height
+              input.form-control(type="number", v-model="gasto.monto" tabindex="6")
+              span.input-group-btn
+                button.btn.btn-secondary.icon(type="button", @click="addGasto"): i.material-icons add
+      .row
+        h4.col-md-12.col-lg-12 Gastos
+      .row
+        .col-md-12
+          ul.list-group.lista-gastos
+            li.list-group-item(:key="gasto.id_gasto", v-for="gasto in gastos") {{ gasto.descripcion }}<span class="money">RD$ {{gasto.monto}}</span>
+              button.btn.list-action.borrar-gasto(:data-id="gasto.id_gasto", @click.prevent="deleteGasto"): i.material-icons(:data-id="gasto.id_gasto") delete
 </template>
 
 <script>
@@ -63,6 +45,10 @@
         gasto,
         gastos
       };
+    },
+
+    mounted() {
+      this.getGastos();
     },
 
     methods: {

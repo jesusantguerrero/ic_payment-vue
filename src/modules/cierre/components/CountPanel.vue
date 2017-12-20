@@ -1,147 +1,68 @@
-<template>
-    <div role="tabpanel" class="tab-pane active fade in" id="cuadre-primario">
-      <form action="" class="tabla-dinero">
+<template lang="pug">
+    .tab-pane.active.fade.in#cuadre-primario(role="tabpanel")
+      form.tabla-dinero
+        .form-group.row
+          label(class="col-sm-2 col-form-label") Tipo de Moneda
+          .col-sm-4
+            label(class="col-sm-2 col-form-label") Cantidad
 
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Tipo de Moneda</label>
-          <div class="col-sm-4">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Cantidad</label>
-          </div>
-          <div class="col-sm-4">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Total</label>
-          </div>
-        </div>
+          .col-sm-4
+            label(class="col-sm-2 col-form-label") Total
 
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">monedas RD$ 1</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="1" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total1" disabled>
-          </div>
-        </div>
+        .form-group.row(:key="currency.unit", v-for="currency of currencyUnits")
 
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">monedas RD$ 5</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="5" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total5" disabled>
-          </div>
-        </div>
+          label(class="col-sm-2 col-form-label") {{ currency.type}} RD$ {{ currency.unit }}
+          .col-sm-4
+            input(type="number", class="form-control", :data-unit="currency.unit", @keyup="changeTotal")
+          .col-sm-4
+            input(type="number", class="form-control", v-model="store.currency[`total${currency.unit}`]" disabled)
 
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">monedas RD$ 10</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="10" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total10" disabled>
-          </div>
-        </div>
+        .form-group.row
+          label.col-sm-2.col-form-label(for="total-efectivo-caja") Total en efectivo
+          .col-sm-4
+          .col-sm-4
+            input.form-control#total-efectivo-caja(type="number", :value="total" disabled)
 
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">billetes RD$ 20</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="20" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total20" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">monedas RD$ 25</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="25" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total25" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">billetes RD$ 50</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="50" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total50" data-unit="2000" @keyup="changeTotal" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">billetes RD$ 100</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="100" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total100" data-unit="2000" @keyup="changeTotal" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">billetes RD$ 200</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="200" value="" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total200" data-unit="2000" @keyup="changeTotal" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">biletes RD$ 500</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="500" value="" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total500" data-unit="2000" @keyup="changeTotal" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">biletes RD$ 1000</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="1000" value="" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total1000" data-unit="2000" @keyup="changeTotal" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">billetes RD$ 2000</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" data-unit="2000" value="" @keyup="changeTotal">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" v-model="conteo.total2000" disabled>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Total en efectivo</label>
-          <div class="col-sm-4">
-          </div>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="total-efectivo-caja" v-bind:value="getTotal" disabled>
-          </div>
-        </div>
-
-      </form>
-  </div>
 </template>
 
 <script>
   export default {
     props: {
-      conteo: {
+      store: {
         type: Object,
         required: true
+      },
+      total: {
+        type: Number,
+        required: true
       }
+    },
+
+    data() {
+      return {
+        currencyUnits: [
+          { type: 'monedas', unit: '1' },
+          { type: 'monedas', unit: '5' },
+          { type: 'monedas', unit: '10' },
+          { type: 'billetes', unit: '20' },
+          { type: 'monedas', unit: '25' },
+          { type: 'billetes', unit: '50' },
+          { type: 'billetes', unit: '100' },
+          { type: 'billetes', unit: '200' },
+          { type: 'billetes', unit: '500' },
+          { type: 'billetes', unit: '1000' },
+          { type: 'billetes', unit: '2000' },
+        ]
+      };
+    },
+
+    methods: {
+      changeTotal(e) {
+        const unit = e.srcElement.attributes['data-unit'].value;
+        const cantidad = e.srcElement.value;
+        const value = cantidad * unit * 1.00;
+        store.setUnitValue(unit, value);
+      },
     }
   };
 </script>

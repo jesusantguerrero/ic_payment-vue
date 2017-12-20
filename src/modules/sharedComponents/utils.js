@@ -58,6 +58,7 @@ export default {
     if (Array.isArray(values)) {
       numbers = values;
     } else {
+      console.log(values);
       const keys = Object.keys(values);
       numbers = [];
       keys.forEach((key) => {

@@ -2,6 +2,7 @@ image: node:latest
 stages:
   - prepare
   - build
+  - staging
   - deploy
 
 prepare:
@@ -22,19 +23,30 @@ prepare:
 
 build:
   stage: build
-  script: 
+  script:
    - echo "Building the app .."
    - npm run build
   only:
    - develop
    - feature/enviroments
 
+staging:
+  stage: staging
+  script:
+    - echo "pushing to staging branch"
+    - git remote add staging https://gitlab.com/freesgen1/icpayment.git
+    - git push staging feature/enviroments:staging -f
+    - echo "staged"
+  only:
+    - develop
+    - feature/enviroments
+
 deploy_staging:
   stage: deploy
   script:
     - echo "Deploy to staging server"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push heroku master
+    - git push heroku staging
     - echo "deployed to staging"
   environment:
     name: staging
@@ -42,6 +54,7 @@ deploy_staging:
   only:
   - develop
   - feature/enviroments
+
 deploy_production:
   stage: deploy
   script:
