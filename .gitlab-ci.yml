@@ -36,8 +36,8 @@ staging:
   stage: staging
   script:
     - echo "pushing to staging branch"
-    - git remote add staging https://gitlab.com/freesgen1/icpayment.git
-    - git push staging $CI_BUILD_REF_NAME:staging -f
+    - git branch
+    - git push gitlab $CI_BUILD_REF_NAME:staging -f
     - echo "staged"
   only:
     - develop
@@ -48,7 +48,7 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push heroku $CI_BUILD_REF_NAME
+    - git push heroku $CI_BUILD_REF_NAME:master -f
     - echo "deployed to staging"
   environment:
     name: staging

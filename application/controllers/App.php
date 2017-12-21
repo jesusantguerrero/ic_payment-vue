@@ -59,6 +59,19 @@ class App extends MY_Controller {
 		$this->parser->parse('layouts/footer', $data);
   }
 
+  public function details($id, $active_window = "pagos"){
+		authenticate();
+		$_SESSION['client_data'] = $this->client_model->get_client($id);
+		$this->session->set_flashdata('active_window',$active_window);
+		redirect(base_url('app/admin/detalles'));
+	}
+
+	public function new_contract($id){
+		authenticate();
+		$_SESSION['client_data'] = $this->client_model->get_client($id);
+		redirect(base_url('app/admin/nuevo_contrato'));
+	}
+
 	public function imprimir($page){
 		authenticate();
 		$data['title'] = $page;

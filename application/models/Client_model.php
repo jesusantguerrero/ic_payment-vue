@@ -10,13 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Client_model extends CI_MODEL{
 
-  
+
   public $cols;
   public $lastquery;
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->helper('lib_helper');
   }
 
@@ -26,15 +26,15 @@ class Client_model extends CI_MODEL{
   *@param string $mode "normal" for save it in an insert, "full" to storage all the data
   *@return void
   */
-  
+
   private function organize_data($data,$for_insert = false){
     if ($for_insert) {
       $this->cols['id_cliente']       = null;
       $this->cols['estado']           = $data['estado'];
       $this->cols['fecha_registro']   = $data['fecha_registro'];
     }
-    $this->cols['nombres']            = strtoupper(trim($data['nombres']));  
-    $this->cols['apellidos']          = strtoupper(trim($data['apellidos']));     
+    $this->cols['nombres']            = strtoupper(trim($data['nombres']));
+    $this->cols['apellidos']          = strtoupper(trim($data['apellidos']));
     $this->cols['cedula']             = $data['cedula'];
     $this->cols['provincia']          = $data['provincia'];
     $this->cols['sector']             = $data['sector'];
@@ -61,8 +61,8 @@ class Client_model extends CI_MODEL{
         echo MESSAGE_SUCCESS." Ciente Agregado con exito";
       }else{
        echo MESSAGE_ERROR."No pudo guardarse el cliente ". " Error";
-      } 
-    }  
+      }
+    }
   }
 
   public function update_client($data){
@@ -73,7 +73,7 @@ class Client_model extends CI_MODEL{
       echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
     }else{
       echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;
-    }   
+    }
   }
 
   public function update($data,$echo = true){
@@ -92,7 +92,7 @@ class Client_model extends CI_MODEL{
       }
       return $return;
   }
- 
+
   public function update_observations($data){
 
     $rows = array('observaciones' => $data['observaciones']);
@@ -102,7 +102,7 @@ class Client_model extends CI_MODEL{
      echo MESSAGE_INFO." Observación Agregada";
     }else{
      echo MESSAGE_ERROR." No pudo guardarse la observacion";
-    }   
+    }
   }
 
   public function get_column($columnName,$id_cliente){
@@ -113,7 +113,7 @@ class Client_model extends CI_MODEL{
     }else{
       return " Error";
     }
-    
+
   }
 
   public function is_active($is_active,$data){
@@ -122,15 +122,15 @@ class Client_model extends CI_MODEL{
     }else{
       $state = "no activo";
     }
-    $sql = "UPDATE ic_clientes SET estado='$state' WHERE id_cliente =".$data['id_cliente']; 
+    $sql = "UPDATE ic_clientes SET estado='$state' WHERE id_cliente =".$data['id_cliente'];
     $this->db->query($sql);
   }
 
   public function get_all_clients(){
     $this->db->order_by('apellidos');
-    $result = $this->db->get('ic_clientes');
-    $result = make_client_table($result->result_array(),0);
-    echo $result;
+    if ($result = $this->db->get('ic_clientes')) {
+      return make_client_table($result->result_array(),0);
+    }
   }
 
   public function count_all_clients(){
@@ -157,7 +157,7 @@ class Client_model extends CI_MODEL{
 
     $this->db->or_where('estado',$word);
     if ($result = $this->db->get('ic_clientes')) {
-      return $result->result_array();
+      return make_client_table($result->result_array(), 0);
     }
     return false;
   }
@@ -170,7 +170,7 @@ class Client_model extends CI_MODEL{
      'apellidos'  => $word,
      "concat(ic_clientes.nombres,' ',ic_clientes.apellidos)" => $word
     );
-    
+
     $this->db->select("concat(nombres,' ',apellidos) as text, $id_field as id");
     $this->db->or_like($fields);
     if($result = $this->db->get('ic_clientes')){

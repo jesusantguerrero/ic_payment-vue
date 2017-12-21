@@ -132,9 +132,7 @@
         $(`${this.parentId} .pull-right.search`).addClass('hide');
         const $inputSearch = $(`${this.parentId} .search input`);
         const $printTable = $(`${this.parentId} .print-table`);
-        console.log($(`${this.parentId} .pull-right.search`));
-        // const $other       = $(`${parentId} .first-date`);
-        // const $other        = $(`${parentId} .last-date`);
+
         const self = this;
         // eslint-disable-next-line
         $inputSearch.on('click', function () {

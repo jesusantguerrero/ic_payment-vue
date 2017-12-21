@@ -104,7 +104,14 @@
 
     methods: {
       getClients() {
-        console.log('here i am');
+        const data = { word: this.search };
+        this.$http.post('clients/get_clients/search', this.getDataForm(data))
+          .then((res) => {
+            this.clients = res.data.clients;
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
+          });
       }
     }
   };

@@ -25,9 +25,6 @@ class Process extends CI_Controller {
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "clientes":
-				$this->client_model->add($data);
-				break;
 			case "servicios":
 				$this->service_model->add($data);
 				break;
@@ -50,7 +47,7 @@ class Process extends CI_Controller {
 				 $this->db->trans_start();
 				 $is_saved = $this->contract_model->add($data);
 				 if($is_saved){
-					$this->client_model->is_active(true,$data);
+					$this->client_model->is_active(true, $data);
 					$contract_id = $this->contract_model->get_last_id_of($data['id_cliente']);
 				 	create_payments($contract_id,$data,$this);
 					$this->section_model->update_ip_state($data['codigo'],'ocupado');
@@ -89,9 +86,6 @@ class Process extends CI_Controller {
 		$data  = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "clientes":
-				$this->client_model->update_client($data);
-				break;
 			case "observaciones":
 				$this->client_model->update_observations($data);
 				break;
@@ -240,12 +234,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "users":
-				$this->user_model->get_all_users();
-				break;
-			case "clientes":
-				$this->client_model->get_all_clients();
-				break;
 			case "servicios":
 				$this->service_model->get_all_services();
 				break;
@@ -295,15 +283,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "clientes":
-				$result = $this->client_model->get_client($_POST['id'],true);
-				if($result){
-					 $dataJson = json_encode($result);
-					 echo $dataJson;
-				}else{
-					echo "nada";
-				}
-				break;
 			case "contratos":
 				$result = $this->contract_model->get_contract_view($_POST['id_contrato'],true);
 				if($result){
@@ -331,9 +310,6 @@ class Process extends CI_Controller {
 		$tabla = $_POST['tabla'];
 
 		switch ($tabla) {
-			case 'clientes':
-				$this->client_model->delete_client($id);
-				break;
 			case 'servicios':
 				$this->service_model->delete_service($id);
 				break;
@@ -359,51 +335,6 @@ class Process extends CI_Controller {
 				$this->averia_model->count();
 				break;
 		}
-	}
-
-	public function search(){
-		authenticate();
-		if(isset($_POST['tabla'])){
-			$data = $_POST;
-			$tabla = $data['tabla'];
-			if(isset($_POST['word'])){
-				$word = $_POST['word'];
-			}
-		}else{
-			$query = $_GET['q'];
-			$tabla = $_GET['tabla'];
-		}
-
-		switch ($tabla) {
-			case 'clientes':
-				$clients = $this->client_model->search_clients($word);
-				if ($clients)
-				echo make_client_table($clients, 0);
-				break;
-			case 'clientes_para_averias':
-				$res['items'] = $this->client_model->search_clients_for_message($query,'id_cliente');
-				echo json_encode($res);
-				break;
-			case 'servicios':
-				 $this->service_model->search_services($word);
-				break;
-			case 'v_contratos':
-				 $this->contract_view_model->search_contracts($word);
-				break;
-		}
-	}
-
-	public function details($id,$active_window = "pagos"){
-		authenticate();
-		$_SESSION['client_data'] = $this->client_model->get_client($id);
-		$this->session->set_flashdata('active_window',$active_window);
-		redirect(base_url('app/admin/detalles'));
-	}
-
-	public function newcontract($id){
-		authenticate();
-		$_SESSION['client_data'] = $this->client_model->get_client($id);
-		redirect(base_url('app/admin/nuevo_contrato'));
 	}
 
 	public function getrecibo($id){
