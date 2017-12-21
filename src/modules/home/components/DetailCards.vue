@@ -23,11 +23,11 @@
                   a(target="_blank" href="base_url('process/getreport/payment/today")
                   h2.current-saldo day_income
 
-      .details-card-controls
-        .detail-card__control A
-        .detail-card__control B
-        .detail-card__control C
-        .detail-card__control D
+      .details-control-container
+        button.detail-control(@click="moveControls(0)") Pagos
+        button.detail-control(@click="moveControls(-100)") Caja Chica
+        button.detail-control(@click="moveControls(-200)") Deudores
+        button.detail-control(@click="moveControls(-300)") Ganancias
 </template>
 
 
@@ -49,36 +49,11 @@
     },
 
     methods: {
-      moveControls() {
-        const btnAverias = $('#btn-see-averias');
-        const btnPagos = $('#btn-see-pagos');
-        const btnDeudores = $('#btn-see-deudores');
-        const btnDayIncomes = $('#btn-see-day-incomes');
+      moveControls(position) {
         const layoutContainer = $('.layout-container');
-
-        btnAverias.on('click', () => {
-          layoutContainer.animate({
-            left: '-100%'
-          }, 200);
-        });
-
-        btnPagos.on('click', () => {
-          layoutContainer.animate({
-            left: '0'
-          }, 200);
-        });
-
-        btnDeudores.on('click', () => {
-          layoutContainer.animate({
-            left: '-200%'
-          }, 200);
-        });
-
-        btnDayIncomes.on('click', () => {
-          layoutContainer.animate({
-            left: '-300%'
-          }, 200);
-        });
+        layoutContainer.animate({
+          left: `${position}%`
+        }, 200);
       }
     }
   };

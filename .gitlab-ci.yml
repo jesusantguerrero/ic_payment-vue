@@ -26,7 +26,7 @@ build:
   stage: build
   script:
    - echo "Building the app .."
-   - npm intall chalk --save-dev
+   - npm install chalk --save-dev
    - npm run build
   only:
    - develop
@@ -37,7 +37,7 @@ staging:
   script:
     - echo "pushing to staging branch"
     - git remote add staging https://gitlab.com/freesgen1/icpayment.git
-    - git push staging feature/enviroments:staging -f
+    - git push staging $CI_BUILD_REF_NAME:staging -f
     - echo "staged"
   only:
     - develop
@@ -48,7 +48,7 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push heroku staging
+    - git push heroku $CI_BUILD_REF_NAME
     - echo "deployed to staging"
   environment:
     name: staging

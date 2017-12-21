@@ -39,10 +39,12 @@
       .col-md-4.clock-card
           h3.card-title.t-center Hora
           h4.hour.h3-4.t-center {{ date.hour }}
+    SearchClientModal
 </template>
 
 <script>
 import DetailCards from './components/DetailCards.vue';
+import SearchClientModal from './components/SearchClientModal.vue';
 
 const store = window.appStore;
 
@@ -50,7 +52,8 @@ const store = window.appStore;
 export default {
   name: 'home-section',
   components: {
-    DetailCards
+    DetailCards,
+    SearchClientModal
   },
   mounted() {
     this.getDate();

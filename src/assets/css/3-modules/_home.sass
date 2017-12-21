@@ -42,6 +42,7 @@
     position: absolute
     +makeFlex(400%, row, center, center)
     height: 80%
+    top: 0
 
   [class*='-layer']
     +size(45%,100%)
@@ -69,6 +70,25 @@
   .btn-remark:hover
     background: transparentize(#fff,.9)
 
+.details-control-container
+  +makeFlex(100%, row, center, center)
+  background: $primary-color
+  position: absolute
+  height: 20%
+  bottom: 0
+
+  .detail-control
+    +makeFlex(25%, column, center, center)
+    color: white
+    background: $primary-color
+    height: 100%
+    border: 0
+
+
+    &:hover
+      background: darken($primary-color, 10%)
+    &:focus
+      outline: 0
 .list-nextpayments
   +size(100%,180px)
 
