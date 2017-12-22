@@ -2,7 +2,6 @@ image: node:latest
 stages:
   - prepare
   - build
-  - staging
   - deploy
 
 prepare:
@@ -32,16 +31,6 @@ build:
    - develop
    - feature/enviroments
 
-staging:
-  stage: staging
-  script:
-    - echo "pushing to staging branch"
-    - git branch
-    - git push gitlab $CI_BUILD_REF_NAME:staging -f
-    - echo "staged"
-  only:
-    - develop
-    - feature/enviroments
 
 deploy_staging:
   stage: deploy
