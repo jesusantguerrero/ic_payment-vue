@@ -168,16 +168,3 @@ function checkWindowSize() {
     brandName.textContent = "Payment";
   }
 }
-
-function onWindowLoadFunctions(){
-  $('body').scroll(function () {
-    position = $('body').scrollTop()
-    movableNav = $('.aside-nav-container, .aside-wide-left')
-    if (position >= 50) {
-      if(!movableNav.hasClass('moved'))
-        movableNav.addClass('moved')
-    } else {
-      movableNav.removeClass('moved')
-    }
-  })
-}

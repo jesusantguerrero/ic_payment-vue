@@ -44,14 +44,6 @@ export default class clients {
     }
   }
 
-  getAll() {
-    const form = 'tabla=clientes';
-    this.send('getall', form)
-      .then((res) => {
-        clientTable.refresh(res.data);
-      });
-  }
-
   getOne(id) {
     const self = this;
     const form = `tabla=clientes&id=${id}`;

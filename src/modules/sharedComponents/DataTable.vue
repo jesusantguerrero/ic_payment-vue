@@ -48,7 +48,6 @@
       init() {
         this.table = $(`#${this.ids}`);
         this.$filter = $(`${this.parentId} .filter`);
-        this.customSearch();
         this.activate();
         this.listen();
       },
@@ -79,7 +78,7 @@
         this.table.find('tbody').css({ display: 'table-row-group' });
         this.table.addClass('innertable');
         this.$filter.change();
-
+        this.customSearch();
         if (page) {
           this.table.bootstrapTable('selectPage', page);
         }
@@ -147,8 +146,8 @@
         // eslint-disable-next-line
         this.$filter.on('change', function () {
           let filterWord = $(this).val();
-          if (filterWord === 'all') {
-            filterWord = self['table-states'];
+          if (filterWord === 'todo') {
+            filterWord = self.options.states;
           }
           self.applyFilter(filterWord);
         });
@@ -160,10 +159,10 @@
         }
       },
 
-      applyFilte(filter) {
+      applyFilter(filter) {
         const self = this;
         this.table.bootstrapTable('filterBy', {
-          [self.statefield]: filter
+          [self.options.stateField]: filter
         });
         self.$emit('filter.bs');
       }

@@ -90,5 +90,17 @@ export default {
       monthYear,
       dayWeek
     };
+  },
+
+  spyLeftNavigation() {
+    $('body').scroll(() => {
+      const position = $('body').scrollTop();
+      const movableNav = $('.aside-nav-container, .aside-wide-left');
+      if (position >= 50) {
+        if (!movableNav.hasClass('moved')) { movableNav.addClass('moved'); }
+      } else {
+        movableNav.removeClass('moved');
+      }
+    });
   }
 };

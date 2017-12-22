@@ -33,6 +33,11 @@ Vue.component(
   (resolve) => { require(['./../cierre/CashDeskSection'], resolve); }
 );
 
+Vue.component(
+  /* webpackChunkName: "cierre */ 'ClientSection',
+  (resolve) => { require(['./../clientes/ClientSection'], resolve); }
+);
+
 
 export default new Vue({
   el: '#app',
