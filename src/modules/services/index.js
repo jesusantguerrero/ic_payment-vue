@@ -1,4 +1,3 @@
-import Clients from './clients';
 import Generals from './generals';
 import Services from './services';
 import Contracts from './contracts';
@@ -11,14 +10,6 @@ const cGenerals = new Generals();
 
 function initComponents() {
   switch (currentPage) {
-    case 'home': {
-      const cClients = new Clients();
-    }
-      break;
-    case 'clientes': {
-      const cClients = new Clients();
-    }
-      break;
     case 'servicios': {
       const cServices = new Services();
     }
@@ -36,15 +27,14 @@ function initComponents() {
     }
       break;
     case 'detalles': {
-      const dClients = new Clients();
-      const dPayments = new Payments();
-      const dContracts = new Contracts();
-      detailsHandler(dClients, dContracts, dPayments);
+      // const dPayments = new Payments();
+      // const dContracts = new Contracts();
+      // detailsHandler(dClients, dContracts, dPayments);
     }
       break;
     case 'contratos': {
-      const cContracts = new Contracts();
-      const cClients = new Clients();
+      // const cContracts = new Contracts();
+      // const cClients = new Clients();
       break;
     }
     default:

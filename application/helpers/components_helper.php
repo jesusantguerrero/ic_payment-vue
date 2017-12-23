@@ -229,7 +229,7 @@ function make_extra_table($data,$start_at, $full = false){
 
   foreach ($data as $line) {
      $state = verify_state($line['estado'],$posible_states);
-     $url = base_url()."process/details/{$line['id_cliente']}/extras";
+     $url = base_url()."app/details/{$line['id_cliente']}/extras";
 
      $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
       $html_text .= "<tr class='$row_class'>";

@@ -11,13 +11,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Client_model extends CI_MODEL{
 
 
+  private $table;
+  private $view;
   public $cols;
   public $lastquery;
 
   public function __construct(){
     parent::__construct();
-
     $this->load->helper('lib_helper');
+    $this->table = 'ic_clientes';
   }
 
   /**
@@ -52,24 +54,24 @@ class Client_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data, true);
-    return $this->db->insert('ic_clientes',$this->cols);
+    return $this->db->insert($this->table, $this->cols);
   }
 
   public function update_client($data, $row = false, $id = false){
     if ($id && $row) {
       $this->db->where('id_cliente', $id);
-      return $this->db->update('ic_clientes', [$row => $data]);
+      return $this->db->update($this->table, [$row => $data]);
     } else {
       $this->organize_data($data);
       $this->db->where('id_cliente',$data['id_cliente']);
-      return $this->db->update('ic_clientes',$this->cols);
+      return $this->db->update($this->table,$this->cols);
     }
   }
 
   public function get_column($columnName,$id_cliente){
     $this->db->select($columnName);
     $this->db->where('id_cliente',$id_cliente);;
-    if($result = $this->db->get('ic_clientes')){
+    if($result = $this->db->get($this->table)){
       return $result->row_array();
     }else{
       return " Error";
@@ -89,13 +91,13 @@ class Client_model extends CI_MODEL{
 
   public function get_all_clients(){
     $this->db->order_by('apellidos');
-    if ($result = $this->db->get('ic_clientes')) {
+    if ($result = $this->db->get($this->table)) {
       return make_client_table($result->result_array(),0);
     }
   }
 
   public function count_all_clients(){
-    $result = $this->db->count_all('ic_clientes');
+    $result = $this->db->count_all($this->table);
     if($result){
       echo $result;
     }else{
@@ -117,7 +119,7 @@ class Client_model extends CI_MODEL{
     }
 
     $this->db->or_where('estado',$word);
-    if ($result = $this->db->get('ic_clientes')) {
+    if ($result = $this->db->get($this->table)) {
       return make_client_table($result->result_array(), 0);
     }
     return false;
@@ -134,25 +136,25 @@ class Client_model extends CI_MODEL{
 
     $this->db->select("concat(nombres,' ',apellidos) as text, $id_field as id");
     $this->db->or_like($fields);
-    if($result = $this->db->get('ic_clientes')){
+    if($result = $this->db->get($this->table)){
       return $result->result_array();
     }
   }
 
   public function get_client($id, $json = false){
     $this->db->where('cedula',$id)->or_where('id_cliente',$id);
-    if($result = $this->db->get('ic_clientes')){
+    if($result = $this->db->get($this->table)){
       return ($json) ? $result->row() : $result->row_array();
     }
   }
 
   public function delete_client($id){
     $this->db->where('id_cliente',$id);
-    return $this->db->delete('ic_clientes');
+    return $this->db->delete($this->table);
   }
 
   public function has_dni($dni){
     $this->db->where('cedula',$dni);
-    return  $this->db->count_all_results('ic_clientes');
+    return  $this->db->count_all_results($this->table);
   }
 }

@@ -38,8 +38,13 @@ Vue.component(
 );
 
 Vue.component(
-  /* webpackChunkName: "cierre */ 'ClientSection',
+  /* webpackChunkName: "cliente" */ 'ClientSection',
   (resolve) => { require(['./../clientes/ClientSection'], resolve); }
+);
+
+Vue.component(
+  /* webpackChunkName: "extras */ 'ExtraSection',
+  (resolve) => { require(['./../extras/ExtraSection'], resolve); }
 );
 
 
