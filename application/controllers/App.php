@@ -54,7 +54,7 @@ class App extends MY_Controller {
     $data['notifications'] = $this->report_model->count_moras_view();
 
     echo $this->twig->render('layouts/header', $data);
-    $this->twig->display("pages/".$page, $data);
+    echo $this->twig->render("pages/".$page, $data);
     $this->load_modals($page);
 		$this->parser->parse('layouts/footer', $data);
   }

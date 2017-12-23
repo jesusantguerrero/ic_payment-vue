@@ -9,13 +9,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Section_model extends CI_MODEL{
-  
+
   // public $id = null;
   public $last_check_moras;
 
   public function __construct(){
     parent::__construct();
-     
+
   }
 
   // funciones para las secciones
@@ -40,14 +40,17 @@ class Section_model extends CI_MODEL{
         return 0;
       endif;
     }
-    
+
   }
 
   public function get_sections_dropdown(){
-    $result = $this->db->get('ic_secciones');
-    $result = make_section_dropdown($result->result_array(),0);
-    echo $result;
-  } 
+    $this->db->select('id_seccion as key, concat(nombre, '|', codigo_area) as text', false);
+    if ($result = $this->db->get('ic_secciones')){
+      return $result->result();
+    } else {
+      var_dump($this->db->last_query());
+    }
+  }
 
   public function get_section_id($codigo_area){
     $this->db->where('codigo_area',$codigo_area);
@@ -63,7 +66,7 @@ class Section_model extends CI_MODEL{
      if($this->db->insert('ic_ips',$row)){
       }else{
         echo " Error";
-      } 
+      }
   }
 
   public function get_all_of_section($section_id,$estado = ''){
@@ -74,8 +77,7 @@ class Section_model extends CI_MODEL{
       $result = $result->result_array();
       echo  make_ips_table($result,0);
     }
-    
-  }  
+  }
 
   public function get_ip_list_of_section($section_id){
     $this->db->where('id_seccion',$section_id);
@@ -91,7 +93,7 @@ class Section_model extends CI_MODEL{
     $this->db->where('codigo',$codigo)->select('id_ip');
     $result = $this->db->get('v_ips',1);
     $id_ip = $result->row_array()['id_ip'];
-    
+
     $this->db->where('id_ip',$id_ip);
     return $this->db->update('ic_ips',array('estado' => $state));
   }

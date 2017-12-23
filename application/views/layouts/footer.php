@@ -9,7 +9,7 @@
       const Company = '{company}'
       const CurrentUser= '{currentUser}'
     </script>
-
+    <script src="{url}serviceWorker.js"> </script>
     {js}
       <script src="{link}"></script>
     {/js}

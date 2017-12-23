@@ -2,7 +2,6 @@ import Generals from './generals';
 import Services from './services';
 import Contracts from './contracts';
 import Payments from './payments';
-import Sections from './sections';
 import Notifications from './notificaciones';
 import detailsHandler from './details/handlers';
 
