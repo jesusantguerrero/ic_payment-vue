@@ -113,12 +113,11 @@
       listen() {
         const self = this;
         this.table.on('all.bs.table', (e, name, args) => {
-          if (name !== 'check.bs.table' && name !== 'uncheck.bs.table') {
-            self.$emit(name, args);
-          } else {
+          if (name === 'check.bs.table' || name === 'uncheck.bs.table') {
             const row = this.getSelectedRow();
-            this.table.on('check.bs.table');
-            self.$emit('check-uncheck', row);
+            self.$emit('check-uncheck', name, row, args);
+          } else if (name === 'click-cell.bs.table' && args[0] === 'estado') {
+            self.$emit('cell-clicked', name, args);
           }
         });
 

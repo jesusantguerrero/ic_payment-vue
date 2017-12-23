@@ -60,5 +60,47 @@ export default class ClientStore {
         class: 'hide'
       },
     ];
+    this.clientMode = 'add';
+    this.client = {
+      nombres: '',
+      apellidos: '',
+      cedula: '',
+      celular: '',
+      provincia: '',
+      sector: '',
+      calle: '',
+      casa: '',
+      detalles_direccion: '',
+      telefono: '',
+      lugar_trabajo: '',
+      tel_trabajo: '',
+      ingresos: 0
+    };
+  }
+
+  setClientMode(mode) {
+    this.clientMode = mode;
+  }
+
+  setClient(client) {
+    this.client = client;
+  }
+
+  clientEmpty() {
+    this.client = {
+      nombres: '',
+      apellidos: '',
+      cedula: '',
+      celular: '',
+      provincia: '',
+      sector: '',
+      calle: '',
+      casa: '',
+      detalles_direccion: '',
+      telefono: '',
+      lugarTrabajo: '',
+      telTrabajo: '',
+      ingresos: 0
+    };
   }
 }

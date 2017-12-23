@@ -17,17 +17,12 @@ if ( ! function_exists('get_modals'))
     $modals = array('modales/global_modals');
     switch($filename){
       case 'home':
-         array_push($modals, 'modales/client_modals');
          array_push($modals,'modales/contract_modals');
          break;
-      case 'clientes':
-        array_push($modals,'modales/client_modals');
-        break;
       case 'servicios':
          array_push($modals,'modales/service_modals');
         break;
       case 'contratos':
-        array_push($modals,'modales/client_modals');
         array_push($modals, 'modales/contract_modals');
         break;
       case 'detalles':

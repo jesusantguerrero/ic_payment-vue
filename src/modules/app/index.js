@@ -8,6 +8,10 @@ import MessageModal from './components/MessageModal.vue';
 import TicketModal from './components/TicketModal.vue';
 import Store from './store/appStore';
 
+window.jQuery = $;
+/* eslint-disable import/first */
+import 'bootstrap';
+
 window.appStore = new Store();
 window.appBus = new Vue();
 

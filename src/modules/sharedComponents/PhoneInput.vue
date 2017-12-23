@@ -28,7 +28,7 @@
         const TelSelector = document.querySelectorAll('[type="tel"]');
         const dniSelector = document.querySelectorAll('[role="cedula"], [id*="dni"]');
         InputMask({ mask: '(999) 999-9999', greede: false }).mask(TelSelector);
-        InputMask({ mask: ['999-9999999-9', '**-*******', '*{1,20}'], greede: false }).mask(dniSelector);
+        InputMask({ mask: '**[*]-*******-[*][*{1,20}]', greede: false }).mask(dniSelector);
       },
 
       getVal(element) {

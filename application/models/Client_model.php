@@ -52,56 +52,17 @@ class Client_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data, true);
-
-    $result = $this->has_dni($this->cols['cedula']);
-    if($result > 0){
-      echo MESSAGE_ERROR." Esta cedula ya está registrada";
-    }else{
-      if($this->db->insert('ic_clientes',$this->cols)){
-        echo MESSAGE_SUCCESS." Ciente Agregado con exito";
-      }else{
-       echo MESSAGE_ERROR."No pudo guardarse el cliente ". " Error";
-      }
-    }
+    return $this->db->insert('ic_clientes',$this->cols);
   }
 
-  public function update_client($data){
-
-    $this->organize_data($data);
-    $this->db->where('id_cliente',$data['id']);
-    if($result = $this->db->update('ic_clientes',$this->cols)){
-      echo MESSAGE_SUCCESS." Cliente Actualizado Con Exito!";
-    }else{
-      echo MESSAGE_ERROR."No pudo guardarse el cliente ".$sql;
-    }
-  }
-
-  public function update($data,$echo = true){
-      $this->db->where('id_cliente',$data['id']);
-      unset($data['id']);
-      $result = $this->db->update('ic_clientes',$data);
-      if(!$result){
-        $message =  MESSAGE_ERROR."No pudo guardarse el cliente ";
-        $return = true;
-      }else{
-        $message = MESSAGE_SUCCESS." Estado actualizado";
-        $return = false;
-      }
-      if($echo){
-        echo $message;
-      }
-      return $return;
-  }
-
-  public function update_observations($data){
-
-    $rows = array('observaciones' => $data['observaciones']);
-    $this->db->where('id_cliente',$data['id_cliente']);
-
-    if($this->db->update('ic_clientes',$rows)){
-     echo MESSAGE_INFO." Observación Agregada";
-    }else{
-     echo MESSAGE_ERROR." No pudo guardarse la observacion";
+  public function update_client($data, $row = false, $id = false){
+    if ($id && $row) {
+      $this->db->where('id_cliente', $id);
+      return $this->db->update('ic_clientes', [$row => $data]);
+    } else {
+      $this->organize_data($data);
+      $this->db->where('id_cliente',$data['id_cliente']);
+      return $this->db->update('ic_clientes',$this->cols);
     }
   }
 
@@ -187,14 +148,10 @@ class Client_model extends CI_MODEL{
 
   public function delete_client($id){
     $this->db->where('id_cliente',$id);
-    if($this->db->delete('ic_clientes')){
-      echo MESSAGE_SUCCESS." Cliente Eliminado";
-    }else{
-      echo MESSAGE_ERROR." No se ha podido eliminar el cliente";
-    }
+    return $this->db->delete('ic_clientes');
   }
 
-  private function has_dni($dni){
+  public function has_dni($dni){
     $this->db->where('cedula',$dni);
     return  $this->db->count_all_results('ic_clientes');
   }

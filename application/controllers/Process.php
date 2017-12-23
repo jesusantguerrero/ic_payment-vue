@@ -100,7 +100,6 @@ class Process extends CI_Controller {
 					}
 				}
 				break;
-
 			case "servicios":
 				$this->db->trans_start();
 				$this->service_model->update_service($data);
@@ -511,5 +510,4 @@ class Process extends CI_Controller {
 			return true;
 		}
 	}
-
 }
