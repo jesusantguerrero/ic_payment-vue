@@ -24,7 +24,7 @@
           .pull-right
             select#client-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
-        DataTable(ids="extra-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions")
+        DataTable(ids="extra-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions", @cell-clicked="stateChanges")
         RouterModal(:sector="sector", :modal-mode="modalMode", @save="save")
 </template>
 
@@ -111,13 +111,13 @@
       },
 
       getIps() {
-        heavyLoad.play();
         if (this.selectedId) {
           this.$http.post('section/get_ips', this.getDataForm({ id_section: this.selectedId }))
             .then((res) => {
-              heavyLoad.stop();
-              heavyLoad.stop();
               this.content = res.data.ips;
+            })
+            .catch((err) => {
+              this.$toasted.error(err);
             });
         }
       },
@@ -148,6 +148,41 @@
             this.getIps();
             heavyLoad.stop();
           });
+      },
+
+      updateState(code, state) {
+        this.$http.post('section/update_ip', this.getDataForm({ code, state }))
+          .then((res) => {
+            this.getIps();
+            this.showMessage(res.data.message);
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
+          });
+      },
+
+      stateChanges(name, args) {
+        const self = this;
+        const { options } = this;
+        const theOptions = options.map(option => ((option.key !== 'todo') ? `<option value='${option.key}'> ${option.key}</value>` : ''));
+        const selectState = `<select>${theOptions.join('')}</select>`;
+        const select = $(selectState);
+        const $this = args[3];
+        const row = args[2];
+        let state = args[1];
+
+        $this.html(select);
+        select.focus();
+        select.val(state);
+        select.on('change blur', () => {
+          state = select.val();
+          $this.html(state);
+          $this.removeClass('text-danger text-success text-primary');
+          self.updateState(row.codigo, state);
+        });
+        select.on('click', (event) => {
+          event.stopImmediatePropagation();
+        });
       }
     },
     computed: {
@@ -176,7 +211,6 @@
             title: 'Sector',
             valign: 'middle',
             align: 'center',
-            class: 'hide'
           },
           {
             field: 'codigo',

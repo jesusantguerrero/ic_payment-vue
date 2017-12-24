@@ -59,4 +59,17 @@ class Section extends MY_Controller {
     return true;
   }
 
+  public function update_ip(){
+    authenticate();
+    $data = $this->get_post_data('data');
+    if ($data) {
+      if ($this->section_model->update_ip_state($data['code'], $data['state'])){
+        $this->set_message('direccion ip actualizada');
+      } else {
+        $this->set_message('Error al actualizar ip', 'error');
+      }
+      $this->response_json();
+    }
+  }
+
 }
