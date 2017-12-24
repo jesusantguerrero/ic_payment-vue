@@ -46,11 +46,16 @@ Vue.component(
   /* webpackChunkName: "extras" */ 'ExtraSection',
   (resolve) => { require(['./../extras/ExtraSection'], resolve); }
 );
+
 Vue.component(
   /* webpackChunkFileName: "secciones" */ 'RouterSection',
   (resolve) => { require(['./../secciones/RouterSection'], resolve); }
 );
 
+Vue.component(
+  /* webpackChunkFileName: "servicios" */ 'ServiceSection',
+  (resolve) => { require(['./../servicios/ServiceSection'], resolve); }
+);
 
 export default new Vue({
   el: '#app',

@@ -12,10 +12,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if ( ! function_exists('create_payments')){
   /**
   * Genera los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function create_payments($contract_id,$data,$context){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
@@ -27,12 +27,12 @@ if ( ! function_exists('create_payments')){
     $settings = $ci->settings_model->get_settings();
     $split_day = $settings['split_day'];
     $day = $contract_date->format('d');
-    $pago = $data['mensualidad']; 
+    $pago = $data['mensualidad'];
 
     $i = 0;
-    
+
     for ($i; $i < $duration + 1; $i++) {
-      if($i > 0) $concepto = "mensualidad"; 
+      if($i > 0) $concepto = "mensualidad";
       if($i == 1) {
         if($day > 15 && $day <= $split_day){
           $pago = $data['mensualidad'] / 2;
@@ -65,22 +65,22 @@ if (! function_exists('refresh_contract')){
 
   /**
   * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function refresh_contract($contract_id,$context,$data_pago){
     $time_zone = new DateTimeZone('America/Santo_Domingo');
 
     $contract  = $context->contract_model->get_contract_view($contract_id);
     $payment   = $context->payment_model->get_payment($data_pago['id']);
-  
+
     $data_contract = array(
       'ultimo_pago'   => $data_pago['fecha_pago'],
     );
 
-    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract); 
+    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract);
   }
 }
 
@@ -89,29 +89,29 @@ if (! function_exists('cancel_payment')){
   function cancel_payment($payment_id,$context){
     $payment   = $context->payment_model->get_payment($payment_id);
     $contract  = $context->contract_model->get_contract_view($payment['id_contrato']);
- 
+
     if(!str_contains('abono',$payment['concepto'])){
 
       $data_payment = array(
         'estado'      => 'no pagado',
         'fecha_pago'  => null
       );
- 
+
       $context->payment_model->update($data_payment,$payment_id);
-      
+
       $context->db->where('id_contrato',$payment['id_contrato'])
         ->where('estado','pagado')
         ->select('fecha_pago')
         ->order_by('fecha_pago','DESC');
 
       $last_pay_date = $context->db->get('ic_pagos',1)->row_array()['fecha_pago'];
- 
+
       $data_contract = array(
         'ultimo_pago'   => $last_pay_date,
         'proximo_pago'  => $payment['fecha_limite'],
         'estado'        => 'activo'
       );
-      
+
       $contract_debt = $context->contract_model->get_debt_of($payment['id_contrato']);
       $data_contract = array_merge($data_contract, $contract_debt);
       $context->contract_model->update($data_contract,$payment['id_contrato']);
@@ -119,22 +119,22 @@ if (! function_exists('cancel_payment')){
       echo MESSAGE_SUCCESS." Pago cancelado";
     }else{
       cancel_abono($payment,$contract,$context);
-    } 
+    }
   }
 }
- 
+
 if (! function_exists('set_abono')){
- 
+
   function set_abono($data,$context){
     $date     = date('Y-m-d');
     $payment  = $context->payment_model->get_next_payment_of($data['contrato_abono']);
     $contract  = $context->contract_model->get_contract_view($data['contrato_abono']);
- 
+
     if($payment and $data['abonos'] < $payment['cuota'] and $data['abonos'] > 0){
       $id_empleado = $_SESSION['user_data']['user_id'];
       $to_pay = new DATETIME($payment['fecha_limite']);
       $to_pay = str_replace($GLOBALS['full_months_eng'],$GLOBALS['full_months_esp'],$to_pay->format('F'));
- 
+
       $data_abono = array(
         'id_contrato' => $data['contrato_abono'],
         'id_servicio' => $payment['id_servicio'],
@@ -150,21 +150,21 @@ if (! function_exists('set_abono')){
         'deuda'       => $payment['total'] - $data['abonos'],
         'abono_a'     => $payment['id_pago']
       );
-  
+
       $context->payment_model->add($data_abono);
       $new_cuota = $payment['cuota'] - $data['abonos'];
       $updated_payment = array(
         'cuota'   => $new_cuota,
         'total'   => $payment['mora'] + $payment['monto_extra'] + $new_cuota
       );
- 
+
       $context->payment_model->update($updated_payment,$payment['id_pago']);
- 
+
       $data_contract = array('ultimo_pago'   => $date);
       $contract_debt = $context->contract_model->get_debt_of($contract['id_contrato']);
       $data_contract = array_merge($data_contract,$contract_debt);
       $data_contract['estado'] = $context->contract_model->get_status_for($contract,$contract_debt);
- 
+
       $context->contract_model->update($data_contract,$contract['id_contrato']);
 
       echo MESSAGE_SUCCESS." El abono ha sido registrado correctamente";
@@ -173,39 +173,39 @@ if (! function_exists('set_abono')){
     }
   }
 }
- 
+
 if (! function_exists('cancel_abono')){
- 
+
   function cancel_abono($abono,$contract,$context){
     $abono_owner = $context->payment_model->get_payment($abono['abono_a']);
     $total = $abono['total'];
- 
+
     if($abono_owner['estado'] != 'pagado'){
 
       $context->db->query('delete from ic_pagos where id_pago='.$abono['id_pago']);
       $last_payment = $context->payment_model->get_last_pay_of($abono['id_contrato']);
-  
+
       $new_cuota = $abono_owner['cuota'] + $total;
       $updated_payment = array(
         'cuota'   => $new_cuota,
         'total'   => $abono_owner['mora'] + $abono_owner['monto_extra'] + $new_cuota
       );
- 
+
       $context->payment_model->update($updated_payment,$abono_owner['id_pago']);
- 
+
       $data_contract = array('ultimo_pago'   => $last_payment['fecha_pago']);
       $contract_debt = $context->contract_model->get_debt_of($contract['id_contrato']);
       $data_contract = array_merge($data_contract,$contract_debt);
       $data_contract['estado'] = $context->contract_model->get_status_for($contract,$contract_debt);
- 
+
       $context->contract_model->update($data_contract,$contract['id_contrato']);
       echo MESSAGE_SUCCESS." Pago eliminado";
     }else{
       echo MESSAGE_INFO." El pago al que pertenecia este abono se realizó, este abono ya no puede ser eliminado";
     }
- 
+
   }
-} 
+}
 
 if (! function_exists('payments_up_to_date')){
 
@@ -250,7 +250,7 @@ if (! function_exists('payments_up_to_date')){
         'ultimo_pago'   => $last_date,
         'estado'        => $state
       );
-      $context->contract_model->update($data_contract,$contract_id,false); 
+      $context->contract_model->update($data_contract,$contract_id,false);
     }
   }
 }
@@ -288,17 +288,17 @@ if (! function_exists('clear_payments')){
       'ultimo_pago'   => null,
       'estado'        => $state
     );
-    $context->contract_model->update($data_contract,$contract_id,true); 
+    $context->contract_model->update($data_contract,$contract_id,true);
   }
 }
 
 if (! function_exists('upgrade_contract')){
   /**
   * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function upgrade_contract($context,$data_cambio){
     $contract_id = $data_cambio['id_contrato'];
@@ -306,7 +306,7 @@ if (! function_exists('upgrade_contract')){
     $pagos_restantes = $context->payment_model->count_unpaid_per_contract($contract_id);
 
     $monto_total = $contract['monto_pagado'] + ($data_cambio['cuota'] * $pagos_restantes);
-    
+
     $data_contract = array(
       'id_contrato'   => $contract_id,
       'monto_total'   => $monto_total,
@@ -319,55 +319,7 @@ if (! function_exists('upgrade_contract')){
       'cuota'         => $data_cambio['cuota'],
       'monto_total'   => $data_cambio['cuota']
     );
-      $context->contract_model->upgrade_contract($data_pago,$data_contract); 
-  }
-}
-
-if (! function_exists('update_contract_from_service')){
-  /**
-  * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query 
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
-
-  function update_contract_from_service($data_cambio){
-    $ci =& get_instance();
-    $service_id = $data_cambio['id_servicio'];
-    $contracts = $ci->contract_view_model->get_contract_view_of_service($service_id);
-    $count = 0;
-    $contratos_a_cambiar = count($contracts);
-
-    foreach ($contracts as $contract) {
-      $contract_id = $contract['id_contrato'];
-      $pagos_restantes = $ci->payment_model->count_unpaid_per_contract($contract_id);
-      $monto_total = $contract['monto_pagado'] + ($data_cambio['mensualidad'] * $pagos_restantes);
-    
-      $data_contract = array(
-        'monto_total'   => $monto_total,
-      );
-      
-      $ci->db->where('id_contrato',$contract_id);
-      
-      $payments = $ci->payment_model->get_unpaid_per_contract($contract_id);
-      
-      foreach ($payments as $payment) {
-        
-        $total           = $data_cambio['mensualidad'] + $payment['mora'] + $payment['monto_extra'];
-
-        $data_pago = array(
-          'cuota'         => $data_cambio['mensualidad'],
-          'cuota'   => $data_cambio['mensualidad'],
-          'total'   => $total
-        );
-
-        $ci->db->where('id_pago',$payment['id_pago']);
-      }
-
-      $count++;
-     
-    }
-     echo " ".$count." de ".$contratos_a_cambiar." contratos actualizados";
+      $context->contract_model->upgrade_contract($data_pago,$data_contract);
   }
 }
 
@@ -386,7 +338,7 @@ function payment_discount($data,$context){
     'total'           => $data['total'],
     'descuento'       => $data['descuento'],
     'detalles_extra'  => $data['detalles_extra'],
-    'razon_descuento' => $data['razon_descuento']     
+    'razon_descuento' => $data['razon_descuento']
     );
 
   $context->payment_model->update($data_discount,$data['id_pago']);
@@ -408,7 +360,7 @@ function payment_discount($data,$context){
 *
 */
 
-function update_moras($context){ 
+function update_moras($context){
   $today = date('Y-m-d');
   $settings = $context->settings_model->get_settings();
 
@@ -416,7 +368,7 @@ function update_moras($context){
   if($next_check == $today){
     $moras = $context->payment_model->get_moras_view("group");
     update_state_moras($moras, $context);
-    
+
     if($moras){
       $data = $context->payment_model->get_moras_view();
       if(date('d') == $settings['fecha_corte'] + 1){
@@ -424,9 +376,9 @@ function update_moras($context){
         suspension_automatica();
       }
     }
-    
+
     $result = $context->settings_model->update('last_check_moras', $today);
-  }	 
+  }
 }
 
 function prepare_moras($data,$context,$settings){
@@ -467,7 +419,7 @@ function update_state_moras($data, $context){
 if (! function_exists('cancel_contract')){
 
   function cancel_contract($context,$data_cancel){
-    
+
     $id_empleado = $_SESSION['user_data']['user_id'];
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
@@ -479,7 +431,7 @@ if (! function_exists('cancel_contract')){
     }
 
     $monto_total = $contract['monto_pagado'] + $penalizacion;
-    
+
     $data_contract = array(
       'id_contrato'   => $contract_id,
       'monto_total'   => $monto_total,
@@ -505,8 +457,8 @@ if (! function_exists('cancel_contract')){
       'id_contrato' => $data_cancel['id_contrato'],
       'motivo'      => $data_cancel['motivo']
     );
-    
-    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save); 
+
+    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save);
   }
 }
 
@@ -524,12 +476,12 @@ function extend_contract($data, $context){
       'duracion'       => $duration,
       'monto_total'    => $contract['monto_total'] + ($data['duracion'] * $contract['cuota']),
       'estado'         => 'activo'
-    );  
+    );
 
     $is_saved = $context->contract_model->update($new_data,$contract_id);
     if($is_saved){
       for ($i= $num_pago; $i <= $duration; $i++) {
-        if($i > 0) $concepto = "mensualidad"; 
+        if($i > 0) $concepto = "mensualidad";
         $new_data = array(
           'id_contrato' => $contract_id,
           'id_servicio' => $contract['id_servicio'],
@@ -570,7 +522,7 @@ function reconnect_contract($data, $context){
     'estado'             => 'activo',
     'id_servicio'        => $data['id_servicio'],
     'estado_instalacion' => 'por instalar',
-  );  
+  );
 
   $context->contract_model->update($new_data_contract,$data['id_contrato']);
 }
@@ -580,34 +532,34 @@ if (! function_exists('add_extra')){
   function add_extra($context,$data_extra){
     $contract_id = $data_extra['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
-    
+
     switch ($data_extra['modo_pago']) {
       case 1:
         $next_payment    = $context->payment_model->get_next_payment_of($contract_id);
         $detalles_extra  = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
         $monto_extra     = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
         $total           = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
-      
+
         $data_contract = array(
           'router'        => $data_extra['router'],
           'mac_router'    => $data_extra['mac_router'],
           'nombre_equipo' => $data_extra['nombre_equipo'],
           'mac_equipo'    => $data_extra['mac_router']
         );
-  
+
         $data_pago = array(
           'detalles_extra'   => $detalles_extra,
           'monto_extra'      => $monto_extra,
           'total'            => $total
         );
-  
+
         $context->contract_model->add_extra_service($data_contract,$contract_id,$data_pago,$next_payment['id_pago']);
         break;
-        
+
       case 2:
         $id_empleado = $_SESSION['user_data']['user_id'];
         $service = $context->service_model->get_service($data_extra['nombre_servicio']);
-      
+
         $data_extra = array(
           'id_cliente'   => $contract['id_cliente'],
           'id_servicio'  => $service['id_servicio'],
@@ -615,7 +567,7 @@ if (! function_exists('add_extra')){
           'servicio'     => $data_extra['nombre_servicio'],
           'fecha'        => date('Y-m-d'),
           'monto_pagado' => 0,
-          'ultimo_pago'  => '',   
+          'ultimo_pago'  => '',
           'monto_total'  =>  $data_extra['costo_servicio']
         );
         $context->extra_model->add_extra($data_extra);
@@ -626,7 +578,7 @@ if (! function_exists('add_extra')){
         $context->contract_model->update(['extras_fijos' => $service['id_servicio']], $contract_id);
         echo MESSAGE_SUCCESS . " Seguro Agregado";
         break;
-      
+
     }
   }
 }
@@ -688,7 +640,7 @@ function get_first_date($date){
   $newdate = new DateTime($newdate);
   if($old_day > $split_day){
     $newdate = get_next_date($newdate);
-  } 
+  }
   return $newdate;
 }
 
@@ -732,7 +684,7 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
 
   $context->contract_model->update(['monto_total' => $suma],$id_contrato);
   $context->db->trans_complete();
-  
+
   if($context->db->trans_status() === false){
      $context->db->trans_rollback();
      return false;
@@ -744,12 +696,12 @@ function suspender_contrato($id_contrato,$id_cliente,$context){
 function generar_facturas_contrato($id_contrato, $context){
   $context->db->where('contrato',$id_contrato);
   $contrato = $context->db->get('v_pagos_generados')->row_array();
-  
+
   $context->db->select('id_pago,estado');
   $pagos = $context->db->where('id_contrato',$contrato['contrato'])
   ->where('fecha_limite < current_date()')
   ->get('ic_pagos')->result_array();
-  
+
   foreach ($pagos as $pago) {
     if($contrato['pagos_generados'] < 3){
       $context->payment_model->update(['generado' => true],$pago['id_pago']);

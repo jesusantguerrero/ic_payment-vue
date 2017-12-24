@@ -1,0 +1,71 @@
+<?php
+
+ class Service extends MY_Controller {
+    public function __construct(){
+      parent::__construct();
+      $this->load->model('service_model');
+      $this->load->model('contract_model');
+    }
+
+    public function add() {
+      authenticate();
+      $data = $this->get_post_data('data');
+      if ($data) {
+        if ($result = $this->service_model->add($data)) {
+          if (isset($result['message'])) {
+            $this->set_message($result['message'], 'info');
+          } else {
+            $this->set_message('Servicio agregado');
+          }
+        } else {
+          $this->set_message('Error al agregar servicio', 'error');
+        }
+        $this->response_json();
+      }
+    }
+
+    public function get_services(){
+      authenticate();
+			$res['services'] = $this->service_model->get_all_services();
+      $this->response_json($res);
+    }
+
+    public function get_service(){
+      authenticate();
+      $data = $this->get_post_data('data');
+      if ($data) {
+        $res['service'] = $this->service_model->get_service($data['id']);
+        $this->response_json($res);
+      }
+    }
+
+    public function update(){
+      authenticate();
+      $data = $this->get_post_data('data');
+      if ($data) {
+				$this->db->trans_start();
+				$result = $this->service_model->update_service($data);
+				$this->db->trans_complete();
+				if ($this->db->trans_status() === false) {
+					$this->db->trans_rollback();
+					$this->set_message("No pudo completarse la accion correctamente", 'error');
+        } else {
+					$this->set_message($result);
+        }
+        $this->response_json();
+      }
+    }
+
+    public function delete(){
+      authenticate();
+      $data = $this->get_post_data('data');
+      if ($data && isset($data['id'])) {
+        if ($this->service_model->delete_service($data['id'])) {
+          $this->set_message(' Servicio eliminado');
+        } else {
+          $this->set_message('El servicio no se ha podido eliminar', 'error');
+        }
+        $this->response_json();
+      }
+    }
+ }

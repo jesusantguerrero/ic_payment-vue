@@ -1,5 +1,4 @@
 import Generals from './generals';
-import Services from './services';
 import Contracts from './contracts';
 import Payments from './payments';
 import Notifications from './notificaciones';
@@ -9,10 +8,6 @@ const cGenerals = new Generals();
 
 function initComponents() {
   switch (currentPage) {
-    case 'servicios': {
-      const cServices = new Services();
-    }
-      break;
     case 'notificaciones': {
       const cNotifications = new Notifications();
     }

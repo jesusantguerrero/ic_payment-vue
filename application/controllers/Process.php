@@ -25,9 +25,6 @@ class Process extends CI_Controller {
 		$data = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "servicios":
-				$this->service_model->add($data);
-				break;
 			case "contratos":
 				 $this->db->trans_start();
 				 $is_saved = $this->contract_model->add($data);
@@ -84,18 +81,6 @@ class Process extends CI_Controller {
 						echo MESSAGE_ERROR." No se pudo completar el abono";
 					}
 				}
-				break;
-			case "servicios":
-				$this->db->trans_start();
-				$this->service_model->update_service($data);
-				update_contract_from_service($data);
-				$this->db->trans_complete();
-				if($this->db->trans_status() === false):
-					$this->db->trans_rollback();
-					echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
-				else:
-					echo " proceso completo";
-				endif;
 				break;
 			case "pagos":
 				if (!$this->is_day_closed()) {
@@ -218,9 +203,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "servicios":
-				$this->service_model->get_all_services();
-				break;
 			case "contratos":
 				$this->contract_view_model->get_contract_view('activo');
 				break;
@@ -275,18 +257,6 @@ class Process extends CI_Controller {
 				}else{
 					echo "nada";
 				}
-				break;
-		}
-	}
-
-	public function delete(){
-		authenticate();
-		$id = $_POST['id'];
-		$tabla = $_POST['tabla'];
-
-		switch ($tabla) {
-			case 'servicios':
-				$this->service_model->delete_service($id);
 				break;
 		}
 	}

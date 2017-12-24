@@ -19,9 +19,6 @@ if ( ! function_exists('get_modals'))
       case 'home':
          array_push($modals,'modales/contract_modals');
          break;
-      case 'servicios':
-         array_push($modals,'modales/service_modals');
-        break;
       case 'contratos':
         array_push($modals, 'modales/contract_modals');
         break;

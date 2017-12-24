@@ -128,7 +128,7 @@
             .then((res) => {
               self.showMessage(res.data.message);
               if (res.data.message.type === 'success') {
-                this.selectedClient = null;
+                self.selectedClient = null;
               }
               self.getClients();
             });

@@ -33,7 +33,7 @@
     },
 
     mounted() {
-      $('#petty-cash').on('hide.bs.modal', () => {
+      $('#router-modal').on('hide.bs.modal', () => {
         this.$emit('dimiss');
       });
     },
