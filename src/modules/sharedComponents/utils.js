@@ -103,47 +103,4 @@ export default {
       }
     });
   },
-
-  heavyLoad(stop) {
-    function removeLoader() {
-      const loader = $('.heavy-loader');
-      loader.remove();
-      $('body').css({ overflow: 'auto' });
-    }
-
-    if (!stop) {
-      const html = `
-        <div class="heavy-loader active">
-          <div class="circle-load"></div>
-          <div class="message">Preparando los datos</div>
-        </div>`;
-
-      $('body').append(html);
-      $('body').css({ overflow: 'hidden' });
-      const message = $('.heavy-loader .message');
-
-      setTimeout(() => {
-        message.text('Configurando...');
-      }, 4000);
-      setTimeout(() => {
-        message.text('Casi Terminamos ...');
-      }, 8000);
-      setTimeout(() => {
-        message.text('Terminando el proceso ...');
-        removeLoader();
-      }, 15000);
-    } else {
-      removeLoader();
-    }
-  },
-
-  lineLoad(stop) {
-    if (!stop) {
-      $('.loader').css({
-        display: 'block'
-      });
-    } else {
-      $('.loader').css({ display: 'none' });
-    }
-  }
 };

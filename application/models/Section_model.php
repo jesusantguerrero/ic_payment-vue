@@ -43,8 +43,8 @@ class Section_model extends CI_MODEL{
 
   }
 
-  public function get_sections_dropdown(){
-    $this->db->select('id_seccion as key, concat(nombre, '|', codigo_area) as text', false);
+  public function get_sections($mode){
+    $this->db->select('id_seccion as id, concat(nombre, " | ", codigo_area) as text', false);
     if ($result = $this->db->get('ic_secciones')){
       return $result->result();
     } else {
@@ -60,32 +60,30 @@ class Section_model extends CI_MODEL{
   }
 
 
-
   // funciones para las ips
   public function add_ip($row){
-     if($this->db->insert('ic_ips',$row)){
+     if($this->db->insert('ic_ips', $row)){
       }else{
         echo " Error";
       }
   }
 
-  public function get_all_of_section($section_id,$estado = ''){
+  public function get_all_of_section($section_id, $estado = ''){
     $this->db->where('id_seccion',$section_id);
-    $this->db->like('estado',$estado,'both');
-    $result = $this->db->get('v_ips');
-    if($result){
-      $result = $result->result_array();
-      echo  make_ips_table($result,0);
+    if ($estado != '') {
+      $this->db->like('estado', $estado, 'both');
+    }
+    if($result = $this->db->get('v_ips')){
+      return make_ips_table($result->result_array(),0);
     }
   }
 
   public function get_ip_list_of_section($section_id){
     $this->db->where('id_seccion',$section_id);
     $this->db->where('estado','disponible');
-    $result = $this->db->get('v_ips');
-    if($result){
+    if($result = $this->db->get('v_ips')){
       $result = $result->result_array();
-      echo  make_ips_list($result)."hola";
+      return make_ips_list($result);
     }
   }
 

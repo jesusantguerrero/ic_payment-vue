@@ -6,7 +6,7 @@
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(href="" id="make-payment", @click.prevent="add")
+            a(href="" id="make-payment",data-toggle="modal", data-target="#router-modal")
               i.material-icons add
               | Agregar Seccion
 
@@ -15,39 +15,44 @@
         .searcher-container.main-toolbar#extra-toolbar
           .input-group.search
             .input-group-addon: i.material-icons search
-            input.form-control.searcher(type="text" placeholder="Buscar por cliente",v-model="search.text")
+            input.form-control.searcher(type="text" placeholder="Buscar",v-model="search.text")
           .pull-right
             a.btn.icon.print-table(target="_blank", :href="reportUrl"): i.material-icons print
           .pull-right
-            select#select-sector.btn.btn-primary(v-model="selectedId")
-              option(:value="section.key", v-for="section of sections") {{ option.text }}
+            select#select-sector.btn.btn-primary(v-model="selectedId", @change="getIps")
+              option(:value="section.id", v-for="section of sections") {{ section.text }}
           .pull-right
             select#client-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
         DataTable(ids="extra-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions")
-        .mini-card.total
+        RouterModal(:sector="sector", :modal-mode="modalMode", @save="save")
 </template>
 
 <script>
+  import RouterModal from './components/RouterModal.vue';
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
+  import Progress from './../sharedComponents/Progress';
+
+  const heavyLoad = new Progress('heavy');
 
   export default {
     components: {
-      DataTable
+      DataTable,
+      RouterModal
     },
     mounted() {
       this.getSectionList();
-      this.getIps();
       utils.spyLeftNavigation();
     },
     data() {
       return {
-        title: 'Extras',
+        title: 'Secciones',
         parentId: '#extra-table-container',
         toolbar: '#extra-toolbar',
         content: '',
         selectedId: '',
+        modalMode: 'add',
         options: [
           { key: 'todo', text: 'Todos' },
           { key: 'ocupado', text: 'Ocupadas' },
@@ -55,6 +60,10 @@
           { key: 'sectorial', text: 'Sectoriales' }
         ],
         sections: [],
+        sector: {
+          nombre: '',
+          codigo_area: ''
+        },
         tableOptions: {
           pageSize: 200,
           pageList: [50, 100, 200, 500, 1000],
@@ -74,50 +83,40 @@
       };
     },
     methods: {
-      add() {
-        swal.setDefaults({
-          input: 'text',
-          confirmButtonText: 'Next &rarr;',
-          showCancelButton: true,
-          animation: false,
-          progressSteps: ['1', '2', '3']
-        });
-
-        const steps = [{
-          title: 'Nombre del sector'
-        },
-        'Codigo del Sector',
-        ];
-
-        swal.queue(steps).then((result) => {
-          swal.resetDefaults();
-          self.save(result);
-        });
-      },
-
       save() {
-        const self = this;
-        const nombre = result[0];
-        const codigoArea = result[1];
-        const form = {
-          nombre,
-          codigo_area: codigoArea
-        };
-
-        utils.heavyLoad(true);
-        return new Promise(resolve => this.$http.post('section/add', this.getDataForm(form))
-          .then((res) => {
-            self.getIps();
-            this.showMessage(res.data.message);
-            utils.heavyLoad(false);
-            return resolve();
-          }));
+        const empty = utils.isEmpty(this.sector);
+        if (!empty) {
+          heavyLoad.play();
+          this.$http.post(`section/${this.modalMode}`, this.getDataForm(this.sector))
+            .then((res) => {
+              this.showMessage(res.data.message);
+              if (res.data.message.type === 'success') {
+                this.sectorEmpty();
+                $('#router-modal').modal('hide');
+              }
+              heavyLoad.stop();
+              this.getIps();
+              window.appBus.$emit('transaction');
+              if (this.modalMode === 'edit') {
+                $('#router-modal').modal('hide');
+              }
+            })
+            .catch((err) => {
+              heavyLoad.stop();
+              this.$toasted.error(err);
+            });
+        } else {
+          this.$toasted.error('Revise y LLene todos los campos por favor');
+        }
       },
 
       getIps() {
+        heavyLoad.play();
         if (this.selectedId) {
-          this.send('section/get_ips', this.getDataForm({ id_section: this.selectedId }))
+          this.$http.post('section/get_ips', this.getDataForm({ id_section: this.selectedId }))
             .then((res) => {
+              heavyLoad.stop();
+              heavyLoad.stop();
               this.content = res.data.ips;
             });
         }
@@ -133,16 +132,21 @@
           });
       },
 
-      send(endpoint, data) {
-        return axios.post(`${BASE_URL}process/${endpoint}`, data);
+      sectorEmpty() {
+        this.sectorEmpty = {
+          nombre: '',
+          codigo_area: ''
+        };
       },
 
       getSectionList() {
-        utils.heavyLoad(true);
+        heavyLoad.play();
         this.$http.get('section/get_sections/list')
           .then((res) => {
             this.sections = res.data.sections;
-            utils.heavyLoad(false);
+            this.selectedId = this.sections[0].id;
+            this.getIps();
+            heavyLoad.stop();
           });
       }
     },

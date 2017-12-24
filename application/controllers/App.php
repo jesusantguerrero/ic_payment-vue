@@ -52,7 +52,6 @@ class App extends MY_Controller {
     $data['user'] = get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
-
     echo $this->twig->render('layouts/header', $data);
     echo $this->twig->render("pages/".$page, $data);
     $this->load_modals($page);

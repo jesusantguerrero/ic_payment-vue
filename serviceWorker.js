@@ -1,16 +1,15 @@
 const cacheName = 'ic-payment-app';
 const filesToCache = [
-  '/app/admin',
-  '/assets/js/manifest.js',
-  '/assets/js/vendor.js',
-  '/assets/js/app.js',
-  '/assets/js/2.js',
-  '/assets/img/icpayment_logo_alter.svg',
-  '/assets/css/main.css',
-  '/assets/css/secundaryCss.min.css',
-  '/assets/css/5-others/square/frontend.min.css',
+  './assets/js/manifest.js',
+  './assets/js/vendor.js',
+  './assets/js/app.js',
+  './assets/js/2.js',
+  './assets/img/icpayment_logo_alter.svg',
+  './assets/css/main.min.css',
+  './assets/css/secundaryCss.min.css',
+  './assets/css/5-others/square/frontend.min.css',
 ];
-alert('hola');
+
 self.addEventListener('install', (e) => {
   console.log('[ServiceWorker] Install');
   e.waitUntil(

@@ -9,7 +9,6 @@
       const Company = '{company}'
       const CurrentUser= '{currentUser}'
     </script>
-    <script src="{url}serviceWorker.js"> </script>
     {js}
       <script src="{link}"></script>
     {/js}
@@ -22,5 +21,12 @@
       ga('create', 'UA-97873154-2', 'auto');
       ga('send', 'pageview');
     </script>
+    <!-- <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('{url}serviceWorker.js')
+          .then(function() { console.log('Service Worker Registered'); });
+      }
+    </script> -->
  </body>
 </html>

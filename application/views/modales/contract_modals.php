@@ -1,4 +1,4 @@
-<?php 
+<?php
   $settings = $this->settings_model->get_settings();
  ?>
 <!--*********************************************************************
@@ -273,7 +273,7 @@
               <div class="form-group">
                 <label for="cient-sector">Sector</label>
                 <select class="form-control" id="select-contract-sector">
-                  <?php $this->section_model->get_sections_dropdown(); ?>
+                  <?php $this->section_model->get_sections('list'); ?>
                 </select>
               </div>
               <div class="form-group">

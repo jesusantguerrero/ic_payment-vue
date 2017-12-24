@@ -47,7 +47,7 @@ Vue.component(
   (resolve) => { require(['./../extras/ExtraSection'], resolve); }
 );
 Vue.component(
-  /* webpackChunkName: "secciones" */ 'RouterSection',
+  /* webpackChunkFileName: "secciones" */ 'RouterSection',
   (resolve) => { require(['./../secciones/RouterSection'], resolve); }
 );
 

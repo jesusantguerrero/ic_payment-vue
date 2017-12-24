@@ -28,21 +28,6 @@ class Process extends CI_Controller {
 			case "servicios":
 				$this->service_model->add($data);
 				break;
-			case "secciones":
-				$is_saved = $this->section_model->add($data);
-				switch ($is_saved) {
-					case -1:
-						echo MESSAGE_INFO." Este sector o codigo ha sido guardado anteriormente";
-						break;
-					case 0:
-						echo MESSAGE_ERROR." No se ha podido Guardar el sector";
-						break;
-					case 1:
-						$section_id = $this->section_model->get_section_id($data['codigo_area']);
-						create_ips($section_id,$data);
-						break;
-				}
-				break;
 			case "contratos":
 				 $this->db->trans_start();
 				 $is_saved = $this->contract_model->add($data);

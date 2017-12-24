@@ -1,5 +1,5 @@
 <div class="screen  row">
-  <?php 
+  <?php
     if(!isset($_SESSION['client_data'])){
       redirect(base_url());
     }
@@ -58,7 +58,7 @@
         </div>
         <!-- fin de cliente-->
         <div role="tabpanel" class="tab-pane fade in active" id="servicio">
-          
+
           <h5>Seleccione el Servicio</h5>
           <div class="row shortcuts-container for-services">
             <?php $this->service_model->get_services_shortcuts(); ?>
@@ -115,7 +115,7 @@
               <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">Sector</span>
               <select class="form-control" id="select-contract-sector">
-                <?php $this->section_model->get_sections_dropdown(); ?>
+                <?php $this->section_model->get_sections('list'); ?>
               </select>
              </div>
             </div>
@@ -138,7 +138,7 @@
                 <option value="">--seleccione sector--</option>
               </select>
              </div>
-             
+
             </div>
 
           </div>
@@ -156,15 +156,15 @@
   <div class="col-md-6 ">
     <div class="centered-container">
       <h3 class="part-title">Selecciona una opción:</h3>
-              
-        <form class="form-inline">  
+
+        <form class="form-inline">
           <div class="form-group">
             <div class="radio">
               <label>
                 <div class="my-radio"  id="radio-new-contract" > </div>
                Nuevo Contrato
               </label>
-            </div>    
+            </div>
             <div class="radio">
               <label>
                 <div class="my-radio"  id="radio-just-requirement" checked>&#10004;</div>
@@ -174,7 +174,7 @@
           </div>
         </form>
 
-      
+
         <div class="note-item note print-requirement">
           <div class="preview">
             <div class="falseDoc"></div>
@@ -187,8 +187,8 @@
         <a target="printframe" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>" class="btn" id="btn-print-contract" disabled>Imprimir</a>
       </div>
       <div class="row-container requirement-controls">
-        <a target="printframe" href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" 
-        data-href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" class="btn" 
+        <a target="printframe" href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>"
+        data-href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>" class="btn"
         id="btn-print-requirement"> Requerimiento</a>
       </div>
     </div>

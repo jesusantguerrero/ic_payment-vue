@@ -40,6 +40,7 @@
     watch: {
       data() {
         this.refresh(this.data);
+        this.intialized = false;
       }
     },
 
@@ -78,12 +79,14 @@
         this.table.find('tbody').css({ display: 'table-row-group' });
         this.table.addClass('innertable');
         this.$filter.change();
-        this.customSearch();
+        if (!this.intialized) {
+          this.initialized = true;
+          this.customSearch();
+          this.listen();
+        }
         if (page) {
           this.table.bootstrapTable('selectPage', page);
         }
-
-        this.listen();
       },
 
       getSelectedRow(emit = true) {
@@ -129,7 +132,6 @@
       customSearch() {
         $(`${this.parentId} .pull-right.search`).addClass('hide');
         const $inputSearch = $(`${this.parentId} .search input`);
-        const $printTable = $(`${this.parentId} .print-table`);
 
         const self = this;
         // eslint-disable-next-line
@@ -150,12 +152,6 @@
           }
           self.applyFilter(filterWord);
         });
-
-        if ($printTable.length > 0) {
-          $printTable.on('click', () => {
-            print();
-          });
-        }
       },
 
       applyFilter(filter) {
