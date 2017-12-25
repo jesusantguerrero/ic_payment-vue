@@ -37,7 +37,7 @@ class Settings_model extends CI_MODEL{
 
   public function update_settings($data){
     $this->db->where('id',1);
-    return $this->db->update($this->table,$data);
+    return $this->db->update($this->table, $data);
   }
 
 }
