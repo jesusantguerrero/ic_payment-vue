@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Toasted from 'vue-toasted';
+import jquery from 'jquery';
 import globals from './../sharedComponents/globals';
 import utils from './../sharedComponents/utils';
 import PettyCashModal from './components/PettyCashModal.vue';
@@ -8,7 +9,8 @@ import MessageModal from './components/MessageModal.vue';
 import TicketModal from './components/TicketModal.vue';
 import Store from './store/appStore';
 
-window.jQuery = $;
+window.jQuery = jquery;
+window.$ = jquery;
 /* eslint-disable import/first */
 import 'bootstrap';
 

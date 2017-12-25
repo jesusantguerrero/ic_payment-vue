@@ -6,10 +6,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => getenv('DB_HOST'),
-	'username' => getenv('DB_USERNAME'),
-	'password' => getenv('DB_PASSWORD'),
-	'database' => getenv('DB_NAME'),
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'ic_payment',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
