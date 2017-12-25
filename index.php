@@ -312,10 +312,5 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
-require 'vendor/autoload.php';
-if (ENVIRONMENT == 'development') {
-  $dotenv = new Dotenv\Dotenv(__dir__);
-  $dotenv->load();
-}
 
 require_once BASEPATH.'core/CodeIgniter.php';

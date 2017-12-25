@@ -1,76 +1,3 @@
-<?php
-  $settings = $this->settings_model->get_settings();
- ?>
-<!--*********************************************************************
-*
-*                                 Extra modal
-*
-**************************************************************************-->
-<div class="modal fade" tabindex="-1" role="dialog" id="add-extra-modal">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Servicio Extra</h4>
-      </div>
-      <div class="modal-body">
-        <div>
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-              <a href="#extra-contract" aria-controls="Guardar" role="tab" data-toggle="tab">Contrato</a>
-            </li>
-            <li role="presentation">
-              <a href="#extra-service" aria-controls="guardar" role="tab" data-toggle="tab">Servicio</a>
-            </li>
-            <li role="presentation">
-              <a href="#extra-extension" aria-controls="extender" role="tab" data-toggle="tab">Extender Contrato</a>
-            </li>
-            <li role="presentation">
-              <a href="#extra-upgrade" aria-controls="Mejorar" role="tab" data-toggle="tab">Mejorar Contrato</a>
-            </li>
-          </ul>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active fade in" id="extra-contract">
-              <form action="">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h4>Datos Del Contrato</h4>
-                    <div class="form-group">
-                      <label for="client-name">Cedula(sin guiones)</label>
-                      <input type="text" class="form-control" id="extra-client-dni" tabindex="1">
-                    </div>
-                    <div class="form-group">
-                      <label for="client-dni">Cliente</label>
-                      <input type="text" class="form-control" id="extra-client-name" tabindex="3" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="client-dni">Codigo IP</label>
-                      <input type="text" class="form-control" id="extra-code" tabindex="3" disabled>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <h4 class="placeholder">... </h4>
-                    <div class="form-group">
-                      <label for="client-lastname">Condigo del contrato</label>
-                      <select type="text" class="form-control" id="extra-client-contract" tabindex="2">
-                        <option value="">--Selecciona--</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="client-phone">Servicio</label>
-                      <input type="text" class="form-control" id="extra-contract-service" tabindex="4" disabled>
-                    </div>
-
-                  </div>
-                </div>
-              </form>
-            </div>
 
             <!--Direction pane-->
             <div role="tabpanel" class="tab-pane fade in" id="extra-service">
@@ -219,10 +146,6 @@
           <br>
           <input class="form-control" id="check-penalty" type="checkbox">
         </div>
-
-
-
-
       </div>
       <div class="modal-footer">
         <a href="" target="printframe" class="btn" id="cancel-print">Imprimir
