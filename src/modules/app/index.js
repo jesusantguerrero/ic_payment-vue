@@ -59,6 +59,11 @@ Vue.component(
   (resolve) => { require(['./../servicios/ServiceSection'], resolve); }
 );
 
+Vue.component(
+  /* webpackChunkFileName: "servicios" */ 'NewContractSection',
+  (resolve) => { require(['./../nuevo_contrato/NewContractSection'], resolve); }
+);
+
 export default new Vue({
   el: '#app',
   components: {

@@ -4,42 +4,12 @@
 import handler from './handlers';
 
 export default class contracts {
+
   constructor() {
     this.ran = false;
     handler(this);
     if (currentPage === 'nuevo_contrato') {
       Contracts.getIpList();
-    }
-  }
-
-  add() {
-    const clientId = $('#contract-client-id').val();
-    const userId = $('#contract-user-id').val();
-    const serviceId = $('.service-card.selected').attr('data-id');
-    const contractDate = $('#contract-client-date').val();
-    const duration = $('#contract-client-months').val();
-    const equipment = $('#contract-equipment').val();
-    const eMac = $('#contract-e-mac').val();
-    const router = $('#contract-router').val();
-    const rMac = $('#contract-r-mac').val();
-    const model = $('#contract-equipment-model').val();
-    const ip = $('#contract-ip').val();
-    const code = $('#select-contract-code').val();
-
-    payment = $('#contract-client-payment').val();
-    nextPayment = moment(contract_date).add(1, 'months').format('YYYY-MM-DD');
-
-    const empty = isEmpty([clientId, userId, serviceId, contractDate, duration]);
-    if (!empty) {
-      total = (Number(duration) + 1) * Number(payment);
-      form = `id_empleado=${userId}&id_cliente=${clientId}&id_servicio=${serviceId}&codigo=${code}&fecha=${contractDate}`;
-      form += `&duracion=${duration}&monto_total=${total}&monto_pagado=0&ultimo_pago=null`;
-      form += `&mensualidad=${payment}&proximo_pago=${nextPayment}&estado=activo&tabla=contratos`;
-      form += `&nombre_equipo=${equipment}&mac_equipo=${eMac}&router=${router}&mac_router=${rMac}`;
-      form += `&modelo=${model}&ip=${ip}`;
-      connectAndSend('process/add', null, null, Contracts.getLast, form, null);
-    } else {
-      displayAlert('Revise', 'LLene todos los campos por favor', 'error');
     }
   }
 
@@ -52,16 +22,6 @@ export default class contracts {
       refresh = null;
     }
     connectAndSend('process/getall', false, null, refresh, form, callback);
-  }
-
-  getLast(res) {
-    data = JSON.parse(res);
-    displayMessage(data.mensaje);
-    $('#btn-save-contract').attr('disabled', '');
-    $('#btn-print-contract').removeAttr('disabled');
-    if (data.tabla_pagos) {
-      makePaymentList(data.tabla_pagos);
-    }
   }
 
   callExtra(context) {
@@ -139,16 +99,6 @@ export default class contracts {
       e.stopImmediatePropagation();
       updateContract(idContrato);
     });
-  }
-
-  getIpList() {
-    function makeIpList(content) {
-      $('#select-contract-code').html(content);
-    }
-
-    const sectionId = $('#select-contract-sector').val();
-    const form = `id_seccion=${sectionId}&tabla=ip_list`;
-    connectAndSend('process/getall', false, null, makeIpList, form, null);
   }
 
   btnExtraPressed($this) {

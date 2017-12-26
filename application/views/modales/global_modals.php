@@ -1,13 +1,3 @@
-<?php
-  $settings = $this->settings_model->get_settings();
- ?>
-
-<!--*********************************************************************
-*
-*                                 Payment Extra Options
-*
-**************************************************************************-->
-
 <div class="modal fade" tabindex="-1" role="dialog" id="advanced-payment">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

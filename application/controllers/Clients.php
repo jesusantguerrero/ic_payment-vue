@@ -32,7 +32,8 @@
       if (!$mode) {
         $res['clients'] = $this->client_model->get_all_clients();
       } else if ($mode == 'dropdown'){
-				$res['items'] = $this->client_model->search_clients_for_message($query,'id_cliente');
+        $query = $_GET['q'];
+        $res['items'] = $this->client_model->search_clients_for_message($query, 'id_cliente');
       } else {
         $word = $this->get_post_data('word');
         $res['clients'] = $this->client_model->search_clients($word);

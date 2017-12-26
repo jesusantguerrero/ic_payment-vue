@@ -46,7 +46,7 @@
           dropdownParent: $('#ticket-modal'),
           width: '100%',
           ajax: {
-            url: `${baseURL}process/search`,
+            url: `${baseURL}clients/get_clients/dropdown`,
             dataType: 'json',
             delay: 250,
             data(params) {

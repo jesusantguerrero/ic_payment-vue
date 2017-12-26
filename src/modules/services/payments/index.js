@@ -38,11 +38,6 @@ export default class payments {
     axios.post(`${BASE_URL}process/`);
   }
 
-  updateUntil(contractId, lastPaymentId) {
-    const form = `tabla=pagos_al_dia&id_ultimo_pago=${lastPaymentId}&estado=pagado&id_contrato=${contractId}`;
-    connectAndSend('process/update', true, null, null, form, null, heavyLoad);
-  }
-
   removePayment(id) {
     const form = `tabla=deshacer_pago&id_pago=${id}`;
     connectAndSend('process/update', true, null, null, form, Payments.getAll);

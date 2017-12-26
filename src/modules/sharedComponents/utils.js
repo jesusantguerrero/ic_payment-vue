@@ -51,6 +51,10 @@ export default {
     return sign + integer + decimalcharacter + fraction;
   },
 
+  getDataForm(object) {
+    return `data=${JSON.stringify(object)}`;
+  },
+
   // values: array
   sum(values) {
     let numbers = [];
