@@ -15,6 +15,6 @@ export default class RouterService {
   }
 
   getSectionIps(sectionId) {
-    return this.$http.get('section/get_ips/list', utils.getDataForm({ sectionId }));
+    return this.$http.post('section/get_ips/list', utils.getDataForm({ sectionId }));
   }
 }

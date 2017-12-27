@@ -560,25 +560,6 @@ if ( ! function_exists('make_moras_history_table')){
     return $html_text;
   }
 }
-if ( ! function_exists('make_service_shortcuts')){
-  /**
-  * create a shortcut for the data from users to display in the interface
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function make_service_shortcuts($data){
-    $html_text="";
-    foreach ($data as $line) {
-        $html_text .= "
-        <div class='service-card  shortcut' data-id='".$line['id_servicio']."'
-          data-payment='".$line['mensualidad']."'><i class='material-icons'>rss_feed</i>".$line['nombre']."</div>";
-    }
-
-    return $html_text;
-  }
-}
 
 function make_simple_table ($data, $start_at, $fields) {
   $html_text = " ";

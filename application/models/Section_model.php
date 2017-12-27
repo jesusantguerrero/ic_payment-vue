@@ -79,11 +79,11 @@ class Section_model extends CI_MODEL{
   }
 
   public function get_ip_list_of_section($section_id){
-    $this->db->where('id_seccion',$section_id);
-    $this->db->where('estado','disponible');
+    $this->db->select('ip_final as id, codigo as text', false);
+    $this->db->where('id_seccion', $section_id);
+    $this->db->where('estado', 'disponible');
     if($result = $this->db->get('v_ips')){
-      $result = $result->result_array();
-      return make_ips_list($result);
+      return $result->result_array();
     }
   }
 

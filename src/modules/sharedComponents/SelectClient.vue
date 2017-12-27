@@ -5,6 +5,8 @@
 
 
 <script>
+  import 'select2';
+
   export default {
     mounted() {
       this.initSelect2();
@@ -21,6 +23,30 @@
       parentId: {
         type: String,
         required: true
+      },
+      empty: {
+        type: Boolean
+      },
+      disabled: {
+        type: Boolean
+      }
+    },
+    data() {
+      return {
+        sel: ''
+      };
+    },
+
+    watch: {
+      disabled() {
+        if (this.disabled) {
+          this.sel.prop('disabled', true);
+        } else {
+          this.sel.prop('disabled', false);
+        }
+      },
+      empty() {
+        this.sel.val(null).trigger('change');
       }
     },
 

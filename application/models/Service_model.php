@@ -72,29 +72,16 @@ class Service_model extends CI_MODEL{
     return make_service_table($result->result_array(),0);
   }
 
-  public function search_services($word){
-    $fields = array(
-     'id_servicio'  => $word,
-     'nombre'       => $word,
-     'descripcion'  => $word
-    );
-    $this->db->or_like($fields);
-    $this->db->order_by('tipo, mensualidad');
-    if($result = $this->db->get('ic_servicios')){
-      echo  make_service_table($result->result_array(),0);
+  public function get_services($type){
+    $this->db->select('id_servicio, nombre, mensualidad');
+    $this->db->where('tipo', $type);
+    if ($type == 'reparacion') {
+      $this->db->or_where('tipo', 'seguro');
     }
-  }
-
-  public function get_services_shortcuts(){
-    $sql    = "SELECT * FROM ic_servicios WHERE tipo= 'internet' order by mensualidad";
-    $result = $this->db->query($sql);
-    echo make_service_shortcuts($result->result_array());
-  }
-
-  public function get_services_dropdown(){
-    $sql = "SELECT * FROM ic_servicios WHERE tipo= 'reparacion'";
-    $result = $this->db->query($sql);
-    echo make_other_services_dropdown($result->result_array());
+    $this->db->order_by('mensualidad');
+    if ($result = $this->db->get('ic_servicios')) {
+      return $result->result_array();
+    }
   }
 
   public function count_services(){
@@ -114,7 +101,6 @@ class Service_model extends CI_MODEL{
     $this->db->where('id_servicio', $id);
     return $this->db->delete('ic_servicios');
   }
-
 
   private function update_contracts_of_service($data_cambio){
     $this->load->model('contract_view_model');

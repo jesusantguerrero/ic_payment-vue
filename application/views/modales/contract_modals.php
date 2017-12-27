@@ -8,7 +8,7 @@
                       <label for="client-provincia">Servicio</label>
                       <select class="form-control" id="select-extra-service">
                         <option value="">--Seleccione--</option>
-                        <?php $this->service_model->get_services_dropdown(); ?>
+                        <?php $this->service_model->get_services(); ?>
                       </select>
                     </div>
                     <div class="form-group">
@@ -81,7 +81,7 @@
 
               <h4>Seleccione Plan: </h4>
               <div class="row shortcuts-container for-services">
-                <?php $this->service_model->get_services_shortcuts(); ?>
+                <?php $this->service_model->get_services_items(); ?>
               </div>
 
 

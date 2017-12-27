@@ -24,9 +24,13 @@
       }
     }
 
-    public function get_services(){
+    public function get_services($type = null){
       authenticate();
-			$res['services'] = $this->service_model->get_all_services();
+      if (!$type) {
+        $res['services'] = $this->service_model->get_all_services();
+      } else {
+        $res['services'] = $this->service_model->get_services($type);
+      }
       $this->response_json($res);
     }
 

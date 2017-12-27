@@ -1,20 +1,7 @@
 $(function () {
-
-  if (currentPage == "administrador") {
-    newUserForm();
-  }
-
-  getDate();
-  adminFunctions();
-  userInfoTip();
-  makeServiceCardClickable();
-
   if (currentPage == "detalles" || currentPage != 'nuevo_contrato') {
     detailsFunctions();
   }
-
-  notificationFunctions();
-  newContractFunctions();
   checkWindowSize();
 
   $(window).on('resize', function () {
@@ -26,49 +13,7 @@ $(function () {
 });
 
 
-// TODO: Move -- Mover a modulo de nuevo_contrato
-function newContractFunctions() {
-  var btnPrintContract = $("#btn-print-contract");
-  var document = $(".note-item");
-  var radioActivateContract = $("#radio-new-contract");
-  var radioDisableContract = $("#radio-just-requirement");
-  var contractControls = $(".contract-controls");
-  var requirementControls = $(".requirement-controls");
 
-  radioActivateContract.parents("label").on('click', function () {
-    activateContractMode();
-
-  });
-
-  radioDisableContract.parents("label").on('click', function () {
-    disableContractMode()
-  });
-
-  function activateContractMode($btn) {
-    radioDisableContract
-      .removeAttr("checked", "")
-      .html("")
-    radioActivateContract
-      .attr("checked", "")
-      .html("&#10004;")
-    document.removeClass("print-requirement");
-    contractControls.removeClass("hide")
-    requirementControls.addClass("hide")
-
-  }
-
-  function disableContractMode($btn) {
-    radioActivateContract
-      .removeAttr("checked", "")
-      .html("")
-    radioDisableContract
-      .attr("checked", "")
-      .html("&#10004;")
-    document.addClass("print-requirement");
-    requirementControls.removeClass("hide")
-    contractControls.addClass("hide")
-  }
-}
 /********************************************************
  *                          Modals Functions
  *                                                       *

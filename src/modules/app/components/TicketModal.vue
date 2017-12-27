@@ -11,8 +11,7 @@
               .col-md-12
                 .form-group
                   label(for="user-nickname") Cliente
-                  select(class="form-control", id="a-client", v-model="ticket.id_cliente")
-                    option(value="0") Escriba el nombre del cliente
+                  SelectClient(the-id="ticket-client-id", parent-id="#ticket-modal",:endpoint="searchEndpoint", @select="setClientId", :empty="emptySelect")
                 .form-group
                   label(for="service-description") Descripción
                   textarea(class="form-control", cols="30", rows="5", id="a-description", v-model="ticket.descripcion")
@@ -22,12 +21,12 @@
 </template>
 
 <script>
-  import 'select2';
   import utils from './../../sharedComponents/utils';
+  import SelectClient from './../../sharedComponents/SelectClient.vue';
 
   export default {
-    mounted() {
-      this.initSelect2();
+    components: {
+      SelectClient
     },
 
     data() {
@@ -36,44 +35,12 @@
           descripcion: '',
           id_cliente: '',
         },
-        sel: ''
+        searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
+        emptySelect: false
       };
     },
 
     methods: {
-      initSelect2() {
-        this.sel = $('#a-client').select2({
-          dropdownParent: $('#ticket-modal'),
-          width: '100%',
-          ajax: {
-            url: `${baseURL}clients/get_clients/dropdown`,
-            dataType: 'json',
-            delay: 250,
-            data(params) {
-              return {
-                q: params.term,
-                tabla: 'clientes_para_averias'
-              };
-            },
-
-            processResults(data, params) {
-              params.page = params.page || 1;
-              return {
-                results: data.items,
-                pagination: {
-                  more: (params.page * 30) < data.total_count
-                }
-              };
-            },
-            cache: true
-          }
-        });
-
-        this.sel.on('select2:select', (e) => {
-          this.ticket.id_cliente = e.params.data.id;
-        });
-      },
-
       addTicket() {
         const empty = utils.isEmpty(this.ticket);
         if (!empty) {
@@ -88,12 +55,16 @@
         }
       },
 
+      setClientId(data) {
+        this.ticket.id_cliente = data.id;
+      },
+
       ticketEmpty() {
         this.ticket = {
           descripcion: '',
           id_cliente: '',
         };
-        this.sel.val(null).trigger('change');
+        this.emptySelect = !this.emptySelect;
       }
     }
   };

@@ -12,11 +12,10 @@
             .col-md-12
               .input-group
                 span.input-group-addon#basic-addon1 Cliente
-                SelectClient(the-id="client-id", parent-id="#contract-details",:endpoint="searchEndpoint", @select="setClientId")
+                SelectClient(the-id="client-id", parent-id="#contract-details",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 
             h5 Seleccione el Servicio
-            .row.shortcuts-container.for-services
-            //- shortcuts
+              InternetPlans
             .row
               .col-md-6
                 .input-group
@@ -59,7 +58,7 @@
 
                 .input-group
                   span.input-group-addon#basic-addon1 Sector
-                  select.form-control.select-contract-sector
+                  select.form-control.select-contract-sector(v-model="selectedSection", @change="getIpList")
                     option(:value="option.id", :key="option.id", v-for="option of sectionList") {{ option.text }}
 
               .col-md-6
@@ -69,7 +68,7 @@
 
                 .input-group
                   span.input-group-addon#basic-addon1 IP
-                  input.form-control#contract-ip(type="text", tabindex="6", disabled="disabled")
+                  input.form-control#contract-ip(type="text", tabindex="6", disabled="disabled", v-model="contract.ip")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Mac
@@ -77,8 +76,8 @@
 
                 .input-group
                   span.input-group-addon#basic-addon1 Codigo IP
-                  select.form-control#select-contract-code
-                    option(value="") --seleccione codigo --
+                  select.form-control#select-contract-code(v-model="contract.codigo", @change="setContractIp")
+                    option(:value="option.id", :key="option.id", v-for="option of ipList",) {{ option.text }}
 
     .col-md-6
       .centered-container
@@ -86,12 +85,12 @@
         form.form-inline
           .form-group
             .radio
-              label
-                .my-radio#radio-new-contract
+              label(@click="setMode('new contract')")
+                .my-radio#radio-new-contract(:class="{checked: mode == 'new contract'}")
                 | Nuevo Contrato
             .radio
-              label
-                .my-radio#radio-just-requirement(checked="checked") &#10004;
+              label(@click="setMode('requirements')")
+                .my-radio#radio-just-requirement(:class="{checked: mode == 'requirements'}")
                 | Solo requerimiento
 
 
@@ -100,23 +99,29 @@
             .falseDoc(v-html="lines")
 
         .row-container.contract-controls(v-if="mode == 'new contract'")
-          button.btn#btn-save-contract(tabindex="7") Guardar
-          a.btn#btn-view-pay(target="_blank" href="<?php echo base_url('process/details/'.$client_data['id_cliente'].'/pagos') ?>") Pago
-          a.btn#btn-print-contract(target="printframe" href="<?php echo base_url('process/getrequirements/'.$client_data['id_cliente']) ?>", v-if="createdContract") Imprimir
+          button.btn#btn-save-contract(tabindex="7", @click="add") Guardar
+          a.btn#btn-view-pay(target="_blank", :href="paymentUrl",v-if="createdContract") Pago
+          a.btn#btn-print-contract(target="printframe", :href="printContractUrl", v-if="createdContract") Imprimir
         .row-container.requirement-controls(v-if="mode == 'requirements'")
-          a.btn#btn-print-requirement(target="printframe", href="<?php echo base_url('process/getrequirement/'.$client_data['id_cliente']) ?>") Requerimiento
+          a.btn#btn-print-requirement(target="printframe", :href="printRequirementUrl") Requerimiento
 
 </template>
 
 <script>
   import RouterService from './../secciones/service/routerService';
   import SelectClient from './../sharedComponents/SelectClient.vue';
+  import InternetPlans from './../sharedComponents/InternetPlans.vue';
+  import utils from './../sharedComponents/utils';
 
   const Service = new RouterService();
 
   export default {
     components: {
-      SelectClient
+      SelectClient,
+      InternetPlans
+    },
+    mounted() {
+      this.getSectionList();
     },
 
     data() {
@@ -141,7 +146,8 @@
         selectedSection: null,
         selectedPayment: null,
         searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
-        mode: 'requirements'
+        mode: 'requirements',
+        disabledSelect: false
       };
     },
     computed: {
@@ -151,21 +157,31 @@
           lines += `<div class="lineas num${i}"><span></span></div>`;
         }
         return lines;
+      },
+      paymentUrl() {
+        return (this.contract.id_cliente) ? `${baseURL}app/details/${this.contract.id_cliente}/pagos')` : '#';
+      },
+
+      printContractUrl() {
+        return `${baseURL}process/getrequirements/${this.contract.id_cliente}`;
+      },
+
+      printRequirementUrl() {
+        return `${baseURL}process/getrequirement/${this.contract.id_cliente}`;
       }
     },
 
     methods: {
       add() {
         const { contract } = this;
-        const empty = isEmpty([contract.id_cliente, contract.id_servicio, contract.fecha, contract.duracion]);
-        if (!empty) {
+        const empty = utils.isEmpty([contract.id_cliente, contract.id_servicio, contract.fecha, contract.duracion]);
+        if (!empty && !createdContract) {
           this.$http.post('contract/add', this.getDataForm(contract))
             .then((res) => {
               this.showMessage(res.dada.message);
               this.createdContract = res.data.contract;
               this.payments = res.data.payments;
-              $('#btn-save-contract').attr('disabled', '');
-              $('#btn-print-contract').removeAttr('disabled');
+              this.disabledSelect = true;
             })
             .catch((err) => {
               this.$toasted.error(err);
@@ -178,15 +194,23 @@
       getSectionList() {
         Service.getSectionList()
           .then((res) => {
-            this.sectionList = res.sections;
+            this.sectionList = res.data.sections;
           });
       },
 
       getIpList() {
         Service.getSectionIps(this.selectedSection)
           .then((res) => {
-            this.ipList = res.ips;
+            this.ipList = res.data.ips;
           });
+      },
+
+      setContractIp() {
+        this.ipList.forEach((item) => {
+          if (item.id === this.contract.codigo) {
+            this.contract.ip = item.id;
+          }
+        });
       },
 
       updateUntil() {
@@ -205,6 +229,10 @@
 
       setClientId(data) {
         this.contract.id_cliente = data.id;
+      },
+
+      setMode(mode) {
+        this.mode = mode;
       }
     }
   };

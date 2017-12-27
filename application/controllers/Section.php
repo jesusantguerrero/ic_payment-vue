@@ -41,7 +41,7 @@ class Section extends MY_Controller {
       if (!$mode) {
         $res['ips'] = $this->section_model->get_all_of_section($data['id_section']);
       } else {
-        $res['ips'] = $this->section_model->get_ip_list_of_section($data['id_section']);
+        $res['ips'] = $this->section_model->get_ip_list_of_section($data['sectionId']);
       }
       $this->response_json($res);
     }

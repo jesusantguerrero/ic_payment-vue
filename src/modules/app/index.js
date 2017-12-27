@@ -45,7 +45,7 @@ Vue.component(
 );
 
 Vue.component(
-  /* webpackChunkName: "extras" */ 'ExtraSection',
+  /* webpackChunkName = "extras" */ 'ExtraSection',
   (resolve) => { require(['./../extras/ExtraSection'], resolve); }
 );
 
@@ -61,7 +61,7 @@ Vue.component(
 
 Vue.component(
   /* webpackChunkFileName: "servicios" */ 'NewContractSection',
-  (resolve) => { require(['./../nuevo_contrato/NewContractSection'], resolve); }
+  () => import(/* webpackChunkName: "nuevo_contrato" */ './../nuevo_contrato/NewContractSection')
 );
 
 export default new Vue({
