@@ -20,37 +20,6 @@ class Process extends CI_Controller {
 		$this->load->model("cancelations_model");
 	}
 
-	public function add(){
-		authenticate();
-		$data = $_POST;
-		$tabla = $_POST['tabla'];
-		switch ($tabla) {
-			case "contratos":
-				 $this->db->trans_start();
-				 $is_saved = $this->contract_model->add($data);
-				 if($is_saved){
-					$this->client_model->is_active(true, $data);
-					$contract_id = $this->contract_model->get_last_id_of($data['id_cliente']);
-				 	create_payments($contract_id,$data,$this);
-					$this->section_model->update_ip_state($data['codigo'],'ocupado');
-					$this->contract_model->update_amount($contract_id);
-				 }
-				 $this->db->trans_complete();
-				 if($this->db->trans_status()){
-					$res['mensaje'] =  MESSAGE_SUCCESS." Nuevo contrato agregado con exito";
-					$res['tabla_pagos'] = $this->payment_model->list_all_of_contract($contract_id);
-				 }
-				 else{
-					 $this->db->trans_rollback();
-					 $res['mensaje'] = MESSAGE_ERROR." El Contrato No Pudo ser guardado";
-					 $res['tabla_pagos'] = null;
-				 }
-				 echo json_encode($res);
-				break;
-		}
-
-	}
-
 	public function getjson() {
     $data = json_decode($_POST['data']);
     $data = json_decode($_POST['data'],true);
@@ -90,20 +59,6 @@ class Process extends CI_Controller {
 						refresh_contract($id_contrato,$this,$data);
 					}else{
 						echo MESSAGE_INFO." Este pago ya ha sido realizado";
-					}
-				}
-				break;
-
-			case "pagos_al_dia":
-				if(!$this->is_day_closed()){
-					$this->db->trans_start();
-					payments_up_to_date($data);
-					$this->db->trans_complete();
-					if($this->db->trans_status() === false){
-							$this->db->trans_rollback();
-						echo MESSAGE_ERROR." No pudo completarse la accion correctamente";
-					}else{
-						echo " Proceso Completo";
 					}
 				}
 				break;
@@ -445,15 +400,5 @@ class Process extends CI_Controller {
 		$objWriter->save('php://output');
 
 		print_r($myreport_sheet);
-	}
-
-	private function is_day_closed($mode = 'break'){
-		$this->load->model('caja_mayor');
-		$last_close_date =$this->caja_mayor->get_last_close_date();
-		$today = date('Y-m-d');
-		if ($last_close_date == $today){
-			echo MESSAGE_INFO.'No puede realizar transacciones luego del cierre de caja';
-			return true;
-		}
 	}
 }

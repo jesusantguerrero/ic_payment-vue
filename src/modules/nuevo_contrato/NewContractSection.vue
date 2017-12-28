@@ -15,30 +15,29 @@
                 SelectClient(the-id="client-id", parent-id="#contract-details",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 
             h5 Seleccione el Servicio
-              InternetPlans
+              InternetPlans(@selected="selectService")
             .row
               .col-md-6
                 .input-group
                   span.input-group-addon#basic-addon1 Mensualidad
-                  input.form-control#contract-service-price(type="number", tabindex="0")
+                  input.form-control#contract-service-price(type="number", tabindex="0", v-model="contract.mensualidad", disabled="disabled")
 
               .col-md-6
                 .input-group
                   span.input-group-addon#basic-addon1 Meses
-                  input.form-control#contract-months(type="number", tabindex="1" value="")
+                  input.form-control#contract-months(type="number", tabindex="1", value="", v-model="contract.duracion")
 
               .row
               .col-md-6
                 .input-group
                   span.input-group-addon#basic-addon1 Fecha
-                  input.form-control#contract-date(type="date", tabindex="2")
+                  input.form-control#contract-date(type="date", tabindex="2", v-model="contract.fecha")
 
               .col-md-6
                 .input-group(v-if="createdContract")
                   span.input-group-addon#basic-addon1 Pagar Hasta
-                  select.form-control#select-pay-until
-                    option(value="") --seleccione mes--
-
+                  select.form-control#select-pay-until(@change="updateUntil", v-model="selectedPayment")
+                    option(:value="payment.id_pago", v-for="payment of paymentList") {{ payment.mes }} / {{ payment.anio }}
 
           .tab-pane.fade.in#equipment(role="tabpanel")
             .row
@@ -46,15 +45,15 @@
               .col-md-6
                 .input-group
                   span.input-group-addon#basic-addon1 Equipo
-                  input.form-control#contract-equipment(type="text",tabindex="3")
+                  input.form-control#contract-equipment(type="text",tabindex="3", v-model="contract.nombre_equipo")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Modelo
-                  input.form-control#contract-equipment-model(type="text", tabindex="5")
+                  input.form-control#contract-equipment-model(type="text", tabindex="5", v-model="contract.modelo")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Router
-                  input.form-control#contract-router(type="text", tabindex="7")
+                  input.form-control#contract-router(type="text", tabindex="7", v-model="contract.router")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Sector
@@ -63,16 +62,16 @@
 
               .col-md-6
                 .input-group
-                  span.input-group-addon#basic-addon1 Mac
-                  input.form-control#contract-e-mac(type="text", tabindex="4")
+                  span.input-group-addon#basic-addon1 Mac Equipo
+                  input.form-control#contract-e-mac(type="text", tabindex="4", v-model="contract.mac_equipo")
 
                 .input-group
                   span.input-group-addon#basic-addon1 IP
                   input.form-control#contract-ip(type="text", tabindex="6", disabled="disabled", v-model="contract.ip")
 
                 .input-group
-                  span.input-group-addon#basic-addon1 Mac
-                  input.form-control#contract-r-mac(type="text", tabindex="8")
+                  span.input-group-addon#basic-addon1 Mac Router
+                  input.form-control#contract-r-mac(type="text", tabindex="8", v-model="contract.mac_router")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Codigo IP
@@ -99,8 +98,8 @@
             .falseDoc(v-html="lines")
 
         .row-container.contract-controls(v-if="mode == 'new contract'")
-          button.btn#btn-save-contract(tabindex="7", @click="add") Guardar
-          a.btn#btn-view-pay(target="_blank", :href="paymentUrl",v-if="createdContract") Pago
+          button.btn#btn-save-contract(tabindex="7", @click="add", :disabled="createdContract") Guardar
+          a.btn#btn-view-pay(target="_blank", :href="paymentUrl",v-if="createdContract") Pagos
           a.btn#btn-print-contract(target="printframe", :href="printContractUrl", v-if="createdContract") Imprimir
         .row-container.requirement-controls(v-if="mode == 'requirements'")
           a.btn#btn-print-requirement(target="printframe", :href="printRequirementUrl") Requerimiento
@@ -143,6 +142,7 @@
         createdContract: null,
         sectionList: null,
         ipList: null,
+        paymentList: null,
         selectedSection: null,
         selectedPayment: null,
         searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
@@ -175,12 +175,12 @@
       add() {
         const { contract } = this;
         const empty = utils.isEmpty([contract.id_cliente, contract.id_servicio, contract.fecha, contract.duracion]);
-        if (!empty && !createdContract) {
+        if (!empty && !this.createdContract) {
           this.$http.post('contract/add', this.getDataForm(contract))
             .then((res) => {
-              this.showMessage(res.dada.message);
+              this.showMessage(res.data.message);
               this.createdContract = res.data.contract;
-              this.payments = res.data.payments;
+              this.paymentList = res.data.payments;
               this.disabledSelect = true;
             })
             .catch((err) => {
@@ -218,7 +218,7 @@
           id_contrato: this.createdContract,
           last_payment_id: this.selectedPayment
         };
-        this.$http.post('payment/up_to_date', this.getDataForm(form))
+        this.$http.post('contract/up_to_date', this.getDataForm(form))
           .then((res) => {
             this.showMessage(res.data.message);
           })
@@ -229,6 +229,11 @@
 
       setClientId(data) {
         this.contract.id_cliente = data.id;
+      },
+
+      selectService(item) {
+        this.contract.id_servicio = item.id_servicio;
+        this.contract.mensualidad = item.mensualidad;
       },
 
       setMode(mode) {

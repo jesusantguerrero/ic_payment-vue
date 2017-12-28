@@ -9,57 +9,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if ( ! function_exists('create_payments')){
-  /**
-  * Genera los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function create_payments($contract_id,$data,$context){
-    $time_zone = new DateTimeZone('America/Santo_Domingo');
-    $contract_date = new DateTime($data['fecha']);
-    $next_payment_date = $contract_date;
-    $duration = $data['duracion'];
-    $concepto = "Instalación";
-    $ci =& get_instance();
-    $settings = $ci->settings_model->get_settings();
-    $split_day = $settings['split_day'];
-    $day = $contract_date->format('d');
-    $pago = $data['mensualidad'];
-
-    $i = 0;
-
-    for ($i; $i < $duration + 1; $i++) {
-      if($i > 0) $concepto = "mensualidad";
-      if($i == 1) {
-        if($day > 15 && $day <= $split_day){
-          $pago = $data['mensualidad'] / 2;
-        }
-      }else{
-        $pago = $data['mensualidad'];
-      }
-      $new_data = array(
-        'id_contrato' => $contract_id,
-        'id_servicio' => $data['id_servicio'],
-        'fecha_pago'  => null,
-        'concepto'    => $concepto,
-        'cuota'       => $pago,
-        'mora'        => 0,
-        'total'       => $pago,
-        'estado'      => "no pagado",
-        'fecha_limite'=> $next_payment_date->format("Y-m-d")
-      );
-      $context->payment_model->add($new_data);
-      if($i == 0){
-        $next_payment_date = get_first_date($next_payment_date);
-      }else{
-        $next_payment_date = get_next_date($next_payment_date);
-      }
-    }
-  }
-}
 
 if (! function_exists('refresh_contract')){
 
@@ -204,91 +153,6 @@ if (! function_exists('cancel_abono')){
       echo MESSAGE_INFO." El pago al que pertenecia este abono se realizó, este abono ya no puede ser eliminado";
     }
 
-  }
-}
-
-if (! function_exists('payments_up_to_date')){
-
-  function payments_up_to_date($data){
-    $context      =& get_instance();
-    $contract_id  = $data['id_contrato'];
-    $contract     = $context->contract_model->get_contract_view($contract_id);
-    $payments     = $context->payment_model->get_payments_of_contract($contract_id);
-    $new_payment;
-    $last_date;
-    $state;
-    $count = 0;
-
-    clear_payments($data);
-
-    if($payments){
-       $id_empleado = $_SESSION['user_data']['user_id'];
-       $acum = 0;
-      foreach ($payments as $payment) {
-        if($payment['id_pago'] > $data['id_ultimo_pago'])break;
-        $last_date = $payment['fecha_limite'];
-        $new_payment = array(
-          'id_empleado'   => $id_empleado,
-          'estado'        => 'pagado',
-          'fecha_pago'    => $last_date,
-          'complete_date' => date('Y-m-d H:i:s')
-        );
-        $context->payment_model->update($new_payment,$payment['id_pago']);
-        $count++;
-        $acum += $payment['cuota'];
-      }
-
-      $monto_pagado = $acum;
-      if($monto_pagado == $contract['monto_total']){
-        $state = "saldado";
-      }else{
-        $state = "activo";
-      }
-
-      $data_contract = array(
-        'monto_pagado'  => $monto_pagado,
-        'ultimo_pago'   => $last_date,
-        'estado'        => $state
-      );
-      $context->contract_model->update($data_contract,$contract_id,false);
-    }
-  }
-}
-
-if (! function_exists('clear_payments')){
-
-  function clear_payments($data){
-    $context      =& get_instance();
-    $contract_id  = $data['id_contrato'];
-    $contract     = $context->contract_model->get_contract_view($contract_id);
-    $payments     = $context->payment_model->get_payments_of_contract($contract_id);
-    $new_payment;
-    $state;
-
-    $id_empleado = $_SESSION['user_data']['user_id'];
-    foreach ($payments as $payment) {
-      $new_payment = array(
-        'id_empleado'   => null,
-        'estado'        => 'no pagado',
-        'fecha_pago'    => null,
-        'complete_date' => null
-      );
-      $context->payment_model->update($new_payment,$payment['id_pago']);
-    }
-
-    $monto_pagado = 0.00;
-    if($monto_pagado == $contract['monto_total']){
-      $state = "saldado";
-    }else{
-      $state = "activo";
-    }
-
-    $data_contract = array(
-      'monto_pagado'  => 0.00,
-      'ultimo_pago'   => null,
-      'estado'        => $state
-    );
-    $context->contract_model->update($data_contract,$contract_id,true);
   }
 }
 
@@ -584,6 +448,15 @@ if (! function_exists('add_extra')){
 }
 
 // dates helper functions
+function is_day_closed(){
+  $ci =& get_instance();
+  $ci->load->model('caja_mayor');
+  $last_close_date = $ci->caja_mayor->get_last_close_date();
+  $today = date('Y-m-d');
+  if ($last_close_date == $today){
+    return true;
+  }
+}
 
 function get_next_date($date){
   $one_month = new DateInterval('P1M');

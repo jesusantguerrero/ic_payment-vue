@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.shortcuts-container.for-services
-    .service-card.shortcut(:id="item.id_servicio", v-for="item of services", :data-price="item.mensualidad", click="select(item)")
+    .service-card.shortcut(:id="item.id_servicio", v-for="item of services", @click="select(item)", :class="{ selected: selectedService == item.id_servicio }")
       i.material-icons rss_feed
       | {{ item.nombre }}
 
@@ -16,6 +16,7 @@
     data() {
       return {
         services: [],
+        selectedService: null
       };
     },
     mounted() {
@@ -31,6 +32,7 @@
       },
 
       select(item) {
+        this.selectedService = item.id_servicio;
         this.$emit('selected', item);
       }
     }

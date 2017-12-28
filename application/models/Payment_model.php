@@ -9,7 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Payment_model extends CI_MODEL{
-  
+
   public $id_pago = null;
   public $id_contrato;
   public $id_empleado = null;
@@ -26,19 +26,12 @@ class Payment_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->helper('lib_helper');
     $this->load->model('contract_model');
   }
 
-  /**
-  *
-  *@param array $data array with the data of the user
-  *@param string $mode "normal" for save it in an insert, "full" to storage all the data
-  *@return void
-  */
-
-  function organize_data($data,$mode){
+  private function organize_data($data, $mode){
 
     if($mode == "full"){
       $this->id_pago = $data['id_pago'];
@@ -66,7 +59,7 @@ class Payment_model extends CI_MODEL{
         return true;
       }else{
         return false;
-      } 
+      }
   }
 
   public function get_payment($id, $as_receipt = false) {
@@ -98,7 +91,23 @@ class Payment_model extends CI_MODEL{
       }else{
        return false;
     }
-    
+
+  }
+
+  // Contract related options
+  public function get_payments_of_contract($id_contrato, $mode= false){
+    if ($mode == 'list') {
+      $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
+    } else if ($mode == 'table') {
+      $this->db->order_by('-fecha_pago DESC,fecha_limite,complete_date','',false);
+    }
+    $this->db->where('id_contrato',$id_contrato);
+    if ($result = $this->db->get("ic_pagos")) {
+      if ($mode == 'table') {
+        return make_payment_table($result->result_array(),0);
+      }
+      return $result->result_array();
+    }
   }
 
   public function get_next_payment_of($id_contrato){
@@ -111,109 +120,14 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-// DEPRECATED: eliminar esto 
-  public function get_recibo($id){
-    $this->db->where('id_pago', $id);
-    if ($result = $this->db->get('v_recibos')) {
-      return $result->row_array();
-    }
-  }
-  
-  public function get_extras($id_pago, $get_values = false) {
-    $pago = $this->get_payment($id_pago);
-    if ($pago['servicios_adicionales']) {
-      $extras = json_decode($pago["servicios_adicionales"],1);
-      if (!$get_values) {
-        return $extras;
-      } else {
-        $total_extras = 0;
-        $string_detalles = "";
-        $detalles_extras = [];
-
-        foreach ($extras as $key => $extra) {
-          $total_extras += $extra['precio'];
-          $string_detalles .= "{$extra["servicio"]} -- ";
-          array_push($detalles_extras, $extra);
-        }
-
-        return ["total" => $total_extras, "detalles" => $string_detalles, "array" => $detalles_extras];
-      }
-    }
-  }
-  
-  public function save_extras($extras, $id_pago){
-    $extras = json_encode($extras);
-    return $this->update(["servicios_adicionales" => $extras], $id_pago);
-  }
-
-  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "precio => 2000]]
-    $extras = $this->get_extras($id_pago);
-    if (!$extras){
-      $extras = $new_extra;
-    } else {
-      $key = join('',array_keys($new_extra));
-      $extras[$key] = $new_extra[$key];
-    } 
-    return $this->save_extras($extras, $id_pago);
-  }
-
-  public function delete_extra($key, $id_pago) {
-    $extras = $this->get_extras($id_pago);
-    if ($extras && null !== $extras[$key]) {
-      unset($extras[$key]);
-      if (count($extras) > 0) {
-        return $this->save_extras($extras, $id_pago);
-      } else {
-        return $this->update(["servicios_adicionales" => null], $id_pago);
-      }
-    }
-  } 
-
-  public function check_extras_fijos($id_pago, $id_contrato = false) {
-    if (!$id_contrato) {
-      $id_contrato = $this->get_payment($id_pago)['id_contrato'];
-    }
-    $pago = $this->get_payment($id_pago);
-    $contract = $this->contract_model->get_contract($id_contrato);
-//TODO: argregar fecha del servicio extra fijo
-    //    $fecha_seguro = 
- //   $fecha_limite_pago = date()
-
-    if ($contract['extras_fijos'] && $pago['abono_a'] == null && $pago['estado'] == "no pagado") {
-      $this->set_extra([
-        $contract['extras_fijos'] => [
-          "servicio" => $contract['nombre_seguro'],
-          "precio" => $contract['mensualidad_seguro']
-        ]
-      ], $id_pago);
-
-      $this->reorganize_values($id_pago);
-    }
-  }
-
-  public function reorganize_values($id_pago){
-    $pago = $this->get_payment($id_pago);    
-    $extras = $this->get_extras($pago['id_pago'], true);
-
-    $updated_data = array(
-      'total'          => $pago['cuota'] + $extras['total'] + $pago['mora'],
-      'monto_extra'    => $extras['total'],
-      'detalles_extra' => $extras['detalles']
-    );
-
-    $this->update($updated_data, $pago['id_pago']);
-  }
-
-// Contract related options
-
   public function count_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
     $this->db->where('estado','no pagado');
     $result = $this->db->count_all_results('ic_pagos');
-    if($result){
+    if ($result){
       return $result;
-    }else{
-      return 0;
+    } else{
+    return 0;
     }
   }
 
@@ -240,32 +154,6 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function get_all_of_contract($id){
-    $this->db->where('id_contrato',$id);
-    $this->db->order_by('-fecha_pago DESC,fecha_limite,complete_date','',false);
-    if($result = $this->db->get('ic_pagos')){
-      echo make_payment_table($result->result_array(),0);
-    }
-  } 
-
-  public function get_payments_of_contract($id){
-    $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id";
-    $result = $this->db->query($sql);
-    if($result){
-      $result = $result->result_array();
-      return $result;
-    }
-  }   
-
-  public function list_all_of_contract($id_contrato){
-    $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
-    $this->db->where('id_contrato',$id_contrato);
-    if($result = $this->db->get("ic_pagos")){
-      $result = make_payment_list($result->result_array());
-      return $result;
-    }
-  }
-
   public function get_unpaid_per_contract($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
     $this->db->where('estado','no pagado');
@@ -274,6 +162,91 @@ class Payment_model extends CI_MODEL{
       return $result->result_array();
     }
   }
+
+  // Extra column related
+
+  public function get_extras($id_pago, $get_values = false) {
+    $pago = $this->get_payment($id_pago);
+    if ($pago['servicios_adicionales']) {
+      $extras = json_decode($pago["servicios_adicionales"],1);
+      if (!$get_values) {
+        return $extras;
+      } else {
+        $total_extras = 0;
+        $string_detalles = "";
+        $detalles_extras = [];
+
+        foreach ($extras as $key => $extra) {
+          $total_extras += $extra['precio'];
+          $string_detalles .= "{$extra["servicio"]} -- ";
+          array_push($detalles_extras, $extra);
+        }
+
+        return ["total" => $total_extras, "detalles" => $string_detalles, "array" => $detalles_extras];
+      }
+    }
+  }
+
+  public function save_extras($extras, $id_pago){
+    $extras = json_encode($extras);
+    return $this->update(["servicios_adicionales" => $extras], $id_pago);
+  }
+
+  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "precio => 2000]]
+    $extras = $this->get_extras($id_pago);
+    if (!$extras){
+      $extras = $new_extra;
+    } else {
+      $key = join('',array_keys($new_extra));
+      $extras[$key] = $new_extra[$key];
+    }
+    return $this->save_extras($extras, $id_pago);
+  }
+
+  public function delete_extra($key, $id_pago) {
+    $extras = $this->get_extras($id_pago);
+    if ($extras && null !== $extras[$key]) {
+      unset($extras[$key]);
+      if (count($extras) > 0) {
+        return $this->save_extras($extras, $id_pago);
+      } else {
+        return $this->update(["servicios_adicionales" => null], $id_pago);
+      }
+    }
+  }
+
+  public function check_extras_fijos($id_pago, $id_contrato = false) {
+    if (!$id_contrato) {
+      $id_contrato = $this->get_payment($id_pago)['id_contrato'];
+    }
+    $pago = $this->get_payment($id_pago);
+    $contract = $this->contract_model->get_contract($id_contrato);
+
+    if ($contract['extras_fijos'] && $pago['abono_a'] == null && $pago['estado'] == "no pagado") {
+      $this->set_extra([
+        $contract['extras_fijos'] => [
+          "servicio" => $contract['nombre_seguro'],
+          "precio" => $contract['mensualidad_seguro']
+        ]
+      ], $id_pago);
+
+      $this->reorganize_values($id_pago);
+    }
+  }
+
+  public function reorganize_values($id_pago){
+    $pago = $this->get_payment($id_pago);
+    $extras = $this->get_extras($pago['id_pago'], true);
+
+    $updated_data = array(
+      'total'          => $pago['cuota'] + $extras['total'] + $pago['mora'],
+      'monto_extra'    => $extras['total'],
+      'detalles_extra' => $extras['detalles']
+    );
+
+    $this->update($updated_data, $pago['id_pago']);
+  }
+
 
 // Grafic Related Options
 
@@ -301,8 +274,8 @@ class Payment_model extends CI_MODEL{
 
   public function get_incomes_per_month(){
     $resultado_por_mes = array();
-    
-    for ($i=1; $i <= 12 ; $i++) { 
+
+    for ($i=1; $i <= 12 ; $i++) {
       $value = $this->month_income($i);
       array_push($resultado_por_mes,$value);
     }
@@ -337,7 +310,7 @@ class Payment_model extends CI_MODEL{
       $result = $this->db->group_by('cliente');
     }
     $result = $this->db->get('v_morosos');
-    return $result->result_array(); 
+    return $result->result_array();
   }
 
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
@@ -345,7 +318,7 @@ class Payment_model extends CI_MODEL{
     if($result = $this->db->query($sql)):
       $result = $result->result_array();
       $result = make_next_payments_list($result);
-      echo $result; 
+      echo $result;
     else:
       echo " Error";
     endif;
@@ -355,7 +328,7 @@ class Payment_model extends CI_MODEL{
     $sql = "SELECT * FROM v_pagos_pendientes";
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);
-    echo $result; 
+    echo $result;
   }
 
   public function get_sum_monto_total_of($id_contrato){
