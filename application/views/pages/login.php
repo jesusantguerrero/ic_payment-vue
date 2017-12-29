@@ -20,7 +20,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="loader"> <span class="load"></span></div>
-     <div class="col-md-6 justif-content-center">
+     <div class="col-md-6 justify-content-center">
        <div class="hidden-xs">
          <h1>IC PAYMENT</h1>
        </div>

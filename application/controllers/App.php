@@ -3,31 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class App extends MY_Controller {
 
-	public function __construct(){
+	public function __construct() {
 		parent::__construct();
 		$this->load->model("user_model");
 		$this->load->model("client_model");
-		$this->load->model("service_model");
-		$this->load->model("contract_model");
-		$this->load->model("contract_view_model");
-		$this->load->model("payment_model");
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
-		$this->load->model("report_model");
-		$this->load->model("petty_cash_model");
-		$this->load->model("averia_model");
-		$this->load->model("section_model");
-		$this->load->model("extra_model");
-    $this->load->model("cancelations_model");
     $this->load->library('parser');
     $this->load->library('twig');
 
-		update_moras($this);
-		generar_facturas_mes($this);
-
+		// update_moras($this);
+		// generar_facturas_mes($this);
  }
 
-	public function index(){
+	public function index() {
 		if(!isset($_SESSION['user_data'])){
 			redirect(base_url('app/login'));
     } else {
@@ -44,7 +33,7 @@ class App extends MY_Controller {
     }
   }
 
-	public function admin($page = 'home'){
+	public function admin($page = 'home') {
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
@@ -57,20 +46,14 @@ class App extends MY_Controller {
 		$this->parser->parse('layouts/footer', $data);
   }
 
-  public function details($id, $active_window = "pagos"){
+  public function details($id, $active_window = "pagos") {
 		authenticate();
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
-		$this->session->set_flashdata('active_window',$active_window);
-		redirect(base_url('app/admin/detalles'));
+		$this->session->set_flashdata('active_window', $active_window);
+    $this->admin('detalles');
 	}
 
-	public function new_contract($id){
-		authenticate();
-		$_SESSION['client_data'] = $this->client_model->get_client($id);
-		redirect(base_url('app/admin/nuevo_contrato'));
-	}
-
-	public function imprimir($page){
+	public function imprimir($page) {
 		authenticate();
 		$data['title'] = $page;
 		$info = '';
@@ -84,8 +67,7 @@ class App extends MY_Controller {
 		$this->load->view("impresos/$page",$info);
 	}
 
-  private function define_data($title, $js = [] , $css = [])
-  {
+  private function define_data($title, $js = [] , $css = []) {
     $jsFiles = [];
     $cssFiles = [];
     $js  = array_merge(['manifest','vendor'], $js);
