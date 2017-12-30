@@ -6,11 +6,11 @@
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(href="#" data-toggle="modal", data-target="#search-client-modal")
+            a(:href="newContractLink")
               i.material-icons description
               | Nuevo Contrato
           li.aside-buttons
-            a(href="#" id="update-contract", data-toggle="modal", @click.prevent="getContract")
+            a(href="#" id="update-contract", @click.prevent="getContract")
               i.material-icons edit
               | Editar Contrato
           li.aside-buttons
@@ -18,7 +18,7 @@
               i.material-icons delete
               | Cancelar Contrato
           li.aside-buttons
-            a(href="" id="suspend-contract", @click.prevent="suspendContract")
+            a(href="" id="suspend-contract", @click.prevent="suspend")
               i.material-icons report_problem
               | Suspender Contrato
           li.aside-buttons
@@ -26,7 +26,7 @@
               i.material-icons monetization_on
               | Registrar Pago
           li.aside-buttons
-            a(href="" id="contract-extra", @click.prevent="sendTo('new_contract')")
+            a(href="" id="contract-extra")
               i.material-icons more
               | Extras
 
@@ -42,7 +42,7 @@
             select#contract-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
         DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
-    //- ContractModal(:store="store", :contract="store.contract", :modal-mode="store.contractMode" @save="getContracts")
+    ContractUpdateModal(:store="store", :contract="store.contract", @save="getContracts")
 
 </template>
 
@@ -51,10 +51,12 @@
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
   import ContractStore from './store/ContractStore';
+  import ContractUpdateModal from './components/ContractUpdateModal.vue';
 
   export default {
     components: {
-      DataTable
+      DataTable,
+      ContractUpdateModal
     },
 
     mounted() {
@@ -89,6 +91,9 @@
     computed: {
       cols() {
         return this.store.columns;
+      },
+      newContractLink() {
+        return `${baseURL}app/admin/nuevo_contrato`;
       }
     },
 
@@ -107,7 +112,7 @@
             .then((res) => {
               this.store.setContract(res.data.contract);
               this.store.setContractMode('update');
-              $('#contract-modal').modal();
+              $('#contract-update-modal').modal();
             })
             .catch((err) => {
               this.$toasted.error(err);
@@ -164,20 +169,37 @@
         }
       },
 
-      suspend(id, state) {
-        const form = {
-          id,
-          row: 'estado',
-          value: state
-        };
-        this.$http.post('contract/suspend', this.getDataForm(form))
-          .then((res) => {
-            this.getcontracts();
-            this.showMessage(res.data.message);
-          })
-          .catch((err) => {
-            this.$toasted.error(err);
+      suspend() {
+        const self = this;
+        function sendSuspend(contractId) {
+          self.$http.post('contract/suspend', self.getDataForm({ id_contrato: contractId }))
+            .then((res) => {
+              self.showMessage(res.data.message);
+              if (res.data.message.type === 'success') {
+                self.selectedContract = null;
+              }
+              self.getContracts();
+            });
+        }
+        if (this.selectedContract) {
+          const contract = this.selectedContract;
+          swal({
+            title: 'Suspender Contrato',
+            text: `¿Está seguro de querer suspender el contrato de ${contract.cliente}`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Suspender',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+              sendSuspend(contract.id);
+            }
           });
+        } else {
+          this.$toasted.info('seleccione un cliente primero');
+        }
       },
     }
   };

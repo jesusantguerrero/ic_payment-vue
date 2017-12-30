@@ -90,19 +90,18 @@ export default class ContractStore {
     ];
     this.contractMode = 'add';
     this.contract = {
-      nombres: '',
-      apellidos: '',
-      cedula: '',
-      celular: '',
-      provincia: '',
-      sector: '',
-      calle: '',
-      casa: '',
-      detalles_direccion: '',
-      telefono: '',
-      lugar_trabajo: '',
-      tel_trabajo: '',
-      ingresos: 0
+      id_cliente: '',
+      id_servicio: '',
+      codigo: '',
+      fecha: '',
+      duracion: '',
+      mensualidad: '',
+      nombre_equipo: '',
+      mac_equipo: '',
+      router: '',
+      mac_router: '',
+      modelo: '',
+      ip: ''
     };
   }
 
@@ -116,19 +115,18 @@ export default class ContractStore {
 
   contractEmpty() {
     this.contract = {
-      nombres: '',
-      apellidos: '',
-      cedula: '',
-      celular: '',
-      provincia: '',
-      sector: '',
-      calle: '',
-      casa: '',
-      detalles_direccion: '',
-      telefono: '',
-      lugarTrabajo: '',
-      telTrabajo: '',
-      ingresos: 0
+      id_cliente: '',
+      id_servicio: '',
+      codigo: '',
+      fecha: '',
+      duracion: '',
+      mensualidad: '',
+      nombre_equipo: '',
+      mac_equipo: '',
+      router: '',
+      mac_router: '',
+      modelo: '',
+      ip: ''
     };
   }
 }

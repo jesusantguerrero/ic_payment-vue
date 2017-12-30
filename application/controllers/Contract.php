@@ -38,19 +38,72 @@ class Contract extends MY_Controller {
 				$res['contracts'] = $this->contract_view_model->get_contract_view('activo');
     }
     $this->response_json($res);
-	}
+  }
 
-	public function suspend(){
+  public function get_contract() {
+    authenticate();
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $res['contract'] = $this->contract_model->get_contract_view($data['id'],true);
+      $this->response_json($res);
+    }
+  }
+
+  public function update() {
+    authenticate();
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $data_for_update = array(
+        'nombre_equipo' => $data['nombre_equipo'],
+        'mac_equipo'		=> $data['mac_equipo'],
+        'router'				=> $data['router'],
+        'mac_router'    => $data['mac_router'],
+        'modelo'				=> $data['modelo'],
+      );
+
+      if(isset($data['codigo'])){
+          $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+          $this->section_model->update_ip_state($contract['codigo'],'disponible');
+          $data_for_update['ip'] = $data['ip'];
+          $data_for_update['codigo'] = $data['codigo'];
+          $this->section_model->update_ip_state($data['codigo'],'ocupado');
+      }
+      if ($this->contract_model->update($data_for_update,$data['id_contrato'])) {
+        $this->set_message('Contrato Actualizado');
+      } else {
+        $this.set_message('error al actualizar contrato');
+      }
+      $this->response_json();
+    }
+  }
+
+	public function suspend() {
 		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$contract = $this->contract_model->get_contract_view($data['id_contrato']);
-		$result = suspender_contrato($data['id_contrato'],$contract['id_cliente'],$this);
-		if($result){
-			$res['mensaje'] = MESSAGE_SUCCESS." Contrato suspendido";
-		}else{
-			$res['mensaje'] = MESSAGE_ERROR." El contrato no pudo ser suspendido";
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+      $result = suspender_contrato($data['id_contrato'],$contract['id_cliente'],$this);
+      if($result){
+        $this->set_message('Contrato suspendido');
+      }else{
+        $this->set_message('El contrato no pudo ser suspendido', 'error');
+      }
+      $this->response_json();
+    }
+  }
+
+  public function cancel() {
+		authenticate();
+		if(!$this->is_day_closed()){
+			$data_cancel = $_POST;
+			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
+			$estado   = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
+			if($pendents == false and $estado != 'mora'){
+				cancel_contract($this,$data_cancel);
+			}else{
+				echo 'El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar';
+			}
 		}
-		echo json_encode($res);
 	}
 
 	public function reconnect() {

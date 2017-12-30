@@ -122,7 +122,6 @@
 
       deleteClient() {
         const self = this;
-
         function sendDelete(id) {
           self.$http.post('clients/delete', self.getDataForm({ id }))
             .then((res) => {

@@ -37,9 +37,6 @@ class Process extends CI_Controller {
 		$data  = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "observaciones":
-				$this->client_model->update_observations($data);
-				break;
 			case "abonos":
 				if (!$this->is_day_closed()) {
 					$this->db->trans_start();
@@ -103,27 +100,8 @@ class Process extends CI_Controller {
 			case "instalaciones":
 				$this->report_model->update_installation($data['id_pago']);
 				break;
-			case "contratos":
-				$data_for_update = array(
-					'nombre_equipo' => $data['nombre_equipo'],
-					'mac_equipo'		=> $data['mac_equipo'],
-					'router'				=> $data['router'],
-					'mac_router'    => $data['mac_router'],
-					'modelo'				=> $data['modelo'],
-				);
-
-				if(isset($data['codigo'])){
-						$contract = $this->contract_model->get_contract_view($data['id_contrato']);
-						$this->section_model->update_ip_state($contract['codigo'],'disponible');
-						$data_for_update['ip'] = $data['ip'];
-						$data_for_update['codigo'] = $data['codigo'];
-						$this->section_model->update_ip_state($data['codigo'],'ocupado');
-				}
-				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
-				break;
-
-		}
-	}
+    }
+  }
 
 	public function axiosupdate(){
 		authenticate();
@@ -189,15 +167,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "contratos":
-				$result = $this->contract_model->get_contract_view($_POST['id_contrato'],true);
-				if($result){
-					 $dataJson = json_encode($result);
-					 echo $dataJson;
-				}else{
-					echo "nada";
-				}
-				break;
 			case "pagos":
 				$result['pago'] 		= $this->payment_model->get_payment($_POST['id_pago']);
 				$result['settings'] = $this->settings_model->get_settings();
@@ -322,20 +291,6 @@ class Process extends CI_Controller {
 		}
 			redirect(base_url('app/imprimir/reporte'));
 
-	}
-
-	public function cancel(){
-		authenticate();
-		if(!$this->is_day_closed()){
-			$data_cancel = $_POST;
-			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
-			$estado   = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
-			if($pendents == false and $estado != 'mora'){
-				cancel_contract($this,$data_cancel);
-			}else{
-				echo 'El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar';
-			}
-		}
 	}
 
 	public function data_for_extra(){
