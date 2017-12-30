@@ -1,0 +1,6 @@
+webpack/build/*.js
+webpack/config/*.js
+assets/
+src/modules/services
+webpack.config.js
+/*.js

@@ -1,0 +1,176 @@
+.btn,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]
+  display: inline-block
+  height: 48px
+  padding: 0 30px
+  color: #fff
+  text-align: center
+  font-size: 16px
+  font-weight: 400
+  line-height: 38px
+  letter-spacing: .1rem
+  text-transform: uppercase
+  text-decoration: none
+  white-space: nowrap
+  border-radius: 4px
+  border: 2px solid #fff
+  cursor: pointer
+  box-sizing: border-box
+  background-color: $contrast-color
+
+  &:hover,
+  &:active,
+  &:focus
+    outline: none
+  &:hover
+    color: $contrast-color
+    border: 2px solid $contrast-color
+    background: #fff
+
+a,
+button
+  &.btn
+    &:active:focus,
+    &:focus:hover
+      color: $contrast-color
+
+.btn-gray
+  background: #dfdfdf
+  color: $contrast-color
+  transition: all ease .3s
+  text-align: center
+  display: flex
+  justify-content: center
+
+  .material-icons
+    margin: 0 0 0 0
+
+.btn-remark
+  background: white
+  color: $contrast-color
+  transition: all ease .3s
+
+  &:hover
+    background: $contrast-color
+    color: white
+    border: 2px solid #fff
+
+
+.btn-transparent
+  background: transparent
+  color: $primary-color
+  transition: all ease .3s
+  border: 0
+
+  &:hover
+    color: $contrast-color
+    border: 2px solid #fff
+  &:focus
+    color: $contrast-color
+  &:active:focus,
+  &:focus:hover
+    color: $contrast-color
+    outline: 0
+
+.aside-buttons,
+  height: 48px
+  margin: 10px 0
+  +makeFlex(100%,row,center,center)
+
+
+  a
+    display: block
+    +makeFlex(100%,row,flex-start,center)
+    +size(90%,100%)
+    padding: 2px 20px
+    color: $contrast-color
+    font:
+      weight: bolder
+    transition: all ease .3s
+
+    &:hover
+      color: #fff
+      background: $contrast-color
+      box-shadow:  1px 2px 4px rgba(0,0,0,.4)
+      border-radius: 2px
+    &:focus
+      outline: none
+
+.tab-buttons
+  display: inline-block
+  height: 38px
+  min-width: 100px
+  color: #555
+  background: transparent
+  border: none
+  margin: 0 5px
+  border-bottom: 3px solid transparent
+  font:
+    weight: bolder
+    size: 18px
+  &:hover,
+  &:active,
+  &:focus
+    outline: none
+    color: $contrast-color
+    border-bottom-color:  $contrast-color
+
+.material-icons
+  margin-right: 15px
+  vertical-align: middle
+  &.mi__single
+    margin-right: 0
+
+.btn-more
+  border: none
+  text-align: center
+  background: transparent
+  color: #fff
+  width: fit-content
+  margin: 0 10px
+  padding: 8px 8px
+  +size(40px,40px)
+  border-radius: 4px
+
+  &:focus,
+  &:active,
+  &:hover
+    outline: none
+  &:hover
+    color: $contrast-color
+    background: #fff
+
+#btn-cancel-contract
+  &:hover
+    color: #fff
+    background: $tomato
+.btn-group
+  .btn-small
+    font-size: 14px
+    width: 50%
+    background: #cccccc
+    border: 2px solid #ccc
+    height: 28px
+    font-weight: bolder
+    line-height: 1.5
+
+    &:hover
+      border: 2px solid #1FD1A8
+      color: #fff
+
+    &:active,
+    &:focus,
+    &.selected
+      background: #1FD1A8
+      color: #fff
+
+.btn-box-tool
+  background: transparent
+  color: $primary-color
+  border: 0
+
+.btn.icon
+  .material-icons
+    margin-right: 0

@@ -1,0 +1,12 @@
+<ul class="dropdown-menu" aria-labelledby="dLabel">
+  <li><p><a href="{{url}}app/admin/cuenta"><b>{{ user.fullname }}</b></a></p></li>
+  <li><a href="{{url}}app/admin/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</a></li>
+  {% if (user.type == 0) %}
+  <li class="hidden-xs"><a href="{{url}}app/admin/administrador">
+      <i class="material-icons">settings</i>Configuración</a>
+  </li>
+  {% endif %}
+  <li><a href="{{url}}auth/do_logout">
+      <i class="material-icons">power_settings_new</i> Cerrar Sesión</a>
+  </li>
+</ul>

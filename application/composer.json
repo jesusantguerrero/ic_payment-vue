@@ -1,0 +1,6 @@
+{
+    "require": {
+        "ktamas77/firebase-php": "dev-master",
+        "geckob/firebase": "^0.1.1"
+    }
+}

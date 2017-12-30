@@ -1,0 +1,29 @@
+=size($w,$h)
+  width: $w
+  height: $h
+
+=makeFlex($width: 100%,$direction: row,$justify: flex-start,$align: flex-start)
+  width: $width
+  display: flex
+  flex-direction: $direction
+  justify-content: $justify
+  align-items: $align
+
+=card($level: 1)
+  $level: $level * .2
+  background: #fff
+  border: 1px solid #ccc
+  box-shadow: 1px 2px 2px rgba(0,0,0,$level)
+
+.t-center
+  text-align: center
+
+.invisible
+  display: none
+
+.searcher-container.clearfix
+  &:after
+    content: none
+  select
+    height: 100% 
+    text-align: center

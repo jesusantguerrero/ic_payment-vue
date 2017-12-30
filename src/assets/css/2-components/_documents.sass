@@ -1,0 +1,201 @@
+$document-bg: dodgerblue
+$line-color: white
+
+
+.note-item
+  +size(30%,270px)
+  margin: 3px 1.5%
+  border-radius: 4px
+  border: 1px solid #aaa
+  position: relative
+  cursor: pointer
+
+  &:after
+    content: ' '
+    position: absolute
+    +size(0,0)
+    top: -2px
+    right: -2px
+    border-bottom: 32px solid transparent
+    border-right: 52px solid white
+    border-left: 35px solid transparent
+    z-index: 200
+  &:before
+    content: ' '
+    position: absolute
+    +size(0,0)
+    top: -1.2px
+    right: -1.2px
+    border-bottom: 30px solid #f2f2f2
+    border-right: 50px solid transparent
+    border-left: 0px solid transparent
+    border-radius-bottom: 4px
+    z-index: 100
+    box-shadow: -2px 2px 3px rgba(0,0,0,.5)
+
+
+  .preview
+    background: $document-bg
+    height: 100%
+    padding: 20px
+    position: relative
+    overflow: hidden
+    border-radius: 4px 0 0 0
+  .options
+    position: absolute
+    background: rgba(0,0,0,.9)
+    top: 0
+    left: 0
+    +size(100%,100%)
+    color: white
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    visibility: hidden
+    transition: all ease .3s
+  .title-bar
+    background: #333
+    display: flex
+    height: 15%
+    justify-content: space-between
+    padding: 5px
+    color: #f8f8f8
+
+  .type
+    background: #f8f8f8
+    color: #555
+    padding: 7px
+    font-size: 12px
+    border-radius: 4px
+    &:after
+      content: 'NOTE'
+  .title
+    margin: 0
+    padding: 0
+    color: #f8f8f8
+.action
+  +size(100px,28px)
+  display: block
+  color: #ddd
+  text-decoration: none
+  margin: 5px
+  padding: 5px
+  text-align: center
+  background: transparentize(#fff,.9)
+
+  &:hover
+    background: transparentize(#fff,.7)
+
+.lineas
+  +size(100%,10px)
+  background: $line-color
+  margin: 8px 0
+  overflow: hidden
+  position: relative
+  &:first-child
+    width: 30%
+    margin: 15px 0
+  &:last-child
+    width: 50%
+    margin: 15px 0
+  span
+    display: block
+    +size(15px,100%)
+    background: $line-color
+    animation: cargando 3s
+
+.todo
+  .lineas
+    &:after
+      content: ''
+      +size(20px,100%)
+      position: absolute
+      background: $document-bg
+      top: 0
+      left: 20px
+
+    &:before
+      content: '\2718'
+      +size(15px,100%)
+      position: absolute
+      border: 1px solid #ccc
+      top: 0
+      left: 0
+      color: $document-bg
+      padding: 0 6px
+      font-size: 9px
+  .type
+    &:after
+      content: 'TODO'
+
+@keyframes cargando
+  0%
+    background: transparentize($document-bg,.8)
+    transform: translate(0%,0)
+  50%
+    transform: translate(1800%,0)
+  100%
+    background: transparentize($document-bg,0)
+    transform: translate(-20px,0)
+
+.reminder
+  .falseDoc
+    border-radius: 50%
+    overflow: hidden
+    background: rgba(0,0,0,.05)
+    position: relative
+    &:after
+      content: ''
+      +size(3%,40%)
+      background: $line-color
+      border: 2px solid darken($document-bg,5%)
+      border-bottom: none
+      position: absolute
+      left: 45%
+      top: 9%
+      z-index: 200
+    &:before
+      content: ''
+      +size(2%,30%)
+      background: $line-color
+      border: 2px solid darken($document-bg,5%)
+      position: absolute
+      left: 58%
+      top: 41%
+      transform: rotate(120deg)
+      z-index: 100
+  .type
+    &:after
+      content: 'REM'
+
+.note-item.print-requirement
+  .preview
+    background: $primary-color
+
+[disabled]
+  pointer-events: none
+  background: $primary-color
+
+.my-radio
+  +makeFlex(20px,row,center,center)
+  height: 20px
+  background: white
+  border: 2px solid $primary-color
+  border-radius: 4px
+  margin-right: 5px
+
+  &.checked
+    background: $contrast-color
+    border: 2px solid $contrast-color
+    color: white
+    font-weight: bolder
+    position: relative
+
+    &:after
+      content: '\2714'
+      position: absolute
+      width: 100%
+      height: 100%
+      text-align: center
+      vertical-align: middle

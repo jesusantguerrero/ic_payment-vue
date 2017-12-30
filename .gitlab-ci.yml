@@ -1,0 +1,62 @@
+image: node:latest
+stages:
+  - prepare
+  - build
+  - deploy
+
+prepare:
+  stage: prepare
+  script:
+    - npm install
+    - npm update --save-dev
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - node_modules/
+  environment:
+    name: staging
+  only:
+    - develop
+    - feature/enviroments
+
+build:
+  stage: build
+  script:
+   - echo "Building the app .."
+   - npm install chalk --save-dev
+   - npm run build
+  only:
+   - develop
+   - feature/enviroments
+
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "Deploy to staging server"
+    - git config --global user.email "jesusant.guerrero@gmail.com"
+    - git config --global user.name "Jesus Guerrero"
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
+    - git push heroku master -f
+    - echo "deployed to staging"
+  environment:
+    name: staging
+    url: https://ic-payment-staging.herokuapp.com/
+  only:
+  - develop
+  - feature/enviroments
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "Deploy to staging server"
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment.git
+    - git push keroku master
+    - echo "deployed to staging"
+  environment:
+    name: production
+    url: https://ic-payment.herokuapp.com/
+  only:
+   - master

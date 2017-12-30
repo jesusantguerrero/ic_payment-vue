@@ -1,0 +1,173 @@
+html,body
+  height: 100%
+
+.app-cierre
+  .main-content
+    padding: 30px
+  ul.aside-nav
+    text-align: center
+  .data-money
+    p
+      color: $contrast-color
+      font-size: 18px
+      text-align: center
+
+  .tabla-dinero
+    margin-top: 30px
+  .tab-content-cierre
+
+    .form-group-row
+      margin: 0
+      border-bottom: 1px solid #ccc
+    #total-efectivo-caja
+      background: #fff
+  .centered-container
+    margin-top: 0
+
+.cierre2
+  .tab-content-cierre
+    height: 100%
+    overflow: auto
+    width: 100%
+  .tab-content,
+    width: 100%
+  .tab-pane
+    height: 250px;
+    overflow: auto;
+  .current-saldo.my-caja
+    @extend .done
+#print-view
+  visibility: hidden
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+.print-container
+  .__header
+    +makeFlex(100%,row,center,center)
+    display: flex
+
+a.link
+  vertical-align: middle
+  display: inline-block
+  margin: 25px
+  i.material-icons
+    vertical-align: middle
+
+
+.factura-body
+  width: 300px
+  margin-bottom: 100px
+  height: auto
+  min-height: 350px
+  border: 2px dashed #aaa
+  overflow: hidden
+  font-family: 'Times New Roman', Times, serif
+  background: #fff
+  &.wide
+    width: 735px
+
+  p
+    margin: 1px 0 0 0
+  .small-title
+    text-decoration: underline
+  .cabecera
+    +makeFlex(100%,column,center,center)
+    margin-bottom: 10px
+    p
+      padding: 0 0 0 0
+      margin:  0 0 0 0
+      font-size: 12px
+    .company-name
+      width: 60%
+      h2
+        padding-bottom: 0
+        margin-bottom: 0
+        font-weight: bolder
+        color: #f20
+  .concepto
+    text-align: center
+    font-weight: bolder
+    color: #666
+    padding: 5px 0
+    background: whitesmoke
+    h4
+      margin: 0 0 0 0
+  .fecha-recibo
+    color: #06f !important
+  .logo-recibo
+    width: 8%
+    margin: 2%
+
+  .left-box
+    align-self: center
+    font-size: 12px
+    margin: 20px
+  .cuerpo
+    padding: 15px 15px
+    margin: 10px
+    margin-bottom: 3px
+    border-radius: 4px
+  .text-placeholder
+    border-bottom: 1.4px dashed #ccc !important
+    display: inline-block
+    padding: 0
+    margin: 0
+    +size(82%,20px)
+    &.md
+      width: 18.43%
+    &.lg
+      width: 50%
+  .text-main
+    display: inline-block
+    +size(12%,20px)
+    font-weight: 600
+    color: #333!important
+    &.center
+      text-align: center
+  .line
+    +makeFlex(100%,row,null,center)
+
+  .pie-pagina
+    text-align: center
+
+  .right
+    float: right
+  i
+    visibility: hidden
+  .section-part
+    border: 1px solid #aaa
+    border-radius: 2px
+    padding: 10px
+    margin: 5px 0
+.fixed
+  position: fixed
+  height: 48px
+b.total
+  margin-right: 20px
+
+@media print
+  header,
+  #app-cierre,
+  button,
+  a,
+  a.link.btn,
+  .__header,
+  .__title
+    display: none
+  .factura-body
+    display: block
+    margin: 0 0 0
+    &.wide
+      width: 100%
+  .fecha-recibo
+    color: #06f !important
+  .concepto
+    background: whitesmoke !important
+    border-top: 1px solid #aaaaaa
+    border-bottom: 1px solid #aaaaaa
+  .company-name h2
+    color: #f20 !important
+  .cuerpo
+  #print-view
+    display: block;

@@ -1,0 +1,265 @@
+.left-navigation
+  padding: 20px 0
+  box-shadow: 2px 0px 4px rgba(0,0,0,.4)
+  min-height: 100%
+  background: #fff
+  width: 230px
+  position: absolute
+  top: 0
+  left: 0
+
+  .aside-nav-container
+    height: auto
+    position: sticky
+    width: 230px
+    &.moved
+      position: fixed
+      top: 0
+      animation: move-to-top .3s
+      .left-navigation__header
+        background: $contrast-color
+
+        &-text
+          color: #fff
+          border-bottom: 1px solid transparent
+          width: 100%
+          text-align: center
+
+  .company-logo
+    width: 90px
+
+  &__header
+    +makeFlex(100%,column,center,center)
+
+    &-text
+      color: $contrast-color
+      border-bottom: 4px solid $contrast-color
+      width: 100%
+      padding-bottom: 15px
+      text-align: center
+    &.dark
+      .left-navigation__header-text
+        color: #fff
+        border-color: #fff
+
+.aside-wide-left
+    height: auto
+    position: fixed
+    width: 280px
+    &.moved
+      position: fixed
+      top: 5px
+      animation: move-to-top-wide .3s
+
+
+.wide-main-content
+  min-height: 120vh
+  margin-left: 280px
+
+.main-content
+  padding: 50px 0
+  min-height: 120vh
+  margin-left: 230px
+
+.main-content.detalles
+  margin-left: 0
+
+.row
+  margin-left: 0
+  margin-right: 0
+
+.aside-nav
+  list-style: none
+
+#retiros,
+#recibos
+  .pull-right.search
+    display: none
+
+.toast
+  +size(100%,100px)
+  position: fixed
+  background: transparent
+  left: 0
+  bottom: 5vh
+  display: none
+  opacity: 0
+  justify-content: center
+  align-items: center
+  z-index: 3000
+
+  span
+    +makeFlex(fit-content,row,center,center)
+    min-height: 50px
+    min-width: 30%
+    padding: 0 10px
+    background: rgba(0,0,0,.3)
+    border-radius: 4px
+    font-size: 20px
+    color: white
+
+
+// user-info-tip
+
+.profile-picture
+  +makeFlex(40px,row, center, center)
+  height: 40px
+  background: #fff
+  cursor: pointer
+  box-sizing: border-box
+  border-radius: 50%
+  span
+    font:
+      size: 20px
+      weight: bolder
+  a:focus
+    outline: none
+.mymenu
+  height: 100%
+  .user-name
+    color: #fff
+  a#dLabel
+    +makeFlex(50px,row,center,center)
+    width: fit-content
+    height: 100%
+    &:hover
+      background: transparentize(#fff,.9)
+  .dropdown-menu
+    left: -90px
+    width: 210px
+    box-shadow: 0 6px 12px rgba(0,0,0,.175)
+    border-radius: 0
+    border: 1px solid rgba(0,0,0,.15)
+    padding-top: 0
+  li
+    margin: 5px 0
+    height: 48px
+    cursor: pointer
+    &:hover
+      background: $contrast-color
+      color: #fff
+      a
+        color: #fff
+    a
+      +makeFlex(100%,row,null, center)
+      height: 100%
+      padding: 5px 10px
+      color: #777
+
+      &:hover
+        color: #fff
+        background: $contrast-color
+
+.placeholder-icon
+  position: absolute
+  opacity: .7
+  font-size: 200px
+  top: 48px
+  right: 0
+  +makeFlex(100%,row,center,center)
+  height: 70%
+  z-index: 1
+
+
+  .material-icons
+    font-size: 120px
+
+.centered-container-small
+  position: absolute
+  z-index: 100
+  bottom: 5px
+  align-self: center
+  +makeFlex(100%,row, center,center)
+
+.list-nextpayments
+  position: absolute
+  z-index: 10
+  overflow: auto
+
+  &::-webkit-scrollbar-track
+    background-color: transparent
+    padding: 0 2px
+
+  &::-webkit-scrollbar
+    width: 15px
+    background-color: transparent
+
+  &::-webkit-scrollbar-thumb
+    background-color: transparentize(#fff,.7)
+    border-radius: 3px
+::-webkit-scrollbar-track
+  background-color: transparent
+  padding: 0 2px
+::-webkit-scrollbar
+  width: 10px
+  background-color: transparent
+::-webkit-scrollbar-thumb
+  background-color: transparentize($primary-color,.9)
+  border-radius: 0
+
+// Payment Item
+
+.payment-item
+  background: #fff
+  color: $primary-color
+  margin: 2.5%
+  border-radius: 4px
+  padding: 10px
+  text-align: left
+  +makeFlex(95%,row,center,center)
+  cursor: pointer
+  transition: all ease .3s
+
+  &:hover
+    transform: scale(1.03)
+
+  .item-profile
+    +size(50px,50px)
+    +makeFlex(50px,row,center,center)
+    background: $primary-color
+    border-radius: 50%
+    text-align: center
+    padding-left: 12px
+    i
+      color: white
+
+  .left-part
+    +makeFlex(30%,row,center,center)
+  .main-part
+    width: 50%
+  .right-part
+    +makeFlex(20%,column,center,center)
+    font-family: roboto
+    .payment-day
+      font:
+        size: 20px
+        weight: bolder
+      color: $contrast-color
+  .nombre
+    font-weight: bolder
+
+@keyframes move-to-top
+  0%
+    top: 90px
+  100%
+    top: 0
+
+@keyframes move-to-top-wide
+  100%
+    top: 10px
+
+
+@media (max-width: 768px)
+  .mymenu .dropdown-menu
+    left: -90px
+    top: 50px
+    width: 100px
+
+  .left-navigation
+    top: 0;
+    left: -250px
+
+  .main-content
+    padding: 50px 10px;
+    min-height: max-content
+    margin-left: 0

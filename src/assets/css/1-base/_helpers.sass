@@ -1,0 +1,63 @@
+.placeholder-lg
+  color: transparent
+  height: 40px
+
+.placeholder
+  color: transparent
+  height: 30px
+
+.uppercase
+  text-transform: uppercase
+.t-right
+  text-align: right
+input
+  &#client-name,
+  &#client-lastname,
+  &#u-client-name,
+  &#u-client-lastname
+    @extend .uppercase
+
+.form-control
+  height: 38px
+  margin: 0 2px
+
+span.select2-selection.select2-selection--single
+  height: 38px;
+  border-radius: 0
+  @extend .form-control
+
+label.inline
+  margin-right: 15px
+
+.justify-content-center
+  display: flex
+  justify-content: center
+  align-items: center
+
+.file-container
+  display: flex
+  overflow: hidden
+  @extend .form-control
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  border: 1px solid #ccc
+  &:hover
+    background: $primary-color
+    color: white
+
+  [type=file]
+    cursor: inherit
+    display: block
+    width: .1px
+    height: .1px
+    opacity: 0
+    text-align: center
+    background: blue
+
+@media screen and (-webkit-min-device-pixel-ratio: 0)
+  input[type=date].form-control,
+  input[type=time].form-control,
+  input[type=datetime-local].form-control,
+  input[type=month].form-control
+    line-height: 1.42857143

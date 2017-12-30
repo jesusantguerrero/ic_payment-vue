@@ -1,0 +1,150 @@
+.averia-item-list
+  +makeFlex(100%,column,center,center)
+  margin-top: 25px
+  margin-bottom: 50px
+.search-criteria
+  width: 100%
+.averia-item,
+.comment-item
+  display: flex
+  flex-direction: column
+  width: 95%
+  background: white
+  margin: 10px 0
+  min-height: 140px
+  box-shadow: 2px 2px 4px rgba(0,0,0,.2)
+  border: 1px solid #ddd
+  border-radius: 4px 
+  justify-content: center
+  color: #555
+  transition: all ease .3s
+  padding: 0 20px
+  &:hover
+    background: #fafafa
+    cursor: pointer
+  .top-row,
+  .description,
+
+  .status-bar
+    display: flex
+    justify-content: flex-start
+  .description
+    color: #777
+    height: 30%
+    font-size: 18px
+    padding-top: 10px
+    div
+      margin: 0 5px
+  .top-row
+    height: 20%
+    padding-top: 5px
+    align-items: center
+  .status-bar
+    margin-top: 15px
+    padding-top: 7px
+    border-top: 1px #eee solid
+    height: 20%
+    font-size: 14px
+    opacity: .7
+    span
+      margin-right: 15px
+    i.material-icons
+      margin-right: 2px
+  .title-item
+    font-size: bolder
+  .status
+    display: flex
+    align-items: center
+    height: 100%hide_clientes
+  .client-name
+    font:
+      size: 16px
+      weight: bolder
+    color: $contrast-color
+    &:hover
+      text-decoration: underline
+  .info
+    width: 80%
+  button
+    background: $contrast-color
+    color: white
+    height: 30px
+    border: none
+    border-radius: 4px
+    margin: 0 10px
+    width: 100px
+    text-align: center
+    &:hover
+      background: lighten($contrast-color,10%)
+    cursor: pointer
+  .code 
+    display: none
+
+.presentado
+  text-transform: capitalize
+  margin-left: 5px
+#ticket-view
+  background: white
+  box-shadow: 2px 2px 4px rgba(0,0,0,.2)
+  border: 1px solid #ddd
+  border-radius: 4px 
+  
+  .ticket-screen
+    .screen-body,
+    .screen-comment-list,
+    .comment-list
+      margin: 0 2.5%
+    .description
+      font-size: 20px
+      margin-bottom: 20px
+    .main-toolbar
+      .btn
+        box-shadow: none
+    .input-group
+      margin: 5px 0
+    .comment-item
+      width: 100%
+      border: 0 
+      box-shadow: none
+      border-radius: 0
+      .status-bar
+        border: 0
+      .comment-control
+        visibility: hidden
+      &:hover
+        .comment-control
+          visibility: visible
+      &.to-delete
+        opacity: .2
+    .comment-control
+      &:hover
+        color: $contrast-color
+    .new-comment,
+    .ticket-editor
+      margin:
+        bottom: 25px
+        top: 25px
+      border: 0
+      padding-bottom: 15px
+      border-bottom: 1px solid #eee
+       
+      textarea.form-control
+        border: 0
+
+@media print
+  .averia-item,
+  .ticket-screen
+    width: 100%
+    button,
+    a,
+    .btn,
+    .new-comment,
+    input
+      display: none
+      &[type="submit"]
+      &[type="button"]
+        display: none
+    .info
+      width: 100%
+  #ticket-view
+    border: 0

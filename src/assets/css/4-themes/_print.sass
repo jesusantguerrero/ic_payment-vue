@@ -1,0 +1,32 @@
+.print-only
+  display: none
+
+@media print 
+  .left-navigation,
+  header,
+  input,
+  .no-print,
+  .fixed-table-toolbar
+    display: hidden !important
+    display: none !important
+  .print-only
+    display: block
+  .document-body
+    width: 100%
+    color: #666 !important
+    margin: 0 0 0 0
+    background: #fff
+    padding: 50px 20px
+    position: relative
+  .concepto
+    background: $contrast-color !important
+    color: white !important
+  .table
+    font-size: 12px !important
+    thead
+      background: whitesmoke !important
+  footer 
+    position: relative
+    display: block
+    margin-bottom: 50px
+
