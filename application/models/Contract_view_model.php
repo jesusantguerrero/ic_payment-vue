@@ -12,14 +12,14 @@ class Contract_view_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->helper('lib_helper');
   }
 
   public function get_contract_view($status){
     //$this->db->where('estado',$status);
     if($result = $this->db->get('v_contratos')){
-        echo make_main_contract_table($result->result_array(),0);
+      return make_main_contract_table($result->result_array(),0);
     }
   }
 

@@ -6,10 +6,12 @@ class Contract extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('contract_model');
+		$this->load->model('contract_view_model');
 		$this->load->model('service_model');
 		$this->load->model('settings_model');
 		$this->load->model('client_model');
-		$this->load->model('cancelations_model');
+    $this->load->model('cancelations_model');
+
   }
 
   public function add() {
@@ -26,14 +28,16 @@ class Contract extends MY_Controller {
       $this->response_json();
     }
 	}
-	
-	public function get_contracts($mode, $id) {
-		authenticate();
+
+	public function get_contracts($mode = null, $id = null) {
+    authenticate();
+
 		if ($mode && $id) {
-				$this->contract_model->get_all_of_client($_POST['id']);
+				$res['contracts'] = $this->contract_model->get_all_of_client($id);
 			} else {
-				$this->contract_view_model->get_contract_view('activo');
-		}
+				$res['contracts'] = $this->contract_view_model->get_contract_view('activo');
+    }
+    $this->response_json($res);
 	}
 
 	public function suspend(){

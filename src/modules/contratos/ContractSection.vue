@@ -41,8 +41,8 @@
           .pull-right
             select#contract-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
-        DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen", @cell-clicked="stateChanges")
-    ContractModal(:store="store", :contract="store.contract", :modal-mode="store.contractMode" @save="getContracts")
+        DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
+    //- ContractModal(:store="store", :contract="store.contract", :modal-mode="store.contractMode" @save="getContracts")
 
 </template>
 
@@ -50,13 +50,11 @@
   import swal from 'sweetalert2';
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
-  import ContractModal from './components/ContractModal.vue';
-  import ContractStore from './store/contractStore';
+  import ContractStore from './store/ContractStore';
 
   export default {
     components: {
-      DataTable,
-      ContractModal
+      DataTable
     },
 
     mounted() {

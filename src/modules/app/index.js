@@ -60,6 +60,11 @@ Vue.component(
 );
 
 Vue.component(
+  'ContractSection',
+  () => import(/* webpackChunkName: "contratos" */ './../contratos/ContractSection')
+);
+
+Vue.component(
   'NewContractSection',
   () => import(/* webpackChunkName: "nuevo_contrato" */ './../nuevo_contrato/NewContractSection')
 );
