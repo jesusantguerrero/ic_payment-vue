@@ -14,7 +14,7 @@
               i.material-icons edit
               | Editar Contrato
           li.aside-buttons
-            a(href="" id="cancel-contract", @click.prevent="cancelContract")
+            a(href="" id="cancel-contract", @click.prevent="callCancel")
               i.material-icons delete
               | Cancelar Contrato
           li.aside-buttons
@@ -43,6 +43,7 @@
               option(:value="option.key", v-for="option of options") {{ option.text }}
         DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
     ContractUpdateModal(:store="store", :contract="store.contract", @save="getContracts")
+    ContractCancelModal(:contract="selectedContract", @save="getContracts")
 
 </template>
 
@@ -52,11 +53,13 @@
   import utils from './../sharedComponents/utils';
   import ContractStore from './store/ContractStore';
   import ContractUpdateModal from './components/ContractUpdateModal.vue';
+  import ContractCancelModal from './components/ContractCancelModal.vue';
 
   export default {
     components: {
       DataTable,
-      ContractUpdateModal
+      ContractUpdateModal,
+      ContractCancelModal
     },
 
     mounted() {
@@ -101,6 +104,7 @@
       getContracts() {
         this.$http.post('contract/get_contracts')
           .then((res) => {
+            this.selectedContract = null;
             this.contracts = res.data.contracts;
           });
       },
@@ -126,35 +130,10 @@
         this.selectedContract = row;
       },
 
-      cancelContract() {
-        const self = this;
-
-        function sendCancel(id) {
-          self.$http.post('contract/cancel', self.getDataForm({ id }))
-            .then((res) => {
-              self.showMessage(res.data.message);
-              if (res.data.message.type === 'success') {
-                self.selectedContract = null;
-              }
-              self.getContracts();
-            });
-        }
-        if (this.selectedcontract) {
-          const contract = this.selectedContract;
-          swal({
-            title: 'Cancelar Contrato',
-            text: `¿Está seguro de querer cancelar el contrato a ${contract.cliente}`,
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Eliminar',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
-            if (result.value) {
-              sendCancel(contract.id);
-            }
-          });
+      callCancel() {
+        const contract = this.selectedContract;
+        if (contract) {
+          $('#contract-cancel-modal').modal();
         } else {
           this.$toasted.info('seleccione un contrato primero');
         }

@@ -282,12 +282,14 @@ function update_state_moras($data, $context){
 
 if (! function_exists('cancel_contract')){
 
-  function cancel_contract($context,$data_cancel){
+  function cancel_contract($context, $data_cancel){
 
-    $id_empleado = $_SESSION['user_data']['user_id'];
+    $user_id = $_SESSION['user_data']['user_id'];
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
     $settings = $context->settings_model->get_settings();
+    $date = date('Y-m-d');
+
     if($data_cancel['penalidad'] == "true"){
       $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * ($contract['cuota'] * 12);
     }else{
@@ -296,33 +298,33 @@ if (! function_exists('cancel_contract')){
 
     $monto_total = $contract['monto_pagado'] + $penalizacion;
 
-    $data_contract = array(
+    $data_contract = [
       'id_contrato'   => $contract_id,
       'monto_total'   => $monto_total,
       'monto_pagado'  => $monto_total,
       'proximo_pago'  => null,
-      'ultimo_pago'   => $data_cancel['fecha']
-    );
+      'ultimo_pago'   => $date
+    ];
 
-    $data_pago = array(
+    $data_pago = [
         'id_contrato' => $data_cancel['id_contrato'],
-        'id_empleado' => $id_empleado,
+        'id_empleado' => $user_id,
         'id_servicio' => $contract['id_servicio'],
-        'fecha_pago'  => $data_cancel['fecha'],
+        'fecha_pago'  => $date,
         'concepto'    => 'Cancelación de Contrato',
         'cuota'       => $penalizacion,
         'mora'        => 0,
         'total'       => $penalizacion,
         'estado'      => "pagado",
-        'fecha_limite'=> $data_cancel['fecha']
-    );
+        'fecha_limite'=> $date
+    ];
 
-    $data_cancel_to_save = array(
+    $data_cancel_to_save = [
       'id_contrato' => $data_cancel['id_contrato'],
       'motivo'      => $data_cancel['motivo']
-    );
+    ];
 
-    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save);
+    return $context->contract_model->cancel_contract($data_pago, $data_contract, $contract, $data_cancel_to_save);
   }
 }
 
@@ -448,15 +450,6 @@ if (! function_exists('add_extra')){
 }
 
 // dates helper functions
-function is_day_closed(){
-  $ci =& get_instance();
-  $ci->load->model('caja_mayor');
-  $last_close_date = $ci->caja_mayor->get_last_close_date();
-  $today = date('Y-m-d');
-  if ($last_close_date == $today){
-    return true;
-  }
-}
 
 function get_next_date($date){
   $one_month = new DateInterval('P1M');

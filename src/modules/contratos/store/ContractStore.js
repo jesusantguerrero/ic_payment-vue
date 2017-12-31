@@ -75,14 +75,14 @@ export default class ContractStore {
       },
       {
         field: 'id_cliente',
-        title: 'Monto Pagado',
+        title: 'ID Cliente',
         align: 'center',
         valign:	'middle',
         class: 'hide'
       },
       {
         field: 'cedula',
-        title: 'Monto Total',
+        title: 'cedula',
         align: 'center',
         valign:	'middle',
         class: 'hide'

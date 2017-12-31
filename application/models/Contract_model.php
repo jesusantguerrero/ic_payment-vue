@@ -313,7 +313,7 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function cancel_contract($data_pago,$data_contrato,$current_contract,$data_cancel){
+  public function cancel_contract($data_pago, $data_contrato, $current_contract, $data_cancel){
 
     $update_contract = array(
       'codigo'        => '',
@@ -327,7 +327,7 @@ class Contract_model extends CI_MODEL{
     $estado = $this->db->get('ic_contratos')->row_array()['estado'];
 
     if($estado != 'activo'){
-      echo MESSAGE_INFO." Este contrato ya ha sido cancelado o Saldado";
+      return ['message' => "Este contrato ya ha sido cancelado o Saldado"];
     }else{
       $this->db->trans_start();
       // borrando los pagos restantes
@@ -349,10 +349,10 @@ class Contract_model extends CI_MODEL{
       $this->db->trans_complete();
       if($this->db->trans_status() === false){
         $this->db->trans_rollback();
-        echo MESSAGE_ERROR. "No se pudo concretar la trasaccion, verifique de nuevo";
+        return false;
       } else{
         $this->check_is_active_client($current_contract);
-        echo MESSAGE_SUCCESS." Contrato Cancelado";
+        return true;
       }
     }
   }

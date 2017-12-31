@@ -93,16 +93,21 @@ class Contract extends MY_Controller {
   }
 
   public function cancel() {
-		authenticate();
-		if(!$this->is_day_closed()){
-			$data_cancel = $_POST;
-			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
-			$estado   = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
-			if($pendents == false and $estado != 'mora'){
-				cancel_contract($this,$data_cancel);
-			}else{
-				echo 'El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar';
-			}
+    authenticate();
+    $data = $this->get_post_data('data');
+		if (!$this->is_day_closed() && $data) {
+			$pendents = $this->contract_view_model->get_pendent_payments($data['id_contrato']);
+			if ($pendents == false) {
+				if ($result = cancel_contract($this, $data)) {
+          $message = (isset($result['message']) ? $result['message'] : 'contrato cancelado');
+          $this->set_message($message);
+        } else {
+          $this->set_message('Error al cancelar contrato');
+        }
+			} else {
+				$this->set_message('El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar', 'info');
+      }
+      $this->response_json();
 		}
 	}
 

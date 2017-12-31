@@ -1,6 +1,3 @@
-
-// TODO: change to axios:
-
 import handler from './handlers';
 
 export default class contracts {
@@ -10,34 +7,6 @@ export default class contracts {
     handler(this);
     if (currentPage === 'nuevo_contrato') {
       Contracts.getIpList();
-    }
-  }
-
-  getAll() {
-    const form = 'tabla=contratos';
-    let callback = null;
-    let { refresh } = contractTable;
-    if (contractTable.el === 'detalles') {
-      callback = Payments.getAll();
-      refresh = null;
-    }
-    connectAndSend('process/getall', false, null, refresh, form, callback);
-  }
-
-  callExtra(context) {
-    let row;
-    this.dropDownEvents();
-    if (context === 'details') {
-      row = detailsContractTable.getSelectedRow();
-    } else {
-      row = contractTable.getSelectedRow();
-    }
-    if (row) {
-      this.inputExtraClientDni.val(row.cedula);
-      Contracts.getAllOfClient(row.cedula);
-      $('#add-extra-modal').modal();
-    } else {
-      displayAlert('Revise', 'Seleccione el conrato primero', 'error');
     }
   }
 
@@ -56,49 +25,6 @@ export default class contracts {
     } else {
       displayMessage(`${MESSAGE_ERROR} No hay contrato seleccionado`);
     }
-  }
-
-  getOne(idContrato, receiver) {
-    form = `tabla=contratos&id_contrato=${idContrato}`;
-    connectAndSend('process/getone', false, null, receiver, form, null);
-  }
-
-  recieve(content) {
-    const contract = JSON.parse(content);
-    this.idContrato = contract.id_contrato;
-    const $equipo = $('#u-contract-equipment');
-    const $macEquipo = $('#u-contract-e-mac');
-    const $router = $('#u-contract-router');
-    const $macRouter = $('#u-contract-r-mac');
-    const $modelo = $('#u-contract-modelo');
-    const $codigo = $('#select-contract-code');
-    const $ip = $('#u-contract-ip');
-
-    $equipo.val(contract.nombre_equipo);
-    $macEquipo.val(contract.mac_equipo);
-    $router.val(contract.router);
-    $macRouter.val(contract.mac_router);
-    $modelo.val(contract.modelo);
-    $ip.val(contract.ip);
-
-    // $("#update-contract-modal select").val('')
-    function updateContract(idContrato) {
-      const checked = $('#check-change-ip:checked').length;
-      form = `id_contrato=${idContrato}&nombre_equipo=${$equipo.val()}&mac_equipo=${$macEquipo.val()}`;
-      form += `&router=${$router.val()}&mac_router=${$macRouter.val()}`;
-      form += `&modelo=${$modelo.val()}`;
-      form += '&tabla=contratos';
-      if (checked > 0) {
-        form += `&ip=${$ip.val()}&codigo=${$codigo.val()}`;
-      }
-      connectAndSend('process/update', true, null, null, form, Contracts.getAll);
-    }
-
-    $('#update-contract-modal').modal();
-    $('#update-contract').on('click', (e) => {
-      e.stopImmediatePropagation();
-      updateContract(idContrato);
-    });
   }
 
   btnExtraPressed($this) {
@@ -140,38 +66,6 @@ export default class contracts {
     }
   }
 
-  reconnect(contractId, callback) {
-    const selectedService = $('.service-card.selected');
-    const serviceId = selectedService.attr('data-id');
-    const duration = $('#reconnection-months').val();
-    const date = $('#reconnection-date').val();
-    const empty = isEmpty([contractId, serviceId, date, duration]);
-
-    if (!empty) {
-      info = {
-        id_contrato: contractId,
-        fecha: date,
-        id_servicio: serviceId,
-        duracion: duration
-      };
-
-      const form = `data=${JSON.stringify(info)}`;
-      axios.post(`${BASE_URL}contract/reconnect`, form)
-        .then((res) => {
-          displayMessage(res.data.mensaje);
-          Payments.getAll();
-          $('#btn-reconnect').removeAttr('disabled');
-          $('.reconnect-caller').removeClass('visible');
-          if (callback) { callback(); }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      swal('Llene todos los campos');
-    }
-  }
-
   addExtra() {
     const contractId = $('#extra-client-contract').val();
     const serviceCost = $('#extra-service-cost').val();
@@ -206,32 +100,6 @@ export default class contracts {
     }
   }
 
-  getAllOfClient(dni) {
-    const form = `dni=${dni}`;
-    const self = this;
-
-    return axios.post(`${BASE_URL}process/data_for_extra`, form)
-      .then((res) => {
-        self.makeContractList(res.data);
-      })
-      .catch(() => {});
-  }
-
-  suspend(contractId, callback) {
-    const form = `data=${JSON.stringify({ id_contrato: contractId })}`;
-
-    axios.post(`${BASE_URL}contract/suspend`, form)
-      .then((res) => {
-        const { data } = res;
-        displayMessage(data.mensaje);
-        Contracts.getAll();
-        if (callback) { callback(); }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   deleteExtra(contractId) {
     const self = this;
 
@@ -260,77 +128,35 @@ export default class contracts {
       });
   }
 
-  // UTILS
+  reconnect(contractId, callback) {
+    const selectedService = $('.service-card.selected');
+    const serviceId = selectedService.attr('data-id');
+    const duration = $('#reconnection-months').val();
+    const date = $('#reconnection-date').val();
+    const empty = isEmpty([contractId, serviceId, date, duration]);
 
-  makeContractList(response) {
-    if (response) {
-      let element = "<option value=''>--Selecciona--</option>";
-      const { cliente, contratos } = response.cliente;
-      let contractId;
+    if (!empty) {
+      info = {
+        id_contrato: contractId,
+        fecha: date,
+        id_servicio: serviceId,
+        duracion: duration
+      };
 
-      if (currentPage !== 'detalles' && currentPage !== 'home') {
-        contractId = contractTable.getId();
-      } else if (currentPage !== 'home') {
-        contractId = detailsContractTable.getSelectedRow().idContrato;
-      }
-
-      for (let i = 0; i < contratos.length; i += 1) {
-        const value = contratos[i].id_contrato;
-        const service = contratos[i].servicio;
-        const equipment = contratos[i].nombre_equipo;
-        const { router } = contratos[i];
-        const eMac = contratos[i].mac_equipo;
-        const rMac = contratos[i].mac_router;
-        const code = contratos[i].codigo;
-        const ensuranceName = contratos[i].nombre_seguro;
-        const ensuranceCost = contratos[i].mensualidad_seguro;
-
-        element += `<option value='${value}' data-service='${service}'  data-equipment='${equipment}'  data-e-mac='${eMac}'`;
-        element += ` data-router='${router}'  data-r-mac='${rMac}' data-code='${code}' data-ensurance='${ensuranceName}- RD$ ${CurrencyFormat(ensuranceCost)}'>`;
-        element += `${value}</option>`;
-      }
-
-      this.selectExtraClientContract.html(element);
-      this.selectExtraClientContract.val(contractId).change();
-
-      $('#extra-client-name').val(`${cliente.nombres} ${cliente.apellidos}`);
+      const form = `data=${JSON.stringify(info)}`;
+      axios.post(`${BASE_URL}contract/reconnect`, form)
+        .then((res) => {
+          displayMessage(res.data.mensaje);
+          Payments.getAll();
+          $('#btn-reconnect').removeAttr('disabled');
+          $('.reconnect-caller').removeClass('visible');
+          if (callback) { callback(); }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      displayMessage(`${MESSAGE_ERROR} Este cliente no existe revise su cedula por favor`);
-    }
-  }
-
-  dropDownEvents() {
-    if (!this.ran) {
-      const self = this;
-      this.ran = true;
-      this.selectExtraService = $('#select-extra-service');
-      this.selectExtraClientContract = $('#extra-client-contract');
-      this.btnDeleteExtra = $('#delete-extra');
-      this.inputContracEnsurance = $('#contract-ensurance');
-      this.inputExtraClientDni = $('#extra-client-dni');
-
-      this.selectExtraService.on('change', () => {
-        const data = $(('#select-extra-service :selected')).data();
-        $('#extra-service-cost').val(data.payment);
-      });
-
-      this.selectExtraClientContract.on('change', () => {
-        const data = $('#extra-client-contract :selected').data();
-        $('#extra-contract-service').val(data.service);
-        $('#extra-equipo').val(data.equipment);
-        $('#extra-router').val(data.router);
-        $('#extra-e-mac').val(data.eMac);
-        $('#extra-r-mac').val(data.rMac);
-        $('#extra-code').val(data.code);
-        if (!data.ensurance.includes('null')) {
-          self.inputContracEnsurance.val(data.ensurance);
-        }
-      });
-
-      this.btnDeleteExtra.on('click', () => {
-        const id = self.selectExtraClientContract.val();
-        self.deleteExtra(id);
-      });
+      swal('Llene todos los campos');
     }
   }
 }
