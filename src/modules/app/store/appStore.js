@@ -1,4 +1,4 @@
-export default class appStore {
+export default class AppStore {
   constructor() {
     this.pettyCashTransaction = {
       entrada: 0,

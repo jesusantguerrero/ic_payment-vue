@@ -10,7 +10,6 @@ module.exports = {
   entry: {
     login: utils.module("login"),
     app: utils.module("app"),
-    all: utils.module("services")
   },
   output: {
     path: config.build.assetsRoot,
