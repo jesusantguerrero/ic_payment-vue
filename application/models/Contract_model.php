@@ -79,7 +79,7 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function create_payments($contract_id,$data,$context){
+  public function create_payments($contract_id, $data){
     $contract_date = new DateTime($data['fecha']);
     $next_payment_date = $contract_date;
     $duration = $data['duracion'];
@@ -309,8 +309,8 @@ class Contract_model extends CI_MODEL{
 
     $this->db->trans_start();
     // updating contract
-    // $this->db->where('id_contrato', $data['id_contrato']);
-    // $this->db->update('ic_contratos', $data_contract);
+    $this->db->where('id_contrato', $data['id_contrato']);
+    $this->db->update('ic_contratos', $data_contract);
 
     // updating payments
      $this->db->where('id_contrato', $data['id_contrato']);

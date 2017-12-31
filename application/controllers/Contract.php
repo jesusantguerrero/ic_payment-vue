@@ -141,27 +141,28 @@ class Contract extends MY_Controller {
 	}
 
 	public function reconnect() {
-		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$this->db->where("id_contrato",$data['id_contrato'])
-							->where('fecha_limite',$data['fecha']);
-		$number = $this->db->count_all_results('ic_pagos');
+    authenticate();
+    if ($data = $this->get_post_data('data')) {
+      $this->db->where("id_contrato",$data['id_contrato']);
+      $this->db->where('fecha_limite',$data['fecha']);
+      $number = $this->db->count_all_results('ic_pagos');
 
-		if($number == 0){
-			$this->db->trans_start();
-			reconnect_contract($data,$this);
-			$this->db->trans_complete();
+      if($number == 0){
+        $this->db->trans_start();
+        reconnect_contract($data,$this);
+        $this->db->trans_complete();
 
-			if ($this->db->trans_status() === false){
-		 		$res['mensaje']	= MESSAGE_ERROR. " El contrato/cliente no pudo ser reconectado";
-			} else {
-				$res['mensaje'] = MESSAGE_SUCCESS." El contrato/cliente ha sido reconectado";
-			$this->contract_model->delete_cancelation($data['id_contrato']);
-			}
-		}else{
-			  $res['mensaje'] = MESSAGE_INFO." ya hay pagos para esta fecha";
-		}
-		 echo json_encode($res);
+        if ($this->db->trans_status() === false){
+           $this->set_message("El contrato/cliente no pudo ser reconectado");
+        } else {
+          $this->set_message("El contrato/cliente ha sido reconectado", "info");
+          $this->contract_model->delete_cancelation($data['id_contrato']);
+        }
+      }else{
+          $this->set_message("ya hay pagos para esta fecha", 'info');
+      }
+      $this->response_json();
+    }
 	}
 
 	public function getCancelations() {

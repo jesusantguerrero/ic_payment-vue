@@ -12,25 +12,12 @@ function initComponents() {
       const cNotifications = new Notifications();
     }
       break;
-    case 'secciones': {
-      const cSections = new Sections();
-    }
-      break;
-    case 'nuevo_contrato': {
-      const nContracts = new Contracts();
-    }
-      break;
     case 'detalles': {
       // const dPayments = new Payments();
       // const dContracts = new Contracts();
       // detailsHandler(dClients, dContracts, dPayments);
     }
       break;
-    case 'contratos': {
-      // const cContracts = new Contracts();
-      // const cClients = new Clients();
-      break;
-    }
     default:
       break;
   }

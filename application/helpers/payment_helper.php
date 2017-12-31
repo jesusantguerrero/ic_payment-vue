@@ -350,8 +350,8 @@ function reconnect_contract($data, $context){
     'fecha'       => $data['fecha']
   );
 
-  create_payments($data['id_contrato'],$payment_data,$context);
-  $context->client_model->update(array('estado' => 'activo','id'=> $contract['id_cliente']),false);
+  $context->contract_model->create_payments($data['id_contrato'], $payment_data);
+  $context->client_model->update_client('activo', 'estado', $contract['id_cliente']);
   $monto_total  = $context->payment_model->get_sum_monto_total_of($data['id_contrato']);
 
   $new_data_contract = array(

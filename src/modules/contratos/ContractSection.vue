@@ -12,15 +12,15 @@
           li.aside-buttons
             a(href="#" id="update-contract", @click.prevent="getContract('#contract-update-modal')")
               i.material-icons edit
-              | Editar Contrato
+              | Editar
           li.aside-buttons
-            a(href="" id="cancel-contract", @click.prevent="callCancel")
+            a(href="" id="cancel-contract", @click.prevent="callModal('cancel')")
               i.material-icons delete
-              | Cancelar Contrato
+              | Cancelar
           li.aside-buttons
             a(href="" id="suspend-contract", @click.prevent="suspend")
               i.material-icons report_problem
-              | Suspender Contrato
+              | Suspender
           li.aside-buttons
             a(href="" id="get-details", @click.prevent="sendTo('details')")
               i.material-icons monetization_on
@@ -29,6 +29,10 @@
             a(href="#" id="contract-extra", @click.prevent="getContract('#contract-extra-modal')")
               i.material-icons more
               | Extras
+          li.aside-buttons(v-if="filter === 'cancelado' || 'saldado'")
+            a(href="" id="cancel-contract", @click.prevent="callModal('reconnect')")
+              i.material-icons wifi
+              | Reconectar
 
     .main-content.col-md-10
       #contract-table-container
@@ -39,12 +43,13 @@
           .pull-right
             a.btn.icon.print-table(target="_blank" href="#"): i.material-icons print
           .pull-right
-            select#contract-filter.form-group.filter.btn.btn-primary
+            select#contract-filter.form-group.filter.btn.btn-primary(v-model="filter")
               option(:value="option.key", v-for="option of options") {{ option.text }}
         DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
     ContractUpdateModal(:store="store", :contract="store.contract", @save="getContracts")
-    ContractCancelModal(:contract="selectedContract", @save="getContracts")
     ContractExtraModal(:store="store", :contract="store.contract", @save="getContracts")
+    ContractCancelModal(:contract="selectedContract", @save="getContracts")
+    ContractReconnectModal(:contract="selectedContract", @save="getContracts")
 
 </template>
 
@@ -54,15 +59,17 @@
   import utils from './../sharedComponents/utils';
   import ContractStore from './store/ContractStore';
   import ContractUpdateModal from './components/ContractUpdateModal.vue';
-  import ContractCancelModal from './components/ContractCancelModal.vue';
   import ContractExtraModal from './components/ContractExtraModal.vue';
+  import ContractCancelModal from './components/ContractCancelModal.vue';
+  import ContractReconnectModal from './components/ContractReconnectModal.vue';
 
   export default {
     components: {
       DataTable,
       ContractUpdateModal,
       ContractCancelModal,
-      ContractExtraModal
+      ContractExtraModal,
+      ContractReconnectModal
     },
 
     mounted() {
@@ -78,6 +85,7 @@
         parentId: '#contract-table-container',
         toolbar: '#contract-toolbar',
         contracts: '',
+        filter: 'activo',
         tableOptions: {
           pageSize: 200,
           pageList: [50, 100, 200, 500, 1000],
@@ -133,10 +141,10 @@
         this.selectedContract = row;
       },
 
-      callCancel() {
+      callModal(modalMiddleName) {
         const contract = this.selectedContract;
         if (contract) {
-          $('#contract-cancel-modal').modal();
+          $(`#contract-${modalMiddleName}-modal`).modal();
         } else {
           this.$toasted.info('seleccione un contrato primero');
         }
