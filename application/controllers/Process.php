@@ -148,15 +148,6 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function getlist(){
-		authenticate();
-		$tabla = $_POST['tabla'];
-		if($tabla == "pagos"){
-				$id_contrato = $this->contract_model->get_last_id();
-				echo $this->payment_model->list_all_of_contract($id_contrato);
-		}
-	}
-
 	public function getone(){
 		authenticate();
 		$tabla = $_POST['tabla'];
@@ -285,26 +276,6 @@ class Process extends CI_Controller {
 		}
 			redirect(base_url('app/imprimir/reporte'));
 
-	}
-
-	public function extend_contract(){
-		authenticate();
-		$data = $_POST;
-		$this->db->trans_start();
-		extend_contract($data,$this);
-		$this->db->trans_complete();
-		if($this->db->trans_status()){
-			echo MESSAGE_SUCCESS." Contrato extendido con exito";
-		}
-		else{
-			echo MESSAGE_ERROR."No guardado"." Error";
-		}
-	}
-
-	public function addextra(){
-		authenticate();
-		$data = $_POST;
-		add_extra($this,$data);
 	}
 
 	public function print_page(){

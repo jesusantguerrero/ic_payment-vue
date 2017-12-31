@@ -156,37 +156,6 @@ if (! function_exists('cancel_abono')){
   }
 }
 
-if (! function_exists('upgrade_contract')){
-  /**
-  * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function upgrade_contract($context,$data_cambio){
-    $contract_id = $data_cambio['id_contrato'];
-    $contract = $context->contract_model->get_contract_view($contract_id);
-    $pagos_restantes = $context->payment_model->count_unpaid_per_contract($contract_id);
-
-    $monto_total = $contract['monto_pagado'] + ($data_cambio['cuota'] * $pagos_restantes);
-
-    $data_contract = array(
-      'id_contrato'   => $contract_id,
-      'monto_total'   => $monto_total,
-      'id_servicio'   => $data_cambio['id_servicio']
-    );
-
-    $data_pago = array(
-      'id_contrato'   => $contract_id,
-      'id_servicio'   => $data_cambio['id_servicio'],
-      'cuota'         => $data_cambio['cuota'],
-      'monto_total'   => $data_cambio['cuota']
-    );
-      $context->contract_model->upgrade_contract($data_pago,$data_contract);
-  }
-}
-
 function payment_discount($data,$context){
   $data_pago = array(
     'id'          => $data['id_pago'],
@@ -223,7 +192,7 @@ function payment_discount($data,$context){
 * se ejecuta prepare_moras que prepara los datos para actualizar los pagos
 *
 */
-
+// moras functions
 function update_moras($context){
   $today = date('Y-m-d');
   $settings = $context->settings_model->get_settings();
@@ -279,6 +248,9 @@ function update_state_moras($data, $context){
     $context->db->update('ic_clientes',array('estado'=> $estado));
   }
 }
+
+
+// contract relaed functions
 
 if (! function_exists('cancel_contract')){
 

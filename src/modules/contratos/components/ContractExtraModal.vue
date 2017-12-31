@@ -203,7 +203,7 @@
       },
 
       upgrade() {
-        const { contract } = this;
+        const { contract, upgradeData } = this;
         const form = {
           id_contrato: contract.id_contrato,
           id_servicio: upgradeData.serviceId,
@@ -254,7 +254,7 @@
       },
 
       extend() {
-        const { contract } = this;
+        const { contract, extension } = this;
         const form = {
           id_contrato: contract.id_contrato,
           duracion: extension.duration,

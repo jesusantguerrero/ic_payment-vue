@@ -80,7 +80,12 @@ class Contract extends MY_Controller {
   public function upgrade(){
 		authenticate();
 		if ($data = $this->get_post_data('data')) {
-      upgrade_contract($this,$data);
+      if ($this->contract_model->upgrade_contract($data)) {
+        $this->set_message(' contrato mejorado');
+      } else {
+        $this->set_message('error al mejorar contrato', 'error');
+      }
+      $this->response_json();
     }
 	}
 
@@ -98,6 +103,23 @@ class Contract extends MY_Controller {
       $this->response_json();
     }
   }
+
+  public function extend(){
+		authenticate();
+		if ($data = $this->get_post_data('data')) {
+      $this->db->trans_start();
+      extend_contract($data, $this);
+      $this->db->trans_complete();
+      if($this->db->trans_status()){
+        $this->set_message("Contrato extendido con exito");
+      }
+      else{
+        $this->set_message("error al extender el contrato", " error");
+      }
+      $this->response_json();
+    }
+	}
+
 
   public function cancel() {
     authenticate();

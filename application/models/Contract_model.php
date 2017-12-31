@@ -156,7 +156,6 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-
   private function clear_payments($contract_id){
     $data_payment = [
       'id_empleado'   => null,
@@ -292,24 +291,39 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function upgrade_contract($data_pago,$data_contrato){
-    // TODO: Pasar esto a active record
-    $sql1 = " UPDATE ic_contratos SET monto_total='".$data_contrato['monto_total']."', id_servicio='".$data_contrato['id_servicio']."'";
-    $sql1 .=" WHERE id_contrato=".$data_contrato['id_contrato'];
+  public function upgrade_contract($data){
+    $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+    $pagos_restantes = $this->payment_model->count_unpaid_per_contract($data['id_contrato']);
+    $monto_total = $contract['monto_pagado'] + ($data['cuota'] * $pagos_restantes);
 
-    $sql2 = " UPDATE ic_pagos SET id_servicio='".$data_pago['id_servicio']."', cuota='".$data_pago['cuota']."',total='".$data_pago['monto_total']."'";
-    $sql2 .=" WHERE estado= 'no pagado' AND id_contrato=".$data_contrato['id_contrato'];
+    $data_contract = array(
+      'monto_total'   => $monto_total,
+      'id_servicio'   => $data['id_servicio']
+    );
+
+    $data_pago = array(
+      'id_servicio' => $data['id_servicio'],
+      'cuota'       => $data['cuota'],
+      'total'       => $data['cuota']
+    );
 
     $this->db->trans_start();
-    $this->db->query($sql1);
-    $this->db->query($sql2);
+    // updating contract
+    // $this->db->where('id_contrato', $data['id_contrato']);
+    // $this->db->update('ic_contratos', $data_contract);
+
+    // updating payments
+     $this->db->where('id_contrato', $data['id_contrato']);
+     $this->db->where('estado', 'no pagado');
+     $this->db->update('ic_pagos', $data_pago);
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
-      	$this->db->trans_rollback();
-      echo MESSAGE_ERROR." No pudo guardarse la actualizacion ".$sql1." ".$sql2." "." Error";
+        $this->db->trans_rollback();
+        var_dump($this->db->last_query());
+        return false;
     } else{
-      echo MESSAGE_SUCCESS." Contrato actualizado";
+      return true;
     }
   }
 
