@@ -401,10 +401,12 @@ if (! function_exists('add_extra')){
 
     switch ($data_extra['modo_pago']) {
       case 1:
-        $next_payment    = $context->payment_model->get_next_payment_of($contract_id);
-        $detalles_extra  = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
-        $monto_extra     = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
-        $total           = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
+        $next_payment = $context->payment_model->get_next_payment_of($contract_id);
+        $service      = $context->service_model->get_service($data_extra['id_servicio']);
+
+        $context->payment_model->set_extra([$service['id_servicio'] => ["servicio" => $service['nombre'], "precio"=> $service['mensualidad']]], $next_payment['id_pago']);
+        $extras = $context->payment_model->get_extras($next_payment['id_pago'], true);
+        $total =  $next_payment['cuota'] + $next_payment['mora'] + $extras['total'];
 
         $data_contract = array(
           'router'        => $data_extra['router'],
@@ -414,12 +416,12 @@ if (! function_exists('add_extra')){
         );
 
         $data_pago = array(
-          'detalles_extra'   => $detalles_extra,
-          'monto_extra'      => $monto_extra,
-          'total'            => $total
+          'detalles_extra' => $extras['detalles'],
+          'monto_extra'    => $extras['total'],
+          'total'          => $total
         );
 
-        $context->contract_model->add_extra_service($data_contract,$contract_id,$data_pago,$next_payment['id_pago']);
+        $context->contract_model->add_extra_service($data_contract, $contract_id, $data_pago, $next_payment['id_pago']);
         break;
 
       case 2:
@@ -440,9 +442,9 @@ if (! function_exists('add_extra')){
         break;
 
       case 3:
-        $service = $context->service_model->get_service($data_extra['nombre_servicio']);
-        $context->contract_model->update(['extras_fijos' => $service['id_servicio']], $contract_id);
-        echo MESSAGE_SUCCESS . " Seguro Agregado";
+        if ($context->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
+          return ['message' => 'Seguro Agregado'];
+        }
         break;
 
     }

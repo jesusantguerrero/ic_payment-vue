@@ -126,12 +126,6 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function upgrade(){
-		authenticate();
-		$data_cambio = $_POST;
-		upgrade_contract($this,$data_cambio);
-	}
-
 	public function getall(){
 		authenticate();
 		$tabla = $_POST['tabla'];
@@ -290,23 +284,6 @@ class Process extends CI_Controller {
 				break;
 		}
 			redirect(base_url('app/imprimir/reporte'));
-
-	}
-
-	public function data_for_extra(){
-		authenticate();
-		$dni = $_POST['dni'];
-		$dni = str_replace('-','',$dni);
-		$data;
-		$client = $this->client_model->get_client($dni, true);
-		if($client){
-			$data['cliente'] = $client;
-			$data["contratos"]  = $this->contract_model->get_all_of_client($client->id_cliente,true);
-			$dataJson = json_encode($data);
-			echo $dataJson;
-		}else{
-			echo "nada";
-		}
 
 	}
 

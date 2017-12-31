@@ -77,6 +77,13 @@ class Contract extends MY_Controller {
     }
   }
 
+  public function upgrade(){
+		authenticate();
+		if ($data = $this->get_post_data('data')) {
+      upgrade_contract($this,$data);
+    }
+	}
+
 	public function suspend() {
 		authenticate();
     $data = $this->get_post_data('data');
@@ -142,17 +149,28 @@ class Contract extends MY_Controller {
 			$res['content'] = $this->cancelations_model->get_cancelations($data['first_date'], $data['second_date']);
 			echo json_encode($res);
 		}
+  }
+
+  public function add_extra(){
+		authenticate();
+		if ($data = $this->get_post_data('data')) {
+      if ($result = add_extra($this, $data)) {
+        $this->set_message($result['message']);
+      }
+      $this->response_json();
+    }
 	}
 
 	public function delete_extra() {
 		authenticate();
 		$data = $this->get_post_data('data');
 		if ($data) {
-			$res['mensaje'] = MESSAGE_ERROR . " Error al eliminar servicio adicional";
-			if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])){
-				$res['mensaje'] = MESSAGE_SUCCESS . " Extra eliminado con exito";
-			}
-			echo json_encode($res);
+      if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])){
+        $this->set_message("Extra eliminado con exito");
+      } else {
+        $this->set_message("Error al eliminar servicio adicional");
+      }
+      $this->response_json();
 		}
   }
 

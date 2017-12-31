@@ -10,7 +10,7 @@
               i.material-icons description
               | Nuevo Contrato
           li.aside-buttons
-            a(href="#" id="update-contract", @click.prevent="getContract")
+            a(href="#" id="update-contract", @click.prevent="getContract('#contract-update-modal')")
               i.material-icons edit
               | Editar Contrato
           li.aside-buttons
@@ -26,7 +26,7 @@
               i.material-icons monetization_on
               | Registrar Pago
           li.aside-buttons
-            a(href="" id="contract-extra")
+            a(href="#" id="contract-extra", @click.prevent="getContract('#contract-extra-modal')")
               i.material-icons more
               | Extras
 
@@ -44,6 +44,7 @@
         DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
     ContractUpdateModal(:store="store", :contract="store.contract", @save="getContracts")
     ContractCancelModal(:contract="selectedContract", @save="getContracts")
+    ContractExtraModal(:store="store", :contract="store.contract", @save="getContracts")
 
 </template>
 
@@ -54,12 +55,14 @@
   import ContractStore from './store/ContractStore';
   import ContractUpdateModal from './components/ContractUpdateModal.vue';
   import ContractCancelModal from './components/ContractCancelModal.vue';
+  import ContractExtraModal from './components/ContractExtraModal.vue';
 
   export default {
     components: {
       DataTable,
       ContractUpdateModal,
-      ContractCancelModal
+      ContractCancelModal,
+      ContractExtraModal
     },
 
     mounted() {
@@ -109,14 +112,14 @@
           });
       },
 
-      getContract() {
+      getContract(modal) {
         const contract = this.selectedContract;
         if (contract) {
           this.$http.post('contract/get_contract', this.getDataForm({ id: contract.id }))
             .then((res) => {
               this.store.setContract(res.data.contract);
               this.store.setContractMode('update');
-              $('#contract-update-modal').modal();
+              $(modal).modal();
             })
             .catch((err) => {
               this.$toasted.error(err);
