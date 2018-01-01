@@ -172,8 +172,9 @@ class Process extends CI_Controller {
 				$this->averia_model->count();
 				break;
 		}
-	}
+  }
 
+  // TODO: move to payment
 	public function getrecibo($id){
 		authenticate();
 		$recibo_info = $this->payment_model->get_payment($id, true);
@@ -184,7 +185,7 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
-  // requirements
+  // TODO: move to contract controller
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($id);
@@ -225,7 +226,7 @@ class Process extends CI_Controller {
 		redirect(base_url($endpoint));
 	}
 
-  // report
+  // TODO: move to report controller
 	public function getreport($table,$type = 'nada'){
 		authenticate();
 
@@ -268,7 +269,7 @@ class Process extends CI_Controller {
 			redirect(base_url('app/imprimir/reporte'));
 
 	}
-
+  // TODO: move to contract controller
 	public function print_page(){
 		authenticate();
 		$report = $this->contract_view_model->get_technical_report();

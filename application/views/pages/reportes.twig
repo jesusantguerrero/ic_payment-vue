@@ -1,0 +1,126 @@
+<div class="screen reports row">
+  <div class="col-md-9">
+    <div class="row shortcuts-container data-card-container">
+      <div class="small-data-card"><i class="material-icons">trending_up</i><span class="data"><?php $this->client_model->count_all_clients(); ?></span>        <span>Clientes</span> </div>
+      <div class="small-data-card"><i class="material-icons">timeline</i><span class="data"><?php $this->contract_model->get_active_contracts(); ?></span>        <span>contratos</span>
+        <div class="card-detail">
+          <a href="<?php echo base_url('process/print_page') ?>" class="cover-links">Reporte Tecnico</a>
+        </div>
+      </div>
+      <div class="small-data-card"><i class="material-icons">equalizer</i><span class="data"><?php $this->contract_model->get_active_clients(); ?></span>        <span> clientes activos</span></div>
+    </div>
+    <!-- main tab -->
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ingresos" aria-controls="home" role="tab" data-toggle="tab">Ingresos Este Año</a></li>
+        <li role="presentation"><a href="#pagos" aria-controls="profile" role="tab" data-toggle="tab">Instalaciones</a></li>
+        <li role="presentation"><a href="#balance" aria-controls="messages" role="tab" data-toggle="tab">Balance</a></li>
+        <li role="presentation"><a href="#ganancias" aria-controls="messages" role="tab" data-toggle="tab">Ganancias y Cierres</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ingresos">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="mychart"></canvas>
+          </div>
+          <h4 class="t-right">RD$<span> <?php echo CurrencyFormat($this->payment_model->year_income()); ?> Pesos</span></h4>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pagos">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="installations-chart"></canvas>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="balance">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="balance-chart"></canvas>
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="ganancias">
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="ganancias-chart"></canvas>
+          </div>
+          <h4 class="t-center no-print hide"> Cierre en detalle</h4>
+          <div class="factura-body hide" id="app-vista-detalle">
+             <input class="form-control" type="date">
+            <div class="cabecera">
+              <div class="company-name">
+                <h4 class="company-oficial-name t-center">ICS Service</h4>
+                <p></p>
+              </div>
+              <p class="fecha-reporte">Fecha:{{cierre.fecha}}</p>
+              <p><b class="hora-reporte">Autor {{cierre.autor}}</b></p>
+          </div>
+          <div class="concepto"><h4>Cierre de Caja</h4></div>
+
+          <div class="cuerpo">
+          <p><b>Total de ingresos:</b><span class="right">{{cierre.total_de_ingresos | currencyFormat}}</span></p>
+              <p><b>Pagos via Banco: </b><span class="right">{{cierre.pagos_via_banco | currencyFormat}}<span></p>
+          <p><b>Pagos en efectivo: </b><span class="right">{{cierre.pagos_en_efectivo | currencyFormat}}<span></p>
+          <p><b>Efectivo en caja: </b><span class="right">{{cierre.dinero_real_en_caja | currencyFormat}}<span></p>
+          <p><b>Total Descuadre: </b><span class="right">{{cierre.total_descuadre | currencyFormat}}<span></p>
+          <p><b>Banco(Ganancia): </b><span class="right">{{cierre.banco | currencyFormat}}<span></p>
+          </div>
+          <div class="pie-pagina">
+	        	<p class="t-center"><a href="#" @click.prevent="print">Imprimir</a></p>
+          </div>
+          </div>
+          <h4 class="t-center no-print hide"> Ultima semana</h4>
+          <div class="wide-chart hide">
+            <canvas class="graphics chart" id="ganancias-semana-chart"></canvas>
+          </div>
+          <div class="wide-chart">
+            <canvas class="graphics chart" id="ganancias-mes-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- end of main tab-->
+
+  </div>
+  <div class="col-md-3 right-panel">
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Semana</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="general">
+          <div class="today-data">
+            <h5>Ventas de hoy</h5>
+            <p> <a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
+              <span class="amount">RD$ <?php echo CurrencyFormat($this->payment_model->day_income("today")) ?></span></a>
+              </p>
+            </div>
+            <div>
+              <h5>Clientes Por Servicios</h5>
+              <p></p>
+              <div class="normal-chart">
+                <canvas id="services-chart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="profile">
+            <h5>Ingesos esta semana</h5>
+            <p></p>
+            <div class="normal-chart">
+              <canvas class="little-chart" id="week-chart"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

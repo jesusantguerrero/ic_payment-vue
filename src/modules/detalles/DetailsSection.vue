@@ -44,7 +44,7 @@
 
           .tab-content
             .tab-pane.fade.in#client(role="tabpanel", :class="{active : activeTab == 'client'}")
-              DetailsProfile(:client="client", :fullname="fullname") 
+              DetailsProfile(:client="client", :fullname="fullname")
             .tab-pane.fade.in.detail-panel#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
 
             .tab-pane.fade.in.detail-panel#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
@@ -54,12 +54,14 @@
             .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
               DetailsObservations(:client="client", :save-observation="saveObservation")
             .tab-pane.fade.in#extras(role="tabpanel", :class="{active : activeTab == 'extras'}")
+              DetailsExtraServices(:clientId="clientId")
 
 </template>
 
 <script>
   import DetailsProfile from './components/DetailsProfile.vue';
   import DetailsObservations from './components/DetailsObservations.vue';
+  import DetailsExtraServices from './components/DetailsExtraServices.vue';
 
   export default {
     props: {
@@ -72,7 +74,8 @@
     },
     components: {
       DetailsProfile,
-      DetailsObservations
+      DetailsObservations,
+      DetailsExtraServices
     },
     data() {
       return {

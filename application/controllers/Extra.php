@@ -23,28 +23,32 @@ class Extra extends CI_Controller {
 			}else{
 				$data = json_decode($_POST,true);
 			}
-			
+
 				$res['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
 				echo json_encode($res);
-		}			
+		}
 	}
 
-	public function get_all() {
-		authenticate();	
-		$data = json_decode($_POST['data'],true);
-		$res = $this->extra_model->get_all($data['state'], $data['text']);
-		echo json_encode($res);
+	public function get_all($client_id = null) {
+		authenticate();
+		$data = $this->get_post_data('data');
+    if (!$client_id) {
+      $res = $this->extra_model->get_all($data['state'], $data['text']);
+    } else {
+      $res['extras'] = $this->extra_model->get_all_of_client($client_id);
+    }
+    $this->response_json($res);
 	}
 
 	public function get_payment(){
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$res["recibo"] = $this->payment_model->get_payment($data["id_pago"]);
 		echo json_encode($res);
 	}
-	
+
 	public function apply_payment(){
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$info = json_decode($_POST['info'],true);
 		if (!$this->payment_model->check_for_update($info['id_pago'])){
@@ -56,28 +60,28 @@ class Extra extends CI_Controller {
 	}
 
 	public function edit_payment() {
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$info = json_decode($_POST['info'],true);
 		if (!$this->payment_model->check_for_update($info['id_pago']) && $data){
 			 $this->extra_model->apply_payment($data,$info);
 		}
 	}
-	
+
 	public function delete_payment(){
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->extra_model->delete_payment($data);
 	}
-	
+
 	public function generate_extra_payment(){
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->extra_model->generate_extra_payment($data);
 	}
 
 	public function has_extra() {
-		authenticate();		
+		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$res  = $this->extra_model->has_extra($data['id_cliente']);
 		echo json_encode($res);

@@ -1,8 +1,8 @@
-if (isCurrentPage("reportes")) {
-  (function(){
+
     if (currentPage == 'reportes'){
       fetchReportData();
     }
+
     function fetchReportData() {
       var send = axios.get(BASE_URL + 'caja/get_last_cierre')
       send.then(function (response) {
@@ -10,9 +10,9 @@ if (isCurrentPage("reportes")) {
         appVistaDetalle.cierre = response.data.cierre;
       })
       send.catch(function (error) {
-      
+
       })
-      
+
       var form = "data="+ JSON.stringify({year:moment().format("YYYY")})
       var send2 = axios.post(BASE_URL + 'caja/get_year_info',form)
       send2.then(function(res){
@@ -21,8 +21,8 @@ if (isCurrentPage("reportes")) {
         yearChart(gastos,ganancias);
       })
     }
-    
-    
+
+
     window.chartColors = {
       red: 'rgb(255, 99, 132)',
       orange: 'rgb(255, 159, 64)',
@@ -33,7 +33,7 @@ if (isCurrentPage("reportes")) {
       grey: 'rgb(201, 203, 207)'
     };
     var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    
+
     var colors = {
       green: 'rgba(0,230,118 ,1)',
       blueGreen: 'rgba(29,233,182 ,1)',
@@ -42,7 +42,7 @@ if (isCurrentPage("reportes")) {
       red3: 'rgba(229,115,115 ,1)',
       deepOrange4: 'rgba(255,112,67 ,1)'
     }
-    
+
     function cajaWeekChart(data) {
       var canvas = $("#ganancias-chart");
       var chartOptions = {
@@ -90,7 +90,7 @@ if (isCurrentPage("reportes")) {
       };
       var mychart = new Chart(canvas, chartOptions);
     }
-    
+
     function yearChart(gastos,ganancias) {
       var $canvas = $("#ganancias-mes-chart");
       var data = {
@@ -109,7 +109,7 @@ if (isCurrentPage("reportes")) {
             data: ganancias,
           }]
         };
-    
+
         var options = {
           responsive: true,
           maintainAspectRatio: false,
@@ -134,16 +134,16 @@ if (isCurrentPage("reportes")) {
             text: "Registros de cierre Este ultimo año"
           }
         }
-    
+
       var chart = new Chart($canvas, {
         type: 'line',
         data: data,
         options: options
       });
-    
+
     }
-    
-    var cierre = { 
+
+    var cierre = {
       autor: "",
       banco: 0,
       dinero_real_en_caja: 0,
@@ -154,13 +154,13 @@ if (isCurrentPage("reportes")) {
       pagos_via_banco:0,
       total_de_ingresos: 0,
       total_descuadre:0 }
-    
+
     var appVistaDetalle = new Vue({
       el: '#app-vista-detalle',
       data: {
         cierre: cierre,
       },
-    
+
       filters: {
         currencyFormat: function(number){
           return "RD$ "+ CurrencyFormat(number);
@@ -172,5 +172,4 @@ if (isCurrentPage("reportes")) {
         }
       }
     })
-  })()
-}
+
