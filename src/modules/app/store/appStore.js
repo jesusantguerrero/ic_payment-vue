@@ -7,6 +7,7 @@ export default class AppStore {
     };
     this.pettyCashMode = 'retire';
     this.pettyCashBalance = 0.00;
+    this.dayIncome = 0.00;
 
     this.currentUser = {
       user_id: '',
@@ -57,5 +58,9 @@ export default class AppStore {
 
   setUser(user) {
     this.currentUser = user;
+  }
+
+  setDayIncome(income) {
+    this.dayIncome = income;
   }
 }

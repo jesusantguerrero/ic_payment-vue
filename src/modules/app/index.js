@@ -74,6 +74,11 @@ Vue.component(
   () => import(/* webpackChunkName: "detalles" */ './../detalles/DetailsSection')
 );
 
+Vue.component(
+  'GraphicReportSection',
+  () => import(/* webpackChunkName: "reportes" */ './../reportes/GraphicReportSection')
+);
+
 export default new Vue({
   el: '#app',
   components: {
@@ -90,6 +95,7 @@ export default new Vue({
     this.getCompany();
     this.getUser();
     this.getSaldo();
+    this.getDayIncome();
   },
 
   methods: {
@@ -126,10 +132,16 @@ export default new Vue({
     },
 
     getCompany() {
-      const self = this;
       this.$http.get('company/get')
         .then((res) => {
-          self.store.setCompany(res.data);
+          this.store.setCompany(res.data);
+        });
+    },
+
+    getDayIncome() {
+      this.$http.get('report/get_day_income')
+        .then((res) => {
+          this.store.setDayIncome(res.data.income);
         });
     },
 

@@ -91,7 +91,7 @@
       var mychart = new Chart(canvas, chartOptions);
     }
 
-    function yearChart(gastos,ganancias) {
+    function yearChart(gastos, ganancias) {
       var $canvas = $("#ganancias-mes-chart");
       var data = {
           labels: meses,

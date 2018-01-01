@@ -250,8 +250,8 @@ class Payment_model extends CI_MODEL{
 
 // Grafic Related Options
 
-  public function year_income(){
-    $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)=year(now())";
+  public function month_income($month, $year){
+    $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)= $year and month(fecha_pago)=$month";
     $result = $this->db->query($sql);
     $result = $result->row_array()['sum(total)'];
     if($result){
@@ -261,25 +261,14 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function month_income($mes){
-    $sql = "SELECT sum(total) FROM v_recibos WHERE year(fecha_pago)=year(now()) and month(fecha_pago)=$mes";
-    $result = $this->db->query($sql);
-    $result = $result->row_array()['sum(total)'];
-    if($result){
-      return $result;
-    }else{
-      return 0;
-    }
-  }
-
-  public function get_incomes_per_month(){
-    $resultado_por_mes = array();
-
+  public function get_incomes_by_month($year){
+    $result = array();
     for ($i=1; $i <= 12 ; $i++) {
-      $value = $this->month_income($i);
-      array_push($resultado_por_mes,$value);
+      $value = $this->month_income($i, $year);
+      array_push($result, $value);
     }
-    return $resultado_por_mes;
+    $total = array_sum($result);
+    return ['values' => $result, 'total' => $total];
   }
 
   public function day_income(){

@@ -1,4 +1,6 @@
 import Chart from 'chart.js';
+import utils from './../utils';
+
 export default class LineChart {
   constructor($canvas, labels, values, config) {
     const $chart = $($canvas);
@@ -35,7 +37,7 @@ export default class LineChart {
         yAxes: [{
           ticks: {
             callback(label) {
-              return `RD$ ${utils.currencyFormat(label)}`;
+              return `RD$ ${utils.CurrencyFormat(label)}`;
             }
           }
         }]
@@ -43,7 +45,7 @@ export default class LineChart {
       tooltips: {
         callbacks: {
           label(tooltipItem) {
-            return `RD$  ${utils.currencyFormat(tooltipItem.yLabel)}`;
+            return `RD$  ${utils.CurrencyFormat(tooltipItem.yLabel)}`;
           }
         }
       }
@@ -57,6 +59,7 @@ export default class LineChart {
   }
 
   update(values) {
-    this.$chart.config.data.datasets[0].data = values
+    this.chart.config.data.datasets[0].data = values;
+    this.chart.update();
   }
 }

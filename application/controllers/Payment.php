@@ -66,6 +66,6 @@ class Payment extends MY_Controller {
 			$res['mensaje'] = MESSAGE_ERROR . "Error al cambiar mora";
 		}
 		echo json_encode($res);
-	}
+  }
 
 }

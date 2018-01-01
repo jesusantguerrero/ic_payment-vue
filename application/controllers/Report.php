@@ -6,8 +6,11 @@
 
     // graphic report related
 
-    public function payments_year($year = null) {
-      $ingresos      = $this->payment_model->get_incomonth_per_month();
+    public function incomes_year($year = null) {
+      $this->load->model('payment_model');
+      $year = ($year ? $year :date('Y'));
+      $res['incomes'] = $this->payment_model->get_incomes_by_month($year);
+      $this->response_json($res);
     }
 
     public function petty_cash_year($year = null) {
@@ -38,6 +41,13 @@
 
     public function services_state() {
       $services      = $this->contract_view_model->get_statics_of_services();
+    }
+
+    public function get_day_income() {
+      $this->load->model('payment_model');
+      $income = $this->payment_model->day_income('today');
+      $res['income'] = ($income ? $income : 0.00);
+      $this->response_json($res);
     }
 
     private function get_months($arr) {

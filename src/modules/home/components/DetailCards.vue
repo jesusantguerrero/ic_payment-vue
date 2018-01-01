@@ -10,7 +10,7 @@
               h3.card-title(data-toggle="modal", data-target="#notification-view") Caja Chica
               .placeholder-icon: i.material-icons.icon-placeholder money
               .list-repair.centered-container
-                h2.current-saldo {{ store.pettyCashBalance | currencyFormat }}
+                h2.current-saldo RD$ {{ store.pettyCashBalance | currencyFormat }}
 
           .deudores-layer
               h3.card-title(data-toggle="modal", data-target="#notification-view") Lista de Deudores
@@ -21,7 +21,7 @@
               h3.card-title(data-toggle="modal", data-target="#notification-view") Ganancias del dia
               .list-repair.centered-container
                   a(target="_blank" href="base_url('process/getreport/payment/today")
-                  h2.current-saldo day_income
+                  h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}
 
       .details-control-container
         button.detail-control(@click="moveControls(0)") Pagos
