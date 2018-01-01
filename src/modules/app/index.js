@@ -51,7 +51,7 @@ Vue.component(
 
 Vue.component(
   'RouterSection',
-  () => import(/* webpackChunkFileName: "secciones" */ './../secciones/RouterSection')
+  () => import(/* webpackChunkName: "secciones" */ './../secciones/RouterSection')
 );
 
 Vue.component(

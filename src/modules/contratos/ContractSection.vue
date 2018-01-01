@@ -150,10 +150,10 @@
         }
       },
 
-      sendTo(endpoint, param) {
+      sendTo(endpoint, param = '') {
         const contract = this.selectedContract;
         if (contract) {
-          window.location.href = `${baseURL}/app/${endpoint}/${contract.id}/${param}`;
+          window.location.href = `${baseURL}/app/${endpoint}/${contract.id_cliente}/${param}`;
         } else {
           this.$toasted.info('seleccione un contrato primero');
         }

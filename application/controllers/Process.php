@@ -20,17 +20,6 @@ class Process extends CI_Controller {
 		$this->load->model("cancelations_model");
 	}
 
-	public function getjson() {
-    $data = json_decode($_POST['data']);
-    $data = json_decode($_POST['data'],true);
-    $action = $_POST['action'];
-		$module = $_POST['module'];
-      switch ($action) {
-				case 'update':
-          $this->client_model->update($data);
-					break;
-      }
-  }
 
 	public function update(){
 		authenticate();
@@ -195,6 +184,7 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
+  // requirements
 	public function getrequirements($id,$type = "cliente"){
 		authenticate();
 		$requirement_info['cliente'] = $this->client_model->get_client($id);
@@ -235,6 +225,7 @@ class Process extends CI_Controller {
 		redirect(base_url($endpoint));
 	}
 
+  // report
 	public function getreport($table,$type = 'nada'){
 		authenticate();
 

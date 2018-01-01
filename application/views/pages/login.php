@@ -18,9 +18,9 @@
 
 <body class="login-body">
   <div class="container-fluid">
-    <div class="row">
-      <div class="loader"> <span class="load"></span></div>
-     <div class="col-md-6 justify-content-center">
+    <div class="loader"> <span class="load"></span></div>
+    <div class="row justify-content-center">
+     <div class="col-md-6 justify-content-center hidden-xs">
        <div class="hidden-xs">
          <h1>IC PAYMENT</h1>
        </div>
