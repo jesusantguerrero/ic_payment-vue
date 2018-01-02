@@ -96,12 +96,11 @@ class Client_model extends CI_MODEL{
     }
   }
 
-  public function count_all_clients(){
-    $result = $this->db->count_all($this->table);
-    if($result){
-      echo $result;
-    }else{
-      echo 0;
+  public function count_all(){
+    $this->db->select('count(id_cliente) as count, estado');
+    $this->db->group_by('estado');
+    if ($result = $this->db->get($this->table)) {
+      return $result->result_array();
     }
   }
 

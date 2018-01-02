@@ -34,12 +34,8 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function count_contracts(){
-    $result = $this->db->count_all('ic_contratos');
-    if($result){
-      echo $result;
-    }else{
-      echo 0;
-    }
+    $result =  $this->db->count_all('ic_contratos');
+    return ($result ? $result : 0);
   }
 
   public function search_contracts($word){
@@ -52,7 +48,7 @@ class Contract_view_model extends CI_MODEL{
   }
 
   public function get_statics_of_services($field = 'count(*)'){
-    $sql = "select servicio,$field from v_contratos where estado = 'activo' group by servicio";
+    $sql = "select servicio, $field from v_contratos where estado = 'activo' group by servicio";
     $valores = array();
     $servicios = array();
     $result = $this->db->query($sql)->result_array();
