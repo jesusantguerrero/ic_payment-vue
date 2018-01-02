@@ -87,7 +87,7 @@
       components: {
         DataTable
       },
-      proprs: {
+      props: {
         clientId: {
           type: String,
           required: true
