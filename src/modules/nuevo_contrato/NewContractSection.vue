@@ -208,11 +208,7 @@
       setContractIp() {
         this.ipList.forEach((item) => {
           if (item.id === this.contract.codigo) {
-<<<<<<< HEAD
-            this.contract.ip = item.id;
-=======
             this.contract.ip = item.ip;
->>>>>>> feature/enviroments
           }
         });
       },

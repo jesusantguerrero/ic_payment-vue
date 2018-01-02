@@ -16,7 +16,6 @@ import 'bootstrap';
 
 window.appStore = new Store();
 window.appBus = new Vue();
-
 globals(Vue, Toasted, axios);
 
 Vue.component(

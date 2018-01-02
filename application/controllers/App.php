@@ -9,6 +9,7 @@ class App extends MY_Controller {
 		$this->load->model("client_model");
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
+		$this->load->model("report_model");
     $this->load->library('parser');
     $this->load->library('twig');
 
@@ -41,7 +42,7 @@ class App extends MY_Controller {
     $data['user'] = get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
-    
+
     echo $this->twig->render('layouts/header', $data);
     echo $this->twig->render("pages/".$page, $data);
 		$this->parser->parse('layouts/footer', $data);
