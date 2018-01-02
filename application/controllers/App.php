@@ -9,10 +9,6 @@ class App extends MY_Controller {
 		$this->load->model("client_model");
 		$this->load->model("settings_model");
 		$this->load->model("company_model");
-<<<<<<< HEAD
-=======
-		$this->load->model("report_model");
->>>>>>> feature/enviroments
     $this->load->library('parser');
     $this->load->library('twig');
 
@@ -37,11 +33,7 @@ class App extends MY_Controller {
     }
   }
 
-<<<<<<< HEAD
 	public function admin($page = 'home') {
-=======
-	public function admin($page = 'home', $params = null) {
->>>>>>> feature/enviroments
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
@@ -49,31 +41,17 @@ class App extends MY_Controller {
     $data['user'] = get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
-<<<<<<< HEAD
-=======
-    $data['params'] = $params;
->>>>>>> feature/enviroments
+    
     echo $this->twig->render('layouts/header', $data);
     echo $this->twig->render("pages/".$page, $data);
 		$this->parser->parse('layouts/footer', $data);
   }
 
-<<<<<<< HEAD
   public function details($id, $active_window = "pagos") {
 		authenticate();
 		$_SESSION['client_data'] = $this->client_model->get_client($id);
 		$this->session->set_flashdata('active_window', $active_window);
     $this->admin('detalles');
-=======
-  public function details($id, $active_window = "payments") {
-		authenticate();
-    $params = [
-      'id' => $id,
-      'active_window' => $active_window
-    ];
-
-    $this->admin('detalles', $params);
->>>>>>> feature/enviroments
 	}
 
 	public function imprimir($page) {
