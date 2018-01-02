@@ -6,29 +6,33 @@
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(href="#" data-toggle="modal", data-target="#search-client-modal")
+            a(:href="newContractLink")
               i.material-icons description
               | Nuevo Contrato
           li.aside-buttons
-            a(href="#" id="update-contract", data-toggle="modal", @click.prevent="getContract")
+            a(href="#" id="update-contract", @click.prevent="getContract('#contract-update-modal')")
               i.material-icons edit
-              | Editar Contrato
+              | Editar
           li.aside-buttons
-            a(href="" id="cancel-contract", @click.prevent="cancelContract")
+            a(href="" id="cancel-contract", @click.prevent="callModal('cancel')")
               i.material-icons delete
-              | Cancelar Contrato
+              | Cancelar
           li.aside-buttons
-            a(href="" id="suspend-contract", @click.prevent="suspendContract")
+            a(href="" id="suspend-contract", @click.prevent="suspend")
               i.material-icons report_problem
-              | Suspender Contrato
+              | Suspender
           li.aside-buttons
             a(href="" id="get-details", @click.prevent="sendTo('details')")
               i.material-icons monetization_on
               | Registrar Pago
           li.aside-buttons
-            a(href="" id="contract-extra", @click.prevent="sendTo('new_contract')")
+            a(href="#" id="contract-extra", @click.prevent="getContract('#contract-extra-modal')")
               i.material-icons more
               | Extras
+          li.aside-buttons(v-if="filter === 'cancelado' || 'saldado'")
+            a(href="" id="cancel-contract", @click.prevent="callModal('reconnect')")
+              i.material-icons wifi
+              | Reconectar
 
     .main-content.col-md-10
       #contract-table-container
@@ -39,10 +43,13 @@
           .pull-right
             a.btn.icon.print-table(target="_blank" href="#"): i.material-icons print
           .pull-right
-            select#contract-filter.form-group.filter.btn.btn-primary
+            select#contract-filter.form-group.filter.btn.btn-primary(v-model="filter")
               option(:value="option.key", v-for="option of options") {{ option.text }}
-        DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen", @cell-clicked="stateChanges")
-    ContractModal(:store="store", :contract="store.contract", :modal-mode="store.contractMode" @save="getContracts")
+        DataTable(ids="contract-table", :parentId="parentId", :data="contracts", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
+    ContractUpdateModal(:store="store", :contract="store.contract", @save="getContracts")
+    ContractExtraModal(:store="store", :contract="store.contract", @save="getContracts")
+    ContractCancelModal(:contract="selectedContract", @save="getContracts")
+    ContractReconnectModal(:contract="selectedContract", @save="getContracts")
 
 </template>
 
@@ -50,13 +57,19 @@
   import swal from 'sweetalert2';
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
-  import ContractModal from './components/ContractModal.vue';
-  import ContractStore from './store/contractStore';
+  import ContractStore from './store/ContractStore';
+  import ContractUpdateModal from './components/ContractUpdateModal.vue';
+  import ContractExtraModal from './components/ContractExtraModal.vue';
+  import ContractCancelModal from './components/ContractCancelModal.vue';
+  import ContractReconnectModal from './components/ContractReconnectModal.vue';
 
   export default {
     components: {
       DataTable,
-      ContractModal
+      ContractUpdateModal,
+      ContractCancelModal,
+      ContractExtraModal,
+      ContractReconnectModal
     },
 
     mounted() {
@@ -72,6 +85,7 @@
         parentId: '#contract-table-container',
         toolbar: '#contract-toolbar',
         contracts: '',
+        filter: 'activo',
         tableOptions: {
           pageSize: 200,
           pageList: [50, 100, 200, 500, 1000],
@@ -91,6 +105,9 @@
     computed: {
       cols() {
         return this.store.columns;
+      },
+      newContractLink() {
+        return `${baseURL}app/admin/nuevo_contrato`;
       }
     },
 
@@ -98,18 +115,19 @@
       getContracts() {
         this.$http.post('contract/get_contracts')
           .then((res) => {
+            this.selectedContract = null;
             this.contracts = res.data.contracts;
           });
       },
 
-      getContract() {
+      getContract(modal) {
         const contract = this.selectedContract;
         if (contract) {
           this.$http.post('contract/get_contract', this.getDataForm({ id: contract.id }))
             .then((res) => {
               this.store.setContract(res.data.contract);
               this.store.setContractMode('update');
-              $('#contract-modal').modal();
+              $(modal).modal();
             })
             .catch((err) => {
               this.$toasted.error(err);
@@ -123,11 +141,28 @@
         this.selectedContract = row;
       },
 
-      cancelContract() {
-        const self = this;
+      callModal(modalMiddleName) {
+        const contract = this.selectedContract;
+        if (contract) {
+          $(`#contract-${modalMiddleName}-modal`).modal();
+        } else {
+          this.$toasted.info('seleccione un contrato primero');
+        }
+      },
 
-        function sendCancel(id) {
-          self.$http.post('contract/cancel', self.getDataForm({ id }))
+      sendTo(endpoint, param = '') {
+        const contract = this.selectedContract;
+        if (contract) {
+          window.location.href = `${baseURL}/app/${endpoint}/${contract.id_cliente}/${param}`;
+        } else {
+          this.$toasted.info('seleccione un contrato primero');
+        }
+      },
+
+      suspend() {
+        const self = this;
+        function sendSuspend(contractId) {
+          self.$http.post('contract/suspend', self.getDataForm({ id_contrato: contractId }))
             .then((res) => {
               self.showMessage(res.data.message);
               if (res.data.message.type === 'success') {
@@ -136,50 +171,25 @@
               self.getContracts();
             });
         }
-        if (this.selectedcontract) {
+        if (this.selectedContract) {
           const contract = this.selectedContract;
           swal({
-            title: 'Cancelar Contrato',
-            text: `¿Está seguro de querer cancelar el contrato a ${contract.cliente}`,
+            title: 'Suspender Contrato',
+            text: `¿Está seguro de querer suspender el contrato de ${contract.cliente}`,
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Eliminar',
+            confirmButtonText: 'Suspender',
             cancelButtonText: 'Cancelar'
           }).then((result) => {
             if (result.value) {
-              sendCancel(contract.id);
+              sendSuspend(contract.id);
             }
           });
         } else {
-          this.$toasted.info('seleccione un contrato primero');
+          this.$toasted.info('seleccione un cliente primero');
         }
-      },
-
-      sendTo(endpoint, param) {
-        const contract = this.selectedContract;
-        if (contract) {
-          window.location.href = `${baseURL}/app/${endpoint}/${contract.id}/${param}`;
-        } else {
-          this.$toasted.info('seleccione un contrato primero');
-        }
-      },
-
-      suspend(id, state) {
-        const form = {
-          id,
-          row: 'estado',
-          value: state
-        };
-        this.$http.post('contract/suspend', this.getDataForm(form))
-          .then((res) => {
-            this.getcontracts();
-            this.showMessage(res.data.message);
-          })
-          .catch((err) => {
-            this.$toasted.error(err);
-          });
       },
     }
   };

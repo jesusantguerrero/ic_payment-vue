@@ -55,6 +55,13 @@ export default {
     return `data=${JSON.stringify(object)}`;
   },
 
+  startInputMask(InputMask) {
+    const TelSelector = document.querySelectorAll('[type="tel"]');
+    const dniSelector = document.querySelectorAll('[role="cedula"], [id*="dni"]');
+    InputMask({ mask: '(999) 999-9999', greede: false }).mask(TelSelector);
+    InputMask({ mask: '**[*]-*******-[*][*{1,20}]', greede: false }).mask(dniSelector);
+  },
+
   // values: array
   sum(values) {
     let numbers = [];
@@ -81,8 +88,7 @@ export default {
   },
 
   dateSpanishFormat() {
-    const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const { days, months } = this.dates;
     const date = new Date();
 
     const day = date.getDate();
@@ -107,4 +113,10 @@ export default {
       }
     });
   },
+
+  dates: {
+    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    days: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
+  }
+
 };

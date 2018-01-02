@@ -39,7 +39,7 @@
     box-shadow: 2px 4px 2px 1px transparentize(#555,.7)
     .card-detail
       top: 0
-  
+
   .card-detail
     background: $contrast-color
     color: white
@@ -114,6 +114,32 @@ canvas
       width: 200px;
       display: inline-block;
 
+.cs-row
+  width: 100%
+  height: 48px
+  +makeFlex(100%, row, flex-end, center)
+
+  button
+    border: 0
+    height: 100%
+    color: white
+    padding: 5px
+    background: $contrast-color
+    +makeFlex(fit-content, row, center, center)
+    display: inline-flex
+    cursor: pointer
+    &.reset-btn
+      margin: 5px 0
+    &:hover
+      background: lighten($contrast-color, 10%)
+
+  .value
+    display: inline-block
+    height: 100%
+    padding: 0 10px
+    +makeFlex(fit-content, row, center, center)
+    background: $contrast-color
+    color: white
 
 @media (max-width: 991px)
   .right-panel,

@@ -11,14 +11,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Caja_mayor extends CI_MODEL{
 
   private $id_empleado;
-  
+
   public function __construct(){
     parent::__construct();
-     
+
     if(isset($_SESSION['user_data'])){
       $this->id_empleado = $_SESSION['user_data']['user_id'];
     }
-    
+
   }
 
   public function add_cierre($data){
@@ -38,7 +38,7 @@ class Caja_mayor extends CI_MODEL{
       $response['mensaje'] = MESSAGE_ERROR." El cierre del dia ya ha sido realizado";
     }
     echo json_encode($response);
-    
+
   }
 
   public function get_cierres($text, $first_date = null, $second_date = null) {
@@ -71,7 +71,7 @@ class Caja_mayor extends CI_MODEL{
       $acum = array_values($totals);
       $totals = array_merge($totals,array('first_date' => $first_date, 'second_date' => $second_date));
       $_SESSION['cierres_last_total'] = $totals;
-      
+
       $fields = [
         table_field('id_cierre'),
         table_field('fecha','','date'),
@@ -121,7 +121,7 @@ class Caja_mayor extends CI_MODEL{
     autor,
     fecha");
     $this->db->order_by('id_cierre','DESC');
-    
+
     if($result = $this->db->get('ic_caja_mayor',1)):
       $result = $result->result_array()[0];
       $response['autor']  = $result['autor'];
@@ -182,7 +182,7 @@ class Caja_mayor extends CI_MODEL{
       echo MESSAGE_SUCCESS."Trasacción Realizada con exito";
     }else{
       echo MESSAGE_ERROR." hubo un error en la transaccion:". " Error";
-    }  
+    }
   }
 
   public function add_gasto($data){
@@ -197,9 +197,10 @@ class Caja_mayor extends CI_MODEL{
       echo MESSAGE_ERROR." error al agregar este gasto"  ;
     }
   }
+
   //TODO: unir esta y la de reporte en uno
 
-  public function mostrar_gastos($fecha,$mode="normal"){
+  public function mostrar_gastos($fecha, $mode="normal"){
     $this->db->where('fecha',$fecha);
     $result = $this->db->get('ic_gastos');
     if($mode == "normal"){
@@ -239,7 +240,7 @@ class Caja_mayor extends CI_MODEL{
                 ->get('ic_gastos',1);
         $acum = $acum->row_array()['total'];
         $_SESSION['expenses_last_total'] = $acum;
-        
+
         $fields = [
           table_field('id_gasto'),
           table_field('fecha','','date'),
@@ -251,7 +252,7 @@ class Caja_mayor extends CI_MODEL{
         $result = make_simple_table($result,0,$fields);
         return ['content' => $result, 'acum' => $acum];
       }
-    } 
+    }
 
     public function expenses_report() {
       if($_SESSION['expenses_last_call']){
@@ -296,7 +297,7 @@ class Caja_mayor extends CI_MODEL{
     echo json_encode($response);
   }
 
-  public function get_ingresos($fecha,$tipo,$not_in = null){
+  public function get_ingresos($fecha, $tipo, $not_in = null){
     $tabla = 'v_recibos';
     $where = array('fecha'=> $fecha);
     $this->db->where("fecha_pago = '$fecha' and tipo = '$tipo'");
@@ -324,7 +325,7 @@ class Caja_mayor extends CI_MODEL{
       $this->db->where('id_extra > 0');
     }
     $this->db->select_sum('total');
-    
+
     if($ingreso = $this->db->get($tabla,1) and $ingreso != null){
       $ingreso = $ingreso->row_array()['total'];
       if($ingreso != null){
@@ -336,33 +337,18 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
-  public function get_banco_of_month($month,$year = 'now()'){
-    $sql    = "SELECT sum(banco) as banco FROM ic_caja_mayor WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
-    $result = $this->db->query($sql);
-    if($result){
-      $result = $result->row_array();
-      if(!$result){
-        $result = 0;
-      }
-      return $result;
-    }else{
-      //echo $this->db->last_query();
+  // report related
+  public function get_row_by_month($row, $year) {
+    // $sql    = "SELECT sum(banco) as banco FROM ic_caja_mayor WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
+    // $result = $this->db->query($sql);
+    $this->db->select("sum($row) as $row, month(fecha) as mes ", false);
+    $this->db->where("year(fecha) = '$year'",'' ,false);
+    $this->db->group_by('mes');
+    if ($result = $this->db->get('ic_caja_mayor')) {
+      return $result->result_array();
+    } else {
+      var_dump($this->db->last_query());
     }
   }
-
-  public function get_gastos_of_month($month,$year = 'now()'){
-    $sql    = "SELECT sum(monto) as monto FROM ic_gastos WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
-    $result = $this->db->query($sql);
-    if($result){
-      $result = $result->row_array();
-      if(!$result){
-        $result = 0;
-      }
-      return $result;
-    }else{
-      //echo $this->db->last_query();
-    }
-  }
-
 
 }

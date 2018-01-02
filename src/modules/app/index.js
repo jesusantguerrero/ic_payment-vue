@@ -7,7 +7,7 @@ import utils from './../sharedComponents/utils';
 import PettyCashModal from './components/PettyCashModal.vue';
 import MessageModal from './components/MessageModal.vue';
 import TicketModal from './components/TicketModal.vue';
-import Store from './store/appStore';
+import Store from './store/AppStore';
 
 window.jQuery = jquery;
 window.$ = jquery;
@@ -20,48 +20,63 @@ window.appBus = new Vue();
 globals(Vue, Toasted, axios);
 
 Vue.component(
-  /* webpackChunkName: "home" */ 'HomeSection',
-  (resolve) => { require(['./../home/HomeSection'], resolve); }
+  'HomeSection',
+  () => import(/* webpackChunkName: "home" */ './../home/HomeSection')
 );
 
 Vue.component(
-  /* webpackChunkName: "administrador" */ 'AdminSection',
-  (resolve) => { require(['./../administrador/adminSection'], resolve); }
+  'AdminSection',
+  () => import(/* webpackChunkName: "administrador" */'./../administrador/adminSection')
 );
 
 Vue.component(
-  /* webpackChunkName: "cuenta" */ 'AcountSection',
-  (resolve) => { require(['./../cuenta/AcountSection'], resolve); }
+  'AcountSection',
+  () => import(/* webpackChunkName: "cuenta" */ './../cuenta/AcountSection')
 );
 
 Vue.component(
-  /* webpackChunkName: "cierre */ 'CashDeskSection',
-  (resolve) => { require(['./../cierre/CashDeskSection'], resolve); }
+  'CashDeskSection',
+  () => import(/* webpackChunkName: "cierre */ './../cierre/CashDeskSection')
 );
 
 Vue.component(
-  /* webpackChunkName: "cliente" */ 'ClientSection',
-  (resolve) => { require(['./../clientes/ClientSection'], resolve); }
+  'ClientSection',
+  () => import(/* webpackChunkName: "cliente" */ './../clientes/ClientSection')
 );
 
 Vue.component(
-  /* webpackChunkName = "extras" */ 'ExtraSection',
-  (resolve) => { require(['./../extras/ExtraSection'], resolve); }
+  'ExtraSection',
+  () => import(/* webpackChunkName = "extras" */ './../extras/ExtraSection')
 );
 
 Vue.component(
-  /* webpackChunkFileName: "secciones" */ 'RouterSection',
-  (resolve) => { require(['./../secciones/RouterSection'], resolve); }
+  'RouterSection',
+  () => import(/* webpackChunkName: "secciones" */ './../secciones/RouterSection')
 );
 
 Vue.component(
-  /* webpackChunkFileName: "servicios" */ 'ServiceSection',
-  (resolve) => { require(['./../servicios/ServiceSection'], resolve); }
+  'ServiceSection',
+  () => import(/* webpackChunkFileName: "servicios" */ './../servicios/ServiceSection')
 );
 
 Vue.component(
-  /* webpackChunkFileName: "servicios" */ 'NewContractSection',
+  'ContractSection',
+  () => import(/* webpackChunkName: "contratos" */ './../contratos/ContractSection')
+);
+
+Vue.component(
+  'NewContractSection',
   () => import(/* webpackChunkName: "nuevo_contrato" */ './../nuevo_contrato/NewContractSection')
+);
+
+Vue.component(
+  'DetailsSection',
+  () => import(/* webpackChunkName: "detalles" */ './../detalles/DetailsSection')
+);
+
+Vue.component(
+  'GraphicReportSection',
+  () => import(/* webpackChunkName: "reportes" */ './../reportes/GraphicReportSection')
 );
 
 export default new Vue({
@@ -80,6 +95,7 @@ export default new Vue({
     this.getCompany();
     this.getUser();
     this.getSaldo();
+    this.getDayIncome();
   },
 
   methods: {
@@ -116,10 +132,16 @@ export default new Vue({
     },
 
     getCompany() {
-      const self = this;
       this.$http.get('company/get')
         .then((res) => {
-          self.store.setCompany(res.data);
+          this.store.setCompany(res.data);
+        });
+    },
+
+    getDayIncome() {
+      this.$http.get('report/get_day_income')
+        .then((res) => {
+          this.store.setDayIncome(res.data.income);
         });
     },
 

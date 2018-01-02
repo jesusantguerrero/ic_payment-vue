@@ -76,7 +76,7 @@
                 .input-group
                   span.input-group-addon#basic-addon1 Codigo IP
                   select.form-control#select-contract-code(v-model="contract.codigo", @change="setContractIp")
-                    option(:value="option.id", :key="option.id", v-for="option of ipList",) {{ option.text }}
+                    option(:value="option.id", :key="option.id", v-for="option of ipList",) {{ option.id }}
 
     .col-md-6
       .centered-container
@@ -208,7 +208,11 @@
       setContractIp() {
         this.ipList.forEach((item) => {
           if (item.id === this.contract.codigo) {
+<<<<<<< HEAD
             this.contract.ip = item.id;
+=======
+            this.contract.ip = item.ip;
+>>>>>>> feature/enviroments
           }
         });
       },

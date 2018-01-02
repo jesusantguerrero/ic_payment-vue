@@ -4,6 +4,7 @@
 
 <script>
   import InputMask from 'inputmask';
+  import utils from './utils';
 
   export default {
     props: [
@@ -25,10 +26,7 @@
       },
 
       initMask() {
-        const TelSelector = document.querySelectorAll('[type="tel"]');
-        const dniSelector = document.querySelectorAll('[role="cedula"], [id*="dni"]');
-        InputMask({ mask: '(999) 999-9999', greede: false }).mask(TelSelector);
-        InputMask({ mask: '**[*]-*******-[*][*{1,20}]', greede: false }).mask(dniSelector);
+        utils.startInputMask(InputMask);
       },
 
       getVal(element) {

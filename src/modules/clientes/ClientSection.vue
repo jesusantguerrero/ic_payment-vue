@@ -122,7 +122,6 @@
 
       deleteClient() {
         const self = this;
-
         function sendDelete(id) {
           self.$http.post('clients/delete', self.getDataForm({ id }))
             .then((res) => {
@@ -154,10 +153,10 @@
         }
       },
 
-      sendTo(endpoint, param) {
+      sendTo(endpoint, param = '') {
         const client = this.selectedClient;
         if (client) {
-          window.location.href = `${baseURL}/app/${endpoint}/${client.id}/${param}`;
+          window.location.href = `${baseURL}app/${endpoint}/${client.id}/${param}`;
         } else {
           this.$toasted.info('seleccione un cliente primero');
         }

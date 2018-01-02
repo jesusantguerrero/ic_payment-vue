@@ -156,37 +156,6 @@ if (! function_exists('cancel_abono')){
   }
 }
 
-if (! function_exists('upgrade_contract')){
-  /**
-  * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function upgrade_contract($context,$data_cambio){
-    $contract_id = $data_cambio['id_contrato'];
-    $contract = $context->contract_model->get_contract_view($contract_id);
-    $pagos_restantes = $context->payment_model->count_unpaid_per_contract($contract_id);
-
-    $monto_total = $contract['monto_pagado'] + ($data_cambio['cuota'] * $pagos_restantes);
-
-    $data_contract = array(
-      'id_contrato'   => $contract_id,
-      'monto_total'   => $monto_total,
-      'id_servicio'   => $data_cambio['id_servicio']
-    );
-
-    $data_pago = array(
-      'id_contrato'   => $contract_id,
-      'id_servicio'   => $data_cambio['id_servicio'],
-      'cuota'         => $data_cambio['cuota'],
-      'monto_total'   => $data_cambio['cuota']
-    );
-      $context->contract_model->upgrade_contract($data_pago,$data_contract);
-  }
-}
-
 function payment_discount($data,$context){
   $data_pago = array(
     'id'          => $data['id_pago'],
@@ -223,7 +192,7 @@ function payment_discount($data,$context){
 * se ejecuta prepare_moras que prepara los datos para actualizar los pagos
 *
 */
-
+// moras functions
 function update_moras($context){
   $today = date('Y-m-d');
   $settings = $context->settings_model->get_settings();
@@ -280,14 +249,19 @@ function update_state_moras($data, $context){
   }
 }
 
+
+// contract relaed functions
+
 if (! function_exists('cancel_contract')){
 
-  function cancel_contract($context,$data_cancel){
+  function cancel_contract($context, $data_cancel){
 
-    $id_empleado = $_SESSION['user_data']['user_id'];
+    $user_id = $_SESSION['user_data']['user_id'];
     $contract_id = $data_cancel['id_contrato'];
     $contract = $context->contract_model->get_contract_view($contract_id);
     $settings = $context->settings_model->get_settings();
+    $date = date('Y-m-d');
+
     if($data_cancel['penalidad'] == "true"){
       $penalizacion = ($settings['penalizacion_cancelacion'] / 100) * ($contract['cuota'] * 12);
     }else{
@@ -296,33 +270,33 @@ if (! function_exists('cancel_contract')){
 
     $monto_total = $contract['monto_pagado'] + $penalizacion;
 
-    $data_contract = array(
+    $data_contract = [
       'id_contrato'   => $contract_id,
       'monto_total'   => $monto_total,
       'monto_pagado'  => $monto_total,
       'proximo_pago'  => null,
-      'ultimo_pago'   => $data_cancel['fecha']
-    );
+      'ultimo_pago'   => $date
+    ];
 
-    $data_pago = array(
+    $data_pago = [
         'id_contrato' => $data_cancel['id_contrato'],
-        'id_empleado' => $id_empleado,
+        'id_empleado' => $user_id,
         'id_servicio' => $contract['id_servicio'],
-        'fecha_pago'  => $data_cancel['fecha'],
+        'fecha_pago'  => $date,
         'concepto'    => 'Cancelación de Contrato',
         'cuota'       => $penalizacion,
         'mora'        => 0,
         'total'       => $penalizacion,
         'estado'      => "pagado",
-        'fecha_limite'=> $data_cancel['fecha']
-    );
+        'fecha_limite'=> $date
+    ];
 
-    $data_cancel_to_save = array(
+    $data_cancel_to_save = [
       'id_contrato' => $data_cancel['id_contrato'],
       'motivo'      => $data_cancel['motivo']
-    );
+    ];
 
-    $context->contract_model->cancel_contract($data_pago,$data_contract,$contract,$data_cancel_to_save);
+    return $context->contract_model->cancel_contract($data_pago, $data_contract, $contract, $data_cancel_to_save);
   }
 }
 
@@ -376,8 +350,8 @@ function reconnect_contract($data, $context){
     'fecha'       => $data['fecha']
   );
 
-  create_payments($data['id_contrato'],$payment_data,$context);
-  $context->client_model->update(array('estado' => 'activo','id'=> $contract['id_cliente']),false);
+  $context->contract_model->create_payments($data['id_contrato'], $payment_data);
+  $context->client_model->update_client('activo', 'estado', $contract['id_cliente']);
   $monto_total  = $context->payment_model->get_sum_monto_total_of($data['id_contrato']);
 
   $new_data_contract = array(
@@ -399,10 +373,12 @@ if (! function_exists('add_extra')){
 
     switch ($data_extra['modo_pago']) {
       case 1:
-        $next_payment    = $context->payment_model->get_next_payment_of($contract_id);
-        $detalles_extra  = $next_payment['detalles_extra']." - ".$data_extra['nombre_servicio'];
-        $monto_extra     = $next_payment['monto_extra'] + $data_extra['costo_servicio'];
-        $total           = $next_payment['cuota'] + $next_payment['mora'] + $monto_extra;
+        $next_payment = $context->payment_model->get_next_payment_of($contract_id);
+        $service      = $context->service_model->get_service($data_extra['id_servicio']);
+
+        $context->payment_model->set_extra([$service['id_servicio'] => ["servicio" => $service['nombre'], "precio"=> $service['mensualidad']]], $next_payment['id_pago']);
+        $extras = $context->payment_model->get_extras($next_payment['id_pago'], true);
+        $total =  $next_payment['cuota'] + $next_payment['mora'] + $extras['total'];
 
         $data_contract = array(
           'router'        => $data_extra['router'],
@@ -412,12 +388,12 @@ if (! function_exists('add_extra')){
         );
 
         $data_pago = array(
-          'detalles_extra'   => $detalles_extra,
-          'monto_extra'      => $monto_extra,
-          'total'            => $total
+          'detalles_extra' => $extras['detalles'],
+          'monto_extra'    => $extras['total'],
+          'total'          => $total
         );
 
-        $context->contract_model->add_extra_service($data_contract,$contract_id,$data_pago,$next_payment['id_pago']);
+        $context->contract_model->add_extra_service($data_contract, $contract_id, $data_pago, $next_payment['id_pago']);
         break;
 
       case 2:
@@ -438,9 +414,9 @@ if (! function_exists('add_extra')){
         break;
 
       case 3:
-        $service = $context->service_model->get_service($data_extra['nombre_servicio']);
-        $context->contract_model->update(['extras_fijos' => $service['id_servicio']], $contract_id);
-        echo MESSAGE_SUCCESS . " Seguro Agregado";
+        if ($context->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
+          return ['message' => 'Seguro Agregado'];
+        }
         break;
 
     }
@@ -448,15 +424,6 @@ if (! function_exists('add_extra')){
 }
 
 // dates helper functions
-function is_day_closed(){
-  $ci =& get_instance();
-  $ci->load->model('caja_mayor');
-  $last_close_date = $ci->caja_mayor->get_last_close_date();
-  $today = date('Y-m-d');
-  if ($last_close_date == $today){
-    return true;
-  }
-}
 
 function get_next_date($date){
   $one_month = new DateInterval('P1M');

@@ -1,62 +1,68 @@
-<template>
-  <form action="" class="watch-in-detail special">
-    <div class="row">
+<template lang="pug">
+  form.watch-in-detail.special
+    .row
+      .col-md-6
+        .input-group.col-md-4
+          span.input-group-addon ID
+          input.form-control(:value="client.id_cliente", disabled="true")
+        .input-group
+          span.input-group-addon Nombre
+          input.form-control(:value="fullname", disabled="true")
 
+        .input-group
+          span.input-group-addon Fecha de Registro
+          input.form-control(:value="client.fecha_registro", disabled="true")
 
-      <div class="col-md-6">
-        <div class="input-group col-md-4">
-          <span class="input-group-addon" id="addon">ID</span>
-          <input type="text" id="detail-client-id" class="form-control small-id" value="<?php echo $client_data['id_cliente'] ?>" disabled>
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Nombre</span>
-          <input type="text" class="form-control" id="detail-client-name" value="<?php echo $nombre_completo; ?>" disabled>
-        </div>
+        h4.placeholder ...
+        h4 Dirección
+        .input-group
+          span.input-group-addon Provincia
+          input.form-control(:value="client.provincia", disabled="true")
+        .input-group
+          span.input-group-addon Sector
+          input.form-control(:value="client.sector", disabled="true")
+        .input-group
+          span.input-group-addon Telefono
+          input(type="tel", class="form-control", :value="client.telefono", disabled="true")
 
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Fecha de Registro</span>
-          <input type="text" class="form-control" value="<?php  echo $client_data['fecha_registro']?>" disabled>
-        </div>
-        <h4 class="placeholder"> ...</h4>
-        <h4>Dirección</h4>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Provincia</span>
-          <input type="text" class="form-control" value="<?php  echo $client_data['provincia']?>" disabled>
+      .col-md-6
+        h4.placeholder-lg ...
+        .input-group
+          span.input-group-addon Cedula
+          input(type="text", class="form-control", :value="client.cedula", role="cedula", disabled="true")
+        .input-group
+          span.input-group-addon Celular
+          input(type="tel", class="form-control", :value="client.celular", disabled="true")
+        h4.placeholder ...
+        h4.placeholder ...
+        .input-group
+          span.input-group-addon Calle
+          input(type="text", class="form-control", :value="client.calle", disabled="true")
 
+        .input-group
+          span.input-group-addon Casa #
+          input(type="text", class="form-control", :value="client.casa", disabled="true")
 
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Sector</span>
-          <input class="form-control" value="<?php  echo $client_data['sector']?>" disabled="6">
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Telefono</span>
-          <input type="tel" class="form-control" value="<?php  echo phone_format($client_data['telefono'])?>" disabled>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <h4 class="placeholder-lg"> ...</h4>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Cedula</span>
-          <input type="text" class="form-control" value="<?php  echo dni_format($client_data['cedula'])?>" disabled>
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Celular</span>
-          <input type="tel" class="form-control" value="<?php  echo phone_format($client_data['celular'])?>" disabled>
-        </div>
-        <h4 class="placeholder"> ...</h4>
-        <h4 class="placeholder"> ...</h4>
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Calle</span>
-          <input type="text" class="form-control" value="<?php  echo $client_data['calle']?>" disabled>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-addon" id="addon">Casa #</span>
-          <input type="text" class="form-control" value="<?php  echo $client_data['casa']?>" disabled>
-        </div>
-      </div>
-    </div>
-  </form>
 </template>
+
+<script>
+  import InputMask from 'inputmask';
+  import utils from './../../sharedComponents/utils';
+
+  export default {
+    props: {
+      client: {
+        type: Object,
+        required: true
+      },
+      fullname: {
+        type: String,
+        required: true
+      }
+    },
+
+    mounted() {
+      utils.startInputMask(InputMask);
+    }
+  };
+</script>

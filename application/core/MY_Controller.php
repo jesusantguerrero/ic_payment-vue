@@ -41,4 +41,14 @@ class MY_Controller extends CI_Controller {
   protected function set_message($text = '', $type = 'success') {
     $this->res['message'] = ['type' => $type, 'text' => $text];
   }
+
+  protected function is_day_closed() {
+    $ci =& get_instance();
+    $ci->load->model('caja_mayor');
+    $last_close_date = $ci->caja_mayor->get_last_close_date();
+    $today = date('Y-m-d');
+    if ($last_close_date == $today){
+      return true;
+    }
+  }
 }

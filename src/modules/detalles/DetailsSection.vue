@@ -1,132 +1,135 @@
-<template>
-  <div class="main-content detalles col-md-12">
-    <div class="row">
-      <div class="col-xs-6 col-md-3 center-row aside-wide-left">
-        <div class="page-header">
-          <h3>Detalles del Cliente</h3>
-        </div>
+<template lang="pug">
+  .main-content.detalles.col-md-12
+    .row
+      .col-xs-6.col-md-3.center-row.aside-wide-left
+        .client-profile
+          span {{ initials }}
+        h5 {{ fullname }}
+        p.detail-stat
+          i.material-icons timeline
+          | {{ client.estado }}
 
-        <div class="client-profile">
-          <span> //JG </span>
-        </div>
-        <h5> // client name </h5>
-        <p class="detail-state">
-          <i class="material-icons">timeline</i> // state</p>
+        .payment-controls
+          .input-group
+            span.input-group-addon#addon Contrato
+            //-  <select  class="form-control" id="select-contract"> // contracts </select> -->
+          .box#payment-detail-box(:class="{visible: activeTab == 'payments'}")
+            .box-header.with-border
+              h3.box-title Detalles de Pago
+              .box-tools.pull-right
+                button(type="button", class="mybtn btn-box-tool", data-widget="collapse"): i.fa.fa-minus
 
-        <div class="payment-controls <?php echo $controls_class ?>">
-          <div class="input-group">
-            <span class="input-group-addon" id="addon">Contrato </span>
-            <!-- <select  class="form-control" id="select-contract"> // contracts </select> -->
-          </div>
-          <div class="box" id="payment-detail-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Detalles de Pago</h3>
-              <div class="box-tools pull-right">
-                <!-- Collapse Button -->
-                <button type="button" class="mybtn btn-box-tool" data-widget="collapse">
-                  <i class="fa fa-minus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <h6>Forma de pago</h6>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-small payment-mode">efectivo</button>
-                <button type="button" class="btn btn-small payment-mode">banco</button>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          <button class="btn" id="btn-pay">Registrar Pago</button>
-        </div>
-        <div class="contract-controls hide">
-          <button class="btn icon" id="btn-detail-cancel-contract" disabled>
-            <i class="material-icons" title="cancelar contrato">delete</i>
-          </button>
-          <button class="btn icon" id="btn-detail-suspend-contract" title="suspender contrato" disabled>
-            <i class="material-icons">report_problem</i>
-          </button>
-          <button class="btn icon" id="btn-call-reconnect" title="Reconectar" disabled>
-            <i class="material-icons">fiber_smart_record</i>
-          </button>
-          <button class="btn icon" id="btn-call-extra" title="extras" disabled>
-            <i class="material-icons">more</i>
-          </button>
-        </div>
-      </div>
-      <div class="col-md-9 wide-main-content">
-        <div>
+            .box-body
+              h6 Forma de pago
+              .btn-group(role="group", aria-label="Basic example")
+                button(type="button", class="btn btn-small payment-mode") efectivo
+                button(type="button", class="btn btn-small payment-mode") banco
+          button(class="btn" id="btn-pay") Registrar Pago
+        .contract-controls.hide
+          button.btn.icon#btn-detail-cancel-contract(title="cancelar contrato", disabled="true"): i.material-icons delete
+          button.btn.icon#btn-detail-suspend-contract(title="suspender contrato" disabled="true"): i.material-icons report_problem
+          button.btn.icon#btn-call-reconnect(title="Reconectar", disabled="true"): i.material-icons fiber_smart_record
+          button.btn.icon#btn-call-extra(title="extras", disabled="true"): i.material-icons more
 
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist" id="main-tabs">
-            <li role="presentation">
-              <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Personales</a>
-            </li>
-            <li role="presentation">
-              <a href="#contracts" aria-controls="profile" role="tab" data-toggle="tab">Contratos</a>
-            </li>
-            <li role="presentation">
-              <a href="#payments" aria-controls="messages" role="tab" data-toggle="tab">Pagos</a>
-            </li>
-            <li role="presentation">
-              <a href="#abonos" aria-controls="settings" role="tab" data-toggle="tab">Abonos</a>
-            </li>
-            <li role="presentation">
-              <a href="#observations" aria-controls="settings" role="tab" data-toggle="tab">Observaciones</a>
-            </li>
-            <li role="presentation">
-              <a href="#extras" aria-controls="settings" role="tab" data-toggle="tab">Extras
-                <span class="badge"> 2</span>
-              </a>
-            </li>
-          </ul>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in" id="home">
-
-            </div>
+      .col-md-9.wide-main-content
+        .wrapper
+          ul.nav.nav-tabs(role="tablist", id="main-tabs")
+            li(role="presentation", :class="{active : activeTab == 'client'}"): a(href="#client" aria-controls="home" role="tab" data-toggle="tab") Cliente
+            li(role="presentation", :class="{active : activeTab == 'contracts'}"): a(href="#contracts" aria-controls="profile" role="tab" data-toggle="tab") Contratos
+            li(role="presentation", :class="{active : activeTab == 'payments'}"): a(href="#payments" aria-controls="messages" role="tab" data-toggle="tab") Pagos
+            li(role="presentation", :class="{active : activeTab == 'abonos'}"): a(href="#abonos" aria-controls="settings" role="tab" data-toggle="tab", ) Abonos
+            li(role="presentation", :class="{active : activeTab == 'observations'}"): a(href="#observations" aria-controls="settings" role="tab" data-toggle="tab") Observaciones
+            li(role="presentation", :class="{active : activeTab == 'extras'}"): a(href="#extras" aria-controls="settings" role="tab" data-toggle="tab") Extras <span class="badge"> 2 </span>
 
 
-            <!---->
-            <div role="tabpanel" class="tab-pane detail-panel fade in" id="contracts">
+          .tab-content
+            .tab-pane.fade.in#client(role="tabpanel", :class="{active : activeTab == 'client'}")
+              DetailsProfile(:client="client", :fullname="fullname")
+            .tab-pane.fade.in.detail-panel#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
 
-            </div>
+            .tab-pane.fade.in.detail-panel#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
 
+            .tab-pane.fade.in#abonos(role="tabpanel", :class="{active : activeTab == 'abonos'}")
 
-            <!---->
-            <div role="tabpanel" class="tab-pane detail-panel fade in" id="payments">
+            .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
+              DetailsObservations(:client="client", :save-observation="saveObservation")
+            .tab-pane.fade.in#extras(role="tabpanel", :class="{active : activeTab == 'extras'}")
+              DetailsExtraServices(:clientId="clientId")
 
-            </div>
-
-            <!---->
-            <div role="tabpanel" class="tab-pane fade in" id="abonos">
-
-            </div>
-
-            <!---->
-            <div role="tabpanel" class="tab-pane fade in" id="observations">
-
-            </div>
-
-            <div role="tabpanel" class="tab-pane fade in" id="extras">
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </template>
 
 <script>
+  import DetailsProfile from './components/DetailsProfile.vue';
+  import DetailsObservations from './components/DetailsObservations.vue';
+  import DetailsExtraServices from './components/DetailsExtraServices.vue';
+
   export default {
+    props: {
+      clientId: {
+        type: String
+      },
+      activeWindow: {
+        type: String
+      }
+    },
+    components: {
+      DetailsProfile,
+      DetailsObservations,
+      DetailsExtraServices
+    },
+    data() {
+      return {
+        client: {},
+        activeTab: ''
+      };
+    },
 
-  }
+    mounted() {
+      this.getClient();
+      this.activeTab = this.activeWindow;
+    },
+    computed: {
+      initials() {
+        const { client } = this;
+        return (client.nombres) ? `${client.nombres[0]}${client.apellidos[0]}` : 'N/D';
+      },
 
+      fullname() {
+        const { client } = this;
+        return `${client.nombres} ${client.apellidos}`;
+      }
+    },
+
+    methods: {
+      getClient() {
+        this.$http.post('clients/get_client', this.getDataForm({ id: this.clientId }))
+          .then((res) => {
+            this.client = res.data.client;
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
+          });
+      },
+
+      saveObservation() {
+        const form = {
+          id: this.clientId,
+          row: 'observaciones',
+          value: this.client.observaciones
+        };
+
+        this.$http.post('clients/update_row', this.getDataForm(form))
+          .then((res) => {
+            if (res.data.message.type === 'success') {
+              this.client.observaciones = this.client.observaciones;
+            }
+            this.showMessage(res.data.message);
+          });
+      },
+
+      changeTab(tabName) {
+        this.activeTab = tabName;
+      }
+    }
+  };
 </script>

@@ -32,6 +32,9 @@
 <script>
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
+  import Store from './store/ExtraStore';
+
+  const store = new Store();
 
   export default {
     components: {
@@ -82,6 +85,7 @@
 
     computed: {
       cols() {
+<<<<<<< HEAD
         return [
           {
             field: 'controls',
@@ -160,6 +164,9 @@
             align: 'center'
           },
         ];
+=======
+        return store.colunms;
+>>>>>>> feature/enviroments
       }
     }
   };

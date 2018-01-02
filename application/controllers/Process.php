@@ -20,26 +20,12 @@ class Process extends CI_Controller {
 		$this->load->model("cancelations_model");
 	}
 
-	public function getjson() {
-    $data = json_decode($_POST['data']);
-    $data = json_decode($_POST['data'],true);
-    $action = $_POST['action'];
-		$module = $_POST['module'];
-      switch ($action) {
-				case 'update':
-          $this->client_model->update($data);
-					break;
-      }
-  }
 
 	public function update(){
 		authenticate();
 		$data  = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "observaciones":
-				$this->client_model->update_observations($data);
-				break;
 			case "abonos":
 				if (!$this->is_day_closed()) {
 					$this->db->trans_start();
@@ -103,27 +89,8 @@ class Process extends CI_Controller {
 			case "instalaciones":
 				$this->report_model->update_installation($data['id_pago']);
 				break;
-			case "contratos":
-				$data_for_update = array(
-					'nombre_equipo' => $data['nombre_equipo'],
-					'mac_equipo'		=> $data['mac_equipo'],
-					'router'				=> $data['router'],
-					'mac_router'    => $data['mac_router'],
-					'modelo'				=> $data['modelo'],
-				);
-
-				if(isset($data['codigo'])){
-						$contract = $this->contract_model->get_contract_view($data['id_contrato']);
-						$this->section_model->update_ip_state($contract['codigo'],'disponible');
-						$data_for_update['ip'] = $data['ip'];
-						$data_for_update['codigo'] = $data['codigo'];
-						$this->section_model->update_ip_state($data['codigo'],'ocupado');
-				}
-				$this->contract_model->update($data_for_update,$data['id_contrato'],true);
-				break;
-
-		}
-	}
+    }
+  }
 
 	public function axiosupdate(){
 		authenticate();
@@ -148,33 +115,12 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function upgrade(){
-		authenticate();
-		$data_cambio = $_POST;
-		upgrade_contract($this,$data_cambio);
-	}
-
 	public function getall(){
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "contratos":
-				$this->contract_view_model->get_contract_view('activo');
-				break;
-			case "contratos_cliente":
-				$this->contract_model->get_all_of_client($_POST['id']);
-				break;
 			case "pagos":
 				$this->payment_model->get_all_of_contract($_POST['id']);
-				break;
-			case "v_proximos_pagos":
-				$this->payment_model->get_next_payments($_POST);
-				break;
-			case "v_pagos_pendientes":
-				$this->payment_model->get_moras_home();
-				break;
-			case "averias":
-				$this->averia_model->get($_POST['estado']);
 				break;
 			case "instalaciones":
 				$this->report_model->get_installations_list($_POST['estado']);
@@ -182,28 +128,10 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function getlist(){
-		authenticate();
-		$tabla = $_POST['tabla'];
-		if($tabla == "pagos"){
-				$id_contrato = $this->contract_model->get_last_id();
-				echo $this->payment_model->list_all_of_contract($id_contrato);
-		}
-	}
-
 	public function getone(){
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "contratos":
-				$result = $this->contract_model->get_contract_view($_POST['id_contrato'],true);
-				if($result){
-					 $dataJson = json_encode($result);
-					 echo $dataJson;
-				}else{
-					echo "nada";
-				}
-				break;
 			case "pagos":
 				$result['pago'] 		= $this->payment_model->get_payment($_POST['id_pago']);
 				$result['settings'] = $this->settings_model->get_settings();
@@ -220,12 +148,6 @@ class Process extends CI_Controller {
 		authenticate();
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case 'clientes':
-				$this->client_model->count_clients();
-				break;
-			case 'contratos':
-				$this->contract_view_model->count_contracts();
-				break;
 			case 'servicios':
 				$this->service_model->count_services();
 				break;
@@ -235,8 +157,9 @@ class Process extends CI_Controller {
 				$this->averia_model->count();
 				break;
 		}
-	}
+  }
 
+  // TODO: move to payment
 	public function getrecibo($id){
 		authenticate();
 		$recibo_info = $this->payment_model->get_payment($id, true);
@@ -247,11 +170,9 @@ class Process extends CI_Controller {
 		redirect(base_url('app/imprimir/recibo'));
 	}
 
+  // TODO: move to contract controller
 	public function getrequirements($id,$type = "cliente"){
-		authenticate();
-		$requirement_info['cliente'] = $this->client_model->get_client($id);
 		if($type == "cliente"){
-			$contract_id = $this->contract_model->get_last_id_of($id);
 		}else{
 			$contract_id = $id;
 		}
@@ -287,6 +208,7 @@ class Process extends CI_Controller {
 		redirect(base_url($endpoint));
 	}
 
+  // TODO: move to report controller
 	public function getreport($table,$type = 'nada'){
 		authenticate();
 
@@ -329,58 +251,7 @@ class Process extends CI_Controller {
 			redirect(base_url('app/imprimir/reporte'));
 
 	}
-
-	public function cancel(){
-		authenticate();
-		if(!$this->is_day_closed()){
-			$data_cancel = $_POST;
-			$pendents = $this->contract_view_model->get_pendent_payments($data_cancel['id_contrato']);
-			$estado   = $this->client_model->get_client($data_cancel['id_cliente'])['estado'];
-			if($pendents == false and $estado != 'mora'){
-				cancel_contract($this,$data_cancel);
-			}else{
-				echo 'El cliente tiene pagos pendientes, debe hacer el pago antes de cancelar';
-			}
-		}
-	}
-
-	public function data_for_extra(){
-		authenticate();
-		$dni = $_POST['dni'];
-		$dni = str_replace('-','',$dni);
-		$data;
-		$client = $this->client_model->get_client($dni, true);
-		if($client){
-			$data['cliente'] = $client;
-			$data["contratos"]  = $this->contract_model->get_all_of_client($client->id_cliente,true);
-			$dataJson = json_encode($data);
-			echo $dataJson;
-		}else{
-			echo "nada";
-		}
-
-	}
-
-	public function extend_contract(){
-		authenticate();
-		$data = $_POST;
-		$this->db->trans_start();
-		extend_contract($data,$this);
-		$this->db->trans_complete();
-		if($this->db->trans_status()){
-			echo MESSAGE_SUCCESS." Contrato extendido con exito";
-		}
-		else{
-			echo MESSAGE_ERROR."No guardado"." Error";
-		}
-	}
-
-	public function addextra(){
-		authenticate();
-		$data = $_POST;
-		add_extra($this,$data);
-	}
-
+  // TODO: move to contract controller
 	public function print_page(){
 		authenticate();
 		$report = $this->contract_view_model->get_technical_report();
