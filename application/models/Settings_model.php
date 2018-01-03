@@ -32,7 +32,6 @@ class Settings_model extends CI_MODEL{
   }
 
   public function get_settings(){
-
     if ($result = $this->db->get($this->table, 1)) {
       return $result->row_array();
 

@@ -30,6 +30,7 @@ build:
   only:
    - develop
    - feature/enviroments
+   - master
 
 
 deploy_staging:
@@ -39,7 +40,7 @@ deploy_staging:
     - git config --global user.email "jesusant.guerrero@gmail.com"
     - git config --global user.name "Jesus Guerrero"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push heroku master -f
+    - git push heroku feature/enviroments:master -f
     - echo "deployed to staging"
   environment:
     name: staging
@@ -52,7 +53,7 @@ deploy_production:
   stage: deploy
   script:
     - echo "Deploy to staging server"
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment.git
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
     - git push keroku master
     - echo "deployed to staging"
   environment:

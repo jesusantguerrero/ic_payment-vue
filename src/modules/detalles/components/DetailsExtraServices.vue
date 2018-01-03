@@ -1,6 +1,7 @@
 <template lang="pug">
   .my-wrapper
-    DataTable(ids="extra-table", v-if="!visible", :parentId="parentId", :data="extras", :cols="cols", :options="tableOptions")
+    .table-wrapper(v-if="!visible")
+      DataTable(ids="extra-table", :parentId="parentId", :data="extras", :cols="cols", :options="tableOptions")
 
     form.card#app-pago-extra(v-if="visible")
       .row
@@ -205,10 +206,9 @@
       methods: {
 
         goBack() {
-          extraTable.el.parents('.bootstrap-table').removeClass('hide');
           this.visible = false;
           this.extra = { concepto: '' };
-          extraTable.refresh(listExtras);
+          this.getExtras();
         },
 
         generatePayment() {
