@@ -58,41 +58,10 @@ function makeContractList(response,callback){
   }
 }
 
-function clearTbody(objecId){
-  $(objecId).html("");
-}
-
 function makePaymentList(response,callback){
   var selectPayUntil = $('#select-pay-until');
   selectPayUntil.html(response);
   selectPayUntil.parent().removeClass('hide');
   selectPayUntil.change();
   if(callback)callback();
-}
-
-
-// +-----------------------------------------------------------------------------------------------------------------------------+
-// |                                                     User passwords validations                                              |
-// |                                                                                                                             |
-// +-----------------------------------------------------------------------------------------------------------------------------+
-//
-
-
-function deleteValidation($inputElement, text, $buttonToActive){
-  var innerText;
-  this.text = text;
-  var self  = this;
-  var warning = $('#cancel-contract-modal .alert');
-
-  $inputElement.on("keyup",function(e){
-    e.stopImmediatePropagation();
-    innerText = $(this).val()
-    if(innerText.toLowerCase() == self.text.toLowerCase()){
-      $buttonToActive.removeAttr("disabled");
-      warning.addClass('hide');
-    }else{
-      $buttonToActive.attr("disabled","");
-      warning.removeClass('hide');
-    }
-  })
 }

@@ -16,7 +16,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 application/vendor/
 vendor/
 !assets/js/lib/*
-assets/js/*
+assets/js/**.js
 
 # IDE Files
 #-------------------------

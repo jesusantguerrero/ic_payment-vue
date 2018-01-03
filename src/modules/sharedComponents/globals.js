@@ -10,6 +10,12 @@ export default (Vue, Toasted, axios) => {
   Vue.use(Toasted, options);
 
   Vue.mixin({
+    mounted() {
+      window.document.onreadystatechange = () => {
+        this.quitSplash();
+      };
+    },
+
     methods: {
       showMessage(message) {
         this.$toasted[message.type](message.text);
@@ -17,6 +23,15 @@ export default (Vue, Toasted, axios) => {
 
       getDataForm(object) {
         return `data=${JSON.stringify(object)}`;
+      },
+
+      quitSplash() {
+        const state = document.readyState;
+        const splash = document.querySelector('.splash-screen');
+        if (state === 'complete') {
+          splash.classList.add('hide');
+          document.querySelector('header').classList.remove('loading');
+        }
       }
     },
 
