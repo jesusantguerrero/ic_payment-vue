@@ -215,7 +215,7 @@ function make_extra_table($data,$start_at, $full = false){
   $html_text = " ";
   $state = '';
   $row_class = '';
-  $posible_states = array(
+  $posible_states = [
     'done'      => 'activo',
     'error'     => 'no activo',
     'process'   => '',
@@ -225,7 +225,7 @@ function make_extra_table($data,$start_at, $full = false){
     'suspendido'=> 'suspendido',
     'exonerado' => 'exonerado',
     'en corte'  => 'en corte'
-  );
+  ];
 
   foreach ($data as $line) {
      $state = verify_state($line['estado'],$posible_states);
@@ -237,7 +237,11 @@ function make_extra_table($data,$start_at, $full = false){
       if ($full) {
         $html_text .= "<td><a href='{$url}'><i class='material-icons'>search</i></a></td>";
       }else {
-        $html_text .= "<td><a href='#' class='extra-delete' data-id-extra='".$line['id_extra']."'><i class='material-icons'>delete</i></a></td>";
+        $html_text .= "
+          <td>
+            <i class='material-icons delete-extra'>delete</i>
+            <i class='material-icons pay-extra'>payment</i>
+          </td>";
       }
 
       $html_text .= "<td class='id_extra hide'>".$line['id_extra']."</td>

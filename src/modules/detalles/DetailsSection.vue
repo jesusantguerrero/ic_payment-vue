@@ -39,7 +39,9 @@
             li(role="presentation", :class="{active : activeTab == 'payments'}"): a(href="#payments" aria-controls="messages" role="tab" data-toggle="tab") Pagos
             li(role="presentation", :class="{active : activeTab == 'abonos'}"): a(href="#abonos" aria-controls="settings" role="tab" data-toggle="tab", ) Abonos
             li(role="presentation", :class="{active : activeTab == 'observations'}"): a(href="#observations" aria-controls="settings" role="tab" data-toggle="tab") Observaciones
-            li(role="presentation", :class="{active : activeTab == 'extras'}"): a(href="#extras" aria-controls="settings" role="tab" data-toggle="tab") Extras <span class="badge"> 2 </span>
+            li(role="presentation", :class="{active : activeTab == 'extras'}")
+              a(href="#extras" aria-controls="settings" role="tab" data-toggle="tab") Extras
+                span(v-if="store.activeExtras" class="badge") {{ store.activeExtras }}
 
 
           .tab-content
@@ -54,7 +56,7 @@
             .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
               DetailsObservations(:client="client", :save-observation="saveObservation")
             .tab-pane.fade.in#extras(role="tabpanel", :class="{active : activeTab == 'extras'}")
-              DetailsExtraServices(:clientId="clientId")
+              DetailsExtraServices(:clientId="clientId",:store="store" )
 
 </template>
 
@@ -62,6 +64,9 @@
   import DetailsProfile from './components/DetailsProfile.vue';
   import DetailsObservations from './components/DetailsObservations.vue';
   import DetailsExtraServices from './components/DetailsExtraServices.vue';
+  import DetailsStore from './store/DetailsStore';
+
+  const store = new DetailsStore();
 
   export default {
     props: {
@@ -77,10 +82,12 @@
       DetailsObservations,
       DetailsExtraServices
     },
+
     data() {
       return {
         client: {},
-        activeTab: ''
+        activeTab: '',
+        store
       };
     },
 

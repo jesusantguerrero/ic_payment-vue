@@ -49,23 +49,66 @@ class Contract_model extends CI_MODEL{
 
   }
 
+  // CRUD
+
   public function add($data){
     $this->organize_data($data,"normal");
     $this->db->trans_start();
     $this->db->insert('ic_contratos',$this);
     $this->client_model->is_active(true, $data);
-    $contract_id = $this->get_last_id_of($data['id_cliente']);
     $this->create_payments($contract_id,$data,$this);
     $this->section_model->update_ip_state($data['codigo'],'ocupado');
     $this->update_amount($contract_id);
     $this->db->trans_complete();
 
     if ($this->db->trans_status()){
-      return $contract_id;
+      return $this->get_last_contract($data['id_cliente']);
     }
     else{
       $this->db->trans_rollback();
       return false;
+    }
+  }
+
+  public function get_contract_view($id){
+    $this->db->where('id_contrato', $id);
+    if($result = $this->db->get('v_contratos')){
+      return $result->row_array();
+    }
+  }
+
+  public function get_contract($id, $field = false){
+    if ($field) {
+      $this->db->select($field);
+    } else {
+      $this->db->select('ic_contratos.*', false);
+    }
+    $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
+    $this->db->where('id_contrato', $id);
+    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
+    return $this->db->get('ic_contratos')->row_array();
+  }
+
+  public function get_last_contract($client_id){
+    $this->db->select('id_contrato');
+    $this->db->where('id_cliente', $client_id);
+    $this->db->order_by('id_contrato',"DESC");
+    if($result = $this->db->get('ic_contratos',1)){
+      return $result->row_array()['id_contrato'];
+    }
+  }
+
+  public function get_contracts($id_cliente, $json = false){
+    $this->db->select('v_contratos.*, ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
+    $this->db->where('id_cliente',$id_cliente);
+    $this->db->order_by('id_contrato');
+    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio', 'LEFT');
+    if ($result = $this->db->get('v_contratos')){
+      if (!$json) {
+        echo make_contract_table($result->result_array(),0);
+      } else {
+        return $result->result();
+      }
     }
   }
 
@@ -78,6 +121,8 @@ class Contract_model extends CI_MODEL{
       return false;
     }
   }
+
+  // massive payment related functions
 
   public function create_payments($contract_id, $data){
     $contract_date = new DateTime($data['fecha']);
@@ -181,40 +226,33 @@ class Contract_model extends CI_MODEL{
     $sql = "SELECT SUM(cuota) FROM ic_pagos WHERE id_contrato = $contract_id";
     $result = $this->db->query($sql);
     $amount = $result->row_array()['SUM(cuota)'];
-    $this->update(array('monto_total' => $amount),$contract_id);
+    $this->update(array('monto_total' => $amount), $contract_id);
   }
 
-  public function get_last_id(){
-    $this->db->select('id_contrato');
-    $this->db->order_by('id_contrato',"DESC");
-    if($result = $this->db->get('ic_contratos',1)){
-      return $result->row_array()['id_contrato'];
+  public function get_debt_of($id_contrato){
+    $this->db->where('id_contrato', $id_contrato);
+    $this->db->select_sum('cuota');
+    $to_pay = $this->db->get('ic_pagos',1)->row_array()['cuota'];
+
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->select_sum('mensualidad');
+    $paid = $this->db->get('v_recibos',1)->row_array()['mensualidad'];
+
+    return array('monto_pagado' => $paid, 'monto_total' => $to_pay);
+  }
+
+  public function get_next_payment_for_contract($id_contrato){
+    $proximo_pago = $this->payment_model->get_next_payment_of($id_contrato);
+    if($proximo_pago == 0){
+      $proximo_pago['fecha_limite'] = null;
     }
+    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->update('ic_contratos',$data_contrato);
   }
 
-  public function get_last_id_of($client_id){
-    $this->db->select('id_contrato');
-    $this->db->where('id_cliente',$client_id);
-    $this->db->order_by('id_contrato',"DESC");
-    if($result = $this->db->get('ic_contratos',1)){
-      return $result->row_array()['id_contrato'];
-    }
-  }
 
-  public function get_all_of_client($id_cliente, $json = false){
-    $this->db->select('v_contratos.*, ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
-    $this->db->where('id_cliente',$id_cliente);
-    $this->db->order_by('id_contrato');
-    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
-    if ($result = $this->db->get('v_contratos')){
-      if (!$json) {
-        echo make_contract_table($result->result_array(),0);
-      } else {
-        return $result->result();
-      }
-    }
-  }
-
+  //  complex transactions
   public function get_contracts_dropdown($id_cliente){
     $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente ORDER BY id_contrato desc";
     $result = $this->db->query($sql);
@@ -222,45 +260,7 @@ class Contract_model extends CI_MODEL{
     echo $result;
   }
 
-  public function get_active_contracts(){
-    $sql = "SELECT COUNT(*) FROM ic_contratos WHERE estado= 'activo'";
-    $result = $this->db->query($sql);
-    echo $result->row_array()['COUNT(*)'];
-  }
-
-  public function get_active_clients(){
-    $sql = "SELECT COUNT(*) FROM v_contratos WHERE estado= 'activo' GROUP BY cliente";
-    $result = $this->db->query($sql);
-    $result = $result->result_array();
-    if($result){
-      echo count($result);
-    }else{
-      echo 0;
-    }
-  }
-
-  public function get_contract_view($id){
-    $sql = "SELECT * FROM v_contratos where id_contrato = $id";
-    if($result = $this->db->query($sql)){
-      return $result->row_array();
-    }else{
-      return false;
-    }
-  }
-
-  public function get_contract($id, $field = false){
-    if ($field) {
-      $this->db->select($field);
-    } else {
-      $this->db->select('ic_contratos.*', false);
-    }
-    $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
-    $this->db->where('id_contrato', $id);
-    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
-    return $this->db->get('ic_contratos')->row_array();
-  }
-
-  public function refresh_contract($data_pago,$data_contrato,$current_contract){
+  public function refresh_contract($data_pago, $data_contrato, $current_contract){
     $id_empleado = $_SESSION['user_data']['user_id'];
     $update_pago = array(
       'id_empleado' => $id_empleado,
@@ -371,22 +371,45 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function add_extra_service($data_contract,$id_contrato,$data_pago,$id_pago){
+  public function add_extra_next_payment($data) {
+
+    $contract_id  = $data['id_contrato'];
+    $contract     = $context->contract_model->get_contract_view($contract_id);
+    $service      = $context->service_model->get_service($data['id_servicio']);
+    $next_payment = $context->payment_model->get_next_payment_of($contract_id);
+
     $this->db->trans_start();
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->update('ic_contratos',$data_contract);
-    $this->db->where('id_pago',$id_pago);
-    $this->db->update('ic_pagos',$data_pago);
+    $context->payment_model->set_extra([$service['id_servicio'] => ["servicio" => $service['nombre'], "precio"=> $service['mensualidad']]], $next_payment['id_pago']);
+    $extras  = $context->payment_model->get_extras($next_payment['id_pago'], true);
+    $total   =  $next_payment['cuota'] + $next_payment['mora'] + $extras['total'];
+
+    $data_contract = [
+      'router'        => $data['router'],
+      'mac_router'    => $data['mac_router'],
+      'nombre_equipo' => $data['nombre_equipo'],
+      'mac_equipo'    => $data['mac_router']
+    ];
+    $this->db->where('id_contrato', $id_contrato);
+    $this->db->update('ic_contratos', $data_contract);
+
+    $data_payment = [
+      'detalles_extra' => $extras['detalles'],
+      'monto_extra'    => $extras['total'],
+      'total'          => $total
+    ];
+    $this->db->where('id_pago', $next_payment['id_pago']);
+    $this->db->update('ic_pagos', $data_payment);
+
     $this->db->trans_complete();
     if($this->db->trans_status() === false){
       $this->db->trans_rollback();
-      echo MESSAGE_ERROR." No pudo guardarse la actualizacion "." Error";
     } else{
-      echo MESSAGE_SUCCESS." Servicio ExtraAgregado";
+      return ['message' => 'Servicio Extra Agregado'];
     }
 
   }
 
+  // Cancelation related TODO: make a model for this two functions
   public function get_cancelation($id_contrato){
     $this->db->where('id_contrato',$id_contrato);
     $result = $this->db->get('ic_cancelaciones',1);
@@ -395,18 +418,17 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function get_next_payment_for_contract($id_contrato){
-    $proximo_pago = $this->payment_model->get_next_payment_of($id_contrato);
-    if($proximo_pago == 0){
-      $proximo_pago['fecha_limite'] = null;
+  public function delete_cancelation($contract_id){
+    $this->db->where('id_contrato',$contract_id);
+    if($this->db->delete('ic_cancelaciones')){
+      return true;
     }
-    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->update('ic_contratos',$data_contrato);
+    return false;
   }
 
+  // client related
   public function check_is_active_client($current_contract){
-    $this->db->where('estado','activo');
+    $this->db->where('estado', 'activo');
     $this->db->where('id_cliente',$current_contract['id_cliente']);
     $has_contracts = $this->db->count_all_results('ic_contratos');
     $contract = $this->get_contract_view($current_contract['id_contrato']);
@@ -424,26 +446,7 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function delete_cancelation($contract_id){
-    $this->db->where('id_contrato',$contract_id);
-    if($this->db->delete('ic_cancelaciones')){
-      return true;
-    }
-    return false;
-  }
-
-  public function get_debt_of($id_contrato){
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->select_sum('cuota');
-    $to_pay = $this->db->get('ic_pagos',1)->row_array()['cuota'];
-
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->select_sum('mensualidad');
-    $paid = $this->db->get('v_recibos',1)->row_array()['mensualidad'];
-
-    return array('monto_pagado' => $paid, 'monto_total' => $to_pay);
-  }
-
+  // section ip related
   public function get_status_for($contract,$debt){
     if($debt['monto_pagado'] == $debt['monto_total']){
       $estado = "saldado";

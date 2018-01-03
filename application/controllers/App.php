@@ -34,7 +34,7 @@ class App extends MY_Controller {
     }
   }
 
-	public function admin($page = 'home') {
+	public function admin($page = 'home', $params = null) {
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
 
@@ -42,17 +42,20 @@ class App extends MY_Controller {
     $data['user'] = get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
-
+    $data['params'] = $params;
     echo $this->twig->render('layouts/header', $data);
     echo $this->twig->render("pages/".$page, $data);
 		$this->parser->parse('layouts/footer', $data);
   }
 
-  public function details($id, $active_window = "pagos") {
+  public function details($id, $active_window = "payments") {
 		authenticate();
-		$_SESSION['client_data'] = $this->client_model->get_client($id);
-		$this->session->set_flashdata('active_window', $active_window);
-    $this->admin('detalles');
+    $params = [
+      'id' => $id,
+      'active_window' => $active_window
+    ];
+
+    $this->admin('detalles', $params);
 	}
 
 	public function imprimir($page) {

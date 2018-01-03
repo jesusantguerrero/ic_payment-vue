@@ -9,7 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Extra_model extends CI_MODEL{
-  
+
   private $id_empleado;
 
   public function __construct(){
@@ -27,10 +27,24 @@ class Extra_model extends CI_MODEL{
   }
 
   public function add_extra($data){
-    if($this->db->insert('ic_servicios_extra',$data)){
-      echo MESSAGE_SUCCESS." extra agregado";
-    }else{
-      echo MESSAGE_ERROR." error al agregar este gasto";
+    $contract_id = $data['id_contrato'];
+    $contract    = $this->contract_model->get_contract($contract_id, 'id_cliente');
+    $service     = $this->service_model->get_service($data['id_servicio']);
+    $user_id     = $_SESSION['user_data']['user_id'];
+
+    $data_extra =  [
+      'id_cliente'   => $contract['id_cliente'],
+      'id_servicio'  => $service['id_servicio'],
+      'id_empleado'  => $user_id,
+      'servicio'     => $service['nombre'],
+      'fecha'        => date('Y-m-d'),
+      'monto_pagado' => 0,
+      'ultimo_pago'  => '',
+      'monto_total'  =>  $data['costo_servicio']
+    ];
+
+    if ($this->db->insert('ic_servicios_extra', $data_extra)) {
+      return ['message' => 'servicio extra agregado'];
     }
   }
 
@@ -44,10 +58,7 @@ class Extra_model extends CI_MODEL{
   }
 
   public function delete_extra($data){
-    $this->db->delete('ic_servicios_extra',array('id_extra' => $data['id']));
-    $response['mensaje'] =  MESSAGE_SUCCESS." Gasto eliminado";
-    $response['extras']  = $this->get_all_of_client($data['id_cliente']);
-    echo json_encode($response);
+    return $this->db->delete('ic_servicios_extra',array('id_extra' => $data['id']));
   }
 
   public function get_all_of_client($id_cliente){
@@ -77,10 +88,10 @@ class Extra_model extends CI_MODEL{
     } else {
       var_dump($this->db->last_query());
     }
-    
+
   }
 
-  public function has_extra($id_cliente) {
+  public function count_active_extras($id_cliente) {
     return $this->db->where('id_cliente',$id_cliente)
     ->where('estado','activo')
     ->count_all_results('ic_servicios_extra');
@@ -131,7 +142,7 @@ class Extra_model extends CI_MODEL{
 
   public function apply_payment($data,$info){
     $extra = $this->get_extra($info['id_extra']);
-    
+
     $this->db->trans_start();
     $this->payment_model->update($data,$info['id_pago']);
     $monto_pagado = $this->get_monto_pagado_of($info['id_extra']);
@@ -166,27 +177,27 @@ class Extra_model extends CI_MODEL{
 
   public function delete_payment($data){
     $extra = $this->get_extra($data['id_extra']);
-    
+
     $this->db->trans_start();
-    
+
     $this->db->delete('ic_pagos',array('id_pago'=>$data['id_pago']));
-    
+
     $monto_pagado = $this->get_monto_pagado_of($data['id_extra']);
     $ultimo_pago  = $this->get_last_payment_date_of($data['id_extra']);
-    
+
     if($monto_pagado >= $extra['monto_total']){
       $estado = "saldado";
     }else{
       $estado = "activo";
     }
-    
+
     $data_extra = array(
       'monto_pagado'  => $monto_pagado,
       'deuda'         => $extra['monto_total'] - $monto_pagado,
       'ultimo_pago'   => $ultimo_pago,
       'estado'        => $estado
     );
-    
+
     $this->update_extra($data_extra,$data['id_extra']);
     $this->db->trans_complete();
 

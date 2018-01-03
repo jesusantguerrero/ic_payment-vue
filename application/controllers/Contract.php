@@ -8,6 +8,7 @@ class Contract extends MY_Controller {
 		$this->load->model('contract_model');
 		$this->load->model('contract_view_model');
 		$this->load->model('service_model');
+		$this->load->model('extra_model');
 		$this->load->model('settings_model');
 		$this->load->model('client_model');
     $this->load->model('cancelations_model');
@@ -177,12 +178,37 @@ class Contract extends MY_Controller {
   public function add_extra(){
 		authenticate();
 		if ($data = $this->get_post_data('data')) {
-      if ($result = add_extra($this, $data)) {
+      switch ($data['modo_pago']) {
+        case 1:
+          $result = $this->contract_model->add_next_payment_extra($data);
+          break;
+        case 2:
+          $result = $this->extra_model->add_extra($data);
+          break;
+        case 3:
+          $result = $this->add_fixed_extra($data);
+          break;
+      }
+
+      if ($result) {
         $this->set_message($result['message']);
+      } else {
+        $this->set_message('error en la transaccion', 'error');
       }
       $this->response_json();
     }
-	}
+  }
+
+  public function add_fixed_extra($data) {
+  $service = $this->service_model->get_service($data['id_servicio']);
+   if ($this->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
+      return ['message' => 'Seguro Agregado'];
+    }
+  }
+
+  public function add_nextpayment_extra() {
+
+  }
 
 	public function delete_extra() {
 		authenticate();

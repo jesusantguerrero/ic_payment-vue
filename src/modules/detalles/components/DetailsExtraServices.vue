@@ -1,6 +1,6 @@
 <template lang="pug">
-  .wrapper
-    DataTable(ids="extra-table", v-if="!visible", :parentId="parentId", :data="extras", :cols="cols", :options="tableOptions", @check-uncheck="selectRow")
+  .my-wrapper
+    DataTable(ids="extra-table", v-if="!visible", :parentId="parentId", :data="extras", :cols="cols", :options="tableOptions")
 
     form.card#app-pago-extra(v-if="visible")
       .row
@@ -57,6 +57,7 @@
 
 
 <script>
+    import swal from 'sweetalert2';
     import DataTable from './../../sharedComponents/DataTable.vue';
     import ExtraStore from './../../extras/store/ExtraStore';
 
@@ -90,6 +91,10 @@
       props: {
         clientId: {
           type: String,
+          required: true
+        },
+        store: {
+          type: Object,
           required: true
         }
       },
@@ -162,9 +167,33 @@
         },
 
         cols() {
+          const extraEvents = {
+            'click .delete-extra': (e, value, row) => {
+              const self = this;
+              swal({
+                title: 'Eliminar Extra',
+                text: '¿Estas seguro de querer eliminar esto?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                  self.deleteExtra(row.id);
+                }
+              });
+            },
+            'click .pay-extra': (e, value, row) => {
+              this.gselectRow(row);
+            }
+          };
+
           const extraStore = new ExtraStore();
           const { colunms } = extraStore;
           colunms.splice(3, 1); // index clientes
+          colunms[0].events = extraEvents;
           return colunms;
         }
       },
@@ -203,6 +232,19 @@
           this.$http.get(`extra/get_all/${this.clientId}`)
             .then((res) => {
               this.extras = res.data.extras;
+              this.store.setActiveExtras(res.data.actives);
+            });
+        },
+
+        deleteExtra(id) {
+          const form = { id, id_cliente: this.clientId };
+          this.$http.post('extra/delete_extra', this.getDataForm(form))
+            .then((res) => {
+              this.showMessage(res.data.message);
+              this.getExtras();
+            })
+            .catch((err) => {
+              this.$toasted.error(err);
             });
         },
 
@@ -302,7 +344,7 @@
             });
         },
 
-        selectRow(name, row) {
+        selectRow(row) {
           this.extra = row;
           this.visible = true;
           this.getPayments(row.id_extra);

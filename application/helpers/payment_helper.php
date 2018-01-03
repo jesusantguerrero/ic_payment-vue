@@ -365,63 +365,6 @@ function reconnect_contract($data, $context){
   $context->contract_model->update($new_data_contract,$data['id_contrato']);
 }
 
-if (! function_exists('add_extra')){
-
-  function add_extra($context,$data_extra){
-    $contract_id = $data_extra['id_contrato'];
-    $contract = $context->contract_model->get_contract_view($contract_id);
-
-    switch ($data_extra['modo_pago']) {
-      case 1:
-        $next_payment = $context->payment_model->get_next_payment_of($contract_id);
-        $service      = $context->service_model->get_service($data_extra['id_servicio']);
-
-        $context->payment_model->set_extra([$service['id_servicio'] => ["servicio" => $service['nombre'], "precio"=> $service['mensualidad']]], $next_payment['id_pago']);
-        $extras = $context->payment_model->get_extras($next_payment['id_pago'], true);
-        $total =  $next_payment['cuota'] + $next_payment['mora'] + $extras['total'];
-
-        $data_contract = array(
-          'router'        => $data_extra['router'],
-          'mac_router'    => $data_extra['mac_router'],
-          'nombre_equipo' => $data_extra['nombre_equipo'],
-          'mac_equipo'    => $data_extra['mac_router']
-        );
-
-        $data_pago = array(
-          'detalles_extra' => $extras['detalles'],
-          'monto_extra'    => $extras['total'],
-          'total'          => $total
-        );
-
-        $context->contract_model->add_extra_service($data_contract, $contract_id, $data_pago, $next_payment['id_pago']);
-        break;
-
-      case 2:
-        $id_empleado = $_SESSION['user_data']['user_id'];
-        $service = $context->service_model->get_service($data_extra['nombre_servicio']);
-
-        $data_extra = array(
-          'id_cliente'   => $contract['id_cliente'],
-          'id_servicio'  => $service['id_servicio'],
-          'id_empleado'  => $id_empleado,
-          'servicio'     => $data_extra['nombre_servicio'],
-          'fecha'        => date('Y-m-d'),
-          'monto_pagado' => 0,
-          'ultimo_pago'  => '',
-          'monto_total'  =>  $data_extra['costo_servicio']
-        );
-        $context->extra_model->add_extra($data_extra);
-        break;
-
-      case 3:
-        if ($context->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
-          return ['message' => 'Seguro Agregado'];
-        }
-        break;
-
-    }
-  }
-}
 
 // dates helper functions
 

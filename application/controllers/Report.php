@@ -61,10 +61,10 @@
 
     public function count_all() {
       $this->load->model('client_model');
+      $this->load->model('contract_view_model');
+
       $res['clients']   = $this->client_model->count_all();
       $res['contracts'] = $this->contract_view_model->count_contracts();
-
-      break;
       $this->response_json($res);
     }
 
