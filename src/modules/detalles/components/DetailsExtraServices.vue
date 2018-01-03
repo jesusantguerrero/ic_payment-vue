@@ -186,7 +186,7 @@
               });
             },
             'click .pay-extra': (e, value, row) => {
-              this.gselectRow(row);
+              this.selectRow(row);
             }
           };
 

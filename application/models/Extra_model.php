@@ -40,7 +40,8 @@ class Extra_model extends CI_MODEL{
       'fecha'        => date('Y-m-d'),
       'monto_pagado' => 0,
       'ultimo_pago'  => '',
-      'monto_total'  =>  $data['costo_servicio']
+      'deuda'        => $data['costo_servicio'],
+      'monto_total'  => $data['costo_servicio']
     ];
 
     if ($this->db->insert('ic_servicios_extra', $data_extra)) {
