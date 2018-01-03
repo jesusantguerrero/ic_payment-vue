@@ -408,15 +408,6 @@ function make_users_list($data){
     return $html_text;
 }
 
-function make_extra_payment_list($data){
-  $html_text = "";
-  foreach ($data as $line) {
-    $html_text .= "<option value='{$line['id_pago']}' data-extra='{$line['id_extra']}'>";
-    $html_text .= "{$line['concepto']}</option>";
-  }
-  return $html_text;
-}
-
 function make_next_payments_list($data){
   $html_text = " ";
   $link;

@@ -114,25 +114,22 @@ class Extra_model extends CI_MODEL{
       'fecha_limite'=> ''
     );
 
-    if($this->db->insert('ic_pagos',$data_extra)){
-      $response['mensaje'] = "Pago Generado";
-      $response['pagos'] = $this->get_all_of_extra($data['id_extra']);
-    }else{
-      $response['mensaje'] = "error al guardar pago";
-    }
-    echo json_encode($response);
-
+    return $this->db->insert('ic_pagos',$data_extra);
   }
 
   public function delete_generated_payment($id_extra,$data){
 
   }
 
-  public function get_all_of_extra($id_extra){
-    $this->db->where('id_extra',$id_extra);
+  public function get_all_of_extra($id_extra, $fields = false){
+    if ($fields) {
+      $this->db->select($fields);
+    }
+    $this->db->where('id_extra', $id_extra);
     $this->db->order_by('id_pago',"DESC");
-    $result = $this->db->get('ic_pagos');
-    return make_extra_payment_list($result->result_array(),0);
+    if ($result = $this->db->get('ic_pagos')) {
+      return $result->result_array();
+    }
   }
 
   public function get_extra($id_extra){
@@ -141,14 +138,14 @@ class Extra_model extends CI_MODEL{
     return $result->result_array()[0];
   }
 
-  public function apply_payment($data,$info){
+  public function apply_payment($data, $info){
     $extra = $this->get_extra($info['id_extra']);
 
     $this->db->trans_start();
-    $this->payment_model->update($data,$info['id_pago']);
+    $this->payment_model->update($data, $info['id_pago']);
     $monto_pagado = $this->get_monto_pagado_of($info['id_extra']);
     $deuda = $extra['monto_total'] - $monto_pagado;
-    $this->payment_model->update(['deuda' => $deuda],$info['id_pago']);
+    $this->payment_model->update(['deuda' => $deuda], $info['id_pago']);
 
     if($monto_pagado >= $extra['monto_total']){
       $estado = "saldado";
@@ -156,24 +153,17 @@ class Extra_model extends CI_MODEL{
       $estado = "activo";
     }
 
-    $data_extra = array(
+    $data_extra = [
       'monto_pagado'  => $monto_pagado,
       'deuda'         => $extra['monto_total'] - $monto_pagado,
       'ultimo_pago'   => $data['fecha_pago'],
       'estado'        => $estado
-    );
+    ];
 
     $this->update_extra($data_extra,$info['id_extra']);
     $this->db->trans_complete();
 
-    if($this->db->trans_status() === false){
-      $response['mensaje'] = MESSAGE_ERROR. "No se ha podido registrar el pago";
-    }else{
-      $response['mensaje'] = MESSAGE_SUCCESS. " Pago realizado con exito";
-      $response['extras'] = $this->get_all_of_client($extra['id_cliente']);
-    }
-
-    echo json_encode($response);
+    return $this->db->trans_status();
   }
 
   public function delete_payment($data){
@@ -192,24 +182,17 @@ class Extra_model extends CI_MODEL{
       $estado = "activo";
     }
 
-    $data_extra = array(
+    $data_extra = [
       'monto_pagado'  => $monto_pagado,
       'deuda'         => $extra['monto_total'] - $monto_pagado,
       'ultimo_pago'   => $ultimo_pago,
       'estado'        => $estado
-    );
+    ];
 
     $this->update_extra($data_extra,$data['id_extra']);
     $this->db->trans_complete();
 
-    if($this->db->trans_status() === false){
-      $response['mensaje'] = MESSAGE_ERROR. " No se ha podido registrar el pago";
-    }else{
-      $response['mensaje'] = MESSAGE_INFO. " Pago Eliminado con exito";
-      $response['extras'] = $this->get_all_of_client($extra['id_cliente']);
-    }
-
-    echo json_encode($response);
+    return $this->db->trans_status();
   }
 
   public function get_monto_pagado_of($id_extra){
@@ -224,6 +207,13 @@ class Extra_model extends CI_MODEL{
     $this->db->select('fecha_pago');
     $this->db->order_by('fecha_pago',"DESC");
     return $this->db->get('ic_pagos',1)->row_array()['fecha_pago'];
+  }
+
+  public function is_valid_amount($data, $info, $mode = false) {
+    $extra = $this->get_extra($info['id_extra']);
+    $payment = $this->payment_model->get_payment($info['id_pago']);
+    $deuda = ($mode == 'edit' ? $extra['deuda'] + $payment['cuota']: $extra['deuda']);
+    return !($data['cuota'] > $deuda || $data['cuota'] == 0);
   }
 
 }

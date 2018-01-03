@@ -25,20 +25,6 @@ class Extra extends MY_Controller {
     }
 	}
 
-	public function get_extra_payment_of(){
-		authenticate();
-		if ($_POST){
-			if(isset($_POST['data'])){
-				$data = json_decode($_POST['data'],true);
-			}else{
-				$data = json_decode($_POST,true);
-			}
-
-				$res['pagos'] = $this->extra_model->get_all_of_extra($data['id_extra']);
-				echo json_encode($res);
-		}
-	}
-
 	public function get_all($client_id = null) {
 		authenticate();
 		$data = $this->get_post_data('data');
@@ -53,43 +39,85 @@ class Extra extends MY_Controller {
 
   // extra payments
 
+  public function get_extra_payments(){
+		authenticate();
+		if ($data = $this->get_post_data('data')){
+			$res['payments'] = $this->extra_model->get_all_of_extra($data['id_extra'], 'id_pago, concepto');
+			$this->response_json($res);
+		}
+  }
+
 	public function get_payment(){
 		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$res["recibo"] = $this->payment_model->get_payment($data["id_pago"]);
-		echo json_encode($res);
+		if ($data = $this->get_post_data('data')) {
+      $res["payment"] = $this->payment_model->get_payment($data["id_pago"]);
+      $this->response_json($res);
+    }
 	}
 
 	public function apply_payment(){
-		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$info = json_decode($_POST['info'],true);
-		if (!$this->payment_model->check_for_update($info['id_pago'])){
-			$res['mensaje'] = MESSAGE_INFO.' Este pago ya ha sido realizado';
-			echo json_encode($res);
-		} else {
-			$this->extra_model->apply_payment($data,$info);
-		}
+    authenticate();
+    $info = $this->get_post_data('info');
+    $data = $this->get_post_data('data');
+    if ($info && $data ) {
+      if (!$this->payment_model->check_for_update($info['id_pago'])) {
+        $this->set_message('Este pago ya ha sido realizado', 'info');
+      } else if (!$this->extra_model->is_valid_amount($data, $info)) {
+        $this->set_message('este monto es mayor a la deuda o igual a cero', 'info');
+      } else {
+        if ($this->extra_model->apply_payment($data, $info)) {
+          $this->set_message('Pagado');
+          $this->res['id_pago'] = $info['id_pago'];
+        } else {
+          $this->set_message('error al realizar pago', '');
+        }
+      }
+      $this->response_json();
+    }
 	}
 
 	public function edit_payment() {
 		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$info = json_decode($_POST['info'],true);
-		if (!$this->payment_model->check_for_update($info['id_pago']) && $data){
-			 $this->extra_model->apply_payment($data,$info);
-		}
+		$info = $this->get_post_data('info');
+    $data = $this->get_post_data('data');
+    if ($info && $data ) {
+      if ($this->payment_model->check_for_update($info['id_pago']) && $data){
+        $this->set_message('Este pago aun no se ha realizado para editarse', 'info');
+      } else if (!$this->extra_model->is_valid_amount($data, $info, 'edit')) {
+        $this->set_message('este monto es mayor a la deuda o igual a cero', 'info');
+      } else {
+			   if ($this->extra_model->apply_payment($data,$info)) {
+          $this->set_message('Editado');
+          $this->res['id_pago'] = $info['id_pago'];
+         } else {
+          $this->set_message('error al editar pago', '');
+         }
+      }
+      $this->response_json();
+    }
 	}
 
 	public function delete_payment(){
 		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$this->extra_model->delete_payment($data);
+    if ($data = $this->get_post_data('data')) {
+      if ($this->extra_model->delete_payment($data)) {
+        $this->set_message('eliminado');
+      } else {
+        $this->set_message('error al eliminar pago', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
 	public function generate_extra_payment(){
-		authenticate();
-		$data = json_decode($_POST['data'],true);
-		$this->extra_model->generate_extra_payment($data);
+    authenticate();
+    if ($data = $this->get_post_data('data')) {
+      if ($this->extra_model->generate_extra_payment($data)) {
+        $this->set_message('Pago generado');
+      } else {
+        $this->set_message('error al generar pago', 'error');
+      }
+      $this->response_json();
+    }
 	}
 }
