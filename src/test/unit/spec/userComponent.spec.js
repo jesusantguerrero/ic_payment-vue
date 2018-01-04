@@ -1,5 +1,7 @@
 import avoriaz from 'avoriaz';
 import $ from 'jquery';
+import App from './../../../modules/app/index';
+import AdminSection from './../../../modules/administrador/AdminSection.vue';
 import UsersSection from './../../../modules/administrador/components/UsersSection.vue';
 
 const admin = `

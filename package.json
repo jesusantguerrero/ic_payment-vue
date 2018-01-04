@@ -1,10 +1,10 @@
 {
   "name": "icpayment",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Programa de facturacion y administracion de ISP",
   "main": "gulpfile.js",
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 8.0.0",
     "npm": ">= 3.0.0"
   },
   "devDependencies": {
@@ -106,11 +106,12 @@
     "dev": "node webpack/build/dev-server.js",
     "start": "webpack --progress --watch",
     "build": "node webpack/build/build.js && gulp sass && gulp final-compress",
+    "heroku-postbuild": "node webpack/build/build.js && gulp sass && gulp final-compress",
     "unit": "cross-env BABEL_ENV=test karma start src/test/unit/spec/support/karma.conf.js --single-run",
     "e2e": "testcafe chrome src/test/e2e/specs",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue webpack/src webpack/test/unit/specs webpack/test/e2e/specs",
-    "heroku": "git push heroku heroku:master && heroku scale web=1 && heroku open",
+    "heroku": "git push heroku feature/enviroments:master -f && heroku scale web=1 && heroku open",
     "gulp": "gulp"
   },
   "repository": {
@@ -118,7 +119,7 @@
     "url": "git+https://gitlab.com/freesgen1/icpayment.git"
   },
   "author": "Jesus Guerrero",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://gitlab.com/freesgen1/icpayment/issues"
   },
@@ -136,5 +137,10 @@
     "sweetalert2": "7.0.7",
     "vue": "2.5.8",
     "vue-toasted": "1.1.24"
-  }
+  },
+  "keywords": [
+    "vuejs",
+    "administration",
+    "isp"
+  ]
 }
