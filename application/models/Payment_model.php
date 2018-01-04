@@ -78,7 +78,7 @@ class Payment_model extends CI_MODEL{
     return false;
   }
 
-  public function check_for_update($id_pago){
+  public function is_paid($id_pago){
     $sql = "SELECT estado from ic_pagos where id_pago =".$id_pago;
     $result = $this->db->query($sql);
     $result = $result->row_array()['estado'];
@@ -96,7 +96,7 @@ class Payment_model extends CI_MODEL{
   }
 
   // Contract related options
-  public function get_payments_of_contract($id_contrato, $mode= false){
+  public function get_payments($id_contrato, $mode = false){
     if ($mode == 'list') {
       $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
     } else if ($mode == 'table') {
@@ -121,16 +121,7 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function count_unpaid_per_contract($id_contrato){
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->where('estado','no pagado');
-    $result = $this->db->count_all_results('ic_pagos');
-    if ($result){
-      return $result;
-    } else{
-    return 0;
-    }
-  }
+
 
   public function count_of_contract($id_contrato = null){
     if($id_contrato == null){
@@ -145,7 +136,7 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function get_last_pay_of($id_contrato){
+  public function get_last_paid($id_contrato){
     $sql = "SELECT * FROM ic_pagos WHERE id_contrato = $id_contrato and concepto not like '%abono%' order by id_pago desc limit 1";
     $result = $this->db->query($sql);
     if($result){
@@ -155,13 +146,25 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function get_unpaid_per_contract($id_contrato){
+  public function get_unpaid($id_contrato, $mode){
     $this->db->where('id_contrato',$id_contrato);
     $this->db->where('estado','no pagado');
-    $result = $this->db->get('ic_pagos');
-    if($result){
-      return $result->result_array();
+    if ($mode == 'count') {
+      $result = $this->db->count_all_results('ic_pagos');
+      return ($result ? $result : 0);
+    } else {
+      if($result = $this->db->get('ic_pagos')){
+        return $result->result_array();
+      }
     }
+  }
+
+  public function get_sum_monto_total_of($id_contrato){
+    $this->db->where('id_contrato',$id_contrato);
+    $this->db->select_sum('cuota');
+    $monto_total = $this->db->get('ic_pagos',1)->row_array()['cuota'];
+    return $monto_total;
+
   }
 
   // Extra column related
@@ -303,6 +306,7 @@ class Payment_model extends CI_MODEL{
     return $result->result_array();
   }
 
+  // home
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
     $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
     if($result = $this->db->query($sql)):
@@ -319,14 +323,6 @@ class Payment_model extends CI_MODEL{
     $result = $this->db->query($sql)->result_array();
     $result = make_next_payments_list($result);
     echo $result;
-  }
-
-  public function get_sum_monto_total_of($id_contrato){
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->select_sum('cuota');
-    $monto_total = $this->db->get('ic_pagos',1)->row_array()['cuota'];
-    return $monto_total;
-
   }
 
 }

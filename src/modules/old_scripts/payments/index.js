@@ -7,14 +7,6 @@ export default class payments {
     handlers(this);
   }
 
-  getAll() {
-    const id = $('#select-contract').val();
-    if (id != null) {
-      const form = `tabla=pagos&id=${id}`;
-      connectAndSend('process/getall', false, null, paymentTable.refresh, form, Payments.contractRefresh);
-    }
-  }
-
   update(id) {
     const date = moment().format('YYYY-MM-DD');
     const idContrato = $('#select-contract').val();
@@ -36,11 +28,6 @@ export default class payments {
 
   saveExtra() {
     axios.post(`${BASE_URL}process/`);
-  }
-
-  removePayment(id) {
-    const form = `tabla=deshacer_pago&id_pago=${id}`;
-    connectAndSend('process/update', true, null, null, form, Payments.getAll);
   }
 
   contractRefresh() {

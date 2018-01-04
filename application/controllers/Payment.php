@@ -7,6 +7,40 @@ class Payment extends MY_Controller {
 		$this->load->model('settings_model');
 	}
 
+  public function get_payments($mode){
+		authenticate();
+		if ($data = $this->get_post_data('data')){
+			$res['payments'] = $this->payment_model->get_payments($data['id_contrato'], $mode);
+			$this->response_json($res);
+		}
+  }
+
+	public function get_payment(){
+		authenticate();
+		if ($data = $this->get_post_data('data')) {
+      $res["payment"] = $this->payment_model->get_payment($data["id_pago"]);
+      $res['settings'] = $this->settings_model->get_settings();
+      $this->response_json($res);
+    }
+  }
+
+  public function delete_payment(){
+    if(!$this->is_day_closed() && $data = $this->get_post_data('data')){
+      if(!$this->payment_model->is_paid($data['id_pago'])){
+        $this->db->trans_start();
+        cancel_payment($data['id_pago'],$this);
+        $this->db->trans_complete();
+        if($this->db->trans_status() === false){
+          $this->db->trans_rollback();
+          $this->set_message("No Pudo deshacerse el Pago");
+        }
+      }else{
+        $this->set_message("Este pago no ha sido realizado para deshacerse");
+      }
+      $this->response_json();
+    }
+  }
+
   public function get_receipts() {
 		authenticate();
 		$data = $this->get_post_data('data');

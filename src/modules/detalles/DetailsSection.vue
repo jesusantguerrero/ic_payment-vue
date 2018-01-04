@@ -50,7 +50,7 @@
             .tab-pane.fade.in.detail-panel#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
 
             .tab-pane.fade.in.detail-panel#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
-
+              DetailsPayment(:clientId="clientId",:store="store" )
             .tab-pane.fade.in#abonos(role="tabpanel", :class="{active : activeTab == 'abonos'}")
 
             .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
@@ -64,7 +64,9 @@
   import DetailsProfile from './components/DetailsProfile.vue';
   import DetailsObservations from './components/DetailsObservations.vue';
   import DetailsExtraServices from './components/DetailsExtraServices.vue';
+  import DetailsPayment from './components/DetailsPayment.vue';
   import DetailsStore from './store/DetailsStore';
+  import utils from './../sharedComponents/utils';
 
   const store = new DetailsStore();
 
@@ -80,7 +82,8 @@
     components: {
       DetailsProfile,
       DetailsObservations,
-      DetailsExtraServices
+      DetailsExtraServices,
+      DetailsPayment
     },
 
     data() {
@@ -94,6 +97,7 @@
     mounted() {
       this.getClient();
       this.activeTab = this.activeWindow;
+      utils.spyLeftNavigation();
     },
     computed: {
       initials() {

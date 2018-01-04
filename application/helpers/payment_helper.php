@@ -132,7 +132,7 @@ if (! function_exists('cancel_abono')){
     if($abono_owner['estado'] != 'pagado'){
 
       $context->db->query('delete from ic_pagos where id_pago='.$abono['id_pago']);
-      $last_payment = $context->payment_model->get_last_pay_of($abono['id_contrato']);
+      $last_payment = $context->payment_model->get_last_paid($abono['id_contrato']);
 
       $new_cuota = $abono_owner['cuota'] + $total;
       $updated_payment = array(
@@ -303,7 +303,7 @@ if (! function_exists('cancel_contract')){
 function extend_contract($data, $context){
     $contract_id = $data['id_contrato'];
 
-    $last_payment = $context->payment_model->get_last_pay_of($contract_id);
+    $last_payment = $context->payment_model->get_last_paid($contract_id);
     $next_payment_date = new DateTime($last_payment['fecha_limite']);
     $next_payment_date = get_next_date($next_payment_date);
     $contract = $context->contract_model->get_contract_view($contract_id);

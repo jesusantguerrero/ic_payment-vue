@@ -239,8 +239,8 @@ function make_extra_table($data,$start_at, $full = false){
       }else {
         $html_text .= "
           <td>
-            <i class='material-icons delete-extra'>delete</i>
-            <i class='material-icons pay-extra'>payment</i>
+            <i class='material-icons btn-action delete-extra'>delete</i>
+            <i class='material-icons btn-action pay-extra'>payment</i>
           </td>";
       }
 
@@ -450,7 +450,10 @@ if ( ! function_exists('make_payment_table')){
         $is_abono = is_abono($line['concepto']);
 
         $html_text .= "<tr>
-        <td><a href='#' class='payment-delete' data-id-pago='".$line['id_pago']."'><i class='material-icons'>delete</i></a></td>
+        <td>
+          <i class='material-icons btn-action delete-payment'>delete</i>
+          <i class='material-icons btn-action pay-payment'>payment</i>
+        </td>
         <td class='hide'>".$line['id_pago']."</td>
         <td class='hide'></td>
         <td class='$is_abono'>".$line['concepto']."</td>
@@ -467,7 +470,6 @@ if ( ! function_exists('make_payment_table')){
           endif;
         $html_text .="</td>
         <td> class='hide'".$line['id_contrato']."</td>
-        <td><a href='#' class='payment-advanced' data-id-pago='".$line['id_pago']."'><i class='material-icons'>add</i></a></td>
         </tr>";
     }
 

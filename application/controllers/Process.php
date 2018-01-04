@@ -39,7 +39,7 @@ class Process extends CI_Controller {
 				break;
 			case "pagos":
 				if (!$this->is_day_closed()) {
-					$was_correct = $this->payment_model->check_for_update($data['id']);
+					$was_correct = $this->payment_model->is_paid($data['id']);
 					if($was_correct){
 						$id_contrato = $data['id_contrato'];
 						refresh_contract($id_contrato,$this,$data);
@@ -48,27 +48,9 @@ class Process extends CI_Controller {
 					}
 				}
 				break;
-
-			case "deshacer_pago":
-			  if(!$this->is_day_closed()){
-					$was_correct = $this->payment_model->check_for_update($data['id_pago']);
-					if(!$was_correct){
-						$this->db->trans_start();
-						cancel_payment($data['id_pago'],$this);
-						$this->db->trans_complete();
-						if($this->db->trans_status() === false){
-							$this->db->trans_rollback();
-							echo MESSAGE_ERROR." No Pudo deshacerse el Pago";
-						}
-					}else{
-						echo MESSAGE_INFO." Este pago no ha sido realizado para deshacerse";
-					}
-				}
-        break;
-
 			case "discount_pagos":
 			  if (!$this->is_day_closed()) {
-					$was_correct = $this->payment_model->check_for_update($data['id_pago']);
+					$was_correct = $this->payment_model->is_paid($data['id_pago']);
 					if($was_correct){
 						$this->db->trans_start();
 						payment_discount($data,$this);
@@ -128,21 +110,6 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function getone(){
-		authenticate();
-		$tabla = $_POST['tabla'];
-		switch ($tabla) {
-			case "pagos":
-				$result['pago'] 		= $this->payment_model->get_payment($_POST['id_pago']);
-				$result['settings'] = $this->settings_model->get_settings();
-				if($result){
-					echo json_encode($result);
-				}else{
-					echo "nada";
-				}
-				break;
-		}
-	}
 
 	public function count(){
 		authenticate();
@@ -197,7 +164,7 @@ class Process extends CI_Controller {
 		$contract = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['contrato'] = $contract;
 		$requirement_info['cliente'] 	= $this->client_model->get_client($contract['id_cliente']);
-		$requirement_info['pago']	= $this->payment_model->get_last_pay_of($contract_id);
+		$requirement_info['pago']	= $this->payment_model->get_last_paid($contract_id);
 		if (!$end) {
 			$requirement_info['cancelacion']	= $this->contract_model->get_cancelation($contract_id);
 			$endpoint = 'app/imprimir/cancelacion';

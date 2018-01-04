@@ -1,3 +1,4 @@
+import swal from 'sweetalert2';
 import utils from './utils';
 
 export default (Vue, Toasted, axios) => {
@@ -32,6 +33,19 @@ export default (Vue, Toasted, axios) => {
           splash.classList.add('hide');
           document.querySelector('header').classList.remove('loading');
         }
+      },
+
+      deleteConfirmation(title, message, confirmText = 'Eliminar', cancelText = 'Cancelar') {
+        return swal({
+          title,
+          text: message,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: confirmText,
+          cancelButtonText: cancelText
+        });
       }
     },
 
@@ -47,4 +61,5 @@ export default (Vue, Toasted, axios) => {
   });
 
   Vue.prototype.$http = $http;
+  Vue.prototype.$swal = swal;
 };

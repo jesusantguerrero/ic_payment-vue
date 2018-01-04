@@ -98,13 +98,17 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function get_contracts($id_cliente, $json = false){
-    $this->db->select('v_contratos.*, ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
-    $this->db->where('id_cliente',$id_cliente);
+  public function get_contracts($id_cliente, $mode = null){
+    $this->db->where('id_cliente', $id_cliente);
     $this->db->order_by('id_contrato');
-    $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio', 'LEFT');
+    if ($mode == 'dropdown') {
+      $this->db->select('id_contrato');
+    } else {
+      $this->db->select('v_contratos.*, ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
+      $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio', 'LEFT');
+    }
     if ($result = $this->db->get('v_contratos')){
-      if (!$json) {
+      if ($mode == 'table') {
         echo make_contract_table($result->result_array(),0);
       } else {
         return $result->result();
@@ -253,13 +257,6 @@ class Contract_model extends CI_MODEL{
 
 
   //  complex transactions
-  public function get_contracts_dropdown($id_cliente){
-    $sql = "SELECT * FROM ic_contratos WHERE id_cliente = $id_cliente ORDER BY id_contrato desc";
-    $result = $this->db->query($sql);
-    $result = make_contract_dropdown($result->result_array(),0);
-    echo $result;
-  }
-
   public function refresh_contract($data_pago, $data_contrato, $current_contract){
     $id_empleado = $_SESSION['user_data']['user_id'];
     $update_pago = array(
@@ -293,7 +290,7 @@ class Contract_model extends CI_MODEL{
 
   public function upgrade_contract($data){
     $contract = $this->contract_model->get_contract_view($data['id_contrato']);
-    $pagos_restantes = $this->payment_model->count_unpaid_per_contract($data['id_contrato']);
+    $pagos_restantes = $this->payment_model->get_unpaid($data['id_contrato'], 'count');
     $monto_total = $contract['monto_pagado'] + ($data['cuota'] * $pagos_restantes);
 
     $data_contract = array(

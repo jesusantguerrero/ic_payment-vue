@@ -16,7 +16,7 @@ class Extra_model extends CI_MODEL{
     parent::__construct();
   }
 
-  public function get_last_pay_of($id_extra){
+  public function get_last_paid($id_extra){
     $sql = "SELECT * FROM ic_pagos WHERE id_extra = $id_extra and concepto not like '%abono%' order by fecha_pago desc limit 1";
     $result = $this->db->query($sql);
     if($result){

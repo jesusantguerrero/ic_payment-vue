@@ -21,7 +21,7 @@ class Contract extends MY_Controller {
     if ($data) {
       if ($contract_id = $this->contract_model->add($data)) {
         $this->set_message('Contrato creado');
-        $this->res['payments'] = $this->payment_model->get_payments_of_contract($contract_id, 'list');
+        $this->res['payments'] = $this->payment_model->get_payments($contract_id, 'list');
         $this->res['contract'] = $contract_id;
       } else {
         $this->set_message('El contrato no pudo ser creado correctamente');
@@ -30,11 +30,10 @@ class Contract extends MY_Controller {
     }
 	}
 
-	public function get_contracts($mode = null, $id = null) {
+	public function get_contracts($id = null, $mode = null) {
     authenticate();
-
 		if ($mode && $id) {
-				$res['contracts'] = $this->contract_model->get_all_of_client($id);
+				$res['contracts'] = $this->contract_model->get_contracts($id, $mode);
 			} else {
 				$res['contracts'] = $this->contract_view_model->get_contract_view('activo');
     }
@@ -200,8 +199,8 @@ class Contract extends MY_Controller {
   }
 
   public function add_fixed_extra($data) {
-  $service = $this->service_model->get_service($data['id_servicio']);
-   if ($this->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
+    $service = $this->service_model->get_service($data['id_servicio']);
+    if ($this->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
       return ['message' => 'Seguro Agregado'];
     }
   }

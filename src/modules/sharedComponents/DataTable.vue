@@ -58,7 +58,7 @@
         this.table.bootstrapTable({
           columns: self.cols,
           sortOrder: 'asc',
-          search: 'true',
+          search: self.options.search || true,
           toolbar: self.toolbar,
           showRefresh: false,
           showColumns: false,

@@ -42,6 +42,9 @@
         .input-group
           span.input-group-addon Casa #
           input(type="text", class="form-control", :value="client.casa", disabled="true")
+      .col-md-12
+        .form-group
+          textarea.form-control( rows="5" required="required") {{ client.detalles_direccion }}
 
 </template>
 

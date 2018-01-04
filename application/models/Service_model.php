@@ -112,7 +112,7 @@ class Service_model extends CI_MODEL{
 
     foreach ($contracts as $contract) {
       $contract_id = $contract['id_contrato'];
-      $pagos_restantes = $this->payment_model->count_unpaid_per_contract($contract_id);
+      $pagos_restantes = $this->payment_model->get_unpaid($contract_id, 'count');
       $monto_total = $contract['monto_pagado'] + ($data_cambio['mensualidad'] * $pagos_restantes);
 
       $data_contract = array(
@@ -120,7 +120,7 @@ class Service_model extends CI_MODEL{
       );
 
       $this->db->where('id_contrato',$contract_id);
-      $payments = $this->payment_model->get_unpaid_per_contract($contract_id);
+      $payments = $this->payment_model->get_unpaid($contract_id);
 
       foreach ($payments as $payment) {
         $total = $data_cambio['mensualidad'] + $payment['mora'] + $payment['monto_extra'];
