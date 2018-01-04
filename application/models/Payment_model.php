@@ -196,12 +196,14 @@ class Payment_model extends CI_MODEL{
     return $this->update(["servicios_adicionales" => $extras], $id_pago);
   }
 
-  public function set_extra($new_extra, $id_pago) { // [ id_extra => ["servicio" => 'reconexion', "precio => 2000]]
+  public function set_extra($new_extra, $id_pago) { // [ id_extra => [id_extra => 'id_extra", servicio" => 'reconexion', "precio => 2000]]
     $extras = $this->get_extras($id_pago);
+    $key = join('', array_keys($new_extra));
+    $new_extra['id_servicio'] = $key;
+
     if (!$extras){
       $extras = $new_extra;
     } else {
-      $key = join('',array_keys($new_extra));
       $extras[$key] = $new_extra[$key];
     }
     return $this->save_extras($extras, $id_pago);

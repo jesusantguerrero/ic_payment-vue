@@ -1,6 +1,6 @@
 <template lang="pug">
   .form-group
-    label(for="client-provincia") Servicio
+    label(for="client-provincia") {{ title }}
     select.form-control#select-extra-service(type="text", v-model="serviceId", @change="select")
       option(:value="service.id_servicio" ,v-for="service of serviceList") {{ service.nombre }}
 </template>
@@ -16,7 +16,11 @@
         type: String,
         default: 'reparacion'
       },
-      value: String
+      value: String,
+      title: {
+        type: String,
+        default: 'Servicio'
+      }
     },
     data() {
       return {

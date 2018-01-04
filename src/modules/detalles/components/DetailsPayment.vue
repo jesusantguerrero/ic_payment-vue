@@ -19,7 +19,7 @@
           input(type="text" class="form-control" id="validationCustom02" v-model="payment.concepto", disabled="true")
         .col-md-6.mb-3
           label(for="validationCustom01") Detalle
-          input(type="text" class="form-control", v-model="payment.detalle_extra", disabled="true")
+          input(type="text" class="form-control", v-model="payment.detalles_extra", disabled="true")
 
       .row
         .col-md-6.mb-3
@@ -31,7 +31,7 @@
       .row
         .col-md-3.mb-3
           label(for="validationCustom03") Cuota
-          input(type="number" class="form-control" id="validationCustom03" v-model="payment.cuota",disabled="true")
+          input(type="number" class="form-control" id="validationCustom03" v-model="cuota",disabled="true")
         .col-md-3.mb-3
           label(for="validationCustom03") Mora
           input(type="number" class="form-control" id="validationCustom03" v-model="payment.mora",disabled="true")
@@ -40,7 +40,7 @@
           input(type="number" class="form-control" id="validationCustom03" v-model="payment.monto_extra",disabled="true")
         .col-md-3.mb-3
           label(for="validationCustom03") Total
-          input(type="number" class="form-control" id="validationCustom03" v-model="payment.cuota",disabled="true")
+          input(type="number" class="form-control" id="validationCustom03" v-model="total",disabled="true")
       .row
         .col-md-3.mb-3
           label(for="validationCustom05") Aplicar Mora
@@ -57,7 +57,7 @@
         .col-md-3.mb-3
           label Recibo
           br
-          p(:class="{hide: isPaid}")
+          p(v-if="isPaid")
             a(target="printframe" :href="url_receipt"): i.material-icons description
             | {{payment.estado}}
 
@@ -65,13 +65,10 @@
         .col-md-3.mb-3
           label(for="validationCustom05") Eliminar Extras
           select(type="text" class="form-control" id="validationCustom05" v-model="payment.tipo")
-            option(value="efectivo") Efectivo
+            option(v-for="item of aditionalServices",:key="item.id_servicio", :value="item.id_servicio") {{ item.servicio }}
             option(value="banco") Banco
         .col-md-3.mb-3
-          label(for="validationCustom05") Agregar Extras
-          select(type="text" class="form-control" id="validationCustom05" v-model="payment.tipo")
-            option(value="efectivo") Efectivo
-            option(value="banco") Banco
+          ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extraSelected", @change="setExtra")
         .col-md-3.mb-3
           button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePayment") Eliminar Pago
         .col-md-3.mb-3(v-if="!isPaid")
@@ -83,10 +80,12 @@
 
 <script>
     import DataTable from './../../sharedComponents/DataTable.vue';
+    import ServiceSelector from './../../sharedComponents/ServiceSelector.vue';
 
     export default {
       components: {
-        DataTable
+        DataTable,
+        ServiceSelector
       },
       props: {
         clientId: {
@@ -100,18 +99,7 @@
       },
       data() {
         return {
-          extra: {
-            controls: '',
-            id_extra: '',
-            id_servicio: '',
-            checkbox: '',
-            fecha: '',
-            concepto: '',
-            ultimo_pago: '',
-            monto_pagado: '',
-            monto_total: '',
-            estado: ''
-          },
+          extraSelected: null,
           extras: '',
           parentId: '#client-table-container',
           tableOptions: {
@@ -157,10 +145,6 @@
           return `${baseURL}process/getrecibo/${this.payment.id_pago}`;
         },
 
-        hide_receipt() {
-          return (this.payment.estado === 'pagado');
-        },
-
         isPaid() {
           return (this.payment.estado === 'pagado');
         },
@@ -185,8 +169,7 @@
         },
 
         total() {
-          const { mora, montoExtra } = this.payment;
-          return this.cuota + mora + montoExtra;
+          return this.cuota + this.payment.mora + this.payment.monto_extra;
         },
 
         cols() {
@@ -373,6 +356,19 @@
 
         selectPayment() {
           this.getPayment(this.selectedPayment);
+        },
+
+        setExtra(idExtraService) {
+          const form = { key: idExtraService, id_pago: this.payment.id_pago };
+          this.$http.post('payment/set_extra', this.getDataForm(form))
+            .then((res) => {
+              this.showMessage(res.data.message);
+              this.getPayment(this.payment.id_pago);
+              this.extraSelected = null;
+            })
+            .catch((err) => {
+              this.$toasted.error(err);
+            });
         }
       }
     };

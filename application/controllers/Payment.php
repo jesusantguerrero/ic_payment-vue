@@ -74,19 +74,21 @@ class Payment extends MY_Controller {
 
 	public function set_extra() {
 		authenticate();
-		$data = $this->get_post_data('data');
-		if ($data) {
+		if ($data = $this->get_post_data('data')) {
 			$settings = $this->settings_model->get_settings();
 			if ($data['key'] == 0) {
 				$new_extra = [0 => ["servicio" => "Reconexion", "precio" => $settings['reconexion']]];
+			} else {
+        $service = $data['key'];
+				$new_extra = [$service['id_servicio'] => ['servicio' => $service['nombre'], 'precio' => $service['mensualidad']]];
 			}
 			if ($this->payment_model->set_extra($new_extra, $data['id_pago'])) {
 				$this->payment_model->reorganize_values($data['id_pago']);
-				$res['mensaje'] = MESSAGE_SUCCESS . "Reconexion Aplicada(o)";
+				$this->set_message('Reconexion Aplicada(o)');
 			} else {
-				$res['mensaje'] = MESSAGE_ERROR . "Error al eliminar este servicio y/o reconexion";
+				$this->set_message('Error al eliminar este servicio y/o reconexion', 'error');
 			}
-			echo json_encode($res);
+			$this->response_json();
 		}
 	}
 

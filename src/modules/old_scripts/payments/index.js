@@ -36,34 +36,7 @@ export default class payments {
     connectAndSend('process/getall', false, null, detailsContractTable.refresh, form, null);
   }
 
-  getOne(idPago) {
-    const self = this;
-    const form = `tabla=pagos&id_pago=${idPago}`;
-    axios.post(`${BASE_URL}process/getone`, form)
-      .then((res) => {
-        self.receiveForEdit(res.data);
-      });
-  }
-
   receiveForEdit(data) {
-    const self = Payments;
-    const { pago, settings } = data;
-    self.idContrato = pago.id_contrato;
-    self.idPago = pago.id_pago;
-    const $concepto = $('#payment-concept');
-    const $fechaLimite = $('#payment-limit-date');
-    const $serviciosExtra = $('#payment-extra-services');
-    const $cuota = $('#payment-cuota');
-    const $mora = $('#payment-mora');
-    const $extra = $('#payment-extra');
-    const $total = $('#payment-total');
-    const $descuento = $('#payment-discount-amount');
-    const $razon = $('#payment-discount-reason');
-    const $modal = $('#advanced-payment');
-    const $cMora = $('#c_mora');
-    const $cReconexion = $('#c_reconexion');
-
-
     function applyDiscount(idPago) {
       const date = moment().format('YYYY-MM-DD');
       const form = `id_pago=${idPago}&id_contrato=${self.idContrato}&cuota=${$cuota.val()}
@@ -192,16 +165,6 @@ export default class payments {
       });
   }
 
-  setExtra(key, idPago) {
-    const form = `data=${JSON.stringify({ key, id_pago: idPago })}`;
-    return axios.post(`${BASE_URL}payment/set_extra`, form)
-      .then((res) => {
-        displayMessage(res.data.mensaje);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   setMora(mora, idPago) {
     const form = `data=${JSON.stringify({ mora, id_pago: idPago })}`;

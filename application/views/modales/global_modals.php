@@ -17,71 +17,7 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="detalles-de-pago">
-              <form action="">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group hide">
-                      <label for="payment-id">ID Pago</label>
-                      <input type="text" class="form-control" id="payment-id" tabindex="1" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="payment-concept">Concepto</label>
-                      <input type="text" class="form-control" id="payment-concept" tabindex="3" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="payment-limit-date">Fecha</label>
-                      <input type="date" class="form-control" id="payment-limit-date" tabindex="8" disabled>
-                    </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group hide">
-                      <label for="payment-contract-id-edit">ID Contrato</label>
-                      <input type="text" class="form-control" id="payment-id-cliente" tabindex="2" disabled>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="payment-extra-services">Servicios Extra</label>
-                      <input type="text" class="form-control" id="payment-extra-services" tabindex="4" disabled>
-                    </div>
-
-                    <div class="form-group">
-                      <label >Opciones</label><br>
-                      <input id="c_mora" class="form-control" type="checkbox"/>
-                      <label for="c_mora" class="inline">Aplicar Mora</label>
-                      <input id="c_reconexion" class="form-control" type="checkbox"/>
-                      <label for="c_reconexion" class="inline">Aplicar Reconexion</label>
-                    </div>
-
-                    <div class="placeholder">...</div>
-                  </div>
-
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label for="payment-cuota">Cuota</label>
-                        <input type="number" class="form-control payment-sumandos" id="payment-cuota"  tabindex="8">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label for="payment-mora">Mora</label>
-                        <input type="number" class="form-control payment-sumandos" id="payment-mora"   tabindex="4">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label for="payment-extra">Monto Extra</label>
-                        <input type="number" class="form-control payment-sumandos" id="payment-extra"   tabindex="8">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label for="payment-total">Total</label>
-                        <input type="number" class="form-control payment-sumandos" id="payment-total"   tabindex="8">
-                      </div>
-                    </div>
-                </div>
-              </form>
 
             </div>
             <div role="tabpanel" class="tab-pane fade in" id="descuentos">
