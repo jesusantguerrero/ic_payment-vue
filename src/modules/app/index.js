@@ -4,9 +4,9 @@ import Toasted from 'vue-toasted';
 import jquery from 'jquery';
 import globals from './../sharedComponents/globals';
 import utils from './../sharedComponents/utils';
-import PettyCashModal from './components/PettyCashModal.vue';
-import MessageModal from './components/MessageModal.vue';
-import TicketModal from './components/TicketModal.vue';
+import PettyCashModal from './components/PettyCashModal';
+import MessageModal from './components/MessageModal';
+import TicketModal from './components/TicketModal';
 import Store from './store/AppStore';
 
 window.jQuery = jquery;
@@ -25,7 +25,7 @@ Vue.component(
 
 Vue.component(
   'AdminSection',
-  () => import(/* webpackChunkName: "administrador" */'./../administrador/adminSection')
+  () => import(/* webpackChunkName: "administrador" */'./../administrador/AdminSection')
 );
 
 Vue.component(

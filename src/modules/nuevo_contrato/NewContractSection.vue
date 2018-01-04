@@ -108,8 +108,8 @@
 
 <script>
   import RouterService from './../secciones/service/routerService';
-  import SelectClient from './../sharedComponents/SelectClient.vue';
-  import InternetPlans from './../sharedComponents/InternetPlans.vue';
+  import SelectClient from './../sharedComponents/SelectClient';
+  import InternetPlans from './../sharedComponents/InternetPlans';
   import utils from './../sharedComponents/utils';
 
   const Service = new RouterService();

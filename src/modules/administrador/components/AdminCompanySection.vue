@@ -38,7 +38,7 @@
 
 <script>
   import axios from 'axios';
-  import PhoneInput from './../../sharedComponents/PhoneInput.vue';
+  import PhoneInput from './../../sharedComponents/PhoneInput';
 
   export default {
     props: {

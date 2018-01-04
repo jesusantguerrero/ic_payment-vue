@@ -63,9 +63,9 @@
 </template>
 
 <script>
-  import DataCard from './components/DataCard.vue';
-  import YearNavigator from './components/YearNavigator.vue';
-  import ChartCard from './../sharedComponents/ChartCard.vue';
+  import DataCard from './components/DataCard';
+  import YearNavigator from './components/YearNavigator';
+  import ChartCard from './../sharedComponents/ChartCard';
   import utils from './../sharedComponents/utils';
 
 

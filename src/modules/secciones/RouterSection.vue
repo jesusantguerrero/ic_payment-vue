@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  import RouterModal from './components/RouterModal.vue';
-  import DataTable from './../sharedComponents/DataTable.vue';
+  import RouterModal from './components/RouterModal';
+  import DataTable from './../sharedComponents/DataTable';
   import utils from './../sharedComponents/utils';
   import Progress from './../sharedComponents/Progress';
 

@@ -16,14 +16,14 @@
 
 <script>
   import swal from 'sweetalert2';
-  import DataTable from './../../sharedComponents/DataTable.vue';
-  import UserModal from './UserModal.vue';
+  import DataTable from './../../sharedComponents/DataTable';
+  import AdminUserSectionModal from './AdminUserSectionModal';
   import utils from './../../sharedComponents/utils';
 
   export default {
     components: {
       DataTable,
-      UserModal
+      AdminUserSectionModal
     },
 
     props: {

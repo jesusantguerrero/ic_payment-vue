@@ -60,7 +60,7 @@
 
 <script>
     import swal from 'sweetalert2';
-    import DataTable from './../../sharedComponents/DataTable.vue';
+    import DataTable from './../../sharedComponents/DataTable';
     import ExtraStore from './../../extras/store/ExtraStore';
 
     export default {

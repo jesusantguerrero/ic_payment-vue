@@ -95,7 +95,7 @@
 </template>
 
 <script>
-  import PhoneInput from './../../sharedComponents/PhoneInput.vue';
+  import PhoneInput from './../../sharedComponents/PhoneInput';
   import utils from './../../sharedComponents/utils';
 
   export default {

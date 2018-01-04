@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import DataTable from './../sharedComponents/DataTable.vue';
+  import DataTable from './../sharedComponents/DataTable';
   import utils from './../sharedComponents/utils';
   import Store from './store/ExtraStore';
 

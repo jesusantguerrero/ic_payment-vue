@@ -15,35 +15,35 @@
 
     .main-content.col-md-10
       .section-player
-        CompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
-        UsersSection(:store="store", v-if="mode == 'users'")
-        PettyCashSection(v-if="mode == 'petty-cash'")
-        SettingsSection(:company="store.company", v-if="mode == 'settings'")
-        MessageSettings(:company="store.company", v-if="mode == 'message_settings'")
+        AdminCompanySection(:company="store.company", :store="store", v-if="mode == 'company'")
+        AdminUserSection(:store="store", v-if="mode == 'users'")
+        AdminPettyCashSection(v-if="mode == 'petty-cash'")
+        AdminSettingsSection(:company="store.company", v-if="mode == 'settings'")
+        AdminMessageSettings(:company="store.company", v-if="mode == 'message_settings'")
 </template>
 
 <script>
-  import CompanySection from './components/CompanySection.vue';
-  import UsersSection from './components/UsersSection.vue';
-  import PettyCashSection from './components/PettyCashSection.vue';
-  import MessageSettings from './components/MessageSettings.vue';
-  import SettingsSection from './components/SettingsSection.vue';
-  import Store from './store/adminStore';
+  import AdminCompanySection from './components/AdminCompanySection';
+  import AdminUserSection from './components/AdminUserSection';
+  import AdminPettyCashSection from './components/AdminPettyCashSection';
+  import AdminMessageSettings from './components/AdminMessageSettings';
+  import AdminSettingsSection from './components/AdminSettingsSection';
+  import AdminStore from './store/AdminStore';
 
   export default {
     name: 'admin-section',
     components: {
-      CompanySection,
-      UsersSection,
-      PettyCashSection,
-      SettingsSection,
-      MessageSettings
+      AdminCompanySection,
+      AdminUserSection,
+      AdminPettyCashSection,
+      AdminSettingsSection,
+      AdminMessageSettings
     },
     mounted() {
     },
 
     data() {
-      const store = new Store('admin');
+      const store = new AdminStore();
       return {
         store,
         mode: 'company'

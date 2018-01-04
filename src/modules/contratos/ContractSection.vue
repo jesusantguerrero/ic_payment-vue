@@ -55,13 +55,13 @@
 
 <script>
   import swal from 'sweetalert2';
-  import DataTable from './../sharedComponents/DataTable.vue';
+  import DataTable from './../sharedComponents/DataTable';
   import utils from './../sharedComponents/utils';
   import ContractStore from './store/ContractStore';
-  import ContractUpdateModal from './components/ContractUpdateModal.vue';
-  import ContractExtraModal from './components/ContractExtraModal.vue';
-  import ContractCancelModal from './components/ContractCancelModal.vue';
-  import ContractReconnectModal from './components/ContractReconnectModal.vue';
+  import ContractUpdateModal from './components/ContractUpdateModal';
+  import ContractExtraModal from './components/ContractExtraModal';
+  import ContractCancelModal from './components/ContractCancelModal';
+  import ContractReconnectModal from './components/ContractReconnectModal';
 
   export default {
     components: {

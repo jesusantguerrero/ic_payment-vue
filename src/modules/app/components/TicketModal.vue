@@ -22,7 +22,7 @@
 
 <script>
   import utils from './../../sharedComponents/utils';
-  import SelectClient from './../../sharedComponents/SelectClient.vue';
+  import SelectClient from './../../sharedComponents/SelectClient';
 
   export default {
     components: {

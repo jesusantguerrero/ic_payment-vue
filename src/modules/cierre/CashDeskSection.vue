@@ -116,9 +116,9 @@
 
 <script>
   import utils from './../sharedComponents/utils';
-  import ClosingSummary from './components/ClosingSummary.vue';
-  import ExpensesPanel from './components/ExpensesPanel.vue';
-  import CountPanel from './components/CountPanel.vue';
+  import ClosingSummary from './components/ClosingSummary';
+  import ExpensesPanel from './components/ExpensesPanel';
+  import CountPanel from './components/CountPanel';
   import CashDeskStore from './store/CashDeskStore';
 
   const store = new CashDeskStore();

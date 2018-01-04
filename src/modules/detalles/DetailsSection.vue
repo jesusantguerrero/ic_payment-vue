@@ -61,10 +61,10 @@
 </template>
 
 <script>
-  import DetailsProfile from './components/DetailsProfile.vue';
-  import DetailsObservations from './components/DetailsObservations.vue';
-  import DetailsExtraServices from './components/DetailsExtraServices.vue';
-  import DetailsPayment from './components/DetailsPayment.vue';
+  import DetailsProfile from './components/DetailsProfile';
+  import DetailsObservations from './components/DetailsObservations';
+  import DetailsExtraServices from './components/DetailsExtraServices';
+  import DetailsPayment from './components/DetailsPayment';
   import DetailsStore from './store/DetailsStore';
   import utils from './../sharedComponents/utils';
 

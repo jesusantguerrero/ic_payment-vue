@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import DataTable from './../../sharedComponents/DataTable.vue';
+  import DataTable from './../../sharedComponents/DataTable';
   import ClientStore from './../../clientes/store/clientStore';
 
   export default {

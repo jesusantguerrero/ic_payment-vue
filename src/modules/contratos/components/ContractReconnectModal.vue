@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import InternetPlans from './../../sharedComponents/InternetPlans.vue';
+  import InternetPlans from './../../sharedComponents/InternetPlans';
   import utils from './../../sharedComponents/utils';
 
   export default {

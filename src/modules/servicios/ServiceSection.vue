@@ -40,9 +40,9 @@
 
 <script>
   import swal from 'sweetalert2';
-  import DataTable from './../sharedComponents/DataTable.vue';
+  import DataTable from './../sharedComponents/DataTable';
   import utils from './../sharedComponents/utils';
-  import ServiceModal from './components/ServiceModal.vue';
+  import ServiceModal from './components/ServiceModal';
   import Store from './store/ServiceStore';
 
   export default {

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import DetailCards from './components/DetailCards.vue';
-import SearchClientModal from './components/SearchClientModal.vue';
+import DetailCards from './components/DetailCards';
+import SearchClientModal from './components/SearchClientModal';
 
 const store = window.appStore;
 

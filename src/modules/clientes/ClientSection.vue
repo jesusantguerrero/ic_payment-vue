@@ -44,9 +44,9 @@
 
 <script>
   import swal from 'sweetalert2';
-  import DataTable from './../sharedComponents/DataTable.vue';
+  import DataTable from './../sharedComponents/DataTable';
   import utils from './../sharedComponents/utils';
-  import ClientModal from './components/ClientModal.vue';
+  import ClientModal from './components/ClientModal';
   import ClientStore from './store/clientStore';
 
   export default {

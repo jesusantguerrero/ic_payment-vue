@@ -66,7 +66,6 @@
           label(for="validationCustom05") Eliminar Extras
           select(type="text" class="form-control" id="validationCustom05" v-model="payment.tipo")
             option(v-for="item of aditionalServices",:key="item.id_servicio", :value="item.id_servicio") {{ item.servicio }}
-            option(value="banco") Banco
         .col-md-3.mb-3
           ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extraSelected", @change="setExtra")
         .col-md-3.mb-3
@@ -79,8 +78,8 @@
 
 
 <script>
-    import DataTable from './../../sharedComponents/DataTable.vue';
-    import ServiceSelector from './../../sharedComponents/ServiceSelector.vue';
+    import DataTable from './../../sharedComponents/DataTable';
+    import ServiceSelector from './../../sharedComponents/ServiceSelector';
 
     export default {
       components: {

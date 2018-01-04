@@ -99,9 +99,9 @@
 <script>
   import swal from 'sweetalert2';
   import utils from './../../sharedComponents/utils';
-  import InternetPlans from './../../sharedComponents/InternetPlans.vue';
-  import PhoneInput from './../../sharedComponents/PhoneInput.vue';
-  import ServiceSelector from './../../sharedComponents/ServiceSelector.vue';
+  import InternetPlans from './../../sharedComponents/InternetPlans';
+  import PhoneInput from './../../sharedComponents/PhoneInput';
+  import ServiceSelector from './../../sharedComponents/ServiceSelector';
   import ServicesService from './../../servicios/service/serviceService';
 
   const servicesService = new ServicesService();

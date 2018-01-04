@@ -33,19 +33,22 @@ export default class DetailsStore {
         field: 'cuota',
         title: 'Cuota',
         valign: 'center',
-        align: 'center'
+        align: 'center',
+        class: 'hide'
       },
       {
         field: 'mora',
         title: 'Mora',
         valign: 'center',
-        align: 'center'
+        align: 'center',
+        class: 'hide'
       },
       {
         field: 'extra',
         title: 'Extra',
         valign: 'center',
-        align: 'center'
+        align: 'center',
+        class: 'hide'
       },
       {
         field: 'monto',
