@@ -55,10 +55,14 @@
 
       activate(page) {
         const self = this;
+        let search = true;
+        if (typeof self.options.search !== 'undefined') {
+          search = false;
+        }
         this.table.bootstrapTable({
           columns: self.cols,
           sortOrder: 'asc',
-          search: self.options.search || true,
+          search,
           toolbar: self.toolbar,
           showRefresh: false,
           showColumns: false,

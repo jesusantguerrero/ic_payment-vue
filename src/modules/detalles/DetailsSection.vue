@@ -47,9 +47,9 @@
           .tab-content
             .tab-pane.fade.in#client(role="tabpanel", :class="{active : activeTab == 'client'}")
               DetailsProfile(:client="client", :fullname="fullname")
-            .tab-pane.fade.in.detail-panel#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
+            .tab-pane.fade.in#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
 
-            .tab-pane.fade.in.detail-panel#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
+            .tab-pane.fade.in#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
               DetailsPayment(:clientId="clientId",:store="store" )
             .tab-pane.fade.in#abonos(role="tabpanel", :class="{active : activeTab == 'abonos'}")
 

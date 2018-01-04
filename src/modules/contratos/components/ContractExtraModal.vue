@@ -44,9 +44,7 @@
                   .row
                     .col-md-6
                       .form-group
-                        label(for="client-provincia") Servicio
-                        select.form-control#select-extra-service(type="text", v-model="extra.serviceId", @change="setExtraPrice()")
-                          option(:value="service.id_servicio" ,v-for="service of serviceList") {{ service.nombre }}
+                        ServiceSelector#select-extra-service(type="text", :value="extra.serviceId", @change="setExtraPrice")
 
                       .form-group
                         label(for="cient-sector") Equipo
@@ -103,15 +101,16 @@
   import utils from './../../sharedComponents/utils';
   import InternetPlans from './../../sharedComponents/InternetPlans.vue';
   import PhoneInput from './../../sharedComponents/PhoneInput.vue';
-  import ServiceService from './../../servicios/service/serviceService';
+  import ServiceSelector from './../../sharedComponents/ServiceSelector.vue';
+  import ServicesService from './../../servicios/service/serviceService';
 
-
-  const Service = new ServiceService();
+  const servicesService = new ServicesService();
 
   export default {
     components: {
       InternetPlans,
-      PhoneInput
+      PhoneInput,
+      ServiceSelector
     },
     props: {
       contract: {
@@ -137,7 +136,7 @@
         extension: {
           duration: 0
         },
-        serviceList: null,
+        ensuranceName: '',
         paymentModes: [
           { id: 0, text: '-- seleccione --' },
           { id: 1, text: 'Cargar al proximo pago' },
@@ -147,29 +146,18 @@
       };
     },
 
-    computed: {
-      ensuranceName() {
-        let ensurance = null;
-        if (this.serviceList && this.contract.extras_fijos) {
-          this.serviceList.forEach((val) => {
-            if (val.id_servicio === this.contract.extras_fijos) {
-              ensurance = `${val.nombre} - RD$ ${val.mensualidad}`;
-            }
-          });
-        }
-
-        return ensurance;
-      }
-    },
 
     mounted() {
       $('#contract-extra-modal').on('hide.bs.modal', () => {
         this.$emit('dimiss');
         this.store.contractEmpty();
       });
-      this.getServices();
     },
-
+    watch: {
+      contract() {
+        this.getEnsurance();
+      }
+    },
     methods: {
       emitChange() {
         this.$emit('save');
@@ -193,13 +181,6 @@
           default:
             // do nothing
         }
-      },
-
-      getServices() {
-        Service.getServiceList('reparacion')
-          .then((res) => {
-            this.serviceList = res.data.services;
-          });
       },
 
       upgrade() {
@@ -242,6 +223,7 @@
               if (res.data.message.type === 'success') {
                 if (extra.paymentMode === 3) {
                   this.contract.extras_fijos = extra.serviceId;
+                  this.getEnsurance();
                 }
                 this.emptyExtra();
               }
@@ -285,6 +267,7 @@
               self.showMessage(res.data.message);
               if (res.data.message.type === 'success') {
                 self.contract.extras_fijos = null;
+                self.getEnsurance();
               }
               self.emitChange();
             })
@@ -311,12 +294,9 @@
         }
       },
 
-      setExtraPrice() {
-        this.serviceList.forEach((val) => {
-          if (val.id_servicio === this.extra.serviceId) {
-            this.extra.price = val.mensualidad;
-          }
-        });
+      setExtraPrice(item) {
+        this.extra.price = item.mensualidad;
+        this.extra.serviceId = item.id_servicio;
       },
 
       emptyExtra() {
@@ -325,6 +305,16 @@
           price: 0.00,
           paymentMode: ''
         };
+      },
+
+      getEnsurance() {
+        if (this.contract.extras_fijos) {
+          servicesService.getService(this.contract.extras_fijos).then((service) => {
+            this.ensuranceName = `${service.nombre} - RD$ ${service.mensualidad}`;
+          });
+        } else {
+          this.ensuranceName = '';
+        }
       }
     }
   };

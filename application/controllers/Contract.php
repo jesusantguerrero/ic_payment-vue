@@ -200,7 +200,7 @@ class Contract extends MY_Controller {
 
   public function add_fixed_extra($data) {
     $service = $this->service_model->get_service($data['id_servicio']);
-    if ($this->contract_model->update(['extras_fijos' => $data_extra['id_servicio']], $contract_id)) {
+    if ($this->contract_model->update(['extras_fijos' => $data['id_servicio']], $data['id_contrato'])) {
       return ['message' => 'Seguro Agregado'];
     }
   }
