@@ -154,18 +154,6 @@ export default class payments {
     }
   }
 
-  deleteExtra(key, idPago) {
-    const form = `data=${JSON.stringify({ key, id_pago: idPago })}`;
-    return axios.post(`${BASE_URL}payment/delete_extra`, form)
-      .then((res) => {
-        displayMessage(res.data.mensaje);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-
   setMora(mora, idPago) {
     const form = `data=${JSON.stringify({ mora, id_pago: idPago })}`;
     return axios.post(`${BASE_URL}payment/set_mora`, form)

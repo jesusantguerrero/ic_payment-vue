@@ -39,8 +39,8 @@ class Process extends CI_Controller {
 				break;
 			case "pagos":
 				if (!$this->is_day_closed()) {
-					$was_correct = $this->payment_model->is_paid($data['id']);
-					if($was_correct){
+					$not_paid = !$this->payment_model->is_paid($data['id']);
+					if($not_paid){
 						$id_contrato = $data['id_contrato'];
 						refresh_contract($id_contrato,$this,$data);
 					}else{
@@ -50,8 +50,8 @@ class Process extends CI_Controller {
 				break;
 			case "discount_pagos":
 			  if (!$this->is_day_closed()) {
-					$was_correct = $this->payment_model->is_paid($data['id_pago']);
-					if($was_correct){
+					$not_paid = !$this->payment_model->is_paid($data['id_pago']);
+					if($not_paid){
 						$this->db->trans_start();
 						payment_discount($data,$this);
 						$this->db->trans_complete();

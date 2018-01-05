@@ -64,10 +64,10 @@
       .row(:class="firstControls")
         .col-md-3.mb-3
           label(for="validationCustom05") Eliminar Extras
-          select(type="text" class="form-control" id="validationCustom05" v-model="payment.tipo")
+          select(type="text" class="form-control",v-model="extra.serviceToDelete" @change="deleteExtra")
             option(v-for="item of aditionalServices",:key="item.id_servicio", :value="item.id_servicio") {{ item.servicio }}
         .col-md-3.mb-3
-          ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extraSelected", @change="setExtra")
+          ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extra.serviceToAdd", @change="setExtra")
         .col-md-3.mb-3
           button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePayment") Eliminar Pago
         .col-md-3.mb-3(v-if="!isPaid")
@@ -98,7 +98,10 @@
       },
       data() {
         return {
-          extraSelected: null,
+          extra: {
+            serviceToDelete: null,
+            serviceToAdd: false
+          },
           extras: '',
           parentId: '#client-table-container',
           tableOptions: {
@@ -211,8 +214,8 @@
 
         goBack() {
           this.visible = false;
-          this.extra = { concepto: '' };
-          this.getExtras();
+          this.getPayments();
+          this.resetPayment();
         },
 
         getPayments(paymentId) {
@@ -236,6 +239,8 @@
                 } else {
                   this.resetPayment();
                 }
+                this.extra.serviceToDelete = null;
+                this.extra.serviceToAdd = !this.extra.serviceToAdd;
               });
           }
         },
@@ -357,18 +362,32 @@
           this.getPayment(this.selectedPayment);
         },
 
-        setExtra(idExtraService) {
-          const form = { key: idExtraService, id_pago: this.payment.id_pago };
+        setExtra(service) {
+          const form = { service, id_pago: this.payment.id_pago };
           this.$http.post('payment/set_extra', this.getDataForm(form))
             .then((res) => {
               this.showMessage(res.data.message);
               this.getPayment(this.payment.id_pago);
-              this.extraSelected = null;
+              this.extra.serviceToAdd = !this.extra.serviceToAdd;
+            })
+            .catch((err) => {
+              this.$toasted.error(err);
+            });
+        },
+
+        deleteExtra() {
+          const form = { id_servicio: this.extra.serviceToDelete, id_pago: this.payment.id_pago };
+          this.$http.post('payment/delete_extra', this.getDataForm(form))
+            .then((res) => {
+              this.showMessage(res.data.message);
+              this.getPayment(this.payment.id_pago);
+              this.extra.serviceToDelete = null;
             })
             .catch((err) => {
               this.$toasted.error(err);
             });
         }
+
       }
     };
 </script>

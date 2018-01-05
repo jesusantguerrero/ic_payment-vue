@@ -51,42 +51,39 @@ class Payment extends MY_Controller {
 	}
 
 	public function delete_extra() {
-		authenticate();
-		$data = $this->get_post_data('data');
-		if ($data && $this->payment_model->delete_extra($data['key'], $data['id_pago'])) {
-			$this->payment_model->reorganize_values($data['id_pago']);
-			$res['mensaje'] = MESSAGE_SUCCESS . "Reconexion Eliminado";
-		} else {
-			$pago = $this->payment_model->get_payment($data['id_pago']);
-			if (str_contains('Reconexion', $pago['detalles_extra'])){
-				//@hack: para los pagos que no tienen la nueva forma de pago
-				$reconexion = $pago['monto_extra'] - 300;
-				$detalles_extra = str_replace("Reconexion --", "", $pago["detalles_extra"]);
-				$total = $pago['monto_extra'] - 300 + $pago['mora'] + $pago['cuota'];
-				$this->payment_model->update(["detalles_extra" => $detalles_extra, "monto_extra" => $reconexion, "total" => $total]);
-				$res['mensaje'] = MESSAGE_SUCCESS . "Reconexion Eliminado";
+    authenticate();
+    $data = $this->get_post_data('data');
+		if ($data && !$this->payment_model->is_paid($data['id_pago']) && $data['id_servicio']) {
+      if ($this->payment_model->delete_extra($data['id_servicio'], $data['id_pago'])) {
+        $this->payment_model->reorganize_values($data['id_pago']);
+        $this->set_message("Monto extra Eliminado");
 			} else {
-				$res['mensaje'] = MESSAGE_ERROR . "Error al eliminar este servicio y/o reconexion";
+				$this->set_message("Error al eliminar este servicio");
 			}
+      $this->response_json();
 		}
-		echo json_encode($res);
 	}
 
 	public function set_extra() {
-		authenticate();
-		if ($data = $this->get_post_data('data')) {
-			$settings = $this->settings_model->get_settings();
-			if ($data['key'] == 0) {
+    authenticate();
+    $data = $this->get_post_data('data');
+    $settings = $this->settings_model->get_settings();
+    $not_paid = !$this->payment_model->is_paid($data['id_pago']);
+
+		if ($data && $this->validate_extra($data['service']) && $not_paid) {
+			if ($data['service'] == 0) {
+        $service_name = 'Reconexion';
 				$new_extra = [0 => ["servicio" => "Reconexion", "precio" => $settings['reconexion']]];
 			} else {
-        $service = $data['key'];
-				$new_extra = [$service['id_servicio'] => ['servicio' => $service['nombre'], 'precio' => $service['mensualidad']]];
-			}
+        $service = $data['service'];
+        $service_name = $service['nombre'];
+        $new_extra = [$service['id_servicio'] => ['servicio' => $service['nombre'], 'precio' => $service['mensualidad']]];
+      }
 			if ($this->payment_model->set_extra($new_extra, $data['id_pago'])) {
 				$this->payment_model->reorganize_values($data['id_pago']);
-				$this->set_message('Reconexion Aplicada(o)');
+        $this->set_message("$service_name Aplicada(o)");
 			} else {
-				$this->set_message('Error al eliminar este servicio y/o reconexion', 'error');
+				$this->set_message('Error al eliminar este servicio y/o reconexion, quiza ya esta pago', 'error');
 			}
 			$this->response_json();
 		}
@@ -102,6 +99,10 @@ class Payment extends MY_Controller {
 			$res['mensaje'] = MESSAGE_ERROR . "Error al cambiar mora";
 		}
 		echo json_encode($res);
+  }
+
+  public function validate_extra($service) {
+    return (($service['id_servicio'] || $service['id_servicio'] = 0) && $service['nombre'] && $service['mensualidad']);
   }
 
 }

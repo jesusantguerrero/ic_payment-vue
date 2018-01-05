@@ -35,10 +35,8 @@
     },
 
     watch: {
-      value(val) {
-        if (!val) {
-          this.serviceId = null;
-        }
+      value() {
+        this.serviceId = null;
       }
     },
 

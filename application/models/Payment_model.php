@@ -88,9 +88,9 @@ class Payment_model extends CI_MODEL{
         if (!$pago['generado']) {
           $this->check_extras_fijos($id_pago);
         }
-        return true;
+        return false;
       }else{
-       return false;
+       return true;
     }
 
   }
@@ -199,7 +199,7 @@ class Payment_model extends CI_MODEL{
   public function set_extra($new_extra, $id_pago) { // [ id_extra => [id_extra => 'id_extra", servicio" => 'reconexion', "precio => 2000]]
     $extras = $this->get_extras($id_pago);
     $key = join('', array_keys($new_extra));
-    $new_extra['id_servicio'] = $key;
+    $new_extra[$key]['id_servicio'] = $key;
 
     if (!$extras){
       $extras = $new_extra;
@@ -211,7 +211,7 @@ class Payment_model extends CI_MODEL{
 
   public function delete_extra($key, $id_pago) {
     $extras = $this->get_extras($id_pago);
-    if ($extras && null !== $extras[$key]) {
+    if ($extras && (isset($extras[$key]))) {
       unset($extras[$key]);
       if (count($extras) > 0) {
         return $this->save_extras($extras, $id_pago);

@@ -60,7 +60,7 @@ class Extra extends MY_Controller {
     $info = $this->get_post_data('info');
     $data = $this->get_post_data('data');
     if ($info && $data ) {
-      if (!$this->payment_model->is_paid($info['id_pago'])) {
+      if ($this->payment_model->is_paid($info['id_pago'])) {
         $this->set_message('Este pago ya ha sido realizado', 'info');
       } else if (!$this->extra_model->is_valid_amount($data, $info)) {
         $this->set_message('este monto es mayor a la deuda o igual a cero', 'info');
@@ -81,7 +81,7 @@ class Extra extends MY_Controller {
 		$info = $this->get_post_data('info');
     $data = $this->get_post_data('data');
     if ($info && $data ) {
-      if ($this->payment_model->is_paid($info['id_pago']) && $data){
+      if (!$this->payment_model->is_paid($info['id_pago']) && $data){
         $this->set_message('Este pago aun no se ha realizado para editarse', 'info');
       } else if (!$this->extra_model->is_valid_amount($data, $info, 'edit')) {
         $this->set_message('este monto es mayor a la deuda o igual a cero', 'info');
