@@ -10,9 +10,9 @@
         .tab-content
           .tab-pane.fade.in.active#contract-details(role="tabpanel")
             .col-md-12
-              .input-group
+              .input-group#select-cliente-containet
                 span.input-group-addon#basic-addon1 Cliente
-                SelectClient(the-id="client-id", parent-id="#contract-details",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
+                SelectClient(the-id="client-id", parent-id="#select-client-container",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 
             h5 Seleccione el Servicio
               InternetPlans(@selected="selectService")

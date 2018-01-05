@@ -8,6 +8,7 @@
 <script>
   import 'bootstrap-table';
   import '../../../node_modules/bootstrap-table/dist/locale/bootstrap-table-es-SP';
+  import '../../../node_modules/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile';
 
   export default {
     props: {
@@ -78,7 +79,9 @@
           singleSelect: true,
           striped: false,
           fixed: true,
-          footer: false
+          footer: false,
+          mobileResponsive: true,
+          checkOnInit: true
         });
         this.table.find('tbody').css({ display: 'table-row-group' });
         this.table.addClass('innertable');

@@ -44,7 +44,7 @@
       .row
         .col-md-3.mb-3
           label(for="validationCustom05") Aplicar Mora
-          button(class="btn btn-gray lg") Mora
+           ActiveButton(class="btn lg", :active="hasMora", text="Mora", @click="changeMora")
         .col-md-3.mb-3
           label(for="validationCustom05") Aplicar Reconexion
           ActiveButton(class="btn lg", :active="hasReconection", text="reconexion", @click="changeReconection")
@@ -69,7 +69,7 @@
         .col-md-3.mb-3
           ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extra.serviceToAdd", @change="setExtra")
         .col-md-3.mb-3
-          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePaymentConfirmation") Deshacer Pago
+          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePaymentConfirmation(payment.id_pago)") Deshacer Pago
         .col-md-3.mb-3(v-if="!isPaid")
           button(class="btn btn-primary lg" type="submit" @click.prevent.stop="preparePayment") Aplicar Pago
 
@@ -277,7 +277,7 @@
               tipo: payment.tipo,
               id_contrato: payment.id_contrato
             };
-            this.applyPayment('payment/apply_payment', this.getDataForm(form));
+            this.applyPayment('payment/apply_payment', form);
           } else {
             this.$toasted.info('Noo hay pago seleccionado');
           }
@@ -331,38 +331,16 @@
             tipo: '',
             generado: ''
           };
-          this.serviceOfPayment = null;
-        },
-
-        prepareData() {
-          const { payment } = this;
-          const data = {
-            concepto: `${payment.concepto}`,
-            detalles_extra: payment.detalles_extra,
-            fecha_pago: payment.fecha_pago,
-            cuota: payment.cuota,
-            total: payment.cuota,
-            estado: 'pagado',
-            tipo: payment.tipo,
-            generado: true
-          };
-
-          const info = {
-            id_extra: payment.id_extra,
-            id_pago: payment.id_pago
-          };
-
-          return { data, info };
+          this.serviceOfPayment = { mensualidad: 0 };
         },
 
         applyPayment(endpoint, data) {
-          const form = `data=${JSON.stringify(data)}&info=${JSON.stringify(info)}`;
-          this.$http.post(endpoint, form)
+          this.$http.post(endpoint, this.getDataForm(data))
             .then((res) => {
               if (res.data.message) {
                 this.showMessage(res.data.message);
               }
-              this.getPayments(info.id_pago);
+              this.getPayments(this.payment.id_pago);
             })
             .catch((error) => {
               this.$toasted.error(error);
@@ -411,6 +389,18 @@
           } else {
             this.setExtra(0);
           }
+        },
+
+        changeMora() {
+          const form = {
+            id_pago: this.payment.id_pago,
+            mora: 1, // set mora
+            cuota: this.serviceOfPayment.mensualidad
+          };
+          if (this.hasMora) {
+            form.mora = 0; // delete mora
+          }
+          this.applyPayment('payment/set_mora', form);
         }
 
       }

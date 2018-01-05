@@ -26,7 +26,8 @@ class Payment extends MY_Controller {
   }
 
   public function apply_payment() {
-    if (!$this->is_day_closed()) {
+    $data = $this->get_post_data('data');
+    if (!$this->is_day_closed() && $data) {
       $not_paid = !$this->payment_model->is_paid($data['id']);
       if($not_paid){
         $contract_id = $data['id_contrato'];
@@ -34,7 +35,6 @@ class Payment extends MY_Controller {
           $this->set_message('Pago realizado');
         } else {
           $this->set_message('Error al realizar pago', 'error');
-
         }
       }else{
         $this->set_message('Este pago ya ha sido realizado');
@@ -74,13 +74,15 @@ class Payment extends MY_Controller {
 
   public function delete_payment(){
     if(!$this->is_day_closed() && $data = $this->get_post_data('data')){
-      if(!$this->payment_model->is_paid($data['id_pago'])){
+      if($this->payment_model->is_paid($data['id_pago'])){
         $this->db->trans_start();
         cancel_payment($data['id_pago'],$this);
         $this->db->trans_complete();
         if($this->db->trans_status() === false){
           $this->db->trans_rollback();
           $this->set_message("No Pudo deshacerse el Pago");
+        } else {
+          $this->set_message("Pago deshecho");
         }
       }else{
         $this->set_message("Este pago no ha sido realizado para deshacerse");
@@ -149,14 +151,19 @@ class Payment extends MY_Controller {
 
 	public function set_mora() {
 		authenticate();
-		$data = $this->get_post_data('data');
-		if ($data && $this->payment_model->update(["mora" => $data['mora']], $data['id_pago'])) {
-			$this->payment_model->reorganize_values($data['id_pago']);
-			$res['mensaje'] = MESSAGE_SUCCESS . "Mora actualizada";
-		} else {
-			$res['mensaje'] = MESSAGE_ERROR . "Error al cambiar mora";
-		}
-		echo json_encode($res);
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $mora = $this->settings_model->get_settings()['cargo_mora'];
+      $mora = ($mora / 100) * $data['cuota'];
+      $mora = ($data['mora'] == 0 ? 0 : $mora);
+      if ($this->payment_model->update(["mora" => $mora], $data['id_pago'])) {
+        $this->payment_model->reorganize_values($data['id_pago']);
+        $this->set_message("Mora actualizada");
+      } else {
+        $this->set_message("Error al cambiar mora", 'error');
+      }
+      $this->response_json();
+    }
   }
 
   public function validate_extra($service) {

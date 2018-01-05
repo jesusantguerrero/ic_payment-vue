@@ -35,7 +35,6 @@
         .wrapper
           ul.nav.nav-tabs(role="tablist", id="main-tabs")
             li(role="presentation", :class="{active : activeTab == 'client'}"): a(href="#client" aria-controls="home" role="tab" data-toggle="tab") Cliente
-            li(role="presentation", :class="{active : activeTab == 'contracts'}"): a(href="#contracts" aria-controls="profile" role="tab" data-toggle="tab") Contratos
             li(role="presentation", :class="{active : activeTab == 'payments'}"): a(href="#payments" aria-controls="messages" role="tab" data-toggle="tab") Pagos
             li(role="presentation", :class="{active : activeTab == 'abonos'}"): a(href="#abonos" aria-controls="settings" role="tab" data-toggle="tab", ) Abonos
             li(role="presentation", :class="{active : activeTab == 'observations'}"): a(href="#observations" aria-controls="settings" role="tab" data-toggle="tab") Observaciones
@@ -47,7 +46,6 @@
           .tab-content
             .tab-pane.fade.in#client(role="tabpanel", :class="{active : activeTab == 'client'}")
               DetailsProfile(:client="client", :fullname="fullname")
-            .tab-pane.fade.in#contracts(role="tabpanel", :class="{active : activeTab == 'contracts'}")
 
             .tab-pane.fade.in#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
               DetailsPayment(:clientId="clientId",:store="store" )

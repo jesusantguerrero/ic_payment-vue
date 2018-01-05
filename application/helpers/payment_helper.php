@@ -18,10 +18,10 @@ if (! function_exists('cancel_payment')){
 
     if(!str_contains('abono',$payment['concepto'])){
 
-      $data_payment = array(
+      $data_payment = [
         'estado'      => 'no pagado',
         'fecha_pago'  => null
-      );
+      ];
 
       $context->payment_model->update($data_payment,$payment_id);
 
@@ -32,17 +32,16 @@ if (! function_exists('cancel_payment')){
 
       $last_pay_date = $context->db->get('ic_pagos',1)->row_array()['fecha_pago'];
 
-      $data_contract = array(
+      $data_contract = [
         'ultimo_pago'   => $last_pay_date,
         'proximo_pago'  => $payment['fecha_limite'],
         'estado'        => 'activo'
-      );
+      ];
 
       $contract_debt = $context->contract_model->get_debt_of($payment['id_contrato']);
       $data_contract = array_merge($data_contract, $contract_debt);
-      $context->contract_model->update($data_contract,$payment['id_contrato']);
+      return $context->contract_model->update($data_contract,$payment['id_contrato']);
 
-      echo MESSAGE_SUCCESS." Pago cancelado";
     }else{
       cancel_abono($payment,$contract,$context);
     }
@@ -191,7 +190,7 @@ function update_moras($context){
   }
 }
 
-function prepare_moras($data,$context,$settings){
+function prepare_moras($data, $context, $settings){
   foreach ($data as $pago) {
     $fecha = date($pago['fecha_limite']);
     $cuota = get_cuota($pago['id_contrato'], $context);
@@ -492,4 +491,9 @@ function get_settings(){
   $ci =& get_instance();
   $settings = $ci->db->get('ic_settings',1);
   return $settings->row_array();
+}
+
+function format_date($normal_date) {
+  $date = new DATETIME($normal_date);
+  return $date = $date->format('Y-m-d');
 }
