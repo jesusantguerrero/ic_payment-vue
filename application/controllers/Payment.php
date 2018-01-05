@@ -29,11 +29,17 @@ class Payment extends MY_Controller {
     if (!$this->is_day_closed()) {
       $not_paid = !$this->payment_model->is_paid($data['id']);
       if($not_paid){
-        $id_contrato = $data['id_contrato'];
-        refresh_contract($id_contrato,$this,$data);
+        $contract_id = $data['id_contrato'];
+        if ($this->contract_model->refresh_contract($contract_id, $data)) {
+          $this->set_message('Pago realizado');
+        } else {
+          $this->set_message('Error al realizar pago', 'error');
+
+        }
       }else{
-        echo MESSAGE_INFO." Este pago ya ha sido realizado";
+        $this->set_message('Este pago ya ha sido realizado');
       }
+      $this->response_json();
     }
   }
 
@@ -87,9 +93,19 @@ class Payment extends MY_Controller {
 		authenticate();
 		$data = $this->get_post_data('data');
 		if($data) {
-			$res = $this->report_model->get_receipts($data['text'],$data['first_date'],$data['second_date']);
+			$res = $this->report_model->get_receipts($data['text'], $data['first_date'], $data['second_date']);
       echo json_encode($res);
 		}
+  }
+
+	public function get_receipt($id){
+		authenticate();
+		$recibo_info = $this->payment_model->get_payment($id, true);
+		$this->session->set_flashdata('recibo_info',$recibo_info);
+    if(str_contains('abono',$recibo_info['concepto'])){
+      redirect(base_url('app/imprimir/recibo_abono'));
+    }
+		redirect(base_url('app/imprimir/recibo'));
 	}
 
 	public function delete_extra() {

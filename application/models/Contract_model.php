@@ -2,7 +2,7 @@
 
 class Contract_model extends CI_MODEL{
 
-  public $id_contrato = null;
+  public $contract_id = null;
   public $id_empleado;
   public $id_cliente;
   public $id_servicio;
@@ -12,7 +12,7 @@ class Contract_model extends CI_MODEL{
   public $monto_total;
   public $monto_pagado;
   public $ultimo_pago;
-  public $proximo_pago;
+  public $next_payment;
   public $estado;
   public $nombre_equipo;
   public $mac_equipo;
@@ -190,12 +190,12 @@ class Contract_model extends CI_MODEL{
 
     $debt = $this->get_debt_of($contract_id);
 
-    $data_contract = [
+    $update_contract_data = [
       'monto_pagado'  => $debt['monto_pagado'],
       'ultimo_pago'   => date('Y-m-d'),
       'estado'        => ($debt['monto_pagado'] == $debt['monto_total']) ? 'saldado' : 'activo'
     ];
-    $this->update($data_contract, $contract_id, false);
+    $this->update($update_contract_data, $contract_id, false);
     $this->db->trans_complete();
     if($this->db->trans_status() === false){
         $this->db->trans_rollback();
@@ -216,14 +216,14 @@ class Contract_model extends CI_MODEL{
     $this->db->where('id_contrato', $contract_id);
     $this->db->update('ic_pagos', $data_payment);
 
-    $data_contract = [
+    $update_contract_data = [
       'monto_pagado'  => 0.00,
       'ultimo_pago'   => null,
       'estado'        => 'activo'
     ];
 
     $this->db->where('id_contrato', $contract_id);
-    $this->db->update('ic_contratos', $data_contract);
+    $this->db->update('ic_contratos', $update_contract_data);
   }
 
   public function update_amount($contract_id){
@@ -233,58 +233,68 @@ class Contract_model extends CI_MODEL{
     $this->update(array('monto_total' => $amount), $contract_id);
   }
 
-  public function get_debt_of($id_contrato){
-    $this->db->where('id_contrato', $id_contrato);
+  public function get_debt_of($contract_id){
+    $this->db->where('id_contrato', $contract_id);
     $this->db->select_sum('cuota');
     $to_pay = $this->db->get('ic_pagos',1)->row_array()['cuota'];
 
-    $this->db->where('id_contrato',$id_contrato);
+    $this->db->where('id_contrato',$contract_id);
     $this->db->select_sum('mensualidad');
     $paid = $this->db->get('v_recibos',1)->row_array()['mensualidad'];
 
     return array('monto_pagado' => $paid, 'monto_total' => $to_pay);
   }
 
-  public function get_next_payment_for_contract($id_contrato){
-    $proximo_pago = $this->payment_model->get_next_payment_of($id_contrato);
-    if($proximo_pago == 0){
-      $proximo_pago['fecha_limite'] = null;
+  public function get_next_payment_for_contract($contract_id) {
+    $next_payment = $this->payment_model->get_next_payment_of($contract_id);
+    if($next_payment == 0){
+      $next_payment['fecha_limite'] = null;
     }
-    $data_contrato['proximo_pago'] = $proximo_pago['fecha_limite'];
-    $this->db->where('id_contrato',$id_contrato);
-    $this->db->update('ic_contratos',$data_contrato);
+
+    $contract_data['proximo_pago'] = $next_payment['fecha_limite'];
+    $this->db->where('id_contrato',$contract_id);
+    $this->db->update('ic_contratos',$contract_data);
   }
 
 
   //  complex transactions
-  public function refresh_contract($data_pago, $data_contrato, $current_contract){
-    $id_empleado = $_SESSION['user_data']['user_id'];
-    $update_pago = array(
-      'id_empleado' => $id_empleado,
+  public function refresh_contract($contract_id, $data){
+
+    $current_contract  = $this->get_contract_view($contract_id);
+    $payment   = $this->payment_model->get_payment($data['id']);
+
+    $update_contract_data = [
+      'ultimo_pago'   => $data_pago['fecha_pago']
+    ];
+
+    $user_id = $_SESSION['user_data']['user_id'];
+
+    $update_payment_data = [
+      'id_empleado' => $user_id,
       'estado'      => $data_pago['estado'],
       'fecha_pago'  => $data_pago['fecha_pago']
-    );
+    ];
 
     $this->db->trans_start();
     $this->db->set('complete_date','NOW()',false);
-    $this->db->update('ic_pagos',$update_pago,array('id_pago' => $data_pago['id']));
+    $this->db->update('ic_pagos', $update_payment_data, ['id_pago' => $data['id']]);
 
     $contract_debt = $this->get_debt_of($current_contract['id_contrato']);
-    $data_contrato = array_merge($data_contrato,$contract_debt);
-    $data_contrato['estado'] = $this->get_status_for($current_contract,$contract_debt);
+    $update_contract_data = array_merge($update_contract_data,$contract_debt);
+    $update_contract_data['estado'] = $this->get_status_for($current_contract,$contract_debt);
 
     $this->db->where('id_contrato',$current_contract['id_contrato']);
-    $this->db->update('ic_contratos',$data_contrato);
+    $this->db->update('ic_contratos',$update_contract_data);
 
     $this->get_next_payment_for_contract($current_contract['id_contrato']);
     $this->db->trans_complete();
 
     if($this->db->trans_status() === false){
       $this->db->trans_rollback();
-      echo MESSAGE_ERROR." No pudo guardarse el pago";
+      return false;
     } else{
       $this->check_is_active_client($current_contract);
-      echo MESSAGE_SUCCESS." Pago Registrado";
+      return true;
     }
   }
 
@@ -293,7 +303,7 @@ class Contract_model extends CI_MODEL{
     $pagos_restantes = $this->payment_model->get_unpaid($data['id_contrato'], 'count');
     $monto_total = $contract['monto_pagado'] + ($data['cuota'] * $pagos_restantes);
 
-    $data_contract = array(
+    $update_contract_data = array(
       'monto_total'   => $monto_total,
       'id_servicio'   => $data['id_servicio']
     );
@@ -307,7 +317,7 @@ class Contract_model extends CI_MODEL{
     $this->db->trans_start();
     // updating contract
     $this->db->where('id_contrato', $data['id_contrato']);
-    $this->db->update('ic_contratos', $data_contract);
+    $this->db->update('ic_contratos', $update_contract_data);
 
     // updating payments
      $this->db->where('id_contrato', $data['id_contrato']);
@@ -324,17 +334,17 @@ class Contract_model extends CI_MODEL{
     }
   }
 
-  public function cancel_contract($data_pago, $data_contrato, $current_contract, $data_cancel){
+  public function cancel_contract($data_pago, $contract_data, $current_contract, $data_cancel){
 
     $update_contract = array(
       'codigo'        => '',
       'estado'        => 'cancelado',
-      'ultimo_pago'   => $data_contrato['ultimo_pago'],
+      'ultimo_pago'   => $contract_data['ultimo_pago'],
       'proximo_pago'  => null,
     );
 
     $this->db->select('estado');
-    $this->db->where('id_contrato',$data_contrato['id_contrato']);
+    $this->db->where('id_contrato',$contract_data['id_contrato']);
     $estado = $this->db->get('ic_contratos')->row_array()['estado'];
 
     if($estado != 'activo'){
@@ -343,7 +353,7 @@ class Contract_model extends CI_MODEL{
       $this->db->trans_start();
       // borrando los pagos restantes
       $this->db->where('estado','no pagado');
-      $this->db->where('id_contrato',$data_contrato['id_contrato']);
+      $this->db->where('id_contrato',$contract_data['id_contrato']);
       $this->db->delete('ic_pagos');
       // agregando el pago de la cancelacion
       $this->db->insert('ic_pagos',$data_pago);
@@ -352,9 +362,9 @@ class Contract_model extends CI_MODEL{
       $this->section_model->update_ip_state($current_contract['codigo'],'disponible');
 
       // actualizando el contrato con los nuevos datos de cancelacion
-      $contract_debt = $this->get_debt_of($data_contrato['id_contrato']);
+      $contract_debt = $this->get_debt_of($contract_data['id_contrato']);
       $update_contract = array_merge($update_contract,$contract_debt);
-      $this->db->where('id_contrato',$data_contrato['id_contrato']);
+      $this->db->where('id_contrato',$contract_data['id_contrato']);
       $this->db->update('ic_contratos',$update_contract);
 
       $this->db->trans_complete();
@@ -380,14 +390,14 @@ class Contract_model extends CI_MODEL{
     $extras  = $context->payment_model->get_extras($next_payment['id_pago'], true);
     $total   =  $next_payment['cuota'] + $next_payment['mora'] + $extras['total'];
 
-    $data_contract = [
+    $update_contract_data = [
       'router'        => $data['router'],
       'mac_router'    => $data['mac_router'],
       'nombre_equipo' => $data['nombre_equipo'],
       'mac_equipo'    => $data['mac_router']
     ];
-    $this->db->where('id_contrato', $id_contrato);
-    $this->db->update('ic_contratos', $data_contract);
+    $this->db->where('id_contrato', $contract_id);
+    $this->db->update('ic_contratos', $update_contract_data);
 
     $data_payment = [
       'detalles_extra' => $extras['detalles'],
@@ -407,8 +417,8 @@ class Contract_model extends CI_MODEL{
   }
 
   // Cancelation related TODO: make a model for this two functions
-  public function get_cancelation($id_contrato){
-    $this->db->where('id_contrato',$id_contrato);
+  public function get_cancelation($contract_id){
+    $this->db->where('id_contrato',$contract_id);
     $result = $this->db->get('ic_cancelaciones',1);
     if($result){
       return $result->row_array();

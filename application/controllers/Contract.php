@@ -238,4 +238,75 @@ class Contract extends MY_Controller {
       $this->response_json();
     }
   }
+
+  // installation
+
+  public function change_installation_state($payment_id){
+		authenticate();
+		$this->report_model->update_installation($payment_id);
+  }
+
+	public function get_installations($state){
+		authenticate();
+		$this->report_model->get_installations_list($state);
+	}
+
+  // documents
+  public function get_requirements($id,$type = "cliente"){
+		if($type == "cliente"){
+		}else{
+			$contract_id = $id;
+		}
+		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
+		$requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
+		if(!$requirement_info['cliente'])
+			$requirement_info['cliente'] = $this->client_model->get_client($requirement_info['contrato']['id_cliente']);
+		$this->session->set_flashdata('requirement_info',$requirement_info);
+		redirect(base_url('app/imprimir/requerimientos'));
+	}
+
+	public function get_requirement($client_id,$service_id){
+		authenticate();
+		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
+		$requirement_info['servicio'] = $this->service_model->get_service($service_id);
+		$this->session->set_flashdata('requirement_info', $requirement_info);
+		redirect(base_url('app/imprimir/requerimiento'));
+	}
+
+	public function get_cancel_contract($contract_id, $end = false){ // or end of contract
+		authenticate();
+		$contract = $this->contract_model->get_contract_view($contract_id);
+		$requirement_info['contrato'] = $contract;
+		$requirement_info['cliente'] 	= $this->client_model->get_client($contract['id_cliente']);
+		$requirement_info['pago']	= $this->payment_model->get_last_paid($contract_id);
+		if (!$end) {
+			$requirement_info['cancelacion']	= $this->contract_model->get_cancelation($contract_id);
+			$endpoint = 'app/imprimir/cancelacion';
+		} else {
+			$endpoint = 'app/imprimir/termino';
+		}
+		$this->session->set_flashdata('requirement_info', $requirement_info);
+		redirect(base_url($endpoint));
+  }
+
+  public function print_page(){
+		authenticate();
+		$report = $this->contract_view_model->get_technical_report();
+		if(!$report) echo "No hay datos";
+
+		$this->load->library('PHPExcel');
+		$this->load->library('PHPExcel/IOFactory');
+
+		$myreport_sheet = create_excel_file($report);
+		$file = "reporte_tecnico.xlsx";
+
+		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;");
+		header("Content-Disposition: attachment; filename= $file");
+		header("Cache-Control: max-age=0");
+		header("Expires: 0");
+		$objWriter = IOFactory::createWriter($myreport_sheet, 'Excel2007');
+		$objWriter->save('php://output');
+
+		print_r($myreport_sheet);
+	}
 }

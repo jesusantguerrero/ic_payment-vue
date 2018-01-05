@@ -14,6 +14,7 @@ class Averias extends MY_Controller {
 
     echo json_encode($averias);
   }
+
   public function add_ticket() {
     authenticate();
     $data = $this->get_post_data('data');
@@ -37,15 +38,18 @@ class Averias extends MY_Controller {
     echo json_encode($response);
   }
 
-  public function update_averia(){
+  public function update_averia($mode){
     authenticate();
     $data = json_decode($this->input->post('data'),true);
     $id_averia = $data['id_averia'];
     unset($data['id_averia']);
     $response['mensaje'] = MESSAGE_ERROR. " No se pudieron guardar los cambios";
-
-    if($this->averia_model->update_all($id_averia,$data)){
-      $response['mensaje'] = MESSAGE_SUCCESS . "Cambios Guardados";
+    if ($mode == 'state') {
+      $this->averia_model->update($id_averia);
+    } else {
+      if($this->averia_model->update_all($id_averia,$data)){
+        $response['mensaje'] = MESSAGE_SUCCESS . "Cambios Guardados";
+      }
     }
 
     echo json_encode($response);
@@ -53,6 +57,11 @@ class Averias extends MY_Controller {
 
   public function delete_averia(){
 
+  }
+
+  public function count(){
+    authenticate();
+    $this->averia_model->count();
   }
 
   // comments

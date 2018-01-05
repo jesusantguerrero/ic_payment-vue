@@ -68,4 +68,47 @@
       $this->response_json($res);
     }
 
+    public function get_print_report($table,$type = 'nada'){
+      authenticate();
+
+      switch ($table) {
+        case 'payment':
+            $this->report_model->get_payments_report($type);
+          break;
+        case 'recibos':
+            $this->report_model->get_receipts_report();
+            break;
+        case 'installations':
+            $this->report_model->get_installations(true);
+          break;
+        case 'deudores':
+            $this->report_model->get_moras_view(true);
+          break;
+        case 'averias':
+            $this->report_model->get_averias_report();
+          break;
+        case 'clientes':
+          $type = str_replace('%20',' ',$type);
+          $this->report_model->get_client_report($type);
+          break;
+        case 'secciones':
+          $type = str_replace('%20',' ',$type);
+          $this->report_model->get_sections_report($type);
+          break;
+        case 'retiros':
+          $this->cancelations_model->print_report();
+          break;
+        case 'gastos':
+          $this->load->model('caja_mayor');
+          $this->caja_mayor->expenses_report();
+          break;
+        case 'cierres':
+          $this->load->model('caja_mayor');
+          $this->caja_mayor->cierres_report();
+          break;
+      }
+        redirect(base_url('app/imprimir/reporte'));
+
+    }
+
  }

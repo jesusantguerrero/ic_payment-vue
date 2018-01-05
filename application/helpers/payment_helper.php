@@ -10,29 +10,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-if (! function_exists('refresh_contract')){
-
-  /**
-  * Actualiza los pagos de un contrato automaticamente
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function refresh_contract($contract_id,$context,$data_pago){
-    $time_zone = new DateTimeZone('America/Santo_Domingo');
-
-    $contract  = $context->contract_model->get_contract_view($contract_id);
-    $payment   = $context->payment_model->get_payment($data_pago['id']);
-
-    $data_contract = array(
-      'ultimo_pago'   => $data_pago['fecha_pago'],
-    );
-
-    $context->contract_model->refresh_contract($data_pago,$data_contract,$contract);
-  }
-}
-
 if (! function_exists('cancel_payment')){
 
   function cancel_payment($payment_id,$context){
@@ -156,15 +133,15 @@ if (! function_exists('cancel_abono')){
   }
 }
 
-function payment_discount($data,$context){
-  $data_pago = array(
+function payment_discount($data, $context){
+  $data_pago = [
     'id'          => $data['id_pago'],
     'estado'      => 'pagado',
     'fecha_pago'  => $data['fecha_pago'],
     'id_contrato' => $data['id_contrato']
-  );
+  ];
 
-  $data_discount = array(
+  $data_discount = [
     'cuota'           => $data['cuota'],
     'mora'            => $data['mora'],
     'monto_extra'     => $data['monto_extra'],
@@ -172,7 +149,7 @@ function payment_discount($data,$context){
     'descuento'       => $data['descuento'],
     'detalles_extra'  => $data['detalles_extra'],
     'razon_descuento' => $data['razon_descuento']
-    );
+  ];
 
   $context->payment_model->update($data_discount,$data['id_pago']);
 
@@ -183,7 +160,7 @@ function payment_discount($data,$context){
 	$context->db->where('id_contrato',$data['id_contrato']);
 	$context->db->update('ic_contratos',array('monto_total' => $suma));
 
-  refresh_contract($data['id_contrato'],$context,$data_pago);
+  refresh_contract($data['id_contrato'], $data_pago);
 }
 
 /**
