@@ -69,7 +69,6 @@ export default {
     if (Array.isArray(values)) {
       numbers = values;
     } else {
-      console.log(values);
       const keys = Object.keys(values);
       numbers = [];
       keys.forEach((key) => {
@@ -77,10 +76,7 @@ export default {
       });
     }
 
-    for (let i = 0; i < values.length; i += 1) {
-      sumResult += parseFloat(values[i]);
-    }
-    return numbers.reduce((sum, number) => sum += number, 0);
+    return numbers.reduce((sum, number) => sum += parseFloat(number), 0);
   },
 
   now() {

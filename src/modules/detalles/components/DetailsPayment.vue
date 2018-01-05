@@ -47,7 +47,7 @@
           button(class="btn btn-gray lg") Mora
         .col-md-3.mb-3
           label(for="validationCustom05") Aplicar Reconexion
-          button(class="btn btn-gray lg") Reconexion
+          ActiveButton(class="btn lg", :active="hasReconection", text="reconexion", @click="changeReconection")
         .col-md-3.mb-3
           label(for="validationCustom05") Modo Pago
           select(type="text" class="form-control" id="validationCustom05" v-model="payment.tipo")
@@ -69,22 +69,24 @@
         .col-md-3.mb-3
           ServiceSelector#select-extra(type="text",title="Agregar Extra",:value="extra.serviceToAdd", @change="setExtra")
         .col-md-3.mb-3
-          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePayment") Eliminar Pago
+          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="deletePaymentConfirmation") Deshacer Pago
         .col-md-3.mb-3(v-if="!isPaid")
-          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="applyPayment") Aplicar Pago
-        .col-md-3.mb-3(v-if="isPaid")
-          button(class="btn btn-success lg" type="submit" @click.prevent.stop="editPayment") Cambiar
+          button(class="btn btn-primary lg" type="submit" @click.prevent.stop="preparePayment") Aplicar Pago
+
 </template>
 
 
 <script>
     import DataTable from './../../sharedComponents/DataTable';
     import ServiceSelector from './../../sharedComponents/ServiceSelector';
+    import ActiveButton from './../../sharedComponents/ActiveButton';
+    import utils from './../../sharedComponents/utils';
 
     export default {
       components: {
         DataTable,
-        ServiceSelector
+        ServiceSelector,
+        ActiveButton
       },
       props: {
         clientId: {
@@ -109,7 +111,7 @@
             pageList: [50, 100, 200, 500, 1000],
             search: false
           },
-          selectedPayment: {},
+          serviceOfPayment: {},
           selectedContract: null,
           payments: '',
           paymentList: [],
@@ -163,26 +165,25 @@
         },
 
         hasReconection() {
-          return (this.aditionalServices && this.aditionalServices.includes(0));
+          if (this.aditionalServices) {
+            const extraServices = Object.keys(this.aditionalServices);
+            return extraServices.includes('0'); // 0 is the code for reconection
+          }
+          return false;
         },
 
         cuota() {
-          return this.payment.cuota - this.payment.descuento;
+          return this.serviceOfPayment.mensualidad - this.payment.descuento;
         },
 
         total() {
-          return this.cuota + this.payment.mora + this.payment.monto_extra;
+          return utils.sum([this.cuota, this.payment.mora, this.payment.monto_extra]);
         },
 
         cols() {
           const paymentEvents = {
             'click .delete-payment': (e, value, row) => {
-              this.deleteConfirmation('Deshacer Pago', '¿Segiro de querer deshacer este pago?')
-                .then((result) => {
-                  if (result.value) {
-                    this.deletePayment(row.id);
-                  }
-                });
+              this.deletePaymentConfirmation(row.id);
             },
             'click .pay-payment': (e, value, row) => {
               this.selectRow(row);
@@ -192,7 +193,7 @@
           const { paymentColumns } = this.store;
           paymentColumns[0].events = paymentEvents;
           return paymentColumns;
-        }
+        },
       },
 
       mounted() {
@@ -236,6 +237,7 @@
                 const { data } = res;
                 if (data.payment) {
                   this.payment = data.payment;
+                  this.serviceOfPayment = data.service;
                 } else {
                   this.resetPayment();
                 }
@@ -265,16 +267,20 @@
           }
         },
 
-        applyPayment() {
-          if (this.payment.id_pago !== 0 && this.payment.cuota > 0) {
-            this.sender('extra/apply_payment');
+        preparePayment() {
+          if (this.payment.id_pago !== 0) {
+            const { payment } = this;
+            const form = {
+              id: payment.id_pago,
+              estado: 'pagado',
+              fecha_pago: payment.fecha_pago || utils.now(),
+              tipo: payment.tipo,
+              id_contrato: payment.id_contrato
+            };
+            this.applyPayment('payment/apply_payment', this.getDataForm(form));
           } else {
-            this.$toasted.info('Debe generar un pago primero o el pago debe ser mayor a cero');
+            this.$toasted.info('Noo hay pago seleccionado');
           }
-        },
-
-        editPayment() {
-          this.sender('extra/edit_payment');
         },
 
         deletePayment(id) {
@@ -283,10 +289,22 @@
               this.showMessage(res.data.message);
               if (this.payment.id_pago) {
                 this.getPayments(this.payment.id_pago);
+              } else {
+                this.getPayments();
               }
             })
             .catch((error) => {
               this.$toasted.error(error);
+            });
+        },
+
+        deletePaymentConfirmation(id) {
+          const paymentId = id || this.payment.id_pago;
+          this.deleteConfirmation('Deshacer Pago', '¿Segiro de querer deshacer este pago?')
+            .then((result) => {
+              if (result.value) {
+                this.deletePayment(paymentId);
+              }
             });
         },
 
@@ -313,6 +331,7 @@
             tipo: '',
             generado: ''
           };
+          this.serviceOfPayment = null;
         },
 
         prepareData() {
@@ -336,10 +355,7 @@
           return { data, info };
         },
 
-        sender(endpoint) {
-          const preparedData = this.prepareData();
-          const { info, data } = preparedData;
-
+        applyPayment(endpoint, data) {
           const form = `data=${JSON.stringify(data)}&info=${JSON.stringify(info)}`;
           this.$http.post(endpoint, form)
             .then((res) => {
@@ -386,6 +402,15 @@
             .catch((err) => {
               this.$toasted.error(err);
             });
+        },
+
+        changeReconection() {
+          if (this.hasReconection) {
+            this.extra.serviceToDelete = 0;
+            this.deleteExtra();
+          } else {
+            this.setExtra(0);
+          }
         }
 
       }

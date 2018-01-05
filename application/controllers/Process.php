@@ -26,45 +26,6 @@ class Process extends CI_Controller {
 		$data  = $_POST;
 		$tabla = $_POST['tabla'];
 		switch ($tabla) {
-			case "abonos":
-				if (!$this->is_day_closed()) {
-					$this->db->trans_start();
-					set_abono($data,$this);
-					$this->db->trans_complete();
-					if($this->db->trans_status() === false){
-						$this->db->trans_rollback();
-						echo MESSAGE_ERROR." No se pudo completar el abono";
-					}
-				}
-				break;
-			case "pagos":
-				if (!$this->is_day_closed()) {
-					$not_paid = !$this->payment_model->is_paid($data['id']);
-					if($not_paid){
-						$id_contrato = $data['id_contrato'];
-						refresh_contract($id_contrato,$this,$data);
-					}else{
-						echo MESSAGE_INFO." Este pago ya ha sido realizado";
-					}
-				}
-				break;
-			case "discount_pagos":
-			  if (!$this->is_day_closed()) {
-					$not_paid = !$this->payment_model->is_paid($data['id_pago']);
-					if($not_paid){
-						$this->db->trans_start();
-						payment_discount($data,$this);
-						$this->db->trans_complete();
-						if($this->db->trans_status() === false){
-							$this->db->trans_rollback();
-							echo MESSAGE_ERROR." error en la operacion";
-						}else{
-							echo " Proceso Completo";
-						}
-					}
-				}
-				break;
-
 			case "averias":
 				$this->averia_model->update($data['id_averia']);
 				break;

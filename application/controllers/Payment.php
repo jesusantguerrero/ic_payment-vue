@@ -16,13 +16,55 @@ class Payment extends MY_Controller {
   }
 
 	public function get_payment(){
-		authenticate();
+    authenticate();
+    $this->load->model('service_model');
 		if ($data = $this->get_post_data('data')) {
       $res["payment"] = $this->payment_model->get_payment($data["id_pago"]);
-      $res['settings'] = $this->settings_model->get_settings();
+      $res['service'] = $this->service_model->get_service($res['payment']['id_servicio']);
       $this->response_json($res);
     }
   }
+
+  public function apply_payment() {
+    if (!$this->is_day_closed()) {
+      $not_paid = !$this->payment_model->is_paid($data['id']);
+      if($not_paid){
+        $id_contrato = $data['id_contrato'];
+        refresh_contract($id_contrato,$this,$data);
+      }else{
+        echo MESSAGE_INFO." Este pago ya ha sido realizado";
+      }
+    }
+  }
+
+  public function abono() {
+    if (!$this->is_day_closed()) {
+      $this->db->trans_start();
+      set_abono($data,$this);
+      $this->db->trans_complete();
+      if($this->db->trans_status() === false){
+        $this->db->trans_rollback();
+        echo MESSAGE_ERROR." No se pudo completar el abono";
+      }
+    }
+  }
+
+  public function apply_discount() {
+    if (!$this->is_day_closed()) {
+      $not_paid = !$this->payment_model->is_paid($data['id_pago']);
+      if($not_paid){
+        $this->db->trans_start();
+        payment_discount($data,$this);
+        $this->db->trans_complete();
+        if($this->db->trans_status() === false){
+          $this->db->trans_rollback();
+          echo MESSAGE_ERROR." error en la operacion";
+        }else{
+          echo " Proceso Completo";
+        }
+      }
+    }
+ }
 
   public function delete_payment(){
     if(!$this->is_day_closed() && $data = $this->get_post_data('data')){
@@ -53,7 +95,7 @@ class Payment extends MY_Controller {
 	public function delete_extra() {
     authenticate();
     $data = $this->get_post_data('data');
-		if ($data && !$this->payment_model->is_paid($data['id_pago']) && $data['id_servicio']) {
+		if ($data && !$this->payment_model->is_paid($data['id_pago']) && ($data['id_servicio'] || $data['id_servicio'] == 0)) {
       if ($this->payment_model->delete_extra($data['id_servicio'], $data['id_pago'])) {
         $this->payment_model->reorganize_values($data['id_pago']);
         $this->set_message("Monto extra Eliminado");
@@ -61,7 +103,7 @@ class Payment extends MY_Controller {
 				$this->set_message("Error al eliminar este servicio");
 			}
       $this->response_json();
-		}
+    }
 	}
 
 	public function set_extra() {
@@ -102,6 +144,9 @@ class Payment extends MY_Controller {
   }
 
   public function validate_extra($service) {
+    if ($service == 0) {
+      return true;
+    }
     return (($service['id_servicio'] || $service['id_servicio'] = 0) && $service['nombre'] && $service['mensualidad']);
   }
 

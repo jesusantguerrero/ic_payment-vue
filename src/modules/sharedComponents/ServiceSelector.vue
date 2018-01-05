@@ -16,7 +16,7 @@
         type: String,
         default: 'reparacion'
       },
-      value: String,
+      value: Boolean,
       title: {
         type: String,
         default: 'Servicio'
