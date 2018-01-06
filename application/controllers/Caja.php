@@ -5,17 +5,16 @@ class Caja extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("caja_mayor");
+    $this->load->model("caja_mayor");
+    $this->my_auth->authenticate();
 	}
 
 	public function add_gasto(){
-		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_gasto($data);
 	}
 
 	public function get_gastos($full = false){
-		authenticate();
 		$data = json_decode($_POST['data'],true);
 		if (!$full){
 			$this->caja_mayor->mostrar_gastos($data['fecha'], 'full');
@@ -28,13 +27,11 @@ class Caja extends MY_Controller {
 	}
 
 	public function delete_gasto(){
-		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->delete_gasto($data);
 	}
 
 	public function get_ingresos(){
-		authenticate();
 		if(isset($_POST['data'])){
 			$data = json_decode($_POST['data'],true);
 		}else{
@@ -48,7 +45,6 @@ class Caja extends MY_Controller {
 	}
 
 	public function getjson() {
-		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$action = $_POST['action'];
 		$module = $_POST['module'];
@@ -81,13 +77,11 @@ class Caja extends MY_Controller {
 	}
 
 	public function add_cierre(){
-		authenticate();
 		$data = json_decode($_POST['data'],true);
 		$this->caja_mayor->add_cierre($data);
 	}
 
 	public function get_cierres() {
-			authenticate();
 			$data = json_decode($_POST['data'],true);
 			if($data) {
 				$res = $this->caja_mayor->get_cierres($data['text'], $data['first_date'], $data['second_date']);
@@ -96,7 +90,6 @@ class Caja extends MY_Controller {
 	}
 
 	public function get_last_cierre(){
-		authenticate();
 		$this->caja_mayor->get_last_cierre();
 	}
 }

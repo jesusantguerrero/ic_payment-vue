@@ -8,12 +8,11 @@ class Messages extends MY_Controller {
     $this->load->model('message_model');
     $this->load->model('client_model');
     $this->load->library('messagegate');
+    $this->my_auth->authenticate();
   }
 
   public function send_message(){
-    authenticate();
     $data = $this->get_post_data('data');
-
     if ($data) {
       $status = $this->messagegate->send_message($data);
       if(!isset($status['error']) && $status['response']){
@@ -27,7 +26,6 @@ class Messages extends MY_Controller {
   }
 
   public function save_config(){
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $status = $this->message_model->add_config($data);
@@ -41,13 +39,11 @@ class Messages extends MY_Controller {
   }
 
   public function get_config(){
-    authenticate();
     $res['config'] = $this->message_model->get_config();
     $this->response_json($res);
   }
 
   public function search_clients(){
-    authenticate();
     $query = $_GET['q'];
     if($query){
       $res['items'] = $this->client_model->search_clients_for_message($query);

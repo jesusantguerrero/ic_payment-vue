@@ -5,10 +5,10 @@
     public function __construct(){
       parent::__construct();
       $this->load->model('client_model');
+      $this->my_auth->authenticate();
     }
 
     public function add(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         if (!$this->client_model->has_dni($data['cedula'])) {
@@ -28,7 +28,6 @@
     }
 
     public function get_clients($mode = false){
-      authenticate();
       if (!$mode) {
         $res['clients'] = $this->client_model->get_all_clients();
       } else if ($mode == 'dropdown'){
@@ -42,7 +41,6 @@
     }
 
     public function get_client(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         $res['client'] = $this->client_model->get_client($data['id'], true);
@@ -51,7 +49,6 @@
     }
 
     public function update(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         if ($this->client_model->update_client($data)){
@@ -64,7 +61,6 @@
     }
 
     public function update_row(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         if ($this->client_model->update_client($data['value'], $data['row'], $data['id'])){
@@ -77,7 +73,6 @@
     }
 
     public function delete(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data && isset($data['id'])) {
 				if ($this->client_model->delete_client($data['id'])) {

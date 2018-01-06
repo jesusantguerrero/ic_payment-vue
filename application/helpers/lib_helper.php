@@ -11,26 +11,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-if( !function_exists('get_user_data')){
-  function get_user_data(){
-    if(isset($_SESSION['user_data'])){
-      $user = $_SESSION['user_data'];
-      $fullname = $user['name']." ".$user['lastname'];
-      if($user['type'] == 0){
-        $type = "Administrador";
-      }else{
-        $type = "Secretaria(o)";
-      }
-
-      $user['fullname'] = $fullname;
-      $user['typestr'] = $type;
-      $user['password'] = '';
-
-      return $user;
-    }
-  }
-}
-
 function get_client_data(){
     if(isset($_SESSION['client_data'])){
       $client_data = $_SESSION['client_data'];
@@ -52,36 +32,6 @@ function CurrencyFormat($number){
 function number_to_words($number){
   $formatter = new \NumberFormatter('es', \NumberFormatter::SPELLOUT);
   return $formatter->format($number) . "\n";
-}
-
-function authenticate(){
-  if(!isset($_SESSION['user_data'])){
-		redirect(base_url());
-	}
-}
-
-function auth_user_type($type){
-  if($_SESSION['user_data']['type'] == $type){
-    return true;
-  }
-  return false;
-}
-
-function get_role($type){
-  $roles = ['admnistrador','secretaria(o)','tecnico'];
-  return $roles[$type];
-}
-
-function auth_user_type_for_pages($page,$type,$redirect){
-  $forbiden_sections[1] = array("administrador","reportes",'secciones','informes');
-
-  if(in_array($page,$forbiden_sections[$type]) && auth_user_type($type)){
-    if($redirect){
-      redirect($redirect);
-    }
-    return true;
-  }
-  return false;
 }
 
 function phone_format($tel){
@@ -155,11 +105,4 @@ function str_contains($word_to_search,$string){
     return TRUE;
   }
   return FALSE;
-}
-
-function get_manifest(){
-  $manifest = file_get_contents(base_url('assets/js/dist/assets/js/dist/manifest.json'));
-  $manifest = json_decode($manifest, true);
-  var_dump($manifest);
-
 }

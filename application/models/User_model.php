@@ -74,6 +74,7 @@ class User_model extends CI_MODEL{
 
   public function get_user($id){
     $this->db->where('user_id', $id);
+    $this->db->or_where('nickname', $id);
     $result =$this->db->get($this->table, 1);
     if($result){
      return $result->row_array();
@@ -98,37 +99,6 @@ class User_model extends CI_MODEL{
     return $code;
   }
 
-  public function login($nickname,$password){
-    $this->db->where('nickname',$nickname);
-    $result = $this->db->get($this->table,1);
-    if ($result != false){
-      $result = $result->row_array();
-      if(password_verify($password,$result['password']) && $result['active']){
-        $_SESSION['user_data'] = $result;
-        $_SESSION['user_data']['password'] = '';
-        $this->update_user(['last_login' => date('Y-m-d H:i:s')],$result['user_id'],false);
-        return true;
-      }
-      return false;
-    }else{
-     return false;
-    }
-  }
-
-  public function confirm_password($user_id,$password){
-    $this->db->where('user_id',$user_id);
-    $result = $this->db->get($this->table,1);
-    if($result != false){
-      $result = $result->row_array();
-      if(password_verify($password,$result['password'])){
-        return true;
-      }
-      return false;
-    }else{
-     return false;
-    }
-  }
-
   public function update_password($user_id,$current_password,$new_password){
     $this->db->where('user_id',$user_id);
     $result = $this->db->get($this->table,1);
@@ -147,10 +117,6 @@ class User_model extends CI_MODEL{
     }else{
      return false;
     }
-  }
-
-  private function hash($password) {
-    return password_hash($password, PASSWORD_DEFAULT);
   }
 
 }

@@ -5,10 +5,10 @@
       parent::__construct();
       $this->load->model('service_model');
       $this->load->model('contract_model');
+      $this->my_auth->authenticate();
     }
 
     public function add() {
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         if ($result = $this->service_model->add($data)) {
@@ -25,7 +25,6 @@
     }
 
     public function get_services($type = null){
-      authenticate();
       if (!$type) {
         $res['services'] = $this->service_model->get_all_services();
       } else {
@@ -35,7 +34,6 @@
     }
 
     public function get_service(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         $res['service'] = $this->service_model->get_service($data['id']);
@@ -44,7 +42,6 @@
     }
 
     public function update(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
 				$this->db->trans_start();
@@ -61,7 +58,6 @@
     }
 
     public function delete(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data && isset($data['id'])) {
         if ($this->service_model->delete_service($data['id'])) {

@@ -6,7 +6,8 @@ class Extra extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("extra_model");
-		$this->load->model("payment_model");
+    $this->load->model("payment_model");
+    $this->my_auth->authenticate();
   }
 
   public function add_extra() {
@@ -14,7 +15,7 @@ class Extra extends MY_Controller {
   }
 
 	public function delete_extra(){
-		authenticate();
+
 		if ($data = $this->get_post_data('data')) {
       if ($this->extra_model->delete_extra($data)) {
         $this->set_message('Exta Eliminado');
@@ -26,7 +27,7 @@ class Extra extends MY_Controller {
 	}
 
 	public function get_all($client_id = null) {
-		authenticate();
+
 		$data = $this->get_post_data('data');
     if (!$client_id) {
       $res = $this->extra_model->get_all($data['state'], $data['text']);
@@ -40,7 +41,6 @@ class Extra extends MY_Controller {
   // extra payments
 
   public function get_extra_payments(){
-		authenticate();
 		if ($data = $this->get_post_data('data')){
 			$res['payments'] = $this->extra_model->get_all_of_extra($data['id_extra'], 'id_pago, concepto');
 			$this->response_json($res);
@@ -48,7 +48,6 @@ class Extra extends MY_Controller {
   }
 
 	public function get_payment(){
-		authenticate();
 		if ($data = $this->get_post_data('data')) {
       $res["payment"] = $this->payment_model->get_payment($data["id_pago"]);
       $this->response_json($res);
@@ -56,7 +55,6 @@ class Extra extends MY_Controller {
 	}
 
 	public function apply_payment(){
-    authenticate();
     $info = $this->get_post_data('info');
     $data = $this->get_post_data('data');
     if ($info && $data ) {
@@ -77,7 +75,6 @@ class Extra extends MY_Controller {
 	}
 
 	public function edit_payment() {
-		authenticate();
 		$info = $this->get_post_data('info');
     $data = $this->get_post_data('data');
     if ($info && $data ) {
@@ -97,8 +94,7 @@ class Extra extends MY_Controller {
     }
 	}
 
-	public function delete_payment(){
-		authenticate();
+	public function delete_payment() {
     if ($data = $this->get_post_data('data')) {
       if ($this->extra_model->delete_payment($data)) {
         $this->set_message('eliminado');
@@ -109,8 +105,7 @@ class Extra extends MY_Controller {
     }
 	}
 
-	public function generate_extra_payment(){
-    authenticate();
+	public function generate_extra_payment() {
     if ($data = $this->get_post_data('data')) {
       if ($this->extra_model->generate_extra_payment($data)) {
         $this->set_message('Pago generado');

@@ -5,11 +5,12 @@ class User extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("user_model");
+    $this->load->model("user_model");
+    $this->my_auth->authenticate();
 	}
 
 	public function add(){
-		authenticate();
+
     $data 	= $this->get_post_data('data');
     if ($data) {
       $result = $this->user_model->add_new_user($data);
@@ -29,9 +30,9 @@ class User extends MY_Controller {
   }
 
 	public function update($id){
-    authenticate();
+
     $data = $this->get_post_data('data');
-    $current_user = get_user_data();
+    $current_user =  $this->my_auth->get_user_data();
     if ($data && $id && $current_user['type'] == 0) {
       $result =	$this->user_model->update_user($data, $id);
       if ($result) {
@@ -44,7 +45,7 @@ class User extends MY_Controller {
 	}
 
 	public function update_field(){
-		authenticate();
+
     $data = $this->get_post_data('data');
     if ($data) {
       $credentials = ['id' => $data['user_id'], 'password' => $data['password']];
@@ -60,11 +61,11 @@ class User extends MY_Controller {
 	}
 
 	public function change_state(){
-		authenticate();
+
 		$id = $this->get_post_data('user_id');
 		if ($id) {
       $user = $this->user_model->get_user($id);
-      $logged_user = get_user_data();
+      $logged_user =  $this->my_auth->get_user_data();
 
       if ($user['type'] == 0 && $logged_user['nickname'] == $user['nickname']) {
         $res['message'] = ['type' => 'error', 'text' => 'Usted el administrador logeado, no se puede desactivar a si mismo'];
@@ -82,8 +83,8 @@ class User extends MY_Controller {
 	}
 
 	public function get_users($mode = false){
-    authenticate();
-    $user = get_user_data();
+
+    $user =  $this->my_auth->get_user_data();
     if ($user['type'] == 0 && !$mode) {
       echo $this->user_model->get_all_users();
     } else if ($mode == 'dropdown') {
@@ -93,20 +94,18 @@ class User extends MY_Controller {
 	}
 
 	public function get_user($id = false){
-    authenticate();
     if (!$id) {
-      $user = get_user_data();
+      $user =  $this->my_auth->get_user_data();
     } else {
       $user = $this->user_model->get_user($id);
       unset($user['password']);
     }
-    $user['role'] = get_role($user['type']);
+    $user['role'] = $this->my_auth->get_role($user['type']);
     $res['user'] = $user;
 		$this->response_json($res);
 	}
 
 	public function delete_user(){
-		authenticate();
     $id = $this->get_post_data('user_id');
     if ($id) {
       $result = $this->user_model->delete_user($id);
@@ -126,12 +125,11 @@ class User extends MY_Controller {
 	}
 
 	public function confirm_password(){
-		authenticate();
-    $data     = $this->get_post_data('data');
+    $data = $this->get_post_data('data');
     if ($data) {
       $user_id  = $data['user_id'];
       $password = $data['current_password'];
-      $res['is_correct'] = $this->user_model->confirm_password($user_id, $password);
+      $res['is_correct'] = $this->my_auth->confirm_password($user_id, $password);
        if ($res['is_correct']) {
         $res['message'] = ['type' => 'success', 'text' => 'Contraseña confirmada'];
       } else {
@@ -142,14 +140,12 @@ class User extends MY_Controller {
   }
 
 	public function update_password(){
-		authenticate();
     $data = $this->get_post_data('data');
-
     if ($data) {
       $user_id 					= $data['user_id'];
       $current_password = $data['current_password'];
       $new_password 		= $data['new_password'];
-      $res['is_correct'] = $this->user_model->update_password($user_id,$current_password,$new_password);
+      $res['is_correct'] = $this->user_model->update_password($user_id, $current_password, $new_password);
 
       if ($res['is_correct']) {
         $res['message']  = ['type' => 'success', 'text' => 'Contraseña guardada con exito'];

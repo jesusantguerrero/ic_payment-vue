@@ -4,10 +4,10 @@
     public function __construct(){
       parent::__construct();
       $this->load->model('petty_cash_model');
+      $this->my_auth->authenticate();
     }
 
     public function add() {
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         if ($data['entrada'] <= 0) {
@@ -25,7 +25,6 @@
     }
 
     public function retire(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         $balance = $this->petty_cash_model->get_balance();
@@ -44,7 +43,6 @@
     }
 
     public function edit(){
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data) {
         $balance = $this->petty_cash_model->get_balance();
@@ -69,7 +67,6 @@
     }
 
     public function delete() {
-      authenticate();
       $data = $this->get_post_data('data');
       if ($data['id'] ) {
         if (!$this->is_today($data['date'])) {
@@ -86,7 +83,6 @@
     }
 
     public function get_transactions() {
-      authenticate();
       $data = $this->get_post_data('data');
       $res['transactions'] = $this->petty_cash_model->get_transactions($data['user_id'], $data['date']);
       $res['balance'] = $this->petty_cash_model->get_balance();;
@@ -98,7 +94,6 @@
     }
 
     public function get_balance() {
-      authenticate();
       $balance = $this->petty_cash_model->get_balance();
       $this->response_json($balance);
     }
@@ -107,8 +102,6 @@
       $date = substr($original_date, 0, 10);
       $date = new DateTime($date);
       $today = new DateTime('today');
-
       return ($date == $today);
-
     }
   }

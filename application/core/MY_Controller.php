@@ -4,6 +4,8 @@ class MY_Controller extends CI_Controller {
 
   public function __construct(){
     parent::__construct();
+    $this->load->model('user_model');
+    $this->load->library('my_auth', ['user_model' => $this->user_model]);
   }
 
   protected function get_post_data($field = null){

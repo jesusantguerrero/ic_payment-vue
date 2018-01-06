@@ -18,7 +18,7 @@ class App extends MY_Controller {
  }
 
 	public function index() {
-		if(!isset($_SESSION['user_data'])){
+		if(!$this->my_auth->isLoged()){
 			redirect(base_url('app/login'));
     } else {
 			redirect(base_url('app/admin/home'));
@@ -26,7 +26,7 @@ class App extends MY_Controller {
   }
 
   public function login($page = 'login') {
-    if (!isset($_SESSION['user_data'])) {
+    if (!$this->my_auth->isLoged()) {
       $data  = $this->define_data($page, ['login']);
       $this->parser->parse('pages/login',$data);
     } else {
@@ -35,8 +35,8 @@ class App extends MY_Controller {
   }
 
 	public function admin($page = 'home', $params = null) {
-		authenticate();
-    auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
+		 $this->my_auth->authenticate();
+     $this->my_auth->has_permission($page, 1, base_url('app/admin/home'));
     $data = $this->get_global_data($page, $params);
 
     echo $this->twig->render('layouts/header', $data);
@@ -45,7 +45,7 @@ class App extends MY_Controller {
   }
 
   public function details($id, $active_window = "payments") {
-		authenticate();
+		 $this->my_auth->authenticate();
     $params = [
       'id' => $id,
       'active_window' => $active_window
@@ -55,7 +55,7 @@ class App extends MY_Controller {
 	}
 
 	public function imprimir($page) {
-		authenticate();
+		 $this->my_auth->authenticate();
 		$data['title'] = $page;
 		$info = '';
 
@@ -70,7 +70,7 @@ class App extends MY_Controller {
 
   private function get_global_data($page, $params) {
     $data  = $this->define_data($page, ['app']);
-    $data['user'] = get_user_data();
+    $data['user'] =  $this->my_auth->get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
     $data['params'] = $params;

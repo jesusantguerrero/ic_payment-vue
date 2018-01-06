@@ -5,10 +5,10 @@ class Section extends MY_Controller {
   public function __construct() {
     parent::__construct();
     $this->load->model('section_model');
+    $this->my_auth->authenticate();
   }
 
   public function add() {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       switch ($this->section_model->add($data)) {
@@ -29,13 +29,11 @@ class Section extends MY_Controller {
   }
 
   public function get_sections($mode = false) {
-    authenticate();
       $res['sections'] = $this->section_model->get_sections($mode);
       $this->response_json($res);
   }
 
   public function get_ips($mode = false) {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       if (!$mode) {
@@ -60,7 +58,6 @@ class Section extends MY_Controller {
   }
 
   public function update_ip(){
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       if ($this->section_model->update_ip_state($data['code'], $data['state'])){

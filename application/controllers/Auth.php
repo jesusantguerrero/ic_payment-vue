@@ -2,7 +2,6 @@
   class Auth extends MY_Controller {
     public function __construct() {
       parent::__construct();
-      $this->load->model('user_model');
     }
 
     public function do_login(){
@@ -10,15 +9,12 @@
       if ($data) {
         $user = $data['user'];
         $password = $data['password'];
-        $res['is_correct'] = $this->user_model->login($user, $password);
+        $res['is_correct'] =  $this->my_auth->login($user, $password);
         $this->response_json($res);
       }
     }
 
-    public function do_logout(){
-      authenticate();
-      session_unset($_SESSION['user_data']);
-      session_destroy();
-      redirect(base_url());
+    public function do_logout() {
+      $this->my_auth->logout();
     }
   }

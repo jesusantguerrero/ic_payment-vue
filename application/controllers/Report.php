@@ -3,6 +3,7 @@
     public function __construct() {
       parent::__construct();
       $this->load->model('payment_model');
+      $this->my_auth->authenticate();
     }
 
     // graphic report related
@@ -29,7 +30,7 @@
 
     public function cash_desk_year($year = null){
       $this->load->model('caja_mayor');
-      authenticate();
+
       $year = ($year ? $year :date('Y'));
       $months = array_values($GLOBALS['spanish_months']);
 
@@ -70,13 +71,12 @@
     // home page
 
     public function get_next_payments() {
-      authenticate();
+
       $res['nextPayments'] = $this->payment_model->get_next_payments();
       $this->response_json($res);
     }
 
     public function get_debtors() {
-      authenticate();
       $res['debtors'] = $this->payment_model->get_debtors();
       $this->response_json($res);
     }
@@ -84,8 +84,6 @@
     // document related
 
     public function get_print_report($table,$type = 'nada'){
-      authenticate();
-
       switch ($table) {
         case 'payment':
             $this->report_model->get_payments_report($type);

@@ -4,10 +4,10 @@ class Company extends MY_Controller
   public function __construct() {
     parent::__construct();
     $this->load->model('company_model');
+    $this->my_auth->authenticate();
   }
 
   public function update(){
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       unset($data['id_empresa']);
@@ -20,17 +20,14 @@ class Company extends MY_Controller
 
       $this->response_json($res);
     }
-
   }
 
   public function get(){
-    authenticate();
     $res = $this->company_model->get_company();
     $this->response_json($res);
   }
 
   public function upload() {
-    authenticate();
     $result = $this->do_upload('company', 'picture');
     if (isset($result['error'])) {
       $res['message'] = ['type' => 'error', 'text' => $result['error']];

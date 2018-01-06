@@ -3,12 +3,11 @@
     public function __construct(){
       parent::__construct();
       $this->load->model('settings_model');
+      $this->my_auth->authenticate();
     }
 
     public function update(){
-      authenticate();
       $data = $this->get_post_data('data');
-
       if ($data) {
         $res['message'] = ['type' => 'error', 'text' => 'Error al Actualizar'];
         if ($this->settings_model->update_settings($data)) {
@@ -20,7 +19,6 @@
     }
 
     public function get(){
-      authenticate();
       $res = $this->settings_model->get_settings();
       $this->response_json($res);
     }

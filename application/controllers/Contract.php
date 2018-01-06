@@ -12,11 +12,11 @@ class Contract extends MY_Controller {
 		$this->load->model('settings_model');
 		$this->load->model('client_model');
     $this->load->model('cancelations_model');
+    $this->my_auth->authenticate();
 
   }
 
   public function add() {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       if ($contract_id = $this->contract_model->add($data)) {
@@ -31,7 +31,6 @@ class Contract extends MY_Controller {
 	}
 
 	public function get_contracts($id = null, $mode = null) {
-    authenticate();
 		if ($mode && $id) {
 				$res['contracts'] = $this->contract_model->get_contracts($id, $mode);
 			} else {
@@ -41,7 +40,6 @@ class Contract extends MY_Controller {
   }
 
   public function get_contract() {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $res['contract'] = $this->contract_model->get_contract_view($data['id'],true);
@@ -50,7 +48,6 @@ class Contract extends MY_Controller {
   }
 
   public function update() {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $data_for_update = array(
@@ -78,7 +75,6 @@ class Contract extends MY_Controller {
   }
 
   public function upgrade(){
-		authenticate();
 		if ($data = $this->get_post_data('data')) {
       if ($this->contract_model->upgrade_contract($data)) {
         $this->set_message(' contrato mejorado');
@@ -90,7 +86,6 @@ class Contract extends MY_Controller {
 	}
 
 	public function suspend() {
-		authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $contract = $this->contract_model->get_contract_view($data['id_contrato']);
@@ -104,8 +99,7 @@ class Contract extends MY_Controller {
     }
   }
 
-  public function extend(){
-		authenticate();
+  public function extend() {
 		if ($data = $this->get_post_data('data')) {
       $this->db->trans_start();
       extend_contract($data, $this);
@@ -122,7 +116,6 @@ class Contract extends MY_Controller {
 
 
   public function cancel() {
-    authenticate();
     $data = $this->get_post_data('data');
 		if (!$this->is_day_closed() && $data) {
 			$pendents = $this->contract_view_model->get_pendent_payments($data['id_contrato']);
@@ -141,7 +134,6 @@ class Contract extends MY_Controller {
 	}
 
 	public function reconnect() {
-    authenticate();
     if ($data = $this->get_post_data('data')) {
       $this->db->where("id_contrato",$data['id_contrato']);
       $this->db->where('fecha_limite',$data['fecha']);
@@ -165,8 +157,7 @@ class Contract extends MY_Controller {
     }
 	}
 
-	public function getCancelations() {
-		authenticate();
+	public function get_cancelations() {
 		$data = json_decode($_POST['data'], true);
 		if ($data) {
 			$res['content'] = $this->cancelations_model->get_cancelations($data['first_date'], $data['second_date']);
@@ -175,7 +166,6 @@ class Contract extends MY_Controller {
   }
 
   public function add_extra(){
-		authenticate();
 		if ($data = $this->get_post_data('data')) {
       switch ($data['modo_pago']) {
         case 1:
@@ -205,12 +195,7 @@ class Contract extends MY_Controller {
     }
   }
 
-  public function add_nextpayment_extra() {
-
-  }
-
 	public function delete_extra() {
-		authenticate();
 		$data = $this->get_post_data('data');
 		if ($data) {
       if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])){
@@ -223,7 +208,6 @@ class Contract extends MY_Controller {
   }
 
   public function up_to_date(){
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       if(!is_day_closed()) {
@@ -242,12 +226,10 @@ class Contract extends MY_Controller {
   // installation
 
   public function change_installation_state($payment_id){
-		authenticate();
 		$this->report_model->update_installation($payment_id);
   }
 
 	public function get_installations($state){
-		authenticate();
 		$this->report_model->get_installations_list($state);
 	}
 
@@ -266,7 +248,6 @@ class Contract extends MY_Controller {
 	}
 
 	public function get_requirement($client_id,$service_id){
-		authenticate();
 		$requirement_info['cliente'] 	= $this->client_model->get_client($client_id);
 		$requirement_info['servicio'] = $this->service_model->get_service($service_id);
 		$this->session->set_flashdata('requirement_info', $requirement_info);
@@ -274,7 +255,6 @@ class Contract extends MY_Controller {
 	}
 
 	public function get_cancel_contract($contract_id, $end = false){ // or end of contract
-		authenticate();
 		$contract = $this->contract_model->get_contract_view($contract_id);
 		$requirement_info['contrato'] = $contract;
 		$requirement_info['cliente'] 	= $this->client_model->get_client($contract['id_cliente']);
@@ -290,7 +270,6 @@ class Contract extends MY_Controller {
   }
 
   public function print_page(){
-		authenticate();
 		$report = $this->contract_view_model->get_technical_report();
 		if(!$report) echo "No hay datos";
 

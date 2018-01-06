@@ -4,11 +4,11 @@ class Payment extends MY_Controller {
 		parent::__construct();
 		$this->load->model('report_model');
 		$this->load->model('payment_model');
-		$this->load->model('settings_model');
+    $this->load->model('settings_model');
+    $this->my_auth->authenticate();
 	}
 
   public function get_payments($mode){
-		authenticate();
 		if ($data = $this->get_post_data('data')){
 			$res['payments'] = $this->payment_model->get_payments($data['id_contrato'], $mode);
 			$this->response_json($res);
@@ -16,7 +16,6 @@ class Payment extends MY_Controller {
   }
 
 	public function get_payment(){
-    authenticate();
     $this->load->model('service_model');
 		if ($data = $this->get_post_data('data')) {
       $res["payment"] = $this->payment_model->get_payment($data["id_pago"]);
@@ -100,7 +99,6 @@ class Payment extends MY_Controller {
   }
 
   public function get_receipts() {
-		authenticate();
 		$data = $this->get_post_data('data');
 		if($data) {
 			$res = $this->report_model->get_receipts($data['text'], $data['first_date'], $data['second_date']);
@@ -109,7 +107,6 @@ class Payment extends MY_Controller {
   }
 
 	public function get_receipt($id){
-		authenticate();
 		$recibo_info = $this->payment_model->get_payment($id, true);
 		$this->session->set_flashdata('recibo_info',$recibo_info);
     if(str_contains('abono',$recibo_info['concepto'])){
@@ -119,7 +116,7 @@ class Payment extends MY_Controller {
 	}
 
 	public function delete_extra() {
-    authenticate();
+
     $data = $this->get_post_data('data');
 		if ($data && ($data['id_servicio'] || $data['id_servicio'] == 0)) {
       $is_paid = $this->payment_model->is_paid($data['id_pago']);
@@ -138,10 +135,8 @@ class Payment extends MY_Controller {
   }
 
 	public function set_extra() {
-    authenticate();
     $data = $this->get_post_data('data');
     $settings = $this->settings_model->get_settings();
-
 		if ($data && $this->validate_extra($data['service'])) {
         $is_paid = $this->payment_model->is_paid($data['id_pago']);
       if ($is_paid) {
@@ -167,7 +162,6 @@ class Payment extends MY_Controller {
 	}
 
 	public function set_mora() {
-		authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $is_paid = $this->payment_model->is_paid($data['id_pago']);
