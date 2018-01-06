@@ -37,12 +37,8 @@ class App extends MY_Controller {
 	public function admin($page = 'home', $params = null) {
 		authenticate();
     auth_user_type_for_pages($page, 1, base_url('app/admin/home'));
+    $data = $this->get_global_data($page, $params);
 
-    $data  = $this->define_data($page, ['app']);
-    $data['user'] = get_user_data();
-    $data['company'] = $this->company_model->get_company();
-    $data['notifications'] = $this->report_model->count_moras_view();
-    $data['params'] = $params;
     echo $this->twig->render('layouts/header', $data);
     echo $this->twig->render("pages/".$page, $data);
 		$this->parser->parse('layouts/footer', $data);
@@ -71,6 +67,15 @@ class App extends MY_Controller {
 		$this->load->view('layouts/header_impresos',$data);
 		$this->load->view("impresos/$page",$info);
 	}
+
+  private function get_global_data($page, $params) {
+    $data  = $this->define_data($page, ['app']);
+    $data['user'] = get_user_data();
+    $data['company'] = $this->company_model->get_company();
+    $data['notifications'] = $this->report_model->count_moras_view();
+    $data['params'] = $params;
+    return $data;
+  }
 
   private function define_data($title, $js = [] , $css = []) {
     $jsFiles = [];

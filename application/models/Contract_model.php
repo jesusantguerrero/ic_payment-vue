@@ -263,7 +263,7 @@ class Contract_model extends CI_MODEL{
     $current_contract  = $this->get_contract_view($contract_id);
     $payment   = $this->payment_model->get_payment($data['id']);
 
-    $date = format_date($data['fecha_pago']);
+    $date = $data['fecha_pago'];
 
     $update_contract_data = [
       'ultimo_pago'   => $date

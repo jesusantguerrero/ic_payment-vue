@@ -1,7 +1,15 @@
 <template lang="pug">
   .my-wrapper
-    .table-wrapper(v-if="!visible")
-      DataTable(ids="payment-table", :parentId="parentId", :data="payments", :cols="cols", :options="tableOptions")
+    .table-wrapper#payment-table-container(v-if="!visible")
+      .searcher-container.main-toolbar#payment-toolbar
+        .input-group.search
+          .input-group-addon: i.material-icons search
+          input(type="text", placeholder=" descripcion").form-control.searcher
+        .input-group.search
+          .input-group-addon: i.material-icons person_pin
+          select(name="" , class="form-control", v-model="selectedContract", @change="getPayments")
+            option(v-for="contract of contractList", :key="contract.id_contrato", :value="contract.id_contrato") {{ contract.id_contrato}}
+      DataTable(ids="payment-table", :toolbar="toolbar", :parentId="parentId", :data="payments", :cols="cols", :options="tableOptions")
 
     form.card#app-pago-extra(v-if="visible")
       .row
@@ -10,7 +18,7 @@
           button(class="btn btn-gray lg" type="submit" @click.prevent.stop="goBack"): i.material-icons arrow_back
 
         .col-md-1.mb-1
-          button(class="btn btn-gray lg" type="submit" @click.prevent.stop="generatePayment"): i.material-icons add
+          button(class="btn btn-gray lg" type="submit" @click.prevent.stop=""): i.material-icons add
 
       br
       .row
@@ -104,15 +112,15 @@
             serviceToDelete: null,
             serviceToAdd: false
           },
+          contractList: null,
           extras: '',
-          parentId: '#client-table-container',
+          parentId: '#payment-table-container',
+          toolbar: '#payment-toolbar',
           tableOptions: {
             pageSize: 200,
             pageList: [50, 100, 200, 500, 1000],
-            search: false
           },
           serviceOfPayment: {},
-          selectedContract: null,
           payments: '',
           paymentList: [],
           payment: {
@@ -120,7 +128,7 @@
             id_contrato: 0,
             id_servicio: 0,
             id_empleado: 0,
-            fecha_pago: 'dd/mm/yyyy',
+            fecha_pago: '',
             concepto: 'extra',
             detalles_extra: '',
             cuota: '',
@@ -146,7 +154,7 @@
 
       computed: {
         url_receipt() {
-          return `${baseURL}process/getrecibo/${this.payment.id_pago}`;
+          return `${baseURL}payment/get_receipt/${this.payment.id_pago}`;
         },
 
         isPaid() {
@@ -180,6 +188,26 @@
           return utils.sum([this.cuota, this.payment.mora, this.payment.monto_extra]);
         },
 
+        paymentDate: {
+          set(val) {
+            this.payment.fecha_pago = val;
+            this.paymentDate = val;
+          },
+          get() {
+            return (this.payment.fecha_pago) ? this.payment.fecha_pago : moment().format('YYYY-MM-DD');
+          }
+        },
+
+        selectedContract: {
+          set(val) {
+            this.store.setSelectedContract(val);
+          },
+
+          get() {
+            return this.store.selectedContract;
+          }
+        },
+
         cols() {
           const paymentEvents = {
             'click .delete-payment': (e, value, row) => {
@@ -198,6 +226,9 @@
 
       mounted() {
         this.getContracts();
+        window.appBus.$on('details.save-abono', () => {
+          this.getPayments();
+        });
       },
 
       methods: {
@@ -207,7 +238,7 @@
               this.contractList = res.data.contracts;
               const len = res.data.contracts.length;
               if (len) {
-                this.selectedContract = this.contractList[len - 1].id_contrato;
+                this.store.setSelectedContract(this.contractList[len - 1].id_contrato);
                 this.getPayments();
               }
             });
@@ -220,7 +251,7 @@
         },
 
         getPayments(paymentId) {
-          this.$http.post('payment/get_payments/table', this.getDataForm({ id_contrato: this.selectedContract }))
+          this.$http.post('payment/get_payments/table', this.getDataForm({ id_contrato: this.store.selectedContract }))
             .then((res) => {
               const { data } = res;
               this.payments = data.payments;
@@ -247,26 +278,6 @@
           }
         },
 
-        generatePayment() {
-          if (this.is_paid || this.payment.id_pago === 0) {
-            const form = {
-              id_extra: this.extra.id,
-              id_servicio: this.extra.id_servicio
-            };
-            this.$http.post('extra/generate_extra_payment', this.getDataForm(form))
-              .then((res) => {
-                const { data } = res;
-                this.showMessage(data.message);
-                this.getPayments();
-              })
-              .catch((err) => {
-                this.$toasted.error(err);
-              });
-          } else {
-            this.$toasted.info('Debe realizar este pago antes de crear uno nuevo');
-          }
-        },
-
         preparePayment() {
           if (this.payment.id_pago !== 0) {
             const { payment } = this;
@@ -281,6 +292,20 @@
           } else {
             this.$toasted.info('Noo hay pago seleccionado');
           }
+        },
+
+        prepareDiscount() {
+          const { payment } = this;
+          const form = {
+            id_pago: payment.id_pago,
+            id_contrato: payment.id_contrato,
+            cuota: this.cuota,
+            total: this.total(),
+            descuento: this.payment.descuento,
+            razon_descuento: this.payment.razon_descuento,
+            fecha_pago: payment.fecha_pago
+          };
+          this.applyPayment('payment/apply_discount', form);
         },
 
         deletePayment(id) {

@@ -44,14 +44,18 @@ class Payment extends MY_Controller {
   }
 
   public function abono() {
-    if (!$this->is_day_closed()) {
-      $this->db->trans_start();
-      set_abono($data,$this);
-      $this->db->trans_complete();
-      if($this->db->trans_status() === false){
-        $this->db->trans_rollback();
-        echo MESSAGE_ERROR." No se pudo completar el abono";
+    $data = $this->get_post_data('data');
+    if (!$this->is_day_closed() && $data) {
+      if ($result = set_abono($data, $this)) {
+        if ($result === 'bigger') {
+          $this->set_message('El saldo que intenta abonar es mayor a la cuota', 'info');
+        } else {
+          $this->set_message('Abono Acreditado');
+        }
+      } else {
+        $this->set_message('No se pudo completar el abono');
       }
+      $this->response_json();
     }
   }
 
@@ -74,16 +78,20 @@ class Payment extends MY_Controller {
 
   public function delete_payment(){
     if(!$this->is_day_closed() && $data = $this->get_post_data('data')){
+
       if($this->payment_model->is_paid($data['id_pago'])){
+
         $this->db->trans_start();
-        cancel_payment($data['id_pago'],$this);
+          $result = cancel_payment($data['id_pago'], $this);
         $this->db->trans_complete();
+
         if($this->db->trans_status() === false){
           $this->db->trans_rollback();
           $this->set_message("No Pudo deshacerse el Pago");
         } else {
           $this->set_message("Pago deshecho");
         }
+
       }else{
         $this->set_message("Este pago no ha sido realizado para deshacerse");
       }
@@ -113,38 +121,47 @@ class Payment extends MY_Controller {
 	public function delete_extra() {
     authenticate();
     $data = $this->get_post_data('data');
-		if ($data && !$this->payment_model->is_paid($data['id_pago']) && ($data['id_servicio'] || $data['id_servicio'] == 0)) {
-      if ($this->payment_model->delete_extra($data['id_servicio'], $data['id_pago'])) {
-        $this->payment_model->reorganize_values($data['id_pago']);
-        $this->set_message("Monto extra Eliminado");
-			} else {
-				$this->set_message("Error al eliminar este servicio");
-			}
+		if ($data && ($data['id_servicio'] || $data['id_servicio'] == 0)) {
+      $is_paid = $this->payment_model->is_paid($data['id_pago']);
+      if ($is_paid) {
+        $this->set_message( 'este pago ya ha sido realizado', 'info');
+      } else {
+        if ($this->payment_model->delete_extra($data['id_servicio'], $data['id_pago'])) {
+          $this->payment_model->reorganize_values($data['id_pago']);
+          $this->set_message("Monto extra Eliminado");
+			  } else {
+				  $this->set_message("Error al eliminar este servicio");
+			  }
+      }
       $this->response_json();
     }
-	}
+  }
 
 	public function set_extra() {
     authenticate();
     $data = $this->get_post_data('data');
     $settings = $this->settings_model->get_settings();
-    $not_paid = !$this->payment_model->is_paid($data['id_pago']);
 
-		if ($data && $this->validate_extra($data['service']) && $not_paid) {
-			if ($data['service'] == 0) {
-        $service_name = 'Reconexion';
-				$new_extra = [0 => ["servicio" => "Reconexion", "precio" => $settings['reconexion']]];
-			} else {
-        $service = $data['service'];
-        $service_name = $service['nombre'];
-        $new_extra = [$service['id_servicio'] => ['servicio' => $service['nombre'], 'precio' => $service['mensualidad']]];
+		if ($data && $this->validate_extra($data['service'])) {
+        $is_paid = $this->payment_model->is_paid($data['id_pago']);
+      if ($is_paid) {
+        $this->set_message( 'este pago ya ha sido realizado', 'info');
+      } else {
+        if ($data['service'] == 0) {
+          $service_name = 'Reconexion';
+          $new_extra = [0 => ["servicio" => "Reconexion", "precio" => $settings['reconexion']]];
+        } else {
+          $service = $data['service'];
+          $service_name = $service['nombre'];
+          $new_extra = [$service['id_servicio'] => ['servicio' => $service['nombre'], 'precio' => $service['mensualidad']]];
+        }
+        if ($this->payment_model->set_extra($new_extra, $data['id_pago'])) {
+          $this->payment_model->reorganize_values($data['id_pago']);
+          $this->set_message("$service_name Aplicada(o)");
+        } else {
+          $this->set_message('Error al eliminar este servicio y/o reconexion, quiza ya esta pago', 'error');
+        }
       }
-			if ($this->payment_model->set_extra($new_extra, $data['id_pago'])) {
-				$this->payment_model->reorganize_values($data['id_pago']);
-        $this->set_message("$service_name Aplicada(o)");
-			} else {
-				$this->set_message('Error al eliminar este servicio y/o reconexion, quiza ya esta pago', 'error');
-			}
 			$this->response_json();
 		}
 	}
@@ -153,14 +170,19 @@ class Payment extends MY_Controller {
 		authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
-      $mora = $this->settings_model->get_settings()['cargo_mora'];
-      $mora = ($mora / 100) * $data['cuota'];
-      $mora = ($data['mora'] == 0 ? 0 : $mora);
-      if ($this->payment_model->update(["mora" => $mora], $data['id_pago'])) {
-        $this->payment_model->reorganize_values($data['id_pago']);
-        $this->set_message("Mora actualizada");
+      $is_paid = $this->payment_model->is_paid($data['id_pago']);
+      if ($is_paid) {
+        $this->set_message( 'este pago ya ha sido realizado', 'info');
       } else {
-        $this->set_message("Error al cambiar mora", 'error');
+        $mora = $this->settings_model->get_settings()['cargo_mora'];
+        $mora = ($mora / 100) * $data['cuota'];
+        $mora = ($data['mora'] == 0 ? 0 : $mora);
+        if ($this->payment_model->update(["mora" => $mora], $data['id_pago'])) {
+          $this->payment_model->reorganize_values($data['id_pago']);
+          $this->set_message("Mora actualizada");
+        } else {
+          $this->set_message("Error al cambiar mora", 'error');
+        }
       }
       $this->response_json();
     }

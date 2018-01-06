@@ -1,4 +1,4 @@
-<?php 
+<?php
   $recibo = null;
   if(isset($_SESSION['recibo_info'])):
     $recibo = $_SESSION['recibo_info'];
@@ -21,7 +21,7 @@
 
 <div class="recibo-body">
   <div class="cabecera">
-    <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$empresa['logo'] ?>" alt="">
+    <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$company['logo'] ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">ICS Service</h2>
       <p class="company-statement">Compañia Dominicana de Internet ICS</p>
@@ -30,7 +30,7 @@
 
       <p></p>
     </div>
-    <div class="left-box"> 
+    <div class="left-box">
       <h4 class="fecha-recibo">Fecha: <?php echo $recibo['fecha_pago'] ?></h4>
       <p><b>Recibo  :</b> <span><?php echo $recibo['id_pago'] ?></span></p>
       <p><b>Contrato: </b><span><?php echo $recibo['id_contrato'] ?></span></p>
@@ -43,11 +43,11 @@
     <span class="text-main">Detalle:</span>
     <span class="text-placeholder"><?php echo $recibo['servicio']."-".$recibo['detalles_extra']?></span></span>
   </p>
-  <p class="line"> 
-    <span class="text-main">Suma:</span> 
+  <p class="line">
+    <span class="text-main">Suma:</span>
     <span class="text-placeholder"><?php echo strtoupper(number_to_words($recibo['total'])). "PESOS" ?></span></p>
-  <p> 
-    <span class="text-main"><?php echo $mensualidad ?>:</span> 
+  <p>
+    <span class="text-main"><?php echo $mensualidad ?>:</span>
     <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mensualidad'] + $recibo['descuento']) ?></span>
     <span class="text-main center"><?php echo $mora ?>:</span>
     <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['mora']) ?> </span>
@@ -55,12 +55,12 @@
     <span class="text-placeholder md"> RD$ <?php echo CurrencyFormat($recibo['monto_extra']) ?></span>
   </p>
   <?php if($recibo['descuento'] > 0): ?>
-    <p class="line"> 
-      <span class="text-main">Descuento:</span> 
+    <p class="line">
+      <span class="text-main">Descuento:</span>
       <span class="text-placeholder"><i>RD$ <?php echo CurrencyFormat($recibo['descuento'])?></i></span></span>
     </p>
-    <p class="line"> 
-      <span class="text-main">Por:</span> 
+    <p class="line">
+      <span class="text-main">Por:</span>
       <span class="text-placeholder"><?php echo $recibo['razon_descuento'] ?></span>
     </p>
   <?php endif; ?>
@@ -82,7 +82,7 @@
     $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])." ".phone_format($company["telefonos"])?>");
     print();
 </script>
-<?php 
+<?php
   else:
     echo "No existe ese recibo";
   endif;

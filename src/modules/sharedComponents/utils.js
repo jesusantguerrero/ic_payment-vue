@@ -1,3 +1,4 @@
+
 export default {
   isEmpty(values) {
     let props = [];
@@ -80,7 +81,8 @@ export default {
   },
 
   now() {
-    return new Date().toLocaleDateString();
+    const date = new Date();
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   },
 
   dateSpanishFormat() {

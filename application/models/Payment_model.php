@@ -100,7 +100,7 @@ class Payment_model extends CI_MODEL{
     if ($mode == 'list') {
       $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
     } else if ($mode == 'table') {
-      $this->db->order_by('-fecha_pago DESC,fecha_limite,complete_date','',false);
+      $this->db->order_by('fecha_limite,-fecha_pago DESC, complete_date','',false);
     }
     $this->db->where('id_contrato',$id_contrato);
     if ($result = $this->db->get("ic_pagos")) {
@@ -120,8 +120,6 @@ class Payment_model extends CI_MODEL{
       return 0;
     }
   }
-
-
 
   public function count_of_contract($id_contrato = null){
     if($id_contrato == null){

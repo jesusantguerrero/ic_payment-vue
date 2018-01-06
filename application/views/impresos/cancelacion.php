@@ -18,7 +18,7 @@ if(isset($_SESSION['requirement_info'])):
 
 <div class="document-body">
   <div class="cabecera">
-   <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$empresa['logo'] ?>" alt="">
+   <img class="logo-recibo" src="<?php echo base_url('assets/uploads/').$company['logo'] ?>" alt="">
     <div class="company-name">
       <h2 class="company-oficial-name">
         <?php echo $company['nombre'] ?>

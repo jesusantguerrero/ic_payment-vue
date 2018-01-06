@@ -48,13 +48,16 @@
               DetailsProfile(:client="client", :fullname="fullname")
 
             .tab-pane.fade.in#payments(role="tabpanel", :class="{active : activeTab == 'payments'}")
-              DetailsPayment(:clientId="clientId",:store="store" )
+              DetailsPayment(:clientId="clientId", :store="store" )
+
             .tab-pane.fade.in#abonos(role="tabpanel", :class="{active : activeTab == 'abonos'}")
+              DetailsAbonos(:store="store" )
 
             .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
               DetailsObservations(:client="client", :save-observation="saveObservation")
+
             .tab-pane.fade.in#extras(role="tabpanel", :class="{active : activeTab == 'extras'}")
-              DetailsExtraServices(:clientId="clientId",:store="store" )
+              DetailsExtraServices(:clientId="clientId", :store="store" )
 
 </template>
 
@@ -63,6 +66,7 @@
   import DetailsObservations from './components/DetailsObservations';
   import DetailsExtraServices from './components/DetailsExtraServices';
   import DetailsPayment from './components/DetailsPayment';
+  import DetailsAbonos from './components/DetailsAbonos';
   import DetailsStore from './store/DetailsStore';
   import utils from './../sharedComponents/utils';
 
@@ -81,7 +85,8 @@
       DetailsProfile,
       DetailsObservations,
       DetailsExtraServices,
-      DetailsPayment
+      DetailsPayment,
+      DetailsAbonos
     },
 
     data() {

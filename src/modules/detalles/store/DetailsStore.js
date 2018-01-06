@@ -88,9 +88,14 @@ export default class DetailsStore {
         class: 'hide'
       }
     ];
+    this.selectedContract = null;
   }
 
   setActiveExtras(extras) {
     this.activeExtras = extras;
+  }
+
+  setSelectedContract(contractId) {
+    this.selectedContract = contractId;
   }
 }

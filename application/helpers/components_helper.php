@@ -166,11 +166,11 @@ if ( ! function_exists('make_contract_table')){
         <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
         <td class='{$state['class']}'>".$line['estado']."</td>
         <td class='actions'>";
-        $html_text .="<a  target='printframe' title='imprimir contrato' href='".base_url('process/getrequirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
+        $html_text .="<a  target='printframe' title='imprimir contrato' href='".base_url('contract/get_requirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
         if($line['estado'] == 'cancelado'):
-          $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
+          $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
         elseif ($line['estado'] == 'saldado'):
-          $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>";
+          $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>";
         endif;
         if ($line['extras_fijos']):
           $html_text .= "<i class='material-icons text-primary' title='{$line['nombre_seguro']} {$mensualidad_seguro}'>lock</i>";
@@ -278,7 +278,7 @@ if ( ! function_exists('make_cancelations_table')){
          <td>".date_spanish_format($line['ultimo_pago'])."</td>
          <td class='codigo'>".$line['motivo']."</td>
          <td class='codigo'>".$line['ip']."</td>
-         <td class='codigo'><a target='printframe' title='cancelacion de contrato' href='".base_url('process/getcancelcontract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a></td>
+         <td class='codigo'><a target='printframe' title='cancelacion de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a></td>
        </tr>";
    }
    return $html_text;
@@ -412,7 +412,7 @@ function make_next_payments_list($data){
   $html_text = " ";
   $link;
   foreach ($data as $row) {
-    $link = base_url('process/details/'.$row['id_cliente'].'/pagos');
+    $link = base_url('app/details/'.$row['id_cliente'].'/payment');
     $total =CurrencyFormat($row['total']);
     $html_text .= "<a href='{$link}'><div class='payment-item'>
                     <div class='left-part'>
@@ -466,7 +466,7 @@ if ( ! function_exists('make_payment_table')){
         <td>".date_spanish_format($line['fecha_limite'])."</td>
         <td>";
           if($line['fecha_pago'] != null):
-          $html_text .="<a  target='printframe' href='".base_url('process/getrecibo/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
+          $html_text .="<a  target='printframe' href='".base_url('payment/get_receipt/'.$line['id_pago'])."'><i class='material-icons'>description</i></a>";
           endif;
         $html_text .="</td>
         <td> class='hide'".$line['id_contrato']."</td>
