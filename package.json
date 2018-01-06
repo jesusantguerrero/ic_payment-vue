@@ -4,8 +4,8 @@
   "description": "Programa de facturacion y administracion de ISP",
   "main": "gulpfile.js",
   "engines": {
-    "node": "8.9.1",
-    "npm": "5.5.1"
+    "node": ">= 8.9.1",
+    "npm": ">= 5.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -102,7 +102,8 @@
   },
   "scripts": {
     "dev": "node webpack/build/dev-server.js",
-    "build": "node webpack/build/build.js && gulp sass && gulp final-compress",
+    "build": "cross-env NODE_ENV=local node webpack/build/build.js && gulp sass && gulp final-compress",
+    "deploy-build": "node webpack/build/build.js && gulp sass && gulp final-compress",
     "unit": "cross-env BABEL_ENV=test karma start src/test/unit/karma.conf.js --single-run",
     "e2e": "testcafe chrome src/test/e2e/specs",
     "test": "npm run unit && npm run e2e",

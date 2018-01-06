@@ -12,7 +12,7 @@ module.exports = {
     app: utils.module("app"),
   },
   output: {
-    path: config.build.assetsRoot,
+    path: (process.env.NODE_ENV === 'local') ? config.local.assetsRoot : config.build.assetsRoot,
     filename: '[name].js',
     chunkFilename: '[name].js',
     publicPath:  config.build.assetsPublicPath

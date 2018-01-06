@@ -12,9 +12,11 @@ prepare:
   cache:
     paths:
       - node_modules/
+      - assets/js/
   artifacts:
     paths:
       - node_modules/
+      - assets/js/
   environment:
     name: staging
   only:
@@ -35,12 +37,18 @@ build:
 
 deploy_staging:
   stage: deploy
+  variables:
+    branch_name: "heroku"
   script:
     - echo "Deploy to staging server"
     - git config --global user.email "jesusant.guerrero@gmail.com"
     - git config --global user.name "Jesus Guerrero"
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git push heroku feature/enviroments:master -f
+    - git checkout -b $branch_name
+    - echo "!assets/js/"
+    - npm run deploy-build
+    - git commit --allow-empty -m "Publish to Heroku at $(date)"
+    - git push heroku $branch_name:master -f
     - echo "deployed to staging"
   environment:
     name: staging
