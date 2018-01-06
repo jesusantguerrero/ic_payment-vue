@@ -34,21 +34,4 @@ export default (Generals) => {
       .trim();
     Installations.update(idPago);
   });
-
-  $('#extra-controls').on('click', function (e) {
-    const Contracts = new contracts();
-
-    e.stopImmediatePropagation();
-    Contracts.btnExtraPressed($(this));
-  });
-
-  $('#extra-client-dni').on('keydown', function (e) {
-    const Contracts = new contracts();
-
-    const key = e.which;
-    const dni = $(this).val();
-    if (key === 13) {
-      Contracts.getAllOfClient(dni);
-    }
-  });
 };

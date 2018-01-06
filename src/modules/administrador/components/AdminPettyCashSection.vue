@@ -13,9 +13,9 @@
           .input-group-addon: i.material-icons event
           input(type="date", class="form-control caja-for-date", v-model="searchOptions.date", @change="getTransactions" placeholder="Fecha")
         .pull-right
-          button.btn.btn-primary.icon(data-toggle="modal", data-target="#petty-cash-modal", @click.prevent="openPettyCash('retire')"): i.material-icons remove
+          button.btn.btn-primary.icon(data-toggle="modal", data-target="#app-petty-cash-modal", @click.prevent="openPettyCash('retire')"): i.material-icons remove
         .pull-right
-          button.btn.btn-primary.icon(data-toggle="modal", data-target="#petty-cash-modal", @click.prevent="openPettyCash('add')"): i.material-icons.mi__single add
+          button.btn.btn-primary.icon(data-toggle="modal", data-target="#app-petty-cash-modal", @click.prevent="openPettyCash('add')"): i.material-icons.mi__single add
       DataTable(ids="petty-cash-table",:parentId="parentId", :data="transactions", :cols="cols", :toolbar="toolbar", :options="tableOptions")
 </template>
 
@@ -80,7 +80,7 @@
         };
         this.store.setPettyCashTransaction(transaction);
         this.store.setPettyCashMode('edit');
-        $('#petty-cash-modal').modal();
+        $('#app-petty-cash-modal').modal();
       },
 
       delete(id, date) {

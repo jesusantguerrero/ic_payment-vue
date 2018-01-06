@@ -71,7 +71,6 @@
     // home page
 
     public function get_next_payments() {
-
       $res['nextPayments'] = $this->payment_model->get_next_payments();
       $this->response_json($res);
     }

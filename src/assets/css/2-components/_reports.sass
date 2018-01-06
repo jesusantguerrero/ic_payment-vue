@@ -142,9 +142,14 @@ canvas
     color: white
 
 @media (max-width: 991px)
+  .small-data-card
+    width: 100%
+    margin: 2px 0
+
   .right-panel,
   .wide-chart
     width: 100%
+
   .reports
     .shortcuts-container
       width: 100%
@@ -152,6 +157,12 @@ canvas
       justify-content: space-around
       align-items: center
 
+  .nav-tabs
+    display: flex
+    flex-wrap: wrap
+
+  .right-panel
+    position: static
 @media print
   header,
   #app-cierre,

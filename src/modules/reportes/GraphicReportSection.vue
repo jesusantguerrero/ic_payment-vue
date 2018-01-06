@@ -1,10 +1,10 @@
 <template lang="pug">
-  .wrapper.row
+  .row
     .col-md-9
       .row.shortcuts-container.data-card-container
-        DataCard(data="9", title="Clientes", icon="person")
-        DataCard(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
-        DataCard(data="9", title="Clientes Activos", icon="person")
+        ReportDataCard(data="9", title="Clientes", icon="person")
+        ReportDataCard(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
+        ReportDataCard(data="9", title="Clientes Activos", icon="person")
 
       ul.nav.nav-tabs(role="tablist")
         li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos Este Año
@@ -15,7 +15,7 @@
       .tab-content
         .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
           .wide-chart
-            YearNavigator(@change="getIncomes")
+            ReportChartYearNavigator(@change="getIncomes")
             ChartCard(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months")
 
         .tab-pane.fade.in#pagos(role="tabpanel")
@@ -37,7 +37,7 @@
 
 
     .col-md-3.right-panel
-      .wrapper
+      div
         ul.nav.nav-tabs(role="tablist")
           li(role="presentation" class="active"): a(href="#general" aria-controls="home" role="tab" data-toggle="tab") General
           li(role="presentation"): a(href="#week" aria-controls="week" role="tab" data-toggle="tab") Semana
@@ -50,7 +50,7 @@
                 a(target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>")
                 span(class="amount") RD$ {{ appStore.dayIncome | currencyFormat }}
 
-              .wrapper
+              div
                 h5 Clientes Por Servicios
                 p
                 .normal-chart
@@ -63,8 +63,8 @@
 </template>
 
 <script>
-  import DataCard from './components/DataCard';
-  import YearNavigator from './components/YearNavigator';
+  import ReportDataCard from './components/ReportDataCard';
+  import ReportChartYearNavigator from './components/ReportChartYearNavigator';
   import ChartCard from './../sharedComponents/ChartCard';
   import utils from './../sharedComponents/utils';
 
@@ -77,9 +77,9 @@
       }
     },
     components: {
-      DataCard,
+      ReportDataCard,
       ChartCard,
-      YearNavigator
+      ReportChartYearNavigator
     },
 
     data() {

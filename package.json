@@ -102,13 +102,17 @@
   },
   "scripts": {
     "dev": "node webpack/build/dev-server.js",
+    "start": "webpack --progress --watch",
     "build": "cross-env NODE_ENV=local node webpack/build/build.js && gulp sass && gulp final-compress",
     "deploy-build": "node webpack/build/build.js && gulp sass && gulp final-compress",
     "unit": "cross-env BABEL_ENV=test karma start src/test/unit/karma.conf.js --single-run",
     "e2e": "testcafe chrome src/test/e2e/specs",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue webpack/src webpack/test/unit/specs webpack/test/e2e/specs",
-    "heroku": "npm run build && git push heroku heroku:master && heroku scale web=1 && heroku open",
+    "get-files": "git checkout heroku && getFrom feature/enviroments src/ && getFrom feature/enviroments application/ && getFrom feature/enviroments webpack/",
+    "build-and-commit": "npm run build-deploy && git commit -m 'build of($date)'",
+    "heroku-push": " git push heroku heroku:master && heroku scale web=1 && heroku open",
+    "heroku": "npm run get-files && npm run build-and-commit && npm heroku-push",
     "gulp": "gulp"
   },
   "repository": {

@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import axios from 'axios';
-import Toasted from 'vue-toasted';
 import jquery from 'jquery';
 import globals from './../sharedComponents/globals';
+import AppComponents from './AppComponents';
 import utils from './../sharedComponents/utils';
-import PettyCashModal from './components/PettyCashModal';
-import MessageModal from './components/MessageModal';
-import TicketModal from './components/TicketModal';
+import AppPettyCashModal from './components/AppPettyCashModal';
+import AppMessageModal from './components/AppMessageModal';
+import AppTicketModal from './components/AppTicketModal';
+import AppHeader from './components/AppHeader';
 import Store from './store/AppStore';
 
 window.jQuery = jquery;
@@ -16,74 +16,17 @@ import 'bootstrap';
 
 window.appStore = new Store();
 window.appBus = new Vue();
-globals(Vue, Toasted, axios);
+globals(Vue);
+AppComponents(Vue);
 
-Vue.component(
-  'HomeSection',
-  () => import(/* webpackChunkName: "home" */ './../home/HomeSection')
-);
-
-Vue.component(
-  'AdminSection',
-  () => import(/* webpackChunkName: "administrador" */'./../administrador/AdminSection')
-);
-
-Vue.component(
-  'AcountSection',
-  () => import(/* webpackChunkName: "cuenta" */ './../cuenta/AcountSection')
-);
-
-Vue.component(
-  'CashDeskSection',
-  () => import(/* webpackChunkName: "cierre */ './../cierre/CashDeskSection')
-);
-
-Vue.component(
-  'ClientSection',
-  () => import(/* webpackChunkName: "cliente" */ './../clientes/ClientSection')
-);
-
-Vue.component(
-  'ExtraSection',
-  () => import(/* webpackChunkName = "extras" */ './../extras/ExtraSection')
-);
-
-Vue.component(
-  'RouterSection',
-  () => import(/* webpackChunkName: "secciones" */ './../secciones/RouterSection')
-);
-
-Vue.component(
-  'ServiceSection',
-  () => import(/* webpackChunkFileName: "servicios" */ './../servicios/ServiceSection')
-);
-
-Vue.component(
-  'ContractSection',
-  () => import(/* webpackChunkName: "contratos" */ './../contratos/ContractSection')
-);
-
-Vue.component(
-  'NewContractSection',
-  () => import(/* webpackChunkName: "nuevo_contrato" */ './../nuevo_contrato/NewContractSection')
-);
-
-Vue.component(
-  'DetailsSection',
-  () => import(/* webpackChunkName: "detalles" */ './../detalles/DetailsSection')
-);
-
-Vue.component(
-  'GraphicReportSection',
-  () => import(/* webpackChunkName: "reportes" */ './../reportes/GraphicReportSection')
-);
 
 export default new Vue({
   el: '#app',
   components: {
-    'message-modal': MessageModal,
-    'petty-cash-modal': PettyCashModal,
-    'ticket-modal': TicketModal,
+    'app-message-modal': AppMessageModal,
+    'app-petty-cash-modal': AppPettyCashModal,
+    'app-ticket-modal': AppTicketModal,
+    'app-header': AppHeader
   },
 
   data: {
@@ -110,12 +53,12 @@ export default new Vue({
             this.showMessage(res.data.message);
             if (res.data.message.type === 'success') {
               this.store.pettyCashTransactionEmpty();
-              $('#petty-cash-modal').modal('hide');
+              $('#app-petty-cash-modal').modal('hide');
             }
             this.getSaldo();
             window.appBus.$emit('transaction');
             if (this.store.pettyCashMode === 'edit') {
-              $('#petty-cash-modal').modal('hide');
+              $('#app-petty-cash-modal').modal('hide');
             }
           });
       } else {

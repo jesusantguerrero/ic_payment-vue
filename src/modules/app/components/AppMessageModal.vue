@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal.fade(tabindex="-1", role="dialog", id="send-message-modal")
+  .modal.fade(tabindex="-1", role="dialog", id="app-message-modal")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
@@ -95,14 +95,14 @@
 
       initSelect2() {
         const options = {
-          dropdownParent: $('#send-message-modal')
+          dropdownParent: $('#app-message-modal')
         };
 
         const selectMessageType = $('#message-type');
         selectMessageType.select2(options);
 
         const selectClientsForMessage = $('#clients-for-message').select2({
-          dropdownParent: $('#send-message-modal'),
+          dropdownParent: $('#app-message-modal'),
           ajax: {
             url: `${baseURL}messages/search_clients`,
             dataType: 'json',

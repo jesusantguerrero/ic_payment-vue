@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal.fade(tabindex="-1", role="dialog", id="ticket-modal")
+  .modal.fade(tabindex="-1", role="dialog", id="app-ticket-modal")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
@@ -11,7 +11,7 @@
               .col-md-12
                 .form-group
                   label(for="user-nickname") Cliente
-                  SelectClient(the-id="ticket-client-id", parent-id="#ticket-modal",:endpoint="searchEndpoint", @select="setClientId", :empty="emptySelect")
+                  SelectClient(the-id="ticket-client-id", parent-id="#app-ticket-modal",:endpoint="searchEndpoint", @select="setClientId", :empty="emptySelect")
                 .form-group
                   label(for="service-description") Descripción
                   textarea(class="form-control", cols="30", rows="5", id="a-description", v-model="ticket.descripcion")

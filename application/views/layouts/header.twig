@@ -58,7 +58,7 @@
         </nav>
 
         <div class="user-div ">
-          <nav class="user-controls hidden-xs">
+          <nav class="user-controls">
             <li class="navButton">
               <a href="{{url}}app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
               <i class="material-icons">notifications</i>
@@ -72,18 +72,18 @@
               <i class="material-icons">inbox</i>
             </a></li>
             <li class="navButton">
-              <a href="" data-toggle="modal" data-target="#ticket-modal" data-placement="bottom" title="Averias">
+              <a href="" data-toggle="modal" data-target="#app-ticket-modal" data-placement="bottom" title="Averias">
               <i class="material-icons">assignment</i>
             </a></li>
             <li class="navButton">
-              <a href="" data-toggle="modal" data-target="#send-message-modal" data-placement="bottom" title="Mensajes">
+              <a href="" data-toggle="modal" data-target="#app-message-modal" data-placement="bottom" title="Mensajes">
               <i class="material-icons">perm_phone_msg</i>
             </a></li>
 
           </nav>
           <div class="dropdown mymenu">
             <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="user-name">{{user.name}}</span>
+              <span class="user-name hidden-xs">{{user.name}}</span>
               <div class="profile-picture">
                 <span>{{ user.name[:1] }}{{ user.lastname[:1] }}</span>
               </div>

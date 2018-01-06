@@ -1,6 +1,6 @@
-      <message-modal></message-modal>
-      <petty-cash-modal :store="store" :transaction="store.pettyCashTransaction" :modal-mode="store.pettyCashMode" @save="saveTransaction"></petty-cash-modal>
-      <ticket-modal></ticket-modal>
+      <app-message-modal></app-message-modal>
+      <app-petty-cash-modal :store="store" :transaction="store.pettyCashTransaction" :modal-mode="store.pettyCashMode" @save="saveTransaction"></app-petty-cash-modal>
+      <app-ticket-modal></app-ticket-modal>
       <iframe src="" frameborder="0" name="printframe" width="100%" class="hide"></iframe>
     </main>
     <div class="splash-screen">

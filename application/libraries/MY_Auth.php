@@ -76,7 +76,7 @@
 
     public function has_permission($page, $type, $redirect = null) {
       $forbiden_sections[1] = ["administrador", "reportes", 'secciones', 'informes'];
-      if(in_array($page,$forbiden_sections[$type]) && auth_user_type($type)){
+      if(in_array($page,$forbiden_sections[$type]) && $this->current_user_type($type)){
         if($redirect){
           redirect($redirect);
         }

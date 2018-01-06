@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal.fade#petty-cash-modal(tabindex="-1", role="dialog")
+  .modal.fade#app-petty-cash-modal(tabindex="-1", role="dialog")
     .modal-dialog(role="document")
       .modal-content
         .modal-header

@@ -15,11 +15,4 @@ export default class generals {
       connectAndSend('process/search', false, handlerFunction, fillTableFunction, form, null);
     }
   }
-
-  static countTable(table) {
-    const form = `tabla=${table}`;
-    let updateFunction = updateCount;
-    if (table === 'caja') updateFunction = updateCajaCount;
-    connectAndSend('process/count', false, null, updateFunction, form, null);
-  }
 }

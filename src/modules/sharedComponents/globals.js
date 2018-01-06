@@ -1,7 +1,9 @@
 import swal from 'sweetalert2';
+import axios from 'axios';
+import Toasted from 'vue-toasted';
 import utils from './utils';
 
-export default (Vue, Toasted, axios) => {
+export default (Vue) => {
   const options = {
     theme: 'primary',
     position: 'top-right',
@@ -61,5 +63,4 @@ export default (Vue, Toasted, axios) => {
   });
 
   Vue.prototype.$http = $http;
-  Vue.prototype.$swal = swal;
 };

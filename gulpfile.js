@@ -142,7 +142,7 @@ gulp.task('final-compress',['components','head'] , (cb) => {
 
 gulp.task('watch', () => {
   gulp.watch(`${path }css/**`,['sass']);
-  gulp.watch([`${path}js/**/*.js`,`!${path}js/test/**`], ['final-compress']);
+  // gulp.watch([`${path}js/**/*.js`,`!${path}js/test/**`], ['final-compress']);
 });
 
-gulp.task('default',['watch',"sass","final-compress"]);
+gulp.task('default',['watch',"sass"]);
