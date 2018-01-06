@@ -16,7 +16,7 @@
                           p.month-year {{ date.monthYear }}
                           span.dayweek {{ date.dayWeek }}
 
-      DetailCards(:store="store")
+      HomeDetailCards(:store="store")
 
     .row.home-options-container
       .col-md-8.hidden-xs.shortcuts-container
@@ -38,12 +38,12 @@
       .col-md-4.clock-card
           h3.card-title.t-center Hora
           h4.hour.h3-4.t-center {{ date.hour }}
-    SearchClientModal
+    HomeSearchClientModal
 </template>
 
 <script>
-import DetailCards from './components/DetailCards';
-import SearchClientModal from './components/SearchClientModal';
+import HomeDetailCards from './components/HomeDetailCards';
+import HomeSearchClientModal from './components/HomeSearchClientModal';
 
 const store = window.appStore;
 
@@ -51,8 +51,8 @@ const store = window.appStore;
 export default {
   name: 'home-section',
   components: {
-    DetailCards,
-    SearchClientModal
+    HomeDetailCards,
+    HomeSearchClientModal
   },
   mounted() {
     this.getDate();

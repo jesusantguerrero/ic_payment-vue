@@ -382,57 +382,12 @@ if ( ! function_exists('make_installations_list')){
   }
 }
 
-function make_contract_dropdown($data){
-    $html_text = " ";
-    foreach ($data as $line) {
-        $html_text .= "<option value='".$line['id_contrato']."'>";
-        $html_text .= $line['id_contrato']."</option>";
-    }
-    return $html_text;
-}
-
-function make_other_services_dropdown($data){
-    $html_text = " ";
-    foreach ($data as $line) {
-        $html_text .= "<option value='".$line['nombre']."' data-payment='".$line['mensualidad']."'>";
-        $html_text .= $line['nombre']."</option>";
-    }
-    return $html_text;
-}
-
 function make_users_list($data){
     $html_text = "<option value='0'> Todos </option>";
     foreach ($data as $line) {
       $html_text .= "<option value='".$line['user_id']."'>".$line['name']." ".$line['lastname']."</option>";
     }
     return $html_text;
-}
-
-function make_next_payments_list($data){
-  $html_text = " ";
-  $link;
-  foreach ($data as $row) {
-    $link = base_url('app/details/'.$row['id_cliente'].'/payment');
-    $total =CurrencyFormat($row['total']);
-    $html_text .= "<a href='{$link}'><div class='payment-item'>
-                    <div class='left-part'>
-                        <div class='item-profile'>
-                             <i class='material-icons'>person</i>
-                        </div>
-                    </div>
-                    <div class='main-part'>
-                        <div class='nombre'>{$row['cliente']}</div>
-                        <div class='concepto'>{$row['concepto']}</div>
-                        <div class='monto'>RD$ {$total}</div>
-                    </div>
-                     <div class='right-part'>
-                        <div class='payment-day'>{$row['dia']}</div>
-                        <div class='payment-month'>".$row['mes']."</div>
-                    </div>
-
-                </div></a>";
-  }
-  return $html_text;
 }
 
 if ( ! function_exists('make_payment_table')){

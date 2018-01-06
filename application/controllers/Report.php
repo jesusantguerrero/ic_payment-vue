@@ -2,12 +2,12 @@
  class Report extends MY_Controller {
     public function __construct() {
       parent::__construct();
+      $this->load->model('payment_model');
     }
 
     // graphic report related
 
     public function incomes_year($year = null) {
-      $this->load->model('payment_model');
       $year = ($year ? $year :date('Y'));
       $res['incomes'] = $this->payment_model->get_incomes_by_month($year);
       $this->response_json($res);
@@ -44,7 +44,6 @@
     }
 
     public function get_day_income() {
-      $this->load->model('payment_model');
       $income = $this->payment_model->day_income('today');
       $res['income'] = ($income ? $income : 0.00);
       $this->response_json($res);
@@ -67,6 +66,22 @@
       $res['contracts'] = $this->contract_view_model->count_contracts();
       $this->response_json($res);
     }
+
+    // home page
+
+    public function get_next_payments() {
+      authenticate();
+      $res['nextPayments'] = $this->payment_model->get_next_payments();
+      $this->response_json($res);
+    }
+
+    public function get_debtors() {
+      authenticate();
+      $res['debtors'] = $this->payment_model->get_debtors();
+      $this->response_json($res);
+    }
+
+    // document related
 
     public function get_print_report($table,$type = 'nada'){
       authenticate();

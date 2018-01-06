@@ -5,6 +5,7 @@
               h3.card-title(data-toggle="modal", data-target="#notification-view") Proximos Pagos
               .placeholder-icon: i.material-icons.icon-placeholder notifications_active
               .list-nextpayments
+                HomeDetailCardsItem(v-for="item of nextPayments", :key="item.id_cliente", :item="item")
 
           .averias-layer
               h3.card-title(data-toggle="modal", data-target="#notification-view") Caja Chica
@@ -16,6 +17,7 @@
               h3.card-title(data-toggle="modal", data-target="#notification-view") Lista de Deudores
               .placeholder-icon: i.material-icons.icon-placeholder money_off
               .list-nextpayments
+                HomeDetailCardsItem(v-for="item of debtors", :key="item.id_cliente", :item="item")
 
           .day-income-layer
               h3.card-title(data-toggle="modal", data-target="#notification-view") Ganancias del dia
@@ -32,7 +34,12 @@
 
 
 <script>
+  import HomeDetailCardsItem from './HomeDetailCardsItem';
+
   export default {
+    components: {
+      HomeDetailCardsItem
+    },
     props: {
       store: {
         type: Object,
@@ -41,11 +48,15 @@
     },
     data() {
       return {
-        mode: ''
+        mode: '',
+        nextPayments: null,
+        debtors: null
       };
     },
     mounted() {
       this.moveControls();
+      this.getList('get_next_payments', 'nextPayments');
+      this.getList('get_debtors', 'debtors');
     },
 
     methods: {
@@ -54,7 +65,15 @@
         layoutContainer.animate({
           left: `${position}%`
         }, 200);
-      }
+      },
+
+      getList(endpoint, propertyToFill) {
+        this.$http.get(`report/${endpoint}`)
+          .then((res) => {
+            this[propertyToFill] = res.data[propertyToFill];
+          });
+      },
+
     }
   };
 </script>

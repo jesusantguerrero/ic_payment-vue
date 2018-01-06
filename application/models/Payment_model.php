@@ -306,23 +306,20 @@ class Payment_model extends CI_MODEL{
     return $result->result_array();
   }
 
-  // home
+  // home reports
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
     $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
-    if($result = $this->db->query($sql)):
+    if ($result = $this->db->query($sql)) {
       $result = $result->result_array();
-      $result = make_next_payments_list($result);
-      echo $result;
-    else:
-      echo " Error";
-    endif;
+      return $result;
+    }
   }
 
-  public function get_moras_home(){
+  public function get_debtors(){
     $sql = "SELECT * FROM v_pagos_pendientes";
-    $result = $this->db->query($sql)->result_array();
-    $result = make_next_payments_list($result);
-    echo $result;
+    if ( $result = $this->db->get('v_pagos_pendientes')) {
+      return $result->result_array();
+    }
   }
 
 }
