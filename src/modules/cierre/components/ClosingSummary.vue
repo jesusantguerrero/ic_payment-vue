@@ -39,6 +39,9 @@
 </template>
 
 <script>
+  import moment from 'moment';
+  import './../../../../node_modules/moment/locale/es-do';
+
   export default {
     props: {
       appStore: {
