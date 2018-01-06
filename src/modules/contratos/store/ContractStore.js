@@ -52,7 +52,8 @@ export default class ContractStore {
         field: 'proximo_pago',
         title: 'Proximo Pago',
         align: 'center',
-        valign:	'middle'
+        valign:	'middle',
+        class: 'hide'
       },
       {
         field: 'monto_pagado',
@@ -63,6 +64,12 @@ export default class ContractStore {
       {
         field: 'monto_total',
         title: 'Monto Total',
+        align: 'center',
+        valign:	'middle'
+      },
+      {
+        field: 'documentos',
+        title: 'Documentos',
         align: 'center',
         valign:	'middle'
       },

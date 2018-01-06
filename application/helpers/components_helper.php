@@ -125,65 +125,6 @@ if ( ! function_exists('make_service_table')){
   }
 }
 
-if ( ! function_exists('make_contract_table')){
-  /**
-  * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query
-  * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table
-  */
-
-  function make_contract_table($data,$start_at){
-
-    $html_text = " ";
-    $state = '';
-    $row_class = '';
-    $posible_states = array(
-      'done'      => 'activo',
-      'error'     => 'no activo',
-      'process'   => '',
-      'saldado'   => 'saldado',
-      'cancelado' => 'cancelado',
-      'mora'      => 'mora',
-      'suspendido'=> 'suspendido',
-      'exonerado' => 'exonerado',
-      'en corte'  => 'en corte'
-    );
-
-    foreach ($data as $line) {
-       $state = verify_state($line['estado'],$posible_states);
-       $mensualidad_seguro = "RD$ ".CurrencyFormat($line['mensualidad_seguro']);
-       $row_class = ($state['row_class'] == 'active') ? '' : $state['row_class'];
-        $html_text .= "<tr class='$row_class'>
-        <td class='id_contrato'>".$line['id_contrato']."</td>
-        <td class='codigo'>".$line['codigo']."</td>
-        <td class='hide'></td>
-        <td>".date_spanish_format($line['fecha'])."</td>
-        <td>".$line['duracion']."</td>
-        <td>".date_spanish_format($line['ultimo_pago'])."</td>
-        <td>".date_spanish_format($line['proximo_pago'])."</td>
-        <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
-        <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
-        <td class='{$state['class']}'>".$line['estado']."</td>
-        <td class='actions'>";
-        $html_text .="<a  target='printframe' title='imprimir contrato' href='".base_url('contract/get_requirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
-        if($line['estado'] == 'cancelado'):
-          $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
-        elseif ($line['estado'] == 'saldado'):
-          $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>";
-        endif;
-        if ($line['extras_fijos']):
-          $html_text .= "<i class='material-icons text-primary' title='{$line['nombre_seguro']} {$mensualidad_seguro}'>lock</i>";
-        endif;
-        $html_text.="</td>
-        <td class='hide'>".$line['id_cliente']."</td>
-        <td class='hide'>".$line['cedula']."</td>
-      </tr>";
-    }
-
-    return $html_text;
-  }
-}
 
 if ( ! function_exists('make_main_contract_table')){
   function make_main_contract_table($data,$start_at){
@@ -202,6 +143,17 @@ if ( ! function_exists('make_main_contract_table')){
           <td>".date_spanish_format($line['proximo_pago'])."</td>
           <td> RD$ ".CurrencyFormat($line['monto_pagado'])."</td>
           <td> RD$ ".CurrencyFormat($line['monto_total'])."</td>
+          <td class='documents'>";
+          $html_text .="<a  target='printframe' title='imprimir contrato' href='".base_url('contract/get_requirements/'.$line['id_contrato'])."/contrato'><i class='material-icons'>description</i></a>";
+          if($line['estado'] == 'cancelado'):
+            $html_text .="<a target='printframe' title='cancelacion de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."' class='error'><i class='material-icons'>description</i></a>";
+          elseif ($line['estado'] == 'saldado'):
+            $html_text .="<a target='_blank' title='Termino de contrato' href='".base_url('contract/get_cancel_contract/'.$line['id_contrato'])."/true' class='text-success'><i class='material-icons'>description</i></a>";
+          endif;
+          if ($line['extras_fijos']):
+            $html_text .= "<i class='material-icons text-primary' title='{$line['nombre_seguro']} {$mensualidad_seguro}'>lock</i>";
+          endif;
+          $html_text.="</td>
           <td>". $line['estado']."</td>
           <td class='hide'>".$line['id_cliente']."</td>
           <td class='hide'>".$line['cedula']."</td>

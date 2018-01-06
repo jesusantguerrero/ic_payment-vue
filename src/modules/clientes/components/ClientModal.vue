@@ -105,7 +105,7 @@
     props: {
       client: {
         type: Object,
-        required: true
+        required: true,
       },
       modalMode: {
         type: String,

@@ -35,7 +35,7 @@ class Contract extends MY_Controller {
 		if ($mode && $id) {
 				$res['contracts'] = $this->contract_model->get_contracts($id, $mode);
 			} else {
-				$res['contracts'] = $this->contract_view_model->get_contract_view('activo');
+				$res['contracts'] = $this->contract_view_model->get_contract_view('activo', 'full');
     }
     $this->response_json($res);
   }

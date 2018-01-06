@@ -20,7 +20,7 @@
 
     .row.home-options-container
       .col-md-8.hidden-xs.shortcuts-container
-          .col-md-4.shortcut#caller-new-client(data-toggle="modal", data-target="#new-client-modal")
+          .col-md-4.shortcut#caller-new-client(data-toggle="modal", data-target="#client-modal")
               i.material-icons person_add
               p.section-title Nuevo Cliente
 
@@ -39,20 +39,24 @@
           h3.card-title.t-center Hora
           h4.hour.h3-4.t-center {{ date.hour }}
     HomeSearchClientModal
+    ClientModal(:store="clientStore", :client="clientStore.client", :modal-mode="clientStore.clientMode")
 </template>
 
 <script>
 import HomeDetailCards from './components/HomeDetailCards';
 import HomeSearchClientModal from './components/HomeSearchClientModal';
+import ClientModal from './../clientes/components/ClientModal';
+import ClientStore from './../clientes/store/clientStore';
 
 const store = window.appStore;
-
+const clientStore = new ClientStore();
 
 export default {
   name: 'home-section',
   components: {
     HomeDetailCards,
-    HomeSearchClientModal
+    HomeSearchClientModal,
+    ClientModal
   },
   mounted() {
     this.getDate();
@@ -60,6 +64,7 @@ export default {
   data() {
     return {
       store,
+      clientStore,
       date: {
         day: '',
         monthYear: '',

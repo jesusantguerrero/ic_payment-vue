@@ -16,9 +16,14 @@ class Contract_view_model extends CI_MODEL{
     $this->load->helper('lib_helper');
   }
 
-  public function get_contract_view($status){
-    //$this->db->where('estado',$status);
+  public function get_contract_view($status, $full = false){
+    if ($full ) {
+      $this->db->select('v_contratos.*', false);
+      $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
+      $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
+    }
     if($result = $this->db->get('v_contratos')){
+    } else {
       return make_main_contract_table($result->result_array(),0);
     }
   }

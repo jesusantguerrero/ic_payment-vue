@@ -108,11 +108,7 @@ class Contract_model extends CI_MODEL{
       $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio', 'LEFT');
     }
     if ($result = $this->db->get('v_contratos')){
-      if ($mode == 'table') {
-        echo make_contract_table($result->result_array(),0);
-      } else {
-        return $result->result();
-      }
+      return $result->result();
     }
   }
 
