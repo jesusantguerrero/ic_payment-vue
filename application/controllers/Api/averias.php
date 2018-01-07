@@ -5,17 +5,16 @@ class Averias extends MY_Controller {
     parent::__construct();
     $this->load->model('averia_model');
     $this->load->model('comment_model');
+    $this->my_auth->authenticate();
   }
 
   public function search() {
-    authenticate();
     $data = json_decode($this->input->post('data'),true);
     $averias = $this->averia_model->search($data['text'],$data['state']);
-
     echo json_encode($averias);
   }
+
   public function add_ticket() {
-    authenticate();
     $data = $this->get_post_data('data');
     if ($data) {
       $result = $this->averia_model->add($data);
@@ -30,7 +29,6 @@ class Averias extends MY_Controller {
   }
 
   public function get_averia(){
-    authenticate();
     $data = json_decode($this->input->post('data'),true);
     $response['ticket']   = $this->averia_model->get_averia($data['id_averia']);
     $response['comments'] = $this->comment_model->get_comments($data['id_averia']);
@@ -38,7 +36,6 @@ class Averias extends MY_Controller {
   }
 
   public function update_averia(){
-    authenticate();
     $data = json_decode($this->input->post('data'),true);
     $id_averia = $data['id_averia'];
     unset($data['id_averia']);
@@ -58,7 +55,6 @@ class Averias extends MY_Controller {
   // comments
 
   public function add_comment(){
-    authenticate();
     $response['mensaje'] = MESSAGE_ERROR.' No se pudo agregar el reporte';
     $user    = get_user_data();
     $comment = json_decode($this->input->post('data'),true);
@@ -72,14 +68,12 @@ class Averias extends MY_Controller {
   }
 
   public function get_comments(){
-    authenticate();
     $data = json_decode($this->input->post('data'),true);
     $response['comments'] = $this->comment_model->get_comments($data['id_averia']);
     echo json_encode($response);
   }
 
   public function delete_comment(){
-    authenticate();
     $response['mensaje'] = MESSAGE_ERROR.' No se pudo borrar el reporte';
     $data = json_decode($this->input->post('data'),true);
 

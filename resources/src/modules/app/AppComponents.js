@@ -58,4 +58,9 @@ export default (Vue) => {
     'GraphicReportSection',
     () => import(/* webpackChunkName: "reportes" */ './../reportes/GraphicReportSection')
   );
+
+  Vue.component(
+    'TicketSection',
+    () => import(/* webpackChunkName: "averias" */ './../averias/TicketSection')
+  );
 };

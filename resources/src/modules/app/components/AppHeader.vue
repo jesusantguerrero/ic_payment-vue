@@ -59,8 +59,8 @@
         $(element)
           .removeClass(theClass)
           .addClass(theClass)
-          .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-            const $this = $(this);
+          .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (e) => {
+            const $this = $(e.target);
             $this.removeClass(theClass);
             if (icon) $this.find('i').text(icon);
           });
@@ -75,7 +75,7 @@
   @import  './../../../assets/css/1-base/_vars.sass'
 
   $dark-color: #000
-  
+
   .header-container
     position: fixed
     width: 100%
