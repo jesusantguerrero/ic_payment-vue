@@ -8,7 +8,6 @@ function resolve (dir) {
 }
 
 module.exports = {
-  context: path.resolve(__dirname, '..','../'),
   entry: {
     login: utils.module("login"),
     app: utils.module("app"),
