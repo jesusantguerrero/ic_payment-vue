@@ -1,6 +1,6 @@
-webpack/build/*.js
-webpack/config/*.js
+resources/build/*.js
+resources/config/*.js
 assets/
-src/modules/services
+resources/src/modules/services
 webpack.config.js
 /*.js
