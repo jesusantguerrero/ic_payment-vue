@@ -69,7 +69,7 @@ class App extends MY_Controller {
 	}
 
   private function get_global_data($page, $params) {
-    $data  = $this->define_data($page, ['app']);
+    $data  = $this->define_data($page, ['app'], ['app']);
     $data['user'] =  $this->my_auth->get_user_data();
     $data['company'] = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();

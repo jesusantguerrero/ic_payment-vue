@@ -28,8 +28,7 @@ const cssFiles    = [
   path + "css/5-others/material-icons.css",
   path + "css/5-others/font-awesome.min.css",
   path + "css/5-others/bootstrap.min.css",
-  path + "css/5-others/sweetalert2.min.css",
-  path + "bt/bootstrap-table.min.css"
+  path + "css/5-others/sweetalert2.min.css"
 ]
 
 const frontendCss = [
@@ -38,6 +37,7 @@ const frontendCss = [
   path + "css/5-others/AdminLTE.min.css",
   path + "css/5-others/square/blue.css",
   path + "css/5-others/square/square.css",
+  path + "css/5-others/animate.css"
 ]
 
 const superPath   = 'C:/xampp/htdocs/icpayment/'

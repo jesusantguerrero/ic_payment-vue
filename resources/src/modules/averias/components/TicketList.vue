@@ -61,7 +61,7 @@
     mounted() {
       this.search();
       window.appBus.$on('ticket-list.search', () => {
-        his.search();
+        this.search();
       });
     },
 

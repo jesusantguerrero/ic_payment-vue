@@ -41,6 +41,9 @@ export default new Vue({
   },
 
   methods: {
+    toggleMenu() {
+      window.appBus.$emit('toggle-menu');
+    },
     openPettyCash(mode) {
       this.store.setPettyCashMode(mode);
     },

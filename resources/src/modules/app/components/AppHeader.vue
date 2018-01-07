@@ -1,19 +1,13 @@
 <template lang="pug">
-  .header-container.hide-xs
-    .top-header.row
-    header.row
-      .brand-name
-        .logo-box
-          h1.name IC Services
-          small.statement La red que te conecta con los tuyos
-      .nav-container(:class="{expanded: menuExpanded}")
-        nav.main-nav
-          li: a(href="#slide", @click="changeMenu").nav-button Inicio
-          li: a(href="#beneficios", @click="changeMenu").nav-button Beneficios
-          li: a(href="#servicios", @click="changeMenu").nav-button Servicios
-          li: a(href="#noticias", @click="changeMenu").nav-button Noticias
-          li: a(href="#contacto", @click="changeMenu").nav-button.special Contacto
-      .hamburger-menu(@click="changeMenu"): i.material-icons menu
+  .nav-container.mobile(:class="{expanded: menuExpanded}")
+    nav.main-nav
+      li: a(href="#", @click.prevet="goTo('')").nav-button Lobby
+      li: a(href="#", @click.prevet="goTo('clientes')").nav-button Clientes
+      li: a(href="#", @click.prevet="goTo('servicios')").nav-button Servicios
+      li: a(href="#", @click.prevet="goTo('contratos')").nav-button Contratos
+      li: a(href="#", @click.prevet="goTo('extras')").nav-button Extras
+      li: a(href="#", @click.prevet="goTo('secciones')").nav-button Secciones
+      li: a(href="#", @click.prevet="goTo('reportes')").nav-button Reportes
 </template>
 
 <script>
@@ -24,6 +18,14 @@
         menuExpanded: false,
       };
     },
+
+    mounted() {
+      const self = this;
+      window.appBus.$on('toggle-menu', () => {
+        self.changeMenu();
+      });
+    },
+
     methods: {
       changeMenu() {
         this.expandMenu();
@@ -64,6 +66,11 @@
             $this.removeClass(theClass);
             if (icon) $this.find('i').text(icon);
           });
+      },
+
+      goTo(endpoint) {
+        this.changeMenu();
+        window.location.href = `${baseURL}app/admin/${endpoint}`;
       }
     }
   };
@@ -75,62 +82,7 @@
   @import  './../../../assets/css/1-base/_vars.sass'
 
   $dark-color: #000
-
-  .header-container
-    position: fixed
-    width: 100%
-    z-index: 100
-  .top-header
-    height: 20px
-    background: whitesmoke
-    padding: 0 50px
-    text-align: right
-    border-bottom: 1px sold #ccc
-    display: none
-  .responsive-img
-    height: 100%
-    margin-right: 15px
-  header.row
-    width: 100%
-    margin: 0
-    padding: 15px 50px
-    background: #fff
-    height: 90px
-    box-shadow: 1px 2px 2px transparentize(#000, .8)
-    display: flex
-    align-content: center
-    position: relative
-    &:after
-      content: ''
-      height: 7px
-      background: $primary-color
-      width: 10%
-      position: absolute
-      bottom: -7px
-      right: 0
-      box-shadow: 1px 2px 2px transparentze(#000, .8)
-
-  .brand-name
-    display: flex
-    align-items: center
-    height: 100%
-    cursor: pointer
-    .logo-box
-      +makeFlex(100%, column, flex-start, center)
-      .name
-        margin-bottom: 0
-        width: 100%
-        color: $primary-color
-      .statement
-        color: $contrast-color
-    a
-      color: $primary-color
-      text-decoration: none
-      transition: all ease .5s
-      &:hover
-        color: $light-color
-
-  .nav-container,
+  .nav-container.mobile,
   .hamburger-menu
     display: flex
     justify-self: flex-end
@@ -138,6 +90,7 @@
     align-self: flex-end
     margin-left: auto
     align-items: center
+    display: none
 
   .hamburger-menu
     display: none
@@ -200,17 +153,7 @@
       &:after
         width: 100%
   @media (max-width: 960px)
-    .top-header
-      display: none
-    header.row
-      justify-content: left
-      height: 70px
-      padding:
-        left: 7%
-        right: 7%
-    .responsive-img
-      margin-right: 7px
-    .nav-container
+    .nav-container.mobile
       display: none
       &.expanded
         display: block

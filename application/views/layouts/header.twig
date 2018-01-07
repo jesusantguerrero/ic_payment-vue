@@ -28,9 +28,9 @@
     <header class="loading">
       <div class="header-low">
         <div class="brand">
-          <a href="">
+          <a href="#" @click.prevent="toggleMenu">
               <i class="material-icons brand__menu">menu</i>
-            </a>
+          </a>
           <a href="{{url}}app/admin">
             <h3>IC<span>Payment</span></h3>
           </a>
@@ -60,12 +60,12 @@
         <div class="user-div ">
           <nav class="user-controls">
             <li class="navButton">
-              <a href="{{url}}app/admin/notificaciones" data-toggle="tooltip" data-placement="bottom" title="Notificaciones">
-              <i class="material-icons">notifications</i>
-            </a>
-              {% if (notifications > 0) %}
-              <span class="badge">{{notifications}}</span>
-            {% endif %}
+                <a href="{{url}}app/admin/reportes" title="notificaciones">
+                  <i class="material-icons">notifications</i>
+                </a>
+                 {% if (notifications > 0) %}
+                    <span class="badge">{{notifications}}</span>
+                  {% endif %}
             </li>
             <li class="navButton">
               <a href="#" data-toggle="modal" data-target="#petty-cash-modal" title="Caja Chica" @click.prevent="openPettyCash('retire')">
@@ -89,8 +89,9 @@
               </div>
               <span class="caret"></span>
             </a>
-          {{ include('layouts/header_tooltip.twig') }}
+          {{ include('layouts/dropdown_user.twig') }}
           </div>
         </div>
       </div>
     </header>
+    <app-header></app-header>
