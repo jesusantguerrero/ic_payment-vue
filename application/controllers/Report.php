@@ -96,8 +96,8 @@
         case 'deudores':
             $this->report_model->get_moras_view(true);
           break;
-        case 'averias':
-            $this->report_model->get_averias_report();
+        case 'tickets':
+            $this->report_model->get_tickets_report();
           break;
         case 'clientes':
           $type = str_replace('%20',' ',$type);

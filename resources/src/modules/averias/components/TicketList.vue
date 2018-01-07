@@ -7,25 +7,30 @@
       .pull-right
         a(target="_blank" href="#" class="btn icon"): i.material-icons build <span class="total-rows"></span>
       .pull-right
-        a(target="_blank" href="<?php echo base_url('process/getreport/averias')?>" class="btn icon print-table"): i.material-icons print
+        a(target="_blank", :href="printLink", class="btn icon print-table"): i.material-icons print
       .pull-right
-        select#averias-view-mode.form-group.filter.btn.btn-primary(v-model="dataSearch.state")
+        select#averias-view-mode.form-group.filter.btn.btn-primary(v-model="dataSearch.state", @change="search")
           option(value="por reparar") Por Reparar
           option(value="reparado") Reparados
           option(value="todos") Todos
-
-
     .averia-item-list#averia-list
-
+      h6 {{ searchResults }}
+      TicketListItem(v-for="ticket of tickets", :item="ticket", :key="ticket.id_averia", @update="updateTicketState", @selected="getTicket")
 </template>
 
 <script>
+  import TicketListItem from './TicketListItem.vue';
+
   export default {
+    components: {
+      TicketListItem
+    },
     props: {
       store: {
         type: Object,
         required: true
-      }
+      },
+
     },
     data() {
       return {
@@ -34,25 +39,43 @@
           state: 'por reparar',
         },
         tickets: [],
-        hide: false
+        hide: false,
+        searching: false
       };
     },
 
+    computed: {
+      searchResults() {
+        return (this.searching) ? 'Cargando listado de averias ...' : `Resultados: ${this.count} averias`;
+      },
+
+      count() {
+        return (this.tickets) ? this.tickets.length : 0;
+      },
+
+      printLink() {
+        return `${baseURL}report/get_report/tickets`;
+      }
+    },
+
     mounted() {
-      this.itemClickListener();
-      busAveria.$on('tickets-listed', () => {
-        this.itemClickListener();
+      this.search();
+      window.appBus.$on('ticket-list.search', () => {
+        his.search();
       });
     },
 
     methods: {
       search() {
-        this.$http.post('api/averias/search', this.getDataForm(this.dataSearch))
+        this.searching = true;
+        this.$http.post('api/ticket/search', this.getDataForm(this.dataSearch))
           .then((res) => {
             this.tickets = res.data.tickets;
+            this.searching = false;
           })
           .catch(() => {
             this.$toasted.error(res.data.message);
+            this.searching = false;
           });
       },
 
@@ -61,12 +84,23 @@
           id_averia: id
         };
 
-        this.$http.post('api/averias/get_averia', this.getDataForm(form))
+        this.$http.post('api/ticket/get_ticket', this.getDataForm(form))
           .then((res) => {
             const { data } = res;
             this.store.setDetailMode(true);
             this.store.setTicket(data.ticket);
             this.store.setComments(data.comments);
+          });
+      },
+
+      updateTicketState(id) {
+        this.$http.post('api/ticket/update_ticket_state', this.getDataForm({ id_averia: id }))
+          .then((res) => {
+            const { message } = res.data;
+            this.showMessage(res.data.message);
+            if (message.type === 'success') {
+              this.search();
+            }
           });
       }
     }

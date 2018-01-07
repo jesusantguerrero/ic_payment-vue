@@ -14,7 +14,7 @@
   min-height: 140px
   box-shadow: 2px 2px 4px rgba(0,0,0,.2)
   border: 1px solid #ddd
-  border-radius: 4px 
+  border-radius: 4px
   justify-content: center
   color: #555
   transition: all ease .3s
@@ -77,7 +77,7 @@
     &:hover
       background: lighten($contrast-color,10%)
     cursor: pointer
-  .code 
+  .code
     display: none
 
 .presentado
@@ -87,8 +87,8 @@
   background: white
   box-shadow: 2px 2px 4px rgba(0,0,0,.2)
   border: 1px solid #ddd
-  border-radius: 4px 
-  
+  border-radius: 4px
+
   .ticket-screen
     .screen-body,
     .screen-comment-list,
@@ -104,7 +104,7 @@
       margin: 5px 0
     .comment-item
       width: 100%
-      border: 0 
+      border: 0
       box-shadow: none
       border-radius: 0
       .status-bar
@@ -127,7 +127,7 @@
       border: 0
       padding-bottom: 15px
       border-bottom: 1px solid #eee
-       
+
       textarea.form-control
         border: 0
 
@@ -148,3 +148,11 @@
       width: 100%
   #ticket-view
     border: 0
+  .averia-item
+    .client-direction
+      display: none
+
+  .averia-item .status-bar,
+  .comment-item .status-bar
+    display: flex;
+    flex-direction: column;

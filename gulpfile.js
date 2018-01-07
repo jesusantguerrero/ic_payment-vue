@@ -22,39 +22,6 @@ config = {
     dest: './assets/css/'
   }
 }
-
-var Head = [
-  path + "js/lib/jquery-3.2.1.min.js",
-  path + "js/lib/bootstrap.min.js",
-  path + "js/lib/moment.min.js",
-  path + "js/lib/locale/es-do.js",
-  path + "js/lib/Chart.js",
-  path + "js/lib/currencyFormat.js"
-]
-
-const Libraries = [
-  path + "js/lib/vue.min.js",
-  path + "js/lib/axios.min.js",
-	path + "bt/bootstrap-table.min.js",
-  path + "bt/locale/bootstrap-table-es-SP.min.js",
-  path + "js/lib/sweetalert2.min.js",
-	path + "js/lib/icheck.min.js",
-  path + "js/lib/peace.min.js",
-  path + "js/lib/select2.full.min.js"
-]
-
-const Common = [
-  path + "js/tables/clientTable.js",
-  path + "js/tables/serviceTable.js",
-  path + "js/tables/contractTable.js",
-  path + "js/tables/paymentTable.js",
-  path + "js/tables/sectionTable.js",
-  path + "js/lib/globals.js",
-  path + "js/base.js"
-]
-
-const Components  = `${path}js/components/**.js`
-
 // sass files
 
 const cssFiles    = [
@@ -98,51 +65,9 @@ gulp.task('sass', () => {
   return merge(mainMinCSS,secundaryMinCSS,frontendMinCSS)
 });
 
-// javascript
-
-gulp.task('components', (cb) => {
-  pump([
-    gulp.src(Components),
-    sourcemaps.init(),
-    babel({
-      presets: ['env']
-    }),
-    concat('components.js'),
-    uglify(),
-    sourcemaps.write('.'),
-    gulp.dest(distMin)],
-    cb
- )
-})
-
-gulp.task('head', (cb) => {
-  pump([
-    gulp.src(Head),
-    sourcemaps.init(),
-    concat("head.bundle.js"),
-    uglify(),
-    sourcemaps.write('.'),
-    gulp.dest(distMin)],
-    cb
-  )
-})
-
-gulp.task('final-compress',['components','head'] , (cb) => {
-  pump([
-     gulp.src([...Libraries, ...Common]),
-     sourcemaps.init(),
-     concat("final.bundle.js"),
-     uglify(),
-     sourcemaps.write('.'),
-     gulp.dest(distMin)],
-     cb
-    )
-})
-
 
 gulp.task('watch', () => {
   gulp.watch(`${path }css/**`,['sass']);
-  // gulp.watch([`${path}js/**/*.js`,`!${path}js/test/**`], ['final-compress']);
 });
 
 gulp.task('default',['watch',"sass"]);

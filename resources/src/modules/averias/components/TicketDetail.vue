@@ -44,7 +44,7 @@
           id_averia: this.ticket.id_averia,
           descripcion: this.new_comment
         };
-        this.$http.post('api/averias/add_comment', this.getDataForm(form))
+        this.$http.post('api/ticket/add_comment', this.getDataForm(form))
           .then((res) => {
             this.getComments();
             this.closeCommentMode();
@@ -71,7 +71,7 @@
         const form = {
           id_reporte: idComment
         };
-        this.$http.post('api/averias/delete_comment', this.getDataForm(form))
+        this.$http.post('api/ticket/delete_comment', this.getDataForm(form))
           .then((res) => {
             this.getComments();
             this.showMessage(res.data.message);
@@ -91,7 +91,7 @@
         const form = {
           id_averia: this.ticket.id_averia
         };
-        this.$http.post('api/averias/get_comments', this.getDataForm(form))
+        this.$http.post('api/ticket/get_comments', this.getDataForm(form))
           .then((res) => {
             this.store.setComments(res.data.comments);
           });
@@ -112,9 +112,9 @@
       updateTicket(fields) {
         this.closeEditMode();
         const form = this.getDataForm(this.getFields(fields));
-        this.$http.post('api/averias/update_averia', form)
+        this.$http.post('api/ticket/update_ticket', form)
           .then((res) => {
-            window.appBus.$emit('ticket.search-tickets');
+            window.appBus.$emit('ticket-list.search');
             this.showMessage(res.data.message);
           });
       },

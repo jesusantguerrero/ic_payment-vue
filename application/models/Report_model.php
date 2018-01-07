@@ -12,9 +12,9 @@ class Report_model extends CI_MODEL{
 
   public function __construct(){
     parent::__construct();
-     
+
     $this->load->library('table');
-   
+
   }
 
 
@@ -23,7 +23,7 @@ class Report_model extends CI_MODEL{
     id_contrato,
     cliente,
     group_concat(monthname(fecha_limite)) as concepto,
-    sum(total) as total, 
+    sum(total) as total,
     complete_date,
     fecha_pago";
     $this->db->select($select,true);
@@ -130,7 +130,7 @@ class Report_model extends CI_MODEL{
     $this->db->select($sql,true);
     $this->db->where_not_in('estado_cliente','suspendido');
     $this->db->group_by('cliente');
-    $this->db->order_by('id_contrato'); 
+    $this->db->order_by('id_contrato');
     $result = $this->db->get('v_morosos');
     if($result){
       $result = $result->result_array();
@@ -143,7 +143,7 @@ class Report_model extends CI_MODEL{
     }
   }
 
-  # Instalaciones 
+  # Instalaciones
 
   public function count_installations(){
     $this->db->where('estado_instalacion','por instalar');
@@ -157,12 +157,12 @@ class Report_model extends CI_MODEL{
 
   public function get_installations_per_month(){
     $resultado_por_mes = array();
-    
-    for ($i=1; $i <= 12 ; $i++) { 
+
+    for ($i=1; $i <= 12 ; $i++) {
       $sql = "SELECT count(*) from v_instalaciones where year(fecha) = year(now()) and month(fecha)= $i";
       $result = $this->db->query($sql)->row_array()["count(*)"];
       if($result){
-        $value = $result; 
+        $value = $result;
       }else{
         $value = "0";
       }
@@ -183,7 +183,7 @@ class Report_model extends CI_MODEL{
     }else{
       echo "<h3>No hay Datos Para Esta Busqueda</h3>";
     }
-    
+
   }
 
   public function update_installation($id_contrato){
@@ -194,7 +194,7 @@ class Report_model extends CI_MODEL{
       case 'por instalar':
         $status = 'instalado';
         break;
-      default: 
+      default:
        $status =  'por instalar';
     }
     $this->db->where('id_contrato',$id_contrato);
@@ -216,7 +216,7 @@ class Report_model extends CI_MODEL{
     }
   }
 
-  public function get_averias_report($is_print = true){
+  public function get_tickets_report($is_print = true){
     $this->db->select('v_averias.* , v_contratos.codigo',false);
     $this->db->where('v_averias.estado','por reparar');
     $this->db->join('v_contratos','id_cliente','LEFT');
@@ -255,10 +255,10 @@ class Report_model extends CI_MODEL{
 
   public function get_client_report($status){
     $db = $this->db;
-    
+
     $db->select('cli.*, co.codigo',false);
     $db->from('ic_clientes cli');
-    
+
     if ($status == "nada") {
       $status = "";
       $db->like('cli.estado',$status);
@@ -267,9 +267,9 @@ class Report_model extends CI_MODEL{
     }
     $db->join('ic_contratos co','id_cliente','left');
 
-    if ($result = $db->get()) {  
+    if ($result = $db->get()) {
       echo make_clients_report($result->result_array(),"Clientes en estado {$status}",$this,true);
     }
   }
-  
+
 }

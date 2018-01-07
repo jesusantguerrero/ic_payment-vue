@@ -1,23 +1,24 @@
 <?php
 
-class Averias extends MY_Controller {
+class Ticket extends MY_Controller {
   public function __construct() {
     parent::__construct();
-    $this->load->model('averia_model');
+    $this->load->model('ticket_model');
     $this->load->model('comment_model');
     $this->my_auth->authenticate();
   }
 
   public function search() {
     $data = json_decode($this->input->post('data'),true);
-    $averias = $this->averia_model->search($data['text'],$data['state']);
-    echo json_encode($averias);
+    $res['tickets'] = $this->ticket_model->search($data['text'],$data['state']);
+    $res['count'] = count($res['tickets']);
+    $this->response_json($res);
   }
 
   public function add_ticket() {
     $data = $this->get_post_data('data');
     if ($data) {
-      $result = $this->averia_model->add($data);
+      $result = $this->ticket_model->add($data);
       if ($result) {
         $this->set_message('Nueva averia agregada');
       } else {
@@ -28,27 +29,37 @@ class Averias extends MY_Controller {
     }
   }
 
-  public function get_averia(){
+  public function get_ticket(){
     $data = json_decode($this->input->post('data'),true);
-    $response['ticket']   = $this->averia_model->get_averia($data['id_averia']);
+    $response['ticket']   = $this->ticket_model->get_ticket($data['id_averia']);
     $response['comments'] = $this->comment_model->get_comments($data['id_averia']);
     echo json_encode($response);
   }
 
-  public function update_averia(){
-    $data = json_decode($this->input->post('data'),true);
+  public function update_ticket(){
+    $data = json_decode($this->input->post('data'), true);
     $id_averia = $data['id_averia'];
     unset($data['id_averia']);
     $response['mensaje'] = MESSAGE_ERROR. " No se pudieron guardar los cambios";
 
-    if($this->averia_model->update_all($id_averia,$data)){
+    if($this->ticket_model->update_all($id_averia, $data)){
       $response['mensaje'] = MESSAGE_SUCCESS . "Cambios Guardados";
     }
-
     echo json_encode($response);
   }
 
-  public function delete_averia(){
+  public function update_ticket_state() {
+    if ($data = $this->get_post_data('data')) {
+      if ($this->ticket_model->update($data['id_averia'])) {
+        $this->set_message('Estado de averia cambiado');
+      } else {
+        $this->set_message('error al cambiar estado', 'error');
+      }
+      $this->response_json();
+    }
+  }
+
+  public function delete_ticket(){
 
   }
 

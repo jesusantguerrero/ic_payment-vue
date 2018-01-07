@@ -262,42 +262,6 @@ if ( ! function_exists('make_petty_cash_table')){
   }
 }
 
-if ( ! function_exists('make_averias_list')){
-
-  function make_averias_list($data){
-    $html_text = " ";
-    foreach ($data as $line) {
-      $icono = 'check_box_outline_blank';
-      $color = '#dF0a00';
-      $fecha_class = 'hide';
-        switch ($line['estado']) {
-          case 'reparado':
-            $icono = 'check_box';
-            $color = '#1FD1A8';
-            $fecha_class = '';
-            break;
-        }
-        $html_text .= "<div class='averia-item'>
-            <div class='top-row'>
-              <div class='code'>".$line['id_averia']."</div>
-              <div class='info'><span class='client-name'>".$line['cliente']. "</span><span class='client-direction'>::".$line['direccion']."</span> </span><span class='client-direction'>".
-                "  <b>Celular: </b>".phone_format($line['celular'])."</span></div>
-              <button class='btn-update-averia'>Actualizar</button>
-            </div>
-            <div class='description'>
-            <div class='text'>". ucfirst($line['descripcion'])."</div>
-            </div>
-            <div class='status-bar'>
-              <span><i class='material-icons'>event</i> Fecha de Reporte: ".$line['fecha']."</span>
-              <span class='$fecha_class' style='color:#06f'><i class='material-icons'>event</i> Fecha de Reparacion:".$line['fecha_reparacion']." </span>
-              <span class='status' style='color: $color'><i class='material-icons'>$icono</i>". $line['estado']."</span></div>
-            </div>";
-    }
-
-    return $html_text;
-  }
-}
-
 if ( ! function_exists('make_installations_list')){
 
   function make_installations_list($data){

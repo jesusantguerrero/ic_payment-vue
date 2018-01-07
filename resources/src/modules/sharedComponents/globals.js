@@ -54,6 +54,13 @@ export default (Vue) => {
     filters: {
       currencyFormat(number) {
         return utils.CurrencyFormat(number);
+      },
+
+      phoneFormat(tel) {
+        if (tel.length === 10) {
+          return `(${tel.slice(0, 3)}) ${tel.slice(3, 6)}-${tel.slice(6)}`;
+        }
+        return tel;
       }
     }
   });

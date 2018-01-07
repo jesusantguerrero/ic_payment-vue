@@ -44,11 +44,12 @@
       addTicket() {
         const empty = utils.isEmpty(this.ticket);
         if (!empty) {
-          this.$http.post('api/averias/add_ticket', this.getDataForm(this.ticket))
+          this.$http.post('api/ticket/add_ticket', this.getDataForm(this.ticket))
             .then((res) => {
               this.showMessage(res.data.message);
               this.$emit('newTicket');
               this.ticketEmpty();
+              window.appBus.$emit('ticket-list.search');
             });
         } else {
           this.$toasted.error('Revise: LLene todos los campos por favor');
