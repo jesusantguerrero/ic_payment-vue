@@ -21,7 +21,7 @@ module.exports = {
     index: `${rootDir}/application/views/layouts/index.php`,
     assetsRoot:`${rootDir}/`,
     assetsSubDirectory: 'assets',
-    assetsPublicPath: '/icpayment/',
+    assetsPublicPath: '/',
 
     productionSourceMap: true,
     productionGzip: false,
