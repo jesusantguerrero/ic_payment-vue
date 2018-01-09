@@ -10,7 +10,7 @@
         .tab-content
           .tab-pane.fade.in.active#contract-details(role="tabpanel")
             .col-md-12
-              .input-group#select-cliente-containet
+              .input-group#select-cliente-container
                 span.input-group-addon#basic-addon1 Cliente
                 SelectClient(the-id="client-id", parent-id="#select-client-container",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 

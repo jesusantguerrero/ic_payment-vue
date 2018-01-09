@@ -8,6 +8,9 @@ var prodConfig = require('./webpack.prod.conf')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
+var env = process.env.NODE_ENV === 'development'
+  ? require('../config/test.env')
+  : config.build.env
 
 var webpackConfig = merge(baseWebpackConfig,{
 

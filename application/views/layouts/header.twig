@@ -60,15 +60,7 @@
         <div class="user-div ">
           <nav class="user-controls">
             <li class="navButton">
-                <a href="{{url}}app/admin/reportes" title="notificaciones">
-                  <i class="material-icons">notifications</i>
-                </a>
-                 {% if (notifications > 0) %}
-                    <span class="badge">{{notifications}}</span>
-                  {% endif %}
-            </li>
-            <li class="navButton">
-              <a href="#" data-toggle="modal" data-target="#petty-cash-modal" title="Caja Chica" @click.prevent="openPettyCash('retire')">
+              <a href="#" data-toggle="modal" data-target="#app-petty-cash-modal" title="Caja Chica" @click.prevent="openPettyCash('retire')">
               <i class="material-icons">inbox</i>
             </a></li>
             <li class="navButton">
@@ -79,7 +71,14 @@
               <a href="" data-toggle="modal" data-target="#app-message-modal" data-placement="bottom" title="Mensajes">
               <i class="material-icons">perm_phone_msg</i>
             </a></li>
-
+             <li class="navButton">
+                <a href="{{url}}app/admin/averias" title="notificaciones">
+                  <i class="material-icons">notifications</i>
+                </a>
+                 {% if (notifications > 0) %}
+                    <span class="badge">{{notifications}}</span>
+                  {% endif %}
+            </li>
           </nav>
           <div class="dropdown mymenu">
             <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

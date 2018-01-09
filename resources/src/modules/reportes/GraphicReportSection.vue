@@ -7,10 +7,10 @@
         ReportDataCard(data="9", title="Clientes Activos", icon="person")
 
       ul.nav.nav-tabs(role="tablist")
-        li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos Este Año
+        li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
         li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
         li(role="presentation"): a(href="#balance" aria-controls="messages" role="tab" data-toggle="tab") Balance
-        li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias y Cierres
+        li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias
 
       .tab-content
         .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
