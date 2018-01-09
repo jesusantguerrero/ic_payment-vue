@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import LineChart from './charts/LineChart';
+  import SingleChart from './charts/SingleChart';
 
   export default {
     props: {
@@ -14,7 +14,7 @@
         type: Array
       },
 
-      options: {
+      config: {
         type: Object
       },
 
@@ -46,7 +46,7 @@
     methods: {
 
       init() {
-        this.chart = new LineChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, {});
+        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, this.config);
       },
 
       refresh() {

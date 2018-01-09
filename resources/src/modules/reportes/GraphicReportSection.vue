@@ -1,11 +1,7 @@
 <template lang="pug">
   .row
     .col-md-9
-      .row.shortcuts-container.data-card-container
-        ReportDataCard(data="9", title="Clientes", icon="person")
-        ReportDataCard(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
-        ReportDataCard(data="9", title="Clientes Activos", icon="person")
-
+      ReportDataCards
       ul.nav.nav-tabs(role="tablist")
         li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
         li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
@@ -16,7 +12,7 @@
         .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
           .wide-chart
             ReportChartYearNavigator(@change="getIncomes")
-            ChartCard(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months")
+            ChartCard(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
         .tab-pane.fade.in#pagos(role="tabpanel")
           .wide-chart
@@ -36,30 +32,7 @@
             canvas(class="graphics chart" id="ganancias-mes-chart")
 
 
-    .col-md-3.right-panel
-      div
-        ul.nav.nav-tabs(role="tablist")
-          li(role="presentation" class="active"): a(href="#general" aria-controls="home" role="tab" data-toggle="tab") General
-          li(role="presentation"): a(href="#week" aria-controls="week" role="tab" data-toggle="tab") Semana
 
-        .tab-content
-          .tab-pane.fade.in.active#general(role="tabpanel")
-            .today-data
-              h5 Ventas de hoy
-              p
-                a(target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>")
-                span(class="amount") RD$ {{ appStore.dayIncome | currencyFormat }}
-
-              div
-                h5 Clientes Por Servicios
-                p
-                .normal-chart
-                  canvas(id="services-chart")
-
-          .tab-pane.fade.in#week(role="tabpanel")
-            h5 Ingesos esta semana
-            .normal-chart
-              canvas(class="little-chart" id="week-chart")
 </template>
 
 <script>
@@ -91,6 +64,14 @@
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0.00
         },
+        chartConfig: {
+          incomes: {
+            title: 'Ingresos',
+            type: 'line'
+          }
+        },
+        clients: null,
+        constracts: null,
         months
       };
     },

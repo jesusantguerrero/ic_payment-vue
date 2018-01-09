@@ -1,27 +1,61 @@
 <template lang="pug">
-  .small-data-card
-    i.material-icons {{ icon }}
-    span.data {{ data }}
-    span {{ title }}
-    .card-detail(v-if="detail")
-      a(href="detail.link" class="cover-links") {{ detail.title }}
+  .row.shortcuts-container.data-card-container
+    ReportDataCardItem(data="9", title="Clientes", icon="person")
+    ReportDataCardItem(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
+    ReportDataCardItem(data="9", title="Clientes Activos", icon="person")
+
 </template>
 
 <script>
+  import ReportDataCardItem from './ReportDataCardItem.vue';
+
   export default {
+    components: {
+      ReportDataCardItem
+    },
+
     props: {
-      icon: {
-        type: String
+      store: {
+        type: Object,
+        required: true
+      }
+    },
+
+    data() {
+      return {
+        clients: null,
+        contracts: null
+      };
+    },
+
+    computed: {
+      activeClients() {
+        return 9;
       },
-      data: {
-        type: String
+
+      totalClients() {
+        return 9;
       },
-      title: {
-        type: String
-      },
-      detail: {
-        type: Object
+
+      activeContracts() {
+        return 9;
+      }
+    },
+
+    mounted() {
+      this.getGeneralStatistics();
+    },
+
+    methods: {
+      getGeneralStatistics() {
+        this.$http.get('report/general_statistics')
+          .then((res) => {
+            const generals = res.data.general_statistics;
+            this.clients = generals.clients;
+            this.contracts = generals.contracts;
+          });
       }
     }
   };
 </script>
+

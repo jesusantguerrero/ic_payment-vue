@@ -59,7 +59,7 @@
       return $months;
     }
 
-    public function count_all() {
+    public function get_general_statistics() {
       $this->load->model('client_model');
       $this->load->model('contract_view_model');
 

@@ -17,7 +17,7 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     chunkFilename: '[name].js',
-    publicPath:proces.env.NODE_ENV === 'development' ? config.local.assetsPublicPath : config.build.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'development' ? config.local.assetsPublicPath : config.build.assetsPublicPath
   },
 
   resolve: {
@@ -28,6 +28,7 @@ module.exports = {
       'shared$': resolve('src','modules','sharedComponents')
     }
   },
+
   module: {
     rules: [
       {
