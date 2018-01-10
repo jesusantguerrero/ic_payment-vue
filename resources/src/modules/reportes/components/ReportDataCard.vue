@@ -3,6 +3,8 @@
     ReportDataCardItem(data="9", title="Clientes", icon="person")
     ReportDataCardItem(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
     ReportDataCardItem(data="9", title="Clientes Activos", icon="person")
+    ReportDataCardItem(data="9", title="Clientes Mora", icon="person")
+    ReportDataCardItem(data="9", title="Clientes Suspendidos", icon="person")
 
 </template>
 
@@ -12,13 +14,6 @@
   export default {
     components: {
       ReportDataCardItem
-    },
-
-    props: {
-      store: {
-        type: Object,
-        required: true
-      }
     },
 
     data() {

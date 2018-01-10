@@ -16,7 +16,7 @@ export default class SingleChart {
     const options = {
       responsive: true,
       maintainAspectRatio: false,
-      scales: {
+      scales: (!config.money) ? null : {
         yAxes: [{
           ticks: {
             callback(label) {

@@ -26,7 +26,7 @@ export default new Vue({
     'app-message-modal': AppMessageModal,
     'app-petty-cash-modal': AppPettyCashModal,
     'app-ticket-modal': AppTicketModal,
-    'app-header': AppHeader
+    'app-header': AppHeader,
   },
 
   data: {

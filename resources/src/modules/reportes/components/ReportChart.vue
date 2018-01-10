@@ -8,10 +8,12 @@
   export default {
     props: {
       labels: {
-        type: Array
+        type: Array,
+        required: true
       },
       data: {
-        type: Array
+        type: Array,
+        required: true
       },
 
       config: {
@@ -20,7 +22,7 @@
       },
 
       dataClass: {
-        type: String
+        type: String,
       },
 
       dataId: {
@@ -47,7 +49,7 @@
     methods: {
 
       init() {
-        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, { type: line, title: 'ingresos' });
+        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, this.config);
       },
 
       refresh() {

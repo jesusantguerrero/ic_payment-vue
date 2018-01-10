@@ -155,20 +155,21 @@ class Report_model extends CI_MODEL{
     }
   }
 
-  public function get_installations_per_month(){
-    $resultado_por_mes = array();
+  public function get_installations_by_month($year){
+    $result_by_months = [];
 
     for ($i=1; $i <= 12 ; $i++) {
-      $sql = "SELECT count(*) from v_instalaciones where year(fecha) = year(now()) and month(fecha)= $i";
+      $sql = "SELECT count(*) from v_instalaciones where year(fecha) = $year and month(fecha)= $i";
       $result = $this->db->query($sql)->row_array()["count(*)"];
       if($result){
         $value = $result;
       }else{
         $value = "0";
       }
-      array_push($resultado_por_mes,$value);
+      array_push($result_by_months, $value);
     }
-    return $resultado_por_mes;
+
+    return ['values' => $result_by_months, 'total' => array_sum($result_by_months)];
   }
 
   public function get_installations_list($status='por instalar'){

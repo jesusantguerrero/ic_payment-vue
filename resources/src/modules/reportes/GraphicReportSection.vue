@@ -1,35 +1,36 @@
 <template lang="pug">
   .row
-    .col-md-9
+    .col-md-12
       ReportDataCard
-      ul.nav.nav-tabs(role="tablist")
-        li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
-        li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
-        li(role="presentation"): a(href="#balance" aria-controls="messages" role="tab" data-toggle="tab") Balance
-        li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias
+      .col-md-8
+        ul.nav.nav-tabs(role="tablist")
+          li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
+          li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
+          li(role="presentation"): a(href="#balance" aria-controls="messages" role="tab" data-toggle="tab") Balance
+          li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias
 
-      .tab-content
-        .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
-          .wide-chart
-            ReportChartYearNavigator(@change="getIncomes")
-            //- ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
+        .tab-content
+          .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
+            .wide-chart
+              ReportChartYearNavigator(@change="getIncomes")
+              ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
-        .tab-pane.fade.in#pagos(role="tabpanel")
-          .wide-chart
-            canvas(class="graphics chart" id="installations-chart")
+          .tab-pane.fade.in#pagos(role="tabpanel")
+            ReportChartYearNavigator(@change="getInstallations")
+            ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
-        .tab-pane.fade.in#balance(role="tabpanel")
-          .wide-chart
-            canvas(class="graphics chart" id="balance-chart")
+          .tab-pane.fade.in#balance(role="tabpanel")
+            .wide-chart
+              canvas(class="graphics chart" id="balance-chart")
 
-        .tab-pane.fade.in#closing(role="tabpanel")
-          .wide-chart
-            canvas(class="graphics chart" id="ganancias-chart")
+          .tab-pane.fade.in#closing(role="tabpanel")
+            .wide-chart
+              canvas(class="graphics chart" id="ganancias-chart")
 
-          .wide-chart.hide
-            canvas(class="graphics chart" id="ganancias-semana-chart")
-          .wide-chart
-            canvas(class="graphics chart" id="ganancias-mes-chart")
+            .wide-chart.hide
+              canvas(class="graphics chart" id="ganancias-semana-chart")
+            .wide-chart
+              canvas(class="graphics chart" id="ganancias-mes-chart")
 
 
 
@@ -64,10 +65,19 @@
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0.00
         },
+        installations: {
+          values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          total: 0.00
+        },
         chartConfig: {
           incomes: {
             title: 'Ingresos',
-            type: 'line'
+            type: 'line',
+            money: true
+          },
+          installations: {
+            title: 'Instalaciones',
+            type: 'bar'
           }
         },
         months
@@ -76,6 +86,7 @@
 
     mounted() {
       this.getIncomes();
+      this.getInstallations();
     },
 
     methods: {
@@ -86,6 +97,14 @@
             this.incomes = res.data.incomes;
           });
       },
+
+      getInstallations(year) {
+        const installationsYear = year || new Date().getFullYear();
+        this.$http.get(`report/installations_year/${installationsYear}`)
+          .then((res) => {
+            this.installations = res.data.installations;
+          });
+      }
     }
   };
 </script>

@@ -1,6 +1,6 @@
 <template lang="pug">
   .nav-container.mobile(:class="{expanded: menuExpanded}")
-    nav.main-nav
+    nav.main-nav.animated.baunceInLeft
       li: a(href="#", @click.prevet="goTo('')").nav-button Lobby
       li: a(href="#", @click.prevet="goTo('clientes')").nav-button Clientes
       li: a(href="#", @click.prevet="goTo('servicios')").nav-button Servicios
@@ -49,11 +49,11 @@
       },
 
       showMenu() {
-        this.animateCss('.nav-container', 'bounceInRight');
+        this.animateCss('.nav-container', 'bounceInLeft');
       },
 
       hideMenu() {
-        this.animateCss('.nav-container', 'bounceOutRight');
+        this.animateCss('.nav-container', 'bounceOutLeft');
       },
 
       animateCss(element, transitionName, icon) {

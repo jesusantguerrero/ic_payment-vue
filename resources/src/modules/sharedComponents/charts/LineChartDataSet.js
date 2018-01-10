@@ -1,3 +1,5 @@
+const config = {};
+
 export default [{
   label: config.title || '',
   fill: true,
@@ -17,6 +19,6 @@ export default [{
   pointHoverBorderWidth: config.pointHoverBoderWith || 2,
   pointRadius: 1,
   pointHitRadius: 10,
-  data: values,
+  data: '',
   spanGaps: false,
 }];

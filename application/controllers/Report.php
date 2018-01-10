@@ -3,6 +3,7 @@
     public function __construct() {
       parent::__construct();
       $this->load->model('payment_model');
+      $this->load->model('report_model');
       $this->my_auth->authenticate();
     }
 
@@ -21,7 +22,8 @@
     }
 
     public function installations_year($year = null) {
-      $installations = $this->report_model->get_installations_per_month();
+      $res['installations'] = $this->report_model->get_installations_by_month($year);
+      $this->response_json($res);
     }
 
     public function damages_year($year = null) {
