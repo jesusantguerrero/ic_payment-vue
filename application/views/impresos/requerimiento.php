@@ -1,10 +1,10 @@
-<?php 
+<?php
 
   if(isset($_SESSION['requirement_info'])):
     $info      = $_SESSION['requirement_info'];
     $cliente   = $info['cliente'];
     $servicio  = $info['servicio'];
-    $user_data = get_user_data();
+    $user_data = $this->my_auth->get_user_data();
     $settings  = $this->settings_model->get_settings();
     $company   = $this->company_model->get_company();
 
@@ -112,6 +112,6 @@
   $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])." ".phone_format($company["telefonos"])?>");
   print();
 </script>
-<?php 
+<?php
     endif;
   ?>

@@ -1,6 +1,6 @@
 <?php
   if($info):
-    $user_data = get_user_data();
+    $user_data = $this->my_auth->get_user_data();
     $settings  = $this->settings_model->get_settings();
     $company   = $this->company_model->get_company();
 

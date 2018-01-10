@@ -1,10 +1,10 @@
-<?php 
+<?php
   if(isset($_SESSION['requirement_info'])):
     $info = $_SESSION['requirement_info'];
     $cliente  = $info['cliente'];
     $contrato = $info['contrato'];
     $servicio = $info['servicio'];
-    $user_data = get_user_data();
+    $user_data = $this->my_auth->get_user_data();
     $settings = $this->settings_model->get_settings();
     $company = $this->company_model->get_company();
 ?>
@@ -200,6 +200,7 @@
       <input type="text" class="form-control line-input sm casa" id="">
     </div>
     <div class="form-group print">
+      <br>
       <label for="">Detalles:</label>
       <div name="detalle_direccion" class="detalle_direccion" width="100%"> <?php echo " ". $cliente['detalles_direccion']?></div>
     </div>
@@ -294,6 +295,6 @@
   $(".company-numbers").text("<?php echo "Tel.: ".phone_format($company['telefono1'])." ".phone_format($company["telefonos"])?>");
   print();
 </script>
-<?php 
+<?php
   endif;
 ?>

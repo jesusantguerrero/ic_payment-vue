@@ -67,7 +67,7 @@ class Ticket extends MY_Controller {
 
   public function add_comment(){
     $response['mensaje'] = MESSAGE_ERROR.' No se pudo agregar el reporte';
-    $user    = get_user_data();
+    $user    = $this->my_auth->get_user_data();
     $comment = json_decode($this->input->post('data'),true);
     $comment = array_merge($comment,["id_empleado" => $user['user_id']]);
 

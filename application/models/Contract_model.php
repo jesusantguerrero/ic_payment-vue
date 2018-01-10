@@ -33,7 +33,7 @@ class Contract_model extends CI_MODEL{
       $this->id_contrato = $data['id_contrato'];
     }
     $this->id_cliente     = $data['id_cliente'];
-    $this->id_empleado    = get_user_data()['user_id'];
+    $this->id_empleado    = $this->my_auth->get_user_data()['user_id'];
     $this->id_servicio    = $data['id_servicio'];
     $this->codigo         = $data['codigo'];
     $this->fecha          = $data['fecha'];
@@ -174,7 +174,7 @@ class Contract_model extends CI_MODEL{
     $this->clear_payments($data['id_contrato']);
 
     $data_payment = [
-      'id_empleado'   => get_user_data()['user_id'],
+      'id_empleado'   => $this->my_auth->get_user_data()['user_id'],
       'estado'        => 'pagado',
       'fecha_pago'    => date('Y-m-d'),
       'complete_date' => date('Y-m-d H:i:s')

@@ -10,7 +10,7 @@
         .tab-content
           .tab-pane.fade.in.active#contract-details(role="tabpanel")
             .col-md-12
-              .input-group#select-cliente-container
+              .input-group#select-client-container
                 span.input-group-addon#basic-addon1 Cliente
                 SelectClient(the-id="client-id", parent-id="#select-client-container",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 
@@ -102,7 +102,7 @@
           a.btn#btn-view-pay(target="_blank", :href="paymentUrl",v-if="createdContract") Pagos
           a.btn#btn-print-contract(target="printframe", :href="printContractUrl", v-if="createdContract") Imprimir
         .row-container.requirement-controls(v-if="mode == 'requirements'")
-          a.btn#btn-print-requirement(target="printframe", :href="printRequirementUrl") Requerimiento
+          a.btn#btn-print-requirement(target="printframe", :href="printRequirementUrl", @click="handleRequirements") Requerimiento
 
 </template>
 
@@ -163,11 +163,11 @@
       },
 
       printContractUrl() {
-        return `${baseURL}process/getrequirements/${this.contract.id_cliente}`;
+        return `${baseURL}contract/get_requirements/${this.contract.id_cliente}`;
       },
 
       printRequirementUrl() {
-        return `${baseURL}process/getrequirement/${this.contract.id_cliente}`;
+        return `${baseURL}contract/get_requirement/${this.contract.id_cliente}/${this.contract.id_servicio}`;
       }
     },
 
@@ -238,6 +238,13 @@
 
       setMode(mode) {
         this.mode = mode;
+      },
+
+      handleRequirements(e) {
+        if (!this.contract.id_cliente || !this.contract.id_servicio) {
+          e.preventDefault();
+          this.$toasted.info('seleccine un cliente y servicio primero');
+        }
       }
     }
   };

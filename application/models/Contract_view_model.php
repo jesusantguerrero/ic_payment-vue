@@ -22,8 +22,7 @@ class Contract_view_model extends CI_MODEL{
       $this->db->select('ic_servicios.nombre as nombre_seguro, ic_servicios.mensualidad as mensualidad_seguro',false);
       $this->db->join('ic_servicios','extras_fijos=ic_servicios.id_servicio','LEFT');
     }
-    if($result = $this->db->get('v_contratos')){
-    } else {
+    if ($result = $this->db->get('v_contratos')) {
       return make_main_contract_table($result->result_array(),0);
     }
   }

@@ -1,10 +1,10 @@
-<?php 
+<?php
 if(isset($_SESSION['requirement_info'])):
     $info           = $_SESSION['requirement_info'];
     $cliente        = $info['cliente'];
     $contrato       = $info['contrato'];
     $pago           = $info['pago'];
-    $user_data      = get_user_data();
+    $user_data      = $this->my_auth->get_user_data();
     $settings       = $this->settings_model->get_settings();
     $company        = $this->company_model->get_company();
 ?>
@@ -181,6 +181,6 @@ if(isset($_SESSION['requirement_info'])):
 
   print();
 </script>
-<?php 
+<?php
   endif;
  ?>

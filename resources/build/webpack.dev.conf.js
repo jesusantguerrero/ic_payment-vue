@@ -12,6 +12,7 @@ var env = process.env.NODE_ENV === 'development'
   ? require('../config/test.env')
   : config.build.env
 
+process.env.NODE_ENV = 'development'
 var webpackConfig = merge(baseWebpackConfig,{
 
   module: {
@@ -35,6 +36,8 @@ var webpackConfig = merge(baseWebpackConfig,{
   ]
 })
 
-webpackConfig.plugins.concat(prodConfig.plugins)
+const plugins = prodConfig.plugins;
+delete plugins[0];
+webpackConfig.plugins.concat(plugins)
 
 module.exports = webpackConfig

@@ -4,7 +4,7 @@ var rootDir = path.resolve(__dirname, '../../')
 
 module.exports = {
   local: {
-    env: require('./prod.env'),
+    env: require('./dev.env'),
     index: `${rootDir}/application/views/layouts/index.php`,
     assetsRoot:`${rootDir}/`,
     assetsSubDirectory: 'assets',
@@ -21,7 +21,7 @@ module.exports = {
     index: `${rootDir}/application/views/layouts/index.php`,
     assetsRoot:`${rootDir}/`,
     assetsSubDirectory: 'assets',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/icpayment/',
 
     productionSourceMap: true,
     productionGzip: false,

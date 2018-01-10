@@ -22,7 +22,7 @@
               i.material-icons find_in_page
               | Ver Detalles
           li.aside-buttons
-            a(href="" id="client-new-contract", @click.prevent="sendTo('new_contract')")
+            a(href="" id="client-new-contract", @click.prevent="sendTo('admin/nuevo_contrato')")
               i.material-icons description
               | Nuevo Contrato
 
