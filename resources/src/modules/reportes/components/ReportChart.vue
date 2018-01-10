@@ -15,7 +15,8 @@
       },
 
       config: {
-        type: Object
+        type: Object,
+        required: true
       },
 
       dataClass: {
@@ -46,7 +47,7 @@
     methods: {
 
       init() {
-        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, this.config);
+        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, { type: line, title: 'ingresos' });
       },
 
       refresh() {

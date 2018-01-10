@@ -11,7 +11,7 @@ const babel       = require('gulp-babel')
 const pump        = require('pump')
 const del         = require('del')
 const merge       = require('merge-stream')
-const path        = './src/assets/'
+const path        = './resources/src/assets/'
 const Path        = require('path')
 // my files
 

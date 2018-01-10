@@ -1,6 +1,6 @@
 <template lang="pug">
   .main-content.detalles.col-md-12
-    .row
+    .row.wide-container
       .col-xs-6.col-md-3.center-row.aside-wide-left
         .client-profile
           span {{ initials }}

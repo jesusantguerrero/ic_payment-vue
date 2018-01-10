@@ -104,7 +104,8 @@ export default {
     $('body').scroll(() => {
       const position = $('body').scrollTop();
       const movableNav = $('.aside-nav-container, .aside-wide-left');
-      if (position >= 50) {
+      const width = window.innerWidth;
+      if (position >= 50 && width > 768) {
         if (!movableNav.hasClass('moved')) { movableNav.addClass('moved'); }
       } else {
         movableNav.removeClass('moved');

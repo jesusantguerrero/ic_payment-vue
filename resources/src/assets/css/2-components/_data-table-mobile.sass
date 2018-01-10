@@ -1,0 +1,24 @@
+@media (max-width: 768px)
+  tbody
+    [class*=card]
+      padding: 0
+    .card-view
+      display: flex
+    td
+      margin: 1px 0
+      border:
+        top: 1px solid #333
+        bottom: 1px solid #333
+    span.value,
+    span.title
+      width: 50%
+    span.title
+      text-align: left !important
+      color: $primary-color
+  .fixed-table-toolbar.searcher-container
+    display: grid
+    grid-template: 50% 50% / repeat(3, 1fr)
+
+  .input-group.search
+    width: 100%
+    grid-column: 1 / -1
