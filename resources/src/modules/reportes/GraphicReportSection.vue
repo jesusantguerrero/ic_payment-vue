@@ -1,7 +1,7 @@
 <template lang="pug">
   .row
     .col-md-9
-      ReportDataCards
+      ReportDataCard
       ul.nav.nav-tabs(role="tablist")
         li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
         li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
@@ -12,7 +12,7 @@
         .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
           .wide-chart
             ReportChartYearNavigator(@change="getIncomes")
-            ChartCard(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
+            //- ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
         .tab-pane.fade.in#pagos(role="tabpanel")
           .wide-chart
@@ -37,8 +37,8 @@
 
 <script>
   import ReportDataCard from './components/ReportDataCard.vue';
+  import ReportChart from './components/ReportChart.vue';
   import ReportChartYearNavigator from './components/ReportChartYearNavigator.vue';
-  import ChartCard from './../sharedComponents/ChartCard.vue';
   import utils from './../sharedComponents/utils';
 
 
@@ -51,7 +51,7 @@
     },
     components: {
       ReportDataCard,
-      ChartCard,
+      ReportChart,
       ReportChartYearNavigator
     },
 
@@ -70,8 +70,6 @@
             type: 'line'
           }
         },
-        clients: null,
-        constracts: null,
         months
       };
     },

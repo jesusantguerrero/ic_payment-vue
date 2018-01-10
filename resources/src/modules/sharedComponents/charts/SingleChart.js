@@ -1,5 +1,7 @@
 import Chart from 'chart.js';
 import utils from './../utils';
+import LineChartDataSet from './LineChartDataSet';
+import BarChartDataSet from './BarChartDataSet';
 
 export default class SingleChart {
   constructor($canvas, labels, values, config) {

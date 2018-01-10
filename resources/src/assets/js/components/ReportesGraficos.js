@@ -18,7 +18,7 @@
       send2.then(function(res){
         var gastos    = res.data.gastos;
         var ganancias = res.data.ganancias;
-        yearChart(gastos,ganancias);
+        yearChart(gastos, ganancias);
       })
     }
 
@@ -143,33 +143,4 @@
 
     }
 
-    var cierre = {
-      autor: "",
-      banco: 0,
-      dinero_real_en_caja: 0,
-      fecha : '',
-      pago_de_facturas: 0,
-      pagos_de_extras: 0,
-      pagos_en_efectivo:0,
-      pagos_via_banco:0,
-      total_de_ingresos: 0,
-      total_descuadre:0 }
-
-    var appVistaDetalle = new Vue({
-      el: '#app-vista-detalle',
-      data: {
-        cierre: cierre,
-      },
-
-      filters: {
-        currencyFormat: function(number){
-          return "RD$ "+ CurrencyFormat(number);
-        }
-      },
-      methods:{
-        print: function(){
-          print()
-        }
-      }
-    })
 

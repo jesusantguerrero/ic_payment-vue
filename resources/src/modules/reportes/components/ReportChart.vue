@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import SingleChart from './charts/SingleChart';
+  import SingleChart from './../../sharedComponents/charts/SingleChart';
 
   export default {
     props: {
