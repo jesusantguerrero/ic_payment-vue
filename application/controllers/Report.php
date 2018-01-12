@@ -52,12 +52,23 @@
       $this->response_json($res);
     }
 
+    public function last_week_incomes() {
+      $incomes = [];
+
+      for ($i=0; $i < 7; $i++) {
+        array_push($incomes, $this->payment_model->get_weekday_income($i));
+      }
+
+      $res['values'] = $incomes;
+      $res['total'] = array_sum($incomes);
+      $this->response_json($res);
+    }
+
     private function get_months($arr) {
       $months = [];
       foreach ($arr as $item) {
         array_push($months, $item['mes']);
       }
-
       return $months;
     }
 

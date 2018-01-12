@@ -4,8 +4,9 @@ import LineChartDataSet from './LineChartDataSet';
 import BarChartDataSet from './BarChartDataSet';
 
 export default class SingleChart {
-  constructor($canvas, labels, values, config) {
-    const datasets = this.selectDataSet(config, values);
+  constructor($canvas, labels, values, config, ownDatasets) {
+    const datasets = ownDatasets || this.selectDataSet(config, values);
+
 
     const $chart = $($canvas);
     const data = {
@@ -39,10 +40,18 @@ export default class SingleChart {
       data,
       options
     });
+
+    this.multiple = (ownDatasets) || false;
   }
 
   update(values) {
-    this.chart.config.data.datasets[0].data = values;
+    if (this.multiple) {
+      values.forEach((dataset) => {
+        this.chart.data.datasets[i].data = dataset;
+      });
+    } else {
+      this.chart.config.data.datasets[0].data = values;
+    }
     this.chart.update();
   }
 

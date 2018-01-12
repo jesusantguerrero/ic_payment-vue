@@ -288,14 +288,9 @@ class Payment_model extends CI_MODEL{
   }
 
   public function weekday_income($day){
-    $sql = "SELECT sum(total) FROM v_recibos WHERE dayname(fecha_pago)='$day' and yearweek(fecha_pago) = yearweek(now())";
+    $sql = "SELECT sum(total) FROM v_recibos WHERE day(fecha_pago)='$day' and yearweek(fecha_pago) = yearweek(now())";
     $result = $this->db->query($sql);
-    $result->row_array()['sum(total)'];
-    if ($result != null){
-      return $result->row_array()['sum(total)'];
-    }else{
-      return 0;
-    }
+    return ($result) ? $result->row_array()['sum(total)'] : 0;
   }
 
   public function get_moras_view($mode = 'normal'){

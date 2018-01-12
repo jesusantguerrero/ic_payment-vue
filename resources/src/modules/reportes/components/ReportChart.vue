@@ -11,6 +11,7 @@
         type: Array,
         required: true
       },
+
       data: {
         type: Array,
         required: true
@@ -28,6 +29,11 @@
       dataId: {
         type: String
       },
+
+      ownDataset: {
+        type: Array,
+        default: null
+      }
     },
 
     data() {
@@ -49,7 +55,7 @@
     methods: {
 
       init() {
-        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, this.config);
+        this.chart = new SingleChart(document.querySelector(`#${this.dataId}`), this.labels, this.data, this.config, this.ownDataset);
       },
 
       refresh() {

@@ -60,16 +60,21 @@
 
 .wide-chart
   +size(92%,400px)
-  background: transparent
+  background: white
   margin-bottom: 20px
+  border: 1px solid #ccc
+  +card(2)
+  margin: 5px
+  padding: 10px 5px
 
 .little-chart
   padding: 5px
+
 #services-chart
   +size(100%,230px)
 
 canvas
-  +size(100%,100%)
+  +size(100%,90%)
 
 .normal-chart
   height: 230px
@@ -105,41 +110,47 @@ canvas
     text-align: left
     color: $contrast-color
     b
-      width: 150px;
+      width: 150px
       display: inline-block
     .right
-      text-align: left;
-      padding-left: 50px;
-      color: #4E5962;
-      width: 200px;
-      display: inline-block;
+      text-align: left
+      padding-left: 50px
+      color: #4E5962
+      width: 200px
+      display: inline-block
 
-.cs-row
-  width: 100%
-  height: 48px
-  +makeFlex(100%, row, flex-end, center)
+.navigator
+  display: flex
 
-  button
-    border: 0
-    height: 100%
-    color: white
-    padding: 5px
-    background: $contrast-color
-    +makeFlex(fit-content, row, center, center)
-    display: inline-flex
-    cursor: pointer
-    &.reset-btn
-      margin: 5px 0
-    &:hover
-      background: lighten($contrast-color, 10%)
+  .cs-row
+    width: 100%
+    height: 48px
+    +makeFlex(100%, row, flex-end, center)
 
-  .value
-    display: inline-block
-    height: 100%
-    padding: 0 10px
-    +makeFlex(fit-content, row, center, center)
-    background: $contrast-color
-    color: white
+    button
+      border: 0
+      height: 100%
+      color: white
+      padding: 5px
+      background: $contrast-color
+      +makeFlex(fit-content, row, center, center)
+      display: inline-flex
+      cursor: pointer
+      &.reset-btn
+        margin: 5px 0
+      &:hover
+        background: lighten($contrast-color, 10%)
+
+    .value
+      display: inline-block
+      height: 100%
+      padding: 0 10px
+      +makeFlex(fit-content, row, center, center)
+      background: $contrast-color
+      color: white
+
+   h4.title
+    width: 100%
 
 @media (max-width: 991px)
   .small-data-card

@@ -12,12 +12,13 @@
         .tab-content
           .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
             .wide-chart
-              ReportChartYearNavigator(@change="getIncomes")
+              ReportChartYearNavigator(@change="getIncomes", title="Ingresos Netos")
               ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
           .tab-pane.fade.in#pagos(role="tabpanel")
-            ReportChartYearNavigator(@change="getInstallations")
-            ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+            .wide-chart
+              ReportChartYearNavigator(@change="getInstallations", title="Instalaciones")
+              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
           .tab-pane.fade.in#balance(role="tabpanel")
             .wide-chart
@@ -31,6 +32,23 @@
               canvas(class="graphics chart" id="ganancias-semana-chart")
             .wide-chart
               canvas(class="graphics chart" id="ganancias-mes-chart")
+      .col-md-4
+        ul.nav.nav-tabs(role="tablist")
+          li(role="presentation" class="active"): a(href="#generals" aria-controls="generals" role="tab" data-toggle="tab") Generales
+
+        .tab-content
+          .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
+            .wide-chart
+              ReportChartYearNavigator(title="Semana")
+              ReportChart(data-class="graphics chart" id="chart-week-incomes" data-id="chart-week-incomes", :data="weekIncomes.values", :labels="days", :config="chartConfig.weekIncomes")
+
+            .wide-chart
+              ReportChartYearNavigator(@change="getInstallations", title="Servicios")
+              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+          .tab-pane.fade.in#pagos(role="tabpanel")
+            .wide-chart
+              ReportChartYearNavigator(@change="getInstallations", :display="!display")
+              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
 
 
@@ -58,8 +76,10 @@
 
     data() {
       const { months } = utils.dates;
+      const { days } = utils.dates;
 
       return {
+        display: true,
         dayIncome: 0.00,
         incomes: {
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -69,6 +89,12 @@
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0.00
         },
+
+        weekIncomes: {
+          values: [0, 0, 0, 0, 0, 0, 0],
+          total: 0.00
+        },
+
         chartConfig: {
           incomes: {
             title: 'Ingresos',
@@ -78,15 +104,21 @@
           installations: {
             title: 'Instalaciones',
             type: 'bar'
+          },
+          weekIncomes: {
+            title: 'Ingresos',
+            type: 'bar'
           }
         },
-        months
+        months,
+        days
       };
     },
 
     mounted() {
       this.getIncomes();
       this.getInstallations();
+      this.getWeekIncomes();
     },
 
     methods: {
@@ -103,6 +135,13 @@
         this.$http.get(`report/installations_year/${installationsYear}`)
           .then((res) => {
             this.installations = res.data.installations;
+          });
+      },
+
+      getWeekIncomes() {
+        this.$http.get('report/last_week_incomes/')
+          .then((res) => {
+            this.weekIncomes = res.data.week_incomes;
           });
       }
     }

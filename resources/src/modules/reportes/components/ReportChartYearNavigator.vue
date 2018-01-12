@@ -1,11 +1,20 @@
 <template lang="pug">
-   .cs-row
+  .navigator
+   h4.title {{ title }}
+   .cs-row(v-if="display")
       button(@click="removeTime()"): i.material-icons navigate_before</i></button><span class="value">{{ year }}</span>
       button(@click="addTime()"): i.material-icons navigate_next</i></button>
 </template>
 
 <script>
   export default {
+    props: {
+      title: String,
+      display: {
+        type: Boolean,
+        default: true
+      }
+    },
     data() {
       return { year: '' };
     },
