@@ -56,7 +56,7 @@
       $incomes = [];
 
       for ($i=0; $i < 7; $i++) {
-        array_push($incomes, $this->payment_model->get_weekday_income($i));
+        array_push($incomes, $this->payment_model->weekday_income($i));
       }
 
       $res['values'] = $incomes;

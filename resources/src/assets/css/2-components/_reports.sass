@@ -48,6 +48,7 @@
     top: 100%
     +makeFlex(100%,row,center,center)
     padding: 0 0 0 0
+
   .cover-links
     color: white
     display: block
@@ -59,12 +60,9 @@
   width: 100%
 
 .wide-chart
-  +size(92%,400px)
+  +size(92%,500px)
   background: white
-  margin-bottom: 20px
-  border: 1px solid #ccc
-  +card(2)
-  margin: 5px
+  margin-bottom: 25px
   padding: 10px 5px
 
 .little-chart
@@ -74,7 +72,7 @@
   +size(100%,230px)
 
 canvas
-  +size(100%,90%)
+  +size(100%,300px)
 
 .normal-chart
   height: 230px
@@ -149,13 +147,13 @@ canvas
       background: $contrast-color
       color: white
 
-   h4.title
+  h4.title
     width: 100%
 
 @media (max-width: 991px)
   .small-data-card
     width: 100%
-    margin: 2px 0
+    margin: 10px 0
 
   .right-panel,
   .wide-chart
