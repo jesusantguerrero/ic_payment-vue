@@ -15,12 +15,43 @@
       $this->response_json($res);
     }
 
+    public function last_week_incomes() {
+      $incomes = [];
+
+      for ($i=0; $i < 7; $i++) {
+        array_push($incomes, $this->payment_model->weekday_income($i));
+      }
+
+      $res['week_incomes']['values'] = $incomes;
+      $res['week_incomes']['total'] = array_sum($incomes);
+      $this->response_json($res);
+    }
+
+    public function get_day_income() {
+      $income = $this->payment_model->day_income('today');
+      $res['income'] = ($income ? $income : 0.00);
+      $this->response_json($res);
+    }
+
+    // petty cash and cash desk
     public function petty_cash_year($year = null) {
       $salidas       = $this->caja_chica_model->get_transactions_per_month('salida');
       $entradas      = $this->caja_chica_model->get_transactions_per_month('entrada');
       $balances      = $this->caja_chica_model->get_balance_per_month();
     }
 
+
+    public function cash_desk_year($year = null){
+      $this->load->model('caja_mayor');
+      $year = $year || date('Y');
+
+      $res['incomes'] = $this->caja_mayor->get_row_by_month('banco', $year);
+      $res['expenses']  = $this->caja_mayor->get_row_by_month('total_gastos', $year);
+      $this->response_json($res);
+    }
+
+
+    // installations , cancelations and damages
     public function installations_year($year = null) {
       $res['installations'] = $this->report_model->get_installations_by_month($year);
       $this->response_json($res);
@@ -30,49 +61,15 @@
 
     }
 
-    public function cash_desk_year($year = null){
-      $this->load->model('caja_mayor');
-
-      $year = ($year ? $year :date('Y'));
-      $months = array_values($GLOBALS['spanish_months']);
-
-      $res['incomes'] = $this->caja_mayor->get_row_by_month('banco', $year);
-      $res['expenses']  = $this->caja_mayor->get_row_by_month('total_gastos', $year);
-      $res['months'] = $this->get_months($res['incomes']);
-      $this->response_json($res);
-    }
-
+    // services and generals
     public function services_state() {
       $services      = $this->contract_view_model->get_statics_of_services();
     }
 
-    public function get_day_income() {
-      $income = $this->payment_model->day_income('today');
-      $res['income'] = ($income ? $income : 0.00);
-      $this->response_json($res);
-    }
 
-    public function last_week_incomes() {
-      $incomes = [];
 
-      for ($i=0; $i < 7; $i++) {
-        array_push($incomes, $this->payment_model->weekday_income($i));
-      }
 
-      $res['values'] = $incomes;
-      $res['total'] = array_sum($incomes);
-      $this->response_json($res);
-    }
-
-    private function get_months($arr) {
-      $months = [];
-      foreach ($arr as $item) {
-        array_push($months, $item['mes']);
-      }
-      return $months;
-    }
-
-    public function get_general_statistics() {
+    public function general_statistics() {
       $this->load->model('client_model');
       $this->load->model('contract_view_model');
 

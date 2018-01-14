@@ -29,6 +29,9 @@ export default class SingleChart {
       tooltips: {
         callbacks: {
           label(tooltipItem) {
+            if (!config.money) {
+              return tooltipItem.yLabel;
+            }
             return `RD$  ${utils.CurrencyFormat(tooltipItem.yLabel)}`;
           }
         }

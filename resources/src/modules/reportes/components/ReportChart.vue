@@ -47,7 +47,7 @@
 
     watch: {
       data() {
-        this.refresh(this.data);
+        this.refresh();
         this.intialized = false;
       }
     },

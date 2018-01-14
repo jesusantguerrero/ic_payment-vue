@@ -1,8 +1,8 @@
-<ul class="dropdown-menu" aria-labelledby="dLabel">
+<ul class="dropdown-menu dropdown-menu-right animated bounceInDown" aria-labelledby="dLabel">
   <li><p><a href="{{url}}app/admin/cuenta"><b>{{ user.fullname }}</b></a></p></li>
   <li><a href="{{url}}app/admin/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</a></li>
   {% if (user.type == 0) %}
-  <li class="hidden-xs"><a href="{{url}}app/admin/administrador">
+  <li><a href="{{url}}app/admin/administrador">
       <i class="material-icons">settings</i>Configuración</a>
   </li>
   {% endif %}

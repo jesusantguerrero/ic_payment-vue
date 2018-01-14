@@ -2,7 +2,7 @@ const config = {};
 
 export default [{
   label: config.title || '',
-  fill: true,
+  fill: false,
   lineTension: 0.3,
   backgroundColor: config.backgroundColor || 'rgb(54, 162, 235)',
   borderColor: config.borderColor || 'rgb(54, 162, 235)',

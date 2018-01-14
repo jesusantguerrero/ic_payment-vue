@@ -13,15 +13,6 @@
 
       })
 
-      var form = "data="+ JSON.stringify({year:moment().format("YYYY")})
-      var send2 = axios.post(BASE_URL + 'caja/get_year_info',form)
-      send2.then(function(res){
-        var gastos    = res.data.gastos;
-        var ganancias = res.data.ganancias;
-        yearChart(gastos, ganancias);
-      })
-    }
-
 
     window.chartColors = {
       red: 'rgb(255, 99, 132)',
@@ -32,7 +23,6 @@
       purple: 'rgb(153, 102, 255)',
       grey: 'rgb(201, 203, 207)'
     };
-    var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
     var colors = {
       green: 'rgba(0,230,118 ,1)',
@@ -90,57 +80,3 @@
       };
       var mychart = new Chart(canvas, chartOptions);
     }
-
-    function yearChart(gastos, ganancias) {
-      var $canvas = $("#ganancias-mes-chart");
-      var data = {
-          labels: meses,
-          datasets: [{
-            label: "Gastos",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: gastos,
-            fill: false,
-          }, {
-            label: "Banco(Ganancias)",
-            fill: false,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: ganancias,
-          }]
-        };
-
-        var options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [{
-              ticks: {
-                callback: function (label, index, labels) {
-                  return "RD$ " + CurrencyFormat(label);
-                }
-              }
-            }]
-          },
-          tooltips: {
-            callbacks: {
-              label: function (tooltipItem, data) {
-                return "RD$ " + CurrencyFormat(tooltipItem.yLabel);
-              }
-            }
-          },
-          title: {
-            display: true,
-            text: "Registros de cierre Este ultimo año"
-          }
-        }
-
-      var chart = new Chart($canvas, {
-        type: 'line',
-        data: data,
-        options: options
-      });
-
-    }
-
-

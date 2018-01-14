@@ -22,16 +22,12 @@
 
           .tab-pane.fade.in#balance(role="tabpanel")
             .wide-chart
-              canvas(class="graphics chart" id="balance-chart")
 
           .tab-pane.fade.in#closing(role="tabpanel")
             .wide-chart
-              canvas(class="graphics chart" id="ganancias-chart")
 
-            .wide-chart.hide
-              canvas(class="graphics chart" id="ganancias-semana-chart")
             .wide-chart
-              canvas(class="graphics chart" id="ganancias-mes-chart")
+
       .col-md-4
         ul.nav.nav-tabs(role="tablist")
           li(role="presentation" class="active"): a(href="#generals" aria-controls="generals" role="tab" data-toggle="tab") Generales

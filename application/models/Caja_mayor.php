@@ -339,15 +339,22 @@ class Caja_mayor extends CI_MODEL{
 
   // report related
   public function get_row_by_month($row, $year) {
-    // $sql    = "SELECT sum(banco) as banco FROM ic_caja_mayor WHERE year(fecha) = year(now()) and monthname(fecha)= '$month'";
-    // $result = $this->db->query($sql);
+    $result = [];
+
+    for ($i=1; $i <= 12 ; $i++) {
+      $value = $this->get_month_value($row, $year, $i);
+      array_push($result, $value);
+    }
+
+    return ['values' => $result, 'total' => array_sum($result)];
+  }
+
+  public function get_month_value($row, $year, $month) {
     $this->db->select("sum($row) as $row, month(fecha) as mes ", false);
-    $this->db->where("year(fecha) = '$year'",'' ,false);
-    $this->db->group_by('mes');
+    $this->db->where("year(fecha) = '$year' and month(fecha) = $month",'' ,false);
     if ($result = $this->db->get('ic_caja_mayor')) {
-      return $result->result_array();
-    } else {
-      var_dump($this->db->last_query());
+      $value = $result->row_array()[$row];
+      return ($value ? $value : 0);
     }
   }
 
