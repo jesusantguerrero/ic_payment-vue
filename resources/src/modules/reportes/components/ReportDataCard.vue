@@ -1,10 +1,10 @@
 <template lang="pug">
   .row.shortcuts-container.data-card-container
-    ReportDataCardItem(data="9", title="Clientes", icon="person")
-    ReportDataCardItem(data="9", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
-    ReportDataCardItem(:data="activeClients.count", title="Clientes Activos", icon="person")
-    ReportDataCardItem(data="9", title="Clientes Mora", icon="person")
-    ReportDataCardItem(data="9", title="Clientes Suspendidos", icon="person")
+    ReportDataCardItem(:data="totalClients", title="Clientes", icon="person")
+    ReportDataCardItem(:data="activeContracts", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
+    ReportDataCardItem(:data="activeClients", title="Clientes Activos", icon="person")
+    ReportDataCardItem(:data="debtors", title="Clientes Mora", icon="person")
+    ReportDataCardItem(:data="suspended", title="Clientes Suspendidos", icon="person")
 
 </template>
 
@@ -25,22 +25,39 @@
 
     computed: {
       activeClients() {
-        const theItem = this.clients.map((item) => {
-          if (item.estado === 'activo') {
-            return item;
-          }
-          return '';
-        });
+        if (this.clients) {
+          const theItem = this.clients.filter(item => (item.estado === 'activo'));
+          return (theItem[0]) ? theItem[0].count : 0;
+        }
+        return 0;
+      },
 
-        return theItem[0] || { count: 0 };
+      debtors() {
+        if (this.clients) {
+          const theItem = this.clients.filter(item => (item.estado === 'mora'));
+          return (theItem[0]) ? theItem[0].count : 0;
+        }
+        return 0;
+      },
+
+      suspended() {
+        if (this.clients) {
+          const theItem = this.clients.filter(item => (item.estado === 'suspendido'));
+          return (theItem[0]) ? theItem[0].count : 0;
+        }
+        return 0;
       },
 
       totalClients() {
-        return 9;
+        if (this.clients) {
+          const total = this.clients.reduce((sum, item) => sum += Number(item.count), 0);
+          return total;
+        }
+        return 0;
       },
 
       activeContracts() {
-        return 9;
+        return this.contracts;
       }
     },
 
@@ -52,12 +69,13 @@
       getGeneralStatistics() {
         this.$http.get('report/general_statistics')
           .then((res) => {
-            const generals = res.data.general_statistics;
+            const generals = res.data;
             this.clients = generals.clients;
             this.contracts = generals.contracts;
           });
       }
-    }
+    },
+
   };
 </script>
 
