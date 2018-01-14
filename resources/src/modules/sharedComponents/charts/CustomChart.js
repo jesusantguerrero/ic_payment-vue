@@ -5,7 +5,6 @@ import BarChartDataSet from './BarChartDataSet';
 
 export default class SingleChart {
   constructor($canvas, labels, values, config, ownDatasets) {
-    console.log(ownDatasets);
     const datasets = ownDatasets || this.selectDataSet(config, values);
 
 

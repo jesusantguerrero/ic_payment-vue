@@ -12,7 +12,7 @@
       title: String,
       display: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     data() {

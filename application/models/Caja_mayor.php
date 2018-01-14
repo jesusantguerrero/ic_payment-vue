@@ -137,7 +137,7 @@ class Caja_mayor extends CI_MODEL{
       $response['labels'] = 'n/a';
       $response['values'] = 'n/a';
     endif;
-      echo json_encode($response);
+      return $response;
   }
 
   public function get_first_close_date(){

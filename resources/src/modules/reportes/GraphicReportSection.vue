@@ -12,19 +12,19 @@
         .tab-content
           .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
             .wide-chart
-              ReportChartYearNavigator(@change="getIncomes", title="Ingresos Netos")
+              ReportChartYearNavigator(@change="getIncomes", title="Ingresos Netos", display="true")
               ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
           .tab-pane.fade.in#pagos(role="tabpanel")
             .wide-chart
-              ReportChartYearNavigator(@change="getInstallations", title="Instalaciones")
+              ReportChartYearNavigator(@change="getInstallations", title="Instalaciones", display="true")
               ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
           .tab-pane.fade.in#balance(role="tabpanel")
             .wide-chart
 
           .tab-pane.fade.in#closing(role="tabpanel")
-            .wide-chart
+            ReportChartCardRevenue
 
             .wide-chart
 
@@ -54,6 +54,7 @@
   import ReportDataCard from './components/ReportDataCard.vue';
   import ReportChart from './components/ReportChart.vue';
   import ReportChartYearNavigator from './components/ReportChartYearNavigator.vue';
+  import ReportChartCardRevenue from './components/ReportChartCardRevenue.vue';
   import utils from './../sharedComponents/utils';
 
 
@@ -67,7 +68,8 @@
     components: {
       ReportDataCard,
       ReportChart,
-      ReportChartYearNavigator
+      ReportChartYearNavigator,
+      ReportChartCardRevenue
     },
 
     data() {

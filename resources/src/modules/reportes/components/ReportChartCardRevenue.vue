@@ -1,13 +1,22 @@
 <template lang="pug">
-
+  .wide-chart
+    ReportChartYearNavigator(@change="getRevenue", title="Ganancias / Gastos", display="true")
+    ReportChart(data-class="graphics chart" id="chart-revenue" data-id="chart-revenue", :data="incomes.values", :labels="months", :config="chartConfig.incomes", :ownDataset="dataset")
 </template>
 
 <script>
+  import ReportChart from './ReportChart.vue';
+  import ReportChartYearNavigator from './ReportChartYearNavigator.vue';
   import utils from './../../sharedComponents/utils';
+  import Colors from './../../sharedComponents/charts/ChartColors';
 
   export default {
     props: {
       data: Object
+    },
+    components: {
+      ReportChart,
+      ReportChartYearNavigator
     },
 
     data() {
@@ -20,29 +29,39 @@
         expenses: {
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0.00
-        }
+        },
+
+        chartConfig: {
+          incomes: {
+            title: 'Ingresos',
+            type: 'line',
+            money: true
+          }
+        },
+        months: utils.dates.months
       };
     },
 
     computed: {
       dataset() {
-        return {
-          labels: utils.dates.months,
-          datasets: [{
-            label: 'Gastos',
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: this.expenses,
-            fill: false,
-          }, {
-            label: 'Banco(Ganancias)',
-            fill: false,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: this.incomes,
-          }]
-        };
+        return [{
+          label: 'Gastos',
+          backgroundColor: Colors.red,
+          borderColor: Colors.red,
+          data: this.expenses.values,
+          fill: false,
+        }, {
+          label: 'Banco(Ganancias)',
+          fill: false,
+          backgroundColor: Colors.blue,
+          borderColor: Colors.blue,
+          data: this.incomes.values,
+        }];
       }
+    },
+
+    mounted() {
+      this.getRevenue();
     },
 
     methods: {

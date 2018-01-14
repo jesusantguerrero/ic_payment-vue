@@ -59,7 +59,8 @@
       },
 
       refresh() {
-        this.chart.update(this.data);
+        const data = this.ownDataset || this.data;
+        this.chart.update(data);
       },
     }
   };
