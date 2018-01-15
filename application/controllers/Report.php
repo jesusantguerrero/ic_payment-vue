@@ -4,10 +4,11 @@
       parent::__construct();
       $this->load->model('payment_model');
       $this->load->model('report_model');
+      $this->load->model('petty_cash_model');
       $this->my_auth->authenticate();
     }
 
-    // graphic report related
+    #region graphic report related
 
     public function incomes_year($year = null) {
       $year = ($year ? $year :date('Y'));
@@ -33,25 +34,28 @@
       $this->response_json($res);
     }
 
-    // petty cash and cash desk
+    #endregion
+
+    #region petty cash and cash desk
     public function petty_cash_year($year = null) {
-      $salidas       = $this->caja_chica_model->get_transactions_per_month('salida');
-      $entradas      = $this->caja_chica_model->get_transactions_per_month('entrada');
-      $balances      = $this->caja_chica_model->get_balance_per_month();
+      $year = ($year ? $year : date('Y'));
+      $res['incomes']   = $this->petty_cash_model->get_transactions_per_month('salida', $year);
+      $res['expenses']  = $this->petty_cash_model->get_transactions_per_month('entrada', $year);
+      $this->response_json($res);
     }
 
 
     public function cash_desk_year($year = null){
       $this->load->model('caja_mayor');
-      $year = $year || date('Y');
+      $year = ($year ? $year : date('Y'));
 
-      $res['incomes'] = $this->caja_mayor->get_row_by_month('banco', $year);
+      $res['incomes']   = $this->caja_mayor->get_row_by_month('banco', $year);
       $res['expenses']  = $this->caja_mayor->get_row_by_month('total_gastos', $year);
       $this->response_json($res);
     }
+    #endregion
 
-
-    // installations , cancelations and damages
+    #region installations , cancelations and damages
     public function installations_year($year = null) {
       $res['installations'] = $this->report_model->get_installations_by_month($year);
       $this->response_json($res);
@@ -60,8 +64,9 @@
     public function damages_year($year = null) {
 
     }
+    #endregion
 
-    // services and generals
+    #region services and generals
     public function services_state() {
       $services      = $this->contract_view_model->get_statics_of_services();
     }
@@ -77,8 +82,9 @@
       $res['contracts'] = $this->contract_view_model->count_contracts();
       $this->response_json($res);
     }
+    #endregion
 
-    // home page
+    #region home page
 
     public function get_next_payments() {
       $res['nextPayments'] = $this->payment_model->get_next_payments();
@@ -89,9 +95,9 @@
       $res['debtors'] = $this->payment_model->get_debtors();
       $this->response_json($res);
     }
+    #endregion
 
-    // document related
-
+    #region document related
     public function get_print_report($table,$type = 'nada'){
       switch ($table) {
         case 'payment':
@@ -130,7 +136,7 @@
           break;
       }
         redirect(base_url('app/imprimir/reporte'));
-
     }
+    #endregion
 
  }

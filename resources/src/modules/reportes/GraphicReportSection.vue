@@ -21,7 +21,7 @@
               ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
           .tab-pane.fade.in#balance(role="tabpanel")
-            .wide-chart
+            ReportChartPettyCash
 
           .tab-pane.fade.in#closing(role="tabpanel")
             ReportChartCardRevenue
@@ -55,6 +55,7 @@
   import ReportChart from './components/ReportChart.vue';
   import ReportChartYearNavigator from './components/ReportChartYearNavigator.vue';
   import ReportChartCardRevenue from './components/ReportChartCardRevenue.vue';
+  import ReportChartPettyCash from './components/ReportChartPettyCash.vue';
   import utils from './../sharedComponents/utils';
 
 
@@ -69,7 +70,8 @@
       ReportDataCard,
       ReportChart,
       ReportChartYearNavigator,
-      ReportChartCardRevenue
+      ReportChartCardRevenue,
+      ReportChartPettyCash
     },
 
     data() {

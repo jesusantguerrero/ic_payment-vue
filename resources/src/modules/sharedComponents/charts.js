@@ -10,6 +10,7 @@ function PieChart() {
       backgroundColor: ['rgba(3,169,244 ,1)', 'rgba(3,169,244 ,.8)', 'rgba(3,169,244 ,.6)',
         'rgba(3,169,244 ,.4)'
       ],
+
       borderColor: 'rgba(3,169,244 ,1)',
       borderCapStyle: 'butt',
       borderDash: [],
@@ -37,33 +38,4 @@ function PieChart() {
     data,
     options
   });
-}
-
-function MultiBarChart() {
-  let canvas = $('#balance-chart');
-  let chartOptions = {
-    type: 'bar',
-    data: {
-      labels: months,
-
-      datasets: [{
-        label: 'Entradas',
-        data: entradas,
-        backgroundColor: 'rgba(37,211,102 ,1)',
-        borderWidth: 1
-      },
-      {
-        label: 'Gastos',
-        data: salidas,
-        backgroundColor: 'rgba(221,75,57 ,1)',
-        borderWidth: 1
-      },
-      {
-        label: 'Balance Restante en Caja Chica',
-        data: balances,
-        backgroundColor: 'rgba(3,169,244 ,1)',
-        borderWidth: 1
-      },
-      ]
-    },
 }

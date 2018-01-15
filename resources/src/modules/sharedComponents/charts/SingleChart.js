@@ -51,9 +51,10 @@ export default class SingleChart {
   }
 
   update(values) {
+    console.log(values);
     if (this.multiple) {
       values.forEach((dataset, i) => {
-        this.chart.data.datasets[i].data = dataset;
+        this.chart.data.datasets[i].data = dataset.data;
       });
     } else {
       this.chart.config.data.datasets[0].data = values;

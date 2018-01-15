@@ -49,6 +49,10 @@
       data() {
         this.refresh();
         this.intialized = false;
+      },
+
+      ownDataset() {
+        this.refresh();
       }
     },
 

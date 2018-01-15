@@ -35,7 +35,7 @@ class Caja extends MY_Controller {
 		if(isset($_POST['data'])){
 			$data = $this->get_post_data('data');
 		}else{
-			$data = json_decode($_POST,true);
+			$data = json_decode($_POST, true);
     }
 
 		$res['pagos_efectivo'] = $this->caja_mayor->get_ingresos($data['fecha'],'efectivo');

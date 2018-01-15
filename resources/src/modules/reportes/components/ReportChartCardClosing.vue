@@ -8,16 +8,7 @@
   import ReportChart from './ReportChart.vue';
   import ReportChartYearNavigator from './ReportChartYearNavigator.vue';
   import utils from './../../sharedComponents/utils';
-
-  window.chartColors = {
-    red: 'rgb(255, 99, 132)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 205, 86)',
-    green: 'rgb(75, 192, 192)',
-    blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(201, 203, 207)'
-  };
+  import Colors from './../../sharedComponents/charts/ChartColors';
 
   export default {
     props: {
@@ -30,14 +21,10 @@
 
     data() {
       return {
-        incomes: {
+        data: {
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          total: 0.00
-        },
-
-        expenses: {
-          values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          total: 0.00
+          total: 0.00,
+          labels: [];
         },
 
         chartConfig: {
@@ -47,6 +34,7 @@
             money: true,
           }
         },
+
 
         options: {
           responsive: true,
@@ -92,7 +80,7 @@
             datasets: [{
               label: 'Valores',
               data: data.values,
-              backgroundColor: [colors.lightBlue6, colors.lightBlue6, colors.blue7, window.chartColors.blue, window.chartColors.green, colors.blueGreen, window.chartColors.red, window.chartColors.red, window.chartColors.blue],
+              backgroundColor: [Colors.Blue, Colors.lightBlue6, Colors.blue7, window.chartColors.blue, window.chartColors.green, colors.blueGreen, window.chartColors.red, window.chartColors.red, window.chartColors.blue],
             }]
           }
         };
@@ -108,8 +96,7 @@
         const theYear = year || new Date().getFullYear();
         this.$http.get(`report/cash_desk_year/${theYear}`)
           .then((res) => {
-            this.expenses = res.data.expenses;
-            this.incomes = res.data.incomes;
+            this.data = res.data.expenses;
           });
       }
     }
