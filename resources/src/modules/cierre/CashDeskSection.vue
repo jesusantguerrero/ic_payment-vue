@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row welcome-screen">
+    <div class="row welcome-screen" v-if="!closed">
       <div class="col-md-8 col-xs-12 main-card">
         <div class="tab-content-cierre">
           <!-- Nav tabs -->
@@ -13,7 +13,7 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <count-panel :store="store" :total="getTotal"></count-panel>
-            <expenses-panel></expenses-panel>
+            <expenses-panel :set-total-expenses="setTotalExpenses"></expenses-panel>
 
             <div role="tabpanel" class="tab-pane fade in" id="cuadre-final">
               <form action="">
@@ -21,7 +21,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="client-job">Ingresos Totales</label>
-                      <input type="number" class="form-control" v-model="closingData.total_ingresos" disabled>
+                      <input type="number" class="form-control" v-model="totalIncomes" disabled>
                     </div>
                     <div class="form-group">
                       <label for="client-salary">Gastos Totales</label>
@@ -36,7 +36,7 @@
                   <div class="col-md-6 t-center">
                     <h5>Fecha: <span id="fecha-cierre v-cloack"> {{ fecha }} </span></h5>
                     <h5>Autor <span id="autor-cierre"> {{ appStore.currentUser.fullname }} </span></h5>
-                    <button class="btn" @click.prevent="closeCashDeskCaja">closeCashDesk Caja</button>
+                    <button class="btn" @click.prevent="closeCashDeskCaja"> Cerrar Caja </button>
                   </div>
                 </div>
               </form>
@@ -48,7 +48,7 @@
       </div>
 
 
-      <div class="col-md-4 col-xs-12 details-card">
+      <div class="col-md-4 col-xs-12 details-card" v-if="!closed">
         <div class="layout-container">
           <div class="day-income-layer">
             <h3 class="card-title" data-toggle="modal" data-target="#notification-view">Ingresos en Efectivo</h3>
@@ -77,7 +77,7 @@
 
     </div>
 
-    <div class="row home-options-container">
+    <div class="row home-options-container" v-if="!closed">
       <div class="col-md-8 hidden-xs shortcuts-container">
 
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
@@ -98,7 +98,7 @@
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"
           title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
           <p class="section-title">Total Ingresos</p>
-          <p class="v-cloack">RD$ {{ closingData.total_ingresos | currencyFormat}}</p>
+          <p class="v-cloack">RD$ {{ totalIncomes | currencyFormat}}</p>
         </div>
 
       </div>
@@ -109,7 +109,8 @@
       </div>
 
     </div>
-    <closing-summary :app-store="appStore" :cierre="closingData"></closing-summary>
+
+    <closing-summary v-if="closed" :app-store="appStore" :cierre="closingData"></closing-summary>
   </div>
 </template>
 
@@ -140,7 +141,7 @@
 
     data() {
       return {
-        isHide: false,
+        closed: false,
         fecha: utils.now(),
         closingData: {
           autor: `${appStore.currentUser.name} ${appStore.currentUser.lastname}`,
@@ -183,7 +184,7 @@
             closingData.pagos_extras = data.pagos_extras;
             closingData.pagos_efectivo = data.pagos_efectivo;
             closingData.pagos_banco = data.pagos_banco;
-            closingData.total_ingresos = parseFloat(data.pagos_facturas) + parseFloat(self.pagos_extras);
+            closingData.total_ingresos = parseFloat(data.pagos_efectivo) + parseFloat(self.pagos_banco);
             closingData.total_descuadre = -self.pagos_efectivo + self.efectivo_caja;
           })
           .catch((err) => {
@@ -191,37 +192,31 @@
           });
       },
 
+      setTotalExpenses(totalGastos) {
+        this.closingData.total_gastos = totalGastos;
+      },
+
       closeCashDeskCaja() {
         const { closingData } = this;
         if (closingData.total_descuadre !== 0) {
-          swal({
-            title: 'Está Seguro?',
-            text: 'Hay un descuadre en la caja, quiere hacer el cierre de todos modos?',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si',
-            cancelButtonText: 'No'
-          }).then(() => {
-            close(cierre);
-          });
+          this.deleteConfirmation('Está Seguro?', 'Hay un descuadre en la caja, quiere hacer el cierre de todos modos?')
+            .then((result) => {
+              if (result.value) {
+                this.close(this.closingData);
+              }
+            });
         } else {
-          close(cierre);
+          this.close(this.closingData);
         }
       },
 
       close(closingData) {
         closingData.fecha = utils.now();
-        this.$http.post('caja/add_cierre', this.getDataForm(cierre))
+        this.$http.post('caja/add_cierre', this.getDataForm(closingData))
           .then((res) => {
-            this.showdMessage(res.data.message);
-            this.isHide = true;
-            this.summary.isHide = false;
-            this.summary.cierre = cierre;
-            $('#app-cierre').addClass('hide');
+            this.showMessage(res.data.message);
+            this.closed = true;
             $('.top-nav').addClass('hide');
-            $('#print-view').css({
-              visibility: 'visible'
-            });
           })
           .catch((err) => {
             this.$toasted.error(err);
@@ -235,7 +230,7 @@
         this.total = utils.sum(store.currency);
         closing.efectivo_caja = this.total.toFixed(2);
         closing.total_descuadre = parseFloat(-closing.pagos_efectivo) + parseFloat(closing.efectivo_caja);
-        closing.banco = (parseFloat(closing.pagos_banco) + parseFloat(closing.pagos_efectivo)) - (parseFloat(closing.total_gastos) + parseFloat(closing.total_descuadre));
+        closing.banco = (parseFloat(closing.pagos_banco) + parseFloat(closing.pagos_efectivo)) - (parseFloat(closing.total_gastos) - parseFloat(closing.total_descuadre));
         return this.total;
       },
 
@@ -244,6 +239,13 @@
         fields.forEach((field) => {
           this.closingData[field] = this.closingData[field].toFixed(2);
         }, this);
+      },
+
+      totalIncomes() {
+        const close = this.closingData;
+        const totalIncomes = utils.sum([close.pagos_banco, close.pagos_efectivo]);
+        this.closingData.total_ingresos = totalIncomes;
+        return totalIncomes;
       }
     }
 };

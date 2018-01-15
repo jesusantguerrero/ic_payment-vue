@@ -9,77 +9,66 @@ class Caja extends MY_Controller {
     $this->my_auth->authenticate();
 	}
 
-	public function add_gasto(){
-		$data = $this->get_post_data('data');
-		$this->caja_mayor->add_gasto($data);
+	public function add_expense(){
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $data['fecha'] = date('Y-m-d');
+      if ($this->caja_mayor->add_expense($data)) {
+        $this->set_message('Gasto agregado');
+      } else {
+        $this->set_message('Error al agregar gasto', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
-	public function get_gastos($full = false){
+	public function get_expenses($full = false){
 		$data = $this->get_post_data('data');
-		if (!$full){
-			$this->caja_mayor->mostrar_gastos($data['fecha'], 'full');
+		if (!$full) {
+      $this->res = $this->caja_mayor->get_expenses(date('Y-m-d'), 'full');
 		}else {
 			if($data) {
-				$res = $this->caja_mayor->get_expenses($data['text'], $data['first_date'], $data['second_date']);
-				$this->response_json($res);
+				$this->res = $this->caja_mayor->show_expenses($data['text'], $data['first_date'], $data['second_date']);
 			}
 		}
+    $this->response_json();
 	}
 
-	public function delete_gasto(){
-		$data = $this->get_post_data('data');
-		$this->caja_mayor->delete_gasto($data);
+	public function delete_expense(){
+		if ($data = $this->get_post_data('data')) {
+      if ($this->caja_mayor->delete_expense($data)) {
+        $this->set_message('Gasto eliminado');
+      } else {
+        $this->set_message('No se puso eliminar este gasto', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
-	public function get_ingresos(){
-		if(isset($_POST['data'])){
-			$data = $this->get_post_data('data');
-		}else{
-			$data = json_decode($_POST, true);
+	public function get_ingresos($date = null){
+
+    if ($data = $this->get_post_data('data')) {
+      $date = ($date ? $date : date('Y-m-d'));
+
+      $res['pagos_efectivo'] = $this->caja_mayor->get_ingresos($date, 'efectivo');
+      $res['pagos_banco'] 	 = $this->caja_mayor->get_ingresos($date, 'banco');
+
+      $res['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($date, 'facturas');
+      $res['pagos_extras'] 	 = $this->caja_mayor->get_extras_or_recibos($date, 'extras');
+      $this->response_json($res);
     }
 
-		$res['pagos_efectivo'] = $this->caja_mayor->get_ingresos($data['fecha'],'efectivo');
-		$res['pagos_banco'] 	 = $this->caja_mayor->get_ingresos($data['fecha'],'banco', 'efectivo');
-		$res['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'facturas');
-		$res['pagos_extras'] 	 = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extras');
-		$this->response_json($res);
-	}
-
-	public function getjson() {
-		$data = $this->get_post_data('data');
-		$action = $_POST['action'];
-		$module = $_POST['module'];
-
-			switch ($action) {
-				case 'add':
-						if($module == "gastos"){
-							$this->caja_mayor->add_gasto($data);
-						}else{
-
-						}
-					break;
-				case 'getAll':
-						if($module == "gastos"){
-							$this->caja_mayor->mostrar_gastos($data['fecha']);
-						}else{
-
-						}
-					break;
-				case 'get_total_day':
-					$this->caja_mayor->get_total_gastos_of($data['fecha']);
-					break;
-				case 'delete':
-					$this->caja_mayor->delete_gasto($data['id']);
-					break;
-				default:
-					# code...
-					break;
-			}
 	}
 
 	public function add_cierre(){
-		$data = $this->get_post_data('data');
-		$this->caja_mayor->add_cierre($data);
+	  if($data = $this->get_post_data('data')) {
+      if ($this->caja_mayor->add_cierre($data)) {
+        $this->set_message('Cierre realizado exitosamente');
+      } else {
+        $this->set_message('No se pudo realizar el cierre: probablemente ya hay cierre en esa fecha', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
 	public function get_cierres() {

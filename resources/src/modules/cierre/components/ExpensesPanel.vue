@@ -13,14 +13,14 @@
             .input-group.normal-height
               input.form-control(type="number", v-model="gasto.monto" tabindex="6")
               span.input-group-btn
-                button.btn.btn-secondary.icon(type="button", @click="addGasto"): i.material-icons add
+                button.btn.btn-secondary.icon(type="button", @click="addExpense"): i.material-icons add
       .row
         h4.col-md-12.col-lg-12 Gastos
       .row
         .col-md-12
           ul.list-group.lista-gastos
             li.list-group-item(:key="gasto.id_gasto", v-for="gasto in gastos") {{ gasto.descripcion }}<span class="money">RD$ {{gasto.monto}}</span>
-              button.btn.list-action.borrar-gasto(:data-id="gasto.id_gasto", @click.prevent="deleteGasto"): i.material-icons(:data-id="gasto.id_gasto") delete
+              i.material-icons.list-action(:data-id="gasto.id_gasto", @click.prevent.stop="deleteExpense") delete
 </template>
 
 <script>
@@ -40,6 +40,9 @@
   }];
 
   export default {
+    props: {
+      setTotalExpenses: Function
+    },
     data() {
       return {
         gasto,
@@ -48,85 +51,78 @@
     },
 
     mounted() {
-      this.getGastos();
+      this.getExpenses();
     },
 
     methods: {
 
-      addGasto() {
+      addExpense() {
         this.gasto.fecha = utils.now();
-        this.$http.post('caja/add_gasto', this.getDataform(this.gasto))
+        this.$http.post('caja/add_expense', this.getDataForm(this.gasto))
           .then((res) => {
             this.showMessage(res.data.message);
-            this.fillGastos(res.data.gastos, 'normal');
-            this.setGastoTotal(data.total_gastos);
+            this.getExpenses();
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
           });
-        send.catch((err) => {
-          this.$toasted.error(err);
-        });
       },
 
-      fillGastos(gastosServidor, mode) {
+      fillExpenses(serverExpenses, mode) {
         if (mode === 'group') {
-          if (gastosServidor != null || gastosServidor.length > 0) {
-            this.gastos = gastosServidor;
+          if (serverExpenses != null || serverExpenses.length > 0) {
+            this.gastos = serverExpenses;
           } else {
             this.gastos = [];
           }
         } else {
-          this.gastos.push(JSON.parse(gastosServidor)[0]);
+          this.gastos.push(JSON.parse(serverExpenses)[0]);
         }
       },
 
-      setGastoTotal(totalGastos) {
-        this.data_cierre.total_gastos = totalGastos;
-      },
-
-      getGasto() {
+      getExpense() {
         const form = { idGasto: this.gasto };
-        this.$http.get('caja/get_gasto', getDataForm(form))
+        this.$http.get('caja/get_expense', getDataForm(form))
           .then((res) => {
-            this.fillGastos(res.data);
+            this.fillExpenses(res.data);
           });
       },
 
-      deleteGasto(e) {
+      deleteExpense(e) {
         let caller = e.target;
         if (caller.localname === 'i') {
           caller = caller.parentElement;
         }
         const id = caller.attributes['data-id'].value;
-        swal({
-          title: 'Está Seguro?',
-          text: 'Seguro de que quiere eliminar este gasto?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Estoy Seguro!',
-          cancelButtonText: 'Cancelar'
-        }).then(() => {
-          const form = {
-            id,
-            fecha: utils.now()
-          };
-
-          this.$http.post('caja/delete_gasto', this.getDataForm(form))
-            .then((res) => {
-              $this.showMessage(res.data.menssage);
-              this.fillGastos(data.gastos, 'group');
-              this.setGastoTotal(data.total_gastos);
-            })
-            .catch((err) => {
-              this.$toasted.error(err);
-            });
-        });
+        this.deleteConfirmation('Está Seguro?', 'Seguro de que quiere eliminar este gasto?')
+          .then((result) => {
+            if (result.value) {
+              this.sendDelete(id);
+            }
+          });
       },
 
-      getGastos() {
-        this.$http.post('caja/get_gastos', this.getDataForm({ fecha: utils.now() }))
+      sendDelete(id) {
+        const form = {
+          id,
+          fecha: utils.now()
+        };
+
+        this.$http.post('caja/delete_expense', this.getDataForm(form))
           .then((res) => {
-            this.showMessage(res.data.message);
-            this.fillGastos(res.data.gastos, 'group');
-            this.setGastoTotal(res.data.total_gastos);
+            this.showMessage(res.data.menssage);
+            this.getExpenses();
+          })
+          .catch((err) => {
+            this.$toasted.error(err);
+          });
+      },
+
+      getExpenses() {
+        this.$http.post('caja/get_expenses', this.getDataForm({ fecha: utils.now() }))
+          .then((res) => {
+            this.fillExpenses(res.data.gastos, 'group');
+            this.setTotalExpenses(res.data.total_gastos);
           })
           .catch((err) => {
             this.$toasted.error(err);
