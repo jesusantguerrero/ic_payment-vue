@@ -24,7 +24,7 @@
         data: {
           values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0.00,
-          labels: [];
+          labels: []
         },
 
         chartConfig: {
@@ -88,11 +88,11 @@
     },
 
     mounted() {
-      this.getRevenue();
+      this.getLastClose();
     },
 
     methods: {
-      getRevenue(year) {
+      getLastClose(year) {
         const theYear = year || new Date().getFullYear();
         this.$http.get(`report/cash_desk_year/${theYear}`)
           .then((res) => {

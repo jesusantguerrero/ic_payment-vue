@@ -24,7 +24,7 @@ class Contract extends MY_Controller {
         $this->res['payments'] = $this->payment_model->get_payments($contract_id, 'list');
         $this->res['contract'] = $contract_id;
       } else {
-        $this->set_message('El contrato no pudo ser creado correctamente');
+        $this->set_message('El contrato no pudo ser creado correctamente', 'error');
       }
       $this->response_json();
     }
@@ -210,7 +210,7 @@ class Contract extends MY_Controller {
   public function up_to_date(){
     $data = $this->get_post_data('data');
     if ($data) {
-      if(!is_day_closed()) {
+      if(!$this->is_day_closed()) {
          if ($this->contract_model->payments_up_to_date($data)) {
           $this->set_message(' Pagos Actualizados');
          } else {

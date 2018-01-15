@@ -2,7 +2,7 @@
 
 class Contract_model extends CI_MODEL{
 
-  public $contract_id = null;
+  public $id_contrato = null;
   public $id_empleado;
   public $id_cliente;
   public $id_servicio;
@@ -12,7 +12,7 @@ class Contract_model extends CI_MODEL{
   public $monto_total;
   public $monto_pagado;
   public $ultimo_pago;
-  public $next_payment;
+  public $proximo_pago;
   public $estado;
   public $nombre_equipo;
   public $mac_equipo;
@@ -52,21 +52,24 @@ class Contract_model extends CI_MODEL{
   // CRUD
 
   public function add($data){
-    $this->organize_data($data,"normal");
+    $this->organize_data($data, "normal");
     $this->db->trans_start();
-    $this->db->insert('ic_contratos',$this);
+    $this->db->insert('ic_contratos', $this);
     $this->client_model->is_active(true, $data);
-    $this->create_payments($contract_id,$data,$this);
+
+    $contract_id = $this->get_last_contract($data['id_cliente']);
+
+    $this->create_payments($contract_id, $data,$this);
     $this->section_model->update_ip_state($data['codigo'],'ocupado');
     $this->update_amount($contract_id);
     $this->db->trans_complete();
 
-    if ($this->db->trans_status()){
-      return $this->get_last_contract($data['id_cliente']);
-    }
-    else{
+    if ($this->db->trans_status() === false){
       $this->db->trans_rollback();
+      var_dump($this->db->last_query());
       return false;
+    } else{
+      return $contract_id;
     }
   }
 
