@@ -59,7 +59,7 @@
       getReport() {
         this.$http.post('caja/get_gastos/true', this.getDataForm(this.between))
           .then((res) => {
-            SimpleTable.fillBSTable('#receipt-table', res.data.content);
+            SimpleTable.fillBSTable('#expenses-table', res.data.content);
             this.total = res.data.acum;
           });
       }

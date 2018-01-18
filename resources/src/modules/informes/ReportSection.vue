@@ -19,13 +19,18 @@
         .tab-pane.fade.in#retirements(role="tabpanel", :class="{active : activeTab == 'retirements'}")
           ReportRetirements
 
+        .tab-pane.fade.in#debtors(role="tabpanel", :class="{active : activeTab == 'debtors'}")
+
+
         .tab-pane.fade.in#receipts(role="tabpanel", :class="{active : activeTab == 'receipts'}")
           ReportReceipts
 
-        .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'expenses'}")
+        .tab-pane.fade.in#historic(role="tabpanel", :class="{active : activeTab == 'historic'}")
+
+        .tab-pane.fade.in#expenses(role="tabpanel", :class="{active : activeTab == 'expenses'}")
           ReportExpenses
 
-        .tab-pane.fade.in#extras(role="tabpanel", :class="{active : activeTab == 'extras'}")
+        .tab-pane.fade.in#closes(role="tabpanel", :class="{active : activeTab == 'closes'}")
 
 </template>
 
