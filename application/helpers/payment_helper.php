@@ -170,70 +170,6 @@ function payment_discount($data, $context){
   refresh_contract($data['id_contrato'], $data_pago);
 }
 
-/**
-* Update_moras and Prepare_moras
-* update_moras se informa de la ultima vez que corrió la función (ella misma), si fue hoy no hace nada, pero si ha pasado un dia
-* se ejecuta prepare_moras que prepara los datos para actualizar los pagos
-*
-*/
-// moras functions
-function update_moras($context){
-  $today = date('Y-m-d');
-  $settings = $context->settings_model->get_settings();
-
-  $next_check = $settings['next_check'];
-  if($next_check == $today){
-    $moras = $context->payment_model->get_debtors_view("group");
-    update_state_moras($moras, $context);
-
-    if($moras){
-      $data = $context->payment_model->get_debtors_view();
-      if(date('d') == $settings['fecha_corte'] + 1){
-        prepare_moras($data, $context,$settings);
-        suspension_automatica();
-      }
-    }
-
-    $result = $context->settings_model->update('last_check_moras', $today);
-  }
-}
-
-function prepare_moras($data, $context, $settings){
-  foreach ($data as $pago) {
-    $fecha = date($pago['fecha_limite']);
-    $cuota = get_cuota($pago['id_contrato'], $context);
-    $total = $pago['total'];
-    $mora  = ($settings['cargo_mora'] / 100) * $cuota;
-    $context->payment_model->set_extra([0 => ["servicio" => "Reconexion", "precio"=> $settings['reconexion']]], $pago['id_pago']);
-    $extras = $context->payment_model->get_extras($pago['id_pago'], true);
-
-    $total = $pago['cuota'] + $extras['total'] + $mora;
-
-    $updated_data = array(
-      'mora'    => $mora,
-      'total'   => $total,
-      'monto_extra' => $extras['total'],
-      'detalles_extra' => $extras['detalles']
-    );
-
-    $result = $context->payment_model->update($updated_data, $pago['id_pago']);
-  }
-}
-
-function update_state_moras($data, $context){
-  foreach ($data as $pago) {
-    if($pago['estado_cliente'] != 'activo'){
-      $estado = $pago['estado_cliente'];
-    } else {
-      $estado = 'mora';
-    }
-
-    $context->db->where('id_cliente',$pago['id_cliente']);
-    $context->db->update('ic_clientes',array('estado'=> $estado));
-  }
-}
-
-
 // contract relaed functions
 
 if (! function_exists('cancel_contract')){
@@ -350,6 +286,52 @@ function reconnect_contract($data, $context){
 }
 
 
+function suspender_contrato($id_contrato,$id_cliente,$context){
+  generar_facturas_contrato($id_contrato,$context);
+  $date = date('Y-m-d');
+
+  $context->db->trans_start();
+  $context->contract_model->update(['estado' => 'suspendido'],$id_contrato);
+  $context->db->where('id_cliente',$id_cliente);
+  $context->db->update('ic_clientes',['estado' => 'suspendido','suspension_date' => $date]);
+
+  //borrando los pagos y actualizando la deuda
+  $context->db->where('estado ="no pagado" and generado = false')
+  ->where('id_contrato',$id_contrato)
+  ->delete('ic_pagos');
+
+  $suma = $context->db->where('id_contrato',$id_contrato)
+          ->select_sum('cuota')
+          ->get('ic_pagos')->row_array()['cuota'];
+
+  $context->contract_model->update(['monto_total' => $suma],$id_contrato);
+  $context->db->trans_complete();
+
+  if($context->db->trans_status() === false){
+     $context->db->trans_rollback();
+     return false;
+  }else{
+    return true;
+  }
+}
+
+function generar_facturas_contrato($id_contrato, $context){
+  $context->db->where('contrato',$id_contrato);
+  $contrato = $context->db->get('v_pagos_generados')->row_array();
+
+  $context->db->select('id_pago,estado');
+  $pagos = $context->db->where('id_contrato',$contrato['contrato'])
+  ->where('fecha_limite < current_date()')
+  ->get('ic_pagos')->result_array();
+
+  foreach ($pagos as $pago) {
+    if($contrato['pagos_generados'] < 3){
+      $context->payment_model->update(['generado' => true],$pago['id_pago']);
+      if($pago['estado'] == 'no pagado')$contrato['pagos_generados'] += 1;
+    }
+  }
+}
+
 // dates helper functions
 
 function get_next_date($date){
@@ -409,83 +391,6 @@ function get_first_date($date){
     $newdate = get_next_date($newdate);
   }
   return $newdate;
-}
-
-function generar_facturas_mes($context){
-  $settings = get_settings();
-  $hoy = date('Y-m-d');
-    if(date('d') == $settings['dia_generacion_factura'] and $hoy != $settings['ultima_generacion_factura']){
-      $context->db->where("date_format(fecha_limite, '%m-%Y') = date_format(now(), '%m-%Y')",'', false);
-      $context->db->where('estado', 'no pagado');
-      $context->db->where('id_extra is null && abono_a is null','', false);
-      if ($pagos = $context->db->get('ic_pagos')) {
-
-        $pagos = $pagos->result_array();
-
-        foreach ($pagos as $pago) {
-          $context->payment_model->update(['generado' => 1 ], $pago['id_pago']);
-          $context->payment_model->check_extras_fijos($pago['id_pago'], $pago['id_contrato']);
-        }
-        $context->settings_model->update('ultima_generacion_factura',$hoy);
-    }
-  }
-}
-
-function suspender_contrato($id_contrato,$id_cliente,$context){
-  generar_facturas_contrato($id_contrato,$context);
-  $date = date('Y-m-d');
-
-  $context->db->trans_start();
-  $context->contract_model->update(['estado' => 'suspendido'],$id_contrato);
-  $context->db->where('id_cliente',$id_cliente);
-  $context->db->update('ic_clientes',['estado' => 'suspendido','suspension_date' => $date]);
-
-  //borrando los pagos y actualizando la deuda
-  $context->db->where('estado ="no pagado" and generado = false')
-  ->where('id_contrato',$id_contrato)
-  ->delete('ic_pagos');
-
-  $suma = $context->db->where('id_contrato',$id_contrato)
-          ->select_sum('cuota')
-          ->get('ic_pagos')->row_array()['cuota'];
-
-  $context->contract_model->update(['monto_total' => $suma],$id_contrato);
-  $context->db->trans_complete();
-
-  if($context->db->trans_status() === false){
-     $context->db->trans_rollback();
-     return false;
-  }else{
-    return true;
-  }
-}
-
-function generar_facturas_contrato($id_contrato, $context){
-  $context->db->where('contrato',$id_contrato);
-  $contrato = $context->db->get('v_pagos_generados')->row_array();
-
-  $context->db->select('id_pago,estado');
-  $pagos = $context->db->where('id_contrato',$contrato['contrato'])
-  ->where('fecha_limite < current_date()')
-  ->get('ic_pagos')->result_array();
-
-  foreach ($pagos as $pago) {
-    if($contrato['pagos_generados'] < 3){
-      $context->payment_model->update(['generado' => true],$pago['id_pago']);
-      if($pago['estado'] == 'no pagado')$contrato['pagos_generados'] += 1;
-    }
-  }
-}
-
-function suspension_automatica(){
-  $context =& get_instance();
-  $context->db->where('pagos_generados >= 3','',false);
-  $contratos = $context->db->get('v_pagos_generados')->result_array();
-  foreach ($contratos as $contrato) {
-    if($contrato['pagos_generados'] >= 3){
-      suspender_contrato($contrato['contrato'],$contrato['id_cliente'],$context);
-    }
-  }
 }
 
 function get_cuota($id_contrato,$context){

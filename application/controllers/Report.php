@@ -72,8 +72,6 @@
     }
 
 
-
-
     public function general_statistics() {
       $this->load->model('client_model');
       $this->load->model('contract_view_model');
@@ -93,7 +91,7 @@
 
     public function get_debtors($mode = null) {
       if ($mode == 'table') {
-        $res['debtors'] = $this->report_model->get_debtors_view();
+        $res['debtors'] = $this->report_model->get_debtors_view()p;
       } else {
         $res['debtors'] = $this->payment_model->get_debtors();
       }

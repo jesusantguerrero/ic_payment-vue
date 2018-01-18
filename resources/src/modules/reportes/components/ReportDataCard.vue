@@ -1,10 +1,10 @@
 <template lang="pug">
   .row.shortcuts-container.data-card-container
-    ReportDataCardItem(:data="totalClients", title="Clientes", icon="person")
-    ReportDataCardItem(:data="activeContracts", title="Contratos", icon="person", :detail="{ title: 'Reporte Contratos', link: '#'}")
-    ReportDataCardItem(:data="activeClients", title="Clientes Activos", icon="person")
-    ReportDataCardItem(:data="debtors", title="Clientes Mora", icon="person")
-    ReportDataCardItem(:data="suspended", title="Clientes Suspendidos", icon="person")
+    ReportDataCardItem(:data="totalClients", title="Clientes", icon="supervisor_account")
+    ReportDataCardItem(:data="activeContracts", title="Contratos", icon="description", :detail="{ title: 'Reporte Contratos', link: '#'}")
+    ReportDataCardItem(:data="activeClients", title="Clientes Activos", icon="supervisor_account")
+    ReportDataCardItem(:data="debtors", title="Clientes Mora", icon="schedule")
+    ReportDataCardItem(:data="suspended", title="Clientes Suspendidos", icon="report_problem")
 
 </template>
 
