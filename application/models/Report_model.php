@@ -110,7 +110,7 @@ class Report_model extends CI_MODEL{
     }
   }
 
-  public function get_moras_view($is_print = false){
+  public function get_debtors_view($is_print = false){
     $sql = "
     id_contrato,
     codigo,
@@ -128,17 +128,15 @@ class Report_model extends CI_MODEL{
     group_concat(monthname(fecha_limite)) as meses";
 
     $this->db->select($sql,true);
-    $this->db->where_not_in('estado_cliente','suspendido');
+    $this->db->where_not_in('estado_cliente', 'suspendido');
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato');
-    $result = $this->db->get('v_morosos');
-    if($result){
+    if ($result = $this->db->get('v_morosos')) {
       $result = $result->result_array();
-      if (!$is_print){
-        echo make_moras_report_smart($result,"Clientes Con Moras",$this,$is_print);
-      }else{
-        echo make_moras_report($result,"Clientes Moras",$this,$is_print);
-
+      if (!$is_print) {
+        return make_moras_report_smart($result, "Clientes Con Moras", $this, $is_print);
+      } else {
+        return make_moras_report($result, "Clientes Moras", $this, $is_print);
       }
     }
   }

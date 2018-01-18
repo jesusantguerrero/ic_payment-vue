@@ -293,7 +293,7 @@ class Payment_model extends CI_MODEL{
     return ($result) ? $result->row_array()['sum(total)'] : 0;
   }
 
-  public function get_moras_view($mode = 'normal'){
+  public function get_debtors_view($mode = 'normal'){
     if($mode == "group"){
       $result = $this->db->group_by('cliente');
     }

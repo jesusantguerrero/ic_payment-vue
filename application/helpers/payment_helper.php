@@ -183,11 +183,11 @@ function update_moras($context){
 
   $next_check = $settings['next_check'];
   if($next_check == $today){
-    $moras = $context->payment_model->get_moras_view("group");
+    $moras = $context->payment_model->get_debtors_view("group");
     update_state_moras($moras, $context);
 
     if($moras){
-      $data = $context->payment_model->get_moras_view();
+      $data = $context->payment_model->get_debtors_view();
       if(date('d') == $settings['fecha_corte'] + 1){
         prepare_moras($data, $context,$settings);
         suspension_automatica();

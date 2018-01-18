@@ -2,25 +2,25 @@
    .col-md-4.col-xs-12.details-card
       .layout-container
           .pagos-layer
-              h3.card-title(data-toggle="modal", data-target="#notification-view") Proximos Pagos
+              h3.card-title Proximos Pagos
               .placeholder-icon: i.material-icons.icon-placeholder notifications_active
               .list-nextpayments
                 HomeDetailCardsItem(v-for="item of nextPayments", :key="item.id_cliente", :item="item")
 
           .averias-layer
-              h3.card-title(data-toggle="modal", data-target="#notification-view") Caja Chica
+              h3.card-title Caja Chica
               .placeholder-icon: i.material-icons.icon-placeholder money
               .list-repair.centered-container
                 h2.current-saldo RD$ {{ store.pettyCashBalance | currencyFormat }}
 
           .deudores-layer
-              h3.card-title(data-toggle="modal", data-target="#notification-view") Lista de Deudores
+              h3.card-title Lista de Deudores
               .placeholder-icon: i.material-icons.icon-placeholder money_off
               .list-nextpayments
                 HomeDetailCardsItem(v-for="item of debtors", :key="item.id_cliente", :item="item")
 
           .day-income-layer
-              h3.card-title(data-toggle="modal", data-target="#notification-view") Ganancias del dia
+              h3.card-title Ganancias del dia
               .list-repair.centered-container
                   a(target="_blank" href="base_url('process/getreport/payment/today")
                   h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}

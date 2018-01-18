@@ -64,13 +64,12 @@
             .tab-pane.fade.in#historic(role="tabpanel")
 
       .col-md-4
-        .report-card.bg-primary
-            h3.card-title Balance en Caja Chica
+        .report-card.bg-primary.justify-content-center
+            h3.title Balance en Caja Chica
             h2.current-saldo RD$ {{ store.pettyCashBalance | currencyFormat }}
 
-            h3.card-title Ganancias del dia
-            a(target="_blank" href="base_url('process/getreport/payment/today")
-              h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}
+            h3.title Ganancias del dia
+            h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}
 
 
 </template>
