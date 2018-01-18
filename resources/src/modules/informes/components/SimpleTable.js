@@ -10,6 +10,7 @@ export default {
     $table.find('tbody').html(content);
     $table.bootstrapTable();
     $('.pull-right.search').addClass('hide');
+    $('.fixed-table-loading').addClass('hide');
     $table.find('tbody').css({ display: 'table-row-group' });
     $table.addClass('innertable');
   },

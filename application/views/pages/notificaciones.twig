@@ -32,56 +32,6 @@
         </div>
 
         <?php if(auth_user_type(0)):?>
-        <div role="tabpanel" class="tab-pane" id="receipts">
-          <div class="searcher-container main-toolbar" id="recibos-toolbar">
-            <div class="input-group search">
-              <div class="input-group-addon"><i class="material-icons">search</i></div>
-              <input type="text" class="form-control searcher"  v-model="between.text" @keypress.enter.stop="getReport" placeholder="cliente">
-            </div>
-            <div class="input-group search-item">
-              <div class="input-group-addon"><i class="material-icons">event</i></div>
-              <input type="date" class="form-control caja-for-date" v-model="between.first_date" @change="getReport" placeholder="Fecha">
-              </div>
-            <div class="input-group search-item">
-              <div class="input-group-addon"><i class="material-icons">event</i></div>
-              <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
-            </div>
-            <div class="pull-right">
-              <a target="_blank" href="<?php echo base_url('process/getreport/recibos') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
-            </div>
-          </div>
-          <table data-toggle="table"  id="receipts-table"
-           class="innertable table general-table"
-           data-sort-name="num"
-           data-sort-order="asc"
-           data-search="true"
-            data-show-export="true"
-            data-minimum-count-columns="2"
-            data-toolbar="#recibos-toolbar"
-            data-pagination="true"
-            data-id-field="payment"
-            data-page-size="500"
-            data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
-            data-show-footer="false">
-            <thead>
-              <tr>
-                <th data-field="num" data-sortable="true">Num</th>
-                <th data-field="payment" data-sortable="true" class="hide">Pago</th>
-                <th data-field="contract" data-sortable="true">Cont</th>
-                <th data-field="client" data-sortable="true">Cliente</th>
-                <th data-field="service" data-sortable="true">Servicio</th>
-                <th data-field="concept" data-sortable="true">Concepto</th>
-                <th data-field="total" data-sortable="true">Total</th>
-                <th data-field="fecha" data-sortable="true">Fecha</th>
-                <th data-field="hours" data-sortable="true">Hora</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-          <div class="mini-card total"><h4> Total : {{total | currencyFormat}}</h4></div>
-        </div>
-
         <div role="tabpanel" class="tab-pane" id="historic">
           <div class="searcher-container clearfix" id="history-toolbar">
             <h4 class="search-criteria">Historial de moras</span>

@@ -19,7 +19,8 @@
         .tab-pane.fade.in#retirements(role="tabpanel", :class="{active : activeTab == 'retirements'}")
           ReportRetirements
 
-        .tab-pane.fade.in#debtors(role="tabpanel", :class="{active : activeTab == 'debtors'}")
+        .tab-pane.fade.in#receipts(role="tabpanel", :class="{active : activeTab == 'receipts'}")
+          ReportReceipts
 
         .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
 
@@ -30,6 +31,7 @@
 <script>
   import ReportInstallations from './components/ReportInstallations.vue';
   import ReportRetirements from './components/ReportRetirements.vue';
+  import ReportReceipts from './components/ReportReceipts.vue';
 
   export default {
     props: {
@@ -41,7 +43,8 @@
 
     components: {
       ReportInstallations,
-      ReportRetirements
+      ReportRetirements,
+      ReportReceipts
     },
 
     data() {

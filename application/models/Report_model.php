@@ -51,11 +51,11 @@ class Report_model extends CI_MODEL{
     if ($result){
       $result = $result->result_array();
       $_SESSION['receipts_last_call'] = $result;
-      $acum = $this->db->where($where,'',false)->like('cliente',$text)->select_sum('total','total')->get('v_recibos',1);
-      $acum = $acum->row_array()['total'];
-      $_SESSION['receipt_last_total'] = $acum;
+      $total = $this->db->where($where,'',false)->like('cliente',$text)->select_sum('total','total')->get('v_recibos',1);
+      $total = $total->row_array()['total'];
+      $_SESSION['receipt_last_total'] = $total;
       $result = make_recibos_table($result,0);
-      return ['content' => $result, 'acum' => $acum];
+      return ['content' => $result, 'total' => $total];
     }
   }
 
