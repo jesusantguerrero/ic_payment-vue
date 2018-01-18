@@ -13,11 +13,13 @@
         li(role="presentation", :class="{active : activeTab == 'closes'}"): a(href="#closes" aria-controls="closes" role="tab" data-toggle="tab") Cierres
 
       .tab-content
-        .tab-pane.fade.in#client(role="tabpanel", :class="{active : activeTab == 'installations'}")
+        .tab-pane.fade.in#installations(role="tabpanel", :class="{active : activeTab == 'installations'}")
           ReportInstallations
-        .tab-pane.fade.in#payments(role="tabpanel", :class="{active : activeTab == 'retirements'}")
 
-        .tab-pane.fade.in#abonos(role="tabpanel", :class="{active : activeTab == 'debtors'}")
+        .tab-pane.fade.in#retirements(role="tabpanel", :class="{active : activeTab == 'retirements'}")
+          ReportRetirements
+
+        .tab-pane.fade.in#debtors(role="tabpanel", :class="{active : activeTab == 'debtors'}")
 
         .tab-pane.fade.in#observations(role="tabpanel", :class="{active : activeTab == 'observations'}")
 
@@ -27,6 +29,7 @@
 
 <script>
   import ReportInstallations from './components/ReportInstallations.vue';
+  import ReportRetirements from './components/ReportRetirements.vue';
 
   export default {
     props: {
@@ -37,7 +40,8 @@
     },
 
     components: {
-      ReportInstallations
+      ReportInstallations,
+      ReportRetirements
     },
 
     data() {

@@ -107,7 +107,9 @@ class User extends MY_Controller {
 
 	public function delete_user(){
     $id = $this->get_post_data('user_id');
-    if ($id) {
+    $user =  $this->my_auth->get_user_data();
+
+    if ($id && $user['nickname'] != 'demo') {
       $result = $this->user_model->delete_user($id);
       switch ($result) {
         case 1:
@@ -122,6 +124,8 @@ class User extends MY_Controller {
       }
       $this->response_json($res);
     }
+    $this->set_message('Accion desabilitada para demo');
+    $this->response_json();
 	}
 
 	public function confirm_password(){
@@ -141,7 +145,7 @@ class User extends MY_Controller {
 
 	public function update_password(){
     $data = $this->get_post_data('data');
-    if ($data) {
+    if ($data && data['current_password'] != 'demo') {
       $user_id 					= $data['user_id'];
       $current_password = $data['current_password'];
       $new_password 		= $data['new_password'];
@@ -154,5 +158,7 @@ class User extends MY_Controller {
       }
       $this->response_json($res);
     }
+    $this->set_message('Accion desabilitada para el usuario demo', 'info');
+    $this->response_json();
 	}
 }
