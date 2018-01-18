@@ -57,7 +57,7 @@
 
     methods: {
       getReport() {
-        this.$http.post('caja/get_gastos/true', this.getDataForm(this.between))
+        this.$http.post('caja/get_expenses/true', this.getDataForm(this.between))
           .then((res) => {
             SimpleTable.fillBSTable('#expenses-table', res.data.content);
             this.total = res.data.acum;
