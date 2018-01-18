@@ -1,51 +1,70 @@
 <template lang="pug">
-  .row
-    .col-md-12
-      ReportDataCard
+  .wrapper
+    .row
+      .col-md-12
+        ReportDataCard
+    .row
       .col-md-8
-        ul.nav.nav-tabs(role="tablist")
-          li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
-          li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
-          li(role="presentation"): a(href="#balance" aria-controls="messages" role="tab" data-toggle="tab") Balance
-          li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias
+        .report-card
+          ul.nav.nav-tabs(role="tablist")
+            li(role="presentation" class="active"): a(href="#ingresos" aria-controls="home" role="tab" data-toggle="tab") Ingresos
+            li(role="presentation"): a(href="#pagos" aria-controls="profile" role="tab" data-toggle="tab") Instalaciones
+            li(role="presentation"): a(href="#balance" aria-controls="messages" role="tab" data-toggle="tab") Balance
+            li(role="presentation"): a(href="#closing" aria-controls="messages" role="tab" data-toggle="tab") Ganancias
 
-        .tab-content
-          .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
-            .wide-chart
-              ReportChartYearNavigator(@change="getIncomes", title="Ingresos Netos", display="true")
-              ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
+          .tab-content
+            .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
+              .wide-chart
+                ReportChartYearNavigator(@change="getIncomes", title="Ingresos Netos", display="true")
+                ReportChart(data-class="graphics chart" id="chart-incomes" data-id="chart-incomes", :data="incomes.values", :labels="months", :config="chartConfig.incomes")
 
-          .tab-pane.fade.in#pagos(role="tabpanel")
-            .wide-chart
-              ReportChartYearNavigator(@change="getInstallations", title="Instalaciones", display="true")
-              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+            .tab-pane.fade.in#pagos(role="tabpanel")
+              .wide-chart
+                ReportChartYearNavigator(@change="getInstallations", title="Instalaciones", display="true")
+                ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
 
-          .tab-pane.fade.in#balance(role="tabpanel")
-            ReportChartPettyCash
+            .tab-pane.fade.in#balance(role="tabpanel")
+              ReportChartPettyCash
 
-          .tab-pane.fade.in#closing(role="tabpanel")
-            ReportChartCardRevenue
-
-            .wide-chart
+            .tab-pane.fade.in#closing(role="tabpanel")
+              ReportChartCardRevenue
 
       .col-md-4
-        ul.nav.nav-tabs(role="tablist")
-          li(role="presentation" class="active"): a(href="#generals" aria-controls="generals" role="tab" data-toggle="tab") Generales
+        .report-card
+          ul.nav.nav-tabs(role="tablist")
+            li(role="presentation" class="active"): a(href="#generals" aria-controls="generals" role="tab" data-toggle="tab") Generales
 
-        .tab-content
-          .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
-            .wide-chart
-              ReportChartYearNavigator(title="Semana")
-              ReportChart(data-class="graphics chart" id="chart-week-incomes" data-id="chart-week-incomes", :data="weekIncomes.values", :labels="days", :config="chartConfig.weekIncomes")
+          .tab-content
+            .tab-pane.active.fade.in(role="tabpanel", id="ingresos")
+              .wide-chart
+                ReportChartYearNavigator(title="Ingresos Semana")
+                ReportChart(data-class="graphics chart" id="chart-week-incomes" data-id="chart-week-incomes", :data="weekIncomes.values", :labels="days", :config="chartConfig.weekIncomes")
 
-            .wide-chart
-              ReportChartYearNavigator(@change="getInstallations", title="Servicios")
-              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
-          .tab-pane.fade.in#pagos(role="tabpanel")
-            .wide-chart
-              ReportChartYearNavigator(@change="getInstallations", :display="!display")
-              ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+              .wide-chart
+                ReportChartYearNavigator(@change="getInstallations", title="Servicios")
+                ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+            .tab-pane.fade.in#pagos(role="tabpanel")
+              .wide-chart
+                ReportChartYearNavigator(@change="getInstallations", :display="!display")
+                ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
+    br
+    .row
+      .col-md-8
+        .report-card
+          ul.nav.nav-tabs(role="tablist")
+            li(role="presentation" class="active"): a(href="#expenses" aria-controls="home" role="tab" data-toggle="tab") Gastos
+            li(role="presentation"): a(href="#closes" aria-controls="profile" role="tab" data-toggle="tab") Cierres
+            li(role="presentation"): a(href="#historic" aria-controls="messages" role="tab" data-toggle="tab") Historico
 
+          .tab-content
+            .tab-pane.active.fade.in(role="tabpanel", id="expenses")
+
+            .tab-pane.fade.in#closes(role="tabpanel")
+
+            .tab-pane.fade.in#historic(role="tabpanel")
+
+      .col-md-4
+        .report-card.bg-primary
 
 
 </template>

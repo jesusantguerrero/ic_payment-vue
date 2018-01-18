@@ -14,7 +14,7 @@
         type: String
       },
       data: {
-        type: String
+        type: Number
       },
       title: {
         type: String
