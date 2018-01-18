@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .fixed-wrapper
     .searcher-container.main-toolbar#expenses-toolbar
       .input-group.search
         .input-group-addon: i.material-icons search
