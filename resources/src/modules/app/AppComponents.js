@@ -60,6 +60,11 @@ export default (Vue) => {
   );
 
   Vue.component(
+    'ReportSection',
+    () => import(/* webpackChunkName: "informes" */ './../informes/ReportSection')
+  );
+
+  Vue.component(
     'TicketSection',
     () => import(/* webpackChunkName: "averias" */ './../averias/TicketSection')
   );

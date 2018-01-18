@@ -8,11 +8,11 @@
       button.btn-update-averia(@click.stop="update") Actualizar
     .description
       .text {{ item.descripcion }}
-    .status-bar
+    .status-bar(v-if="item.fecha")
       span
         i.material-icons event
         | Fecha de Reporte: {{ item.fecha }}
-      span(class='$fecha_class', style='color:#06f')
+      span(class='$fecha_class', style='color:#06f', v-if="item.fecha_reparacion")
         i.material-icons event
         | Fecha de Reparacion: {{ item.fecha_reparacion }}
       span.status(:style='color')
@@ -45,11 +45,17 @@
 
     methods: {
       update() {
-        this.$emit('update', this.item.id_averia);
+        const id = this.getId();
+        this.$emit('update', id);
       },
 
       selected() {
-        this.$emit('selected', this.item.id_averia);
+        const id = this.getId();
+        this.$emit('selected', id);
+      },
+
+      getId() {
+        return (this.item.id_averia) ? this.item.id_averia : this.item.id_contrato;
       }
     }
   };

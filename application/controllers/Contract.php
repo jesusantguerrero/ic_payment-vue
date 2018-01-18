@@ -225,12 +225,21 @@ class Contract extends MY_Controller {
 
   // installation
 
-  public function change_installation_state($payment_id){
-		$this->report_model->update_installation($payment_id);
+  public function update_installation_state($payment_id){
+    $this->load->model('report_model');
+		if ($this->report_model->update_installation($payment_id)) {
+      $this->set_message('Estado de instalacion cambiado');
+    } else {
+      $this->set_message('No se pudo cambiar el estado');
+    }
+    $this->response_json();
   }
 
 	public function get_installations($state){
-		$this->report_model->get_installations_list($state);
+    $this->load->model('report_model');
+    $state =str_replace('%20', ' ', $state);
+    $res['installations'] = $this->report_model->get_installations_list($state);
+    $this->response_json($res);
 	}
 
   // documents

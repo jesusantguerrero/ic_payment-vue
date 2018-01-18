@@ -174,17 +174,13 @@ class Report_model extends CI_MODEL{
 
   public function get_installations_list($status='por instalar'){
     if($status != 'todos'){
-      $this->db->where('estado_instalacion',$status);
+      $this->db->where('estado_instalacion', $status);
     }
     $this->db->order_by('fecha','DESC');
     $result = $this->db->get('v_instalaciones');
     if($result and count($result) > 0){
-      $result = make_installations_list($result->result_array());
-      echo $result;
-    }else{
-      echo "<h3>No hay Datos Para Esta Busqueda</h3>";
+      return $result->result_array();
     }
-
   }
 
   public function update_installation($id_contrato){
@@ -199,10 +195,7 @@ class Report_model extends CI_MODEL{
        $status =  'por instalar';
     }
     $this->db->where('id_contrato',$id_contrato);
-    if($this->db->update('ic_contratos',array("estado_instalacion" => $status))){
-      echo MESSAGE_SUCCESS." Estado de la instalacion cambiado a ". $status;
-    }
-
+    return $this->db->update('ic_contratos',array("estado_instalacion" => $status));
   }
 
   public function count_moras_view(){
