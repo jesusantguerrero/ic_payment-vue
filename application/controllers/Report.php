@@ -91,7 +91,7 @@
 
     public function get_debtors($mode = null) {
       if ($mode == 'table') {
-        $res['debtors'] = $this->report_model->get_debtors_view()p;
+        $res['debtors'] = $this->report_model->get_debtors_view();
       } else {
         $res['debtors'] = $this->payment_model->get_debtors();
       }
