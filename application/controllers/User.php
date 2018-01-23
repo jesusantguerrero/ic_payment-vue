@@ -50,8 +50,8 @@ class User extends MY_Controller {
     if ($data) {
       $credentials = ['id' => $data['user_id'], 'password' => $data['password']];
 
-      $res['is_correct'] = $this->user_model->update_field($data['field'], $credentials, $data['value']);
-      if ($res['is_correct']) {
+      $this->res['is_correct'] = $this->user_model->update_field($data['field'], $credentials, $data['value']);
+      if ($this->res['is_correct']) {
         $this->set_message('Datos actualizados con exito', 'success');
       } else {
         $this->set_message('Error al actualizar', 'error');
@@ -104,7 +104,7 @@ class User extends MY_Controller {
     }
     $user['role'] = $this->my_auth->get_role($user['type']);
     $res['user'] = $user;
-		$this->response_json();
+		$this->response_json($res);
 	}
 
 	public function delete_user(){
@@ -135,8 +135,8 @@ class User extends MY_Controller {
     if ($data) {
       $user_id  = $data['user_id'];
       $password = $data['current_password'];
-      $res['is_correct'] = $this->my_auth->confirm_password($user_id, $password);
-       if ($res['is_correct']) {
+      $this->res['is_correct'] = $this->my_auth->confirm_password($user_id, $password);
+       if ($this->res['is_correct']) {
         $this->set_message('Contraseña confirmada');
       } else {
         $this->set_message('Contraseña incorrecta', 'error');
@@ -151,9 +151,9 @@ class User extends MY_Controller {
       $user_id 					= $data['user_id'];
       $current_password = $data['current_password'];
       $new_password 		= $data['new_password'];
-      $res['is_correct'] = $this->user_model->update_password($user_id, $current_password, $new_password);
+      $this->res['is_correct'] = $this->user_model->update_password($user_id, $current_password, $new_password);
 
-      if ($res['is_correct']) {
+      if ($this->res['is_correct']) {
         $this->set_message('Contraseña guardada con exito');
       } else {
         $this->set_memssage('Error al guardar la contraseña', 'error');
