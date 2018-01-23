@@ -111,7 +111,9 @@
           this.$http.post('user/update_password', form)
             .then((res) => {
               self.showMessage(res.data.message);
-              window.location = `${baseURL}app/logout`;
+              if (res.data.message.type === 'success') {
+                window.location = `${baseURL}auth/logout`;
+              }
             });
         } else {
           this.$toasted.error('Las contraseñas no conciden');

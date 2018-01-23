@@ -16,17 +16,17 @@ class User extends MY_Controller {
       $result = $this->user_model->add_new_user($data);
       switch ($result) {
         case 0:
-          $res['message'] = ['type' => 'error', 'text' => 'No pudo guardarse el usuario'];
+          $this->set_message('No pudo guardarse el usuario');
           break;
         case 1:
-          $res['message'] = ['type' => 'success', 'text' => 'Usuario guardado con exito'];
+          $this->set_message('Usuario guardado con exito');
           break;
         case 3:
-          $res['message'] = ['type' => 'info', 'text' => 'Este usuario ya existe'];
+          $this->set_message('Este usuario ya existe');
           break;
       }
     }
-    $this->response_json($res);
+    $this->response_json();
   }
 
 	public function update($id){
@@ -36,11 +36,11 @@ class User extends MY_Controller {
     if ($data && $id && $current_user['type'] == 0) {
       $result =	$this->user_model->update_user($data, $id);
       if ($result) {
-        $res['message'] = ['type' => 'success', 'text' => 'Usuario actualizado con exito'];
+        $this->set_message('Usuario actualizado con exito');
       } else {
-        $res['message'] = ['type' => 'error', 'text' => 'Error al actualizar el usuario'];
+        $this->set_message('Error al actualizar el usuario', 'error');
       }
-      $this->response_json($res);
+      $this->response_json();
     }
 	}
 
@@ -52,11 +52,11 @@ class User extends MY_Controller {
 
       $res['is_correct'] = $this->user_model->update_field($data['field'], $credentials, $data['value']);
       if ($res['is_correct']) {
-        $res['message'] = ['type' => 'success', 'text' => 'Datos actualizados con exito'];
+        $this->set_message('Datos actualizados con exito', 'success');
       } else {
-        $res['message'] = ['type' => 'error', 'text' => 'Error al actualizar'];
+        $this->set_message('Error al actualizar', 'error');
       }
-      $this->response_json($res);
+      $this->response_json();
     }
 	}
 
@@ -68,22 +68,21 @@ class User extends MY_Controller {
       $logged_user =  $this->my_auth->get_user_data();
 
       if ($user['type'] == 0 && $logged_user['nickname'] == $user['nickname']) {
-        $res['message'] = ['type' => 'error', 'text' => 'Usted el administrador logeado, no se puede desactivar a si mismo'];
+        $this->set_message('Usted el administrador logeado, no se puede desactivar a si mismo', 'info');
       } else {
         $active = !$user['active'];
         $result = $this->user_model->update_user(['active' => $active], $id);
         if ($result && $active) {
-          $res['message'] = ['type' => 'success', 'text' => 'Usuario activado'];
+          $this->set_message('Usuario activado', 'success');
         } else {
-          $res['message'] = ['type' => 'success', 'text' => 'Usuario desactivado'];
+          $this->set_message('Usuario desactivado', 'success');
         }
       }
-      $this->response_json($res);
+      $this->response_json();
 		}
 	}
 
 	public function get_users($mode = false){
-
     $user =  $this->my_auth->get_user_data();
     if ($user['type'] == 0 && !$mode) {
       echo $this->user_model->get_all_users();
@@ -92,6 +91,9 @@ class User extends MY_Controller {
       $this->response_json($list);
     }
 	}
+
+
+
 
 	public function get_user($id = false){
     if (!$id) {
@@ -102,7 +104,7 @@ class User extends MY_Controller {
     }
     $user['role'] = $this->my_auth->get_role($user['type']);
     $res['user'] = $user;
-		$this->response_json($res);
+		$this->response_json();
 	}
 
 	public function delete_user(){
@@ -113,18 +115,18 @@ class User extends MY_Controller {
       $result = $this->user_model->delete_user($id);
       switch ($result) {
         case 1:
-          $res['message'] = ['type' => 'success', 'text' => 'Usuario Eliminado con exito'];
+          $this->set_message('Usuario Eliminado con exito');
           break;
         case 2:
-          $res['message'] = ['type' => 'info', 'text' => 'Este usuario tiene transacciones relacionadas, solo se desactivará'];
+          $this->set_message('Este usuario tiene transacciones relacionadas, solo se desactivará', 'info');
           break;
         default:
-          $res['message'] = ['type' => 'error', 'text' => 'Error al eliminar el usuario'];
+          $this->set_message('Error al eliminar el usuario', 'error');
           break;
       }
-      $this->response_json($res);
+    } else {
+      $this->set_message('Accion desabilitada para demo');
     }
-    $this->set_message('Accion desabilitada para demo');
     $this->response_json();
 	}
 
@@ -135,28 +137,28 @@ class User extends MY_Controller {
       $password = $data['current_password'];
       $res['is_correct'] = $this->my_auth->confirm_password($user_id, $password);
        if ($res['is_correct']) {
-        $res['message'] = ['type' => 'success', 'text' => 'Contraseña confirmada'];
+        $this->set_message('Contraseña confirmada');
       } else {
-        $res['message'] = ['type' => 'error', 'text' => 'Contraseña incorrecta'];
+        $this->set_message('Contraseña incorrecta', 'error');
       }
-      $this->response_json($res);
+      $this->response_json();
     }
   }
 
 	public function update_password(){
     $data = $this->get_post_data('data');
-    if ($data && data['current_password'] != 'demo') {
+    if ($data && $data['current_password'] != 'demo') {
       $user_id 					= $data['user_id'];
       $current_password = $data['current_password'];
       $new_password 		= $data['new_password'];
       $res['is_correct'] = $this->user_model->update_password($user_id, $current_password, $new_password);
 
       if ($res['is_correct']) {
-        $res['message']  = ['type' => 'success', 'text' => 'Contraseña guardada con exito'];
+        $this->set_message('Contraseña guardada con exito');
       } else {
-        $res['message']  = ['type' => 'error', 'text' => 'Error al guardar la contraseña'];
+        $this->set_memssage('Error al guardar la contraseña', 'error');
       }
-      $this->response_json($res);
+      $this->response_json();
     }
     $this->set_message('Accion desabilitada para el usuario demo', 'info');
     $this->response_json();

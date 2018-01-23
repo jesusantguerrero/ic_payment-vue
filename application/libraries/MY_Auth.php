@@ -22,9 +22,8 @@
     }
 
     public function confirm_password($user_id, $password) {
-      $user = $this->user_model->get_user($nickname);
+      $user = $this->user_model->get_user($user_id);
       if ($user) {
-        $result = $result->row_array();
         if(password_verify($password, $user['password'])){
           return true;
         }
