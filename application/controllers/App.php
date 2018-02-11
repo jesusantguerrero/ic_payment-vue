@@ -83,7 +83,7 @@ class App extends MY_Controller {
     $assets   = 'assets/';
 
     foreach ($js as $filename) {
-      array_push($jsFiles, ['link' => base_url()."{$assets}js/{$filename}.js"]);
+      array_push($jsFiles, ['link' => base_url()."{$assets}js/bundle/{$filename}.js"]);
     }
 
     foreach ($css as $filename) {
