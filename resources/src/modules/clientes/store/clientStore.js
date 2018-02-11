@@ -44,7 +44,7 @@ export default class ClientStore {
       {
         field: 'estado',
         title: 'Estado',
-        align: 'center',
+        align: 'left',
         valign:	'middle'
       },
       {

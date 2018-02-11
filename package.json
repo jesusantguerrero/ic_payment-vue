@@ -136,6 +136,7 @@
     "select2": "4.0.6-rc.1",
     "sweetalert2": "7.0.7",
     "vue": "2.5.8",
+    "vue-router": "^3.0.1",
     "vue-toasted": "1.1.24"
   },
   "keywords": [

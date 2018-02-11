@@ -123,6 +123,7 @@
   import CashDeskStore from './store/CashDeskStore';
 
   const store = new CashDeskStore();
+  const { appStore } = window;
 
   export default {
     name: 'cash-desk-section',
@@ -130,13 +131,6 @@
       ClosingSummary,
       ExpensesPanel,
       CountPanel
-    },
-
-    props: {
-      appStore: {
-        type: Object,
-        required: true
-      }
     },
 
     data() {
@@ -156,6 +150,7 @@
           banco: 0
         },
         store,
+        appStore,
         sum: 0
       };
     },

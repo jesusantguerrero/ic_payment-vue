@@ -37,6 +37,7 @@ export default new Vue({
     this.getUser();
     this.getSaldo();
     this.getDayIncome();
+    window.appStore = this.store;
   },
 
   methods: {
