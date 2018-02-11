@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.reports
     .row
       .col-md-12
         ReportDataCard

@@ -51,7 +51,7 @@ export default class ClientStore {
         field: 'estadoreal',
         title: 'Estado Real',
         class: 'hide',
-        align: 'center',
+        align: 'left',
         valign:	'middle'
       },
       {

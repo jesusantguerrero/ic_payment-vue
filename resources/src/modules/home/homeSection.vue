@@ -1,4 +1,5 @@
 <template lang="pug">
+.container-fluid#home
   section#home-section
     .row.welcome-screen
       .col-md-8.col-xs-12.main-card

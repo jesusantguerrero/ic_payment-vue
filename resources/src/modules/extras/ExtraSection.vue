@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.clients.row
     .left-navigation.col-md-2
       .aside-nav-container
         .left-navigation__header

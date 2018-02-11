@@ -1,13 +1,13 @@
 <template lang="pug">
   .nav-container.mobile(:class="{expanded: menuExpanded}")
     nav.main-nav.animated.baunceInLeft
-      li: RouterLink(to="/", @click="goTo()").nav-button Lobby
-      li: RouterLink(to="/clientes", @click="goTo()").nav-button Clientes
-      li: RouterLink(to="/servicios", @click="goTo()").nav-button Servicios
-      li: RouterLink(to="/contratos", @click="goTo()").nav-button Contratos
-      li: RouterLink(to="/extras", @click="goTo()").nav-button Extras
-      li: RouterLink(to="/secciones", @click="goTo()").nav-button Secciones
-      li: RouterLink(to="/reportes", @click="goTo()").nav-button Reportes
+      li: router-link(to="/", @click="goTo()").nav-button Lobby
+      li: router-link(to="/clientes", @click="goTo()").nav-button Clientes
+      li: router-link(to="/servicios", @click="goTo()").nav-button Servicios
+      li: router-link(to="/contratos", @click="goTo()").nav-button Contratos
+      li: router-link(to="/extras", @click="goTo()").nav-button Extras
+      li: router-link(to="/secciones", @click="goTo()").nav-button Secciones
+      li: router-link(to="/reportes", @click="goTo()").nav-button Reportes
 </template>
 
 <script>

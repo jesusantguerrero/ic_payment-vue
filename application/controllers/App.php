@@ -27,7 +27,7 @@ class App extends MY_Controller {
       $data  = $this->define_data($page, ['login']);
       $this->parser->parse('pages/login',$data);
     } else {
-      redirect(base_url('app/admin/home'));
+      redirect(base_url('app/admin/'));
     }
   }
 
@@ -37,7 +37,7 @@ class App extends MY_Controller {
     $data = $this->get_global_data($page, $params);
 
     echo $this->twig->render('layouts/header', $data);
-    echo $this->twig->render("pages/$page", $data);
+    echo $this->twig->render("pages/home", $data);
 		$this->parser->parse('layouts/footer', $data);
   }
 

@@ -20,6 +20,7 @@
   {% for style in css%}
 	  <link rel="stylesheet" href="{{style.link}}"/>
   {% endfor %}
+
 	<link rel="icon" type="image/png" sizes="96x96" href="{{url}}favicon-96x96.png">
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
   <script>
@@ -31,6 +32,7 @@
     });
   </script>
 </head>
+
 <body>
   <main id="app">
 	  <div class="loader"><span class="load"></span></div>
@@ -46,18 +48,18 @@
         </div>
 
         <nav class="top-nav">
-          <li class="navButton hidden-xs"><a href="{{url}}app/admin">Lobby</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'clientes')  %} active {% endif %}" href="{{url}}app/admin/clientes">Clientes</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'servicios') %} active {% endif %}" href="{{url}}app/admin/servicios">Servicios</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'contratos') %} active {% endif %}" href="{{url}}app/admin/contratos">Contratos</a>
+          <li class="navButton hidden-xs"><router-link to="/">Lobby</router-link></li>
+          <li class="navButton hidden-xs"><router-link to="/clientes">Clientes</router-link></li>
+          <li class="navButton hidden-xs"><router-link to="/servicios">Servicios</router-link></li>
+          <li class="navButton hidden-xs"><router-link to="/contratos">Contratos</router-link>
             <ul class="submenu">
-              <li class="navButton hidden-xs"><a class="{% if (title == 'extras') %} active {% endif %}" href="{{url}}app/admin/extras">Extras</a></li>
+              <li class="navButton hidden-xs"><router-link to="/extras">Extras</router-link></li>
             </ul>
           </li>
 
           {% if user.type == 0 %}
-          <li class="navButton hidden-xs"><a class="{% if (title == 'secciones') %} active {% endif %}" href="{{url}}app/admin/secciones">Secciones</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %}  active {% endif %}" href="{{url}}app/admin/reportes">Reportes</a></li>
+          <li class="navButton hidden-xs"><router-link to="/secciones">Secciones</router-link></li>
+          <li class="navButton hidden-xs"><router-link to="/reportes">Reportes</router-link></li>
           {% endif %}
         </nav>
 
@@ -96,6 +98,7 @@
           {{ include('layouts/dropdown_user.twig') }}
           </div>
         </div>
+
       </div>
     </header>
     <app-header></app-header>
