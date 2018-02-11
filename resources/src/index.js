@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import jquery from 'jquery';
-import globals from '../sharedComponents/globals';
-import AppComponents from './AppComponents';
-import utils from '../sharedComponents/utils';
-import AppPettyCashModal from './components/AppPettyCashModal.vue';
-import AppMessageModal from './components/AppMessageModal.vue';
-import AppTicketModal from './components/AppTicketModal.vue';
+import globals from './modules/sharedComponents/globals';
+import router from './router';
 import AppHeader from './components/AppHeader.vue';
+import AppMessageModal from './components/AppMessageModal.vue';
+import AppPettyCashModal from './components/AppPettyCashModal.vue';
+import AppTicketModal from './components/AppTicketModal.vue';
 import Store from './store/AppStore';
+import utils from './modules/sharedComponents/utils';
 
 window.jQuery = jquery;
 window.$ = jquery;
@@ -17,11 +17,10 @@ import 'bootstrap';
 window.appStore = new Store();
 window.appBus = new Vue();
 globals(Vue);
-AppComponents(Vue);
-
 
 export default new Vue({
   el: '#app',
+  router,
   components: {
     'app-message-modal': AppMessageModal,
     'app-petty-cash-modal': AppPettyCashModal,

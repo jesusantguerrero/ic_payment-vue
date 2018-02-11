@@ -21,8 +21,8 @@
 </template>
 
 <script>
-  import utils from './../../sharedComponents/utils';
-  import SelectClient from './../../sharedComponents/SelectClient.vue';
+  import utils from './../modules/sharedComponents/utils';
+  import SelectClient from './../modules/sharedComponents/SelectClient.vue';
 
   export default {
     components: {

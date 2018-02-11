@@ -10,7 +10,7 @@ function resolve (dir) {
 module.exports = {
   entry: {
     login: utils.module("login"),
-    app: utils.module("app"),
+    app: utils.module(".."),
   },
 
   output: {

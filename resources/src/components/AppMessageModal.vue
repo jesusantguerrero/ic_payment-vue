@@ -39,7 +39,7 @@
 
 <script>
   import 'select2';
-  import utils from './../../sharedComponents/utils';
+  import utils from './../modules/sharedComponents/utils';
 
   export default {
     data() {

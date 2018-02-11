@@ -1,13 +1,13 @@
 <template lang="pug">
   .nav-container.mobile(:class="{expanded: menuExpanded}")
     nav.main-nav.animated.baunceInLeft
-      li: a(href="#", @click.prevet="goTo('')").nav-button Lobby
-      li: a(href="#", @click.prevet="goTo('clientes')").nav-button Clientes
-      li: a(href="#", @click.prevet="goTo('servicios')").nav-button Servicios
-      li: a(href="#", @click.prevet="goTo('contratos')").nav-button Contratos
-      li: a(href="#", @click.prevet="goTo('extras')").nav-button Extras
-      li: a(href="#", @click.prevet="goTo('secciones')").nav-button Secciones
-      li: a(href="#", @click.prevet="goTo('reportes')").nav-button Reportes
+      li: RouterLink(to="/", @click="goTo()").nav-button Lobby
+      li: RouterLink(to="/clientes", @click="goTo()").nav-button Clientes
+      li: RouterLink(to="/servicios", @click="goTo()").nav-button Servicios
+      li: RouterLink(to="/contratos", @click="goTo()").nav-button Contratos
+      li: RouterLink(to="/extras", @click="goTo()").nav-button Extras
+      li: RouterLink(to="/secciones", @click="goTo()").nav-button Secciones
+      li: RouterLink(to="/reportes", @click="goTo()").nav-button Reportes
 </template>
 
 <script>
@@ -78,8 +78,8 @@
 
 
 <style lang="sass" scoped>
-  @import  './../../../assets/css/1-base/_colors.sass'
-  @import  './../../../assets/css/1-base/_vars.sass'
+  @import  './../assets/css/1-base/_colors.sass'
+  @import  './../assets/css/1-base/_vars.sass'
 
   $dark-color: #000
   .nav-container.mobile,
