@@ -78,7 +78,7 @@ class App extends MY_Controller {
   private function define_data($title, $js = [] , $css = []) {
     $jsFiles  = [];
     $cssFiles = [];
-    $js       = array_merge(['lib/pace.min','manifest','vendor'], $js);
+    $js       = array_merge(['../lib/pace.min','manifest','vendor'], $js);
     $css      = array_merge(['secundaryCss.min', '5-others/square/frontend.min', 'main.min'], $css);
     $assets   = 'assets/';
 

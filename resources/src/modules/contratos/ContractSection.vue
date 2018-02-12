@@ -6,7 +6,7 @@
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(:href="newContractLink")
+            router-link(to="/nuevo_contrato")
               i.material-icons description
               | Nuevo Contrato
           li.aside-buttons
@@ -106,9 +106,6 @@
       cols() {
         return this.store.columns;
       },
-      newContractLink() {
-        return `${baseURL}app/admin/nuevo_contrato`;
-      }
     },
 
     methods: {
@@ -153,7 +150,7 @@
       sendTo(endpoint, param = '') {
         const contract = this.selectedContract;
         if (contract) {
-          window.location.href = `${baseURL}/app/${endpoint}/${contract.id_cliente}/${param}`;
+          this.$router.push(`/${endpoint}/${contract.id_cliente}/${param}`);
         } else {
           this.$toasted.info('seleccione un contrato primero');
         }

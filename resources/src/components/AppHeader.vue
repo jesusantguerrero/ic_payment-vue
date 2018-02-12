@@ -131,27 +131,6 @@
       &:after
         width: 100%
 
-  .special
-    background: $primary-color
-    color: #fff
-    width: 150px
-    border-radius: 3px
-    text-align: center
-    position: relative
-    &:after
-      content: ''
-      position: absolute
-      height: 100%
-      width: 0
-      top: 0
-      left: 0
-      background: transparentize(#fff,.87)
-      border-radius: 3px
-      transition: all ease .2s
-    &:hover
-      color: #fff
-      &:after
-        width: 100%
   @media (max-width: 960px)
     .nav-container.mobile
       display: none

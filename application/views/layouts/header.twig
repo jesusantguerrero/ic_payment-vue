@@ -24,12 +24,14 @@
 	<link rel="icon" type="image/png" sizes="96x96" href="{{url}}favicon-96x96.png">
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
   <script>
-    var OneSignal = window.OneSignal || [];
-    OneSignal.push(function() {
-      OneSignal.init({
-        appId: "bc29004d-d59c-4295-ad91-60ca6d29a09a",
+    if (!window.location.origin.includes('localhost')) {
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "bc29004d-d59c-4295-ad91-60ca6d29a09a",
+        });
       });
-    });
+    }
   </script>
 </head>
 
@@ -48,18 +50,18 @@
         </div>
 
         <nav class="top-nav">
-          <li class="navButton hidden-xs"><router-link to="/">Lobby</router-link></li>
-          <li class="navButton hidden-xs"><router-link to="/clientes">Clientes</router-link></li>
-          <li class="navButton hidden-xs"><router-link to="/servicios">Servicios</router-link></li>
-          <li class="navButton hidden-xs"><router-link to="/contratos">Contratos</router-link>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/">Lobby</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/clientes">Clientes</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/servicios">Servicios</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/contratos">Contratos</router-link>
             <ul class="submenu">
-              <li class="navButton hidden-xs"><router-link to="/extras">Extras</router-link></li>
+              <li class="navButton hidden-xs"><router-link v-cloak to="/extras">Extras</router-link></li>
             </ul>
           </li>
 
           {% if user.type == 0 %}
-          <li class="navButton hidden-xs"><router-link to="/secciones">Secciones</router-link></li>
-          <li class="navButton hidden-xs"><router-link to="/reportes">Reportes</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/secciones">Secciones</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/reportes">Reportes</router-link></li>
           {% endif %}
         </nav>
 

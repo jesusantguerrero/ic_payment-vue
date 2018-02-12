@@ -22,7 +22,7 @@
               i.material-icons find_in_page
               | Ver Detalles
           li.aside-buttons
-            a(href="" id="client-new-contract", @click.prevent="sendTo('admin/nuevo_contrato')")
+            router-link(to="/nuevo_contrato" id="client-new-contract")
               i.material-icons description
               | Nuevo Contrato
 
@@ -156,7 +156,7 @@
       sendTo(endpoint, param = '') {
         const client = this.selectedClient;
         if (client) {
-          window.location.href = `${baseURL}app/${endpoint}/${client.id}/${param}`;
+          this.$router.push(`/${endpoint}/${client.id}/${param}`);
         } else {
           this.$toasted.info('seleccione un cliente primero');
         }

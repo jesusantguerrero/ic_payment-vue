@@ -18,9 +18,9 @@ const ServiceSection = () => import(/* webpackChunkFileName: "servicios" */ './.
 
 Vue.use(Router);
 const url = window.location.origin;
-const base = (url.includes('localhost')) ? `${__dirname}/icpayment` : __dirname;
+const base = (url.includes('localhost')) ? '/icpayment' : '';
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: `${base}/app/admin`,
   routes: [
@@ -76,3 +76,11 @@ export default new Router({
     }
   ]
 });
+
+
+router.beforeEach((to, from, next) => {
+  next();
+});
+
+
+export default router;
