@@ -24,7 +24,7 @@
           .pull-right
             select#client-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
-        DataTable(ids="extra-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions", @cell-clicked="stateChanges")
+        DataTable(ids="sections-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions", @cell-clicked="stateChanges")
         RouterModal(:sector="sector", :modal-mode="modalMode", @save="save")
 </template>
 

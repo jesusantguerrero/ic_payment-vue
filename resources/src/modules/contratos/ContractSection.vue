@@ -22,7 +22,7 @@
               i.material-icons report_problem
               | Suspender
           li.aside-buttons
-            a(href="" id="get-details", @click.prevent="sendTo('details')")
+            a(href="" id="get-details", @click.prevent="sendTo('detalles', 'payments')")
               i.material-icons monetization_on
               | Registrar Pago
           li.aside-buttons

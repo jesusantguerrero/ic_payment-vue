@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import acountService from './../modules/cuenta/service/AcountService';
 
 const AcountSection = () => import(/* webpackChunkName: "cuenta" */ './../modules/cuenta/AcountSection');
 const AdminSection = () => import(/* webpackChunkName: "administrador" */'./../modules/administrador/AdminSection');
@@ -38,13 +39,6 @@ const router = new Router({
       path: '/clientes',
       name: 'ClientSection',
       component: ClientSection,
-      children: [
-        {
-          path: ':clientId/:activeWindow',
-          component: DetailsSection,
-          props: true
-        }
-      ]
     },
     {
       path: '/contratos',
@@ -69,7 +63,8 @@ const router = new Router({
     {
       path: '/reportes',
       name: 'GraphicReportSection',
-      component: GraphicReportSection
+      component: GraphicReportSection,
+      meta: { requiresAdmin: true }
     },
     {
       path: '/nuevo_contrato',
@@ -77,10 +72,9 @@ const router = new Router({
       component: NewContractSection
     },
     {
-      path: '/detalles/:clientId/:activeWindow',
-      name: 'DetailsSection',
-      component: DetailsSection,
-      props: true
+      path: '/detalles/:clientId/:activeWindow?',
+      props: true,
+      component: DetailsSection
     },
     {
       path: '/cierre',
@@ -91,7 +85,8 @@ const router = new Router({
     {
       path: '/administrador',
       name: 'AdminSection',
-      component: AdminSection
+      component: AdminSection,
+      meta: { requiresAdmin: true }
     },
     {
       path: '/cuenta',
@@ -106,15 +101,27 @@ const router = new Router({
     {
       path: '/informes',
       name: 'ReportSection',
-      component: ReportSection
+      component: ReportSection,
     }
   ]
 });
 
 
 router.beforeEach((to, from, next) => {
-  next();
+  if (to.matched.some(record => record.meta.requiresAdmin)) {
+    acountService.getUser().then((user) => {
+      if (user && (Number(user.type) !== 0)) {
+        next({
+          path: '/home',
+          query: { redirect: to.fullPath }
+        });
+      } else {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
 });
-
 
 export default router;

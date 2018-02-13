@@ -1,4 +1,5 @@
 <template lang="pug">
+  AcountPanel
     .company-details#acount-form
       h3 Detalles de la Cuenta
       form
@@ -50,9 +51,13 @@
 
 <script>
   import swal from 'sweetalert2';
+  import AcountPanel from './components/AcountPanel.vue';
 
   export default {
     name: 'AcountSection',
+    components: {
+      AcountPanel
+    },
     data() {
       return {
         user: {

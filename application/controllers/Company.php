@@ -15,10 +15,10 @@ class Company extends MY_Controller
 
       if ($this->company_model->update($data)) {
         $this->set_message('Datos actualizados con exito');
-        $res['company'] = $this->company_model->get_company();
+        $this->res['company'] = $this->company_model->get_company();
       }
 
-      $this->response_json($res);
+      $this->response_json();
     }
   }
 

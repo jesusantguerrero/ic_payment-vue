@@ -75,7 +75,8 @@
   export default {
     props: {
       clientId: {
-        type: String
+        type: String,
+        dafault: '1'
       },
       activeWindow: {
         type: String,
