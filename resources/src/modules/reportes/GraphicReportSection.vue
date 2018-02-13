@@ -86,12 +86,6 @@
 
 
   export default {
-    props: {
-      appStore: {
-        type: Object,
-        required: true
-      }
-    },
     components: {
       ReportDataCard,
       ReportChart,
@@ -104,6 +98,7 @@
     data() {
       const { months } = utils.dates;
       const { days } = utils.dates;
+      const { appStore } = window;
 
       return {
         display: true,

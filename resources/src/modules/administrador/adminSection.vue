@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.clients.row
     .left-navigation.administrador.col-md-2
       .aside-nav
         li.aside-buttons

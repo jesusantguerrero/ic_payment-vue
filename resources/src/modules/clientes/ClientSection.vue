@@ -18,7 +18,7 @@
               i.material-icons delete
               | Eliminar Cliente
           li.aside-buttons
-            a(href="" id="get-details", @click.prevent="sendTo('details')")
+            a(href="" id="get-details", @click.prevent="sendTo('detalles')")
               i.material-icons find_in_page
               | Ver Detalles
           li.aside-buttons

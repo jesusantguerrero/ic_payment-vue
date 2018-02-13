@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid cierre2">
     <div class="row welcome-screen" v-if="!closed">
       <div class="col-md-8 col-xs-12 main-card">
         <div class="tab-content-cierre">

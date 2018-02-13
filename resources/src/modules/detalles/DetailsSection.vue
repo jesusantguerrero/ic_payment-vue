@@ -78,7 +78,8 @@
         type: String
       },
       activeWindow: {
-        type: String
+        type: String,
+        default: 'client'
       }
     },
     components: {
