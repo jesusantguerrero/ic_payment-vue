@@ -9,9 +9,9 @@
         .pull-right
           button.btn.btn-primary.icon: i.material-icons
         .pull-right
-          button.btn.btn-primary.icon#caller-user(data-toggle="modal" data-target="#new-user-modal", @click="callModal('new')") Agregar <i class="material-icons">add</i>
+          button.btn.btn-primary.icon(data-toggle="modal" data-target="#new-user-modal", @click="callModal('new')") Agregar <i class="material-icons">add</i>
       DataTable(ids="user-table",:parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions")
-      UserModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode", @add="add", @update="update", @dimiss="dimiss")
+      AdminUserSectionModal(:user="store.usuario", :validation="validation", :userTypes="userTypes", :modalMode="modalMode", @add="add", @update="update", @dimiss="dimiss")
 </template>
 
 <script>

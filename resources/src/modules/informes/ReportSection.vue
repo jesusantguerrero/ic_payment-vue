@@ -4,13 +4,7 @@
       ul.nav.nav-tabs(role="tablist", id="main-tabs")
         li(role="presentation", :class="{active : activeTab == 'installations'}"): a(href="#installations" aria-controls="installations" role="tab" data-toggle="tab") Instalaciones
         li(role="presentation", :class="{active : activeTab == 'retirements'}"): a(href="#retirements" aria-controls="retirements" role="tab" data-toggle="tab") Retiros
-        li(role="presentation", :class="{active : activeTab == 'debtors'}")
-          a(href="#debtors" aria-controls="settings" role="tab" data-toggle="tab") Deudores
-            span( class="badge")  1
-        li(role="presentation", :class="{active : activeTab == 'historic'}"): a(href="#receipts" aria-controls="receipts" role="tab" data-toggle="tab", ) Recibos
-        li(role="presentation", :class="{active : activeTab == 'receipts'}"): a(href="#historic" aria-controls="historic" role="tab" data-toggle="tab") Historico Moras
-        li(role="presentation", :class="{active : activeTab == 'expenses'}"): a(href="#expenses" aria-controls="expenses" role="tab" data-toggle="tab") Gastos
-        li(role="presentation", :class="{active : activeTab == 'closes'}"): a(href="#closes" aria-controls="closes" role="tab" data-toggle="tab") Cierres
+        li(role="presentation", :class="{active : activeTab == 'debtors'}"): a(href="#debtors" aria-controls="settings" role="tab" data-toggle="tab") Deudores
 
       .tab-content
         .tab-pane.fade.in#installations(role="tabpanel", :class="{active : activeTab == 'installations'}")
@@ -20,17 +14,10 @@
           ReportRetirements
 
         .tab-pane.fade.in#debtors(role="tabpanel", :class="{active : activeTab == 'debtors'}")
-
+          ReportDebtors
 
         .tab-pane.fade.in#receipts(role="tabpanel", :class="{active : activeTab == 'receipts'}")
           ReportReceipts
-
-        .tab-pane.fade.in#historic(role="tabpanel", :class="{active : activeTab == 'historic'}")
-
-        .tab-pane.fade.in#expenses(role="tabpanel", :class="{active : activeTab == 'expenses'}")
-          ReportExpenses
-
-        .tab-pane.fade.in#closes(role="tabpanel", :class="{active : activeTab == 'closes'}")
 
 </template>
 
@@ -38,7 +25,7 @@
   import ReportInstallations from './components/ReportInstallations.vue';
   import ReportRetirements from './components/ReportRetirements.vue';
   import ReportReceipts from './components/ReportReceipts.vue';
-  import ReportExpenses from './components/ReportExpenses.vue';
+  import ReportDebtors from './components/ReportDebtors.vue';
 
   export default {
     props: {
@@ -52,7 +39,7 @@
       ReportInstallations,
       ReportRetirements,
       ReportReceipts,
-      ReportExpenses
+      ReportDebtors,
     },
 
     data() {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.reports
     .row
       .col-md-12
         ReportDataCard
@@ -45,7 +45,7 @@
                 ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
             .tab-pane.fade.in#pagos(role="tabpanel")
               .wide-chart
-                ReportChartYearNavigator(@change="getInstallations", :display="!display")
+                ReportChartYearNavigator(@change="getInstallations", display="true")
                 ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
     br
     .row
@@ -58,13 +58,18 @@
 
           .tab-content
             .tab-pane.active.fade.in(role="tabpanel", id="expenses")
-
+              ReportTableExpenses
             .tab-pane.fade.in#closes(role="tabpanel")
 
             .tab-pane.fade.in#historic(role="tabpanel")
 
       .col-md-4
-        .report-card.bg-primary
+        .report-card.bg-primary.justify-content-center
+            h3.title Balance en Caja Chica
+            h2.current-saldo RD$ {{ store.pettyCashBalance | currencyFormat }}
+
+            h3.title Ganancias del dia
+            h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}
 
 
 </template>
@@ -75,27 +80,25 @@
   import ReportChartYearNavigator from './components/ReportChartYearNavigator.vue';
   import ReportChartCardRevenue from './components/ReportChartCardRevenue.vue';
   import ReportChartPettyCash from './components/ReportChartPettyCash.vue';
+  import ReportTableExpenses from './../informes/components/ReportExpenses.vue';
+
   import utils from './../sharedComponents/utils';
 
 
   export default {
-    props: {
-      appStore: {
-        type: Object,
-        required: true
-      }
-    },
     components: {
       ReportDataCard,
       ReportChart,
       ReportChartYearNavigator,
       ReportChartCardRevenue,
-      ReportChartPettyCash
+      ReportChartPettyCash,
+      ReportTableExpenses
     },
 
     data() {
       const { months } = utils.dates;
       const { days } = utils.dates;
+      const { appStore } = window;
 
       return {
         display: true,
@@ -130,7 +133,8 @@
           }
         },
         months,
-        days
+        days,
+        store: appStore
       };
     },
 

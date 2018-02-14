@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid cierre2">
     <div class="row welcome-screen" v-if="!closed">
       <div class="col-md-8 col-xs-12 main-card">
         <div class="tab-content-cierre">
@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="col-md-6 t-center">
-                    <h5>Fecha: <span id="fecha-cierre v-cloack"> {{ fecha }} </span></h5>
+                    <h5>Fecha: <span id="fecha-cierre v-cloak"> {{ fecha }} </span></h5>
                     <h5>Autor <span id="autor-cierre"> {{ appStore.currentUser.fullname }} </span></h5>
                     <button class="btn" @click.prevent="closeCashDeskCaja"> Cerrar Caja </button>
                   </div>
@@ -56,11 +56,11 @@
 
 
               <a target="printframe" href="<?php echo base_url('process/getreport/payment/today') ?>">
-                <h2 class="current-saldo v-cloack"> RD$ {{ closingData.pagos_efectivo | currencyFormat}}</h2>
+                <h2 class="current-saldo v-cloak"> RD$ {{ closingData.pagos_efectivo | currencyFormat}}</h2>
               </a>
               <br>
               <h4 data-toggle="modal" data-target="#caja-mayor-modal" class="special-caller"><i class="material-icons">lock_open</i>Dinero Real en Caja</h4>
-              <h2 class="current-saldo my-caja v-cloack"> RD$ {{ total | currencyFormat }} </h2>
+              <h2 class="current-saldo my-caja v-cloak"> RD$ {{ total | currencyFormat }} </h2>
             </div>
           </div>
           <div class="pagos-layer">
@@ -82,30 +82,30 @@
 
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right" title="Pagos de Factura" data-content="Los pagos de mensualidad que hacen los clientes">
           <p class="section-title">Pagos de factura</p>
-          <p class="v-cloack">RD$ {{closingData.pagos_facturas | currencyFormat}}</p>
+          <p class="v-cloak">RD$ {{closingData.pagos_facturas | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Extras" data-content="Los pagos a los servicios extras que hacen los clientes">
           <p class="section-title">Pagos Extras</p>
-          <p class="v-cloack">RD$ {{closingData.pagos_extras | currencyFormat}}</p>
+          <p class="v-cloak">RD$ {{closingData.pagos_extras | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" data-toggle="popover" data-container="body" data-placement="right" title="Pagos Via Banco" data-content="Los pagos del <b>total de ingresos</b> que se hacen via banco">
           <p class="section-title">Pagos Via Banco</p>
-          <p class="v-cloack">RD$ {{ closingData.pagos_banco | currencyFormat}}</p>
+          <p class="v-cloak">RD$ {{ closingData.pagos_banco | currencyFormat}}</p>
         </div>
 
         <div class="col-md-4 shortcut" id="caller-new-client" data-toggle="popover" data-container="body" data-placement="right"
           title="Total de Ingresos" data-content="Es la suma de los <b>pagos extras</b> y <b>pagos de factura</b>">
           <p class="section-title">Total Ingresos</p>
-          <p class="v-cloack">RD$ {{ totalIncomes | currencyFormat}}</p>
+          <p class="v-cloak">RD$ {{ totalIncomes | currencyFormat}}</p>
         </div>
 
       </div>
 
       <div class="col-md-4 clock-card">
         <h4 class="card-title t-center">Diferencia</h4>
-        <h4 class="t-center v-cloack"> RD$ {{ closingData.total_descuadre }} </h4>
+        <h4 class="t-center v-cloak"> RD$ {{ closingData.total_descuadre }} </h4>
       </div>
 
     </div>
@@ -123,6 +123,7 @@
   import CashDeskStore from './store/CashDeskStore';
 
   const store = new CashDeskStore();
+  const { appStore } = window;
 
   export default {
     name: 'cash-desk-section',
@@ -130,13 +131,6 @@
       ClosingSummary,
       ExpensesPanel,
       CountPanel
-    },
-
-    props: {
-      appStore: {
-        type: Object,
-        required: true
-      }
     },
 
     data() {
@@ -156,6 +150,7 @@
           banco: 0
         },
         store,
+        appStore,
         sum: 0
       };
     },
@@ -165,7 +160,7 @@
     },
 
     created() {
-      $('.v-cloack').css({
+      $('.v-cloak').css({
         visibility: 'visible'
       });
     },

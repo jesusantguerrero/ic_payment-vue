@@ -44,14 +44,14 @@ export default class ClientStore {
       {
         field: 'estado',
         title: 'Estado',
-        align: 'center',
+        align: 'left',
         valign:	'middle'
       },
       {
         field: 'estadoreal',
         title: 'Estado Real',
         class: 'hide',
-        align: 'center',
+        align: 'left',
         valign:	'middle'
       },
       {

@@ -13,14 +13,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if ( ! function_exists('make_payment_report')){
   /**
   * create a table for the data from users to display in the interface
-  * @param array $data the result of an select in a query 
+  * @param array $data the result of an select in a query
   * @param int the number for start counting the rows the that is for my custom pagination
-  *@return string the tbody with rows of a table 
-  */ 
+  *@return string the tbody with rows of a table
+  */
 
   function make_payment_report($data,$concept,$context){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Cont","Cliente","Concepto","Total","Hora"); 
+    $context->table->set_heading("Num","Cont","Cliente","Concepto","Total","Hora");
 
     foreach ($data as $line) {
       $hora = new DATETIME($line['complete_date']);
@@ -37,7 +37,7 @@ if ( ! function_exists('make_payment_report')){
     $more['total'] = $context->report_model->get_total_payments("date(now())");
     $html_text .= "<div class='ganancia-total'>TOTAL DEL DIA: RD$ ".CurrencyFormat($more['total'])."<div>";
     set_report($html_text,$concept,$more);
-   
+
   }
 }
 
@@ -45,7 +45,7 @@ if ( ! function_exists('make_installation_report')){
 
   function make_installation_report($data,$concept,$context,$for_print){
     $cont = 0 + 1;
-    $context->table->set_heading("Num","Cliente","Direccion","Celular","Requerimiento","Servicio"); 
+    $context->table->set_heading("Num","Cliente","Direccion","Celular","Requerimiento","Servicio");
     foreach ($data as $line) {
       $context->table->add_row($cont,
       $line['cliente'],
@@ -70,7 +70,7 @@ if ( ! function_exists('make_averias_report')){
 
   function make_averias_report($data,$concept,$context,$for_print){
     $cont = 1;
-    $context->table->set_heading("Num","IP","Cliente","Dirección",['data' => 'Numero de Celular', 'width' => '150px'],"Descripcion",['data' => 'Fecha del Reporte', 'width' => '150px']); 
+    $context->table->set_heading("Num","IP","Cliente","Dirección",['data' => 'Numero de Celular', 'width' => '150px'],"Descripcion",['data' => 'Fecha del Reporte', 'width' => '150px']);
     foreach ($data as $line) {
       $context->table->add_row($cont,
       $line['codigo'],
@@ -94,7 +94,7 @@ if ( ! function_exists('make_averias_report')){
 if ( ! function_exists('make_general_report')){
     function make_general_report($data,$concept,$context,$fields, $header, $extra = false){
       $cont = 1;
-      $context->table->set_heading($header); 
+      $context->table->set_heading($header);
       foreach ($data as $line) {
         $table_fields = array($cont);
         foreach ($fields as $field) {
@@ -118,11 +118,11 @@ if ( ! function_exists('make_general_report')){
   }
 
 if ( ! function_exists('make_clients_report')){
-  
+
   function make_clients_report($data,$concept,$context,$for_print){
     $cont = 1;
-    $context->table->set_heading("Num","IP","Cliente",["data"=>"Cedula", "width"=> "155px"],"Dirección",["data" => "Celular", 'width'=> '150px']); 
-    
+    $context->table->set_heading("Num","IP","Cliente",["data"=>"Cedula", "width"=> "155px"],"Dirección",["data" => "Celular", 'width'=> '150px']);
+
     foreach ($data as $line) {
       $context->table->add_row(
         $cont,
@@ -134,22 +134,22 @@ if ( ! function_exists('make_clients_report')){
       );
      $cont+=1;
     }
-  
+
     $html_text = $context->table->generate()."<div class='real-end'></div>";
     if ($for_print) {
       set_report($html_text,$concept);
     } else {
       return $html_text;
-    
+
     }
   }
 }
 
-if ( ! function_exists('make_moras_report')){
+if ( ! function_exists('make_moras_report')) {
 
-  function make_moras_report($data,$concept,$context,$for_print){
+  function make_moras_report($data,$concept,$context,$for_print) {
     $cont = 0 + 1;
-    $context->table->set_heading("Contrato","Codigo","Cliente","Celular","Pagos Pendientes","Meses"); 
+    $context->table->set_heading("Contrato","Codigo","Cliente","Celular","Pagos Pendientes","Meses");
     $spanish_months = $GLOBALS['spanish_months'];
     $in_english = array_keys($spanish_months);
     $in_spanish = array_values($spanish_months);
@@ -168,15 +168,16 @@ if ( ! function_exists('make_moras_report')){
     }
 
     $html_text = $context->table->generate();
-    if($for_print):
+
+    if ($for_print) {
       set_report($html_text,$concept,$more = '');
-    else:
+    } else {
       return $html_text;
-    endif;
+    }
   }
 }
 
-function make_moras_report_smart($data,$concept,$context,$for_print){ 
+function make_moras_report_smart($data, $concept, $context, $for_print) {
   $spanish_months = $GLOBALS['spanish_months'];
   $in_english = array_keys($spanish_months);
   $in_spanish = array_values($spanish_months);
@@ -193,7 +194,7 @@ function make_moras_report_smart($data,$concept,$context,$for_print){
         <td>RD$".CurrencyFormat($line['monto_extra'])."</td>
         <td>RD$".CurrencyFormat($line['total'])."</td>
         <td>{$line['pagos_pendientes']}</td>
-        <td><p>".str_replace($in_english,$in_spanish,$line['meses'])."</p></td>
+        <td><p>".str_replace($in_english, $in_spanish, $line['meses'])."</p></td>
       </tr>";
     }
     return $html_text;
@@ -293,10 +294,10 @@ function create_excel_file($report){
 		$sheet->getColumnDimension('A')->setWidth(2);
     $sheet->getColumnDimension('B')->setWidth(13);
 		$sheet->setShowGridLines(false);
-		$sheet->getCell('C2')->setValue(get_rich_text('ISC Service:',"Contratos Vigentes",array('remark'=>'ff2200','message'=> '0066ff'))); 
-    $sheet->getCell('C3')->setValue(get_rich_text('Reporte Tecnico',"",array('remark'=>'333333','message'=> '333333'),16)); 
+		$sheet->getCell('C2')->setValue(get_rich_text('ISC Service:',"Contratos Vigentes",array('remark'=>'ff2200','message'=> '0066ff')));
+    $sheet->getCell('C3')->setValue(get_rich_text('Reporte Tecnico',"",array('remark'=>'333333','message'=> '333333'),16));
 		set_image($sheet,'B2','icsservice_logo.png');
-																										
+
 		$myreport_sheet->getActiveSheet()->fromArray(
 			$report['header'],
 			'',
@@ -312,6 +313,5 @@ function create_excel_file($report){
     return $myreport_sheet;
 }
 
-  
 
-  
+

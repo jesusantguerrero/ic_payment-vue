@@ -1,12 +1,12 @@
 <template lang="pug">
-  .wrapper
+  .screen.clients.row
     .left-navigation.col-md-2
       .aside-nav-container
         .left-navigation__header
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(:href="newContractLink")
+            router-link(to="/nuevo_contrato")
               i.material-icons description
               | Nuevo Contrato
           li.aside-buttons
@@ -22,7 +22,7 @@
               i.material-icons report_problem
               | Suspender
           li.aside-buttons
-            a(href="" id="get-details", @click.prevent="sendTo('details')")
+            a(href="" id="get-details", @click.prevent="sendTo('detalles', 'payments')")
               i.material-icons monetization_on
               | Registrar Pago
           li.aside-buttons
@@ -106,9 +106,6 @@
       cols() {
         return this.store.columns;
       },
-      newContractLink() {
-        return `${baseURL}app/admin/nuevo_contrato`;
-      }
     },
 
     methods: {
@@ -153,7 +150,7 @@
       sendTo(endpoint, param = '') {
         const contract = this.selectedContract;
         if (contract) {
-          window.location.href = `${baseURL}/app/${endpoint}/${contract.id_cliente}/${param}`;
+          this.$router.push(`/${endpoint}/${contract.id_cliente}/${param}`);
         } else {
           this.$toasted.info('seleccione un contrato primero');
         }

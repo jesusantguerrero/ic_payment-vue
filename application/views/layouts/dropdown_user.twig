@@ -1,9 +1,9 @@
 <ul class="dropdown-menu dropdown-menu-right animated bounceInDown" aria-labelledby="dLabel">
-  <li><p><a href="{{url}}app/admin/cuenta"><b>{{ user.fullname }}</b></a></p></li>
-  <li><a href="{{url}}app/admin/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</a></li>
+  <li><p><router-link to="/cuenta"><b>{{ user.fullname }}</b></router-link></p></li>
+  <li><router-link to="/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</router-link></li>
   {% if (user.type == 0) %}
-  <li><a href="{{url}}app/admin/administrador">
-      <i class="material-icons">settings</i>Configuración</a>
+  <li><router-link to="/administrador">
+      <i class="material-icons">settings</i>Configuración</router-link>
   </li>
   {% endif %}
   <li><a href="{{url}}auth/do_logout">

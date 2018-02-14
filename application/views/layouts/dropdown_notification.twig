@@ -1,7 +1,7 @@
 <ul class="dropdown-menu dropdown-menu-right animated bounceInDown" aria-labelledby="dropdown-notification">
   <h6 class="dropdown-header">Notificaciones</h6>
-  <li class="dropdown-item"><a href="{{url}}app/admin/averias">Averias</a></li>
-  <li class="dropdown-item"><a href="{{url}}app/admin/informes">Instalaciones</a></li>
-  <li class="dropdown-item"><a href="{{url}}app/admin/informes">Deudores</a>
-  <li> <a class="text-center" href="{{url}}app/admin/informes"> <strong> Todas </strong> <i class="fa fa-angle-right"></i> </a></li>
+  <li class="dropdown-item"><router-link to="/averias">Averias</router-link></li>
+  <li class="dropdown-item"><router-link to="/informes">Instalaciones</router-link></li>
+  <li class="dropdown-item"><router-link to="/informes">Deudores</router-link>
+  <li> <router-link class="text-center"  to="/informes"> <strong> Todas </strong> <i class="fa fa-angle-right"></i> </router-link></li>
 </ul>

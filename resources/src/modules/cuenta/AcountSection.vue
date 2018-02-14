@@ -1,4 +1,5 @@
 <template lang="pug">
+  AcountPanel
     .company-details#acount-form
       h3 Detalles de la Cuenta
       form
@@ -50,9 +51,13 @@
 
 <script>
   import swal from 'sweetalert2';
+  import AcountPanel from './components/AcountPanel.vue';
 
   export default {
     name: 'AcountSection',
+    components: {
+      AcountPanel
+    },
     data() {
       return {
         user: {
@@ -111,7 +116,9 @@
           this.$http.post('user/update_password', form)
             .then((res) => {
               self.showMessage(res.data.message);
-              window.location = `${baseURL}app/logout`;
+              if (res.data.message.type === 'success') {
+                window.location = `${baseURL}auth/logout`;
+              }
             });
         } else {
           this.$toasted.error('Las contraseñas no conciden');

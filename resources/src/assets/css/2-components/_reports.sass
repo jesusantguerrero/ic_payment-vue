@@ -12,7 +12,7 @@
   box-shadow: 2px 2px 2px 2px transparentize(#555,.9)
   background: #fff
   border: 1px solid #ddd
-  margin: 10 0
+  margin: 10px 0
 
 .small-data-card
   +makeFlex(100%,row, center, center)
@@ -84,20 +84,18 @@ canvas
 .normal-chart
   height: 230px
 
-.right-panel
-  text-align: center
-  background: #fff
-  position: absolute
-  right: 0
-  color: #555
+.fixed-wrapper
   height: 100%
-  border-left: 1px solid #ddd
-  box-shadow: -1px 2px 2px 2px transparentize(#555,.9)
-  padding: 0 0 0 0
-  overflow: hidden
+  overflow: auto
+
+.bg-primary
+  text-align: center
+  background: $contrast-color
+  color: white
+  flex-direction: column
 
   .amount
-    color: $contrast-color
+    color: white
     font-weight: bolder
     font-size: 25px
 

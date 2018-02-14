@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.row
     .col-md-6
       .tabs-container.contract-form
 

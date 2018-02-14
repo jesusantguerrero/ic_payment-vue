@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .fixed-wrapper
     .searcher-container.main-toolbar#expenses-toolbar
       .input-group.search
         .input-group-addon: i.material-icons search
@@ -21,7 +21,9 @@
       data-pagination="true"
       data-id-field="id_gasto"
       data-page-size="500"
-      data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
+      data-page-list="[100,200,500, 1000, 2000, 5000, 8000]",
+      data-mobile-responsive= "true",
+      data-check-on-init= "true"
       data-show-footer="false")
       thead
         tr

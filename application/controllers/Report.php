@@ -72,8 +72,6 @@
     }
 
 
-
-
     public function general_statistics() {
       $this->load->model('client_model');
       $this->load->model('contract_view_model');
@@ -91,8 +89,12 @@
       $this->response_json($res);
     }
 
-    public function get_debtors() {
-      $res['debtors'] = $this->payment_model->get_debtors();
+    public function get_debtors($mode = null) {
+      if ($mode == 'table') {
+        $res['debtors'] = $this->report_model->get_debtors_view();
+      } else {
+        $res['debtors'] = $this->payment_model->get_debtors();
+      }
       $this->response_json($res);
     }
     #endregion
@@ -110,7 +112,7 @@
             $this->report_model->get_installations(true);
           break;
         case 'deudores':
-            $this->report_model->get_moras_view(true);
+            $this->report_model->get_debtors_view(true);
           break;
         case 'tickets':
             $this->report_model->get_tickets_report();

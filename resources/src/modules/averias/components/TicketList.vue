@@ -15,7 +15,7 @@
           option(value="todos") Todos
     .averia-item-list#averia-list
       h6 {{ searchResults }}
-      TicketListItem(v-for="ticket of tickets", :item="ticket", :key="ticket.id_averia", @update="updateTicketState", @selected="getTicket")
+      TicketListItem(v-for="ticket of tickets", :item="ticket", :key="ticket.id_averia", @update="updateTicketState")
 </template>
 
 <script>
