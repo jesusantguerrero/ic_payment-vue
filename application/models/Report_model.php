@@ -211,7 +211,7 @@ class Report_model extends CI_MODEL{
   public function get_tickets_report($is_print = true){
     $this->db->select('v_averias.* , v_contratos.codigo',false);
     $this->db->where('v_averias.estado','por reparar');
-    $this->db->join('v_contratos','id_cliente','LEFT');
+    $this->db->join('v_contratos','id_contrato','LEFT');
     $this->db->order_by('fecha', 'DESC');
     $result = $this->db->get('v_averias');
      if($result){

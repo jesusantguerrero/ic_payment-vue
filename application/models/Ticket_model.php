@@ -22,13 +22,14 @@ class Ticket_model extends CI_MODEL{
   }
 
   public function add($data){
-    $rows = array(
+    $rows = [
       'id_averia'   => null,
       'id_cliente'  => $data['id_cliente'],
+      'id_contrato' => $data['id_contrato'],
       'descripcion' => $data['descripcion'],
       'fecha'       => null,
       'estado'      => 'por reparar',
-    );
+    ];
     return $this->db->insert('ic_averias',$rows);
   }
 
