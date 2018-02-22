@@ -67,7 +67,7 @@
 
       setClientId(data) {
         this.ticket.id_cliente = data.id;
-        getContracts();
+        this.getContracts();
       },
 
       ticketEmpty() {
