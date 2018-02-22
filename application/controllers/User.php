@@ -61,7 +61,6 @@ class User extends MY_Controller {
 	}
 
 	public function change_state(){
-
 		$id = $this->get_post_data('user_id');
 		if ($id) {
       $user = $this->user_model->get_user($id);
@@ -91,9 +90,6 @@ class User extends MY_Controller {
       $this->response_json($list);
     }
 	}
-
-
-
 
 	public function get_user($id = false){
     if (!$id) {

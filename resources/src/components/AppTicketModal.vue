@@ -15,6 +15,11 @@
                 .form-group
                   label(for="service-description") Descripción
                   textarea(class="form-control", cols="30", rows="5", id="a-description", v-model="ticket.descripcion")
+                .form-group
+                  label(for="service-description") Id Contrato
+                  select(class="form-control", v-model="ticket.id_contrato")
+                    option(v-for="contract of contractList", :key="contract.id_contrato", :value="contract.id_contrato") {{ contract.id_contrato}}
+
         .modal-footer
           button(type="button", class="btn", data-dismiss="modal") Cancelar
           button(type="button", class="btn save", id="btn-save-averia", @click="addTicket") Guardar
@@ -24,6 +29,12 @@
   import utils from './../modules/sharedComponents/utils';
   import SelectClient from './../modules/sharedComponents/SelectClient.vue';
 
+  const ticket = {
+    descripcion: '',
+    id_cliente: '',
+    id_contrato: '',
+  };
+
   export default {
     components: {
       SelectClient
@@ -31,12 +42,10 @@
 
     data() {
       return {
-        ticket: {
-          descripcion: '',
-          id_cliente: '',
-        },
+        ticket: { ...ticket },
         searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
-        emptySelect: false
+        emptySelect: false,
+        contractList: []
       };
     },
 
@@ -58,15 +67,25 @@
 
       setClientId(data) {
         this.ticket.id_cliente = data.id;
+        getContracts();
       },
 
       ticketEmpty() {
-        this.ticket = {
-          descripcion: '',
-          id_cliente: '',
-        };
+        this.ticket = { ...ticket };
         this.emptySelect = !this.emptySelect;
-      }
+        this.contractList = [];
+      },
+
+      getContracts() {
+        this.$http.get(`contract/get_contracts/${this.ticket.id_cliente}/dropdown`)
+          .then((res) => {
+            this.contractList = res.data.contracts;
+            const len = res.data.contracts.length;
+            if (len) {
+              this.ticket.id_contrato = this.contractList[len - 1].id_contrato;
+            }
+          });
+      },
     }
   };
 </script>
