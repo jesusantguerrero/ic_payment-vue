@@ -3,30 +3,27 @@ class EventSeeder extends Seeder {
   private $table = 'ic_eventos';
 
   public function create_table() {
-
+    $types = ['AGREGO', 'ACTUALIZO', 'REGISTRO', 'ELIMINO',''];
     $fields = [
-      'id_evento'   => ['type' => 'int', 'constraint' => '11'],
+      'id_evento'   => ['type' => 'int', 'constraint' => '11', 'unsigned' => true, 'auto_increment' => true],
       'id_usuario'  => ['type' => 'int'],
-      'tipo'        => ['type' => 'int', 'constraint' => '11'],
+      'tipo'        => ['type' => 'enum', 'constraint' => $types],
       'fecha'       => ['type' => 'TIMESTAMP'],
       'descripcion' => ['type' => 'text'],
     ];
 
+    $this->dbforge->drop_table($this->table, true);
     $this->dbforge->add_field($fields);
     $this->dbforge->add_key('id_evento', true);
-    $this->dbforge->create_table($this->table);
-    var_dump('here we are');
+    $this->dbforge->create_table($this->table, true);
   }
 
 	public function run()	{
     $this->create_table();
 
-		$this->db->truncate($this->table);
 		$data = [
-			'id_evento'   => null,
 			'id_usuario'  => 1,
       'tipo'        => 1,
-      'fecha'       => null,
 			'descripcion' => 'una prueba',
     ];
 

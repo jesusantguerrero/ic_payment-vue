@@ -46,7 +46,6 @@ class Caja extends MY_Controller {
 	}
 
 	public function get_ingresos($date = null){
-
     if ($data = $this->get_post_data('data')) {
       $date = ($date ? $date : date('Y-m-d'));
 

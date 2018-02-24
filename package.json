@@ -7,6 +7,21 @@
     "node": ">= 8.9.1",
     "npm": ">= 5.5.1"
   },
+  "scripts": {
+    "start": "npm-run-all --parallel gulp start-webpack",
+    "start-webpack": "webpack --progress --watch",
+    "build": "node resources/build/build.js && gulp sass",
+    "test-server": "cd application/tests && ..\\..\\vendor\\bin\\phpunit && cd ../../",
+    "unit": "cross-env BABEL_ENV=test karma start resources/src/test/unit/karma.conf.js --single-run",
+    "e2e": "testcafe chrome resources/test/e2e/specs",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue resources/src resources/test/unit/specs resources/test/e2e/specs",
+    "get-files": "git checkout heroku && getFrom feature/enviroments src/ && getFrom feature/enviroments application/ && getFrom feature/enviroments webpack/",
+    "build-and-commit": "npm run build && git commit -m 'build of($date)'",
+    "heroku-push": " git push heroku heroku:master && heroku scale web=1 && heroku open",
+    "heroku": "npm run build-and-commint && npm run heroku-push",
+    "gulp": "gulp"
+  },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "avoriaz": "6.3.0",
@@ -99,20 +114,6 @@
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "4.1.1"
-  },
-  "scripts": {
-    "start": "npm-run-all --parallel gulp start-webpack",
-    "start-webpack": "webpack --progress --watch",
-    "build": "node resources/build/build.js && gulp sass",
-    "unit": "cross-env BABEL_ENV=test karma start resources/src/test/unit/karma.conf.js --single-run",
-    "e2e": "testcafe chrome resources/src/test/e2e/specs",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue resources/src resources/test/unit/specs resources/test/e2e/specs",
-    "get-files": "git checkout heroku && getFrom feature/enviroments src/ && getFrom feature/enviroments application/ && getFrom feature/enviroments webpack/",
-    "build-and-commit": "npm run build && git commit -m 'build of($date)'",
-    "heroku-push": " git push heroku heroku:master && heroku scale web=1 && heroku open",
-    "heroku": "npm run build-and-commint && npm run heroku-push",
-    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
