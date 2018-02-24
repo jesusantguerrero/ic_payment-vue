@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="4" assertions="2" failures="0" errors="0" time="0.979789">
+    <testsuite name="App_test" file="C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php" tests="3" assertions="2" failures="0" errors="0" time="0.812697">
+      <testcase name="test_index" class="App_test" file="C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php" line="13" assertions="0" time="0.245051">
+        <system-out>
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: HTTP_HOST
+Filename:    C:\xampp\htdocs\icpayment\application\config\config.php
+Line Number: 27
+
+Backtrace:
+	File: C:\xampp\htdocs\icpayment\application\config\config.php
+	Line: 27
+	Function: _error_handler
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 323
+	Function: require
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\functions.php
+	Line: 57
+	Function: load_class
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestRequest.php
+	Line: 262
+	Function: reset_instance
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestRequest.php
+	Line: 151
+	Function: requestUri
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestCase.php
+	Line: 183
+	Function: request
+
+	File: C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php
+	Line: 15
+	Function: request
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 1062
+	Function: invokeArgs
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 913
+	Function: runTest
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestResult.php
+	Line: 686
+	Function: runBare
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 868
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\TestRunner.php
+	Line: 517
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 186
+	Function: doRun
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 116
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\phpunit
+	Line: 52
+	Function: main
+
+
+NULL
+</system-out>
+      </testcase>
+      <testcase name="test_method_404" class="App_test" file="C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php" line="19" assertions="1" time="0.528532">
+        <system-out>
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: HTTP_HOST
+Filename:    C:\xampp\htdocs\icpayment\application\config\config.php
+Line Number: 27
+
+Backtrace:
+	File: C:\xampp\htdocs\icpayment\application\config\config.php
+	Line: 27
+	Function: _error_handler
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 323
+	Function: require
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\functions.php
+	Line: 57
+	Function: load_class
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestRequest.php
+	Line: 262
+	Function: reset_instance
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestRequest.php
+	Line: 151
+	Function: requestUri
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestCase.php
+	Line: 183
+	Function: request
+
+	File: C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php
+	Line: 21
+	Function: request
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 1062
+	Function: invokeArgs
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 913
+	Function: runTest
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestResult.php
+	Line: 686
+	Function: runBare
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 868
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\TestRunner.php
+	Line: 517
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 186
+	Function: doRun
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 116
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\phpunit
+	Line: 52
+	Function: main
+
+
+</system-out>
+      </testcase>
+      <testcase name="test_APPPATH" class="App_test" file="C:\xampp\htdocs\icpayment\application\tests\controllers\App_test.php" line="25" assertions="1" time="0.039114"/>
+    </testsuite>
+    <testsuite name="Event_model_test" file="C:\xampp\htdocs\icpayment\application\tests\models\Event_model_test.php" tests="1" assertions="0" failures="0" errors="0" time="0.167092">
+      <testcase name="test_get_events" class="Event_model_test" file="C:\xampp\htdocs\icpayment\application\tests\models\Event_model_test.php" line="16" assertions="0" time="0.167092">
+        <system-out>
+A PHP Error was encountered
+
+Severity:    Notice
+Message:     Undefined index: HTTP_HOST
+Filename:    C:\xampp\htdocs\icpayment\application\config\config.php
+Line Number: 27
+
+Backtrace:
+	File: C:\xampp\htdocs\icpayment\application\config\config.php
+	Line: 27
+	Function: _error_handler
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 323
+	Function: require
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\replacing\core\Common.php
+	Line: 111
+	Function: __construct
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\functions.php
+	Line: 57
+	Function: load_class
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestCase.php
+	Line: 79
+	Function: reset_instance
+
+	File: C:\xampp\htdocs\icpayment\application\tests\_ci_phpunit_test\CIPHPUnitTestCase.php
+	Line: 106
+	Function: resetInstance
+
+	File: C:\xampp\htdocs\icpayment\application\tests\models\Event_model_test.php
+	Line: 13
+	Function: newModel
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 909
+	Function: setUp
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestResult.php
+	Line: 686
+	Function: runBare
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestCase.php
+	Line: 868
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\Framework\TestSuite.php
+	Line: 733
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\TestRunner.php
+	Line: 517
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 186
+	Function: doRun
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\src\TextUI\Command.php
+	Line: 116
+	Function: run
+
+	File: C:\xampp\htdocs\icpayment\vendor\phpunit\phpunit\phpunit
+	Line: 52
+	Function: main
+
+
+array(0) {
+}
+</system-out>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>

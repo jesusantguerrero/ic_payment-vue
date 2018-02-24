@@ -8,17 +8,17 @@
  * @link       https://github.com/kenjis/ci-phpunit-test
  */
 
-class Welcome_test extends TestCase
+class App_test extends TestCase
 {
 	public function test_index()
 	{
-		$output = $this->request('GET', 'welcome/index');
-		$this->assertContains('<title>Welcome to CodeIgniter</title>', $output);
+		$output = $this->request('GET', 'app/index');
+		var_dump($output);
 	}
 
 	public function test_method_404()
 	{
-		$this->request('GET', 'welcome/method_not_exist');
+		$this->request('GET', 'App/method_not_exist');
 		$this->assertResponseCode(404);
 	}
 

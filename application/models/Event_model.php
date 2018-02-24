@@ -8,7 +8,7 @@
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Extra_model extends CI_MODEL{
+class Event_model extends CI_MODEL{
 
  public function __construct() {
    parent::__construct();
@@ -19,6 +19,8 @@ class Extra_model extends CI_MODEL{
  }
 
  public function get($event_id = null, $first_date = '2001-01-01', $second_date = null) {
-
+  if ($result = $this->db->get('ic_eventos')) {
+    return $result->result_array();
+  }
  }
 }
