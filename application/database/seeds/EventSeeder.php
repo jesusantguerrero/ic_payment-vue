@@ -10,6 +10,7 @@ class EventSeeder extends Seeder {
       'tipo'        => ['type' => 'enum', 'constraint' => $types],
       'fecha'       => ['type' => 'TIMESTAMP'],
       'descripcion' => ['type' => 'text'],
+      'enlace'      => ['type' => 'text']
     ];
 
     $this->dbforge->drop_table($this->table, true);

@@ -33,12 +33,8 @@ class Event_model extends CI_MODEL{
   }
 
   public function free_space($months) {
-      $this->db->where("period_diff(DATE_FORMAT(fecha, %Y%m),DATE_FORMAT(NOW(), %Y%m) > $months )", null, false);
-      if($this->db->delete('ic_eventos')) {
-        return $this->db->last_query();
-      } else {
-        return $this->db->last_query();
-      }
+    $this->db->where("period_diff(DATE_FORMAT(fecha, %Y%m),DATE_FORMAT(NOW(), %Y%m) > $months )", null, false);
+    return $this->db->delete('ic_eventos');
   }
 
 }
