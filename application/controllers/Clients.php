@@ -14,8 +14,12 @@
         if (!$this->client_model->has_dni($data['cedula'])) {
           $data['fecha_registro'] = date('Y-m-d');
           $data['estado'] = 'no activo';
+
           if ($this->client_model->add($data)) {
             $this->set_message('Cliente agregado');
+            // event
+            $this->event->trigger('client', 1, $data);
+
           } else {
             $this->set_message('El cliente no pudo ser agregado, revise los datos e intente', 'error');
           }
@@ -53,6 +57,8 @@
       if ($data) {
         if ($this->client_model->update_client($data)){
           $this->set_message('Cliente actualizado');
+
+          $this->event->trigger('client', 2, $data);
         } else {
           $this->set_message('Error al actualizar cliente', 'error');
         }
@@ -65,6 +71,10 @@
       if ($data) {
         if ($this->client_model->update_client($data['value'], $data['row'], $data['id'])){
           $this->set_message('Cliente actualizado');
+          
+          $client = $this->client_model->get_client($data['id']);
+          $this->event->trigger('client', 2, (array) $client);
+
         } else {
           $this->set_message('Error al actualizar cliente', 'error');
         }
@@ -75,8 +85,11 @@
     public function delete(){
       $data = $this->get_post_data('data');
       if ($data && isset($data['id'])) {
+        $client = $this->client_model->get_client($data['id']);
+
 				if ($this->client_model->delete_client($data['id'])) {
           $this->set_message('Cliente Eliminado correctamente');
+          $this->event->trigger('client', 4, (array) $client);
         } else {
           $this->set_message('Error al eliminar cliente','error');
         }

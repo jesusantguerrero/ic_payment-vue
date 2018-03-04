@@ -3,25 +3,12 @@ var path = require('path')
 var rootDir = path.resolve(__dirname, '../../')
 
 module.exports = {
-  local: {
+  build: {
     env: require('./dev.env'),
     index: `${rootDir}/application/views/layouts/index.php`,
     assetsRoot:`${rootDir}/`,
     assetsSubDirectory: 'assets',
-    assetsPublicPath: '/icpayment/',
-
-    productionSourceMap: true,
-    productionGzip: false,
-    productionGzipExtensions: ['js', 'css'],
-    bundleAnalyzerReport: false
-  },
-
-  build: {
-    env: require('./prod.env'),
-    index: `${rootDir}/application/views/layouts/index.php`,
-    assetsRoot:`${rootDir}/`,
-    assetsSubDirectory: 'assets',
-    assetsPublicPath: '/icpayment/',
+    assetsPublicPath: '/',
 
     productionSourceMap: true,
     productionGzip: false,
