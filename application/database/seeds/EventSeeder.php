@@ -3,7 +3,7 @@ class EventSeeder extends Seeder {
   private $table = 'ic_eventos';
 
   public function create_table() {
-    $types = ['AGREGO', 'ACTUALIZO', 'REGISTRO', 'ELIMINO'];
+    $types = ['AGREGO', 'ACTUALIZO', 'REGISTRO', 'ELIMINO', 'CANCELO', 'SUSPENDIO','EXTENDIO'];
     $fields = [
       'id_evento'   => ['type' => 'int', 'constraint' => '11', 'unsigned' => true, 'auto_increment' => true],
       'id_usuario'  => ['type' => 'int'],

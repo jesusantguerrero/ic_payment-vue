@@ -6,13 +6,13 @@
     private $ci;
 
     public function __construct($event_model) {
-      $this->user = $_SESSION['user_data'];
+      $this->user = isset($_SESSION['user_data']) ? $_SESSION['user_data']: [];
       $this->event_model = $event_model['event_model'];
       $this->context = $event_model['context'];
     }
 
     public function register($user_id, $message_type, $description, $link) {
-      
+
       $event = [
         'id_usuario'    => $user_id ? $user_id : $this->user['user_id'],
         'tipo'          => $message_type,
@@ -33,12 +33,15 @@
     public function client_event($type, $params) {
       $link = ['cliente', "app/admin/detalles/{$params['id_cliente']}/"];
       $name = strtoupper($params['nombres']." ".$params['apellidos']);
-      
+
       $this->register(null, $type, "cliente $name {$params['event_message']}", $link);
     }
 
-    public function client_link($params) {
-      return 'link';
+    public function contract_event($type, $params) {
+      $link = ['contrato', "app/admin/detalles/{$params['id_cliente']}/contract"];
+      $name = strtoupper($params['cliente']);
+
+      $this->register(null, $type, "contrato codigo {$params['id_contrato']} del cliente $name {$params['event_message']}", $link);
     }
 
     public function receipt_link($params) { // ['payment_id' => $id]
