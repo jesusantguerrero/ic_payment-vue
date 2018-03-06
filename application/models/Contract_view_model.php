@@ -30,9 +30,9 @@ class Contract_view_model extends CI_MODEL{
   public function get_contract_view_of_service($service_id){
     $this->db->where('id_servicio',$service_id);
     $this->db->where('estado','activo');
-    if($result = $this->db->get('v_contratos')){
+    if ($result = $this->db->get('v_contratos')){
       return $result->result_array();
-    }else{
+    } else {
       return false;
     }
   }

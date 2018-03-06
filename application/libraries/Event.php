@@ -42,6 +42,11 @@
       $this->register(null, $type, "contrato codigo {$params['id_contrato']} del cliente $name {$params['event_message']}", $link);
     }
 
+    public function service_event($type, $params) {
+      $link = ['servicio', "app/admin/servicio"];
+      $this->register(null, $type, "servicio: {$params['nombre']} {$params['event_message']}", $link);
+    }
+
     public function ticket_event($type, $params) {
       $link = ['averia', "app/admin/averias"];
       $name = $this->get_client($params);
@@ -51,11 +56,6 @@
     public function receipt_link($params) { // ['payment_id' => $id]
 
     }
-
-    public function contract_link($contract_id, $type) { // ['contract_id => $id, 'type' => $type]
-
-    }
-
 
     public function free_space() {
 

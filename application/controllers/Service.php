@@ -16,6 +16,7 @@
             $this->set_message($result['message'], 'info');
           } else {
             $this->set_message('Servicio agregado');
+            $this->event->trigger('service', 1, $data);
           }
         } else {
           $this->set_message('Error al agregar servicio', 'error');
@@ -51,7 +52,8 @@
 					$this->db->trans_rollback();
 					$this->set_message("No pudo completarse la accion correctamente", 'error');
         } else {
-					$this->set_message($result);
+          $this->set_message($result);
+          $this->event->trigger('service', 2, $data, " precio {$data['mensualidad']}");
         }
         $this->response_json();
       }
@@ -60,8 +62,10 @@
     public function delete(){
       $data = $this->get_post_data('data');
       if ($data && isset($data['id'])) {
+        $service = $this->service_model->get_service($data['id']);
         if ($this->service_model->delete_service($data['id'])) {
           $this->set_message(' Servicio eliminado');
+          $this->event->trigger('service', 4, $service);
         } else {
           $this->set_message('El servicio no se ha podido eliminar', 'error');
         }
