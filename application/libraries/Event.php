@@ -32,16 +32,20 @@
 
     public function client_event($type, $params) {
       $link = ['cliente', "app/admin/detalles/{$params['id_cliente']}/"];
-      $name = strtoupper($params['nombres']." ".$params['apellidos']);
-
+      $name = $this->get_client($params);
       $this->register(null, $type, "cliente $name {$params['event_message']}", $link);
     }
 
     public function contract_event($type, $params) {
       $link = ['contrato', "app/admin/detalles/{$params['id_cliente']}/contract"];
-      $name = strtoupper($params['cliente']);
-
+      $name = $this->get_client($params);
       $this->register(null, $type, "contrato codigo {$params['id_contrato']} del cliente $name {$params['event_message']}", $link);
+    }
+
+    public function ticket_event($type, $params) {
+      $link = ['averia', "app/admin/averias"];
+      $name = $this->get_client($params);
+      $this->register(null, $type, "averia - contrato #{$params['id_contrato']} - cliente $name {$params['event_message']}", $link);
     }
 
     public function receipt_link($params) { // ['payment_id' => $id]
@@ -52,12 +56,13 @@
 
     }
 
-    public function ticket_link($client_id) { // ['client_id' => $id]
-
-    }
 
     public function free_space() {
 
+    }
+
+    public function get_client($params) {
+      return (isset($params['cliente'])) ? strtoupper($params['cliente']) : strtoupper($params['nombres']." ".$params['apellidos']);
     }
 
   }
