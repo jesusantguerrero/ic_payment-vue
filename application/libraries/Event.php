@@ -58,6 +58,19 @@
       $this->register(null, $type, "{$params['event_message']}", $link);
     }
 
+    public function expense_event($type, $params) {
+      $link   = ['gastos', "app/admin/informes"];
+      $gasto  = $params['descripcion']." \$RD".CurrencyFormat($params['monto']);
+      $this->register(null, $type, "gasto: $gasto {$params['event_message']}", $link);
+    }
+
+    public function closing_event($type, $params) {
+      $link   = ['gastos', "app/admin/informes"];
+      $gasto  = "total ingresos: \$RD".CurrencyFormat($params['total_ingresos'])." | Gastos \$RD".CurrencyFormat($params['total_gastos']);
+      $gasto  .= "| Banco: \$RD".CurrencyFormat($params['banco']);
+      $this->register(null, $type, "cierre: $gasto {$params['event_message']}", $link);
+    }
+
 
     public function free_space() {
 

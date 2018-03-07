@@ -101,8 +101,6 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
-
-
   public function get_last_cierre(){
     $this->db->select("pagos_facturas as pago_de_facturas,
     pagos_extras as pagos_de_extras,
@@ -180,74 +178,80 @@ class Caja_mayor extends CI_MODEL{
     }
   }
 
+  //  expenses
   public function add_expense($data){
     $data['id_empleado'] = $this->id_empleado;
     return $this->db->insert('ic_gastos', $data);
   }
 
-  public function get_expenses($fecha, $mode="normal"){
+  public function get_expenses($fecha, $mode="normal") {
     $this->db->where('fecha', $fecha);
     $result = $this->db->get('ic_gastos');
-    if($mode == "normal"){
+    if ($mode == "normal") {
       return json_encode($result->result_array());
-    }else if($mode == "full"){
+    } else if ($mode == "full"){
       $res['gastos']       = $result->result_array();
       $res['total_gastos'] = $this->get_total_expense_at($fecha);
       return $res;
-    }else{
+    } else {
       return $result->result_array();
     }
   }
 
-    public function show_expenses($text, $first_date = '2001-01-01', $second_date = null) {
-      $second_date = ($second_date) ? $second_date : date('Y-m-d');
-      $where = "fecha between '$first_date' and '$second_date'";
-
-      $this->db->select("ic_gastos.*, concat(ic_users.name, ' ', ic_users.lastname) as autor",false);
-      $this->db->order_by("fecha DESC, id_gasto DESC");
-      $this->db->where($where,'',false);
-      $this->db->like('descripcion',$text);
-      $this->db->or_like("concat(ic_users.name, ' ', ic_users.lastname)",$text);
-      $this->db->join('ic_users','ic_gastos.id_empleado = ic_users.user_id','left');
-
-      if ($result = $this->db->get('ic_gastos')) {
-        $result = $result->result_array();
-        $_SESSION['expenses_last_call'] = $result;
-
-        $acum = $this->db->where($where,'',false)
-                ->like('descripcion',$text)
-                ->or_like("concat(ic_users.name, ' ', ic_users.lastname)",$text)
-                ->select_sum('monto','total')
-                ->join('ic_users','ic_gastos.id_empleado = ic_users.user_id','left')
-                ->get('ic_gastos',1);
-        $acum = $acum->row_array()['total'];
-        $_SESSION['expenses_last_total'] = $acum;
-
-        $fields = [
-          table_field('id_gasto'),
-          table_field('fecha','','date'),
-          table_field('descripcion'),
-          table_field('monto','','currency'),
-          table_field('autor'),
-        ];
-
-        $result = make_simple_table($result,0,$fields);
-        return ['content' => $result, 'acum' => $acum];
-      }
+  public function get_expense($expense_id) {
+    $this->db->where('id_gasto', $expense_id);
+    if ($result = $this->db->get('ic_gastos', 1)) {
+      return $result->row_array();
     }
+  }
 
-    public function expenses_report() {
-      if($_SESSION['expenses_last_call']){
-        $header = ['No.','Fecha','Descripcion', 'Monto','Autor'];
-        $fields = ['fecha', 'descripcion', 'monto', 'autor'];
-        $result = $_SESSION['expenses_last_call'];
-        $acum   = $_SESSION['expenses_last_total'];
-        $extra  = "<div class='ganancia-total gasto-total'>TOTAL: RD$ ".CurrencyFormat($acum)."<div>";
-        echo make_general_report($result,"Reporte de Gastos",$this,$fields, $header, $extra);
-      }
+  public function show_expenses($text, $first_date = '2001-01-01', $second_date = null) {
+    $second_date = ($second_date) ? $second_date : date('Y-m-d');
+    $where = "fecha between '$first_date' and '$second_date'";
+
+    $this->db->select("ic_gastos.*, concat(ic_users.name, ' ', ic_users.lastname) as autor",false);
+    $this->db->order_by("fecha DESC, id_gasto DESC");
+    $this->db->where($where,'',false);
+    $this->db->like('descripcion',$text);
+    $this->db->or_like("concat(ic_users.name, ' ', ic_users.lastname)",$text);
+    $this->db->join('ic_users','ic_gastos.id_empleado = ic_users.user_id','left');
+
+    if ($result = $this->db->get('ic_gastos')) {
+      $result = $result->result_array();
+      $_SESSION['expenses_last_call'] = $result;
+
+      $acum = $this->db->where($where,'',false)
+              ->like('descripcion',$text)
+              ->or_like("concat(ic_users.name, ' ', ic_users.lastname)",$text)
+              ->select_sum('monto','total')
+              ->join('ic_users','ic_gastos.id_empleado = ic_users.user_id','left')
+              ->get('ic_gastos',1);
+      $acum = $acum->row_array()['total'];
+      $_SESSION['expenses_last_total'] = $acum;
+
+      $fields = [
+        table_field('id_gasto'),
+        table_field('fecha','','date'),
+        table_field('descripcion'),
+        table_field('monto','','currency'),
+        table_field('autor'),
+      ];
+
+      $result = make_simple_table($result,0,$fields);
+      return ['content' => $result, 'acum' => $acum];
     }
+  }
 
-  //
+  public function expenses_report() {
+    if($_SESSION['expenses_last_call']){
+      $header = ['No.','Fecha','Descripcion', 'Monto','Autor'];
+      $fields = ['fecha', 'descripcion', 'monto', 'autor'];
+      $result = $_SESSION['expenses_last_call'];
+      $acum   = $_SESSION['expenses_last_total'];
+      $extra  = "<div class='ganancia-total gasto-total'>TOTAL: RD$ ".CurrencyFormat($acum)."<div>";
+      echo make_general_report($result,"Reporte de Gastos",$this,$fields, $header, $extra);
+    }
+  }
 
   public function show_last_expense($fecha){
     $this->db->where('fecha',$fecha);
@@ -272,9 +276,10 @@ class Caja_mayor extends CI_MODEL{
   }
 
   public function delete_expense($data){
-    return $this->db->delete('ic_gastos',array('id_gasto' => $data['id']));
+    return $this->db->delete('ic_gastos',['id_gasto' => $data['id']]);
   }
 
+  // closing report related
   public function get_ingresos($fecha, $field){
     $tabla = 'v_recibos';
     $where = array('fecha'=> $fecha);
