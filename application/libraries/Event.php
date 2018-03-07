@@ -53,9 +53,11 @@
       $this->register(null, $type, "averia - contrato #{$params['id_contrato']} - cliente $name {$params['event_message']}", $link);
     }
 
-    public function receipt_link($params) { // ['payment_id' => $id]
-
+    public function petty_cash_event($type, $params) {
+      $link = ['caja chica', "app/admin/"];
+      $this->register(null, $type, "{$params['event_message']}", $link);
     }
+
 
     public function free_space() {
 
