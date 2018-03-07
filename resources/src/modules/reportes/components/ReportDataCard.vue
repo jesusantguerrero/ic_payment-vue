@@ -4,7 +4,7 @@
     ReportDataCardItem(:data="activeContracts", title="Contratos", icon="description", :detail="{ title: 'Reporte Contratos', link: '#'}")
     ReportDataCardItem(:data="activeClients", title="Clientes Activos", icon="supervisor_account")
     ReportDataCardItem(:data="debtors", title="Clientes Mora", icon="schedule")
-    ReportDataCardItem(:data="suspended", title="Clientes Suspendidos", icon="report_problem")
+    ReportDataCardItem(:data="suspended", title="Suspendidos", icon="report_problem")
 
 </template>
 
