@@ -1,13 +1,13 @@
 <template lang="pug">
   .nav-container.mobile(:class="{expanded: menuExpanded}")
     nav.main-nav.animated.baunceInLeft
-      li: router-link(to="/", @click="goTo()").nav-button Lobby
-      li: router-link(to="/clientes", @click="goTo()").nav-button Clientes
-      li: router-link(to="/servicios", @click="goTo()").nav-button Servicios
-      li: router-link(to="/contratos", @click="goTo()").nav-button Contratos
-      li: router-link(to="/extras", @click="goTo()").nav-button Extras
-      li: router-link(to="/secciones", @click="goTo()").nav-button Secciones
-      li: router-link(to="/reportes", @click="goTo()").nav-button Reportes
+      li: router-link(to="/", @click.native="changeMenu").nav-button Lobby
+      li: router-link(to="/clientes", @click.native="changeMenu").nav-button Clientes
+      li: router-link(to="/servicios", @click.native="changeMenu").nav-button Servicios
+      li: router-link(to="/contratos", @click.native="changeMenu").nav-button Contratos
+      li: router-link(to="/extras", @click.native="changeMenu").nav-button Extras
+      li: router-link(to="/secciones", @click.native="changeMenu").nav-button Secciones
+      li: router-link(to="/reportes", @click.native="changeMenu").nav-button Reportes
 </template>
 
 <script>
@@ -23,6 +23,10 @@
       const self = this;
       window.appBus.$on('toggle-menu', () => {
         self.changeMenu();
+      });
+
+      window.appBus.$on('hide-menu', () => {
+        self.hideMenu();
       });
     },
 
@@ -49,11 +53,11 @@
       },
 
       showMenu() {
-        this.animateCss('.nav-container', 'bounceInLeft');
+        this.animateCss('.nav-container', 'bounceInLeft', 'clear');
       },
 
       hideMenu() {
-        this.animateCss('.nav-container', 'bounceOutLeft');
+        this.animateCss('.nav-container', 'bounceOutLeft', 'menu');
       },
 
       animateCss(element, transitionName, icon) {
@@ -66,11 +70,6 @@
             $this.removeClass(theClass);
             if (icon) $this.find('i').text(icon);
           });
-      },
-
-      goTo(endpoint) {
-        this.changeMenu();
-        window.location.href = `${baseURL}app/admin/${endpoint}`;
       }
     }
   };

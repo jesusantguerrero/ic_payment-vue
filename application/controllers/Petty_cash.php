@@ -16,6 +16,7 @@
           $result	= $this->petty_cash_model->add_transaction($data);
           if ($result) {
             $this->set_message('Monto registrado');
+            $this->event->trigger('petty_cash', 3, [], "entrada en caja chica de \$RD". CurrencyFormat($data['entrada']));
           } else {
             $this->set_message('Error al registrar la transaccion', 'error');
           }
@@ -34,6 +35,7 @@
           $result	= $this->petty_cash_model->add_transaction($data);
           if ($result) {
             $this->set_message('Monto registrado');
+            $this->event->trigger('petty_cash', 3, [], "retiro en caja chica de \$RD ". CurrencyFormat($data['entrada']));
           } else {
             $this->set_message('Error al registrar la transaccion', 'error');
           }
@@ -74,6 +76,7 @@
         } else {
           if ( $this->petty_cash_model->delete_transaction($data['id'])) {
             $this->set_message('Monto eliminado');
+            $this->event->trigger('petty_cash', 4, [], "transaccion en caja chica");
           } else {
             $this->set_message('Error al eliminar la transaccion'.$this->db->last_query(),'error');
           }

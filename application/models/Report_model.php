@@ -199,10 +199,10 @@ class Report_model extends CI_MODEL{
   public function count_moras_view(){
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato');
-    $this->db->where_not_in('estado_cliente','suspendido');
-    $result = $this->db->count_all_results('v_morosos');
-    if($result){
-     return $result;
+    $this->db->where_not_in('estado_cliente', 'suspendido');
+   
+    if ($result = $this->db->get('v_morosos')){
+     return count($result->result_array());
     }else{
       return 0;
     }
@@ -213,24 +213,23 @@ class Report_model extends CI_MODEL{
     $this->db->where('v_averias.estado','por reparar');
     $this->db->join('v_contratos','id_contrato','LEFT');
     $this->db->order_by('fecha', 'DESC');
-    $result = $this->db->get('v_averias');
-     if($result){
+    
+    if ($result = $this->db->get('v_averias')){
       $result = $result->result_array();
       echo make_averias_report($result," Reporte De Averias",$this,$is_print);
-    }else{
+    } else {
       //echo var_dump($this->db->last_query());
     }
   }
 
   public function get_sections_report($section_id){
     $this->db->where('id_seccion',$section_id);
-    $result = $this->db->get('v_ips');
-     if($result){
+     if ($result = $this->db->get('v_ips')) {
       $result = $result->result_array();
       $header = ['Numero','Sector','Codigo', 'Direccion IP', 'Estado'];
       $fields = ['seccion','codigo', 'ip_final', 'estado'];
       echo make_general_report($result," Reporte De IP's",$this,$fields, $header);
-    }else{
+    } else {
       //echo var_dump($this->db->last_query());
     }
   }
@@ -238,8 +237,7 @@ class Report_model extends CI_MODEL{
   # Moras
 
   public function get_history($is_print = false){
-    $result = $this->db->get('v_historial_moras');
-    if($result){
+    if ($result = $this->db->get('v_historial_moras')){
       $result = $result->result_array();
       echo make_moras_history_table($result," Historico de Moras",$this,$is_print);
     }
@@ -247,16 +245,16 @@ class Report_model extends CI_MODEL{
 
   public function get_client_report($status){
     $db = $this->db;
-
     $db->select('cli.*, co.codigo',false);
     $db->from('ic_clientes cli');
 
     if ($status == "nada") {
       $status = "";
       $db->like('cli.estado',$status);
-    }else{
+    } else {
       $db->where('cli.estado',$status);
     }
+
     $db->join('ic_contratos co','id_cliente','left');
 
     if ($result = $db->get()) {

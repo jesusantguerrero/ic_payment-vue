@@ -15,6 +15,7 @@ class Caja extends MY_Controller {
       $data['fecha'] = date('Y-m-d');
       if ($this->caja_mayor->add_expense($data)) {
         $this->set_message('Gasto agregado');
+        $this->event->trigger('expense', 1, $data);
       } else {
         $this->set_message('Error al agregar gasto', 'error');
       }
@@ -34,10 +35,12 @@ class Caja extends MY_Controller {
     $this->response_json();
 	}
 
-	public function delete_expense(){
+	public function delete_expense() {
 		if ($data = $this->get_post_data('data')) {
+      $expense = $this->caja_mayor->get_expense($data['id']);
       if ($this->caja_mayor->delete_expense($data)) {
         $this->set_message('Gasto eliminado');
+        $this->event->trigger('expense', 4, $expense);
       } else {
         $this->set_message('No se puso eliminar este gasto', 'error');
       }
@@ -46,7 +49,6 @@ class Caja extends MY_Controller {
 	}
 
 	public function get_ingresos($date = null){
-
     if ($data = $this->get_post_data('data')) {
       $date = ($date ? $date : date('Y-m-d'));
 
@@ -60,10 +62,11 @@ class Caja extends MY_Controller {
 
 	}
 
-	public function add_cierre(){
+	public function add_cierre() {
 	  if($data = $this->get_post_data('data')) {
       if ($this->caja_mayor->add_cierre($data)) {
         $this->set_message('Cierre realizado exitosamente');
+        $this->event->trigger('closing', 3 , $data);
       } else {
         $this->set_message('No se pudo realizar el cierre: probablemente ya hay cierre en esa fecha', 'error');
       }

@@ -15,7 +15,7 @@ test('bad Login', async t => {
 test('good Login', async t => {
   await t
     .typeText('#user-input', 'demo')
-    .typeText('#password-input', 'demo')
+    .typeText('#password-input', 'hola')
     .click('#btn-send-credentials');
 });
 

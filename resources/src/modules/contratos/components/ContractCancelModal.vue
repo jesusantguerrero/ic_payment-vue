@@ -42,7 +42,7 @@
     },
     computed: {
       cancelationLink() {
-        return `${baseURL}process/getcancelcontract/${conract.id}`;
+        return `${baseURL}process/getcancelcontract/${contract.id}`;
       }
     },
 

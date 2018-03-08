@@ -17,7 +17,7 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     chunkFilename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'development' ? config.local.assetsPublicPath : config.build.assetsPublicPath
+    publicPath: config.build.assetsPublicPath
   },
 
   resolve: {

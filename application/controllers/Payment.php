@@ -32,24 +32,33 @@ class Payment extends MY_Controller {
         $contract_id = $data['id_contrato'];
         if ($this->contract_model->refresh_contract($contract_id, $data)) {
           $this->set_message('Pago realizado');
+          // event
+          $receipt = $this->payment_model->get_payment($data['id'], true);
+          $this->event->trigger('payment', 3, $receipt, "pago");
         } else {
           $this->set_message('Error al realizar pago', 'error');
         }
       }else{
         $this->set_message('Este pago ya ha sido realizado');
       }
-      $this->response_json();
+    } else {
+      $this->set_message('el dia ya ha sido cerrado', 'info');
     }
+    $this->response_json();
   }
 
   public function abono() {
     $data = $this->get_post_data('data');
     if (!$this->is_day_closed() && $data) {
-      if ($result = set_abono($data, $this)) {
-        if ($result === 'bigger') {
+      if ($id_abono = set_abono($data, $this)) {
+        if ($id_abono === 'bigger') {
           $this->set_message('El saldo que intenta abonar es mayor a la cuota', 'info');
         } else {
           $this->set_message('Abono Acreditado');
+
+          // event
+          $receipt = $this->payment_model->get_payment($id_abono, true);
+          $this->event->trigger('payment', 3, $receipt, "abono");
         }
       } else {
         $this->set_message('No se pudo completar el abono');
@@ -69,6 +78,9 @@ class Payment extends MY_Controller {
           $this->db->trans_rollback();
           echo MESSAGE_ERROR." error en la operacion";
         }else{
+          // event
+          $receipt = $this->payment_model->get_payment($data['id_pago'], true);
+          $this->event->trigger('payment', 3, $receipt, "pago con descuento");
           echo " Proceso Completo";
         }
       }
@@ -78,19 +90,19 @@ class Payment extends MY_Controller {
   public function delete_payment(){
     if(!$this->is_day_closed() && $data = $this->get_post_data('data')){
 
-      if($this->payment_model->is_paid($data['id_pago'])){
-
+      if($this->payment_model->is_paid($data['id_pago'])) {
+        $receipt = $this->payment_model->get_payment($data['id_pago'], true);
         $this->db->trans_start();
           $result = cancel_payment($data['id_pago'], $this);
         $this->db->trans_complete();
 
-        if($this->db->trans_status() === false){
+        if($this->db->trans_status() === false) {
           $this->db->trans_rollback();
           $this->set_message("No Pudo deshacerse el Pago");
         } else {
           $this->set_message("Pago deshecho");
+          $this->event->trigger('payment', 4, $receipt, "pago");
         }
-
       }else{
         $this->set_message("Este pago no ha sido realizado para deshacerse");
       }

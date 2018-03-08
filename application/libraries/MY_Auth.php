@@ -84,7 +84,6 @@
       return false;
     }
 
-
     public function current_user_type($type){
       if($this->session['user_data']['type'] == $type){
         return true;

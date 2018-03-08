@@ -9,7 +9,7 @@
 
         .col-md-6
           .form-group
-            label(for="client-street")
+            label(for="client-street") Cantidad
             .input-group.normal-height
               input.form-control(type="number", v-model="gasto.monto" tabindex="6")
               span.input-group-btn
@@ -110,7 +110,7 @@
 
         this.$http.post('caja/delete_expense', this.getDataForm(form))
           .then((res) => {
-            this.showMessage(res.data.menssage);
+            this.showMessage(res.data.message);
             this.getExpenses();
           })
           .catch((err) => {
