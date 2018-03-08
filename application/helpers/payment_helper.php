@@ -75,9 +75,10 @@ if (! function_exists('set_abono')){
         'deuda'          => $payment['total'] - $data['cuota'],
         'abono_a'        => $payment['id_pago']
       ];
+
       $context->db->trans_start();
 
-      $context->payment_model->add($data_abono);
+     $id_abono = $context->payment_model->add($data_abono);
       $new_cuota = $payment['cuota'] - $data['cuota'];
 
       $updated_payment = [
@@ -85,12 +86,12 @@ if (! function_exists('set_abono')){
         'total'  => $payment['mora'] + $payment['monto_extra'] + $new_cuota
       ];
 
-      $context->payment_model->update($updated_payment,$payment['id_pago']);
+      $context->payment_model->update($updated_payment, $payment['id_pago']);
 
-      $data_contract = array('ultimo_pago'   => $date);
+      $data_contract = ['ultimo_pago'=> $date];
       $contract_debt = $context->contract_model->get_debt_of($contract['id_contrato']);
-      $data_contract = array_merge($data_contract,$contract_debt);
-      $data_contract['estado'] = $context->contract_model->get_status_for($contract,$contract_debt);
+      $data_contract = array_merge($data_contract, $contract_debt);
+      $data_contract['estado'] = $context->contract_model->get_status_for($contract, $contract_debt);
 
       $context->contract_model->update($data_contract,$contract['id_contrato']);
       $context->db->trans_complete();
@@ -99,7 +100,7 @@ if (! function_exists('set_abono')){
         $context->db->trans_rollback();
         return false;
       } else {
-        return true;
+        return $id_abono;
       }
     }else{
       return 'bigger';

@@ -42,6 +42,21 @@
       $this->register(null, $type, "contrato codigo {$params['id_contrato']} del cliente $name {$params['event_message']}", $link);
     }
 
+    public function payment_event($type, $params) {
+      $link = ['recibo', "app/payment/get_receipt/{$params['id_pago']}"];
+      $name = $this->get_client($params);
+      $info = "Total pago: \$RD". CurrencyFormat($params['total']);
+      if (str_contains('descuento', $params['event_message'])) {
+        $info .= "Descuento: \$RD". CurrencyFormat($params['descuento']);
+        $info .=  "Razon Descuento: {$params['razon_descuento']}";
+      }
+
+      if ($params['abono_a']) {
+        $params['event_message'] = 'abono';
+      }
+      $this->register(null, $type, "{$params['event_message']} del cliente $name | $info ", $link);
+    }
+
     public function service_event($type, $params) {
       $link = ['servicio', "app/admin/servicio"];
       $this->register(null, $type, "servicio: {$params['nombre']} {$params['event_message']}", $link);

@@ -64,7 +64,11 @@ class App extends MY_Controller {
 
 		$this->load->view('layouts/header_impresos',$data);
 		$this->load->view("impresos/$page",$info);
-	}
+  }
+
+  public function phpinfo() {
+    phpinfo();
+  }
 
   private function get_global_data($page, $params) {
     $data                  = $this->define_data($page, ['app'], ['app']);
