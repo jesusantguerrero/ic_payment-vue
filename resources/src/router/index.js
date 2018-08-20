@@ -2,24 +2,24 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import acountService from './../modules/cuenta/service/AcountService';
 
-const AcountSection = () => import(/* webpackChunkName: "cuenta" */ './../modules/cuenta/AcountSection');
-const AdminSection = () => import(/* webpackChunkName: "administrador" */'./../modules/administrador/adminSection.vue');
-const CashDeskSection = () => import(/* webpackChunkName: "cierre */ './../modules/cierre/CashDeskSection');
-const ContractSection = () => import(/* webpackChunkName: "contratos" */ './../modules/contratos/ContractSection');
-const ClientSection = () => import(/* webpackChunkName: "cliente" */ './../modules/clientes/ClientSection');
-const DetailsSection = () => import(/* webpackChunkName: "detalles" */ './../modules/detalles/DetailsSection');
-const ExtraSection = () => import(/* webpackChunkName = "extras" */ './../modules/extras/ExtraSection');
-const GraphicReportSection = () => import(/* webpackChunkName: "reportes" */ './../modules/reportes/GraphicReportSection');
-const HomeSection = () => import(/* webpackChunkName: "home" */ './../modules/home/homeSection.vue');
-const NewContractSection = () => import(/* webpackChunkName: "nuevo_contrato" */ './../modules/nuevo_contrato/NewContractSection');
-const RouterSection = () => import(/* webpackChunkName: "secciones" */ './../modules/secciones/RouterSection');
-const ReportSection = () => import(/* webpackChunkName: "informes" */ './../modules/informes/ReportSection');
-const ServiceSection = () => import(/* webpackChunkFileName: "servicios" */ './../modules/servicios/ServiceSection');
-const TicketSection = () => import(/* webpackChunkName: "averias" */ './../modules/averias/TicketSection');
+import AcountSection from './../modules/cuenta/AcountSection.vue';
+import AdminSection from './../modules/administrador/adminSection.vue';
+import CashDeskSection from './../modules/cierre/CashDeskSection.vue';
+import ContractSection from './../modules/contratos/ContractSection.vue';
+import ClientSection from './../modules/clientes/ClientSection.vue';
+import DetailsSection from './../modules/detalles/DetailsSection.vue';
+import ExtraSection from './../modules/extras/ExtraSection.vue';
+import GraphicReportSection from './../modules/reportes/GraphicReportSection.vue';
+import HomeSection from './../modules/home/homeSection.vue';
+import NewContractSection from './../modules/nuevo_contrato/NewContractSection.vue';
+import RouterSection from './../modules/secciones/RouterSection.vue';
+import ReportSection from './../modules/informes/ReportSection.vue';
+import ServiceSection from './../modules/servicios/ServiceSection.vue';
+import TicketSection from './../modules/averias/TicketSection.vue';
 
 Vue.use(Router);
 const url = window.location.origin;
-const base = (url.includes('localhost')) ? '/icpayment' : '';
+const base = (url.includes('localhost')) ? '/ic_payment' : '';
 
 const router = new Router({
   mode: 'history',
@@ -28,12 +28,14 @@ const router = new Router({
     {
       path: '/',
       name: 'HomeSection',
-      component: HomeSection
+      component: HomeSection,
+      props: true
     },
     {
       path: '/home',
       name: 'FallHomeSection',
-      component: HomeSection
+      component: HomeSection,
+      props: true
     },
     {
       path: '/clientes',

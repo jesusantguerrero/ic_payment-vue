@@ -1,6 +1,6 @@
 <template lang="pug">
 .container-fluid#home
-  section#home-section
+  section#home-section(v-if="store")
     .row.welcome-screen
       .col-md-8.col-xs-12.main-card
           .row
@@ -49,11 +49,13 @@ import HomeSearchClientModal from './components/HomeSearchClientModal.vue';
 import ClientModal from './../clientes/components/ClientModal.vue';
 import ClientStore from './../clientes/store/clientStore';
 
-const store = window.appStore;
 const clientStore = new ClientStore();
 
 export default {
   name: 'home-section',
+  props: {
+    appStore: Object
+  },
   components: {
     HomeDetailCards,
     HomeSearchClientModal,
@@ -64,7 +66,6 @@ export default {
   },
   data() {
     return {
-      store,
       clientStore,
       date: {
         day: '',
@@ -98,6 +99,9 @@ export default {
   },
 
   computed: {
+    store() {
+      return this.appStore;
+    },
     logo() {
       const logo = this.store.company.logo || 'company/default.png';
       return `${baseURL}assets/uploads/${logo}`;
