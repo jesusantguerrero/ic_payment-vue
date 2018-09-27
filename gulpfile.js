@@ -41,9 +41,6 @@ const frontendCss = [
 ]
 
 const superPath   = 'C:/xampp/htdocs/icpayment/'
-const distTest    = Path.resolve(superPath,'src','js','test')
-const dist        = Path.resolve(superPath,'assets','js','dist')
-const distMin     = Path.resolve(superPath,'assets','js','min')
 // sass taks
 
 gulp.task('sass', () => {
@@ -67,7 +64,7 @@ gulp.task('sass', () => {
 
 
 gulp.task('watch', () => {
-  gulp.watch(`${path }css/**`,['sass']);
+  gulp.watch(`${path }css/**`, gulp.parallel('sass'));
 });
 
-gulp.task('default',['watch',"sass"]);
+gulp.task('default', gulp.parallel('watch',"sass"));

@@ -1,7 +1,8 @@
 ﻿import { Selector } from 'testcafe';
+import { host } from '../testHelpers/auth'
 
 fixture`Login page test`
-  .page('http://localhost/icpayment');
+  .page(`http://localhost/${host}`);
 
 test('bad Login', async t => {
   await t

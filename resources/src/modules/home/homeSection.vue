@@ -53,9 +53,6 @@ const clientStore = new ClientStore();
 
 export default {
   name: 'home-section',
-  props: {
-    appStore: Object
-  },
   components: {
     HomeDetailCards,
     HomeSearchClientModal,
@@ -72,7 +69,8 @@ export default {
         monthYear: '',
         dayWeek: '',
         hour: ''
-      }
+      },
+      appStore: this.$root.store
     };
   },
 

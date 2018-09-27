@@ -45,6 +45,8 @@ module.exports = {
     'global-require': 0,
     'no-return-assign': 0,
     'max-len': 0,
+    'linebreak-style': 0,
+    'no-bitwise': 0
   },
 
   globals: {

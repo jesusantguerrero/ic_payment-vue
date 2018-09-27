@@ -123,7 +123,6 @@
   import CashDeskStore from './store/CashDeskStore';
 
   const store = new CashDeskStore();
-  const { appStore } = window;
 
   export default {
     name: 'cash-desk-section',
@@ -134,6 +133,7 @@
     },
 
     data() {
+      const appStore = this.$root.store;
       return {
         closed: false,
         fecha: utils.now(),
