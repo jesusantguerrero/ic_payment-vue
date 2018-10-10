@@ -6,7 +6,7 @@ module.exports = {
   build: {
     env: require('./dev.env'),
     index: `${rootDir}/application/views/layouts/index.php`,
-    assetsRoot:`${rootDir}/`,
+    assetsRoot:`${rootDir}/public`,
     assetsSubDirectory: 'assets',
     assetsPublicPath: '/',
 
