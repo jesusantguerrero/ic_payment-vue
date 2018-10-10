@@ -12,11 +12,11 @@ prepare:
   cache:
     paths:
       - node_modules/
-      - assets/js/
+      - public/assets/js/
   artifacts:
     paths:
       - node_modules/
-      - assets/js/
+      - public/assets/js/
   environment:
     name: staging
   only:
