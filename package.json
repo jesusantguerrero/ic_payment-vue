@@ -18,7 +18,7 @@
     "lint": "eslint --ext .js,.vue resources/src resources/test/unit/specs resources/test/e2e/specs",
     "get-files": "git checkout heroku && getFrom feature/enviroments src/ && getFrom feature/enviroments application/ && getFrom feature/enviroments webpack/",
     "build-and-commit": "npm run build && git commit -m 'build of($date)'",
-    "heroku-push": " git push heroku heroku:master && heroku scale web=1 && heroku open",
+    "heroku-push": " git push heroku heroku:master -f && heroku scale web=1 && heroku open",
     "heroku": "npm run build-and-commit && npm run heroku-push",
     "gulp": "gulp"
   },
