@@ -4,7 +4,7 @@
   "description": "Programa de facturacion y administracion de ISP",
   "main": "gulpfile.js",
   "engines": {
-    "node": ">= 8.9.1",
+    "node": ">= 8.11.2",
     "npm": ">= 5.5.1"
   },
   "scripts": {
@@ -19,7 +19,7 @@
     "get-files": "git checkout heroku && getFrom feature/enviroments src/ && getFrom feature/enviroments application/ && getFrom feature/enviroments webpack/",
     "build-and-commit": "npm run build && git commit -m 'build of($date)'",
     "heroku-push": " git push heroku heroku:master && heroku scale web=1 && heroku open",
-    "heroku": "npm run build-and-commint && npm run heroku-push",
+    "heroku": "npm run build-and-commit && npm run heroku-push",
     "gulp": "gulp"
   },
   "devDependencies": {

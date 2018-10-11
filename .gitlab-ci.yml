@@ -46,7 +46,7 @@ deploy_staging:
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
     - git checkout -b $branch_name
     - echo "!assets/js/"
-    - npm run deploy-build
+    - npm run heroku-push
     - git commit --allow-empty -m "Publish to Heroku at $(date)"
     - git push heroku $branch_name:master -f
     - echo "deployed to staging"
