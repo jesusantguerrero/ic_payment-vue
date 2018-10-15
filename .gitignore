@@ -4,7 +4,8 @@ application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
 !application/config/development/
-
+application/tests/_ci_phpunit_test/
+application/tests/build/
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
@@ -15,8 +16,8 @@ user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 application/vendor/
 vendor/
-assets/js/*
-!assets/js/lib/*
+assets/js/
+*.log
 
 # IDE Files
 #-------------------------

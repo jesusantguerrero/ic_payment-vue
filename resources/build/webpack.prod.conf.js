@@ -23,8 +23,8 @@ var webpackConfig = merge(baseWebpackConfig, {
 
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].js'),
-    chunkFilename: utils.assetsPath('js/[name].js')
+    filename: utils.assetsPath('js/bundle/[name].js'),
+    chunkFilename: utils.assetsPath('js/bundle/[name].js')
   },
 
   plugins: [

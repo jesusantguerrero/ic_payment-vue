@@ -1,3 +1,5 @@
+import moment from 'moment';
+import '@/../../node_modules/moment/locale/es-do';
 
 export default {
   isEmpty(values) {
@@ -81,8 +83,7 @@ export default {
   },
 
   now() {
-    const date = new Date();
-    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    return moment().format('YYYY-MM-DD');
   },
 
   dateSpanishFormat() {

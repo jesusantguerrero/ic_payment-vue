@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.row
     .col-md-6
       .tabs-container.contract-form
 
@@ -119,6 +119,7 @@
       SelectClient,
       InternetPlans
     },
+
     mounted() {
       this.getSectionList();
     },
@@ -150,6 +151,7 @@
         disabledSelect: false
       };
     },
+
     computed: {
       lines() {
         let lines = ' ';
@@ -158,6 +160,7 @@
         }
         return lines;
       },
+
       paymentUrl() {
         return (this.contract.id_cliente) ? `${baseURL}app/details/${this.contract.id_cliente}/pagos')` : '#';
       },

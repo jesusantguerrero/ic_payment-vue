@@ -51,11 +51,11 @@ class Report_model extends CI_MODEL{
     if ($result){
       $result = $result->result_array();
       $_SESSION['receipts_last_call'] = $result;
-      $acum = $this->db->where($where,'',false)->like('cliente',$text)->select_sum('total','total')->get('v_recibos',1);
-      $acum = $acum->row_array()['total'];
-      $_SESSION['receipt_last_total'] = $acum;
+      $total = $this->db->where($where,'',false)->like('cliente',$text)->select_sum('total','total')->get('v_recibos',1);
+      $total = $total->row_array()['total'];
+      $_SESSION['receipt_last_total'] = $total;
       $result = make_recibos_table($result,0);
-      return ['content' => $result, 'acum' => $acum];
+      return ['content' => $result, 'total' => $total];
     }
   }
 
@@ -110,7 +110,7 @@ class Report_model extends CI_MODEL{
     }
   }
 
-  public function get_moras_view($is_print = false){
+  public function get_debtors_view($is_print = false){
     $sql = "
     id_contrato,
     codigo,
@@ -128,17 +128,15 @@ class Report_model extends CI_MODEL{
     group_concat(monthname(fecha_limite)) as meses";
 
     $this->db->select($sql,true);
-    $this->db->where_not_in('estado_cliente','suspendido');
+    $this->db->where_not_in('estado_cliente', 'suspendido');
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato');
-    $result = $this->db->get('v_morosos');
-    if($result){
+    if ($result = $this->db->get('v_morosos')) {
       $result = $result->result_array();
-      if (!$is_print){
-        echo make_moras_report_smart($result,"Clientes Con Moras",$this,$is_print);
-      }else{
-        echo make_moras_report($result,"Clientes Moras",$this,$is_print);
-
+      if (!$is_print) {
+        return make_moras_report_smart($result, "Clientes Con Moras", $this, $is_print);
+      } else {
+        return make_moras_report($result, "Clientes Moras", $this, $is_print);
       }
     }
   }
@@ -174,17 +172,13 @@ class Report_model extends CI_MODEL{
 
   public function get_installations_list($status='por instalar'){
     if($status != 'todos'){
-      $this->db->where('estado_instalacion',$status);
+      $this->db->where('estado_instalacion', $status);
     }
     $this->db->order_by('fecha','DESC');
     $result = $this->db->get('v_instalaciones');
     if($result and count($result) > 0){
-      $result = make_installations_list($result->result_array());
-      echo $result;
-    }else{
-      echo "<h3>No hay Datos Para Esta Busqueda</h3>";
+      return $result->result_array();
     }
-
   }
 
   public function update_installation($id_contrato){
@@ -199,19 +193,16 @@ class Report_model extends CI_MODEL{
        $status =  'por instalar';
     }
     $this->db->where('id_contrato',$id_contrato);
-    if($this->db->update('ic_contratos',array("estado_instalacion" => $status))){
-      echo MESSAGE_SUCCESS." Estado de la instalacion cambiado a ". $status;
-    }
-
+    return $this->db->update('ic_contratos',array("estado_instalacion" => $status));
   }
 
   public function count_moras_view(){
     $this->db->group_by('cliente');
     $this->db->order_by('id_contrato');
-    $this->db->where_not_in('estado_cliente','suspendido');
-    $result = $this->db->count_all_results('v_morosos');
-    if($result){
-     return $result;
+    $this->db->where_not_in('estado_cliente', 'suspendido');
+   
+    if ($result = $this->db->get('v_morosos')){
+     return count($result->result_array());
     }else{
       return 0;
     }
@@ -220,26 +211,25 @@ class Report_model extends CI_MODEL{
   public function get_tickets_report($is_print = true){
     $this->db->select('v_averias.* , v_contratos.codigo',false);
     $this->db->where('v_averias.estado','por reparar');
-    $this->db->join('v_contratos','id_cliente','LEFT');
+    $this->db->join('v_contratos','id_contrato','LEFT');
     $this->db->order_by('fecha', 'DESC');
-    $result = $this->db->get('v_averias');
-     if($result){
+    
+    if ($result = $this->db->get('v_averias')){
       $result = $result->result_array();
       echo make_averias_report($result," Reporte De Averias",$this,$is_print);
-    }else{
+    } else {
       //echo var_dump($this->db->last_query());
     }
   }
 
   public function get_sections_report($section_id){
     $this->db->where('id_seccion',$section_id);
-    $result = $this->db->get('v_ips');
-     if($result){
+     if ($result = $this->db->get('v_ips')) {
       $result = $result->result_array();
       $header = ['Numero','Sector','Codigo', 'Direccion IP', 'Estado'];
       $fields = ['seccion','codigo', 'ip_final', 'estado'];
       echo make_general_report($result," Reporte De IP's",$this,$fields, $header);
-    }else{
+    } else {
       //echo var_dump($this->db->last_query());
     }
   }
@@ -247,8 +237,7 @@ class Report_model extends CI_MODEL{
   # Moras
 
   public function get_history($is_print = false){
-    $result = $this->db->get('v_historial_moras');
-    if($result){
+    if ($result = $this->db->get('v_historial_moras')){
       $result = $result->result_array();
       echo make_moras_history_table($result," Historico de Moras",$this,$is_print);
     }
@@ -256,16 +245,16 @@ class Report_model extends CI_MODEL{
 
   public function get_client_report($status){
     $db = $this->db;
-
     $db->select('cli.*, co.codigo',false);
     $db->from('ic_clientes cli');
 
     if ($status == "nada") {
       $status = "";
       $db->like('cli.estado',$status);
-    }else{
+    } else {
       $db->where('cli.estado',$status);
     }
+
     $db->join('ic_contratos co','id_cliente','left');
 
     if ($result = $db->get()) {

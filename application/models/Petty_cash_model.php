@@ -71,35 +71,19 @@ class Petty_cash_model extends CI_MODEL{
     endif;
   }
 
-  public function get_transactions_per_month($field){
-    $resultado_por_mes = array();
+  public function get_transactions_per_month($field, $year){
+    $values = [];
 
     for ($i=1; $i <= 12 ; $i++) {
-      $sql = "SELECT sum($field) from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i";
+      $sql = "SELECT sum($field) from ic_caja_chica where year(fecha) = '$year' and month(fecha)= $i";
       $result = $this->db->query($sql)->row_array()["sum($field)"];
       if($result){
         $value = $result;
       }else{
         $value = "0";
       }
-      array_push($resultado_por_mes,$value);
+      array_push($values, $value);
     }
-    return $resultado_por_mes;
-  }
-
-  public function get_balance_per_month(){
-    $resultado_por_mes = array();
-
-    for ($i=1; $i <= 12 ; $i++) {
-      $sql = "SELECT saldo_actual from ic_caja_chica where year(fecha) = year(now()) and month(fecha)= $i order by fecha desc";
-      $result = $this->db->query($sql)->row_array()["saldo_actual"];
-      if($result){
-        $value = $result;
-      }else{
-        $value = "0";
-      }
-      array_push($resultado_por_mes,$value);
-    }
-    return $resultado_por_mes;
+    return ['values' => $values, 'total' => array_sum($values)];
   }
 }

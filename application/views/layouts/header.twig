@@ -20,17 +20,21 @@
   {% for style in css%}
 	  <link rel="stylesheet" href="{{style.link}}"/>
   {% endfor %}
+
 	<link rel="icon" type="image/png" sizes="96x96" href="{{url}}favicon-96x96.png">
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
   <script>
-    var OneSignal = window.OneSignal || [];
-    OneSignal.push(function() {
-      OneSignal.init({
-        appId: "bc29004d-d59c-4295-ad91-60ca6d29a09a",
+    if (!window.location.origin.includes('localhost')) {
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "bc29004d-d59c-4295-ad91-60ca6d29a09a",
+        });
       });
-    });
+    }
   </script>
 </head>
+
 <body>
   <main id="app">
 	  <div class="loader"><span class="load"></span></div>
@@ -40,29 +44,24 @@
           <a href="#" @click.prevent="toggleMenu">
               <i class="material-icons brand__menu">menu</i>
           </a>
-          <a href="{{url}}app/admin">
+          <a href="{{url}}app/admin" class="hidden-xs">
             <h3>IC<span>Payment</span></h3>
           </a>
         </div>
 
         <nav class="top-nav">
-          <li class="navButton hidden-xs"><a href="{{url}}app/admin">Lobby</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'clientes')  %} active {% endif %}" href="{{url}}app/admin/clientes">Clientes</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'servicios') %} active {% endif %}" href="{{url}}app/admin/servicios">Servicios</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'contratos') %} active {% endif %}" href="{{url}}app/admin/contratos">Contratos</a>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/">Lobby</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/clientes">Clientes</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/servicios">Servicios</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/contratos">Contratos</router-link>
             <ul class="submenu">
-              <li class="navButton hidden-xs"><a class="{% if (title == 'extras') %} active {% endif %}" href="{{url}}app/admin/extras">Extras</a></li>
+              <li class="navButton hidden-xs"><router-link v-cloak to="/extras">Extras</router-link></li>
             </ul>
           </li>
 
           {% if user.type == 0 %}
-          <li class="navButton hidden-xs"><a class="{% if (title == 'secciones') %} active {% endif %}" href="{{url}}app/admin/secciones">Secciones</a></li>
-          <li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %}  active {% endif %}" href="{{url}}app/admin/reportes">Reportes</a>
-            <ul class="submenu">
-              <li class="navButton hidden-xs"><a class="{% if (title == 'reportes') %} active {% endif %}" href="{{url}}app/admin/reportes">Graficos</a></li>
-              <li class="navButton hidden-xs"><a class="{% if (title == 'informes') %} active {% endif %}" href="{{url}}app/admin/informes">Informes</a></li>
-            </ul>
-          </li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/secciones">Secciones</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/reportes">Reportes</router-link></li>
           {% endif %}
         </nav>
 
@@ -80,7 +79,7 @@
               <a href="" data-toggle="modal" data-target="#app-message-modal" data-placement="bottom" title="Mensajes">
               <i class="material-icons">perm_phone_msg</i>
             </a></li>
-             <li class="navButton dropdown">
+             <li class="navButton dropdown mymenu">
                 <a href="{{url}}app/admin/averias" id="dropdown-notification" title="notificaciones" class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                 </a>
@@ -101,6 +100,7 @@
           {{ include('layouts/dropdown_user.twig') }}
           </div>
         </div>
+
       </div>
     </header>
     <app-header></app-header>

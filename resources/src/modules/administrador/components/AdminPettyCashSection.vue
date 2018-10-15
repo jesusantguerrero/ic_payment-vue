@@ -24,8 +24,6 @@
   import DataTable from './../../sharedComponents/DataTable.vue';
   import utils from './../../sharedComponents/utils';
 
-  const store = window.appStore;
-
   export default {
     components: {
       DataTable
@@ -44,7 +42,7 @@
           pageSize: 5,
           pageList: [10, 20, 50, 100, 2000]
         },
-        store
+        store: this.$root.store
       };
     },
 

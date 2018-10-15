@@ -22,13 +22,17 @@ export default class SingleChart {
           ticks: {
             callback(label) {
               return `RD$ ${utils.CurrencyFormat(label)}`;
-            }
+            },
+            beginAtZero: true
           }
         }]
       },
       tooltips: {
         callbacks: {
           label(tooltipItem) {
+            if (!config.money) {
+              return tooltipItem.yLabel;
+            }
             return `RD$  ${utils.CurrencyFormat(tooltipItem.yLabel)}`;
           }
         }
@@ -41,13 +45,14 @@ export default class SingleChart {
       options
     });
 
+    $chart.height = 390;
     this.multiple = (ownDatasets) || false;
   }
 
   update(values) {
     if (this.multiple) {
-      values.forEach((dataset) => {
-        this.chart.data.datasets[i].data = dataset;
+      values.forEach((dataset, i) => {
+        this.chart.data.datasets[i].data = dataset.data;
       });
     } else {
       this.chart.config.data.datasets[0].data = values;

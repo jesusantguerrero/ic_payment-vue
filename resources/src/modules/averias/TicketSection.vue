@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  .container-fluid
     TicketList(:store="store", v-if="!store.detailMode")
     TicketDetail(:store="store", v-if="store.datailMode")
 </template>

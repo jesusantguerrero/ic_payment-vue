@@ -13,15 +13,22 @@ class Messages extends MY_Controller {
 
   public function send_message(){
     $data = $this->get_post_data('data');
+    $message_settings = $this->message_model->get_config('message_settings');
+
     if ($data) {
-      $status = $this->messagegate->send_message($data);
-      if(!isset($status['error']) && $status['response']){
-        $res['menssage'] = ['type' => 'success', 'text' => 'Mensajes enviados correctamente'];
-      }else{
-        $res['menssage'] = ['type' => 'error', 'text' => 'Mensajes no enviados, revise la configuracion de mensajes'];
+      if ($message_settings['email'] && $message_settings['password'] && $message_settings['country_id']) {
+
+        $status = $this->messagegate->send_message($data);
+        if(!isset($status['error']) && $status['response']){
+          $this->set_message('Mensajes enviados correctamente');
+        }else{
+          $this->set_message('Mensajes no enviados, revise la configuracion de mensajes', 'error');
+        }
+        $this->res['status'] = $status;
+      } else {
+        $this->set_message('Mensajes no enviados, revise la configuracion de mensajes', 'error');
       }
-      $res['status'] = $status;
-      $this->response_json($res);
+      $this->response_json();
     }
   }
 
@@ -30,11 +37,11 @@ class Messages extends MY_Controller {
     if ($data) {
       $status = $this->message_model->add_config($data);
       if ($status ){
-        $res['menssage'] = ['type' => 'success', 'text' => 'Configuracion Agregada'];
+        $this->set_message('Configuracion Agregada');
       } else{
-        $res['menssage'] = ['type' => 'error', 'text' => 'No se ha guardar la configuracion, revise los datos'];
+        $this->set_message('No se ha guardar la configuracion, revise los datos');
       }
-      $this->response_json($res);
+      $this->response_json();
     }
   }
 

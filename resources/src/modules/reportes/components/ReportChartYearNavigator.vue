@@ -11,8 +11,8 @@
     props: {
       title: String,
       display: {
-        type: Boolean,
-        default: true
+        type: String,
+        default: null
       }
     },
     data() {

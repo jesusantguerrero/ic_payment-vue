@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.clients.row
     .left-navigation.col-md-2
       .aside-nav-container
         .left-navigation__header
@@ -10,15 +10,15 @@
               i.material-icons person_add
               | Nuevo Servicio
           li.aside-buttons
-            a(href="#" id="update-client", data-toggle="modal", @click.prevent="getService")
+            a(href="#" id="update-service", data-toggle="modal", @click.prevent="getService")
               i.material-icons edit
               | Editar Servicio
           li.aside-buttons
-            a(href="" id="delete-client", @click.prevent="deleteService")
+            a(href="" id="delete-service", @click.prevent="deleteService")
               i.material-icons delete
               | Eliminar Servicio
           li.aside-buttons
-            a(href="" id="get-details")
+            a(href="" id="get-service-details")
               i.material-icons find_in_page
               | Ver Detalles
 
@@ -29,11 +29,11 @@
             .input-group-addon: i.material-icons search
             input.form-control.searcher(type="text" placeholder="Buscar servicio")
           .pull-right
-            a.btn.icon.print-table(target="_blank" href="process/getreport/clientes'"): i.material-icons print
+            a.btn.icon.print-table(target="_blank" href="process/getreport/services'"): i.material-icons print
           .pull-right
-            select#client-filter.form-group.filter.btn.btn-primary
+            select#service-filter.form-group.filter.btn.btn-primary
               option(:value="option.id", v-for="option of options") {{ option.text }}
-        DataTable(ids="client-table", :parentId="parentId", :data="services", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
+        DataTable(ids="service-table", :parentId="parentId", :data="services", :cols="cols", :toolbar="toolbar", :options="tableOptions", @check-uncheck="listen")
     ServiceModal(:store="store", :service="store.service", :modal-mode="store.serviceMode" @save="addUpdate")
 
 </template>

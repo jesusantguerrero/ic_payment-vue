@@ -1,13 +1,13 @@
 header, .submenu
   background-color: $primary-color
-  color: $text-light-color 
+  color: $text-light-color
   border-bottom: 2px solid $contrast-color
 
   span
     color: $contrast-color
 
   .navButton
-    a 
+    &>a
       color: $text-light-color
       &:hover,
       &.active
@@ -15,7 +15,7 @@ header, .submenu
         background: transparentize(#fff,.9)
 
   .user-controls .navButton
-    a
+    &>a
       color: $text-light-color
       +size(41px,41px)
       &:hover
@@ -40,7 +40,7 @@ table.table
     font-size: 12px
     line-height: 0
     height: 30px
-  
+
   td
     font-size: 13px
     @extend .unselectable
@@ -49,7 +49,7 @@ table.table
     tr
       background: $contrast-color
       color: #fff
-      
+
 .table-foot,
 .fixed-table-pagination
   +makeFlex(100%,row,flex-end,center)
@@ -87,7 +87,7 @@ table.table
     &:first-child
       border-radius: 4px 0 0 0
   tbody
-    max-height: 220px 
+    max-height: 220px
     width: 100%
     overflow: auto
     display: none
@@ -108,7 +108,7 @@ table.table
         border: 2px solid white
         border-left: none
         border-right: none
-        td 
+        td
           border-color: transparent
         &:hover
           color: #555
@@ -124,19 +124,19 @@ table.table
         border: 2px solid white
         border-left: none
         border-right: none
- 
+
 .total-table
   tbody
     display: table-row-group
-    
+
   .bg-white
     background: white
     color: $primary-color
 
-.table-hover>tbody>tr.marked:hover 
+.table-hover>tbody>tr.marked:hover
   background-color: lighten(#1FD1A8,20%)
 
-.table-hover>tbody>tr.cancel:hover 
+.table-hover>tbody>tr.cancel:hover
   background-color: lighten(#dF0a00,40%)
 
 .fixed-table-container tbody .selected td
@@ -151,7 +151,7 @@ table.table
 .payment-delete
   color: transparentize($contrast-color,.7)
   transition: all ease .3s
- 
+
   &:hover
     color: $color_error
 
@@ -164,7 +164,7 @@ ul.pagination
       display: inline-block
       float: none
       border: none
-      font-size: 30px 
+      font-size: 30px
       height: 28px
       border: none
       background: transparent
@@ -178,10 +178,10 @@ ul.pagination
         color: $contrast-color
         background: transparent
 .table
-  tbody td 
+  tbody td
     border-right: 1px solid #ddd
     vertical-align: middle
-  
+
     &:last-child
       border-right: none
     &.done
@@ -220,7 +220,7 @@ ul.pagination
   padding: 6px 0 0 0
   margin: 0 0 10px 0
   border-radius: 4px 4px 0 0
-  box-shadow: 0 2px 3px rgba(0,0,0,.2) 
+  box-shadow: 0 2px 3px rgba(0,0,0,.2)
 
 // horas
 
@@ -246,7 +246,7 @@ ul.pagination
     thead tr
       background: white
       color: $contrast-color
- 
+
 
 .innertable,
 .mylist .innertable,
@@ -255,7 +255,7 @@ ul.pagination
   margin-top: 0
   width: 100%
 
-.estado-cliente select 
+.estado-cliente select
   border: 0
   background: transparent
   font-size: 14px
@@ -271,7 +271,7 @@ ul.pagination
 .money
   color: $contrast-color
   margin-left: 10px
- 
+
 .unselectable
   -webkit-touch-callout: none;
   -webkit-user-select: none;

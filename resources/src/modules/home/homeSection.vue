@@ -1,5 +1,6 @@
 <template lang="pug">
-  section#home-section
+.container-fluid#home
+  section#home-section(v-if="store")
     .row.welcome-screen
       .col-md-8.col-xs-12.main-card
           .row
@@ -24,14 +25,14 @@
               i.material-icons person_add
               p.section-title Nuevo Cliente
 
-          .col-md-4.shortcut(data-toggle="modal", @click="sendTo('nuevo_contrato')")
+          .col-md-4.shortcut(data-toggle="modal", @click="sendTo('/nuevo_contrato')")
               i.material-icons library_books
               p.section-title Nuevo Contrato
 
           .col-md-4.shortcut(data-toggle="modal", data-target="#search-client-modal")
               i.material-icons monetization_on
               p.section-title Registrar Pago
-          .col-md-4.shortcut#desk-cash-caller(@click="sendTo('cierre')")
+          .col-md-4.shortcut#desk-cash-caller(@click="sendTo('/cierre')")
               i.material-icons lock_open
               p.section-title Cerrar Caja
 
@@ -48,7 +49,6 @@ import HomeSearchClientModal from './components/HomeSearchClientModal.vue';
 import ClientModal from './../clientes/components/ClientModal.vue';
 import ClientStore from './../clientes/store/clientStore';
 
-const store = window.appStore;
 const clientStore = new ClientStore();
 
 export default {
@@ -63,14 +63,14 @@ export default {
   },
   data() {
     return {
-      store,
       clientStore,
       date: {
         day: '',
         monthYear: '',
         dayWeek: '',
         hour: ''
-      }
+      },
+      appStore: this.$root.store
     };
   },
 
@@ -92,11 +92,14 @@ export default {
     },
 
     sendTo(url) {
-      window.location.href = `${baseURL}app/admin/${url}`;
+      this.$router.push({ path: url });
     }
   },
 
   computed: {
+    store() {
+      return this.appStore;
+    },
     logo() {
       const logo = this.store.company.logo || 'company/default.png';
       return `${baseURL}assets/uploads/${logo}`;

@@ -89,7 +89,7 @@
         const self = this;
         this.$http.post('messages/save_config', this.getDataForm(this.config))
           .then((res) => {
-            self.showMessage(res.data.menssage);
+            self.showMessage(res.data.message);
           })
           .catch((err) => {
             self.$toast.error(err);

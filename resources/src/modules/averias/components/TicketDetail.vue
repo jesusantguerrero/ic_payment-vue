@@ -58,8 +58,10 @@
         commentItem.classList.add('to-delete');
 
         this.deleteConfirmation('Está Seguro?', 'Seguro de que eliminar este reporte?')
-          .then(() => {
-            this.deleteComment(idComment);
+          .then((result) => {
+            if (result.value) {
+              this.deleteComment(idComment);
+            }
             commentItem.classList.remove('to-delete');
           })
           .catch(() => {

@@ -53,16 +53,23 @@ class Service_model extends CI_MODEL{
     }
   }
 
-  public function update_service($data){
-    $data_for_update = array(
+  public function update_service($data) {
+    $service = $this->get_service($data['id_servicio']);
+
+    $data_for_update = [
       'nombre'      => $data['nombre'],
       'descripcion' => $data['descripcion'],
       'mensualidad' => $data['mensualidad'],
       'tipo'        => $data['tipo']
-    );
+    ];
+
     $this->db->where('id_servicio', $data['id_servicio']);
     if ($this->db->update('ic_servicios', $data_for_update)) {
-      return $this->update_contracts_of_service($data);
+      if ($data['mensualidad'] == $service['mensualidad']) {
+        return "Servicio Actualizado";
+      } else {
+        return $this->update_contracts_of_service($data);
+      }
     }
   }
 
@@ -105,6 +112,7 @@ class Service_model extends CI_MODEL{
   private function update_contracts_of_service($data_cambio){
     $this->load->model('contract_view_model');
     $this->load->model('payment_model');
+
     $service_id = $data_cambio['id_servicio'];
     $contracts = $this->contract_view_model->get_contract_view_of_service($service_id);
     $count = 0;
@@ -125,11 +133,11 @@ class Service_model extends CI_MODEL{
       foreach ($payments as $payment) {
         $total = $data_cambio['mensualidad'] + $payment['mora'] + $payment['monto_extra'];
 
-        $data_pago = array(
+        $data_pago = [
           'cuota' => $data_cambio['mensualidad'],
           'cuota' => $data_cambio['mensualidad'],
           'total' => $total
-        );
+        ];
 
         $this->db->where('id_pago',$payment['id_pago']);
       }

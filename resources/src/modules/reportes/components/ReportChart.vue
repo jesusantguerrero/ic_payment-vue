@@ -47,8 +47,12 @@
 
     watch: {
       data() {
-        this.refresh(this.data);
+        this.refresh();
         this.intialized = false;
+      },
+
+      ownDataset() {
+        this.refresh();
       }
     },
 
@@ -59,7 +63,8 @@
       },
 
       refresh() {
-        this.chart.update(this.data);
+        const data = this.ownDataset || this.data;
+        this.chart.update(data);
       },
     }
   };

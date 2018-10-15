@@ -12,9 +12,6 @@ class App extends MY_Controller {
 		$this->load->model("report_model");
     $this->load->library('parser');
     $this->load->library('twig');
-
-		// update_moras($this);
-		// generar_facturas_mes($this);
  }
 
 	public function index() {
@@ -30,23 +27,24 @@ class App extends MY_Controller {
       $data  = $this->define_data($page, ['login']);
       $this->parser->parse('pages/login',$data);
     } else {
-      redirect(base_url('app/admin/home'));
+      redirect(base_url('app/admin/'));
     }
   }
 
 	public function admin($page = 'home', $params = null) {
-		 $this->my_auth->authenticate();
-     $this->my_auth->has_permission($page, 1, base_url('app/admin/home'));
+		$this->my_auth->authenticate();
+    $this->my_auth->has_permission($page, 1, base_url('app/admin/home'));
     $data = $this->get_global_data($page, $params);
 
     echo $this->twig->render('layouts/header', $data);
-    echo $this->twig->render("pages/".$page, $data);
+    echo $this->twig->render("pages/home", $data);
 		$this->parser->parse('layouts/footer', $data);
   }
 
   public function details($id, $active_window = "payments") {
 		 $this->my_auth->authenticate();
-    $params = [
+
+     $params = [
       'id' => $id,
       'active_window' => $active_window
     ];
@@ -55,9 +53,9 @@ class App extends MY_Controller {
 	}
 
 	public function imprimir($page) {
-		 $this->my_auth->authenticate();
+		$this->my_auth->authenticate();
 		$data['title'] = $page;
-		$info = '';
+		$info          = '';
 
 		if ($page == 'cierre') {
 			$this->load->model('caja_mayor');
@@ -66,26 +64,30 @@ class App extends MY_Controller {
 
 		$this->load->view('layouts/header_impresos',$data);
 		$this->load->view("impresos/$page",$info);
-	}
+  }
+
+  public function phpinfo() {
+    phpinfo();
+  }
 
   private function get_global_data($page, $params) {
-    $data  = $this->define_data($page, ['app'], ['app']);
-    $data['user'] =  $this->my_auth->get_user_data();
-    $data['company'] = $this->company_model->get_company();
+    $data                  = $this->define_data($page, ['app'], ['app']);
+    $data['user']          = $this->my_auth->get_user_data();
+    $data['company']       = $this->company_model->get_company();
     $data['notifications'] = $this->report_model->count_moras_view();
-    $data['params'] = $params;
+    $data['params']        = $params;
     return $data;
   }
 
   private function define_data($title, $js = [] , $css = []) {
-    $jsFiles = [];
+    $jsFiles  = [];
     $cssFiles = [];
-    $js  = array_merge(['lib/pace.min','manifest','vendor'], $js);
-    $css = array_merge(['secundaryCss.min', '5-others/square/frontend.min', 'main.min'], $css);
+    $js       = array_merge(['../lib/pace.min','manifest','vendor'], $js);
+    $css      = array_merge(['secundaryCss.min', '5-others/square/frontend.min', 'main.min'], $css);
     $assets   = 'assets/';
 
     foreach ($js as $filename) {
-      array_push($jsFiles, ['link' => base_url()."{$assets}js/{$filename}.js"]);
+      array_push($jsFiles, ['link' => base_url()."{$assets}js/bundle/{$filename}.js"]);
     }
 
     foreach ($css as $filename) {
@@ -93,10 +95,10 @@ class App extends MY_Controller {
     }
 
     return [
-      'title'=> $title,
-      'css'  => $cssFiles,
-      'js'   => $jsFiles,
-      'url' => base_url()
+      'title' => $title,
+      'css'   => $cssFiles,
+      'js'    => $jsFiles,
+      'url'   => base_url()
     ];
   }
 }

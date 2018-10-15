@@ -1,5 +1,5 @@
 <template lang="pug">
-  a(:href='link')
+  router-link(:to='link')
     .payment-item
       .left-part
         .item-profile
@@ -20,7 +20,7 @@
     },
     computed: {
       link() {
-        return `${baseURL}app/details/${this.item.id_cliente}/`;
+        return `/detalles/${this.item.id_cliente}/`;
       }
     }
   };

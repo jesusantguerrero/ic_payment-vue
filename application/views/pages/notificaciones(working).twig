@@ -1,0 +1,119 @@
+<div class="screen reports row">
+  <div class="col-md-12">
+    <!-- main tab -->
+    <div>
+
+        <?php if(auth_user_type(0)):?>
+        <div role="tabpanel" class="tab-pane" id="historic">
+          <div class="searcher-container clearfix" id="history-toolbar">
+            <h4 class="search-criteria">Historial de moras</span>
+              <a target="_blank" href="<?php echo base_url('process/getreport/deudores') ?>" type="button" class="btn">Imprimir Reporte</a>
+          </div>
+          <table data-toggle="table" class="innertable table general-table" data-sort-name="num" data-sort-order="asc" data-search="true"
+            data-show-refresh="true" data-toolbar="#history-toolbar" data-show-columns="true" data-show-export="true" data-minimum-count-columns="2"
+            data-pagination="true" data-id-field="payment" data-page-size="20" data-page-list="[10,20,50, All]" data-show-footer="false">
+            <thead>
+              <tr>
+                <th data-field="num" data-sortable="true">Num</th>
+                <th data-field="payment" data-sortable="true">Contrato</th>
+                <th data-field="client" data-sortable="true">Cliente</th>
+                <th data-field="celphone" data-sortable="true">Celular</th>
+                <th data-field="cuota" data-sortable="true">Cuota</th>
+                <th data-field="mora">Mora</th>
+                <th data-field="extra">Extra</th>
+                <th data-field="total">Total</th>
+                <th data-field="fecha">Fecha Limite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $this->report_model->get_history(); ?>
+            </tbody>
+          </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="cierres">
+          <div class="searcher-container main-toolbar" id="cierres-toolbar">
+            <div class="input-group search">
+              <div class="input-group-addon"><i class="material-icons">search</i></div>
+              <input type="text" class="form-control searcher"  v-model="between.text" @keypress.enter.stop="getReport" placeholder="cliente">
+            </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.first_date" @change="getReport" placeholder="Fecha">
+              </div>
+            <div class="input-group search-item">
+              <div class="input-group-addon"><i class="material-icons">event</i></div>
+              <input type="date" class="form-control caja-for-date" v-model="between.second_date" @change="getReport" placeholder="Fecha">
+            </div>
+            <div class="pull-right">
+              <a target="_blank" href="<?php echo base_url('process/getreport/cierres') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+            </div>
+          </div>
+          <table data-toggle="table"  id="cierres-table"
+           class="table general-table"
+           data-sort-name="num"
+           data-sort-order="asc"
+           data-search="true"
+            data-show-export="true"
+            data-minimum-count-columns="2"
+            data-toolbar="#cierres-toolbar"
+            data-pagination="true"
+            data-id-field="payment"
+            data-page-size="500"
+            data-page-list="[100,200,500, 1000, 2000, 5000, 8000]"
+            data-show-footer="false">
+            <thead>
+              <tr>
+                <th data-field="id" data-sortable="true">ID</th>
+                <th data-field="fecha" data-sortable="true">Fecha</th>
+                <th data-field="p_banco" data-sortable="true">P. Facturas</th>
+                <th data-field="p_extras" data-sortable="true">P. Extras</th>
+                <th data-field="p_efectivo" data-sortable="true">P. Efectivo</th>
+                <th data-field="p_banco" data-sortable="true">P. Banco</th>
+                <th data-field="p_ingresos" data-sortable="true">T. Ingresos</th>
+                <th data-field="efectivo_caja" data-sortable="true">Efe En Caja</th>
+                <th data-field="descuadre" data-sortable="true">Descuadre</th>
+                <th data-field="gastos" data-sortable="true">T. Gastos</th>
+                <th data-field="banco" data-sortable="true">Banco</th>
+                <th data-field="autor" data-sortable="true">Autor</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <br>
+          <h4 class="section-title">Totales</h4>
+          <table class="table total-table" v-if ="hasTotals">
+            <thead class="bg-white">
+              <tr class="bg-white">
+                <th data-field="p_banco" data-sortable="true">P. Facturas</th>
+                <th data-field="p_extras" data-sortable="true">P. Extras</th>
+                <th data-field="p_efectivo" data-sortable="true">P. Efectivo</th>
+                <th data-field="p_banco" data-sortable="true">P. Banco</th>
+                <th data-field="p_ingresos" data-sortable="true">T. Ingresos</th>
+                <th data-field="efectivo_caja" data-sortable="true">Efe En Caja</th>
+                <th data-field="descuadre" data-sortable="true">Descuadre</th>
+                <th data-field="gastos" data-sortable="true">T. Gastos</th>
+                <th data-field="banco" data-sortable="true">Banco</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td v-for="total in totals"> {{ total | currencyFormat }}  </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="text-center">
+            <a target="_blank" href="<?php echo base_url('app/imprimir/cierre') ?>" class="btn icon print-table"><i class="material-icons">print</i></a>
+          </div>
+        </div>
+        <?php endif;?>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- end of main tab-->
+</div>
+</div>

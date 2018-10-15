@@ -33,15 +33,17 @@ class Payment_model extends CI_MODEL{
 
   private function organize_data($data, $mode){
 
-    if($mode == "full"){
+    if ($mode == "full") {
       $this->id_pago = $data['id_pago'];
     }
-    if(isset($data['id_empleado'])){
-      $this->id_empleado = $data['id_empleado'];
-      $this->deuda   = $data['deuda'];
-      $this->abono_a = $data['abono_a'];
+
+    if (isset($data['id_empleado'])) {
+      $this->id_empleado    = $data['id_empleado'];
+      $this->deuda          = $data['deuda'];
+      $this->abono_a        = $data['abono_a'];
       $this->detalles_extra = $data['detalles_extra'];
     }
+
     $this->id_contrato  = $data['id_contrato'];
     $this->id_servicio  = $data['id_servicio'];
     $this->fecha_pago   = $data['fecha_pago'];
@@ -53,11 +55,12 @@ class Payment_model extends CI_MODEL{
     $this->fecha_limite = $data['fecha_limite'];
   }
 
-  public function add($data){
-    $this->organize_data($data,"normal");
-      if($this->db->insert('ic_pagos',$this)){
-        return true;
-      }else{
+  public function add($data) {
+    $this->organize_data($data, "normal");
+      if ($this->db->insert('ic_pagos', $this)){
+        $payment_id = $this->db->insert_id();
+        return $payment_id;
+      } else {
         return false;
       }
   }
@@ -95,7 +98,7 @@ class Payment_model extends CI_MODEL{
 
   }
 
-  // Contract related options
+// Contract related options
   public function get_payments($id_contrato, $mode = false){
     if ($mode == 'list') {
       $this->db->select("id_pago,id_contrato, monthname(fecha_limite) as mes, year(fecha_limite) as anio");
@@ -165,7 +168,7 @@ class Payment_model extends CI_MODEL{
 
   }
 
-  // Extra column related
+// Extra column related
 
   public function get_extras($id_pago, $get_values = false) {
     $pago = $this->get_payment($id_pago);
@@ -189,7 +192,7 @@ class Payment_model extends CI_MODEL{
     }
   }
 
-  public function save_extras($extras, $id_pago){
+  public function save_extras($extras, $id_pago) {
     $extras = json_encode($extras);
     return $this->update(["servicios_adicionales" => $extras], $id_pago);
   }
@@ -293,7 +296,7 @@ class Payment_model extends CI_MODEL{
     return ($result) ? $result->row_array()['sum(total)'] : 0;
   }
 
-  public function get_moras_view($mode = 'normal'){
+  public function get_debtors_view($mode = 'normal'){
     if($mode == "group"){
       $result = $this->db->group_by('cliente');
     }
@@ -301,7 +304,7 @@ class Payment_model extends CI_MODEL{
     return $result->result_array();
   }
 
-  // home reports
+// home reports
   public function get_next_payments($expression = array('expression' => "1",'unit' => "MONTH")){
     $sql = "SELECT * FROM v_proximos_pagos WHERE fecha_limite BETWEEN now() and  adddate(now(), INTERVAL ".$expression["expression"]." ".$expression["unit"].")";
     if ($result = $this->db->query($sql)) {

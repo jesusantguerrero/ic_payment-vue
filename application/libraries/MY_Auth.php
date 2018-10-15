@@ -12,7 +12,7 @@
     public function login($nickname, $password, $mode = 'admin') {
       $user = $this->user_model->get_user($nickname);
       if ($user) {
-        if ((password_verify($password, $user['password'])) && $user['active']) {
+        if (password_verify($password, $user['password']) && $user['active']) {
           $_SESSION['user_data'] = $user;
           $_SESSION['user_data']['password'] = '';
           $this->user_model->update_user(['last_login' => date('Y-m-d H:i:s')], $user['user_id'], false);
@@ -22,9 +22,8 @@
     }
 
     public function confirm_password($user_id, $password) {
-      $user = $this->user_model->get_user($nickname);
+      $user = $this->user_model->get_user($user_id);
       if ($user) {
-        $result = $result->row_array();
         if(password_verify($password, $user['password'])){
           return true;
         }
@@ -84,7 +83,6 @@
       }
       return false;
     }
-
 
     public function current_user_type($type){
       if($this->session['user_data']['type'] == $type){

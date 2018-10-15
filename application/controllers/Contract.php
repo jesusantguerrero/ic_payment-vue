@@ -13,7 +13,6 @@ class Contract extends MY_Controller {
 		$this->load->model('client_model');
     $this->load->model('cancelations_model');
     $this->my_auth->authenticate();
-
   }
 
   public function add() {
@@ -21,10 +20,15 @@ class Contract extends MY_Controller {
     if ($data) {
       if ($contract_id = $this->contract_model->add($data)) {
         $this->set_message('Contrato creado');
+
+        // event
+        $contract = $this->contract_model->get_contract_view($contract_id, true);
+        $this->event->trigger('contract', 1, (array) $contract);
+
         $this->res['payments'] = $this->payment_model->get_payments($contract_id, 'list');
         $this->res['contract'] = $contract_id;
       } else {
-        $this->set_message('El contrato no pudo ser creado correctamente');
+        $this->set_message('El contrato no pudo ser creado correctamente', 'error');
       }
       $this->response_json();
     }
@@ -49,23 +53,30 @@ class Contract extends MY_Controller {
 
   public function update() {
     $data = $this->get_post_data('data');
+    $event_message = "";
+
     if ($data) {
-      $data_for_update = array(
+      $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+      $data_for_update = [
         'nombre_equipo' => $data['nombre_equipo'],
         'mac_equipo'		=> $data['mac_equipo'],
         'router'				=> $data['router'],
         'mac_router'    => $data['mac_router'],
         'modelo'				=> $data['modelo'],
-      );
+      ];
 
       if(isset($data['codigo'])){
-          $contract = $this->contract_model->get_contract_view($data['id_contrato']);
           $this->section_model->update_ip_state($contract['codigo'],'disponible');
-          $data_for_update['ip'] = $data['ip'];
+          $data_for_update['ip']     = $data['ip'];
           $data_for_update['codigo'] = $data['codigo'];
           $this->section_model->update_ip_state($data['codigo'],'ocupado');
+          $event_message = "nueva codigo IP {$data['codigo']}";
       }
+
       if ($this->contract_model->update($data_for_update,$data['id_contrato'])) {
+
+        $this->event->trigger('contract', 2, $contract, $event_message);
+
         $this->set_message('Contrato Actualizado');
       } else {
         $this.set_message('error al actualizar contrato');
@@ -78,6 +89,10 @@ class Contract extends MY_Controller {
 		if ($data = $this->get_post_data('data')) {
       if ($this->contract_model->upgrade_contract($data)) {
         $this->set_message(' contrato mejorado');
+
+        $service = $this->service_model->get_service($data['id_servicio']);
+        $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+        $this->event->trigger('contract', 2, $contract, "Cambio a plan {$service['nombre']}");
       } else {
         $this->set_message('error al mejorar contrato', 'error');
       }
@@ -86,13 +101,13 @@ class Contract extends MY_Controller {
 	}
 
 	public function suspend() {
-    $data = $this->get_post_data('data');
-    if ($data) {
+    if ($data = $this->get_post_data('data')) {
       $contract = $this->contract_model->get_contract_view($data['id_contrato']);
-      $result = suspender_contrato($data['id_contrato'],$contract['id_cliente'],$this);
-      if($result){
+      $result = suspender_contrato($data['id_contrato'], $contract['id_cliente'], $this);
+      if ($result) {
         $this->set_message('Contrato suspendido');
-      }else{
+        $this->event->trigger('contract', 6, $contract);
+      } else {
         $this->set_message('El contrato no pudo ser suspendido', 'error');
       }
       $this->response_json();
@@ -106,6 +121,8 @@ class Contract extends MY_Controller {
       $this->db->trans_complete();
       if($this->db->trans_status()){
         $this->set_message("Contrato extendido con exito");
+        $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+        $this->event->trigger('contract', 7, $contract, "+ {$data['duracion']} meses");
       }
       else{
         $this->set_message("error al extender el contrato", " error");
@@ -121,7 +138,13 @@ class Contract extends MY_Controller {
 			$pendents = $this->contract_view_model->get_pendent_payments($data['id_contrato']);
 			if ($pendents == false) {
 				if ($result = cancel_contract($this, $data)) {
-          $message = (isset($result['message']) ? $result['message'] : 'contrato cancelado');
+          $message = isset($result['message']) ? $result['message'] : 'contrato cancelado';
+
+          if ($message == 'contrato cancelado') {
+            $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+            $this->event->trigger('contract', 5, $contract, " |Motivo: {$data['motivo']}");
+          }
+
           $this->set_message($message);
         } else {
           $this->set_message('Error al cancelar contrato');
@@ -191,6 +214,10 @@ class Contract extends MY_Controller {
   public function add_fixed_extra($data) {
     $service = $this->service_model->get_service($data['id_servicio']);
     if ($this->contract_model->update(['extras_fijos' => $data['id_servicio']], $data['id_contrato'])) {
+      // event
+      $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+      $this->event->trigger('contract', 2, $contract, "Nuevo Seguro {$service['nombre']}");
+
       return ['message' => 'Seguro Agregado'];
     }
   }
@@ -200,6 +227,8 @@ class Contract extends MY_Controller {
 		if ($data) {
       if ($this->contract_model->update(['extras_fijos' => null], $data['id_contrato'])){
         $this->set_message("Extra eliminado con exito");
+        $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+        $this->event->trigger('contract', 2, $contract, "Elimino Extra");
       } else {
         $this->set_message("Error al eliminar servicio adicional");
       }
@@ -210,7 +239,7 @@ class Contract extends MY_Controller {
   public function up_to_date(){
     $data = $this->get_post_data('data');
     if ($data) {
-      if(!is_day_closed()) {
+      if(!$this->is_day_closed()) {
          if ($this->contract_model->payments_up_to_date($data)) {
           $this->set_message(' Pagos Actualizados');
          } else {
@@ -225,12 +254,23 @@ class Contract extends MY_Controller {
 
   // installation
 
-  public function change_installation_state($payment_id){
-		$this->report_model->update_installation($payment_id);
+  public function update_installation_state($payment_id){
+    $this->load->model('report_model');
+		if ($this->report_model->update_installation($payment_id)) {
+      $this->set_message('Estado de instalacion cambiado');
+      $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+      $this->event->trigger('contract', 2, $contract, "Cambio estado de instalacion");
+    } else {
+      $this->set_message('No se pudo cambiar el estado');
+    }
+    $this->response_json();
   }
 
 	public function get_installations($state){
-		$this->report_model->get_installations_list($state);
+    $this->load->model('report_model');
+    $state =str_replace('%20', ' ', $state);
+    $res['installations'] = $this->report_model->get_installations_list($state);
+    $this->response_json($res);
 	}
 
   // documents

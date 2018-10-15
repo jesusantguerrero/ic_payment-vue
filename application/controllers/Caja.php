@@ -9,87 +9,81 @@ class Caja extends MY_Controller {
     $this->my_auth->authenticate();
 	}
 
-	public function add_gasto(){
-		$data = json_decode($_POST['data'],true);
-		$this->caja_mayor->add_gasto($data);
+	public function add_expense(){
+    $data = $this->get_post_data('data');
+    if ($data) {
+      $data['fecha'] = date('Y-m-d');
+      if ($this->caja_mayor->add_expense($data)) {
+        $this->set_message('Gasto agregado');
+        $this->event->trigger('expense', 1, $data);
+      } else {
+        $this->set_message('Error al agregar gasto', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
-	public function get_gastos($full = false){
-		$data = json_decode($_POST['data'],true);
-		if (!$full){
-			$this->caja_mayor->mostrar_gastos($data['fecha'], 'full');
+	public function get_expenses($full = false){
+		$data = $this->get_post_data('data');
+		if (!$full) {
+      $this->res = $this->caja_mayor->get_expenses(date('Y-m-d'), 'full');
 		}else {
 			if($data) {
-				$res = $this->caja_mayor->get_expenses($data['text'], $data['first_date'], $data['second_date']);
-				echo json_encode($res);
+				$this->res = $this->caja_mayor->show_expenses($data['text'], $data['first_date'], $data['second_date']);
 			}
 		}
+    $this->response_json();
 	}
 
-	public function delete_gasto(){
-		$data = json_decode($_POST['data'],true);
-		$this->caja_mayor->delete_gasto($data);
+	public function delete_expense() {
+		if ($data = $this->get_post_data('data')) {
+      $expense = $this->caja_mayor->get_expense($data['id']);
+      if ($this->caja_mayor->delete_expense($data)) {
+        $this->set_message('Gasto eliminado');
+        $this->event->trigger('expense', 4, $expense);
+      } else {
+        $this->set_message('No se puso eliminar este gasto', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
-	public function get_ingresos(){
-		if(isset($_POST['data'])){
-			$data = json_decode($_POST['data'],true);
-		}else{
-			$data = json_decode($_POST,true);
-		}
-		$response['pagos_efectivo'] = $this->caja_mayor->get_ingresos($data['fecha'],'efectivo');
-		$response['pagos_banco'] 		= $this->caja_mayor->get_ingresos($data['fecha'],'banco','efectivo');
-		$response['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($data['fecha'],'facturas');
-		$response['pagos_extras'] 	= $this->caja_mayor->get_extras_or_recibos($data['fecha'],'extras');
-		echo json_encode($response);
+	public function get_ingresos($date = null){
+    if ($data = $this->get_post_data('data')) {
+      $date = ($date ? $date : date('Y-m-d'));
+
+      $res['pagos_efectivo'] = $this->caja_mayor->get_ingresos($date, 'efectivo');
+      $res['pagos_banco'] 	 = $this->caja_mayor->get_ingresos($date, 'banco');
+
+      $res['pagos_facturas'] = $this->caja_mayor->get_extras_or_recibos($date, 'facturas');
+      $res['pagos_extras'] 	 = $this->caja_mayor->get_extras_or_recibos($date, 'extras');
+      $this->response_json($res);
+    }
+
 	}
 
-	public function getjson() {
-		$data = json_decode($_POST['data'],true);
-		$action = $_POST['action'];
-		$module = $_POST['module'];
-
-			switch ($action) {
-				case 'add':
-						if($module == "gastos"){
-							$this->caja_mayor->add_gasto($data);
-						}else{
-
-						}
-					break;
-				case 'getAll':
-						if($module == "gastos"){
-							$this->caja_mayor->mostrar_gastos($data['fecha']);
-						}else{
-
-						}
-					break;
-				case 'get_total_day':
-					$this->caja_mayor->get_total_gastos_of($data['fecha']);
-					break;
-				case 'delete':
-					$this->caja_mayor->delete_gasto($data['id']);
-					break;
-				default:
-					# code...
-					break;
-			}
-	}
-
-	public function add_cierre(){
-		$data = json_decode($_POST['data'],true);
-		$this->caja_mayor->add_cierre($data);
+	public function add_cierre() {
+	  if($data = $this->get_post_data('data')) {
+      if ($this->caja_mayor->add_cierre($data)) {
+        $this->set_message('Cierre realizado exitosamente');
+        $this->event->trigger('closing', 3 , $data);
+      } else {
+        $this->set_message('No se pudo realizar el cierre: probablemente ya hay cierre en esa fecha', 'error');
+      }
+      $this->response_json();
+    }
 	}
 
 	public function get_cierres() {
-			$data = json_decode($_POST['data'],true);
+			$data = $this->get_post_data('data');
 			if($data) {
 				$res = $this->caja_mayor->get_cierres($data['text'], $data['first_date'], $data['second_date']);
-				echo json_encode($res);
+				$this->response_json($res);
 			}
 	}
 
 	public function get_last_cierre(){
-		$this->caja_mayor->get_last_cierre();
+    $res = $this->caja_mayor->get_last_cierre();
+    $this->response_json($res);
 	}
 }

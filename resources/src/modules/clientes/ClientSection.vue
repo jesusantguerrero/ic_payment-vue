@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper
+  .screen.clients.row
     .left-navigation.col-md-2
       .aside-nav-container
         .left-navigation__header
@@ -18,11 +18,11 @@
               i.material-icons delete
               | Eliminar Cliente
           li.aside-buttons
-            a(href="" id="get-details", @click.prevent="sendTo('details')")
+            a(href="" id="get-details", @click.prevent="sendTo('detalles')")
               i.material-icons find_in_page
               | Ver Detalles
           li.aside-buttons
-            a(href="" id="client-new-contract", @click.prevent="sendTo('admin/nuevo_contrato')")
+            router-link(to="/nuevo_contrato" id="client-new-contract")
               i.material-icons description
               | Nuevo Contrato
 
@@ -156,7 +156,7 @@
       sendTo(endpoint, param = '') {
         const client = this.selectedClient;
         if (client) {
-          window.location.href = `${baseURL}app/${endpoint}/${client.id}/${param}`;
+          this.$router.push(`/${endpoint}/${client.id}/${param}`);
         } else {
           this.$toasted.info('seleccione un cliente primero');
         }
