@@ -5,7 +5,7 @@ const devConfig = require('./resources/build/webpack.dev.conf');
 const config = merge(devConfig, {
   plugins: [
     new browserSync({
-      proxy: 'localhost/ic_payment'
+      proxy: 'icpayment'
     })
   ]
 })
