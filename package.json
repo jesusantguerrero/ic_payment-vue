@@ -1,10 +1,10 @@
 {
-  "name": "icpayment",
+  "name": "payment-plus",
   "version": "2.0.0",
   "description": "Programa de facturacion y administracion de ISP",
   "main": "gulpfile.js",
   "engines": {
-    "node": ">= 8.11.2",
+    "node": ">= 8.*",
     "npm": ">= 5.5.1"
   },
   "scripts": {

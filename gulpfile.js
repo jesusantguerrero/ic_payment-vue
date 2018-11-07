@@ -19,7 +19,7 @@ config = {
   css: {
     origin: '',
     test: '',
-    dest: './assets/css/'
+    dest: './public/assets/css/'
   }
 }
 // sass files

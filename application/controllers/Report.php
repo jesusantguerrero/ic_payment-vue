@@ -100,7 +100,7 @@
     #endregion
 
     #region document related
-    public function get_print_report($table,$type = 'nada'){
+    public function get_print_report($table, $type = 'nada'){
       switch ($table) {
         case 'payment':
             $this->report_model->get_payments_report($type);

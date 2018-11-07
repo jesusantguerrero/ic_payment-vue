@@ -33,7 +33,7 @@
             .input-group-addon: i.material-icons search
             input.form-control.searcher(type="text" placeholder="Busque cliente por cedula, nombre, apellidos o id")
           .pull-right
-            a.btn.icon.print-table(target="_blank" href="process/getreport/clientes'"): i.material-icons print
+            a.btn.icon.print-table(target="_blank" href="/report/get_print_report/clientes"): i.material-icons print
           .pull-right
             select#client-filter.form-group.filter.btn.btn-primary
               option(:value="option.key", v-for="option of options") {{ option.text }}
