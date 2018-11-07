@@ -34,7 +34,7 @@ const cssFiles    = [
 const frontendCss = [
   path + "css/5-others/peace-material.min.css",
   path + "css/5-others/select2.min.css",
-  path + "css/5-others/AdminLTE.min.css",
+  // path + "css/5-others/AdminLTE.min.css",
   path + "css/5-others/square/blue.css",
   path + "css/5-others/square/square.css",
   path + "css/5-others/animate.css"

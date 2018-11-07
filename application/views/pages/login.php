@@ -22,7 +22,7 @@
     <div class="row justify-content-center">
      <div class="col-md-6 justify-content-center hidden-xs">
        <div class="hidden-xs">
-         <h1>IC PAYMENT</h1>
+         <h1>PAYMENT PLUS</h1>
        </div>
        </div>
       <div class="col-md-6 login-box">
@@ -50,8 +50,8 @@
     </div>
   </div>
   <div class="copyrights">
-    <p>Code and Design by Insane Code-Jesus Guerrero</p>
-    <p>2017 &copy; All Rights Reserved</p>
+    <p>Code and Design by Jesus Guerrero</p>
+    <p>2018 &copy; All Rights Reserved</p>
   </div>
   </div>
 
