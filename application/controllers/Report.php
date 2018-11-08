@@ -1,4 +1,5 @@
 <?php
+ use PhpOffice\PhpWord\PhpWord;
  class Report extends MY_Controller {
     public function __construct() {
       parent::__construct();
@@ -138,6 +139,68 @@
           break;
       }
         redirect(base_url('app/imprimir/reporte'));
+    }
+
+    public function test() {
+      $phpWord = new PhpWord();
+      // var_dump($phpWord);
+      $phpWord->getCompatibility()->setOoxmlVersion(14);
+      $phpWord->getCompatibility()->setOoxmlVersion(15);
+
+
+      $filename = 'test.docx';
+      // add style settings for the title and paragraph
+
+      $section = $phpWord->addSection();
+      $section->addText("Hello, world");
+      $section->addTextBreak(1);
+      $section->addText("It's cold outside.");
+
+      $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+      $objWriter->save($filename);
+      // send results to browser to download
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename='.$filename);
+      header('Content-Transfer-Encoding: binary');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($filename));
+      flush();
+      readfile($filename);
+      unlink($filename); // deletes the temporary file
+      exit;
+      die();
+    }
+
+    public function template() {
+      $phpWord = new \PhpOffice\PhpWord\PhpWord();
+      \PhpOffice\PhpWord\Settings::setPdfRendererPath(APPPATH."../".'vendor/dompdf/dompdf');
+      \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+
+      $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('./assets/templates/Template.docx');
+      $templateProcessor->setValue('example', 'John Doe');
+      $templateProcessor->setValue(['City', 'Street'], ['Detroit', '12th Street']);
+      $filename = 'test.docx';
+
+      $templateProcessor->saveAs($filename);
+
+      $pdf = "test.pdf";
+      // Gears\Pdf::convert($filename, $pdf);
+      $phpWord = \PhpOffice\PhpWord\IOFactory::load($filename);
+	    $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
+  	  $xmlWriter->save($pdf);  // Save to PDF
+
+      $salida = "Reporte de clientes" . date("d-m-Y") . ".pdf";
+
+      header('Content-type: application/pdf');
+      header("Content-Disposition: inline; filename=\"{$salida}\"");
+      readfile($pdf);
+      unlink($filename); // deletes the temporary file
+      unlink($pdf); // deletes the temporary file
+      exit;
+      die();
     }
     #endregion
 
