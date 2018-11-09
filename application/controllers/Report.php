@@ -1,5 +1,7 @@
 <?php
- use PhpOffice\PhpWord\PhpWord;
+
+use \PhpOffice\PhpWord\PhpWord;
+
  class Report extends MY_Controller {
     public function __construct() {
       parent::__construct();
@@ -101,7 +103,8 @@
     #endregion
 
     #region document related
-    public function get_print_report($table, $type = 'nada'){
+    public function get_print_report($table, $type = 'nada') {
+      $templateVars;
       switch ($table) {
         case 'payment':
             $this->report_model->get_payments_report($type);
@@ -120,7 +123,9 @@
           break;
         case 'clientes':
           $type = str_replace('%20',' ',$type);
-          $this->report_model->get_client_report($type);
+          $templateVars = $this->report_model->get_client_report($type);
+          $this->template($templateVars, "clientes", "Template");
+          die();
           break;
         case 'secciones':
           $type = str_replace('%20',' ',$type);
@@ -141,7 +146,7 @@
         redirect(base_url('app/imprimir/reporte'));
     }
 
-    public function test() {
+    public function test($vars, $title, $template) {
       $phpWord = new PhpWord();
       // var_dump($phpWord);
       $phpWord->getCompatibility()->setOoxmlVersion(14);
@@ -174,14 +179,43 @@
       die();
     }
 
-    public function template() {
+    public function invoice() {
+      $template = new PhpWord();
+
+      $section = $template->addSection();
+      // Adding Text element to the Section having font styled by default...
+      $section->addText(
+      '"Learn from yesterday, live for today, hope for tomorrow. '
+        . 'The important thing is not to stop questioning." '
+        . '(Albert Einstein)'
+      );
+
+      // Saving the document as OOXML file...
+      $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($template, 'Word2007');
+      $objWriter->save('helloWorld.docx');// Saving the document as OOXML file...
+    }
+
+    public function template($vars, $title, $templateName) {
       $phpWord = new \PhpOffice\PhpWord\PhpWord();
       \PhpOffice\PhpWord\Settings::setPdfRendererPath(APPPATH."../".'vendor/dompdf/dompdf');
       \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
 
-      $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('./assets/templates/Template.docx');
-      $templateProcessor->setValue('example', 'John Doe');
-      $templateProcessor->setValue(['City', 'Street'], ['Detroit', '12th Street']);
+      $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor("./assets/templates/$templateName.docx");
+      foreach ($vars as $key => $value) {
+        if ($key == 'rows') {
+          $cont = 0;
+          $templateProcessor->cloneRow('clientes.cont', count($value));
+          foreach ($value as $row => $content) { 
+            $cont++;
+            foreach ($content as $col => $text) {
+              $templateProcessor->setValue($title.".".$col."#$cont", $text);
+            } 
+          }
+        } else {
+          $templateProcessor->setValue($key, $value);
+        }
+        # code...
+      }
       $filename = 'test.docx';
 
       $templateProcessor->saveAs($filename);
@@ -195,7 +229,7 @@
       $salida = "Reporte de clientes" . date("d-m-Y") . ".pdf";
 
       header('Content-type: application/pdf');
-      header("Content-Disposition: inline; filename=\"{$salida}\"");
+      header("Content-Disposition: inline; filename=\"{$title}\"");
       readfile($pdf);
       unlink($filename); // deletes the temporary file
       unlink($pdf); // deletes the temporary file

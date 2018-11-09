@@ -77,11 +77,11 @@ if ( ! function_exists('make_client_table')){
 
     foreach ($data as $line) {
 
-        $state = verify_state($line['estado'],$posible_states);
+        $state = verify_state($line['estado'], $posible_states);
         $html_text .= "<tr>
         <td>".$cont."</td>
         <td class='hide'></td>
-        <td class='id_cliente hide'>".$line['id_cliente']."</td>
+        <td class='id_cliente hide'>". $line['id_cliente']. "</td>
         <td>".$line['nombres']."</td>
         <td>".$line['apellidos']."</td>
         <td>".dni_format($line['cedula'])."</td>
