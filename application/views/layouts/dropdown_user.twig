@@ -1,6 +1,5 @@
 <ul class="dropdown-menu dropdown-menu-right animated bounceInDown" aria-labelledby="dLabel">
-  <li><p><router-link to="/cuenta"><b>{{ user.fullname }}</b></router-link></p></li>
-  <li><router-link to="/cuenta"><i class="material-icons">person</i>{{ user.typestr }}</router-link></li>
+  <li><p><router-link to="/cuenta"><i class="material-icons">person</i><b>{{ user.fullname }}</b></router-link></p></li>
   {% if (user.type == 0) %}
   <li><router-link to="/administrador">
       <i class="material-icons">settings</i>Configuración</router-link>

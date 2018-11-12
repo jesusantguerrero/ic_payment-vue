@@ -144,8 +144,10 @@
         this.$http.get('section/get_sections/list')
           .then((res) => {
             this.sections = res.data.sections;
-            this.selectedId = this.sections[0].id;
-            this.getIps();
+            if (this.sections.length) {
+              this.selectedId = this.sections[0].id;
+              this.getIps();
+            }
             heavyLoad.stop();
           });
       },
