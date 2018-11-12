@@ -2,7 +2,7 @@
 /**
 * IC Payment
 *@author Jesus Guerrero
-*@copyright Copyright (c) 2017 Insane Code
+*@copyright Copyright (c) 2018 Jesus Guerrero
 *@version 1.0.0
 *
 */
@@ -103,16 +103,17 @@ class Caja_mayor extends CI_MODEL{
 
   public function get_last_cierre(){
     $this->db->select("pagos_facturas as pago_de_facturas,
-    pagos_extras as pagos_de_extras,
-    total_ingresos as total_de_ingresos,
-    pagos_banco as pagos_via_banco,
-    pagos_efectivo as pagos_en_efectivo,
-    efectivo_caja as dinero_real_en_caja,
-    total_descuadre,
-    total_gastos,
-    banco,
-    autor,
-    fecha");
+      pagos_extras as pagos_de_extras,
+      total_ingresos as total_de_ingresos,
+      pagos_banco as pagos_via_banco,
+      pagos_efectivo as pagos_en_efectivo,
+      efectivo_caja as dinero_real_en_caja,
+      total_descuadre,
+      total_gastos,
+      banco,
+      autor,
+      fecha
+    ");
     $this->db->order_by('id_cierre','DESC');
 
     if($result = $this->db->get('ic_caja_mayor',1)):

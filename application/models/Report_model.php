@@ -2,7 +2,7 @@
 /**
 * IC Payment
 *@author Jesus Guerrero
-*@copyright Copyright (c) 2017 Insane Code
+*@copyright Copyright (c) 2018 Jesus Guerrero
 *@version 1.0.0
 *
 */
@@ -14,6 +14,8 @@ class Report_model extends CI_MODEL{
     parent::__construct();
 
     $this->load->library('table');
+    $this->load->model('company_model');
+    $this->company = $this->company_model->get_company();
 
   }
 
@@ -250,15 +252,19 @@ class Report_model extends CI_MODEL{
 
     if ($status == "nada") {
       $status = "";
-      $db->like('cli.estado',$status);
+      $db->like('cli.estado', $status);
     } else {
-      $db->where('cli.estado',$status);
+      $db->where('cli.estado', $status);
     }
 
     $db->join('ic_contratos co','id_cliente','left');
 
     if ($result = $db->get()) {
-      echo make_clients_report($result->result_array(),"Clientes en estado {$status}",$this,true);
+      $state = "";
+      if ($status) {
+        $state = "en estado {$status}";
+      }
+      return make_clients_report($result->result_array(), "Reporte de Clientes $state", $this, true);
     }
   }
 

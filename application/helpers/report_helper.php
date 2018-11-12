@@ -2,7 +2,7 @@
 /**
 * IC Payment
 *@author Jesus Guerrero
-*@copyright Copyright (c) 2017 Insane Code
+*@copyright Copyright (c) 2018 Jesus Guerrero
 *@version 1.0.0
 *
 */
@@ -119,29 +119,31 @@ if ( ! function_exists('make_general_report')){
 
 if ( ! function_exists('make_clients_report')){
 
-  function make_clients_report($data,$concept,$context,$for_print){
+  function make_clients_report($data, $concept, $context, $for_print){
     $cont = 1;
-    $context->table->set_heading("Num","IP","Cliente",["data"=>"Cedula", "width"=> "155px"],"Dirección",["data" => "Celular", 'width'=> '150px']);
-
+    $rows = [];
     foreach ($data as $line) {
-      $context->table->add_row(
-        $cont,
-        $line['codigo'],
-        $line['nombres']." ".$line['apellidos'],
-        dni_format($line['cedula']),
-        "{$line['calle']} #{$line['casa']}, {$line['sector']}",
-        phone_format($line['celular'])
-      );
+      $rows[] = [
+        "cont" => $cont,
+        "codigo" => $line['codigo'],
+        "nombres" => $line['nombres']." ".$line['apellidos'],
+        "cedula" => dni_format($line['cedula']),
+        "direccion" => "{$line['calle']} #{$line['casa']}, {$line['sector']}",
+        "celular" => phone_format($line['celular'])
+      ];
+
      $cont+=1;
     }
 
-    $html_text = $context->table->generate()."<div class='real-end'></div>";
-    if ($for_print) {
-      set_report($html_text,$concept);
-    } else {
-      return $html_text;
-
-    }
+    return [
+      "empresa.nombre" => $context->company['nombre'],
+      "empresa.direccion" => $context->company['direccion'],
+      "empresa.telefono1" => phone_format($context->company['telefono1']),
+      "empresa.telefonos" => phone_format($context->company['telefonos']),
+      "titulo" => $concept,
+      "total" => count($data),
+      "rows" => $rows 
+    ];
   }
 }
 

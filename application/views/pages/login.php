@@ -17,14 +17,14 @@
 </head>
 
 <body class="login-body">
-  <div class="container-fluid">
+  <div class="container-fluid container-login">
     <div class="loader"> <span class="load"></span></div>
     <div class="row justify-content-center">
-     <div class="col-md-6 justify-content-center hidden-xs">
+     <!-- <div class="col-md-6 justify-content-center hidden-xs">
        <div class="hidden-xs">
-         <h1>IC PAYMENT</h1>
+         <h1>PAYMENT PLUS</h1>
        </div>
-       </div>
+      </div> -->
       <div class="col-md-6 login-box">
         <form>
           <div class="cabecera">
@@ -48,12 +48,15 @@
 
       </div>
     </div>
+
+    <div class="copyrights">
+      <p>Code and Design by Jesus Guerrero</p>
+      <p>2018 &copy; All Rights Reserved</p>
+    </div>
+    </div>
+
   </div>
-  <div class="copyrights">
-    <p>Code and Design by Insane Code-Jesus Guerrero</p>
-    <p>2017 &copy; All Rights Reserved</p>
-  </div>
-  </div>
+
 
   <div class="splash-screen">
     <img class="splash-logo" src="{url}assets/img/icpayment_logo_alter.svg" alt="">

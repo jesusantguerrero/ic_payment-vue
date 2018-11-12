@@ -3,7 +3,7 @@
 * IC Payment
 *
 * @author <jesusant.guerrero@gmail.com>
-* @copyright Copyright (c) 2017 Insane Code
+* @copyright Copyright (c) 2018 Jesus Guerrero
 * @version 1.0.0.0
 *
 */
