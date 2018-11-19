@@ -54,7 +54,9 @@ class Client_model extends CI_MODEL{
 
   public function add($data){
     $this->organize_data($data, true);
-    return $this->db->insert($this->table, $this->cols);
+    $this->db->insert($this->table, $this->cols);
+    $id = $this->db->insert_id();
+    return $this->get_client($id);
   }
 
   public function update_client($data, $row = false, $id = false){
@@ -68,7 +70,7 @@ class Client_model extends CI_MODEL{
     }
   }
 
-  public function get_column($columnName,$id_cliente){
+  public function get_column($columnName, $id_cliente){
     $this->db->select($columnName);
     $this->db->where('id_cliente',$id_cliente);;
     if($result = $this->db->get($this->table)){
@@ -141,7 +143,7 @@ class Client_model extends CI_MODEL{
   }
 
   public function get_client($id, $json = false){
-    $this->db->where('cedula',$id)->or_where('id_cliente',$id);
+    $this->db->where('cedula', $id)->or_where('id_cliente',$id);
     if($result = $this->db->get($this->table)){
       return ($json) ? $result->row() : $result->row_array();
     }

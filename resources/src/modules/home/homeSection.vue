@@ -101,7 +101,7 @@ export default {
       return this.appStore;
     },
     logo() {
-      const logo = this.store.company.logo || 'company/default.png';
+      const logo = this.store.company ? this.store.company.logo : 'company/default.png';
       return `${baseURL}assets/uploads/${logo}`;
     }
   },

@@ -19,7 +19,7 @@ class Company_model extends CI_MODEL{
   }
 
   public function update($data){
-    $this->db->where('id_empresa',1);
+    $this->db->where('id_empresa', 1);
     return $this->db->update($this->table, $data);
   }
 
