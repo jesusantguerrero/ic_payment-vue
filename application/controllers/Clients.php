@@ -15,10 +15,10 @@
           $data['fecha_registro'] = date('Y-m-d');
           $data['estado'] = 'no activo';
 
-          if ($this->client_model->add($data)) {
+          if ($client = $this->client_model->add($data)) {
             $this->set_message('Cliente agregado');
             // event
-            $this->event->trigger('client', 1, $data);
+            $this->event->trigger('client', 1, $client);
 
           } else {
             $this->set_message('El cliente no pudo ser agregado, revise los datos e intente', 'error');
