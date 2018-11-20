@@ -6,7 +6,8 @@
     "kenjis/codeigniter-ss-twig": "^0.2.1",
 		"phpoffice/phpword": "^0.15.0",
 		"dompdf/dompdf": "^0.8.2",
-		"gears/pdf": "^0.4.1"
+		"gears/pdf": "^0.4.1",
+		"vlucas/phpdotenv": "^2.5"
 	},
 	"require-dev": {
     "mikey179/vfsStream": "1.1.*",

@@ -16,6 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $hook['pre_system'][] = function(){
     // Los Angeles, California, USA
     date_default_timezone_set('America/Santo_Domingo');
+    $dotenv = new Dotenv\Dotenv(APPPATH . "../");
+    $dotenv->load();
 };
 // Set timezone for MySQL based on PHP timezone
 $hook['post_controller_constructor'] = function(){
