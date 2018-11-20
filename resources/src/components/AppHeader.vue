@@ -1,7 +1,7 @@
 <template lang="pug">
   .nav-container.mobile(:class="{expanded: menuExpanded}")
     nav.main-nav.animated.baunceInLeft
-      li: router-link(to="/", @click.native="changeMenu").nav-button Lobby
+      li: router-link(to="/", @click.native="changeMenu").nav-button Home
       li: router-link(to="/clientes", @click.native="changeMenu").nav-button Clientes
       li: router-link(to="/servicios", @click.native="changeMenu").nav-button Servicios
       li: router-link(to="/contratos", @click.native="changeMenu").nav-button Contratos
