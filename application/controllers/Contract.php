@@ -254,11 +254,11 @@ class Contract extends MY_Controller {
 
   // installation
 
-  public function update_installation_state($payment_id){
+  public function update_installation_state($contract_id){
     $this->load->model('report_model');
-		if ($this->report_model->update_installation($payment_id)) {
+		if ($this->report_model->update_installation($contract_id)) {
       $this->set_message('Estado de instalacion cambiado');
-      $contract = $this->contract_model->get_contract_view($data['id_contrato']);
+      $contract = $this->contract_model->get_contract_view($contract_id);
       $this->event->trigger('contract', 2, $contract, "Cambio estado de instalacion");
     } else {
       $this->set_message('No se pudo cambiar el estado');
