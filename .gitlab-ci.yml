@@ -1,4 +1,4 @@
-image: node:latest
+image: ubuntu
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
 
@@ -17,7 +17,7 @@ stages:
   - prepare
   - build
   - deploy
-
+image: node:latest
 prepare:
   stage: prepare
   script:
