@@ -6,7 +6,7 @@ stages:
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - echo "$SSH_PRIVATE_KEY" | ssh-add 
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
   - ssh-keyscan payment-plus.com >> ~/.ssh/known_hosts
