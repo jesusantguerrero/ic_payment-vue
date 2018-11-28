@@ -17,7 +17,6 @@ stages:
   - prepare
   - build
   - deploy
-image: node:latest
 prepare:
   stage: prepare
   script:
