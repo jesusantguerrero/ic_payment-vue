@@ -1,22 +1,18 @@
 image: ubuntu
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-
-  - eval $(ssh-agent -s)
-
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-
-  - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
-  - git config --global user.email "jesusant.guerrero@gmail.com"
-  - git config --global user.name "Jesus Guerrero"
 stages:
   - prepare
   - build
   - deploy
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan payment-plus.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - git config --global user.email "jesusant.guerrero@gmail.com"
+  - git config --global user.name "Jesus Guerrero"
 prepare:
   stage: prepare
   script:
