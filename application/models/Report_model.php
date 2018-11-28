@@ -16,7 +16,10 @@ class Report_model extends CI_MODEL{
     $this->load->library('table');
     $this->load->model('company_model');
     $this->company = $this->company_model->get_company();
-
+    $template = [
+      'table_open' => '<table class="table">'
+    ];
+    $this->table->set_template($template);
   }
 
 

@@ -26,8 +26,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $myurl = (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) ? "https" : "http";
 $myurl .= (isset($_SERVER['HTTP_HOST'])) ? "://".$_SERVER['HTTP_HOST'] : '://localhost/icpyament/';
 $myurl .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
-$config['base_url'] = $myurl;
-$GLOBALS['myurl'] = $myurl;
+$config['base_url'] = '/';
+$GLOBALS['myurl'] = '/';
 date_default_timezone_set('America/Santo_Domingo');
 
 

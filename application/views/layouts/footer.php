@@ -8,7 +8,7 @@
       <h1>IC Payment</h1>
     </div>
     <script>
-      const baseURL = '{url}'
+      const baseURL = '/'
       const Company = '{company}'
       const CurrentUser= '{currentUser}'
     </script>

@@ -99,14 +99,15 @@
 
         .row-container.contract-controls(v-if="mode == 'new contract'")
           button.btn#btn-save-contract(tabindex="7", @click="add", :disabled="createdContract") Guardar
-          a.btn#btn-view-pay(target="_blank", :href="paymentUrl",v-if="createdContract") Pagos
-          a.btn#btn-print-contract(target="printframe", :href="printContractUrl", v-if="createdContract") Imprimir
+          a.btn#btn-view-pay(target="_blank" :href="paymentUrl" v-if="createdContract") Pagos
+          a.btn#btn-print-contract(target="printframe" :href="printContractUrl" v-if="createdContract") Imprimir
         .row-container.requirement-controls(v-if="mode == 'requirements'")
           a.btn#btn-print-requirement(target="printframe", :href="printRequirementUrl", @click="handleRequirements") Requerimiento
 
 </template>
 
 <script>
+  import moment from 'moment';
   import RouterService from './../secciones/service/routerService';
   import SelectClient from './../sharedComponents/SelectClient.vue';
   import InternetPlans from './../sharedComponents/InternetPlans.vue';
@@ -130,7 +131,7 @@
           id_cliente: '',
           id_servicio: '',
           codigo: '',
-          fecha: '',
+          fecha: moment().format('YYYY-MM-DD'),
           duracion: '',
           mensualidad: '',
           nombre_equipo: '',
@@ -146,7 +147,7 @@
         paymentList: null,
         selectedSection: null,
         selectedPayment: null,
-        searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
+        searchEndpoint: '/clients/get_clients/dropdown',
         mode: 'requirements',
         disabledSelect: false
       };
@@ -162,15 +163,15 @@
       },
 
       paymentUrl() {
-        return (this.contract.id_cliente) ? `${baseURL}app/details/${this.contract.id_cliente}/pagos')` : '#';
+        return (this.contract.id_cliente) ? `/app/admin/detalles/${this.contract.id_cliente}/payments` : '#';
       },
 
       printContractUrl() {
-        return `${baseURL}contract/get_requirements/${this.contract.id_cliente}`;
+        return `/contract/get_requirements/${this.contract.id_cliente}`;
       },
 
       printRequirementUrl() {
-        return `${baseURL}contract/get_requirement/${this.contract.id_cliente}/${this.contract.id_servicio}`;
+        return `/contract/get_requirement/${this.contract.id_cliente}/${this.contract.id_servicio}`;
       }
     },
 

@@ -61,8 +61,10 @@ export default {
   startInputMask(InputMask) {
     const TelSelector = document.querySelectorAll('[type="tel"]');
     const dniSelector = document.querySelectorAll('[role="cedula"], [id*="dni"]');
+    const passportSelector = document.querySelectorAll('[role="passport"], [id*="passport"]');
     InputMask({ mask: '(999) 999-9999', greede: false }).mask(TelSelector);
-    InputMask({ mask: '**[*]-*******-[*][*{1,20}]', greede: false }).mask(dniSelector);
+    InputMask({ mask: '999-9999999-9', greede: false }).mask(dniSelector);
+    InputMask({ mask: '**-*******-[*][*{1,20}]', greede: false }).mask(passportSelector);
   },
 
   // values: array
