@@ -23,7 +23,7 @@
       const clientStore = new ClientStore();
 
       return {
-        searchEndpoint: `${baseURL}/clients/get_clients/dropdown`,
+        searchEndpoint: '/clients/get_clients/dropdown',
         tableOptions: {
           pageSize: 5
         },
@@ -37,7 +37,7 @@
 
     methods: {
       goToClient(data) {
-        window.location.href = `${baseURL}app/details/${data.id}`;
+        window.location.href = `/detalles/${data.id}/payments`;
       },
     }
   };

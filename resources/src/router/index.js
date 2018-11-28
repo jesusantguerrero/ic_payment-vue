@@ -18,8 +18,7 @@ import ServiceSection from './../modules/servicios/ServiceSection.vue';
 import TicketSection from './../modules/averias/TicketSection.vue';
 
 Vue.use(Router);
-const url = window.location.origin;
-const base = (url.includes('localhost')) ? '/ic_payment' : '';
+const base = '';
 
 const router = new Router({
   mode: 'history',
