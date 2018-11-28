@@ -189,7 +189,7 @@
     },
     computed: {
       reportUrl() {
-        return `${baseURL}process/getreport/secciones/${this.selectedId}`;
+        return `/report/get_print_report/secciones/${this.selectedId}`;
       },
       cols() {
         return [

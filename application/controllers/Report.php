@@ -125,7 +125,6 @@ use \PhpOffice\PhpWord\PhpWord;
           $type = str_replace('%20',' ',$type);
           $templateVars = $this->report_model->get_client_report($type);
           $this->template($templateVars, "clientes", "Template");
-          die();
           break;
         case 'secciones':
           $type = str_replace('%20',' ',$type);

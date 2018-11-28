@@ -1,5 +1,5 @@
 <template lang="pug">
-  input(:type="types", ref="input",v-model="value", :class="classes", :id="ids" @blur="updateValue")
+  input(:type="types" ref="input" v-model="customValue" :class="classes" :id="ids" @input="updateValue" @blur="updateValue")
 </template>
 
 <script>
@@ -15,8 +15,30 @@
       'data'
     ],
 
+    data() {
+      return {
+        customValue: ''
+      };
+    },
+
+    created() {
+      console.log('created');
+    },
+
     mounted() {
+      this.customValue = this.value;
+
       this.initMask();
+    },
+
+    watch: {
+      value() {
+        this.customValue = this.value;
+      },
+
+      ids() {
+        this.initMask();
+      }
     },
 
     methods: {
@@ -26,6 +48,7 @@
       },
 
       initMask() {
+        console.log('mask');
         utils.startInputMask(InputMask);
       },
 

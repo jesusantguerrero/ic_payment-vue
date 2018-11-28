@@ -1,9 +1,9 @@
 <template lang="pug">
-   .modal.fade(tabindex="-1", role="dialog", id="client-modal")
+   .modal.fade(tabindex="-1" role="dialog" id="client-modal")
     .modal-dialog.modal-lg(role="document")
       .modal-content
         .modal-header
-          button(type="button", class="close", data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close"): span(aria-hidden="true") &times;
           h4.modal-title {{ modalTitle }}
         .modal-body
           .tab-container
@@ -21,23 +21,31 @@
                       h4 Datos Personales
                       .form-group
                         label(for="client-name") Nombres
-                        input(type="text", class="form-control", id="client-name", tabindex="1", v-model="store.client.nombres")
+                        input(type="text" class="form-control" id="client-name" v-model="store.client.nombres")
                       .form-group
-                        label(for="client-dni") Cedula
-                        PhoneInput(placeholder="cedula", types="text",ids="client-dni" role="dni" data="cedula", :value="store.client.cedula" v-on:change="inputChange", class="form-control")
+                        label(for="client-dni") Tipo de documento
+                        select(v-model="dniType" class="form-control")
+                          option(value="cedula" selected v-model="dniType") Cedula
+                          option(value="pasaporte" selected v-model="dniType") Pasaporte
                       .form-group
                         label(for="client-telephone") Telefono
-                        PhoneInput(placeholder="telefono", types="tel", data="telefono", :value="store.client.telefono" v-on:change="inputChange", class="form-control")
+                        PhoneInput(placeholder="telefono" types="tel" data="telefono" :value="store.client.telefono" @change="inputChange" class="form-control")
 
 
                     .col-md-6
                       h4.placeholder ...
                       .form-group
                         label(for="client-lastname") Apellidos
-                        input(type="text", class="form-control", id="client-lastname", tabindex="2", v-model="store.client.apellidos")
+                        input(type="text" class="form-control" id="client-lastname" v-model="store.client.apellidos")
+                      .form-group(v-if="dniType == 'cedula'")
+                        label(for="client-dni") Cedula
+                        PhoneInput(placeholder="cedula" types="text" ids="client-dni" role="dni" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
+                      .form-group(v-else)
+                        label(for="client-dni") Pasaporte
+                        PhoneInput(placeholder="pasaporte" types="text" ids="client-passport" role="passport" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
                       .form-group
                         label(for="client-phone") Celular
-                        PhoneInput(placeholder="celular", types="tel", data="celular", :value="store.client.celular" v-on:change="inputChange", class="form-control")
+                        PhoneInput(placeholder="celular" types="tel" data="celular" :value="store.client.celular" @change="inputChange" class="form-control")
 
               .tab-pane.fade.in#client-direction(role="tabpanel")
                 form
@@ -46,7 +54,7 @@
                       h4 Dirección
                       .form-group
                         label(for="client-provincia") Provincia
-                        input(type="text", class="form-control password-confirm", id="client-provincia", list="provincias" tabindex="5", v-model="store.client.provincia")
+                        input(type="text" class="form-control password-confirm" id="client-provincia" list="provincias" v-model="store.client.provincia")
                         datalist#provincias
                           option(value="La Romana")
                           option(value="Santo Domingo")
@@ -54,22 +62,23 @@
 
                       .form-group
                         label(for="cient-sector") Sector
-                        input(class="form-control", id="client-sector", tabindex="6", v-model="store.client.sector")
+                        input(class="form-control" id="client-sector" v-model="store.client.sector")
 
                     .col-md-6
                       h4.placeholder ...
                       .form-group
                         label(for="client-street") Calle
-                        input(type="text", class="form-control", id="client-street", tabindex="6", v-model="store.client.calle")
+                        input(type="text" class="form-control" id="client-street" v-model="store.client.calle")
 
                       .form-group
                         label(for="client-house") Casa #
-                        input(type="text", class="form-control", id="client-house", tabindex="7", v-model="store.client.casa")
+                        input(type="text" class="form-control" id="client-house" v-model="store.client.casa")
 
+                  .row 
                     .col-md-12
-                    .form-group
-                      label(for="u-client-house") Detalle de Direccion
-                      textarea(name="", class="form-control", id="client-direction-details", tabindex="8", cols="30", rows="5", v-model="store.client.direccion")
+                      .form-group
+                        label(for="u-client-house") Detalle de Direccion
+                        textarea(name="" class="form-control" id="client-direction-details" cols="30" rows="5" v-model="store.client.direccion")
 
               .tab-pane.fade.in#client-optional(role="tabpanel")
                 form
@@ -78,20 +87,20 @@
                       h4 Datos Personales +
                       .form-group
                         label(for="client-job") Lugar de Trabajo
-                        input(type="text", class="form-control", id="client-job", v-model="store.client.lugar_trabajo")
+                        input(type="text" class="form-control" id="client-job" v-model="store.client.lugar_trabajo")
                       .form-group
                         label(for="client-salary") Salario
-                        input(type="number", class="form-control", id="client-salary", value="0", v-model="store.client.ingresos")
+                        input(type="number" class="form-control" id="client-salary" value="0" v-model="store.client.ingresos")
 
                     .col-md-6
                       h4.placeholder ...
                       .form-group
                         label(for="client-job-number") Telefono del trabajo
-                        input(type="tel", class="form-control", id="client-job-telephone", v-model="store.client.tel_trabajo")
+                        input(type="tel" class="form-control" id="client-job-telephone" v-model="store.client.tel_trabajo")
 
         .modal-footer
-          button(type="button", class="btn", data-dismiss="modal") Cancelar
-          button(type="button", class="btn save", id="btn-save-client", @click.stop.prevent='save') {{ buttonTitle }}
+          button(type="button" class="btn" data-dismiss="modal") Cancelar
+          button(type="button" class="btn save" id="btn-save-client" @click.stop.prevent='save') {{ buttonTitle }}
 </template>
 
 <script>
@@ -115,6 +124,12 @@
         type: Object,
         required: true
       }
+    },
+
+    data() {
+      return {
+        dniType: 'cedula'
+      };
     },
 
     mounted() {

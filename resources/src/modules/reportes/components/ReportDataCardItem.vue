@@ -4,7 +4,7 @@
     span.data {{ data }}
     span {{ title }}
     .card-detail(v-if="detail")
-      a(href="detail.link" class="cover-links") {{ detail.title }}
+      a(:href="detail.link || '#'" class="cover-links") {{ detail.title }}
 </template>
 
 <script>
@@ -22,6 +22,11 @@
       detail: {
         type: Object
       }
+    },
+    data() {
+      return {
+        detailLink: '#'
+      };
     }
   };
 </script>

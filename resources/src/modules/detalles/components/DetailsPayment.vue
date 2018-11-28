@@ -6,7 +6,7 @@
           .input-group-addon: i.material-icons search
           input(type="text", placeholder=" descripcion").form-control.searcher
         .input-group.search
-          .input-group-addon: i.material-icons person_pin
+          .input-group-addon: i.material-icons(title="contrato") description
           select(name="" , class="form-control", v-model="selectedContract", @change="getPayments")
             option(v-for="contract of contractList", :key="contract.id_contrato", :value="contract.id_contrato") {{ contract.id_contrato}}
       DataTable(ids="payment-table", :toolbar="toolbar", :parentId="parentId", :data="payments", :cols="cols", :options="tableOptions")
