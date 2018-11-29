@@ -220,10 +220,10 @@ use \PhpOffice\PhpWord\PhpWord;
       $templateProcessor->saveAs($filename);
 
       $pdf = "test.pdf";
-      // Gears\Pdf::convert($filename, $pdf);
-      $phpWord = \PhpOffice\PhpWord\IOFactory::load($filename);
-	    $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
-  	  $xmlWriter->save($pdf);  // Save to PDF
+      Gears\Pdf::convert($filename, $pdf);
+      // $phpWord = \PhpOffice\PhpWord\IOFactory::load($filename);
+	    // $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
+  	  // $xmlWriter->save($pdf);  // Save to PDF
 
       $salida = "Reporte de clientes" . date("d-m-Y") . ".pdf";
 
