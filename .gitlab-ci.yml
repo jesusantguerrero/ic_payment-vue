@@ -1,9 +1,18 @@
-image: node:latest
+image: ubuntu
 stages:
   - prepare
   - build
   - deploy
-
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | ssh-add 
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan payment-plus.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - git config --global user.email "jesusant.guerrero@gmail.com"
+  - git config --global user.name "Jesus Guerrero"
 prepare:
   stage: prepare
   script:
@@ -32,7 +41,6 @@ build:
   only:
    - develop
    - feature/enviroments
-   - master
 
 
 deploy_staging:
@@ -41,16 +49,12 @@ deploy_staging:
     branch_name: "heroku"
   script:
     - echo "Deploy to staging server"
-    - git config --global user.email "jesusant.guerrero@gmail.com"
-    - git config --global user.name "Jesus Guerrero"
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ic-payment-staging.git
-    - git checkout -b $branch_name
-    - echo "!assets/js/"
-    - git commit --allow-empty -m "Publish to Heroku at $(date)"
-    - git push heroku $branch_name:master -f
+    - git remote add do ssh://root@payment-plus.com/home/payment-plus/site.git
+    - git push do master -f
     - echo "deployed to staging"
   environment:
     name: staging
-    url: https://ic-payment-staging.herokuapp.com/
+    url: http://payment-plus.com/
   only:
   - develop
+  - master
