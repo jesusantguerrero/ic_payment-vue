@@ -29,7 +29,7 @@
             .input-group-addon: i.material-icons search
             input.form-control.searcher(type="text" placeholder="Buscar servicio")
           .pull-right
-            a.btn.icon.print-table(target="_blank" href="process/getreport/services'"): i.material-icons print
+            a.btn.icon.print-table(href="#" @click.prevent=""): i.material-icons
           .pull-right
             select#service-filter.form-group.filter.btn.btn-primary
               option(:value="option.id", v-for="option of options") {{ option.text }}

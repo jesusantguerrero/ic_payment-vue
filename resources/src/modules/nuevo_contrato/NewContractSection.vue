@@ -178,7 +178,7 @@
     methods: {
       add() {
         const { contract } = this;
-        const empty = utils.isEmpty([contract.id_cliente, contract.id_servicio, contract.fecha, contract.duracion]);
+        const empty = utils.isEmpty([contract.id_cliente, contract.id_servicio, contract.fecha, contract.duracion, contract.ip]);
         if (!empty && !this.createdContract) {
           this.$http.post('contract/add', this.getDataForm(contract))
             .then((res) => {

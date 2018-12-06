@@ -23,10 +23,10 @@
               option(:value="option.key", v-for="option of options") {{ option.text }}
         DataTable(ids="extra-table", :parentId="parentId", :data="content", :cols="cols", :toolbar="toolbar", :options="tableOptions")
         .mini-card.total
-          h5 Vendido : {{totales.total_vendido | currencyFormat}}
-          h5.text-success Pagado : RD$ {{totales.pagado | currencyFormat}}
+          h5 Vendido : {{totales.total_vendido || 0 | currencyFormat}}
+          h5.text-success Pagado : RD$ {{totales.pagado || 0 | currencyFormat}}
           h5 --------------------
-          h5.text-danger Pendiente : RD$ {{totales.pendiente | currencyFormat}}
+          h5.text-danger Pendiente : RD$ {{totales.pendiente || 0 | currencyFormat}}
 </template>
 
 <script>

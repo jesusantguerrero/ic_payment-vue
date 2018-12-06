@@ -1,16 +1,35 @@
-<template lang="pug">
-  select(class="form-control", :id="theId")
-    option(value="0") Escriba el nombre del cliente
+<template lang="pug"> 
+  multiselect(
+    v-model="selectedOptions",
+    id="ajax",
+    label="text",
+    track-by="id",
+    placeholder="Escriba el nombre del cliente",
+    open-direction="bottom",
+    :options="options",
+    :searchable="true",
+    :loading="isLoading",
+    :internal-search="false",
+    :clear-on-select="false",
+    :close-on-select="false",
+    :options-limit="300",
+    :limit="3",
+    :limit-text="limitText",
+    :max-height="600",
+    :show-no-results="false",
+    :disabled="disabled"
+    @select="$emit('select', $event)"
+    @search-change="asyncFind"
+  )
+    span(slot="noResult").
+      No fueron encotrados clientes.
 </template>
 
 
 <script>
-  import 'select2';
+import Multiselect from 'vue-multiselect';
 
-  export default {
-    mounted() {
-      this.initSelect2();
-    },
+export default {
     props: {
       endpoint: {
         type: String,
@@ -30,58 +49,31 @@
       disabled: {
         type: Boolean
       }
+  },
+  components: {
+    Multiselect
+  },
+  data() {
+    return {
+      selectedOptions: [],
+      options: [],
+      isLoading: false
+    };
+  },
+  methods: {
+    limitText(count) {
+      return `y otros ${count} clientes`;
     },
-    data() {
-      return {
-        sel: ''
-      };
+    asyncFind(query) {
+      this.isLoading = true;
+      this.$http.get(`${this.endpoint}?q=${query}`).then((response) => {
+        this.options = response.data.items;
+        this.isLoading = false;
+      });
     },
-
-    watch: {
-      disabled() {
-        if (this.disabled) {
-          this.sel.prop('disabled', true);
-        } else {
-          this.sel.prop('disabled', false);
-        }
-      },
-      empty() {
-        this.sel.val(null).trigger('change');
-      }
-    },
-
-    methods: {
-      initSelect2() {
-        this.sel = $(`#${this.theId}`).select2({
-          dropdownParent: $(this.parentId),
-          width: '100%',
-          ajax: {
-            url: this.endpoint,
-            dataType: 'json',
-            delay: 250,
-            data(params) {
-              return {
-                q: params.term,
-              };
-            },
-
-            processResults(data, params) {
-              params.page = params.page || 1;
-              return {
-                results: data.items,
-                pagination: {
-                  more: (params.page * 30) < data.total_count
-                }
-              };
-            },
-            cache: true
-          }
-        });
-
-        this.sel.on('select2:select', (e) => {
-          this.$emit('select', e.params.data);
-        });
-      },
+    clearAll() {
+      this.selectedOptions = [];
     }
-  };
+  }
+};
 </script>

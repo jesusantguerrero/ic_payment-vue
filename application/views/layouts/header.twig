@@ -17,6 +17,7 @@
   <link rel="apple-touch-icon" type="image/png" sizes="96x96" href="{{url}}favicon-96x96.png">
 
   <title>.:: IC Payment | {{title}} ::.</title>
+  <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
   {% for style in css%}
 	  <link rel="stylesheet" href="{{style.link}}"/>
   {% endfor %}
@@ -50,7 +51,7 @@
         </div>
 
         <nav class="top-nav">
-          <li class="navButton hidden-xs"><router-link v-cloak to="/">Home</router-link></li>
+          <li class="navButton hidden-xs"><router-link v-cloak to="/">Inicio</router-link></li>
           <li class="navButton hidden-xs"><router-link v-cloak to="/clientes">Clientes</router-link></li>
           <li class="navButton hidden-xs"><router-link v-cloak to="/servicios">Servicios</router-link></li>
           <li class="navButton hidden-xs"><router-link v-cloak to="/contratos">Contratos</router-link>
@@ -75,10 +76,10 @@
               <a href="" data-toggle="modal" data-target="#app-ticket-modal" data-placement="bottom" title="Averias">
               <i class="material-icons">assignment</i>
             </a></li>
-            <li class="navButton">
+            {# <li class="navButton">
               <a href="" data-toggle="modal" data-target="#app-message-modal" data-placement="bottom" title="Mensajes">
               <i class="material-icons">perm_phone_msg</i>
-            </a></li>
+            </a></li> #}
              <li class="navButton dropdown mymenu">
                 <a href="{{url}}app/admin/averias" id="dropdown-notification" title="notificaciones" class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                   <i class="material-icons">notifications</i>

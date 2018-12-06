@@ -66,7 +66,6 @@ class Contract_model extends CI_MODEL{
 
     if ($this->db->trans_status() === false){
       $this->db->trans_rollback();
-      var_dump($this->db->last_query());
       return false;
     } else{
       return $contract_id;
@@ -77,6 +76,8 @@ class Contract_model extends CI_MODEL{
     $this->db->where('id_contrato', $id);
     if($result = $this->db->get('v_contratos')){
       return $result->row_array();
+    } else {
+      var_dump($this->db->last_query());
     }
   }
 

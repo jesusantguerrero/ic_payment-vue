@@ -1,4 +1,6 @@
 <?php
+
+use PHPUnit\Framework\MockObject\Stub\Exception;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Contract extends MY_Controller {
@@ -21,9 +23,13 @@ class Contract extends MY_Controller {
       if ($contract_id = $this->contract_model->add($data)) {
         $this->set_message('Contrato creado');
 
-        // event
-        $contract = $this->contract_model->get_contract_view($contract_id, true);
-        $this->event->trigger('contract', 1, (array) $contract);
+        try {
+          $contract = $this->contract_model->get_contract_view($contract_id, true);
+          $this->event->trigger('contract', 1, (array) $contract);
+        } catch(Exception $e) {
+          die("hola");
+          $this->set_message($e->getMessage(), 'error');
+        }
 
         $this->res['payments'] = $this->payment_model->get_payments($contract_id, 'list');
         $this->res['contract'] = $contract_id;

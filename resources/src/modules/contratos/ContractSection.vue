@@ -41,7 +41,7 @@
             .input-group-addon: i.material-icons search
             input.form-control.searcher(type="text" placeholder="Buscar contrato")
           .pull-right
-            a.btn.icon.print-table(target="_blank" href="#"): i.material-icons print
+            a.btn.icon.print-table(href="#" @click.prevent=""): i.material-icons print
           .pull-right
             select#contract-filter.form-group.filter.btn.btn-primary(v-model="filter")
               option(:value="option.key", v-for="option of options") {{ option.text }}
