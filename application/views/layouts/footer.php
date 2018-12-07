@@ -5,7 +5,7 @@
     </main>
     <div class="splash-screen">
       <img class="splash-logo" src="{url}assets/img/icpayment_logo_alter.svg" alt="">
-      <h1>IC Payment</h1>
+      <h1>Payment Plus</h1>
     </div>
     <script>
       const baseURL = '/'

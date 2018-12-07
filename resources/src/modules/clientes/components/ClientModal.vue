@@ -20,31 +20,31 @@
                     .col-md-6
                       h4 Datos Personales
                       .form-group
-                        label(for="client-name") Nombres
+                        label(for="client-name") Nombres <span class="text-danger">*</span>
                         input(type="text" class="form-control" id="client-name" v-model="store.client.nombres")
                       .form-group
-                        label(for="client-dni") Tipo de documento
+                        label(for="client-dni") Tipo de documento <span class="text-danger">*</span>
                         select(v-model="dniType" class="form-control")
                           option(value="cedula" selected v-model="dniType") Cedula
                           option(value="pasaporte" selected v-model="dniType") Pasaporte
                       .form-group
-                        label(for="client-telephone") Telefono
+                        label(for="client-telephone") Telefono <span class="text-danger">*</span>
                         PhoneInput(placeholder="telefono" types="tel" data="telefono" :value="store.client.telefono" @change="inputChange" class="form-control")
 
 
                     .col-md-6
                       h4.placeholder ...
                       .form-group
-                        label(for="client-lastname") Apellidos
+                        label(for="client-lastname") Apellidos <span class="text-danger">*</span>
                         input(type="text" class="form-control" id="client-lastname" v-model="store.client.apellidos")
                       .form-group(v-if="dniType == 'cedula'")
-                        label(for="client-dni") Cedula
+                        label(for="client-dni") Cedula <span class="text-danger">*</span>
                         PhoneInput(placeholder="cedula" types="text" ids="client-dni" role="dni" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
                       .form-group(v-else)
-                        label(for="client-dni") Pasaporte
+                        label(for="client-dni") Pasaporte <span class="text-danger">*</span>
                         PhoneInput(placeholder="pasaporte" types="text" ids="client-passport" role="passport" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
                       .form-group
-                        label(for="client-phone") Celular
+                        label(for="client-phone") Celular <span class="text-danger">*</span>
                         PhoneInput(placeholder="celular" types="tel" data="celular" :value="store.client.celular" @change="inputChange" class="form-control")
 
               .tab-pane.fade.in#client-direction(role="tabpanel")
@@ -53,7 +53,7 @@
                     .col-md-6
                       h4 Dirección
                       .form-group
-                        label(for="client-provincia") Provincia
+                        label(for="client-provincia") Provincia <span class="text-danger">*</span>
                         input(type="text" class="form-control password-confirm" id="client-provincia" list="provincias" v-model="store.client.provincia")
                         datalist#provincias
                           option(value="La Romana")
@@ -61,17 +61,17 @@
                           option(value="La Altagracia")
 
                       .form-group
-                        label(for="cient-sector") Sector
+                        label(for="cient-sector") Sector <span class="text-danger">*</span>
                         input(class="form-control" id="client-sector" v-model="store.client.sector")
 
                     .col-md-6
                       h4.placeholder ...
                       .form-group
-                        label(for="client-street") Calle
+                        label(for="client-street") Calle <span class="text-danger">*</span>
                         input(type="text" class="form-control" id="client-street" v-model="store.client.calle")
 
                       .form-group
-                        label(for="client-house") Casa #
+                        label(for="client-house") Casa # <span class="text-danger">*</span>
                         input(type="text" class="form-control" id="client-house" v-model="store.client.casa")
 
                   .row 

@@ -6,7 +6,7 @@
           button(type="button", class="close", data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
           h4.modal-title Buscar Cliente
         .modal-body
-          SelectClient(the-id="client-id", parent-id="#search-client-modal",:endpoint="searchEndpoint", @select="goToClient")
+          SelectClient(the-id="client-id", parent-id="#search-client-modal",:endpoint="searchEndpoint", @input="goToClient")
 
 </template>
 
@@ -37,7 +37,9 @@
 
     methods: {
       goToClient(data) {
-        window.location.href = `/detalles/${data.id}/payments`;
+        setTimeout(() => {
+          this.$router.push(`/detalles/${data.id}/payments`);
+        }, 1000);
       },
     }
   };
