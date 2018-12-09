@@ -31,7 +31,7 @@
                   input.form-control#user-lastname(type="text", v-model="user.lastname")
                 .form-group
                   label(for="user-dni") Cedula(sin guiones)
-                  input.form-control#user-model(type="text", v-model="user.dni")
+                  the-mask.form-control#user-model(mask="###-#######-#" placeholder="cedula" v-model="user.dni")
                 .form-group
                   label(for="user-email") Correo Electronico
                   input.form-control#user-email(type="email", v-model="user.email")

@@ -6,7 +6,7 @@
           button(type="button", class="close", data-dismiss="modal", aria-label="Close"): span(aria-hidden="true") &times;
           h4.modal-title Buscar Cliente
         .modal-body
-          SelectClient(the-id="client-id", parent-id="#search-client-modal",:endpoint="searchEndpoint", v-model="selectedClient")
+          SelectClient(the-id="client-id" parent-id="#search-client-modal" :endpoint="searchEndpoint" @input="selectedClient = $event")
         .modal-footer
           button(type="button" class="btn" data-dismiss="modal") Cancelar
           button(type="button" class="btn save" id="btn-see-payments" @click.stop.prevent='goToClient') Ver Pagos
