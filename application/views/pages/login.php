@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-  <title>IC Payment | {title} </title>
+  <title>Payment Plus | {title} </title>
   {css}
     <link rel="stylesheet" href="{link}">
   {/css}

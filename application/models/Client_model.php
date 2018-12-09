@@ -1,6 +1,6 @@
 <?php
 /**
-* IC Payment
+* Payment Plus
 *@author Jesus Guerrero
 *@copyright Copyright (c) 2018 Jesus Guerrero
 *@version 1.0.0
@@ -37,6 +37,7 @@ class Client_model extends CI_MODEL{
     }
     $this->cols['nombres']            = strtoupper(trim($data['nombres']));
     $this->cols['apellidos']          = strtoupper(trim($data['apellidos']));
+    $this->cols['tipo_dni']           = $data['tipo_dni'];
     $this->cols['cedula']             = $data['cedula'];
     $this->cols['provincia']          = $data['provincia'];
     $this->cols['sector']             = $data['sector'];

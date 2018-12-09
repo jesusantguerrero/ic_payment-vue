@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import jquery from 'jquery';
+import VueTheMask from 'vue-the-mask';
 import globals from './modules/sharedComponents/globals';
 import router from './router';
 import AppHeader from './components/AppHeader.vue';
@@ -16,6 +17,7 @@ import 'bootstrap';
 
 window.appStore = new Store();
 window.appBus = new Vue();
+Vue.use(VueTheMask);
 globals(Vue);
 
 export default new Vue({

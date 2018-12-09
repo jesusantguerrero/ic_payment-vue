@@ -10,8 +10,8 @@
           a(href="#petty-cash", @click.prevent="slide('petty-cash')") <i class="material-icons">move_to_inbox</i> Caja Chica
         .aside-buttons
           a(href="#settings", @click.prevent="slide('settings')") <i class="material-icons">settings</i> Ajustes
-        .aside-buttons
-          a(href="#message_settings", @click.prevent="slide('message_settings')") <i class="material-icons">phonelink_setup</i> Ajustes de Mensajes
+        //- .aside-buttons
+        //-   a(href="#message_settings", @click.prevent="slide('message_settings')") <i class="material-icons">phonelink_setup</i> Ajustes de Mensajes
 
     .main-content.col-md-10
       .section-player
@@ -19,7 +19,7 @@
         AdminUserSection(:store="store", v-if="mode == 'users'")
         AdminPettyCashSection(v-if="mode == 'petty-cash'")
         AdminSettingsSection(:company="store.company", v-if="mode == 'settings'")
-        AdminMessageSettings(:company="store.company", v-if="mode == 'message_settings'")
+        //- AdminMessageSettings(:company="store.company", v-if="mode == 'message_settings'")
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <?php
 /**
-* IC Payment
+* Payment Plus
 *
 * @author <jesusant.guerrero@gmail.com>
 * @copyright Copyright (c) 2018 Jesus Guerrero

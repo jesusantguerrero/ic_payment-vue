@@ -10,8 +10,6 @@
     :searchable="true",
     :loading="isLoading",
     :internal-search="false",
-    :clear-on-select="false",
-    :close-on-select="false",
     :options-limit="300",
     :limit="3",
     :limit-text="limitText",
@@ -30,25 +28,25 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
-    props: {
-      endpoint: {
-        type: String,
-        required: true
-      },
-      theId: {
-        type: String,
-        required: true
-      },
-      parentId: {
-        type: String,
-        required: true
-      },
-      empty: {
-        type: Boolean
-      },
-      disabled: {
-        type: Boolean
-      }
+  props: {
+    endpoint: {
+      type: String,
+      required: true
+    },
+    theId: {
+      type: String,
+      required: true
+    },
+    parentId: {
+      type: String,
+      required: true
+    },
+    empty: {
+      type: Boolean
+    },
+    disabled: {
+      type: Boolean
+    }
   },
   components: {
     Multiselect

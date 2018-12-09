@@ -64,6 +64,7 @@ export default class ClientStore {
     this.client = {
       nombres: '',
       apellidos: '',
+      tipo_dni: 'cedula',
       cedula: '',
       celular: '',
       provincia: '',
@@ -90,6 +91,7 @@ export default class ClientStore {
     this.client = {
       nombres: '',
       apellidos: '',
+      tipo_dni: 'cedula',
       cedula: '',
       celular: '',
       provincia: '',

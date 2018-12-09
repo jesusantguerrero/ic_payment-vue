@@ -24,9 +24,9 @@
                         input(type="text" class="form-control" id="client-name" v-model="store.client.nombres")
                       .form-group
                         label(for="client-dni") Tipo de documento <span class="text-danger">*</span>
-                        select(v-model="dniType" class="form-control")
-                          option(value="cedula" selected v-model="dniType") Cedula
-                          option(value="pasaporte" selected v-model="dniType") Pasaporte
+                        select(v-model="store.client.tipo_dni" class="form-control")
+                          option(value="cedula") Cedula
+                          option(value="pasaporte") Pasaporte
                       .form-group
                         label(for="client-telephone") Telefono <span class="text-danger">*</span>
                         PhoneInput(placeholder="telefono" types="tel" data="telefono" :value="store.client.telefono" @change="inputChange" class="form-control")
@@ -37,9 +37,9 @@
                       .form-group
                         label(for="client-lastname") Apellidos <span class="text-danger">*</span>
                         input(type="text" class="form-control" id="client-lastname" v-model="store.client.apellidos")
-                      .form-group(v-if="dniType == 'cedula'")
+                      .form-group(v-if="store.client.tipo_dni == 'cedula'")
                         label(for="client-dni") Cedula <span class="text-danger">*</span>
-                        PhoneInput(placeholder="cedula" types="text" ids="client-dni" role="dni" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
+                        the-mask(mask="###-#######-#" placeholder="cedula" v-model="store.client.cedula" class="form-control")
                       .form-group(v-else)
                         label(for="client-dni") Pasaporte <span class="text-danger">*</span>
                         PhoneInput(placeholder="pasaporte" types="text" ids="client-passport" role="passport" data="cedula" :value="store.client.cedula" @change="inputChange" class="form-control")
@@ -124,12 +124,6 @@
         type: Object,
         required: true
       }
-    },
-
-    data() {
-      return {
-        dniType: 'cedula'
-      };
     },
 
     mounted() {

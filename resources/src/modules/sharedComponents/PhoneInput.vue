@@ -21,10 +21,6 @@
       };
     },
 
-    created() {
-      console.log('created');
-    },
-
     mounted() {
       this.customValue = this.value;
 
@@ -48,7 +44,6 @@
       },
 
       initMask() {
-        console.log('mask');
         utils.startInputMask(InputMask);
       },
 

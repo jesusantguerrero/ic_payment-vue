@@ -280,16 +280,21 @@ class Contract extends MY_Controller {
 	}
 
   // documents
-  public function get_requirements($id,$type = "cliente"){
-		if($type == "cliente"){
+  public function get_requirements($id, $type = "cliente") {
+		if($type == "cliente") {
+
 		}else{
 			$contract_id = $id;
-		}
-		$requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
-		$requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
-		if(!$requirement_info['cliente'])
+      $requirement_info['contrato'] = $this->contract_model->get_contract_view($contract_id);
+      $requirement_info['servicio'] = $this->service_model->get_service($requirement_info['contrato']['id_servicio']);
+    }
+    
+    if (!isset($requirement_info['cliente'])) {
+      var_dump($requirement_info);
+      die();
 			$requirement_info['cliente'] = $this->client_model->get_client($requirement_info['contrato']['id_cliente']);
-		$this->session->set_flashdata('requirement_info',$requirement_info);
+    }
+		$this->session->set_flashdata('requirement_info', $requirement_info);
 		redirect(base_url('app/imprimir/requerimientos'));
 	}
 

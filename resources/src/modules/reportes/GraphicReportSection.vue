@@ -48,30 +48,6 @@
                 ReportChartYearNavigator(@change="getInstallations", display="true")
                 ReportChart(data-class="graphics chart" id="chart-installations" data-id="chart-installations", :data="installations.values", :labels="months", :config="chartConfig.installations")
     br
-    .row
-      .col-md-8
-        .report-card
-          ul.nav.nav-tabs(role="tablist")
-            li(role="presentation" class="active"): a(href="#expenses" aria-controls="home" role="tab" data-toggle="tab") Gastos
-            li(role="presentation"): a(href="#closes" aria-controls="profile" role="tab" data-toggle="tab") Cierres
-            li(role="presentation"): a(href="#historic" aria-controls="messages" role="tab" data-toggle="tab") Historico
-
-          .tab-content
-            .tab-pane.active.fade.in(role="tabpanel", id="expenses")
-              ReportTableExpenses
-            .tab-pane.fade.in#closes(role="tabpanel")
-
-            .tab-pane.fade.in#historic(role="tabpanel")
-
-      .col-md-4
-        .report-card.bg-primary.justify-content-center
-            h3.title Balance en Caja Chica
-            h2.current-saldo RD$ {{ store.pettyCashBalance | currencyFormat }}
-
-            h3.title Ganancias del dia
-            h2.current-saldo RD$ {{ store.dayIncome | currencyFormat }}
-
-
 </template>
 
 <script>

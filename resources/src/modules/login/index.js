@@ -14,7 +14,7 @@ export default new Vue({
       user: '',
       password: '',
       email: '',
-      reset_toke: '',
+      reset_token: '',
       csrf_token_name: ''
     },
   },

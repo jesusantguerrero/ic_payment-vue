@@ -5,13 +5,13 @@
 
         ul.nav.nav-tabs(role="tablist")
           li(role="presentation").active: a(href="#contract-details", aria-controls="contract-details", role="tab", data-toggle="tab") Datos Contrato
-          li(role="presentation"): a(href="#equipment" aria-controls="equipment" role="tab" data-toggle="tab") Equipo
+          li(role="presentation"): a(href="#equipment" aria-controls="equipment" role="tab" data-toggle="tab") Equipo <span class="text-danger">*</span>
 
         .tab-content
           .tab-pane.fade.in.active#contract-details(role="tabpanel")
             .col-md-12
               .input-group#select-client-container
-                span.input-group-addon#basic-addon1 Cliente
+                span.input-group-addon#basic-addon1 Cliente <span class="text-danger">*</span>
                 SelectClient(the-id="client-id", parent-id="#select-client-container",:endpoint="searchEndpoint", @select="setClientId", :disabled="disabledSelect")
 
             h5 Seleccione el Servicio
@@ -19,18 +19,18 @@
             .row
               .col-md-6
                 .input-group
-                  span.input-group-addon#basic-addon1 Mensualidad
+                  span.input-group-addon#basic-addon1 Mensualidad <span class="text-danger">*</span>
                   input.form-control#contract-service-price(type="number", tabindex="0", v-model="contract.mensualidad", disabled="disabled")
 
               .col-md-6
                 .input-group
-                  span.input-group-addon#basic-addon1 Meses
+                  span.input-group-addon#basic-addon1 Meses <span class="text-danger">*</span>
                   input.form-control#contract-months(type="number", tabindex="1", value="", v-model="contract.duracion")
 
               .row
               .col-md-6
                 .input-group
-                  span.input-group-addon#basic-addon1 Fecha
+                  span.input-group-addon#basic-addon1 Fecha <span class="text-danger">*</span>
                   input.form-control#contract-date(type="date", tabindex="2", v-model="contract.fecha")
 
               .col-md-6
@@ -56,7 +56,7 @@
                   input.form-control#contract-router(type="text", tabindex="7", v-model="contract.router")
 
                 .input-group
-                  span.input-group-addon#basic-addon1 Sector
+                  span.input-group-addon#basic-addon1 Sector <span class="text-danger">*</span>
                   select.form-control.select-contract-sector(v-model="selectedSection", @change="getIpList")
                     option(:value="option.id", :key="option.id", v-for="option of sectionList") {{ option.text }}
 
@@ -66,16 +66,16 @@
                   input.form-control#contract-e-mac(type="text", tabindex="4", v-model="contract.mac_equipo")
 
                 .input-group
-                  span.input-group-addon#basic-addon1 IP
-                  input.form-control#contract-ip(type="text", tabindex="6", disabled="disabled", v-model="contract.ip")
+                  span.input-group-addon#basic-addon1 IP <span class="text-danger">*</span>
+                  input.form-control#contract-ip(type="text", tabindex="6", disabled="disabled", v-model="contract.ip" title="seleccione un codigo ip primero")
 
                 .input-group
                   span.input-group-addon#basic-addon1 Mac Router
                   input.form-control#contract-r-mac(type="text", tabindex="8", v-model="contract.mac_router")
 
                 .input-group
-                  span.input-group-addon#basic-addon1 Codigo IP
-                  select.form-control#select-contract-code(v-model="contract.codigo", @change="setContractIp")
+                  span.input-group-addon#basic-addon1 Codigo IP <span class="text-danger">*</span>
+                  select.form-control#select-contract-code(v-model="contract.codigo", @change="setContractIp" title="seleccione un sector primero")
                     option(:value="option.id", :key="option.id", v-for="option of ipList",) {{ option.id }}
 
     .col-md-6
@@ -167,7 +167,7 @@
       },
 
       printContractUrl() {
-        return `/contract/get_requirements/${this.contract.id_cliente}`;
+        return `/contract/get_requirements/${this.createdContract}/contrato`;
       },
 
       printRequirementUrl() {

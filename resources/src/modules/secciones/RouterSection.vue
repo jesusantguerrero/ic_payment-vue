@@ -92,18 +92,18 @@
               this.showMessage(res.data.message);
               if (res.data.message.type === 'success') {
                 this.sectorEmpty();
+                this.getSectionList();
                 $('#router-modal').modal('hide');
               }
-              heavyLoad.stop();
-              this.getIps();
               window.appBus.$emit('transaction');
               if (this.modalMode === 'edit') {
                 $('#router-modal').modal('hide');
               }
             })
             .catch((err) => {
-              heavyLoad.stop();
               this.$toasted.error(err);
+            }).finally(() => {
+              heavyLoad.stop();
             });
         } else {
           this.$toasted.error('Revise y LLene todos los campos por favor');

@@ -6,7 +6,7 @@
           h3.left-navigation__header-text {{ title }}
         ul.aside-nav
           li.aside-buttons
-            a(href="" id="make-payment", @click.prevent="sendTo('new_contract')")
+            a(href="" id="make-payment" data-toggle="modal" data-target="#search-client-modal")
               i.material-icons monetization_on
               | Registrar Pago
 
@@ -27,18 +27,21 @@
           h5.text-success Pagado : RD$ {{totales.pagado || 0 | currencyFormat}}
           h5 --------------------
           h5.text-danger Pendiente : RD$ {{totales.pendiente || 0 | currencyFormat}}
+    HomeSearchClientModal
 </template>
 
 <script>
   import DataTable from './../sharedComponents/DataTable.vue';
   import utils from './../sharedComponents/utils';
   import Store from './store/ExtraStore';
+  import HomeSearchClientModal from '../home/components/HomeSearchClientModal.vue';
 
   const store = new Store();
 
   export default {
     components: {
-      DataTable
+      DataTable,
+      HomeSearchClientModal
     },
     mounted() {
       this.getExtras();
