@@ -290,8 +290,6 @@ class Contract extends MY_Controller {
     }
     
     if (!isset($requirement_info['cliente'])) {
-      var_dump($requirement_info);
-      die();
 			$requirement_info['cliente'] = $this->client_model->get_client($requirement_info['contrato']['id_cliente']);
     }
 		$this->session->set_flashdata('requirement_info', $requirement_info);
