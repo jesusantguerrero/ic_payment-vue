@@ -123,7 +123,7 @@
   },
   "homepage": "https://gitlab.com/freesgen1/icpayment#README",
   "dependencies": {
-    "axios": "0.17.1",
+    "axios": "0.21.2",
     "bootstrap": "3.4.1",
     "bootstrap-table": "1.20.2",
 
