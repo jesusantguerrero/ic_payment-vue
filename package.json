@@ -125,7 +125,7 @@
   "dependencies": {
     "axios": "0.17.1",
     "bootstrap": "3.3.7",
-    "bootstrap-table": "1.11.2",
+    "bootstrap-table": "1.20.2",
     "chart.js": "^2.7.2",
     "inputmask": "3.3.11",
     "jszip": "3.1.5",
